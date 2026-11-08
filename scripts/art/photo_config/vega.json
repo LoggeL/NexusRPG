@@ -1,0 +1,10 @@
+{
+  "raws": {
+    "signatur": "vega-signatur-v2.png"
+  },
+  "extra": {
+    "signatur": "This must look clearly different from an angry face: brows relaxed and level (NO frown, no furrowed forehead, no scowl), mouth relaxed and closed, face calm and still. Only the left eye is slightly squinted as if looking through a rifle scope, the other eye wide open and fixed on a distant target to the side of the camera, head slightly tilted down and turned, one gloved hand raised to her cheek as if steadying an invisible scope. Cool, calm, professional sniper focus."
+  },
+  "crop": {},
+  "note": "Übrige Ausdrücke im ersten Durchgang abgenommen. signatur v1 sah wie wut mit weniger Stirnrunzeln aus; v2 mit extra.signatur: ruhig-konzentriert, glatte Stirn, Hand an der Wange. Gewählt: signatur-v2."
+}

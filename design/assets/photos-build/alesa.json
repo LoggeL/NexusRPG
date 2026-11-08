@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "alesa-neutral.png",
+  "sha": "87892e4ca2b73358",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46086
+ },
+ "freude": {
+  "src": "alesa-freude.png",
+  "sha": "70f705decf43d625",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47722
+ },
+ "wut": {
+  "src": "alesa-wut.png",
+  "sha": "91eb99d89acf62bc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45164
+ },
+ "trauer": {
+  "src": "alesa-trauer.png",
+  "sha": "011097793777e2d2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42572
+ },
+ "ueberrascht": {
+  "src": "alesa-ueberrascht.png",
+  "sha": "ea8ca2092d922c4f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45514
+ },
+ "besorgt": {
+  "src": "alesa-besorgt.png",
+  "sha": "1c88acb1d8c77451",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48848
+ },
+ "signatur": {
+  "src": "alesa-signatur.png",
+  "sha": "bc364f86aeb9d119",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45870
+ }
+}

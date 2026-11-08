@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-hunter-neutral": "assets/photos/hunter/neutral.webp",
+    "photo-hunter-freude": "assets/photos/hunter/freude.webp",
+    "photo-hunter-wut": "assets/photos/hunter/wut.webp",
+    "photo-hunter-trauer": "assets/photos/hunter/trauer.webp",
+    "photo-hunter-ueberrascht": "assets/photos/hunter/ueberrascht.webp",
+    "photo-hunter-besorgt": "assets/photos/hunter/besorgt.webp",
+    "photo-hunter-signatur": "assets/photos/hunter/signatur.webp"
+  }
+}

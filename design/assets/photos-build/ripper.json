@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "ripper-neutral.png",
+  "sha": "99ea7247137f880d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36472
+ },
+ "freude": {
+  "src": "ripper-freude.png",
+  "sha": "6020679ac54f2c03",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38324
+ },
+ "wut": {
+  "src": "ripper-wut.png",
+  "sha": "5bdaa466fcfa800e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 37984
+ },
+ "trauer": {
+  "src": "ripper-trauer.png",
+  "sha": "f97c3528fe818170",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36534
+ },
+ "ueberrascht": {
+  "src": "ripper-ueberrascht.png",
+  "sha": "67cb05eee27b14b3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40670
+ },
+ "besorgt": {
+  "src": "ripper-besorgt.png",
+  "sha": "019f456d1289ff37",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38294
+ },
+ "signatur": {
+  "src": "ripper-signatur.png",
+  "sha": "4f9aeb281bf256ab",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40972
+ }
+}

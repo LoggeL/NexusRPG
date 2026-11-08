@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-freya-neutral": "assets/photos/freya/neutral.webp",
+    "photo-freya-freude": "assets/photos/freya/freude.webp",
+    "photo-freya-wut": "assets/photos/freya/wut.webp",
+    "photo-freya-trauer": "assets/photos/freya/trauer.webp",
+    "photo-freya-ueberrascht": "assets/photos/freya/ueberrascht.webp",
+    "photo-freya-besorgt": "assets/photos/freya/besorgt.webp",
+    "photo-freya-signatur": "assets/photos/freya/signatur.webp"
+  }
+}

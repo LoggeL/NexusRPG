@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "seraphina-neutral.png",
+  "sha": "d3374a12ed2a83da",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33674
+ },
+ "freude": {
+  "src": "seraphina-freude.png",
+  "sha": "a1d4776237c37ad4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38114
+ },
+ "wut": {
+  "src": "seraphina-wut.png",
+  "sha": "78a217161efa667b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 34666
+ },
+ "trauer": {
+  "src": "seraphina-trauer.png",
+  "sha": "999050bb14e249ce",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33764
+ },
+ "ueberrascht": {
+  "src": "seraphina-ueberrascht.png",
+  "sha": "05c804a6c5eef22a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38822
+ },
+ "besorgt": {
+  "src": "seraphina-besorgt.png",
+  "sha": "c4e6fb8ecdaf2769",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 34898
+ },
+ "signatur": {
+  "src": "seraphina-signatur.png",
+  "sha": "9f98098dcb5354b9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35216
+ }
+}

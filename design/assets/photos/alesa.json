@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-alesa-neutral": "assets/photos/alesa/neutral.webp",
+    "photo-alesa-freude": "assets/photos/alesa/freude.webp",
+    "photo-alesa-wut": "assets/photos/alesa/wut.webp",
+    "photo-alesa-trauer": "assets/photos/alesa/trauer.webp",
+    "photo-alesa-ueberrascht": "assets/photos/alesa/ueberrascht.webp",
+    "photo-alesa-besorgt": "assets/photos/alesa/besorgt.webp",
+    "photo-alesa-signatur": "assets/photos/alesa/signatur.webp"
+  }
+}

@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "raven-neutral.png",
+  "sha": "ccde9a031340da61",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41632
+ },
+ "freude": {
+  "src": "raven-freude.png",
+  "sha": "acf6c95d14cec574",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45884
+ },
+ "wut": {
+  "src": "raven-wut.png",
+  "sha": "ce7dabd1ba4208e5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43328
+ },
+ "trauer": {
+  "src": "raven-trauer.png",
+  "sha": "4bc0561a185a2029",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45550
+ },
+ "ueberrascht": {
+  "src": "raven-ueberrascht.png",
+  "sha": "7942da6a8f56399d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46100
+ },
+ "besorgt": {
+  "src": "raven-besorgt.png",
+  "sha": "fde817583a34793b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42240
+ },
+ "signatur": {
+  "src": "raven-signatur.png",
+  "sha": "c6a520199885b90b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42732
+ }
+}

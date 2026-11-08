@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-blade-neutral": "assets/photos/blade/neutral.webp",
+    "photo-blade-freude": "assets/photos/blade/freude.webp",
+    "photo-blade-wut": "assets/photos/blade/wut.webp",
+    "photo-blade-trauer": "assets/photos/blade/trauer.webp",
+    "photo-blade-ueberrascht": "assets/photos/blade/ueberrascht.webp",
+    "photo-blade-besorgt": "assets/photos/blade/besorgt.webp",
+    "photo-blade-signatur": "assets/photos/blade/signatur.webp"
+  }
+}

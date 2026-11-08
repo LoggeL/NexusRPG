@@ -1,0 +1,597 @@
+{
+  "note": "Erzeugt von scripts/art/creator/creator_prompts.py",
+  "parts": {
+    "haar-buzz": {
+      "slot": "haar",
+      "desc": "a very short buzz-cut hair, close to the scalp"
+    },
+    "haar-undercut": {
+      "slot": "haar",
+      "desc": "an undercut hairstyle: shaved short sides, longer hair on top combed back"
+    },
+    "haar-irokese": {
+      "slot": "haar",
+      "desc": "a tall spiky punk mohawk, shaved sides"
+    },
+    "haar-bob": {
+      "slot": "haar",
+      "desc": "a chin-length straight bob haircut with blunt bangs"
+    },
+    "haar-lang-glatt": {
+      "slot": "haar",
+      "desc": "long straight hair falling to the middle of the back and over the shoulders"
+    },
+    "haar-afro": {
+      "slot": "haar",
+      "desc": "a big round afro"
+    },
+    "haar-pferdeschwanz": {
+      "slot": "haar",
+      "desc": "hair tied back into a high ponytail that hangs down the back"
+    },
+    "haar-dreads": {
+      "slot": "haar",
+      "desc": "shoulder-length dreadlocks"
+    },
+    "haar-locken-kurz": {
+      "slot": "haar",
+      "desc": "short curly hair"
+    },
+    "oben-tshirt": {
+      "slot": "oben",
+      "desc": "a plain short-sleeved crew-neck T-shirt (red), sleeve hems and collar in green"
+    },
+    "oben-tanktop": {
+      "slot": "oben",
+      "desc": "a sleeveless tank top (red) with a thin green neckline trim, bare grey shoulders and arms"
+    },
+    "oben-hoodie": {
+      "slot": "oben",
+      "desc": "a long-sleeved hoodie (red) with hood lying on the back, green drawstrings, green cuffs and waistband"
+    },
+    "oben-streifenpulli": {
+      "slot": "oben",
+      "desc": "a long-sleeved knit sweater (red) with two horizontal green stripes across chest and sleeves"
+    },
+    "oben-rollkragen": {
+      "slot": "oben",
+      "desc": "a tight long-sleeved turtleneck sweater (red) with green cuffs"
+    },
+    "jacke-bomber": {
+      "slot": "jacke",
+      "desc": "an open bomber jacket (red) with green ribbed cuffs, collar and waistband, over the bare torso"
+    },
+    "jacke-langmantel": {
+      "slot": "jacke",
+      "desc": "an open long trench coat (red) reaching the knees, green lining and belt"
+    },
+    "jacke-leder": {
+      "slot": "jacke",
+      "desc": "an open biker leather jacket (red) with silver zippers and green lapel trim"
+    },
+    "hose-cargo": {
+      "slot": "hose",
+      "desc": "loose cargo trousers (red) with green side pockets and a green belt"
+    },
+    "hose-jeans": {
+      "slot": "hose",
+      "desc": "slim straight jeans (red) with green stitching and a green belt"
+    },
+    "hose-rock": {
+      "slot": "hose",
+      "desc": "a short pleated skirt (red) over opaque tights (green)"
+    },
+    "hose-leder": {
+      "slot": "hose",
+      "desc": "tight leather trousers (red) with green knee seams"
+    },
+    "schuhe-sneaker": {
+      "slot": "schuhe",
+      "desc": "low sneakers (red) with thick green soles and green laces"
+    },
+    "schuhe-kampfstiefel": {
+      "slot": "schuhe",
+      "desc": "lace-up combat boots up to mid-shin (red) with green soles"
+    },
+    "schuhe-hightops": {
+      "slot": "schuhe",
+      "desc": "high-top sneakers (red) covering the ankles, green soles and green laces"
+    },
+    "cyber-arm-links": {
+      "slot": "cyber",
+      "desc": "a cybernetic prosthetic LEFT forearm and LEFT hand (the character's own left arm only; in the front view it is the arm on the viewer's right side, in the left-facing profile it is the near arm, in the right-facing profile the far arm, in the back view the arm on the viewer's left)"
+    },
+    "cyber-arm-rechts": {
+      "slot": "cyber",
+      "desc": "a cybernetic prosthetic RIGHT forearm and RIGHT hand (the character's own right arm only; in the front view it is the arm on the viewer's left side, in the left-facing profile it is the far arm, in the right-facing profile the near arm, in the back view the arm on the viewer's right)"
+    },
+    "brille-sonnenbrille": {
+      "slot": "acc",
+      "desc": "dark wraparound sunglasses on the face"
+    },
+    "kopfhoerer": {
+      "slot": "acc",
+      "desc": "big over-ear headphones on the head, band over the top of the head"
+    },
+    "kette": {
+      "slot": "acc",
+      "desc": "a thick silver chain necklace hanging on the chest"
+    },
+    "haar-sidecut": {
+      "slot": "haar",
+      "desc": "an asymmetric sidecut: one side shaved, long hair swept over to the other side down to the jaw"
+    },
+    "haar-pixie": {
+      "slot": "haar",
+      "desc": "a short tousled pixie cut with short side-swept bangs"
+    },
+    "haar-wuschel": {
+      "slot": "haar",
+      "desc": "messy tousled medium-short hair sticking out in all directions"
+    },
+    "haar-schulterlang": {
+      "slot": "haar",
+      "desc": "straight shoulder-length hair with a middle parting"
+    },
+    "haar-lang-locken": {
+      "slot": "haar",
+      "desc": "long voluminous curly hair falling past the shoulders"
+    },
+    "haar-zwei-zoepfe": {
+      "slot": "haar",
+      "desc": "two long braided pigtails hanging down in front of the shoulders"
+    },
+    "haar-dutt": {
+      "slot": "haar",
+      "desc": "hair pulled back tightly into a round bun on top of the back of the head"
+    },
+    "oben-hemd": {
+      "slot": "oben",
+      "desc": "a long-sleeved button-up shirt (red) with rolled-up sleeves, green buttons and green collar"
+    },
+    "oben-netzshirt": {
+      "slot": "oben",
+      "desc": "a long-sleeved tight fishnet mesh shirt (red mesh, grey skin visible through the holes) with a green crop top underneath"
+    },
+    "oben-gurtshirt": {
+      "slot": "oben",
+      "desc": "a short-sleeved T-shirt (red) with a green leather harness of straps across chest and shoulders"
+    },
+    "jacke-jeans": {
+      "slot": "jacke",
+      "desc": "an open denim jacket (red) with green round patches sewn on, sleeves to the wrists"
+    },
+    "jacke-kapuze": {
+      "slot": "jacke",
+      "desc": "an open long-sleeved techwear hooded jacket (red) with hood down on the back, thin bright CYAN (#30f0ff) glowing seam lines, green cuffs"
+    },
+    "jacke-weste": {
+      "slot": "jacke",
+      "desc": "an open sleeveless tactical utility vest (red) with green pockets, arms stay bare grey"
+    },
+    "jacke-sakko": {
+      "slot": "jacke",
+      "desc": "an open tailored blazer (red) with green lapels and green pocket square"
+    },
+    "hose-flicken": {
+      "slot": "hose",
+      "desc": "worn trousers (red) with several green square patches sewn on the legs"
+    },
+    "hose-anzug": {
+      "slot": "hose",
+      "desc": "straight tailored suit trousers (red) with a green belt"
+    },
+    "hose-overall": {
+      "slot": "hose",
+      "desc": "work overall trousers (red) with the overall's sleeves (green) tied around the hips"
+    },
+    "schuhe-plateau": {
+      "slot": "schuhe",
+      "desc": "chunky platform boots (red) with very thick green platform soles"
+    },
+    "schuhe-halbschuhe": {
+      "slot": "schuhe",
+      "desc": "classic low leather dress shoes (red) with thin green soles"
+    },
+    "brille-rund": {
+      "slot": "acc",
+      "desc": "small round black-rimmed glasses"
+    },
+    "brille-visier": {
+      "slot": "acc",
+      "desc": "a sleek one-piece cyber visor over the eyes: dark frame with a glowing bright CYAN (#30f0ff) lens band"
+    },
+    "kappe-basecap": {
+      "slot": "kappe",
+      "desc": "a baseball cap (red crown, green brim) worn forward"
+    },
+    "kappe-muetze": {
+      "slot": "kappe",
+      "desc": "a knitted beanie hat (red) with a green folded cuff, covering the top of the head down to the eyebrows"
+    },
+    "maske-tuch": {
+      "slot": "maske",
+      "desc": "a bandana face mask (red) covering nose, mouth and chin, with a printed white toothy grin"
+    },
+    "maske-atemmaske": {
+      "slot": "acc",
+      "desc": "a black respirator mask with two round filters covering mouth and nose"
+    },
+    "cyber-bein-links": {
+      "slot": "cyber",
+      "desc": "a cybernetic prosthetic LEFT shin and LEFT foot (the character's own left leg only, below the knee; in the front view on the viewer's right, in the left-facing profile the near leg, in the back view on the viewer's left)"
+    },
+    "cyber-bein-rechts": {
+      "slot": "cyber",
+      "desc": "a cybernetic prosthetic RIGHT shin and RIGHT foot (the character's own right leg only, below the knee; in the front view on the viewer's left, in the left-facing profile the far leg, in the back view on the viewer's right)"
+    },
+    "cyber-augen": {
+      "slot": "cyber",
+      "desc": "glowing cybernetic eyes: both irises glow bright CYAN (#30f0ff)"
+    },
+    "cyber-kabel": {
+      "slot": "cyber",
+      "desc": "a thick cybernetic cable plugged into the back of the neck, running from the nape down between the shoulder blades, with a glowing plug"
+    },
+    "cyber-platte": {
+      "slot": "cyber",
+      "desc": "a cybernetic chrome face plate on one cheek and jaw (the character's left cheek) with a small glowing line"
+    },
+    "gesicht-5": {
+      "slot": "gesicht",
+      "desc": "a short full beard and mustache, plus matching eyebrows"
+    },
+    "gesicht-4": {
+      "slot": "gesicht",
+      "desc": "three-day stubble on jaw and upper lip, plus matching eyebrows"
+    }
+  },
+  "jobs": {
+    "base-mittel-a": {
+      "parts": [],
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: a square image containing a strict 4x4 grid of 16 small full-body figures of the SAME character, evenly spaced, each centered in its own invisible square cell, identical scale, wide empty gaps, nothing touching or cut off. Each row is one walking direction with 4 walking frames (left foot forward, passing, right foot forward, passing), feet on a common baseline per row: ROW 1 (top) facing SOUTH toward the viewer; ROW 2 facing WEST, strict side profile walking toward the LEFT edge; ROW 3 facing EAST, strict side profile walking toward the RIGHT edge; ROW 4 (bottom) facing NORTH, back view. Slight three-quarter top-down RPG camera. Style: hand-painted cartoon illustration exactly like the style of the attached character art (clean dark ink outlines, soft painterly shading, natural adult proportions, not chibi), readable when shrunk to about 90 pixels tall. The character is a neutral BASE MANNEQUIN for a character creator: an adult (early twenties), androgynous person of average build, smooth completely BALD head (no hair at all, no eyebrows hair tufts), simple calm face with dark eyes, thin dark eyebrows, small nose and mouth, small ears. The WHOLE body is plain uniform smooth NEUTRAL LIGHT GREY like a featureless store mannequin (grey skin everywhere, about #b4b4b4, with soft painterly grey shading), no clothes, no underwear details, no nipples, no navel, no anatomy details, no shoes (simple smooth grey feet), no accessories. Arms hang slightly away from the torso with a natural small arm swing, hands open and relaxed, legs clearly separated in the stride. The attached image is ONLY a style reference (line work, shading, size of the figures, grid spacing) - do NOT copy its person or clothing. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text.",
+      "refs": [
+        "output/imagegen/raw/characters/barkeeper-walk.png"
+      ]
+    },
+    "base-mittel-b": {
+      "parts": [],
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: a square image containing a strict 4x4 grid of 16 small full-body figures of the SAME character, evenly spaced, each centered in its own invisible square cell, identical scale, wide empty gaps, nothing touching or cut off. Each row is one walking direction with 4 walking frames (left foot forward, passing, right foot forward, passing), feet on a common baseline per row: ROW 1 (top) facing SOUTH toward the viewer; ROW 2 facing WEST, strict side profile walking toward the LEFT edge; ROW 3 facing EAST, strict side profile walking toward the RIGHT edge; ROW 4 (bottom) facing NORTH, back view. Slight three-quarter top-down RPG camera. Style: hand-painted cartoon illustration exactly like the style of the attached character art (clean dark ink outlines, soft painterly shading, natural adult proportions, not chibi), readable when shrunk to about 90 pixels tall. The character is a neutral BASE MANNEQUIN for a character creator: an adult (early twenties), androgynous person of average build, smooth completely BALD head (no hair at all, no eyebrows hair tufts), simple calm face with dark eyes, thin dark eyebrows, small nose and mouth, small ears. The WHOLE body is plain uniform smooth NEUTRAL LIGHT GREY like a featureless store mannequin (grey skin everywhere, about #b4b4b4, with soft painterly grey shading), no clothes, no underwear details, no nipples, no navel, no anatomy details, no shoes (simple smooth grey feet), no accessories. Arms hang slightly away from the torso with a natural small arm swing, hands open and relaxed, legs clearly separated in the stride. The attached image is ONLY a style reference (line work, shading, size of the figures, grid spacing) - do NOT copy its person or clothing. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text.",
+      "refs": [
+        "output/imagegen/raw/characters/barkeeper-walk.png"
+      ]
+    },
+    "base-mittel-c": {
+      "parts": [],
+      "prompt": "Game character WALK CYCLE SPRITE SHEET: a square image containing a strict 4x4 grid of 16 small full-body figures of the SAME character, evenly spaced, each centered in its own invisible square cell, identical scale, wide empty gaps, nothing touching or cut off. Each row is one walking direction with 4 walking frames (left foot forward, passing, right foot forward, passing), feet on a common baseline per row: ROW 1 (top) facing SOUTH toward the viewer; ROW 2 facing WEST, strict side profile walking toward the LEFT edge; ROW 3 facing EAST, strict side profile walking toward the RIGHT edge; ROW 4 (bottom) facing NORTH, back view. Slight three-quarter top-down RPG camera. Style: hand-painted cartoon illustration exactly like the style of the attached character art (clean dark ink outlines, soft painterly shading, natural adult proportions, not chibi), readable when shrunk to about 90 pixels tall. The character is a neutral BASE MANNEQUIN for a character creator: an adult (early twenties), androgynous person of average build, smooth completely BALD head (no hair at all, no eyebrows hair tufts), simple calm face with dark eyes, thin dark eyebrows, small nose and mouth, small ears. The WHOLE body is plain uniform smooth NEUTRAL LIGHT GREY like a featureless store mannequin (grey skin everywhere, about #b4b4b4, with soft painterly grey shading), no clothes, no underwear details, no nipples, no navel, no anatomy details, no shoes (simple smooth grey feet), no accessories. Arms hang slightly away from the torso with a natural small arm swing, hands open and relaxed, legs clearly separated in the stride. The attached image is ONLY a style reference (line work, shading, size of the figures, grid spacing) - do NOT copy its person or clothing. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text.",
+      "refs": [
+        "output/imagegen/raw/characters/barkeeper-walk.png"
+      ]
+    },
+    "j01": {
+      "parts": [
+        "haar-undercut",
+        "oben-tshirt",
+        "schuhe-sneaker"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an undercut hairstyle: shaved short sides, longer hair on top combed back; a plain short-sleeved crew-neck T-shirt (red), sleeve hems and collar in green; low sneakers (red) with thick green soles and green laces. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j02": {
+      "parts": [
+        "haar-lang-glatt",
+        "oben-hoodie",
+        "schuhe-kampfstiefel"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): long straight hair falling to the middle of the back and over the shoulders; a long-sleeved hoodie (red) with hood lying on the back, green drawstrings, green cuffs and waistband; lace-up combat boots up to mid-shin (red) with green soles. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j03": {
+      "parts": [
+        "haar-irokese",
+        "oben-tanktop",
+        "schuhe-hightops"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a tall spiky punk mohawk, shaved sides; a sleeveless tank top (red) with a thin green neckline trim, bare grey shoulders and arms; high-top sneakers (red) covering the ankles, green soles and green laces. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j04": {
+      "parts": [
+        "haar-bob",
+        "oben-streifenpulli"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a chin-length straight bob haircut with blunt bangs; a long-sleeved knit sweater (red) with two horizontal green stripes across chest and sleeves. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j05": {
+      "parts": [
+        "haar-afro",
+        "oben-rollkragen"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a big round afro; a tight long-sleeved turtleneck sweater (red) with green cuffs. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j06": {
+      "parts": [
+        "haar-pferdeschwanz",
+        "hose-cargo"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): hair tied back into a high ponytail that hangs down the back; loose cargo trousers (red) with green side pockets and a green belt. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j07": {
+      "parts": [
+        "haar-buzz",
+        "hose-jeans"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a very short buzz-cut hair, close to the scalp; slim straight jeans (red) with green stitching and a green belt. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j08": {
+      "parts": [
+        "haar-dreads",
+        "hose-rock"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): shoulder-length dreadlocks; a short pleated skirt (red) over opaque tights (green). COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j09": {
+      "parts": [
+        "haar-locken-kurz",
+        "hose-leder"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): short curly hair; tight leather trousers (red) with green knee seams. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j10": {
+      "parts": [
+        "jacke-bomber"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open bomber jacket (red) with green ribbed cuffs, collar and waistband, over the bare torso. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j11": {
+      "parts": [
+        "jacke-langmantel"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open long trench coat (red) reaching the knees, green lining and belt. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j12": {
+      "parts": [
+        "jacke-leder"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open biker leather jacket (red) with silver zippers and green lapel trim. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j13": {
+      "parts": [
+        "cyber-arm-links",
+        "brille-sonnenbrille"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a cybernetic prosthetic LEFT forearm and LEFT hand (the character's own left arm only; in the front view it is the arm on the viewer's right side, in the left-facing profile it is the near arm, in the right-facing profile the far arm, in the back view the arm on the viewer's left); dark wraparound sunglasses on the face. COLOR CODE (strict, this is a recolorable template): cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. accessories = black/very dark charcoal with small silver highlights; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j14": {
+      "parts": [
+        "cyber-arm-rechts",
+        "kopfhoerer"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a cybernetic prosthetic RIGHT forearm and RIGHT hand (the character's own right arm only; in the front view it is the arm on the viewer's left side, in the left-facing profile it is the far arm, in the right-facing profile the near arm, in the back view the arm on the viewer's right); big over-ear headphones on the head, band over the top of the head. COLOR CODE (strict, this is a recolorable template): cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. accessories = black/very dark charcoal with small silver highlights; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j15": {
+      "parts": [
+        "haar-sidecut",
+        "oben-hemd",
+        "schuhe-plateau"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an asymmetric sidecut: one side shaved, long hair swept over to the other side down to the jaw; a long-sleeved button-up shirt (red) with rolled-up sleeves, green buttons and green collar; chunky platform boots (red) with very thick green platform soles. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j16": {
+      "parts": [
+        "haar-pixie",
+        "oben-netzshirt",
+        "schuhe-halbschuhe"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a short tousled pixie cut with short side-swept bangs; a long-sleeved tight fishnet mesh shirt (red mesh, grey skin visible through the holes) with a green crop top underneath; classic low leather dress shoes (red) with thin green soles. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j17": {
+      "parts": [
+        "haar-wuschel",
+        "oben-gurtshirt"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): messy tousled medium-short hair sticking out in all directions; a short-sleeved T-shirt (red) with a green leather harness of straps across chest and shoulders. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j18": {
+      "parts": [
+        "haar-schulterlang",
+        "hose-flicken"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): straight shoulder-length hair with a middle parting; worn trousers (red) with several green square patches sewn on the legs. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j19": {
+      "parts": [
+        "haar-lang-locken",
+        "hose-anzug"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): long voluminous curly hair falling past the shoulders; straight tailored suit trousers (red) with a green belt. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j20": {
+      "parts": [
+        "haar-zwei-zoepfe",
+        "hose-overall"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): two long braided pigtails hanging down in front of the shoulders; work overall trousers (red) with the overall's sleeves (green) tied around the hips. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j21": {
+      "parts": [
+        "haar-dutt",
+        "kette"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): hair pulled back tightly into a round bun on top of the back of the head; a thick silver chain necklace hanging on the chest. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). accessories = black/very dark charcoal with small silver highlights; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j22": {
+      "parts": [
+        "jacke-jeans"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open denim jacket (red) with green round patches sewn on, sleeves to the wrists. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j23": {
+      "parts": [
+        "jacke-kapuze"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open long-sleeved techwear hooded jacket (red) with hood down on the back, thin bright CYAN (#30f0ff) glowing seam lines, green cuffs. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j24": {
+      "parts": [
+        "jacke-weste"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open sleeveless tactical utility vest (red) with green pockets, arms stay bare grey. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j25": {
+      "parts": [
+        "jacke-sakko"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): an open tailored blazer (red) with green lapels and green pocket square. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j26": {
+      "parts": [
+        "brille-rund",
+        "cyber-bein-links"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): small round black-rimmed glasses; a cybernetic prosthetic LEFT shin and LEFT foot (the character's own left leg only, below the knee; in the front view on the viewer's right, in the left-facing profile the near leg, in the back view on the viewer's left). COLOR CODE (strict, this is a recolorable template): accessories = black/very dark charcoal with small silver highlights; never use magenta. cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j27": {
+      "parts": [
+        "brille-visier",
+        "cyber-bein-rechts"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a sleek one-piece cyber visor over the eyes: dark frame with a glowing bright CYAN (#30f0ff) lens band; a cybernetic prosthetic RIGHT shin and RIGHT foot (the character's own right leg only, below the knee; in the front view on the viewer's left, in the left-facing profile the far leg, in the back view on the viewer's right). COLOR CODE (strict, this is a recolorable template): accessories = black/very dark charcoal with small silver highlights; never use magenta. cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j28": {
+      "parts": [
+        "kappe-basecap",
+        "maske-atemmaske"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a baseball cap (red crown, green brim) worn forward; a black respirator mask with two round filters covering mouth and nose. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. accessories = black/very dark charcoal with small silver highlights; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j29": {
+      "parts": [
+        "kappe-muetze"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a knitted beanie hat (red) with a green folded cuff, covering the top of the head down to the eyebrows. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j33": {
+      "parts": [
+        "maske-tuch"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a bandana face mask (red) covering nose, mouth and chin, with a printed white toothy grin. COLOR CODE (strict, this is a recolorable template): main fabric of clothing = saturated pure RED (#d81e1e) with painted shading; secondary color parts (trims, cuffs, stripes, soles, linings, laces) = saturated pure GREEN (#1ec81e) with shading; metal parts (zippers, buckles, rivets) = dark grey/silver; never use magenta or pink. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j30": {
+      "parts": [
+        "gesicht-5",
+        "cyber-kabel"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): a short full beard and mustache, plus matching eyebrows; a thick cybernetic cable plugged into the back of the neck, running from the nape down between the shoulder blades, with a glowing plug. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j31": {
+      "parts": [
+        "gesicht-4",
+        "cyber-platte"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): three-day stubble on jaw and upper lip, plus matching eyebrows; a cybernetic chrome face plate on one cheek and jaw (the character's left cheek) with a small glowing line. COLOR CODE (strict, this is a recolorable template): hair = saturated pure BLUE (#1e50ff) with painted strands and shading (no other hair color). cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    },
+    "j32": {
+      "parts": [
+        "cyber-augen"
+      ],
+      "prompt": "Edit of the first attached image (a walk-cycle sprite sheet of a grey base mannequin on magenta): keep EVERYTHING else pixel-identical - the same 4x4 grid, the same 16 figures at exactly the same positions and sizes, the same poses, arm and leg positions, the same grey mannequin head and face, the same magenta background. ONLY add the following to the figure in EVERY one of the 16 frames, consistently in all four directions (front, left profile, right profile, back): glowing cybernetic eyes: both irises glow bright CYAN (#30f0ff). COLOR CODE (strict, this is a recolorable template): cybernetic parts = dark gunmetal (#3a3f4a) armor plates with thin bright CYAN (#30f0ff) glowing lines and dots; never use magenta. Everything that is not added stays the plain grey mannequin. Same hand-painted cartoon style with dark ink outlines and soft shading as the first image. No ground shadow, no text.",
+      "refs": [
+        "output/imagegen/raw/creator/base-mittel.png"
+      ]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-nyra-neutral": "assets/photos/nyra/neutral.webp",
+    "photo-nyra-freude": "assets/photos/nyra/freude.webp",
+    "photo-nyra-wut": "assets/photos/nyra/wut.webp",
+    "photo-nyra-trauer": "assets/photos/nyra/trauer.webp",
+    "photo-nyra-ueberrascht": "assets/photos/nyra/ueberrascht.webp",
+    "photo-nyra-besorgt": "assets/photos/nyra/besorgt.webp",
+    "photo-nyra-signatur": "assets/photos/nyra/signatur.webp"
+  }
+}

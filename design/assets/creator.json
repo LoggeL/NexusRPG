@@ -1,0 +1,1772 @@
+{
+ "note": "Erzeugt von scripts/art/creator/creator_build.py – nicht von Hand bearbeiten.",
+ "sheet": {
+  "frameW": 128,
+  "frameH": 128,
+  "cols": 4,
+  "rows": 4,
+  "rowsDir": [
+   "s",
+   "w",
+   "e",
+   "n"
+  ],
+  "foot": [
+   64,
+   120
+  ],
+  "figureHeight": 96,
+  "eRow": "gespiegelte Zeile W (seitengebundene Teile getauscht)"
+ },
+ "layerOrder": {
+  "s": [
+   "haar.back",
+   "koerper",
+   "tattoo",
+   "gesicht",
+   "cyber.platte",
+   "cyber.augen",
+   "hose",
+   "cyber.bein",
+   "schuhe",
+   "oberteil",
+   "cyber.kabel",
+   "kette",
+   "jacke",
+   "cyber.arm",
+   "maske",
+   "haar.front",
+   "brille",
+   "kappe",
+   "kopfhoerer"
+  ],
+  "w": [
+   "haar.back",
+   "koerper",
+   "tattoo",
+   "gesicht",
+   "cyber.platte",
+   "cyber.augen",
+   "hose",
+   "cyber.bein",
+   "schuhe",
+   "oberteil",
+   "cyber.kabel",
+   "kette",
+   "jacke",
+   "cyber.arm",
+   "maske",
+   "haar.front",
+   "brille",
+   "kappe",
+   "kopfhoerer"
+  ],
+  "e": [
+   "haar.back",
+   "koerper",
+   "tattoo",
+   "gesicht",
+   "cyber.platte",
+   "cyber.augen",
+   "hose",
+   "cyber.bein",
+   "schuhe",
+   "oberteil",
+   "cyber.kabel",
+   "kette",
+   "jacke",
+   "cyber.arm",
+   "maske",
+   "haar.front",
+   "brille",
+   "kappe",
+   "kopfhoerer"
+  ],
+  "n": [
+   "koerper",
+   "tattoo",
+   "gesicht",
+   "cyber.platte",
+   "cyber.augen",
+   "hose",
+   "cyber.bein",
+   "schuhe",
+   "oberteil",
+   "cyber.kabel",
+   "kette",
+   "jacke",
+   "cyber.arm",
+   "maske",
+   "haar.back",
+   "haar.front",
+   "brille",
+   "kappe",
+   "kopfhoerer"
+  ]
+ },
+ "maskColors": {
+  "colorA": "#ff0000",
+  "colorB": "#00ff00",
+  "hair": "#0000ff",
+  "skin": "#ffff00",
+  "glow": "#ff00ff",
+  "fixed": "#000000"
+ },
+ "tint": "Graustufe L (0…1) je Region → Verlauf dunkel(0)/mittel(0,5)/hell(1) der gewählten Farbe; feste Pixel unverändert",
+ "bodies": {
+  "mittel": {
+   "warpBelowNeck": 1.0
+  },
+  "schmal": {
+   "warpBelowNeck": 0.88
+  },
+  "kraeftig": {
+   "warpBelowNeck": 1.16
+  }
+ },
+ "palette": {
+  "schwarz": "#2a272f",
+  "anthrazit": "#41444d",
+  "grau": "#80838c",
+  "weiss": "#e6e4df",
+  "sand": "#c9b48a",
+  "oliv": "#6b7040",
+  "leder": "#7a4a2a",
+  "wein": "#6e1f33",
+  "rot": "#c02a2a",
+  "orange": "#e0702a",
+  "senf": "#c9a12a",
+  "waldgruen": "#2f5a3a",
+  "petrol": "#1f6670",
+  "marine": "#22305e",
+  "jeansblau": "#4a6a9a",
+  "chrom": "#a9b4c2",
+  "neon-pink": "#ff2fa8",
+  "neon-cyan": "#22e8ff",
+  "neon-violett": "#a040ff",
+  "neon-gruen": "#5cff3a"
+ },
+ "hairColors": {
+  "schwarz": "#2a2428",
+  "dunkelbraun": "#4a3020",
+  "kastanie": "#7a3a22",
+  "kupfer": "#b8602c",
+  "rot": "#b02a22",
+  "dunkelblond": "#94743f",
+  "blond": "#d8b868",
+  "platin": "#e6dcc0",
+  "grau": "#8f8c88",
+  "weiss": "#ece8e2",
+  "neon-pink": "#ff3fb0",
+  "neon-cyan": "#3fe8ff",
+  "neon-violett": "#a64dff",
+  "giftgruen": "#7cff2e"
+ },
+ "skin": {
+  "haut-1": "#f3d6c4",
+  "haut-2": "#e8bfa0",
+  "haut-3": "#d9a27e",
+  "haut-4": "#c68a62",
+  "haut-5": "#a86d48",
+  "haut-6": "#8a5636",
+  "haut-7": "#6b3f27",
+  "haut-8": "#4a2a1a"
+ },
+ "parts": {
+  "koerper": {
+   "id": "koerper",
+   "category": "koerper",
+   "layer": "koerper",
+   "files": {
+    "mittel": {
+     "file": "assets/creator/koerper/mittel.png",
+     "mask": "assets/creator/koerper/mittel.mask.png",
+     "regions": [
+      "skin"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/koerper/schmal.png",
+     "mask": "assets/creator/koerper/schmal.mask.png",
+     "regions": [
+      "skin"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/koerper/kraeftig.png",
+     "mask": "assets/creator/koerper/kraeftig.mask.png",
+     "regions": [
+      "skin"
+     ]
+    }
+   }
+  },
+  "brille-rund": {
+   "id": "brille-rund",
+   "category": "brille",
+   "layer": "brille",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/brille/brille-rund.png",
+     "mask": "assets/creator/brille/brille-rund.mask.png",
+     "regions": []
+    }
+   }
+  },
+  "brille-sonnenbrille": {
+   "id": "brille-sonnenbrille",
+   "category": "brille",
+   "layer": "brille",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/brille/brille-sonnenbrille.png",
+     "mask": "assets/creator/brille/brille-sonnenbrille.mask.png",
+     "regions": []
+    }
+   }
+  },
+  "brille-visier": {
+   "id": "brille-visier",
+   "category": "brille",
+   "layer": "brille",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/brille/brille-visier.png",
+     "mask": "assets/creator/brille/brille-visier.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-arm-links": {
+   "id": "cyber-arm-links",
+   "category": "cyber",
+   "layer": "cyber.arm",
+   "bodyDependent": true,
+   "side": "links",
+   "files": {
+    "mittel": {
+     "file": "assets/creator/cyber/mittel/cyber-arm-links.png",
+     "mask": "assets/creator/cyber/mittel/cyber-arm-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/cyber/schmal/cyber-arm-links.png",
+     "mask": "assets/creator/cyber/schmal/cyber-arm-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/cyber/kraeftig/cyber-arm-links.png",
+     "mask": "assets/creator/cyber/kraeftig/cyber-arm-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-arm-rechts": {
+   "id": "cyber-arm-rechts",
+   "category": "cyber",
+   "layer": "cyber.arm",
+   "bodyDependent": true,
+   "side": "rechts",
+   "files": {
+    "mittel": {
+     "file": "assets/creator/cyber/mittel/cyber-arm-rechts.png",
+     "mask": "assets/creator/cyber/mittel/cyber-arm-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/cyber/schmal/cyber-arm-rechts.png",
+     "mask": "assets/creator/cyber/schmal/cyber-arm-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/cyber/kraeftig/cyber-arm-rechts.png",
+     "mask": "assets/creator/cyber/kraeftig/cyber-arm-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-augen": {
+   "id": "cyber-augen",
+   "category": "cyber",
+   "layer": "cyber.augen",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/cyber/cyber-augen.png",
+     "mask": "assets/creator/cyber/cyber-augen.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-bein-links": {
+   "id": "cyber-bein-links",
+   "category": "cyber",
+   "layer": "cyber.bein",
+   "bodyDependent": true,
+   "side": "links",
+   "files": {
+    "mittel": {
+     "file": "assets/creator/cyber/mittel/cyber-bein-links.png",
+     "mask": "assets/creator/cyber/mittel/cyber-bein-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/cyber/schmal/cyber-bein-links.png",
+     "mask": "assets/creator/cyber/schmal/cyber-bein-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/cyber/kraeftig/cyber-bein-links.png",
+     "mask": "assets/creator/cyber/kraeftig/cyber-bein-links.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-bein-rechts": {
+   "id": "cyber-bein-rechts",
+   "category": "cyber",
+   "layer": "cyber.bein",
+   "bodyDependent": true,
+   "side": "rechts",
+   "files": {
+    "mittel": {
+     "file": "assets/creator/cyber/mittel/cyber-bein-rechts.png",
+     "mask": "assets/creator/cyber/mittel/cyber-bein-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/cyber/schmal/cyber-bein-rechts.png",
+     "mask": "assets/creator/cyber/schmal/cyber-bein-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/cyber/kraeftig/cyber-bein-rechts.png",
+     "mask": "assets/creator/cyber/kraeftig/cyber-bein-rechts.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-kabel": {
+   "id": "cyber-kabel",
+   "category": "cyber",
+   "layer": "cyber.kabel",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/cyber/mittel/cyber-kabel.png",
+     "mask": "assets/creator/cyber/mittel/cyber-kabel.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/cyber/schmal/cyber-kabel.png",
+     "mask": "assets/creator/cyber/schmal/cyber-kabel.mask.png",
+     "regions": [
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/cyber/kraeftig/cyber-kabel.png",
+     "mask": "assets/creator/cyber/kraeftig/cyber-kabel.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "cyber-platte": {
+   "id": "cyber-platte",
+   "category": "cyber",
+   "layer": "cyber.platte",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/cyber/cyber-platte.png",
+     "mask": "assets/creator/cyber/cyber-platte.mask.png",
+     "regions": [
+      "glow"
+     ]
+    }
+   }
+  },
+  "gesicht-4": {
+   "id": "gesicht-4",
+   "category": "gesicht",
+   "layer": "gesicht",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/gesicht/gesicht-4.png",
+     "mask": "assets/creator/gesicht/gesicht-4.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "gesicht-5": {
+   "id": "gesicht-5",
+   "category": "gesicht",
+   "layer": "gesicht",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/gesicht/gesicht-5.png",
+     "mask": "assets/creator/gesicht/gesicht-5.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-afro": {
+   "id": "haar-afro",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-afro.back.png",
+     "mask": "assets/creator/haar/haar-afro.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-afro.front.png",
+     "mask": "assets/creator/haar/haar-afro.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-bob": {
+   "id": "haar-bob",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-bob.back.png",
+     "mask": "assets/creator/haar/haar-bob.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-bob.front.png",
+     "mask": "assets/creator/haar/haar-bob.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-buzz": {
+   "id": "haar-buzz",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-buzz.back.png",
+     "mask": "assets/creator/haar/haar-buzz.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-buzz.front.png",
+     "mask": "assets/creator/haar/haar-buzz.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-dreads": {
+   "id": "haar-dreads",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-dreads.back.png",
+     "mask": "assets/creator/haar/haar-dreads.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-dreads.front.png",
+     "mask": "assets/creator/haar/haar-dreads.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-dutt": {
+   "id": "haar-dutt",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-dutt.back.png",
+     "mask": "assets/creator/haar/haar-dutt.back.mask.png",
+     "regions": []
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-dutt.front.png",
+     "mask": "assets/creator/haar/haar-dutt.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-irokese": {
+   "id": "haar-irokese",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-irokese.back.png",
+     "mask": "assets/creator/haar/haar-irokese.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-irokese.front.png",
+     "mask": "assets/creator/haar/haar-irokese.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-lang-glatt": {
+   "id": "haar-lang-glatt",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-lang-glatt.back.png",
+     "mask": "assets/creator/haar/haar-lang-glatt.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-lang-glatt.front.png",
+     "mask": "assets/creator/haar/haar-lang-glatt.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-lang-locken": {
+   "id": "haar-lang-locken",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-lang-locken.back.png",
+     "mask": "assets/creator/haar/haar-lang-locken.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-lang-locken.front.png",
+     "mask": "assets/creator/haar/haar-lang-locken.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-locken-kurz": {
+   "id": "haar-locken-kurz",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-locken-kurz.back.png",
+     "mask": "assets/creator/haar/haar-locken-kurz.back.mask.png",
+     "regions": []
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-locken-kurz.front.png",
+     "mask": "assets/creator/haar/haar-locken-kurz.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-pferdeschwanz": {
+   "id": "haar-pferdeschwanz",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-pferdeschwanz.back.png",
+     "mask": "assets/creator/haar/haar-pferdeschwanz.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-pferdeschwanz.front.png",
+     "mask": "assets/creator/haar/haar-pferdeschwanz.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-pixie": {
+   "id": "haar-pixie",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-pixie.back.png",
+     "mask": "assets/creator/haar/haar-pixie.back.mask.png",
+     "regions": []
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-pixie.front.png",
+     "mask": "assets/creator/haar/haar-pixie.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-schulterlang": {
+   "id": "haar-schulterlang",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-schulterlang.back.png",
+     "mask": "assets/creator/haar/haar-schulterlang.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-schulterlang.front.png",
+     "mask": "assets/creator/haar/haar-schulterlang.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-sidecut": {
+   "id": "haar-sidecut",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-sidecut.back.png",
+     "mask": "assets/creator/haar/haar-sidecut.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-sidecut.front.png",
+     "mask": "assets/creator/haar/haar-sidecut.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-undercut": {
+   "id": "haar-undercut",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-undercut.back.png",
+     "mask": "assets/creator/haar/haar-undercut.back.mask.png",
+     "regions": []
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-undercut.front.png",
+     "mask": "assets/creator/haar/haar-undercut.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-wuschel": {
+   "id": "haar-wuschel",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-wuschel.back.png",
+     "mask": "assets/creator/haar/haar-wuschel.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-wuschel.front.png",
+     "mask": "assets/creator/haar/haar-wuschel.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "haar-zwei-zoepfe": {
+   "id": "haar-zwei-zoepfe",
+   "category": "haar",
+   "layer": "haar.back/haar.front",
+   "bodyDependent": false,
+   "files": {
+    "back": {
+     "file": "assets/creator/haar/haar-zwei-zoepfe.back.png",
+     "mask": "assets/creator/haar/haar-zwei-zoepfe.back.mask.png",
+     "regions": [
+      "hair"
+     ]
+    },
+    "front": {
+     "file": "assets/creator/haar/haar-zwei-zoepfe.front.png",
+     "mask": "assets/creator/haar/haar-zwei-zoepfe.front.mask.png",
+     "regions": [
+      "hair"
+     ]
+    }
+   }
+  },
+  "hose-anzug": {
+   "id": "hose-anzug",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-anzug.png",
+     "mask": "assets/creator/hose/mittel/hose-anzug.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-anzug.png",
+     "mask": "assets/creator/hose/schmal/hose-anzug.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-anzug.png",
+     "mask": "assets/creator/hose/kraeftig/hose-anzug.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "hose-cargo": {
+   "id": "hose-cargo",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-cargo.png",
+     "mask": "assets/creator/hose/mittel/hose-cargo.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-cargo.png",
+     "mask": "assets/creator/hose/schmal/hose-cargo.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-cargo.png",
+     "mask": "assets/creator/hose/kraeftig/hose-cargo.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "hose-flicken": {
+   "id": "hose-flicken",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-flicken.png",
+     "mask": "assets/creator/hose/mittel/hose-flicken.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-flicken.png",
+     "mask": "assets/creator/hose/schmal/hose-flicken.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-flicken.png",
+     "mask": "assets/creator/hose/kraeftig/hose-flicken.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "hose-jeans": {
+   "id": "hose-jeans",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-jeans.png",
+     "mask": "assets/creator/hose/mittel/hose-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-jeans.png",
+     "mask": "assets/creator/hose/schmal/hose-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-jeans.png",
+     "mask": "assets/creator/hose/kraeftig/hose-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "hose-leder": {
+   "id": "hose-leder",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-leder.png",
+     "mask": "assets/creator/hose/mittel/hose-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-leder.png",
+     "mask": "assets/creator/hose/schmal/hose-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-leder.png",
+     "mask": "assets/creator/hose/kraeftig/hose-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "hose-overall": {
+   "id": "hose-overall",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-overall.png",
+     "mask": "assets/creator/hose/mittel/hose-overall.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-overall.png",
+     "mask": "assets/creator/hose/schmal/hose-overall.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-overall.png",
+     "mask": "assets/creator/hose/kraeftig/hose-overall.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "hose-rock": {
+   "id": "hose-rock",
+   "category": "hose",
+   "layer": "hose",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/hose/mittel/hose-rock.png",
+     "mask": "assets/creator/hose/mittel/hose-rock.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/hose/schmal/hose-rock.png",
+     "mask": "assets/creator/hose/schmal/hose-rock.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/hose/kraeftig/hose-rock.png",
+     "mask": "assets/creator/hose/kraeftig/hose-rock.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-bomber": {
+   "id": "jacke-bomber",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-bomber.png",
+     "mask": "assets/creator/jacke/mittel/jacke-bomber.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-bomber.png",
+     "mask": "assets/creator/jacke/schmal/jacke-bomber.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-bomber.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-bomber.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-jeans": {
+   "id": "jacke-jeans",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-jeans.png",
+     "mask": "assets/creator/jacke/mittel/jacke-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-jeans.png",
+     "mask": "assets/creator/jacke/schmal/jacke-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-jeans.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-jeans.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-kapuze": {
+   "id": "jacke-kapuze",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-kapuze.png",
+     "mask": "assets/creator/jacke/mittel/jacke-kapuze.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-kapuze.png",
+     "mask": "assets/creator/jacke/schmal/jacke-kapuze.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-kapuze.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-kapuze.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "jacke-langmantel": {
+   "id": "jacke-langmantel",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-langmantel.png",
+     "mask": "assets/creator/jacke/mittel/jacke-langmantel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-langmantel.png",
+     "mask": "assets/creator/jacke/schmal/jacke-langmantel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-langmantel.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-langmantel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-leder": {
+   "id": "jacke-leder",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-leder.png",
+     "mask": "assets/creator/jacke/mittel/jacke-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-leder.png",
+     "mask": "assets/creator/jacke/schmal/jacke-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-leder.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-leder.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "jacke-sakko": {
+   "id": "jacke-sakko",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-sakko.png",
+     "mask": "assets/creator/jacke/mittel/jacke-sakko.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-sakko.png",
+     "mask": "assets/creator/jacke/schmal/jacke-sakko.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-sakko.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-sakko.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-weste": {
+   "id": "jacke-weste",
+   "category": "jacke",
+   "layer": "jacke",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/jacke/mittel/jacke-weste.png",
+     "mask": "assets/creator/jacke/mittel/jacke-weste.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/jacke/schmal/jacke-weste.png",
+     "mask": "assets/creator/jacke/schmal/jacke-weste.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/jacke/kraeftig/jacke-weste.png",
+     "mask": "assets/creator/jacke/kraeftig/jacke-weste.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "kappe-basecap": {
+   "id": "kappe-basecap",
+   "category": "kappe",
+   "layer": "kappe",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/kappe/kappe-basecap.png",
+     "mask": "assets/creator/kappe/kappe-basecap.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   },
+   "clip": "assets/creator/kappe/kappe-basecap.clip.png"
+  },
+  "kette": {
+   "id": "kette",
+   "category": "kette",
+   "layer": "kette",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/kette/mittel/kette.png",
+     "mask": "assets/creator/kette/mittel/kette.mask.png",
+     "regions": []
+    },
+    "schmal": {
+     "file": "assets/creator/kette/schmal/kette.png",
+     "mask": "assets/creator/kette/schmal/kette.mask.png",
+     "regions": []
+    },
+    "kraeftig": {
+     "file": "assets/creator/kette/kraeftig/kette.png",
+     "mask": "assets/creator/kette/kraeftig/kette.mask.png",
+     "regions": []
+    }
+   }
+  },
+  "kopfhoerer": {
+   "id": "kopfhoerer",
+   "category": "kopfhoerer",
+   "layer": "kopfhoerer",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/kopfhoerer/kopfhoerer.png",
+     "mask": "assets/creator/kopfhoerer/kopfhoerer.mask.png",
+     "regions": []
+    }
+   }
+  },
+  "maske-atemmaske": {
+   "id": "maske-atemmaske",
+   "category": "maske",
+   "layer": "maske",
+   "bodyDependent": false,
+   "files": {
+    "alle": {
+     "file": "assets/creator/maske/maske-atemmaske.png",
+     "mask": "assets/creator/maske/maske-atemmaske.mask.png",
+     "regions": []
+    }
+   }
+  },
+  "oben-gurtshirt": {
+   "id": "oben-gurtshirt",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-gurtshirt.png",
+     "mask": "assets/creator/oben/mittel/oben-gurtshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-gurtshirt.png",
+     "mask": "assets/creator/oben/schmal/oben-gurtshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-gurtshirt.png",
+     "mask": "assets/creator/oben/kraeftig/oben-gurtshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "oben-hemd": {
+   "id": "oben-hemd",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-hemd.png",
+     "mask": "assets/creator/oben/mittel/oben-hemd.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-hemd.png",
+     "mask": "assets/creator/oben/schmal/oben-hemd.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-hemd.png",
+     "mask": "assets/creator/oben/kraeftig/oben-hemd.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "oben-hoodie": {
+   "id": "oben-hoodie",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-hoodie.png",
+     "mask": "assets/creator/oben/mittel/oben-hoodie.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-hoodie.png",
+     "mask": "assets/creator/oben/schmal/oben-hoodie.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-hoodie.png",
+     "mask": "assets/creator/oben/kraeftig/oben-hoodie.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "oben-netzshirt": {
+   "id": "oben-netzshirt",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-netzshirt.png",
+     "mask": "assets/creator/oben/mittel/oben-netzshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-netzshirt.png",
+     "mask": "assets/creator/oben/schmal/oben-netzshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-netzshirt.png",
+     "mask": "assets/creator/oben/kraeftig/oben-netzshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "oben-rollkragen": {
+   "id": "oben-rollkragen",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-rollkragen.png",
+     "mask": "assets/creator/oben/mittel/oben-rollkragen.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-rollkragen.png",
+     "mask": "assets/creator/oben/schmal/oben-rollkragen.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-rollkragen.png",
+     "mask": "assets/creator/oben/kraeftig/oben-rollkragen.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "oben-streifenpulli": {
+   "id": "oben-streifenpulli",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-streifenpulli.png",
+     "mask": "assets/creator/oben/mittel/oben-streifenpulli.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-streifenpulli.png",
+     "mask": "assets/creator/oben/schmal/oben-streifenpulli.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-streifenpulli.png",
+     "mask": "assets/creator/oben/kraeftig/oben-streifenpulli.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "oben-tanktop": {
+   "id": "oben-tanktop",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-tanktop.png",
+     "mask": "assets/creator/oben/mittel/oben-tanktop.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-tanktop.png",
+     "mask": "assets/creator/oben/schmal/oben-tanktop.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-tanktop.png",
+     "mask": "assets/creator/oben/kraeftig/oben-tanktop.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "oben-tshirt": {
+   "id": "oben-tshirt",
+   "category": "oben",
+   "layer": "oberteil",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/oben/mittel/oben-tshirt.png",
+     "mask": "assets/creator/oben/mittel/oben-tshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/oben/schmal/oben-tshirt.png",
+     "mask": "assets/creator/oben/schmal/oben-tshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/oben/kraeftig/oben-tshirt.png",
+     "mask": "assets/creator/oben/kraeftig/oben-tshirt.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "schuhe-halbschuhe": {
+   "id": "schuhe-halbschuhe",
+   "category": "schuhe",
+   "layer": "schuhe",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/schuhe/mittel/schuhe-halbschuhe.png",
+     "mask": "assets/creator/schuhe/mittel/schuhe-halbschuhe.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/schuhe/schmal/schuhe-halbschuhe.png",
+     "mask": "assets/creator/schuhe/schmal/schuhe-halbschuhe.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/schuhe/kraeftig/schuhe-halbschuhe.png",
+     "mask": "assets/creator/schuhe/kraeftig/schuhe-halbschuhe.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "schuhe-hightops": {
+   "id": "schuhe-hightops",
+   "category": "schuhe",
+   "layer": "schuhe",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/schuhe/mittel/schuhe-hightops.png",
+     "mask": "assets/creator/schuhe/mittel/schuhe-hightops.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/schuhe/schmal/schuhe-hightops.png",
+     "mask": "assets/creator/schuhe/schmal/schuhe-hightops.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/schuhe/kraeftig/schuhe-hightops.png",
+     "mask": "assets/creator/schuhe/kraeftig/schuhe-hightops.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "schuhe-kampfstiefel": {
+   "id": "schuhe-kampfstiefel",
+   "category": "schuhe",
+   "layer": "schuhe",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/schuhe/mittel/schuhe-kampfstiefel.png",
+     "mask": "assets/creator/schuhe/mittel/schuhe-kampfstiefel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/schuhe/schmal/schuhe-kampfstiefel.png",
+     "mask": "assets/creator/schuhe/schmal/schuhe-kampfstiefel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/schuhe/kraeftig/schuhe-kampfstiefel.png",
+     "mask": "assets/creator/schuhe/kraeftig/schuhe-kampfstiefel.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "schuhe-plateau": {
+   "id": "schuhe-plateau",
+   "category": "schuhe",
+   "layer": "schuhe",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/schuhe/mittel/schuhe-plateau.png",
+     "mask": "assets/creator/schuhe/mittel/schuhe-plateau.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/schuhe/schmal/schuhe-plateau.png",
+     "mask": "assets/creator/schuhe/schmal/schuhe-plateau.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/schuhe/kraeftig/schuhe-plateau.png",
+     "mask": "assets/creator/schuhe/kraeftig/schuhe-plateau.mask.png",
+     "regions": [
+      "colorA",
+      "colorB",
+      "glow"
+     ]
+    }
+   }
+  },
+  "schuhe-sneaker": {
+   "id": "schuhe-sneaker",
+   "category": "schuhe",
+   "layer": "schuhe",
+   "bodyDependent": true,
+   "files": {
+    "mittel": {
+     "file": "assets/creator/schuhe/mittel/schuhe-sneaker.png",
+     "mask": "assets/creator/schuhe/mittel/schuhe-sneaker.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "schmal": {
+     "file": "assets/creator/schuhe/schmal/schuhe-sneaker.png",
+     "mask": "assets/creator/schuhe/schmal/schuhe-sneaker.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    },
+    "kraeftig": {
+     "file": "assets/creator/schuhe/kraeftig/schuhe-sneaker.png",
+     "mask": "assets/creator/schuhe/kraeftig/schuhe-sneaker.mask.png",
+     "regions": [
+      "colorA",
+      "colorB"
+     ]
+    }
+   }
+  },
+  "jacke-keine": {
+   "id": "jacke-keine",
+   "category": "jacke",
+   "layer": "jacke",
+   "files": {}
+  },
+  "gesicht-1": {
+   "id": "gesicht-1",
+   "category": "gesicht",
+   "layer": "gesicht",
+   "files": {},
+   "note": "schlichtes Gesicht ist in den Grundkörper eingemalt"
+  },
+  "haar-glatze": {
+   "id": "haar-glatze",
+   "category": "haar",
+   "layer": "haar",
+   "files": {}
+  }
+ }
+}

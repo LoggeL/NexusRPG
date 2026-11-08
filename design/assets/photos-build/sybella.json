@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "sybella-neutral.png",
+  "sha": "5105e90b093244b3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40460
+ },
+ "freude": {
+  "src": "sybella-freude.png",
+  "sha": "e4cbc7f950869855",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41966
+ },
+ "wut": {
+  "src": "sybella-wut.png",
+  "sha": "c4a0ec91b9a7f228",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44298
+ },
+ "trauer": {
+  "src": "sybella-trauer.png",
+  "sha": "198161ce372279d5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42028
+ },
+ "ueberrascht": {
+  "src": "sybella-ueberrascht.png",
+  "sha": "77427da1e492e0f8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45536
+ },
+ "besorgt": {
+  "src": "sybella-besorgt.png",
+  "sha": "779932cba347a652",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40386
+ },
+ "signatur": {
+  "src": "sybella-signatur.png",
+  "sha": "e279e50fddfe565e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41866
+ }
+}

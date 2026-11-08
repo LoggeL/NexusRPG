@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "blade-neutral.png",
+  "sha": "7da9ec5e9acae7ac",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 94378
+ },
+ "freude": {
+  "src": "blade-freude.png",
+  "sha": "3340906c4396791a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 102866
+ },
+ "wut": {
+  "src": "blade-wut.png",
+  "sha": "22ad2d8cfd5f6e75",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 93026
+ },
+ "trauer": {
+  "src": "blade-trauer.png",
+  "sha": "f64c70d58a01ff79",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 92712
+ },
+ "ueberrascht": {
+  "src": "blade-ueberrascht.png",
+  "sha": "0a666458f0bb2e72",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 103454
+ },
+ "besorgt": {
+  "src": "blade-besorgt.png",
+  "sha": "dea8479f868d4516",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 100806
+ },
+ "signatur": {
+  "src": "blade-signatur.png",
+  "sha": "3cc04d5911de48f2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 109276
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "freya-neutral.png",
+  "sha": "cc4bf2ab2489f4f7",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47376
+ },
+ "freude": {
+  "src": "freya-freude.png",
+  "sha": "ef029f3090c9806f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54184
+ },
+ "wut": {
+  "src": "freya-wut.png",
+  "sha": "4d7962f3551b754e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51356
+ },
+ "trauer": {
+  "src": "freya-trauer.png",
+  "sha": "4aeeeae547fb840f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45946
+ },
+ "ueberrascht": {
+  "src": "freya-ueberrascht.png",
+  "sha": "ac6a03c8eb860750",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49350
+ },
+ "besorgt": {
+  "src": "freya-besorgt.png",
+  "sha": "c67eabbb8f5d7e0e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51174
+ },
+ "signatur": {
+  "src": "freya-signatur.png",
+  "sha": "fb267f61f1ec433a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52338
+ }
+}

@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "hunter-neutral.png",
+  "sha": "47f7076d6456b120",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 37342
+ },
+ "freude": {
+  "src": "hunter-freude.png",
+  "sha": "f2eae41035f72b36",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39474
+ },
+ "wut": {
+  "src": "hunter-wut.png",
+  "sha": "1811f8d6ad44d6e4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40486
+ },
+ "trauer": {
+  "src": "hunter-trauer.png",
+  "sha": "1c3345d1351b0c53",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36982
+ },
+ "ueberrascht": {
+  "src": "hunter-ueberrascht.png",
+  "sha": "2e68afde3778a3e0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41288
+ },
+ "besorgt": {
+  "src": "hunter-besorgt.png",
+  "sha": "2cb620137cde1b97",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38326
+ },
+ "signatur": {
+  "src": "hunter-signatur.png",
+  "sha": "5d469b3bc65bbf11",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39770
+ }
+}

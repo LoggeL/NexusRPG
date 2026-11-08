@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "xion-neutral.png",
+  "sha": "8148052eeb6d0488",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 27258
+ },
+ "freude": {
+  "src": "xion-freude.png",
+  "sha": "ece9119eb4b138b9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30760
+ },
+ "wut": {
+  "src": "xion-wut.png",
+  "sha": "e24027d016d18322",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28352
+ },
+ "trauer": {
+  "src": "xion-trauer.png",
+  "sha": "4dc0e1aeb73a945c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 26526
+ },
+ "ueberrascht": {
+  "src": "xion-ueberrascht.png",
+  "sha": "33c0d5b9fedef67b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30264
+ },
+ "besorgt": {
+  "src": "xion-besorgt.png",
+  "sha": "53c7b730e749cde9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28642
+ },
+ "signatur": {
+  "src": "xion-signatur.png",
+  "sha": "dcded4007253ea4d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 31228
+ }
+}

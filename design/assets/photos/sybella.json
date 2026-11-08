@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-sybella-neutral": "assets/photos/sybella/neutral.webp",
+    "photo-sybella-freude": "assets/photos/sybella/freude.webp",
+    "photo-sybella-wut": "assets/photos/sybella/wut.webp",
+    "photo-sybella-trauer": "assets/photos/sybella/trauer.webp",
+    "photo-sybella-ueberrascht": "assets/photos/sybella/ueberrascht.webp",
+    "photo-sybella-besorgt": "assets/photos/sybella/besorgt.webp",
+    "photo-sybella-signatur": "assets/photos/sybella/signatur.webp"
+  }
+}

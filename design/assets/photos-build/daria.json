@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "daria-neutral-v2.png",
+  "sha": "81d54c46832a9e12",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47964
+ },
+ "freude": {
+  "src": "daria-freude.png",
+  "sha": "8edaedb6475e397d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 53870
+ },
+ "wut": {
+  "src": "daria-wut.png",
+  "sha": "9fa94ede7c0bb89a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49846
+ },
+ "trauer": {
+  "src": "daria-trauer.png",
+  "sha": "ff7aa4c02e5ea155",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45904
+ },
+ "ueberrascht": {
+  "src": "daria-ueberrascht.png",
+  "sha": "5085bd43757fe191",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47648
+ },
+ "besorgt": {
+  "src": "daria-besorgt.png",
+  "sha": "8b38a4220b00d921",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50522
+ },
+ "signatur": {
+  "src": "daria-signatur.png",
+  "sha": "84b7b29b66f4b3ed",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56958
+ }
+}

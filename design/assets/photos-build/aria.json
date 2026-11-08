@@ -1,0 +1,146 @@
+{
+ "neutral": {
+  "src": "aria-neutral-v2.png",
+  "sha": "99f14f1169a95011",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36684
+ },
+ "freude": {
+  "src": "aria-freude-v2.png",
+  "sha": "edc1d4ca41797cbd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39464
+ },
+ "wut": {
+  "src": "aria-wut-v2.png",
+  "sha": "32a776feae5d5978",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38850
+ },
+ "trauer": {
+  "src": "aria-trauer-v2.png",
+  "sha": "b84bfc0aa660e6e3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38276
+ },
+ "ueberrascht": {
+  "src": "aria-ueberrascht-v2.png",
+  "sha": "7eb1d1f401ced5c8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41128
+ },
+ "besorgt": {
+  "src": "aria-besorgt-v2.png",
+  "sha": "c889490c7fdd1054",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38846
+ },
+ "signatur": {
+  "src": "aria-signatur-v2.png",
+  "sha": "551dd87b42500f83",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45976
+ },
+ "verlegen": {
+  "src": "aria-verlegen-v2.png",
+  "sha": "a3d87c44bf5b57a7",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36678
+ },
+ "zaertlich": {
+  "src": "aria-zaertlich-v2.png",
+  "sha": "c2575d93ea2e290e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39478
+ }
+}

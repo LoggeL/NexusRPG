@@ -1,0 +1,1421 @@
+{
+ "model": "gemini-3.8-flash-lite-tts",
+ "format": "m4a aac mono 64k, -20 LUFS, TP -2 dB",
+ "snippets": {
+  "unterstadt-001": {
+   "district": "unterstadt"
+  },
+  "unterstadt-002": {
+   "district": "unterstadt"
+  },
+  "unterstadt-003": {
+   "district": "unterstadt"
+  },
+  "unterstadt-004": {
+   "district": "unterstadt"
+  },
+  "unterstadt-005": {
+   "district": "unterstadt",
+   "zones": [
+    "rohrsiedlung"
+   ]
+  },
+  "unterstadt-006": {
+   "district": "unterstadt"
+  },
+  "unterstadt-007": {
+   "district": "unterstadt"
+  },
+  "unterstadt-008": {
+   "district": "unterstadt"
+  },
+  "unterstadt-009": {
+   "district": "unterstadt"
+  },
+  "unterstadt-010": {
+   "district": "unterstadt"
+  },
+  "unterstadt-011": {
+   "district": "unterstadt",
+   "zones": [
+    "loetgassen"
+   ]
+  },
+  "unterstadt-012": {
+   "district": "unterstadt",
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "unterstadt-013": {
+   "district": "unterstadt",
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "unterstadt-014": {
+   "district": "unterstadt",
+   "when": {
+    "flag": "epilog"
+   }
+  },
+  "unterstadt-015": {
+   "district": "unterstadt",
+   "when": {
+    "weather": [
+     "smog"
+    ]
+   }
+  },
+  "hv-001": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-002": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-003": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-004": {
+   "district": "unterstadt",
+   "zones": [
+    "neon-gasse",
+    "high-voltage"
+   ],
+   "when": {
+    "time": [
+     "abend",
+     "nacht"
+    ]
+   }
+  },
+  "hv-005": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-006": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-007": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-008": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-009": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "hv-010": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ],
+   "when": {
+    "time": [
+     "nacht"
+    ]
+   }
+  },
+  "hv-011": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ],
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "hv-012": {
+   "district": "unterstadt",
+   "zones": [
+    "high-voltage"
+   ]
+  },
+  "schrottmarkt-001": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-002": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-003": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-004": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-005": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-006": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-007": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-008": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-009": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-010": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "schrottmarkt-011": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ],
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "schrottmarkt-012": {
+   "district": "unterstadt",
+   "zones": [
+    "schrottmarkt"
+   ]
+  },
+  "bahnhof-001": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-002": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-003": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-004": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-005": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-006": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-007": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-008": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-009": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-010": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-011": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "bahnhof-012": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ],
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "bahnhof-013": {
+   "district": "unterstadt",
+   "zones": [
+    "bahnhof-mitte"
+   ]
+  },
+  "hafen-001": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-002": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-003": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-004": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-005": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-006": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ],
+   "when": {
+    "weekday": [
+     "mi",
+     "sa"
+    ]
+   }
+  },
+  "hafen-007": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-008": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-009": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ]
+  },
+  "hafen-010": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ],
+   "when": {
+    "time": [
+     "abend",
+     "nacht"
+    ]
+   }
+  },
+  "hafen-011": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ],
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "hafen-012": {
+   "district": "unterstadt",
+   "zones": [
+    "hafenkante"
+   ],
+   "when": {
+    "flag": "epilog"
+   }
+  },
+  "mittelring-001": {
+   "district": "mittelring"
+  },
+  "mittelring-002": {
+   "district": "mittelring",
+   "zones": [
+    "stufenplatz"
+   ]
+  },
+  "mittelring-003": {
+   "district": "mittelring",
+   "zones": [
+    "stufenplatz"
+   ],
+   "when": {
+    "weekday": [
+     "mo",
+     "mi",
+     "fr"
+    ]
+   }
+  },
+  "mittelring-004": {
+   "district": "mittelring",
+   "zones": [
+    "stufenplatz"
+   ]
+  },
+  "mittelring-005": {
+   "district": "mittelring"
+  },
+  "mittelring-006": {
+   "district": "mittelring",
+   "zones": [
+    "eisenhof"
+   ]
+  },
+  "mittelring-007": {
+   "district": "mittelring",
+   "zones": [
+    "eisenhof"
+   ]
+  },
+  "mittelring-008": {
+   "district": "mittelring",
+   "zones": [
+    "stufenplatz"
+   ]
+  },
+  "mittelring-009": {
+   "district": "mittelring"
+  },
+  "mittelring-011": {
+   "district": "mittelring",
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "mittelring-012": {
+   "district": "mittelring",
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "mittelring-013": {
+   "district": "mittelring",
+   "zones": [
+    "eisenhof"
+   ],
+   "when": {
+    "flag": "act2"
+   }
+  },
+  "glasarkaden-004": {
+   "district": "mittelring",
+   "zones": [
+    "glasarkaden"
+   ]
+  },
+  "glasarkaden-012": {
+   "district": "mittelring",
+   "zones": [
+    "glasarkaden"
+   ]
+  },
+  "oberstadt-001": {
+   "district": "oberstadt"
+  },
+  "oberstadt-010": {
+   "district": "oberstadt",
+   "zones": [
+    "digitech-areal"
+   ]
+  },
+  "kanalisation-002": {
+   "district": "kanalisation"
+  }
+ },
+ "lines": [
+  {
+   "file": "assets/voices/unterstadt-001-1.m4a",
+   "snippet": "unterstadt-001",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 6900,
+   "text": "Wer hat schon wieder die Laterne geklaut? Die war festgeschraubt, verdammt!"
+  },
+  {
+   "file": "assets/voices/unterstadt-002-1.m4a",
+   "snippet": "unterstadt-002",
+   "line": 1,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 5300,
+   "text": "Zwölf Stunden Schicht, und der Automat frisst meine letzten zwei Credits. Arschloch."
+  },
+  {
+   "file": "assets/voices/unterstadt-003-1.m4a",
+   "snippet": "unterstadt-003",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 2808,
+   "text": "Ey, Oma, haste mal 'nen Credit?"
+  },
+  {
+   "file": "assets/voices/unterstadt-003-2.m4a",
+   "snippet": "unterstadt-003",
+   "line": 2,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 4500,
+   "text": "Hab ich. Und den behalt ich, du Rotzlöffel."
+  },
+  {
+   "file": "assets/voices/unterstadt-004-1.m4a",
+   "snippet": "unterstadt-004",
+   "line": 1,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 4700,
+   "text": "Akkus! Fast neu! Brennen nur ganz selten ab!"
+  },
+  {
+   "file": "assets/voices/unterstadt-005-1.m4a",
+   "snippet": "unterstadt-005",
+   "line": 1,
+   "speaker": "arbeiter",
+   "voice": "Achird",
+   "durationMs": 7000,
+   "text": "Mutter Brühe sagt, heute gibt's Suppe. Gestern gab's auch Suppe. Scheiße, immer Suppe."
+  },
+  {
+   "file": "assets/voices/unterstadt-006-1.m4a",
+   "snippet": "unterstadt-006",
+   "line": 1,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 3300,
+   "text": "Die Rostzähne wollen jetzt Schutzgeld für meinen Balkon."
+  },
+  {
+   "file": "assets/voices/unterstadt-006-2.m4a",
+   "snippet": "unterstadt-006",
+   "line": 2,
+   "speaker": "arbeiter",
+   "voice": "Achird",
+   "durationMs": 2408,
+   "text": "Du hast doch gar keinen Balkon."
+  },
+  {
+   "file": "assets/voices/unterstadt-006-3.m4a",
+   "snippet": "unterstadt-006",
+   "line": 3,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 2808,
+   "text": "Eben. Deshalb wird's ja so teuer."
+  },
+  {
+   "file": "assets/voices/unterstadt-007-1.m4a",
+   "snippet": "unterstadt-007",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 4200,
+   "text": "Spielt wer Eins? Ich hab nur noch Plus-Vier-Karten, ihr Pfeifen!"
+  },
+  {
+   "file": "assets/voices/unterstadt-008-1.m4a",
+   "snippet": "unterstadt-008",
+   "line": 1,
+   "speaker": "promoterin",
+   "voice": "Laomedeia",
+   "durationMs": 4100,
+   "text": "Snackers! Wenn der Hunger brüllt, brüll einfach zurück!"
+  },
+  {
+   "file": "assets/voices/unterstadt-009-1.m4a",
+   "snippet": "unterstadt-009",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 6500,
+   "text": "Früher war hier mehr Licht. Und weniger Kabel. Und ich hatte noch Zähne."
+  },
+  {
+   "file": "assets/voices/unterstadt-010-1.m4a",
+   "snippet": "unterstadt-010",
+   "line": 1,
+   "speaker": "kurierin",
+   "voice": "Zephyr",
+   "durationMs": 4100,
+   "text": "Aus dem Weg, Schnarchnase! Lieferung kalt heißt Trinkgeld null!"
+  },
+  {
+   "file": "assets/voices/unterstadt-011-1.m4a",
+   "snippet": "unterstadt-011",
+   "line": 1,
+   "speaker": "arbeiter",
+   "voice": "Achird",
+   "durationMs": 5300,
+   "text": "Wer an meiner Lötstation rumfummelt, kriegt die Spitze in den Arsch."
+  },
+  {
+   "file": "assets/voices/unterstadt-012-1.m4a",
+   "snippet": "unterstadt-012",
+   "line": 1,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 6000,
+   "text": "Mein Nachbar sagt jetzt immer ‚Ja, Master‘. Früher hat er nur gegrunzt."
+  },
+  {
+   "file": "assets/voices/unterstadt-013-1.m4a",
+   "snippet": "unterstadt-013",
+   "line": 1,
+   "speaker": "arbeiter",
+   "voice": "Achird",
+   "durationMs": 4300,
+   "text": "Chrome 10 hier, Chrome 10 da."
+  },
+  {
+   "file": "assets/voices/unterstadt-013-2.m4a",
+   "snippet": "unterstadt-013",
+   "line": 2,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 4300,
+   "text": "Ich will einfach nur meine Nougatbombe, Herrgott noch mal."
+  },
+  {
+   "file": "assets/voices/unterstadt-014-1.m4a",
+   "snippet": "unterstadt-014",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 8200,
+   "text": "Die Bildschirme sind aus! Ich seh zum ersten Mal den Himmel. Scheiße, der ist ja grau."
+  },
+  {
+   "file": "assets/voices/unterstadt-015-1.m4a",
+   "snippet": "unterstadt-015",
+   "line": 1,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 6900,
+   "text": "Heute schmeckt die Luft nach Montag. Und nach Reifen. Und nach Montag."
+  },
+  {
+   "file": "assets/voices/hv-001-1.m4a",
+   "snippet": "hv-001",
+   "line": 1,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 6900,
+   "text": "Wer hat mir Bier in den Ausschnitt gekippt? Ich bring dich um. Danach tanzen wir."
+  },
+  {
+   "file": "assets/voices/hv-002-1.m4a",
+   "snippet": "hv-002",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 4400,
+   "text": "Ich tanz nicht. Ich hab nur 'nen Wackelkontakt im Knie."
+  },
+  {
+   "file": "assets/voices/hv-003-1.m4a",
+   "snippet": "hv-003",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 3500,
+   "text": "Ist heute Karaoke?"
+  },
+  {
+   "file": "assets/voices/hv-003-2.m4a",
+   "snippet": "hv-003",
+   "line": 2,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 4300,
+   "text": "Dienstag und Freitag, du Vollpfosten. Steht groß an der Tür."
+  },
+  {
+   "file": "assets/voices/hv-004-1.m4a",
+   "snippet": "hv-004",
+   "line": 1,
+   "speaker": "tuersteher",
+   "voice": "Algenib",
+   "durationMs": 6800,
+   "text": "Mit den Schuhen? Nee. Die Schuhe kommen hier nicht rein. Du schon gar nicht."
+  },
+  {
+   "file": "assets/voices/hv-005-1.m4a",
+   "snippet": "hv-005",
+   "line": 1,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 6800,
+   "text": "Der Bass ist so laut, mein Hörimplantat hat gerade gekündigt."
+  },
+  {
+   "file": "assets/voices/hv-006-1.m4a",
+   "snippet": "hv-006",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 6100,
+   "text": "Noch ein Blitzschnaps, dann ruf ich meine Ex an. Haltet mich auf, verdammt!"
+  },
+  {
+   "file": "assets/voices/hv-007-1.m4a",
+   "snippet": "hv-007",
+   "line": 1,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 4400,
+   "text": "Ist das da hinten Hunter?"
+  },
+  {
+   "file": "assets/voices/hv-007-2.m4a",
+   "snippet": "hv-007",
+   "line": 2,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 5500,
+   "text": "Glotz nicht so. Der merkt das. Der merkt alles."
+  },
+  {
+   "file": "assets/voices/hv-008-1.m4a",
+   "snippet": "hv-008",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 5500,
+   "text": "Wer hat neben das Klo gekotzt? Ernsthaft, wer zielt denn so beschissen?"
+  },
+  {
+   "file": "assets/voices/hv-009-1.m4a",
+   "snippet": "hv-009",
+   "line": 1,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 4900,
+   "text": "Mein Date hat 'nen Quantum-Neurochip. Der redet nur noch in Werbepausen."
+  },
+  {
+   "file": "assets/voices/hv-010-1.m4a",
+   "snippet": "hv-010",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 5800,
+   "text": "Letzte Runde? Hier gibt's keine letzte Runde. Hier gibt's nur nächste Runde."
+  },
+  {
+   "file": "assets/voices/hv-011-1.m4a",
+   "snippet": "hv-011",
+   "line": 1,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 6600,
+   "text": "Der Typ an der Bar sagt seit einer Stunde ‚Master‘ zum Getränkeautomaten."
+  },
+  {
+   "file": "assets/voices/hv-012-1.m4a",
+   "snippet": "hv-012",
+   "line": 1,
+   "speaker": "clubgast",
+   "voice": "Puck",
+   "durationMs": 2168,
+   "text": "Leih mir zehn Credits."
+  },
+  {
+   "file": "assets/voices/hv-012-2.m4a",
+   "snippet": "hv-012",
+   "line": 2,
+   "speaker": "clubgaestin",
+   "voice": "Aoede",
+   "durationMs": 3100,
+   "text": "Leck mich zehnmal."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-001-1.m4a",
+   "snippet": "schrottmarkt-001",
+   "line": 1,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 6600,
+   "text": "Platinen! Kabel! Eine Niere, gebraucht, aber mit Liebe gepflegt!"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-002-1.m4a",
+   "snippet": "schrottmarkt-002",
+   "line": 1,
+   "speaker": "haendlerin",
+   "voice": "Pulcherrima",
+   "durationMs": 6100,
+   "text": "Anfassen kostet, kaputtmachen kostet doppelt, glotzen ist heute gratis."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-003-1.m4a",
+   "snippet": "schrottmarkt-003",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 3100,
+   "text": "Was soll der Toaster kosten?"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-003-2.m4a",
+   "snippet": "schrottmarkt-003",
+   "line": 2,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 1408,
+   "text": "Achtzig."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-003-3.m4a",
+   "snippet": "schrottmarkt-003",
+   "line": 3,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 3800,
+   "text": "Der ist halb geschmolzen, du Halsabschneider!"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-004-1.m4a",
+   "snippet": "schrottmarkt-004",
+   "line": 1,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 4100,
+   "text": "Bei Babette gibt's Dampfnudeln. Wer drängelt, kriegt sie heiß ins Gesicht."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-005-1.m4a",
+   "snippet": "schrottmarkt-005",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 4700,
+   "text": "Wett-Willi hat mich wieder abgezogen. Drei Hütchen, null Kugeln, der Wichser."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-006-1.m4a",
+   "snippet": "schrottmarkt-006",
+   "line": 1,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 4100,
+   "text": "Gebrauchte Augen! Haben schon viel gesehen, verraten aber nix!"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-007-1.m4a",
+   "snippet": "schrottmarkt-007",
+   "line": 1,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 6100,
+   "text": "Sonntag ist Flohmarkt. Da verkauf ich meinen Mann. Der ist gut erhalten."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-008-1.m4a",
+   "snippet": "schrottmarkt-008",
+   "line": 1,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 3100,
+   "text": "Meine Laterne ist heller als deine!"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-008-2.m4a",
+   "snippet": "schrottmarkt-008",
+   "line": 2,
+   "speaker": "haendlerin",
+   "voice": "Pulcherrima",
+   "durationMs": 4300,
+   "text": "Deine Laterne ist 'ne Kerze mit Größenwahn, du Lappen."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-009-1.m4a",
+   "snippet": "schrottmarkt-009",
+   "line": 1,
+   "speaker": "arbeiter",
+   "voice": "Achird",
+   "durationMs": 4700,
+   "text": "Da hinten ist Rippers Laden? Dann geh ich lieber mit Zahnweh heim."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-010-1.m4a",
+   "snippet": "schrottmarkt-010",
+   "line": 1,
+   "speaker": "haendler",
+   "voice": "Sadachbia",
+   "durationMs": 5200,
+   "text": "Nougatbomben, Nougatbomben! Abgelaufen, aber nur ein kleines bisschen!"
+  },
+  {
+   "file": "assets/voices/schrottmarkt-011-1.m4a",
+   "snippet": "schrottmarkt-011",
+   "line": 1,
+   "speaker": "haendlerin",
+   "voice": "Pulcherrima",
+   "durationMs": 4700,
+   "text": "Seit Chrome 10 kauft keiner mehr Ersatzteile. Die reparieren sich jetzt im Kopf."
+  },
+  {
+   "file": "assets/voices/schrottmarkt-012-1.m4a",
+   "snippet": "schrottmarkt-012",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 5800,
+   "text": "Wer hat meinen Schrottbot geklaut? Der hört auf Arschgesicht! Arschgesicht!"
+  },
+  {
+   "file": "assets/voices/bahnhof-001-1.m4a",
+   "snippet": "bahnhof-001",
+   "line": 1,
+   "speaker": "ansager",
+   "voice": "Charon",
+   "durationMs": 7900,
+   "text": "Die U-Bahn Richtung Hafenkante hat Verspätung. Grund der Verspätung: die U-Bahn."
+  },
+  {
+   "file": "assets/voices/bahnhof-002-1.m4a",
+   "snippet": "bahnhof-002",
+   "line": 1,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 6100,
+   "text": "Zwanzig Minuten Verspätung, und die nennen das pünktlich. Arschlöcher."
+  },
+  {
+   "file": "assets/voices/bahnhof-003-1.m4a",
+   "snippet": "bahnhof-003",
+   "line": 1,
+   "speaker": "kontrolleurin",
+   "voice": "Kore",
+   "durationMs": 1688,
+   "text": "Fahrkarte, bitte."
+  },
+  {
+   "file": "assets/voices/bahnhof-003-2.m4a",
+   "snippet": "bahnhof-003",
+   "line": 2,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 1888,
+   "text": "Hab ich gegessen."
+  },
+  {
+   "file": "assets/voices/bahnhof-003-3.m4a",
+   "snippet": "bahnhof-003",
+   "line": 3,
+   "speaker": "kontrolleurin",
+   "voice": "Kore",
+   "durationMs": 3300,
+   "text": "Sechzig Credits. Guten Appetit."
+  },
+  {
+   "file": "assets/voices/bahnhof-004-1.m4a",
+   "snippet": "bahnhof-004",
+   "line": 1,
+   "speaker": "promoterin",
+   "voice": "Laomedeia",
+   "durationMs": 4600,
+   "text": "Schwebetaxi Blitz! Schneller weg als dein Ex beim Abhauen!"
+  },
+  {
+   "file": "assets/voices/bahnhof-005-1.m4a",
+   "snippet": "bahnhof-005",
+   "line": 1,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 6300,
+   "text": "Das Fundbüro hat meinen Schirm. Und meine Zähne. Aber leider nicht meinen Mann."
+  },
+  {
+   "file": "assets/voices/bahnhof-006-1.m4a",
+   "snippet": "bahnhof-006",
+   "line": 1,
+   "speaker": "kurierin",
+   "voice": "Zephyr",
+   "durationMs": 4700,
+   "text": "Wer hinter der gelben Linie pennt, wird von mir überfahren. Und dann von der Bahn."
+  },
+  {
+   "file": "assets/voices/bahnhof-007-1.m4a",
+   "snippet": "bahnhof-007",
+   "line": 1,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 5900,
+   "text": "Der Fotoautomat hat mich hübscher gemacht. Der kann mehr als mein Chirurg."
+  },
+  {
+   "file": "assets/voices/bahnhof-008-1.m4a",
+   "snippet": "bahnhof-008",
+   "line": 1,
+   "speaker": "anzugtraeger",
+   "voice": "Algieba",
+   "durationMs": 5600,
+   "text": "Netzcafé? Nein danke. Da holt man sich Viren. Die echten."
+  },
+  {
+   "file": "assets/voices/bahnhof-009-1.m4a",
+   "snippet": "bahnhof-009",
+   "line": 1,
+   "speaker": "ansager",
+   "voice": "Charon",
+   "durationMs": 6800,
+   "text": "Bitte achten Sie auf Taschendiebe. Die Taschendiebe achten bereits auf Sie."
+  },
+  {
+   "file": "assets/voices/bahnhof-010-1.m4a",
+   "snippet": "bahnhof-010",
+   "line": 1,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 1688,
+   "text": "Fährt die Bahn heute?"
+  },
+  {
+   "file": "assets/voices/bahnhof-010-2.m4a",
+   "snippet": "bahnhof-010",
+   "line": 2,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 4700,
+   "text": "Die fährt. Nur nicht hier, nicht jetzt und nicht für dich."
+  },
+  {
+   "file": "assets/voices/bahnhof-011-1.m4a",
+   "snippet": "bahnhof-011",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 6300,
+   "text": "Die Rolltreppe ist kaputt seit Zweitausendsiebzig. Ich hab sie trotzdem lieb."
+  },
+  {
+   "file": "assets/voices/bahnhof-012-1.m4a",
+   "snippet": "bahnhof-012",
+   "line": 1,
+   "speaker": "ansager",
+   "voice": "Charon",
+   "durationMs": 9100,
+   "text": "Chrome-10-Nutzer reisen heute kostenlos. Alle anderen: Pech gehabt."
+  },
+  {
+   "file": "assets/voices/bahnhof-013-1.m4a",
+   "snippet": "bahnhof-013",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 5900,
+   "text": "Der Typ mit der Tröte spielt seit drei Stunden dasselbe Lied. Ich krieg Mordgedanken."
+  },
+  {
+   "file": "assets/voices/hafen-001-1.m4a",
+   "snippet": "hafen-001",
+   "line": 1,
+   "speaker": "dockarbeiter",
+   "voice": "Orus",
+   "durationMs": 4900,
+   "text": "Wer hat den Kran schon wieder auf Disco gestellt? Der blinkt, verdammte Scheiße!"
+  },
+  {
+   "file": "assets/voices/hafen-002-1.m4a",
+   "snippet": "hafen-002",
+   "line": 1,
+   "speaker": "dockarbeiter",
+   "voice": "Orus",
+   "durationMs": 3600,
+   "text": "Container siebenundsiebzig ist nachts wieder offen."
+  },
+  {
+   "file": "assets/voices/hafen-002-2.m4a",
+   "snippet": "hafen-002",
+   "line": 2,
+   "speaker": "dockarbeiterin",
+   "voice": "Kore",
+   "durationMs": 3100,
+   "text": "Halt die Fresse und guck woanders hin."
+  },
+  {
+   "file": "assets/voices/hafen-003-1.m4a",
+   "snippet": "hafen-003",
+   "line": 1,
+   "speaker": "angler",
+   "voice": "Sadaltager",
+   "durationMs": 7300,
+   "text": "Drei Stunden geangelt. Ein Stiefel. Mit Fuß drin. Das gibt Ärger."
+  },
+  {
+   "file": "assets/voices/hafen-004-1.m4a",
+   "snippet": "hafen-004",
+   "line": 1,
+   "speaker": "rostzahn",
+   "voice": "Zubenelgenubi",
+   "durationMs": 4000,
+   "text": "Das ist unser Kai. Wer hier hinpisst, zahlt Pissgeld."
+  },
+  {
+   "file": "assets/voices/hafen-005-1.m4a",
+   "snippet": "hafen-005",
+   "line": 1,
+   "speaker": "dockarbeiterin",
+   "voice": "Kore",
+   "durationMs": 4700,
+   "text": "Das Hafenbecken leuchtet grün. Das ist nicht romantisch, das ist Chemie."
+  },
+  {
+   "file": "assets/voices/hafen-006-1.m4a",
+   "snippet": "hafen-006",
+   "line": 1,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 4700,
+   "text": "Heute ist Rennnacht in Halle neun! Ich setz alles auf den Einkaufswagen!"
+  },
+  {
+   "file": "assets/voices/hafen-007-1.m4a",
+   "snippet": "hafen-007",
+   "line": 1,
+   "speaker": "dockarbeiter",
+   "voice": "Orus",
+   "durationMs": 6000,
+   "text": "Quantum-Lieferungen. Immer schwer, immer versiegelt, immer Maul halten."
+  },
+  {
+   "file": "assets/voices/hafen-008-1.m4a",
+   "snippet": "hafen-008",
+   "line": 1,
+   "speaker": "rentner",
+   "voice": "Enceladus",
+   "durationMs": 7900,
+   "text": "Das Nebelhorn tutet. Entweder kommt Nebel, oder der Käpt'n hat Schluckauf."
+  },
+  {
+   "file": "assets/voices/hafen-009-1.m4a",
+   "snippet": "hafen-009",
+   "line": 1,
+   "speaker": "rostzahn",
+   "voice": "Zubenelgenubi",
+   "durationMs": 1608,
+   "text": "Schutzgeld, Opa."
+  },
+  {
+   "file": "assets/voices/hafen-009-2.m4a",
+   "snippet": "hafen-009",
+   "line": 2,
+   "speaker": "dockarbeiter",
+   "voice": "Orus",
+   "durationMs": 1968,
+   "text": "Ich bin dreißig."
+  },
+  {
+   "file": "assets/voices/hafen-009-3.m4a",
+   "snippet": "hafen-009",
+   "line": 3,
+   "speaker": "rostzahn",
+   "voice": "Zubenelgenubi",
+   "durationMs": 2848,
+   "text": "Dann zahlst du eben für dein Gesicht."
+  },
+  {
+   "file": "assets/voices/hafen-010-1.m4a",
+   "snippet": "hafen-010",
+   "line": 1,
+   "speaker": "kurierin",
+   "voice": "Zephyr",
+   "durationMs": 4300,
+   "text": "Wer hier nachts Pakete abholt, kommt manchmal mit weniger Organen heim."
+  },
+  {
+   "file": "assets/voices/hafen-011-1.m4a",
+   "snippet": "hafen-011",
+   "line": 1,
+   "speaker": "dockarbeiter",
+   "voice": "Orus",
+   "durationMs": 5500,
+   "text": "Die Drohnen über dem Hafen sind neu. Und die gucken. Die gucken richtig."
+  },
+  {
+   "file": "assets/voices/hafen-012-1.m4a",
+   "snippet": "hafen-012",
+   "line": 1,
+   "speaker": "dockarbeiterin",
+   "voice": "Kore",
+   "durationMs": 4600,
+   "text": "Bus ans Meer, täglich um sechs? Ich nehm meinen ganzen Spind mit."
+  },
+  {
+   "file": "assets/voices/mittelring-001-1.m4a",
+   "snippet": "mittelring-001",
+   "line": 1,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 4100,
+   "text": "Ich hab einen Termin um zehn. Den hatte ich gestern auch schon."
+  },
+  {
+   "file": "assets/voices/mittelring-002-1.m4a",
+   "snippet": "mittelring-002",
+   "line": 1,
+   "speaker": "praktikantin",
+   "voice": "Leda",
+   "durationMs": 4600,
+   "text": "Vorsicht, heißer Kaffee! Sechs Becher, zwei Hände, null Gehalt!"
+  },
+  {
+   "file": "assets/voices/mittelring-003-1.m4a",
+   "snippet": "mittelring-003",
+   "line": 1,
+   "speaker": "fan",
+   "voice": "Erinome",
+   "durationMs": 3400,
+   "text": "Collin ist live? Schnell, Haare richten!"
+  },
+  {
+   "file": "assets/voices/mittelring-003-2.m4a",
+   "snippet": "mittelring-003",
+   "line": 2,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 3900,
+   "text": "Deine Haare sind nicht das Problem, Schätzchen."
+  },
+  {
+   "file": "assets/voices/mittelring-004-1.m4a",
+   "snippet": "mittelring-004",
+   "line": 1,
+   "speaker": "ordnungshueterin",
+   "voice": "Kore",
+   "durationMs": 5300,
+   "text": "Nicht auf die Stufen setzen, die sind frisch gewischt. Ja, du, Dumpfbacke."
+  },
+  {
+   "file": "assets/voices/mittelring-005-1.m4a",
+   "snippet": "mittelring-005",
+   "line": 1,
+   "speaker": "anzugtraeger",
+   "voice": "Algieba",
+   "durationMs": 7500,
+   "text": "Neuer Quantum-Neurochip. Drei Gedanken gleichzeitig. Alle über Aktien."
+  },
+  {
+   "file": "assets/voices/mittelring-006-1.m4a",
+   "snippet": "mittelring-006",
+   "line": 1,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 4900,
+   "text": "Bagatellgericht ist das beste Fernsehen der Stadt. Und es kostet nix."
+  },
+  {
+   "file": "assets/voices/mittelring-007-1.m4a",
+   "snippet": "mittelring-007",
+   "line": 1,
+   "speaker": "ordnungshueterin",
+   "voice": "Kore",
+   "durationMs": 2848,
+   "text": "Weitergehen, hier gibt's nichts zu sehen."
+  },
+  {
+   "file": "assets/voices/mittelring-007-2.m4a",
+   "snippet": "mittelring-007",
+   "line": 2,
+   "speaker": "punk",
+   "voice": "Fenrir",
+   "durationMs": 3800,
+   "text": "Doch, dich. Und das reicht mir schon für heute."
+  },
+  {
+   "file": "assets/voices/mittelring-008-1.m4a",
+   "snippet": "mittelring-008",
+   "line": 1,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 5800,
+   "text": "Zwölf Credits für 'ne Riesenbrezel. Dafür will ich, dass sie mich umarmt."
+  },
+  {
+   "file": "assets/voices/mittelring-009-1.m4a",
+   "snippet": "mittelring-009",
+   "line": 1,
+   "speaker": "promoterin",
+   "voice": "Laomedeia",
+   "durationMs": 5500,
+   "text": "Eins! Das Kartenspiel, das Familien zerstört! Jetzt neu mit Plus-Acht!"
+  },
+  {
+   "file": "assets/voices/mittelring-011-1.m4a",
+   "snippet": "mittelring-011",
+   "line": 1,
+   "speaker": "gechippter",
+   "voice": "Schedar",
+   "durationMs": 6300,
+   "text": "Haben Sie auch das neue Update? Ich fühle mich so … aktualisiert."
+  },
+  {
+   "file": "assets/voices/mittelring-012-1.m4a",
+   "snippet": "mittelring-012",
+   "line": 1,
+   "speaker": "gechippte",
+   "voice": "Vindemiatrix",
+   "durationMs": 4900,
+   "text": "Master hat gesagt, ich soll lächeln. Ist das richtig so?"
+  },
+  {
+   "file": "assets/voices/mittelring-013-1.m4a",
+   "snippet": "mittelring-013",
+   "line": 1,
+   "speaker": "rentnerin",
+   "voice": "Gacrux",
+   "durationMs": 3900,
+   "text": "Die Schlange vorm Gericht geht heute bis zum Bahnhof."
+  },
+  {
+   "file": "assets/voices/mittelring-013-2.m4a",
+   "snippet": "mittelring-013",
+   "line": 2,
+   "speaker": "pendler",
+   "voice": "Iapetus",
+   "durationMs": 3300,
+   "text": "Ich steh nur hier, weil die anderen auch hier stehen."
+  },
+  {
+   "file": "assets/voices/glasarkaden-003-2.m4a",
+   "snippet": "glasarkaden-003",
+   "line": 2,
+   "speaker": "dame",
+   "voice": "Despina",
+   "durationMs": 3700,
+   "text": "Man darf. Sie nicht."
+  },
+  {
+   "file": "assets/voices/glasarkaden-004-1.m4a",
+   "snippet": "glasarkaden-004",
+   "line": 1,
+   "speaker": "promoterin",
+   "voice": "Laomedeia",
+   "durationMs": 4200,
+   "text": "Chrome 10! Der Chip, der dich versteht, bevor du es selber tust!"
+  },
+  {
+   "file": "assets/voices/glasarkaden-012-1.m4a",
+   "snippet": "glasarkaden-012",
+   "line": 1,
+   "speaker": "anzugtraeger",
+   "voice": "Algieba",
+   "durationMs": 6100,
+   "text": "Panoramaaufzug ohne Ausweis? Träum weiter, Rattengesicht."
+  },
+  {
+   "file": "assets/voices/oberstadt-001-1.m4a",
+   "snippet": "oberstadt-001",
+   "line": 1,
+   "speaker": "dame",
+   "voice": "Despina",
+   "durationMs": 4300,
+   "text": "Unterstadt? Das klingt wie eine Erkältung."
+  },
+  {
+   "file": "assets/voices/oberstadt-010-1.m4a",
+   "snippet": "oberstadt-010",
+   "line": 1,
+   "speaker": "arbeiterin",
+   "voice": "Callirrhoe",
+   "durationMs": 5700,
+   "text": "Digitech pleite, Quantum übernimmt. Freundlich. Mit der Abrissbirne."
+  },
+  {
+   "file": "assets/voices/kanalisation-002-1.m4a",
+   "snippet": "kanalisation-002",
+   "line": 1,
+   "speaker": "rohrputzer",
+   "voice": "Algenib",
+   "durationMs": 5700,
+   "text": "Ventil drei quietscht in Dur. Das ist ein gutes Zeichen."
+  },
+  {
+   "file": "assets/voices/kanal-004-1.m4a",
+   "snippet": "kanal-004",
+   "line": 1,
+   "speaker": "kanalvolk",
+   "voice": "Umbriel",
+   "durationMs": 2848,
+   "text": "Hast du Nagberts Thron gesehen?"
+  }
+ ]
+}

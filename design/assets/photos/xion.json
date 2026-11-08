@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-xion-neutral": "assets/photos/xion/neutral.webp",
+    "photo-xion-freude": "assets/photos/xion/freude.webp",
+    "photo-xion-wut": "assets/photos/xion/wut.webp",
+    "photo-xion-trauer": "assets/photos/xion/trauer.webp",
+    "photo-xion-ueberrascht": "assets/photos/xion/ueberrascht.webp",
+    "photo-xion-besorgt": "assets/photos/xion/besorgt.webp",
+    "photo-xion-signatur": "assets/photos/xion/signatur.webp"
+  }
+}

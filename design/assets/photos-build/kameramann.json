@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "kameramann-neutral.png",
+  "sha": "2ab2bd2935b72801",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28518
+ },
+ "wut": {
+  "src": "kameramann-wut.png",
+  "sha": "921d163c816b749e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30500
+ },
+ "ueberrascht": {
+  "src": "kameramann-ueberrascht.png",
+  "sha": "f2a1a01f4f47fdd9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29844
+ }
+}

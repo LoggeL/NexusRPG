@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-collin-neutral": "assets/photos/collin/neutral.webp",
+    "photo-collin-freude": "assets/photos/collin/freude.webp",
+    "photo-collin-wut": "assets/photos/collin/wut.webp",
+    "photo-collin-trauer": "assets/photos/collin/trauer.webp",
+    "photo-collin-ueberrascht": "assets/photos/collin/ueberrascht.webp",
+    "photo-collin-besorgt": "assets/photos/collin/besorgt.webp",
+    "photo-collin-signatur": "assets/photos/collin/signatur.webp"
+  }
+}

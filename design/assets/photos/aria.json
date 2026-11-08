@@ -1,0 +1,13 @@
+{
+  "images": {
+    "photo-aria-neutral": "assets/photos/aria/neutral.webp",
+    "photo-aria-freude": "assets/photos/aria/freude.webp",
+    "photo-aria-wut": "assets/photos/aria/wut.webp",
+    "photo-aria-trauer": "assets/photos/aria/trauer.webp",
+    "photo-aria-ueberrascht": "assets/photos/aria/ueberrascht.webp",
+    "photo-aria-besorgt": "assets/photos/aria/besorgt.webp",
+    "photo-aria-signatur": "assets/photos/aria/signatur.webp",
+    "photo-aria-verlegen": "assets/photos/aria/verlegen.webp",
+    "photo-aria-zaertlich": "assets/photos/aria/zaertlich.webp"
+  }
+}

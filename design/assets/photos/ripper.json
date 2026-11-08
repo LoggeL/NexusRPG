@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-ripper-neutral": "assets/photos/ripper/neutral.webp",
+    "photo-ripper-freude": "assets/photos/ripper/freude.webp",
+    "photo-ripper-wut": "assets/photos/ripper/wut.webp",
+    "photo-ripper-trauer": "assets/photos/ripper/trauer.webp",
+    "photo-ripper-ueberrascht": "assets/photos/ripper/ueberrascht.webp",
+    "photo-ripper-besorgt": "assets/photos/ripper/besorgt.webp",
+    "photo-ripper-signatur": "assets/photos/ripper/signatur.webp"
+  }
+}

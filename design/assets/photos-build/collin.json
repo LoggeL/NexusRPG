@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "collin-neutral.png",
+  "sha": "8ef83b33b15b2f2c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30978
+ },
+ "freude": {
+  "src": "collin-freude.png",
+  "sha": "7f1048664152b24f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35620
+ },
+ "wut": {
+  "src": "collin-wut.png",
+  "sha": "563a04428dc0aff4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35156
+ },
+ "trauer": {
+  "src": "collin-trauer.png",
+  "sha": "9a36ac41810dd96e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33292
+ },
+ "ueberrascht": {
+  "src": "collin-ueberrascht.png",
+  "sha": "3c3c61123483411f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35424
+ },
+ "besorgt": {
+  "src": "collin-besorgt.png",
+  "sha": "24961be73fd66959",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 32108
+ },
+ "signatur": {
+  "src": "collin-signatur.png",
+  "sha": "7159eaa6c1fd1dcc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36962
+ }
+}

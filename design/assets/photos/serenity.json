@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-serenity-neutral": "assets/photos/serenity/neutral.webp",
+    "photo-serenity-freude": "assets/photos/serenity/freude.webp",
+    "photo-serenity-wut": "assets/photos/serenity/wut.webp",
+    "photo-serenity-trauer": "assets/photos/serenity/trauer.webp",
+    "photo-serenity-ueberrascht": "assets/photos/serenity/ueberrascht.webp",
+    "photo-serenity-besorgt": "assets/photos/serenity/besorgt.webp",
+    "photo-serenity-signatur": "assets/photos/serenity/signatur.webp"
+  }
+}

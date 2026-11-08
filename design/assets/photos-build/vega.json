@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "vega-neutral.png",
+  "sha": "b7bee2c39fcc384f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29882
+ },
+ "freude": {
+  "src": "vega-freude.png",
+  "sha": "58b24b52eed45b92",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35552
+ },
+ "wut": {
+  "src": "vega-wut.png",
+  "sha": "b7cb612237064255",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33902
+ },
+ "trauer": {
+  "src": "vega-trauer.png",
+  "sha": "c42700c58d7074d2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29888
+ },
+ "ueberrascht": {
+  "src": "vega-ueberrascht.png",
+  "sha": "54a8ad7841322a61",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30442
+ },
+ "besorgt": {
+  "src": "vega-besorgt.png",
+  "sha": "a51e0ddd477d7dab",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29326
+ },
+ "signatur": {
+  "src": "vega-signatur-v2.png",
+  "sha": "18cb2b5053759347",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30268
+ }
+}

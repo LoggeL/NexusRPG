@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-raven-neutral": "assets/photos/raven/neutral.webp",
+    "photo-raven-freude": "assets/photos/raven/freude.webp",
+    "photo-raven-wut": "assets/photos/raven/wut.webp",
+    "photo-raven-trauer": "assets/photos/raven/trauer.webp",
+    "photo-raven-ueberrascht": "assets/photos/raven/ueberrascht.webp",
+    "photo-raven-besorgt": "assets/photos/raven/besorgt.webp",
+    "photo-raven-signatur": "assets/photos/raven/signatur.webp"
+  }
+}

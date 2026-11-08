@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-jakko-neutral": "assets/photos/jakko/neutral.webp",
+    "photo-jakko-freude": "assets/photos/jakko/freude.webp",
+    "photo-jakko-wut": "assets/photos/jakko/wut.webp",
+    "photo-jakko-trauer": "assets/photos/jakko/trauer.webp",
+    "photo-jakko-ueberrascht": "assets/photos/jakko/ueberrascht.webp",
+    "photo-jakko-besorgt": "assets/photos/jakko/besorgt.webp",
+    "photo-jakko-signatur": "assets/photos/jakko/signatur.webp"
+  }
+}

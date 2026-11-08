@@ -1,0 +1,6 @@
+{
+  "raws": {},
+  "extra": {},
+  "crop": {},
+  "note": "Muster-Figur: alle sieben Ausdrücke im ersten Durchgang abgenommen (Identität, Kleidung, Licht und Ausschnitt gleich; Bauchfreies Kostüm-Top per Prompt zu langem Oberteil). Felder: raws = gewählte Rohbild-Fassung je Ausdruck, extra = dauerhafte Prompt-Zusätze je Ausdruck ('*' = alle), crop = Ausschnitt [x0,y0,x1,y1] im Rohbild."
+}

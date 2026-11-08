@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "jakko-neutral.png",
+  "sha": "5a3ae0bce935dc2e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48420
+ },
+ "freude": {
+  "src": "jakko-freude.png",
+  "sha": "29d337cdcaaa6155",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50292
+ },
+ "wut": {
+  "src": "jakko-wut.png",
+  "sha": "0f8d10a0e6d35857",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47934
+ },
+ "trauer": {
+  "src": "jakko-trauer.png",
+  "sha": "b83891c747977f2f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51282
+ },
+ "ueberrascht": {
+  "src": "jakko-ueberrascht.png",
+  "sha": "18faa96e7bcdfdec",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50146
+ },
+ "besorgt": {
+  "src": "jakko-besorgt.png",
+  "sha": "4dcc40170ba71a71",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50256
+ },
+ "signatur": {
+  "src": "jakko-signatur.png",
+  "sha": "084547db932f91ba",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54020
+ }
+}

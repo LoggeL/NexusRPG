@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-dante-neutral": "assets/photos/dante/neutral.webp",
+    "photo-dante-freude": "assets/photos/dante/freude.webp",
+    "photo-dante-wut": "assets/photos/dante/wut.webp",
+    "photo-dante-trauer": "assets/photos/dante/trauer.webp",
+    "photo-dante-ueberrascht": "assets/photos/dante/ueberrascht.webp",
+    "photo-dante-besorgt": "assets/photos/dante/besorgt.webp",
+    "photo-dante-signatur": "assets/photos/dante/signatur.webp"
+  }
+}

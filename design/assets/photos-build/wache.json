@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "wache-neutral.png",
+  "sha": "4b61082b5b8563be",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 31722
+ },
+ "wut": {
+  "src": "wache-wut.png",
+  "sha": "32fc3f2bce849cbd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29388
+ },
+ "ueberrascht": {
+  "src": "wache-ueberrascht.png",
+  "sha": "cbefc9bf4cd85aa9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 34700
+ }
+}

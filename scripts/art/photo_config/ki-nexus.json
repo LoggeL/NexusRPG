@@ -1,0 +1,10 @@
+{
+  "raws": {
+    "neutral": "ki-nexus-neutral-v3.png"
+  },
+  "extra": {
+    "neutral": "Correction: match the painted reference more closely: an androgynous, youthful, slightly masculine face with sharp cheekbones (not a glamorous woman), short spiky dark-teal hair swept back and up, NOT tied in a bun. Rendering: it must look like a frame from a live-action sci-fi film with high-end photographic visual effects: a real actor's face with real skin pores, real individual hair strands and real fabric texture, tinted turquoise and glowing like a hologram. Absolutely NOT a digital painting, NOT an illustration, NOT a stylized game render. Make it unmistakably a hologram on a screen: thin horizontal scanlines across face and suit, faint translucent edges, a soft cyan screen glow behind the figure."
+  },
+  "crop": {},
+  "note": "neutral v1: glamouröse Frau mit Hochsteckfrisur statt des androgynen, jugendlichen Gesichts mit kurzen, nach hinten gestrichenen Haaren aus dem gemalten Porträt. v2: Identität richtig, aber gemalt/illustriert statt fotoreal. v3: beides in extra.neutral korrigiert. Gewählt: neutral-v3 (fotoreal, androgyn, kurze Haare, Scanlines). freude-v2 (kälteres, schmales Lächeln ohne Geste) bei der Abnahme verworfen: kaum von neutral zu unterscheiden. freude v1 (glattes, höfliches Lächeln mit offener Hand) bleibt."
+}

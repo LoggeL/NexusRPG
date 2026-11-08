@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-vex-neutral": "assets/photos/vex/neutral.webp",
+    "photo-vex-freude": "assets/photos/vex/freude.webp",
+    "photo-vex-wut": "assets/photos/vex/wut.webp",
+    "photo-vex-trauer": "assets/photos/vex/trauer.webp",
+    "photo-vex-ueberrascht": "assets/photos/vex/ueberrascht.webp",
+    "photo-vex-besorgt": "assets/photos/vex/besorgt.webp",
+    "photo-vex-signatur": "assets/photos/vex/signatur.webp"
+  }
+}

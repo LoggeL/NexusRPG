@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "serenity-neutral.png",
+  "sha": "bbef544bf1586365",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33768
+ },
+ "freude": {
+  "src": "serenity-freude.png",
+  "sha": "6aeb36a9e7735bbf",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36106
+ },
+ "wut": {
+  "src": "serenity-wut.png",
+  "sha": "1c4155cc235b3142",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 34000
+ },
+ "trauer": {
+  "src": "serenity-trauer.png",
+  "sha": "c079ca96b1a8c356",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 32934
+ },
+ "ueberrascht": {
+  "src": "serenity-ueberrascht.png",
+  "sha": "7bf5201e1cc60338",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35444
+ },
+ "besorgt": {
+  "src": "serenity-besorgt.png",
+  "sha": "2872e36edcee7145",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35744
+ },
+ "signatur": {
+  "src": "serenity-signatur.png",
+  "sha": "80ea55721a380977",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30598
+ }
+}

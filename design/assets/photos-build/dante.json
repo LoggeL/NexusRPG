@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "dante-neutral.png",
+  "sha": "055ab24ad18e0319",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39686
+ },
+ "freude": {
+  "src": "dante-freude.png",
+  "sha": "89cfacca3511f73a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44266
+ },
+ "wut": {
+  "src": "dante-wut.png",
+  "sha": "c0b94cbab25b4e8f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43466
+ },
+ "trauer": {
+  "src": "dante-trauer.png",
+  "sha": "a7f3b8c2de3f95d6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43692
+ },
+ "ueberrascht": {
+  "src": "dante-ueberrascht.png",
+  "sha": "3038c2761a5dfbbb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46070
+ },
+ "besorgt": {
+  "src": "dante-besorgt.png",
+  "sha": "aef0985200895317",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45616
+ },
+ "signatur": {
+  "src": "dante-signatur.png",
+  "sha": "b06ecdce033c1dcc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43818
+ }
+}

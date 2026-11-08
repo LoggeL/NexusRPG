@@ -1,0 +1,1712 @@
+{
+  "images": {
+    "portrait-blade": "assets/portraits/blade.webp",
+    "portrait-raven": "assets/portraits/raven.webp",
+    "portrait-hunter": "assets/portraits/hunter.webp",
+    "portrait-dante": "assets/portraits/dante.webp",
+    "portrait-vex": "assets/portraits/vex.webp",
+    "portrait-nyra": "assets/portraits/nyra.webp",
+    "portrait-aria": "assets/portraits/aria.webp",
+    "portrait-vega": "assets/portraits/vega.webp",
+    "portrait-alesa": "assets/portraits/alesa.webp",
+    "portrait-xion": "assets/portraits/xion.webp",
+    "portrait-seraphina": "assets/portraits/seraphina.webp",
+    "portrait-sybella": "assets/portraits/sybella.webp",
+    "portrait-serenity": "assets/portraits/serenity.webp",
+    "portrait-collin": "assets/portraits/collin.webp",
+    "portrait-delya": "assets/portraits/delya.webp",
+    "portrait-ripper": "assets/portraits/ripper.webp",
+    "portrait-daria": "assets/portraits/daria.webp",
+    "portrait-freya": "assets/portraits/freya.webp",
+    "portrait-jakko": "assets/portraits/jakko.webp",
+    "portrait-richter": "assets/portraits/richter.webp",
+    "portrait-wache": "assets/portraits/wache.webp",
+    "portrait-barkeeper": "assets/portraits/barkeeper.webp",
+    "portrait-kameramann": "assets/portraits/kameramann.webp",
+    "portrait-ki-nexus": "assets/portraits/ki-nexus.webp",
+    "portrait-ki-nexus-angry": "assets/portraits/ki-nexus-angry.webp",
+    "portrait-captain-kuschel": "assets/portraits/captain-kuschel.webp",
+    "prop-captain-kuschel": "assets/props/captain-kuschel.png"
+  },
+  "sprites": {
+    "blade-walk": {
+      "file": "assets/sprites/blade-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "raven-walk": {
+      "file": "assets/sprites/raven-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "hunter-walk": {
+      "file": "assets/sprites/hunter-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "dante-walk": {
+      "file": "assets/sprites/dante-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "vex-walk": {
+      "file": "assets/sprites/vex-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "nyra-walk": {
+      "file": "assets/sprites/nyra-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "aria-walk": {
+      "file": "assets/sprites/aria-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "vega-walk": {
+      "file": "assets/sprites/vega-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "alesa-walk": {
+      "file": "assets/sprites/alesa-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "xion-walk": {
+      "file": "assets/sprites/xion-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "seraphina-walk": {
+      "file": "assets/sprites/seraphina-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "sybella-walk": {
+      "file": "assets/sprites/sybella-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "serenity-walk": {
+      "file": "assets/sprites/serenity-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "collin-walk": {
+      "file": "assets/sprites/collin-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "delya-walk": {
+      "file": "assets/sprites/delya-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "ripper-walk": {
+      "file": "assets/sprites/ripper-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "daria-walk": {
+      "file": "assets/sprites/daria-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "freya-walk": {
+      "file": "assets/sprites/freya-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "jakko-walk": {
+      "file": "assets/sprites/jakko-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "richter-walk": {
+      "file": "assets/sprites/richter-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "wache-walk": {
+      "file": "assets/sprites/wache-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "barkeeper-walk": {
+      "file": "assets/sprites/barkeeper-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "kameramann-walk": {
+      "file": "assets/sprites/kameramann-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    }
+  }
+}

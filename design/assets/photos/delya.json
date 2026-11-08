@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-delya-neutral": "assets/photos/delya/neutral.webp",
+    "photo-delya-freude": "assets/photos/delya/freude.webp",
+    "photo-delya-wut": "assets/photos/delya/wut.webp",
+    "photo-delya-trauer": "assets/photos/delya/trauer.webp",
+    "photo-delya-ueberrascht": "assets/photos/delya/ueberrascht.webp",
+    "photo-delya-besorgt": "assets/photos/delya/besorgt.webp",
+    "photo-delya-signatur": "assets/photos/delya/signatur.webp"
+  }
+}

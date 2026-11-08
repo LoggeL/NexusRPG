@@ -1,0 +1,1872 @@
+{
+  "schemaVersion": 1,
+  "images": {
+    "photo-alesa-besorgt": "assets/photos/alesa/besorgt.webp",
+    "photo-alesa-freude": "assets/photos/alesa/freude.webp",
+    "photo-alesa-neutral": "assets/photos/alesa/neutral.webp",
+    "photo-alesa-signatur": "assets/photos/alesa/signatur.webp",
+    "photo-alesa-trauer": "assets/photos/alesa/trauer.webp",
+    "photo-alesa-ueberrascht": "assets/photos/alesa/ueberrascht.webp",
+    "photo-alesa-wut": "assets/photos/alesa/wut.webp",
+    "photo-aria-besorgt": "assets/photos/aria/besorgt.webp",
+    "photo-aria-freude": "assets/photos/aria/freude.webp",
+    "photo-aria-neutral": "assets/photos/aria/neutral.webp",
+    "photo-aria-signatur": "assets/photos/aria/signatur.webp",
+    "photo-aria-trauer": "assets/photos/aria/trauer.webp",
+    "photo-aria-ueberrascht": "assets/photos/aria/ueberrascht.webp",
+    "photo-aria-verlegen": "assets/photos/aria/verlegen.webp",
+    "photo-aria-wut": "assets/photos/aria/wut.webp",
+    "photo-aria-zaertlich": "assets/photos/aria/zaertlich.webp",
+    "photo-barkeeper-neutral": "assets/photos/barkeeper/neutral.webp",
+    "photo-barkeeper-ueberrascht": "assets/photos/barkeeper/ueberrascht.webp",
+    "photo-barkeeper-wut": "assets/photos/barkeeper/wut.webp",
+    "photo-blade-besorgt": "assets/photos/blade/besorgt.webp",
+    "photo-blade-freude": "assets/photos/blade/freude.webp",
+    "photo-blade-neutral": "assets/photos/blade/neutral.webp",
+    "photo-blade-signatur": "assets/photos/blade/signatur.webp",
+    "photo-blade-trauer": "assets/photos/blade/trauer.webp",
+    "photo-blade-ueberrascht": "assets/photos/blade/ueberrascht.webp",
+    "photo-blade-wut": "assets/photos/blade/wut.webp",
+    "photo-captain-kuschel-freude": "assets/photos/captain-kuschel/freude.webp",
+    "photo-captain-kuschel-neutral": "assets/photos/captain-kuschel/neutral.webp",
+    "photo-captain-kuschel-trauer": "assets/photos/captain-kuschel/trauer.webp",
+    "photo-collin-besorgt": "assets/photos/collin/besorgt.webp",
+    "photo-collin-freude": "assets/photos/collin/freude.webp",
+    "photo-collin-neutral": "assets/photos/collin/neutral.webp",
+    "photo-collin-signatur": "assets/photos/collin/signatur.webp",
+    "photo-collin-trauer": "assets/photos/collin/trauer.webp",
+    "photo-collin-ueberrascht": "assets/photos/collin/ueberrascht.webp",
+    "photo-collin-wut": "assets/photos/collin/wut.webp",
+    "photo-dante-besorgt": "assets/photos/dante/besorgt.webp",
+    "photo-dante-freude": "assets/photos/dante/freude.webp",
+    "photo-dante-neutral": "assets/photos/dante/neutral.webp",
+    "photo-dante-signatur": "assets/photos/dante/signatur.webp",
+    "photo-dante-trauer": "assets/photos/dante/trauer.webp",
+    "photo-dante-ueberrascht": "assets/photos/dante/ueberrascht.webp",
+    "photo-dante-wut": "assets/photos/dante/wut.webp",
+    "photo-daria-besorgt": "assets/photos/daria/besorgt.webp",
+    "photo-daria-freude": "assets/photos/daria/freude.webp",
+    "photo-daria-neutral": "assets/photos/daria/neutral.webp",
+    "photo-daria-signatur": "assets/photos/daria/signatur.webp",
+    "photo-daria-trauer": "assets/photos/daria/trauer.webp",
+    "photo-daria-ueberrascht": "assets/photos/daria/ueberrascht.webp",
+    "photo-daria-wut": "assets/photos/daria/wut.webp",
+    "photo-delya-besorgt": "assets/photos/delya/besorgt.webp",
+    "photo-delya-freude": "assets/photos/delya/freude.webp",
+    "photo-delya-neutral": "assets/photos/delya/neutral.webp",
+    "photo-delya-signatur": "assets/photos/delya/signatur.webp",
+    "photo-delya-trauer": "assets/photos/delya/trauer.webp",
+    "photo-delya-ueberrascht": "assets/photos/delya/ueberrascht.webp",
+    "photo-delya-wut": "assets/photos/delya/wut.webp",
+    "photo-freya-besorgt": "assets/photos/freya/besorgt.webp",
+    "photo-freya-freude": "assets/photos/freya/freude.webp",
+    "photo-freya-neutral": "assets/photos/freya/neutral.webp",
+    "photo-freya-signatur": "assets/photos/freya/signatur.webp",
+    "photo-freya-trauer": "assets/photos/freya/trauer.webp",
+    "photo-freya-ueberrascht": "assets/photos/freya/ueberrascht.webp",
+    "photo-freya-wut": "assets/photos/freya/wut.webp",
+    "photo-hunter-besorgt": "assets/photos/hunter/besorgt.webp",
+    "photo-hunter-freude": "assets/photos/hunter/freude.webp",
+    "photo-hunter-neutral": "assets/photos/hunter/neutral.webp",
+    "photo-hunter-signatur": "assets/photos/hunter/signatur.webp",
+    "photo-hunter-trauer": "assets/photos/hunter/trauer.webp",
+    "photo-hunter-ueberrascht": "assets/photos/hunter/ueberrascht.webp",
+    "photo-hunter-wut": "assets/photos/hunter/wut.webp",
+    "photo-jakko-besorgt": "assets/photos/jakko/besorgt.webp",
+    "photo-jakko-freude": "assets/photos/jakko/freude.webp",
+    "photo-jakko-neutral": "assets/photos/jakko/neutral.webp",
+    "photo-jakko-signatur": "assets/photos/jakko/signatur.webp",
+    "photo-jakko-trauer": "assets/photos/jakko/trauer.webp",
+    "photo-jakko-ueberrascht": "assets/photos/jakko/ueberrascht.webp",
+    "photo-jakko-wut": "assets/photos/jakko/wut.webp",
+    "photo-kameramann-neutral": "assets/photos/kameramann/neutral.webp",
+    "photo-kameramann-ueberrascht": "assets/photos/kameramann/ueberrascht.webp",
+    "photo-kameramann-wut": "assets/photos/kameramann/wut.webp",
+    "photo-ki-nexus-freude": "assets/photos/ki-nexus/freude.webp",
+    "photo-ki-nexus-neutral": "assets/photos/ki-nexus/neutral.webp",
+    "photo-ki-nexus-signatur": "assets/photos/ki-nexus/signatur.webp",
+    "photo-ki-nexus-wut": "assets/photos/ki-nexus/wut.webp",
+    "photo-nyra-besorgt": "assets/photos/nyra/besorgt.webp",
+    "photo-nyra-freude": "assets/photos/nyra/freude.webp",
+    "photo-nyra-neutral": "assets/photos/nyra/neutral.webp",
+    "photo-nyra-signatur": "assets/photos/nyra/signatur.webp",
+    "photo-nyra-trauer": "assets/photos/nyra/trauer.webp",
+    "photo-nyra-ueberrascht": "assets/photos/nyra/ueberrascht.webp",
+    "photo-nyra-wut": "assets/photos/nyra/wut.webp",
+    "photo-raven-besorgt": "assets/photos/raven/besorgt.webp",
+    "photo-raven-freude": "assets/photos/raven/freude.webp",
+    "photo-raven-neutral": "assets/photos/raven/neutral.webp",
+    "photo-raven-signatur": "assets/photos/raven/signatur.webp",
+    "photo-raven-trauer": "assets/photos/raven/trauer.webp",
+    "photo-raven-ueberrascht": "assets/photos/raven/ueberrascht.webp",
+    "photo-raven-wut": "assets/photos/raven/wut.webp",
+    "photo-richter-neutral": "assets/photos/richter/neutral.webp",
+    "photo-richter-ueberrascht": "assets/photos/richter/ueberrascht.webp",
+    "photo-richter-wut": "assets/photos/richter/wut.webp",
+    "photo-ripper-besorgt": "assets/photos/ripper/besorgt.webp",
+    "photo-ripper-freude": "assets/photos/ripper/freude.webp",
+    "photo-ripper-neutral": "assets/photos/ripper/neutral.webp",
+    "photo-ripper-signatur": "assets/photos/ripper/signatur.webp",
+    "photo-ripper-trauer": "assets/photos/ripper/trauer.webp",
+    "photo-ripper-ueberrascht": "assets/photos/ripper/ueberrascht.webp",
+    "photo-ripper-wut": "assets/photos/ripper/wut.webp",
+    "photo-seraphina-besorgt": "assets/photos/seraphina/besorgt.webp",
+    "photo-seraphina-freude": "assets/photos/seraphina/freude.webp",
+    "photo-seraphina-neutral": "assets/photos/seraphina/neutral.webp",
+    "photo-seraphina-signatur": "assets/photos/seraphina/signatur.webp",
+    "photo-seraphina-trauer": "assets/photos/seraphina/trauer.webp",
+    "photo-seraphina-ueberrascht": "assets/photos/seraphina/ueberrascht.webp",
+    "photo-seraphina-wut": "assets/photos/seraphina/wut.webp",
+    "photo-serenity-besorgt": "assets/photos/serenity/besorgt.webp",
+    "photo-serenity-freude": "assets/photos/serenity/freude.webp",
+    "photo-serenity-neutral": "assets/photos/serenity/neutral.webp",
+    "photo-serenity-signatur": "assets/photos/serenity/signatur.webp",
+    "photo-serenity-trauer": "assets/photos/serenity/trauer.webp",
+    "photo-serenity-ueberrascht": "assets/photos/serenity/ueberrascht.webp",
+    "photo-serenity-wut": "assets/photos/serenity/wut.webp",
+    "photo-sybella-besorgt": "assets/photos/sybella/besorgt.webp",
+    "photo-sybella-freude": "assets/photos/sybella/freude.webp",
+    "photo-sybella-neutral": "assets/photos/sybella/neutral.webp",
+    "photo-sybella-signatur": "assets/photos/sybella/signatur.webp",
+    "photo-sybella-trauer": "assets/photos/sybella/trauer.webp",
+    "photo-sybella-ueberrascht": "assets/photos/sybella/ueberrascht.webp",
+    "photo-sybella-wut": "assets/photos/sybella/wut.webp",
+    "photo-vega-besorgt": "assets/photos/vega/besorgt.webp",
+    "photo-vega-freude": "assets/photos/vega/freude.webp",
+    "photo-vega-neutral": "assets/photos/vega/neutral.webp",
+    "photo-vega-signatur": "assets/photos/vega/signatur.webp",
+    "photo-vega-trauer": "assets/photos/vega/trauer.webp",
+    "photo-vega-ueberrascht": "assets/photos/vega/ueberrascht.webp",
+    "photo-vega-wut": "assets/photos/vega/wut.webp",
+    "photo-vex-besorgt": "assets/photos/vex/besorgt.webp",
+    "photo-vex-freude": "assets/photos/vex/freude.webp",
+    "photo-vex-neutral": "assets/photos/vex/neutral.webp",
+    "photo-vex-signatur": "assets/photos/vex/signatur.webp",
+    "photo-vex-trauer": "assets/photos/vex/trauer.webp",
+    "photo-vex-ueberrascht": "assets/photos/vex/ueberrascht.webp",
+    "photo-vex-wut": "assets/photos/vex/wut.webp",
+    "photo-wache-neutral": "assets/photos/wache/neutral.webp",
+    "photo-wache-ueberrascht": "assets/photos/wache/ueberrascht.webp",
+    "photo-wache-wut": "assets/photos/wache/wut.webp",
+    "photo-xion-besorgt": "assets/photos/xion/besorgt.webp",
+    "photo-xion-freude": "assets/photos/xion/freude.webp",
+    "photo-xion-neutral": "assets/photos/xion/neutral.webp",
+    "photo-xion-signatur": "assets/photos/xion/signatur.webp",
+    "photo-xion-trauer": "assets/photos/xion/trauer.webp",
+    "photo-xion-ueberrascht": "assets/photos/xion/ueberrascht.webp",
+    "photo-xion-wut": "assets/photos/xion/wut.webp",
+    "portrait-alesa": "assets/portraits/alesa.webp",
+    "portrait-aria": "assets/portraits/aria.webp",
+    "portrait-barkeeper": "assets/portraits/barkeeper.webp",
+    "portrait-blade": "assets/portraits/blade.webp",
+    "portrait-captain-kuschel": "assets/portraits/captain-kuschel.webp",
+    "portrait-collin": "assets/portraits/collin.webp",
+    "portrait-dante": "assets/portraits/dante.webp",
+    "portrait-daria": "assets/portraits/daria.webp",
+    "portrait-delya": "assets/portraits/delya.webp",
+    "portrait-freya": "assets/portraits/freya.webp",
+    "portrait-hunter": "assets/portraits/hunter.webp",
+    "portrait-jakko": "assets/portraits/jakko.webp",
+    "portrait-kameramann": "assets/portraits/kameramann.webp",
+    "portrait-ki-nexus": "assets/portraits/ki-nexus.webp",
+    "portrait-ki-nexus-angry": "assets/portraits/ki-nexus-angry.webp",
+    "portrait-nyra": "assets/portraits/nyra.webp",
+    "portrait-raven": "assets/portraits/raven.webp",
+    "portrait-richter": "assets/portraits/richter.webp",
+    "portrait-ripper": "assets/portraits/ripper.webp",
+    "portrait-seraphina": "assets/portraits/seraphina.webp",
+    "portrait-serenity": "assets/portraits/serenity.webp",
+    "portrait-sybella": "assets/portraits/sybella.webp",
+    "portrait-vega": "assets/portraits/vega.webp",
+    "portrait-vex": "assets/portraits/vex.webp",
+    "portrait-wache": "assets/portraits/wache.webp",
+    "portrait-xion": "assets/portraits/xion.webp",
+    "prop-captain-kuschel": "assets/props/captain-kuschel.png"
+  },
+  "sprites": {
+    "alesa-walk": {
+      "file": "assets/sprites/alesa-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "aria-walk": {
+      "file": "assets/sprites/aria-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "barkeeper-walk": {
+      "file": "assets/sprites/barkeeper-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "blade-walk": {
+      "file": "assets/sprites/blade-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "collin-walk": {
+      "file": "assets/sprites/collin-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "dante-walk": {
+      "file": "assets/sprites/dante-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "daria-walk": {
+      "file": "assets/sprites/daria-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "delya-walk": {
+      "file": "assets/sprites/delya-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "freya-walk": {
+      "file": "assets/sprites/freya-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "hunter-walk": {
+      "file": "assets/sprites/hunter-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "jakko-walk": {
+      "file": "assets/sprites/jakko-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "kameramann-walk": {
+      "file": "assets/sprites/kameramann-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "nyra-walk": {
+      "file": "assets/sprites/nyra-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "raven-walk": {
+      "file": "assets/sprites/raven-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "richter-walk": {
+      "file": "assets/sprites/richter-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "ripper-walk": {
+      "file": "assets/sprites/ripper-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "seraphina-walk": {
+      "file": "assets/sprites/seraphina-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "serenity-walk": {
+      "file": "assets/sprites/serenity-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "sybella-walk": {
+      "file": "assets/sprites/sybella-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "vega-walk": {
+      "file": "assets/sprites/vega-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "vex-walk": {
+      "file": "assets/sprites/vex-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "wache-walk": {
+      "file": "assets/sprites/wache-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "xion-walk": {
+      "file": "assets/sprites/xion-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    }
+  },
+  "items": {
+    "atlas": "",
+    "cell": 64,
+    "icons": {}
+  }
+}

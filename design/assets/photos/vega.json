@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-vega-neutral": "assets/photos/vega/neutral.webp",
+    "photo-vega-freude": "assets/photos/vega/freude.webp",
+    "photo-vega-wut": "assets/photos/vega/wut.webp",
+    "photo-vega-trauer": "assets/photos/vega/trauer.webp",
+    "photo-vega-ueberrascht": "assets/photos/vega/ueberrascht.webp",
+    "photo-vega-besorgt": "assets/photos/vega/besorgt.webp",
+    "photo-vega-signatur": "assets/photos/vega/signatur.webp"
+  }
+}

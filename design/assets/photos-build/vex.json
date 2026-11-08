@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "vex-neutral.png",
+  "sha": "623bea8985ff7d6d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52158
+ },
+ "freude": {
+  "src": "vex-freude.png",
+  "sha": "0dfbf0b9ba116c35",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56234
+ },
+ "wut": {
+  "src": "vex-wut.png",
+  "sha": "52d30dc98e5b3bb8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52694
+ },
+ "trauer": {
+  "src": "vex-trauer.png",
+  "sha": "436f2553663399ea",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47726
+ },
+ "ueberrascht": {
+  "src": "vex-ueberrascht.png",
+  "sha": "d133e3e8c0dc244d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51676
+ },
+ "besorgt": {
+  "src": "vex-besorgt.png",
+  "sha": "586dde12510c1870",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51418
+ },
+ "signatur": {
+  "src": "vex-signatur.png",
+  "sha": "eb0b25b4cc080961",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 53012
+ }
+}

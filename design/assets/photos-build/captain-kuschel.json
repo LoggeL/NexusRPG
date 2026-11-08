@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "captain-kuschel-neutral.png",
+  "sha": "11acda1fcddd923d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46522
+ },
+ "freude": {
+  "src": "captain-kuschel-freude-v2.png",
+  "sha": "e157b82f2a638ef2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48858
+ },
+ "trauer": {
+  "src": "captain-kuschel-trauer.png",
+  "sha": "cd23c7a223d60dd6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48806
+ }
+}

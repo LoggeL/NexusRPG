@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "nyra-neutral.png",
+  "sha": "21816f5539da82a5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42378
+ },
+ "freude": {
+  "src": "nyra-freude.png",
+  "sha": "6e5e8a7308f3ad07",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46356
+ },
+ "wut": {
+  "src": "nyra-wut.png",
+  "sha": "3b762ff53bc8056a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44854
+ },
+ "trauer": {
+  "src": "nyra-trauer.png",
+  "sha": "44766b483c2e18a9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45540
+ },
+ "ueberrascht": {
+  "src": "nyra-ueberrascht.png",
+  "sha": "db73bc57bcae1079",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46404
+ },
+ "besorgt": {
+  "src": "nyra-besorgt.png",
+  "sha": "670a4210c294f61e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43168
+ },
+ "signatur": {
+  "src": "nyra-signatur.png",
+  "sha": "412cbce30c6932d3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46596
+ }
+}

@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-daria-neutral": "assets/photos/daria/neutral.webp",
+    "photo-daria-freude": "assets/photos/daria/freude.webp",
+    "photo-daria-wut": "assets/photos/daria/wut.webp",
+    "photo-daria-trauer": "assets/photos/daria/trauer.webp",
+    "photo-daria-ueberrascht": "assets/photos/daria/ueberrascht.webp",
+    "photo-daria-besorgt": "assets/photos/daria/besorgt.webp",
+    "photo-daria-signatur": "assets/photos/daria/signatur.webp"
+  }
+}

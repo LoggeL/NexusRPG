@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "barkeeper-neutral.png",
+  "sha": "0bf8039691a6465b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46224
+ },
+ "wut": {
+  "src": "barkeeper-wut.png",
+  "sha": "6381000a41973de2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49812
+ },
+ "ueberrascht": {
+  "src": "barkeeper-ueberrascht.png",
+  "sha": "9bfaed9829dd408c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46286
+ }
+}

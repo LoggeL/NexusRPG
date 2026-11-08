@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "richter-neutral.png",
+  "sha": "8f2fd8bee829aaa4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29190
+ },
+ "wut": {
+  "src": "richter-wut.png",
+  "sha": "165586a675120274",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 31764
+ },
+ "ueberrascht": {
+  "src": "richter-ueberrascht.png",
+  "sha": "040e7b8eec59b3e6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33076
+ }
+}

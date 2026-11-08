@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-seraphina-neutral": "assets/photos/seraphina/neutral.webp",
+    "photo-seraphina-freude": "assets/photos/seraphina/freude.webp",
+    "photo-seraphina-wut": "assets/photos/seraphina/wut.webp",
+    "photo-seraphina-trauer": "assets/photos/seraphina/trauer.webp",
+    "photo-seraphina-ueberrascht": "assets/photos/seraphina/ueberrascht.webp",
+    "photo-seraphina-besorgt": "assets/photos/seraphina/besorgt.webp",
+    "photo-seraphina-signatur": "assets/photos/seraphina/signatur.webp"
+  }
+}

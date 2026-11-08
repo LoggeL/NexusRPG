@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "ki-nexus-neutral-v3.png",
+  "sha": "bea5ef16a1938ed5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43108
+ },
+ "freude": {
+  "src": "ki-nexus-freude.png",
+  "sha": "5cc2644d255a83cb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45580
+ },
+ "wut": {
+  "src": "ki-nexus-wut.png",
+  "sha": "2b4e0043272a9c5f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54726
+ },
+ "signatur": {
+  "src": "ki-nexus-signatur.png",
+  "sha": "1bfd5004ed41860e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44058
+ }
+}
