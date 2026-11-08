@@ -19,6 +19,7 @@ import { clockEffects } from './domains/clock';
 import { combatEffects } from './domains/combat';
 import { coreEffects, coreSettle } from './domains/core';
 import { economyEffects } from './domains/economy';
+import { minigameEffects } from './domains/minigames';
 import { jobSettle, questEffects, questSettle } from './domains/quests';
 import { relationEffects } from './domains/relations';
 import { discriminant, type EffectContext, type EffectSpec, type EffectSpecs, type SettleHook } from './registry';
@@ -32,6 +33,7 @@ export const EFFECT_SPECS: EffectSpecs = {
   ...questEffects,
   ...economyEffects,
   ...combatEffects,
+  ...minigameEffects,
 };
 
 /** Nachlauf in dieser Reihenfolge; jeder Haken meldet, ob er etwas geändert hat. */

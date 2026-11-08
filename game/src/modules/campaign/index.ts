@@ -3,7 +3,7 @@
 import type {
   ActId, AttributeId, BattleResult, CampaignOptions, CampaignPort, CampaignResult, CharacterInput, CheckEvaluation,
   CheckRef, Condition, Effect, EffectOutcome, GameContent, GameState, GiftResult, ItemId, JobOffer, NewsDef,
-  NpcId, ObjectiveView, Point, QuestView, SaveStoragePort, SpeakerId,
+  MinigameRequest, NpcId, ObjectiveView, Point, QuestView, SaveStoragePort, SpeakerId,
 } from '../contracts';
 import { characterSheet as characterSheetOf, passiveSources, perkStatus as perkStatusOf } from '../character';
 import { remainingBuffs } from '../checks';
@@ -22,6 +22,7 @@ import {
 import { installCyberwareIn, uninstallCyberwareIn } from './domains/character';
 import { advanceClockIn, sleepIn, timeSlotOf, weekdayOf } from './domains/clock';
 import { finishBattleIn } from './domains/combat';
+import { finishMinigameIn } from './domains/minigames';
 import { count, itemName, markSeenIn, removeItem } from './domains/core';
 import { buyIn, pricesOf, sellIn, sellPrice as sellPriceOf } from './domains/economy';
 import { acceptJobIn, jobOffersFor } from './domains/quests';
@@ -374,6 +375,7 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
 
     // ------------------------------------------------------------ Kampf
     finishBattle: (battle: BattleResult) => mutate(ctx => finishBattleIn(ctx, battle)).outcome,
+    finishMinigame: (request: MinigameRequest, won: boolean) => mutate(ctx => finishMinigameIn(ctx, request, won)).outcome,
 
     // ------------------------------------------------------------ Welt
     fastTravel(station) {

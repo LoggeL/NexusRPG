@@ -10,7 +10,7 @@ import { musicForBattle, musicForMap } from './music';
 import { missingText, runEnterTriggers } from '../modules/campaign';
 import type {
   ActId, BattleOutcome, BattleResult, CheckRef, CutsceneDef, EffectOutcome, Effect, EncounterId, ExitDef, HotspotDef, MapEncounterDef, MapId, NpcId,
-  Request, TimeSlot,
+  MinigameRequest, Request, TimeSlot,
 } from '../modules/contracts';
 import { endingStats as computeEndingStats, epilogueLines } from '../modules/ending';
 import type { EndingStats, GameContext } from './context';
@@ -384,6 +384,7 @@ export class Director {
       else if ('cutscene' in request) await this.playCutscene(request.cutscene);
       else if ('travel' in request) await this.travel(request.travel, request.entry, request.minutes);
       else if ('battle' in request) await this.battle(request.battle);
+      else if ('minigame' in request) await this.minigame(request.minigame);
       else if ('shop' in request) await this.openShopFlow(request.shop);
       else if ('jobBoard' in request) await openJobBoard(this.shell, this.campaign, request.jobBoard).closed;
       else if ('news' in request) await this.watchNews(request.news);
@@ -391,6 +392,12 @@ export class Director {
       else if ('sleep' in request) await this.sleepTransition(request.sleep);
       else if ('ending' in request) { await this.ending(); return; }
     }
+  }
+
+  /** Minispiel zeigen und abrechnen. Platzhalter bis zur Minispiel-Darstellung: zählt als gewonnen. */
+  async minigame(request: MinigameRequest) {
+    this.shell.toast(`Minispiel „${request.label ?? request.id}“ (Platzhalter) – gewonnen`, 'good');
+    await this.handleOutcome(this.campaign.finishMinigame(request, true));
   }
 
   async runDialogue(id: string) {

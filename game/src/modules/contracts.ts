@@ -48,6 +48,8 @@ export type PhoneMessageId = string;
 export type HeartEventId = string;
 /** Name einer Auftragstafel (z. B. 'high-voltage'), an der Vorlagen angeboten werden. */
 export type JobBoardId = string;
+/** Minispiel (world.md §3.9), z. B. 'hacken', 'schloss', 'eins', 'armdruecken'. */
+export type MinigameId = string;
 
 /** Sprecher einer Dialogzeile: benannte Figur, die Spielfigur oder der Erzähler. */
 export type SpeakerId = NpcId | 'player' | 'narrator';
@@ -132,6 +134,8 @@ export interface ConditionMap {
   /** Rufstufe bei der Fraktion mindestens `min` (Reihenfolge Verhasst … Verehrt, world.md §10.2). */
   repTier: { repTier: FactionId; min: RepTierId };
   credits: { credits: number };
+  /** Minispiel mit diesem Schlüssel wurde mindestens einmal gewonnen (`minigame.key`, sonst die Minispiel-ID). */
+  wonMinigame: { wonMinigame: string };
   // Kalender
   /** Tag im 28-Tage-Festkalender (1..28, world.md §3.4). */
   cycleDay: { cycleDay: number | readonly number[] };
@@ -206,6 +210,11 @@ export interface EffectMap {
   rep: { rep: FactionId; delta: number };
   shop: { shop: ShopId };
   battle: { battle: EncounterId };
+  /**
+   * Minispiel starten (Darstellung zeigt es, `CampaignPort.finishMinigame` rechnet ab).
+   * `level` 1–5 (Standard 2), `key` für `wonMinigame` (Standard: Minispiel-ID), `win`/`lose` danach.
+   */
+  minigame: { minigame: MinigameId; level?: number; key?: string; win?: Effect[]; lose?: Effect[]; label?: string };
 }
 export type EffectKey = keyof EffectMap;
 export type Effect = { [K in EffectKey]: EffectMap[K] }[EffectKey];
@@ -225,6 +234,7 @@ export interface RequestMap {
   sfx: { sfx: SfxId };
   ending: { ending: true };
   battle: { battle: EncounterId };
+  minigame: { minigame: MinigameRequest };
   shop: { shop: ShopId };
   jobBoard: { jobBoard: JobBoardId };
   news: { news: NewsId };
@@ -232,6 +242,8 @@ export interface RequestMap {
   /** Schlafen bzw. Zusammenbruch: Abblende, neuer Tag. */
   sleep: { sleep: 'bed' | 'collapse' };
 }
+/** Laufendes Minispiel: die Darstellung gibt es unverändert an `finishMinigame` zurück. */
+export interface MinigameRequest { id: MinigameId; level: number; key: string; label?: string; win: Effect[]; lose: Effect[] }
 export type RequestKey = keyof RequestMap;
 export type Request = { [K in RequestKey]: RequestMap[K] }[RequestKey];
 
@@ -1667,6 +1679,8 @@ export interface CampaignPort {
 
   // Kampf
   finishBattle(result: BattleResult): EffectOutcome;
+  /** Minispiel abrechnen: gewonnen → `spiel:<key>` gesehen und `win`, sonst `lose`. */
+  finishMinigame(request: MinigameRequest, won: boolean): EffectOutcome;
 
   // Welt
   fastTravel(station: StationId): CampaignResult;

@@ -19,7 +19,7 @@ Then reply only with the copied path.
 
 BRIEF:
 $prompt"
-"$CODEX" exec --skip-git-repo-check -c model_reasoning_effort="low" "${refs[@]}" "$instruction" < /dev/null > "$ROOT/output/imagegen/last-codex-${target:t:r}.log" 2>&1  # stdin zu, sonst hängt codex als Hintergrundjob
+"$ROOT/scripts/dev/slot.sh" codex ${CODEX_SLOTS:-9} "$CODEX" exec --skip-git-repo-check -c model_reasoning_effort="low" "${refs[@]}" "$instruction" < /dev/null > "$ROOT/output/imagegen/last-codex-${target:t:r}.log" 2>&1  # stdin zu, sonst hängt codex als Hintergrundjob
 code=$?
 dur=$(( $(date +%s) - start ))
 ok=false

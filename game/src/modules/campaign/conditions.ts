@@ -3,6 +3,7 @@ import type { Condition, GameContent, GameState } from '../contracts';
 import { characterConditions } from './domains/character';
 import { clockConditions } from './domains/clock';
 import { combatConditions } from './domains/combat';
+import { minigameConditions } from './domains/minigames';
 import { coreConditions } from './domains/core';
 import { economyConditions } from './domains/economy';
 import { questConditions } from './domains/quests';
@@ -18,6 +19,7 @@ export const CONDITION_SPECS: ConditionSpecs = {
   ...questConditions,
   ...economyConditions,
   ...combatConditions,
+  ...minigameConditions,
 };
 
 const MAX_DEPTH = 32;

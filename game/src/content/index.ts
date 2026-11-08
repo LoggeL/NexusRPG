@@ -9,50 +9,49 @@
 import type { GameContent } from '../modules/contracts';
 import { APPEARANCE } from './appearance';
 import { LOOKS, ORIGINS, PRESETS } from './character';
-import { CHECKS } from './checks';
-import { DIALOGUES } from './dialogues';
-import { JOBS, SHOPS } from './economy';
-import { ARENAS, ENCOUNTERS } from './encounters';
-import { ABILITIES, ENEMIES } from './enemies';
-import { ITEMS } from './items';
-import { MAPS } from './maps';
-import { NEWS, PHONE } from './news';
-import { NPCS } from './npcs';
 import { CYBERWARE, PERKS } from './perks';
-import { QUESTS } from './quests';
 import { ROMANCE_ENABLED } from './romance';
-import { ACT_STARTS, CUTSCENES, DISTRICTS, ENDING, FACTIONS, HOME, START, STATIONS } from './world';
+import { mergeParts } from './part';
+import { PARTS } from './parts';
+import { ACT_STARTS, ENDING, HOME, START } from './world';
 
-export const content: GameContent = {
+const base: GameContent = {
   meta: { id: 'nexus-test', title: 'Nexus – Testinhalt', test: true },
-  maps: MAPS,
-  districts: DISTRICTS,
-  stations: STATIONS,
-  dialogues: DIALOGUES,
-  cutscenes: CUTSCENES,
-  items: ITEMS,
-  npcs: NPCS,
-  checks: CHECKS,
+  maps: {},
+  districts: {},
+  stations: {},
+  dialogues: {},
+  cutscenes: {},
+  items: {},
+  npcs: {},
+  checks: {},
   perks: PERKS,
   cyberware: CYBERWARE,
   origins: ORIGINS,
   looks: LOOKS,
   appearance: APPEARANCE,
   presets: PRESETS,
-  factions: FACTIONS,
-  quests: QUESTS,
-  jobs: JOBS,
-  shops: SHOPS,
-  encounters: ENCOUNTERS,
-  arenas: ARENAS,
-  enemies: ENEMIES,
-  abilities: ABILITIES,
-  news: NEWS,
-  phone: PHONE,
-  // Nur Figuren, die im Inhalt existieren (Tippfehler fängt romance.test.ts über ROMANCE_CANDIDATES ab).
-  romance: new Set([...ROMANCE_ENABLED].filter((id) => id in NPCS)),
+  factions: {},
+  quests: {},
+  jobs: {},
+  shops: {},
+  encounters: {},
+  arenas: {},
+  enemies: {},
+  abilities: {},
+  news: {},
+  phone: {},
+  // Nur Figuren, die im Inhalt existieren (Tippfehler fängt romance.test.ts über ROMANCE_CANDIDATES ab); siehe unten.
+  romance: new Set(),
   actStarts: ACT_STARTS,
   start: START,
   home: HOME,
   ending: ENDING,
+};
+
+/** Grundinhalt plus alle Inhaltsteile aus content/parts/** (siehe content/part.ts). */
+const merged = mergeParts(base, PARTS);
+export const content: GameContent = {
+  ...merged,
+  romance: new Set([...ROMANCE_ENABLED].filter((id) => id in merged.npcs)),
 };
