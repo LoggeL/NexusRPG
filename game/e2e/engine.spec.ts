@@ -60,11 +60,13 @@ test('Engine: kompletter Ablauf mit dem Akt-1-Inhalt', async ({ page }) => {
   await openGame(page, '?newchar&seed=7');
 
   // 1 · Charaktererstellung
-  // Wahl „Eigene Figur bauen“ → Baukasten → Weiter (design.md §3.1a/§3.1b).
-  await page.getByTestId('creation-own').click();
+  // Baukasten → Weiter (design.md §3.1a); Vex erscheint nur, wenn der Name „vex“ enthält (§3.1b).
   await page.getByTestId('creator-next').click();
   await expect(page.getByTestId('creation-name')).toBeVisible();
+  await page.getByTestId('creation-name').fill('Vexi');
+  await expect(page.getByTestId('creation-vex')).toBeVisible();
   await page.getByTestId('creation-name').fill('Kira');
+  await expect(page.getByTestId('creation-vex')).toBeHidden();
   for (let i = 0; i < 3; i++) await page.getByTestId('creation-plus-technik').click();
   await page.getByTestId('creation-plus-strasse').click();
   await expect(page.getByTestId('creation-points')).toContainText('Freie Punkte: 0');

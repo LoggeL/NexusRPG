@@ -752,3 +752,7 @@ img.portrait-thumb { flex: none; width: 56px; height: 56px; object-fit: cover; b
 [data-layout="portrait-touch"] .creator { grid-template-columns: 1fr; grid-template-rows: 40vh auto; overflow: auto; }
 [data-layout="portrait-touch"] .modal.creation[data-step="aussehen"] .modal-body { overflow: auto; }
 [data-layout="portrait-touch"] .creator-keys { display: none; }
+
+/* Verstecktes Vex-Angebot unter dem Namen (design.md §3.1b) */
+.vex-offer { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 6px 0 2px; padding: 6px 8px; border: 1px dashed var(--cyan, #3ff); border-radius: 6px; }
+.vex-offer[hidden] { display: none; }

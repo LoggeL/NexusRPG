@@ -214,15 +214,16 @@ export function openCharacterSheet(shell: UiShell, catalog: AssetCatalog, campai
 }
 
 /**
- * Charaktererstellung in Schritten: Wahl („Eigene Figur bauen“ oder „Als Vex spielen“, design.md §3.1b) →
- * Charakter-Baukasten (§3.1a) → Name, Herkunft, 4 freie Attributpunkte. Vex: feste Werte, nur Bestätigen.
+ * Charaktererstellung in Schritten: Charakter-Baukasten (§3.1a) → Name, Herkunft, 4 freie Attributpunkte.
+ * Vex (design.md §3.1b) ist versteckt: Erst wenn der eingegebene Name „vex“ enthält, erscheint „Als Vex spielen“
+ * (feste Werte, nur Bestätigen).
  * Liefert erst, wenn die Kampagne die Figur angenommen hat (kein Abbrechen – der Spielbeginn braucht eine Figur).
  */
 export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, campaign: CampaignPort): Promise<void> {
   return new Promise((resolve) => {
     const content = campaign.content;
-    type Step = 'wahl' | 'aussehen' | 'werte' | 'vex';
-    let step: Step = 'wahl';
+    type Step = 'aussehen' | 'werte' | 'vex';
+    let step: Step = 'aussehen';
     let editor: CreatorHandle | null = null;
     let miniPreview: FigurePreview | null = null;
     let creatorCatalog: CreatorCatalog | null = null;
@@ -230,9 +231,8 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
       name: 'creation', title: 'Neue Figur', size: 'wide', closable: false,
       onIntent: (event) => {
         if (event.intent.type === 'cancel') {
-          if (step === 'aussehen' && vex) show('wahl');
-          else if (step === 'werte') show('aussehen');
-          else if (step === 'vex') show('wahl');
+          if (step === 'werte') show('aussehen');
+          else if (step === 'vex') show('werte');
           return true;
         }
         // Im Baukasten übernimmt der Editor die Tasten selbst (Pfeile, Q/E, R, Enter).
@@ -256,31 +256,13 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
     const cleanup = () => { editor?.destroy(); editor = null; miniPreview?.destroy(); miniPreview = null; };
     const catalogReady = loadCreatorCatalog().then((loaded) => { creatorCatalog = loaded; });
 
-    // ---------------------------------------------------------- Schritt 1: Wahl
-    const renderChoice = () => {
-      modal.titleEl.textContent = 'Neue Figur';
-      const card = (testid: string, title: string, text: string, onclick: () => void, media?: HTMLElement | null) =>
-        h('button', { class: 'creation-choice', type: 'button', 'data-testid': testid, onclick }, media ?? null, h('strong', null, title), h('span', { class: 'meta' }, text));
-      const vexMedia = vex ? h('img', { alt: '', draggable: 'false', decoding: 'async' }) : null;
-      if (vex && vexMedia) {
-        const photo = catalog.imageUrl(catalog.imageKey(`photo-${vex.portrait}-neutral`));
-        if (photo) vexMedia.src = photo; else setPortrait(vexMedia, catalog, `portrait-${vex.portrait}`, vex.name);
-      }
-      modal.body.append(h('div', { class: 'creation-choices', role: 'group', 'aria-label': 'Wie willst du spielen?' },
-        card('creation-own', 'Eigene Figur bauen', 'Charakter-Baukasten: Körper, Haare, Kleidung, Farben, Cyberware und Extras. Danach Name, Herkunft und Attribute.', () => show('aussehen'),
-          h('span', { class: 'choice-glyph', 'aria-hidden': 'true' }, '✦')),
-        vex ? card('creation-vex', 'Als Vex spielen', vex.description, () => show('vex'), vexMedia) : null));
-      modal.foot.append(h('p', { class: 'meta creation-foot-note' }, 'Die eigene Figur ist volljährig (Anfang zwanzig) und zeigt sich nur in der Welt – du siehst die Stadt mit ihren Augen.'));
-    };
-
     // ---------------------------------------------------------- Schritt 2: Baukasten
     const renderEditor = () => {
       modal.titleEl.textContent = 'Aussehen';
       const holder = h('div', { class: 'creator-holder' }, h('p', { class: 'boot-status' }, 'Teile werden geladen …'));
       modal.body.append(holder);
-      const back = vex ? h('button', { class: 'btn', type: 'button', 'data-testid': 'creator-back', onclick: () => show('wahl') }, 'Zurück') : null;
       const next = h('button', { class: 'btn primary', type: 'button', 'data-testid': 'creator-next', onclick: () => leaveEditor() }, 'Weiter');
-      modal.foot.append(h('span', { class: 'meta creator-keys' }, 'Bild↑/↓ Reiter · ↑/↓ Zeile · ←/→ Option · Q/E drehen · R Zufall · Strg+Z/Y · Enter weiter'), ...(back ? [back] : []), next);
+      modal.foot.append(h('span', { class: 'meta creator-keys' }, 'Bild↑/↓ Reiter · ↑/↓ Zeile · ←/→ Option · Q/E drehen · R Zufall · Strg+Z/Y · Enter weiter'), next);
       void catalogReady.then(() => {
         if (step !== 'aussehen') return;
         clear(holder);
@@ -305,7 +287,13 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
         type: 'text', maxlength: '16', placeholder: 'Wie heißt du?', 'aria-label': 'Name', autocomplete: 'off', spellcheck: 'false',
         'data-testid': 'creation-name', 'data-autofocus': true, value: draft.name,
       });
-      nameInput.addEventListener('input', () => { draft = { ...draft, name: nameInput.value }; renderStatus(); });
+      // Verstecktes Angebot: Wer „vex“ im Namen trägt, darf die fertige Figur Vex Schrapnell spielen.
+      const vexOffer = h('div', { class: 'vex-offer', 'data-testid': 'creation-vex-offer', hidden: true },
+        h('span', { class: 'meta' }, 'Vex? Die Postbotin von den Dächern gibt es schon fertig.'),
+        h('button', { class: 'btn small', type: 'button', 'data-testid': 'creation-vex', onclick: () => show('vex') }, 'Als Vex spielen'));
+      const updateVexOffer = () => { vexOffer.hidden = !(vex && /vex/i.test(nameInput.value)); };
+      nameInput.addEventListener('input', () => { draft = { ...draft, name: nameInput.value }; renderStatus(); updateVexOffer(); });
+      updateVexOffer();
       const originBox = h('div', { class: 'origin-list', role: 'radiogroup', 'aria-label': 'Herkunft' });
       const originDetail = h('div', { class: 'origin-detail', 'aria-live': 'polite', 'data-testid': 'creation-origin-detail' });
       const attrBox = h('ul', { class: 'attr-list', 'aria-label': 'Attribute' });
@@ -387,7 +375,8 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
 
       modal.body.append(h('div', { class: 'creation-grid' },
         h('section', { class: 'col-look', 'aria-label': 'Name und Aussehen' },
-          h('h3', null, 'Name'), nameInput,
+          h('h3', null, 'Name'), nameInput, vexOffer,
+          h('p', { class: 'meta' }, 'Die eigene Figur ist volljährig (Anfang zwanzig) und zeigt sich nur in der Welt – du siehst die Stadt mit ihren Augen.'),
           h('h3', null, 'Aussehen'),
           h('div', { class: 'look-preview creator-mini' }, miniPreview.canvas, lookName ? h('span', { class: 'meta' }, `Vorlage: ${lookName} (angepasst möglich)`) : null),
           h('button', { class: 'btn small', type: 'button', 'data-testid': 'creation-edit-look', onclick: () => show('aussehen') }, 'Aussehen ändern')),
@@ -400,7 +389,7 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
 
     // ---------------------------------------------------------- Vex
     const renderVex = () => {
-      if (!vex) { show('wahl'); return; }
+      if (!vex) { show('werte'); return; }
       modal.titleEl.textContent = 'Als Vex spielen';
       const status = h('div', { class: 'status-line', role: 'status', 'aria-live': 'polite', 'data-testid': 'creation-status' });
       const photo = h('img', { class: 'vex-photo', alt: vex.name, draggable: 'false', decoding: 'async' });
@@ -426,7 +415,7 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
           h('h4', null, 'Attribute (fest)'), attrs,
           h('p', { class: 'meta' }, 'Name, Aussehen, Herkunft, Attribute und Perk sind fest; der Baukasten ist für Vex gesperrt.'))));
       modal.foot.append(status,
-        h('button', { class: 'btn', type: 'button', 'data-testid': 'creation-back', onclick: () => show('wahl') }, 'Zurück'),
+        h('button', { class: 'btn', type: 'button', 'data-testid': 'creation-back', onclick: () => show('werte') }, 'Zurück'),
         h('button', {
           class: 'btn primary', type: 'button', 'data-testid': 'creation-start-vex', 'data-autofocus': true,
           onclick: () => finish({ name: vex.name, look: draft.look, origin: vex.origin, attributes: { ...vex.attributes }, preset: vex.id }, status),
@@ -440,12 +429,11 @@ export function openCharacterCreation(shell: UiShell, catalog: AssetCatalog, cam
       clear(modal.body);
       clear(modal.foot);
       modal.el.dataset.step = next;
-      if (next === 'wahl') renderChoice();
-      else if (next === 'aussehen') renderEditor();
+      if (next === 'aussehen') renderEditor();
       else if (next === 'werte') renderValues();
       else renderVex();
       requestAnimationFrame(() => modal.focusFirst());
     };
-    show(vex ? 'wahl' : 'aussehen');
+    show('aussehen');
   });
 }
