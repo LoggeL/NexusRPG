@@ -242,9 +242,9 @@ const bild: CutsceneDef = {
   id: 'side-zehn-credits-abend',
   title: 'Zehn Credits',
   beats: [
-    { image: 'black', caption: 'Schrottmarkt, Abend. Unter den Lichterketten sitzen drei Kinder mit vollen Bäuchen.', fade: 'in', hold: 1400 },
-    { image: 'black', caption: 'Zum ersten Mal seit Wochen rechnet Daria nicht, was sie morgen essen.', hold: 1400 },
-    { image: 'black', caption: 'Sie rechnet, was sie morgen verdienen. Das ist ein Unterschied wie Tag und Nacht. Und es ist Nacht. Und es ist schön.', fade: 'out', hold: 1600 },
+    { image: 'cut-side-zehn-credits-abend', caption: 'Schrottmarkt, Abend. Unter den Lichterketten sitzen drei Kinder mit vollen Bäuchen.', fade: 'in', hold: 1400 },
+    { image: 'cut-side-zehn-credits-abend', caption: 'Zum ersten Mal seit Wochen rechnet Daria nicht, was sie morgen essen.', hold: 1400 },
+    { image: 'cut-side-zehn-credits-abend', caption: 'Sie rechnet, was sie morgen verdienen. Das ist ein Unterschied wie Tag und Nacht. Und es ist Nacht. Und es ist schön.', fade: 'out', hold: 1600 },
   ],
 };
 

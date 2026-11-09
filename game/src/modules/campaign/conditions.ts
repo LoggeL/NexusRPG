@@ -8,6 +8,7 @@ import { coreConditions } from './domains/core';
 import { economyConditions } from './domains/economy';
 import { questConditions } from './domains/quests';
 import { relationConditions } from './domains/relations';
+import { weatherConditions } from './domains/weather';
 import { discriminant, type ConditionContext, type ConditionSpec, type ConditionSpecs } from './registry';
 
 /** Alle Bedingungshandler. Eine neue Variante in `ConditionMap` ohne Handler ist ein Compilerfehler. */
@@ -20,6 +21,7 @@ export const CONDITION_SPECS: ConditionSpecs = {
   ...economyConditions,
   ...combatConditions,
   ...minigameConditions,
+  ...weatherConditions,
 };
 
 const MAX_DEPTH = 32;

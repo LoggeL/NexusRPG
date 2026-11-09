@@ -5,7 +5,11 @@ import type { Condition, DialogueDef, DialogueLine, MapDef } from '../../../modu
 import type { ContentPart } from '../../part';
 
 const n = (text: string): DialogueLine => ({ speaker: 'narrator', text });
-const DANTE_4: Condition = { hearts: 'dante', min: 4 };
+/**
+ * Notschlafplatz Sofa: ab Dante ♥4, oder wenn Hunter die Spielfigur bei −8 aus dem Crew-Quartier geworfen hat
+ * (world.md §4.2, npc-crew-a/_rivalitaet.ts).
+ */
+const DANTE_4: Condition = { any: [{ hearts: 'dante', min: 4 }, { rival: 'hunter', min: 8 }] };
 
 const ankunft: DialogueDef = {
   id: 'dlg-dantes-werkstatt-ankunft',
@@ -162,9 +166,9 @@ const werkstatt: MapDef = {
     {
       id: 'kuschel-kissen', at: [800, 610], radius: 44, label: 'Kissen im Regal', kind: 'look',
       when: { not: { quest: 'side-captain-kuschel', state: 'active' } },
-      lines: [n('Im Regal ein rundes Kissen, plattgelegen in Form eines kleinen Roboters. Daneben eine Schale mit Schrauben, sortiert nach Geschmack. Captain Kuschels Thron.')],
+      lines: [n('Im Regal ein rundes Kissen, plattgelegen in Form eines kleinen Plüschhasen mit zwei sehr langen Ohrenkuhlen. Daneben Nadel, Faden und ein Stapel Zettel mit „– C. K.“ vorgedruckt. Captain Kuschels Thron.')],
     },
-    // Dantes Sofa: Notschlafplatz ab Dante ♥4 (world.md §3.8)
+    // Dantes Sofa: Notschlafplatz ab Dante ♥4 (world.md §3.8) oder nach Hunters Rauswurf
     {
       id: 'sofa', at: [215, 560], radius: 56, label: 'Auf Dantes Sofa pennen', kind: 'sleep', when: DANTE_4,
       lines: [n('Das Sofa riecht nach Keksen und Lötzinn. Eine Wolldecke, ein Kissen mit Brandfleck, der Plattenspieler läuft leise aus. Gute Nacht, Werkstatt.')],

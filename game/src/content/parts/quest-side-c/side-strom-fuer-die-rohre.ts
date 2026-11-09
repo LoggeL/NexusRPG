@@ -110,22 +110,22 @@ const licht: CutsceneDef = {
   title: 'Licht im Kanal',
   beats: [
     {
-      image: 'black', fade: 'in',
+      image: 'cut-strom-licht-im-kanal', fade: 'in',
       caption: 'Das ganze Kanalvolk hat sich im Trockendock versammelt. Vierzig Stirnlampen, zwei Dutzend Ratten, ein Kind auf einer Kiste.',
       lines: [l(GU, 'Bürgerinnen und Bürger! Ratten! Pilze! Heute endet die Dunkelheit! Kraft meines Amtes …', 'signatur')],
     },
     {
-      image: 'black', sfx: 'switch',
+      image: 'cut-strom-licht-im-kanal', sfx: 'switch',
       caption: 'Er legt den Schalter um. Nichts passiert. Eine Sekunde. Zwei. Ein Kind hustet.',
       lines: [l(GU, '… kraft meines Amtes … bitte, bitte, bitte …', 'besorgt')],
     },
     {
-      image: 'black', sfx: 'engine',
+      image: 'cut-strom-licht-im-kanal', sfx: 'engine',
       caption: 'Dann brummt der Generator. Die Lampen am Kabel flackern, eine nach der anderen, bis hoch zur Leiter. Und an den Wänden, ganz langsam, fangen die Pilze an zu glühen. Blau. Grün. Ein bisschen Pink.',
       lines: [n('Das Kanalvolk jubelt. Die Ratten quieken. Jemand weint. Es ist Gully.')],
     },
     {
-      image: 'black', fade: 'out',
+      image: 'cut-strom-licht-im-kanal', fade: 'out',
       caption: 'Gully pflückt den hellsten Pilz von der Wand und legt ihn dir in die Hand, als wäre es ein Orden.',
       lines: [l(GU, 'Für den Sonderbeauftragten. Er leuchtet die ganze Nacht. Wie Ihr Name in den Annalen der Rohre.', 'freude')],
     },

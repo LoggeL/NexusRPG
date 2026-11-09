@@ -3,7 +3,7 @@
 // Herz-Ereignisse he-kiki-karbon-2/4/6 in Akt 1 (♥2 schaltet das Schwebetaxi frei), -8/-10 angelegt und an act2 gebunden.
 // Romanze nur als Kennzeichen (ROMANCE_CANDIDATES); Flirtzeilen hängen an { romance: 'kiki-karbon' } und bleiben aus,
 // solange sie nicht in ROMANCE_ENABLED steht. Klatschbase des Strangs Vex × Aria (world.md §4.7, Armdrücken).
-// Quests nur als Verweis/Start: pers-kiki-reichweite; Beweisfotos für side-uebliche-verspaetung (Flag kiki_beweisfotos).
+// Quests nur als Verweis/Start: pers-kiki-reichweite; Beweisfotos für side-uebliche-verspaetung (Flag takt_beweisfotos, wie die Quest es liest).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
@@ -77,8 +77,10 @@ function menue(): Menue {
     { text: 'Was gibt’s Neues in der Stadt?', next: 'klatsch' },
     {
       text: 'Hast du was gegen „Schwebetaxi Blitz“ in der Hand?', tag: '[Kiki ♥2]', next: 'blitz', once: true, id: 'k-blitz',
-      when: { quest: 'side-uebliche-verspaetung', state: 'active' }, requires: { hearts: 'kiki-karbon', min: 2 },
-      effects: [flag('kiki_beweisfotos'), { message: 'Kiki schickt dir drei Beweisfotos aufs Telefon.' }],
+      // Die Quest (Wahl „[Kikis Fotos]“ bei Herrn Blitz) liest takt_beweisfotos; kiki_beweisfotos bleibt als Altflag.
+      when: { all: [{ quest: 'side-uebliche-verspaetung', state: 'active' }, { notFlag: 'takt_beweisfotos' }] },
+      requires: { hearts: 'kiki-karbon', min: 2 },
+      effects: [flag('kiki_beweisfotos'), flag('takt_beweisfotos'), { message: 'Kikis Beweisfotos: Herr Blitz beim Ankleben eines Störsenders.' }],
     },
     { text: 'Wie weit kommt dein Taxi eigentlich?', when: { quest: REICHWEITE, state: 'active' }, next: 'reichweite' },
     {

@@ -55,6 +55,18 @@ export function validateCombatContent(data: CombatData): string[] {
     if (enemy.stats.morale !== undefined && !(enemy.stats.morale >= 0 && enemy.stats.morale <= 100)) report(at, 'Moral liegt zwischen 0 und 100');
     if (enemy.credits && enemy.credits[0] > enemy.credits[1]) report(at, 'Credits: Minimum größer als Maximum');
     for (const loot of enemy.loot ?? []) if (!(loot.chance > 0 && loot.chance <= 1)) report(at, `Beute ${loot.item}: chance zwischen 0 und 1`);
+    const phases = enemy.phases?.length ?? 0;
+    for (const rule of enemy.rules ?? []) {
+      const where = `${at} Regel ${rule.kind}`;
+      const refs = [...(rule.afterDown ?? []), ...(rule.kind === 'invulnerable' ? rule.while : []), ...(rule.kind === 'reinforce' ? [rule.enemy] : [])];
+      for (const id of refs) if (!has(data.enemies, id)) report(where, `unbekannter Gegner „${id}“`);
+      if (rule.phase !== undefined && !(rule.phase >= -1 && rule.phase < phases)) report(where, `Phase ${rule.phase} gibt es nicht`);
+      if (rule.untilPhase !== undefined && !(rule.untilPhase >= 0 && rule.untilPhase < phases)) report(where, `untilPhase ${rule.untilPhase} gibt es nicht`);
+      if (rule.kind === 'yield' && !(rule.below > 0 && rule.below < 1)) report(where, 'below liegt zwischen 0 und 1');
+      if ((rule.kind === 'wave' || rule.kind === 'reinforce' || rule.kind === 'charm') && !(rule.every >= 1)) report(where, 'every braucht ≥ 1');
+      if ((rule.kind === 'countdown' || rule.kind === 'hold') && !(rule.rounds >= 1)) report(where, 'rounds braucht ≥ 1');
+      if (rule.kind === 'hold' && !inBounds(rule.cell)) report(where, 'Feld außerhalb der Arena');
+    }
     let last = 1;
     for (const phase of enemy.phases ?? []) {
       if (!(phase.below > 0 && phase.below < 1)) report(at, 'Phase: below liegt zwischen 0 und 1');

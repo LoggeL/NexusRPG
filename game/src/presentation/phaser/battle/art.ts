@@ -99,6 +99,18 @@ export function drawStatusIcon(context: CanvasRenderingContext2D, id: StatusId, 
       context.arc(cx, cy, 2.5 * s, 0, Math.PI * 2);
       context.fill();
       break;
+    case 'ermutigt': // Pfeil nach oben mit Strich (Extra-Zug)
+      path([p(0, -15), p(11, -3), p(4, -3), p(4, 13), p(-4, 13), p(-4, -3), p(-11, -3)], true);
+      context.fill();
+      break;
+    case 'gesteuert': // Chip mit Fäden (Marionette)
+      context.strokeRect(cx - 8 * s, cy - 3 * s, 16 * s, 14 * s);
+      context.fillRect(cx - 4 * s, cy + 1 * s, 8 * s, 6 * s);
+      for (const dx of [-6, 0, 6]) {
+        path([p(dx, -3), p(dx, -15)]);
+        context.stroke();
+      }
+      break;
     case 'geschuetzt': // Schild
       path([p(0, -15), p(12, -10), p(11, 3), p(0, 15), p(-11, 3), p(-12, -10)], true);
       context.stroke();

@@ -259,9 +259,9 @@ const fund: CutsceneDef = {
   id: 'side-jimmy-tuerme',
   title: 'Turmcenter',
   beats: [
-    { image: 'black', caption: 'Hafenkante, Kai-Ende. Zwischen den Containern stehen Türme aus Ölfässern.', fade: 'in', hold: 1400 },
-    { image: 'black', caption: 'Jeder Turm trägt einen Kronkorken wie eine Krone. Jeder ist gerade. Jeder ist ein Hilferuf.', hold: 1600 },
-    { image: 'black', caption: 'Und mittendrin singt jemand einen Werbejingle. Ganz leise. Ganz allein.', fade: 'out', hold: 1600 },
+    { image: 'cut-side-jimmy-tuerme', caption: 'Hafenkante, Kai-Ende. Zwischen den Containern stehen Türme aus Ölfässern.', fade: 'in', hold: 1400 },
+    { image: 'cut-side-jimmy-tuerme', caption: 'Jeder Turm trägt einen Kronkorken wie eine Krone. Jeder ist gerade. Jeder ist ein Hilferuf.', hold: 1600 },
+    { image: 'cut-side-jimmy-tuerme', caption: 'Und mittendrin singt jemand einen Werbejingle. Ganz leise. Ganz allein.', fade: 'out', hold: 1600 },
   ],
 };
 

@@ -1,5 +1,5 @@
 // Kampfregeln: Lesende Hilfen über den Kampfzustand (keine Änderungen).
-import type { AbilityDef, AbilityId, AttributeId, Cell, StatusId } from '../contracts';
+import type { AbilityDef, AbilityId, AttributeId, Cell, EnemyRule, StatusId, Team } from '../contracts';
 import { has } from '../campaign/ids';
 import { sameCell } from './grid';
 import { BUILTIN_ABILITIES, POSITIVE_STATUS } from './rules';
@@ -22,6 +22,33 @@ export function unitOrThrow(state: CombatState, id: string): CombatUnit {
 export const activeUnit = (state: CombatState): CombatUnit | undefined => findUnit(state, state.active);
 
 export const opponents = (a: CombatUnit, b: CombatUnit): boolean => a.team !== b.team;
+
+/** Eigentliche Seite (auch während „gesteuert“ für die Gegenseite gekämpft wird). */
+export const homeTeam = (unit: CombatUnit): Team => unit.home ?? unit.team;
+
+/** Gilt eine Bossregel gerade (Phase, vor Phase, erst nach dem Ausfall bestimmter Gegner)? */
+export function ruleOpen(state: CombatState, unit: CombatUnit, rule: EnemyRule): boolean {
+  if (rule.phase !== undefined && unit.phase < rule.phase) return false;
+  if (rule.untilPhase !== undefined && unit.phase >= rule.untilPhase) return false;
+  if (rule.afterDown?.length && state.units.some(other =>
+    isActive(other) && other.source.kind === 'enemy' && rule.afterDown!.includes(other.source.enemy))) return false;
+  return true;
+}
+
+/** Regeln einer Art mit Index (für Laufzeitschlüssel `<Einheit>#<Index>`). */
+export function rulesOf<K extends EnemyRule['kind']>(unit: CombatUnit, kind: K): { rule: Extract<EnemyRule, { kind: K }>; key: string }[] {
+  const out: { rule: Extract<EnemyRule, { kind: K }>; key: string }[] = [];
+  (unit.rules ?? []).forEach((rule, index) => {
+    if (rule.kind === kind) out.push({ rule: rule as Extract<EnemyRule, { kind: K }>, key: `${unit.id}#${index}` });
+  });
+  return out;
+}
+
+/** Unverwundbar, solange einer der schützenden Gegner kämpft (z. B. Nexus-Kern hinter den Knoten). */
+export function isInvulnerable(state: CombatState, unit: CombatUnit): boolean {
+  return rulesOf(unit, 'invulnerable').some(({ rule }) => ruleOpen(state, unit, rule) && state.units.some(other =>
+    other.id !== unit.id && isActive(other) && other.source.kind === 'enemy' && rule.while.includes(other.source.enemy)));
+}
 
 /** Aktive Einheit auf einem Feld (K.O.-Einheiten zählen nicht). */
 export function unitAt(state: CombatState, cell: Cell): CombatUnit | undefined {

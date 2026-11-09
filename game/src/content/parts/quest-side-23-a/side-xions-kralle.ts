@@ -22,6 +22,19 @@ const R = 'raven';
 const SIEG: Condition = any(won('enc-ring-xion'), flag('xk_sieg'));
 const ENTSCHIEDEN: Condition = any(SIEG, flag('xk_dienstplan'), flag('xk_respekt'));
 const RINGNACHT: Condition = all({ weekday: 'sa' }, zeit('nacht'));
+/**
+ * Aria ist nicht am Boxsack (Flags aus vexaria/aria.ts und vexaria/zerberster.ts; ein Flag `aria_weg` gibt es nicht –
+ * `aria_weg_*` ist die Wahl des Wegs in pers-aria-zerberster):
+ * gechippt und „away“ bis main-2-countdown bzw. Vex' Rettung · Master-Modus · Zerberster gesperrt (pers-aria-zerberster
+ * läuft, nach dem Alleingang auch bis Dante den Code einspielt) · Streit bzw. Krach (`aria_romanze_streit`, `aria_krach`).
+ */
+const ARIA_WEG: Condition = any(
+  all(flag('aria_gechippt'), { not: { quest: 'main-2-countdown', state: 'done' } }, noFlag('vexaria_gerettet')),
+  flag('master_modus'),
+  flag('aria_arm_gesperrt'),
+  flag('aria_romanze_streit'),
+  flag('aria_krach'),
+);
 
 const BUFF = {
   checkBuff: {
@@ -223,7 +236,7 @@ export const part: ContentPart = {
       hotspots: [
         {
           id: 'xk-training-aria', at: [290, 290], radius: 48, label: 'Mit Aria fürs Duell trainieren', kind: 'talk', dialogue: trainingAria.id,
-          when: all(active(Q), noFlag('xk_trainiert'), noFlag('aria_weg'), zeit('abend', 'nacht'), { not: ENTSCHIEDEN }),
+          when: all(active(Q), noFlag('xk_trainiert'), { not: ARIA_WEG }, zeit('abend', 'nacht'), { not: ENTSCHIEDEN }),
         },
         {
           id: 'xk-ring', at: 'alte-arena', label: 'Schrottring: Duell gegen Xion', kind: 'use', dialogue: ring.id,

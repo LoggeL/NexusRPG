@@ -4,6 +4,7 @@ import type { CampaignPort, DistrictId, StationDef, StationId } from '../../modu
 import type { AssetCatalog } from '../../platform/assets/manifest';
 import { canvasToDataUrl, drawCityMap } from '../placeholders';
 import { h } from './dom';
+import { drawMapHints } from './mapHints';
 import { Modal, type UiShell } from './shell';
 
 let fallback = '';
@@ -78,6 +79,9 @@ export function openCityMap(shell: UiShell, catalog: AssetCatalog, campaign: Cam
     }, h('span', { class: 'pin-dot', 'aria-hidden': 'true' }), h('span', { class: 'pin-label' }, model.unlocked ? model.station.name : '?')));
   }
 
+  // Kartenhinweise (Gustavs Kranblick, Kikis Klatschkarte), solange ihre Flags gelten.
+  const hints = drawMapHints(board, campaign);
+
   // Bezirkslegende: alle Bezirke mit mindestens einer Station, entdeckte zuerst.
   const districts = [...new Set(models.map((model) => model.district).filter((id): id is DistrictId => !!id))]
     .sort((a, b) => Number(models.some((m) => m.district === b && m.unlocked)) - Number(models.some((m) => m.district === a && m.unlocked))
@@ -109,6 +113,6 @@ export function openCityMap(shell: UiShell, catalog: AssetCatalog, campaign: Cam
   modal.body.append(
     h('p', { class: 'meta', 'data-testid': 'city-here' }, `Du bist hier: ${here?.name ?? state.map}${here?.district ? ` (${content.districts[here.district]?.name ?? here.district})` : ''}`,
       objective ? ` · Ziel: ${objective.title}${objective.marker ? ` – ${content.maps[objective.marker.map]?.name ?? objective.marker.map}` : ''}` : ''),
-    h('div', { class: 'city-layout' }, board, h('div', { class: 'city-side' }, h('h3', null, 'Stationen'), list, h('h3', null, 'Bezirke'), legend)));
+    h('div', { class: 'city-layout' }, board, h('div', { class: 'city-side' }, h('h3', null, 'Stationen'), list, h('h3', null, 'Bezirke'), legend, hints)));
   return modal;
 }

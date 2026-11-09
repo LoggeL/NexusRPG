@@ -101,10 +101,10 @@ const M = erweitere(menue(), MENUE_23);
 /** Rivalität: Sozialstunden oder Plädoyer setzen auf null (world.md §4.1 Versöhnung). */
 const RIVALE: Menue = {
   choices: [
-    { text: 'Ich leiste Sozialstunden. Zwei Stunden Unkraut.', next: 'sozial', effects: [{ advanceTime: 120 }, { reconcile: 'richter' }, { xp: 30 }] },
+    { text: 'Ich leiste Sozialstunden. Zwei Stunden Unkraut.', next: 'sozial', effects: [{ advanceTime: 120 }, { reconcile: 'richter' }, flag('rivale_richter', false), { xp: 30 }] },
     {
       text: '„Euer Ehren, ich plädiere auf Neuanfang. Mildernde Umstände: Ich bin lernfähig.“', next: 'plaedoyer',
-      check: pruefung('richter-versoehnung-plaedoyer', 'ausstrahlung', 6, ['ueberzeugen']), effects: [{ reconcile: 'richter' }],
+      check: pruefung('richter-versoehnung-plaedoyer', 'ausstrahlung', 6, ['ueberzeugen']), effects: [{ reconcile: 'richter' }, flag('rivale_richter', false)],
     },
     { text: 'Ich geh ja schon.' },
   ],
@@ -377,6 +377,28 @@ const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
+/** Rivalität −2: Der Richter legt eine Akte an. Fahndung verfällt langsamer (Engine: { rival: 'richter' }). */
+const re2 = dialog('re-richter-2', [
+  knoten('start', [
+    erz('Am Eisenhof hängt ein neuer Aushang, mit vier Reißzwecken und Wut befestigt. Darauf dein Gesicht, gezeichnet mit Kugelschreiber. Erstaunlich ähnlich. Erstaunlich hässlich.'),
+    R('Ah. Der Angeklagte. Ich habe eine Akte angelegt. Sie heißt „Sie“. Sie ist in drei Tagen dicker geworden als die Akte Dexter in drei Jahren.', 'wut'),
+    R('Ich habe außerdem mit der Wachstube gesprochen. Wer Sie sucht, sucht ab jetzt gründlicher. Und länger. Ihre Fahndung verjährt bei mir nicht. Sie reift. Wie Käse.'),
+  ], {
+    choices: [
+      { text: '„Ist das überhaupt legal?“', next: 'legal' },
+      { text: '„Leck mich, Euer Ehren.“', next: 'leck', effects: [herz('richter', -20)] },
+    ],
+  }),
+  knoten('legal', [
+    R('Paragraf null der Eisenhof-Ordnung: Der Richter hat recht. Paragraf eins: Siehe Paragraf null.', 'signatur'),
+    R('Wenn Sie das ändern wollen: Unkraut. Zwei Stunden. Oder ein Plädoyer, das mich nicht langweilt. Beides selten.'),
+  ], { effects: [flag('rivale_richter')] }),
+  knoten('leck', [
+    R('Beleidigung eines Organs der Rechtspflege. Notiert. Mit Datum. Mit Uhrzeit. Mit Ihrem Gesichtsausdruck.', 'wut'),
+    R('Ich verdopple die Strafe. Nein. Ich verdreifache sie. Mathematik ist gerecht, und ich kann sehr gut rechnen.'),
+  ], { effects: [flag('rivale_richter')] }),
+]);
+
 const richter: NpcDef = {
   id: 'richter',
   name: 'Der Richter',
@@ -407,6 +429,8 @@ const richter: NpcDef = {
     { id: 'he-richter-6', hearts: 6, map: 'eisenhof', time: 'abend', when: { not: { weekday: ['do', 'fr'] } }, dialogue: 'he-richter-6' },
     { id: 'he-richter-8', hearts: 8, map: 'dantes-werkstatt', time: 'tag', when: { all: [AB_AKT2, { weekday: 'so' }] }, dialogue: 'he-richter-8' },
     { id: 'he-richter-10', hearts: 10, map: 'eisenhof', time: 'abend', when: { all: [AB_AKT2, { seen: 'he-richter-8' }] }, dialogue: 'he-richter-10' },
+    // Rivalität (world.md §4.4): Fahndung verfällt langsamer, höhere Strafen. Engine liest { rival: 'richter' }.
+    { id: 're-richter-2', hearts: -2, map: 'eisenhof', time: 'tag', dialogue: 're-richter-2' },
   ],
   talk: [
     rede('richter-tag-rivale', { rival: 'richter' }),
@@ -434,7 +458,7 @@ export const part: ContentPart = {
     ...A23.dialogues,
     T.rivale, T.knast, T.exWache, T.zeit, T.streaming, T.gurke, T.karten, T.garkueche, T.flohmarkt, T.morgen, T.garten,
     T.vertraut, T.abend, T.standard,
-    he2, he4, he6,
+    he2, he4, he6, re2,
   ),
   phone: {
     'tel-richter-schoeffe': {

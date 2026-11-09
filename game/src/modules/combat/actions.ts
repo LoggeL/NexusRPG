@@ -13,10 +13,11 @@ import {
 import { cellsInRadius, distance, facingToward, isHazard, lineOfSight, sameCell } from './grid';
 import { canEndOn, findPath } from './movement';
 import {
-  abilityDef, activeUnit, findUnit, isActive, isAttackAbility, isBeneficial, isOnField, opponents,
+  abilityDef, activeUnit, findUnit, isActive, isAttackAbility, isBeneficial, isInvulnerable, isOnField, opponents,
 } from './queries';
 import { healOf, moraleDamage, rollsToHit, strikePreview } from './resolve';
 import { ABILITY_REVIVE, MORALE_CRIT } from './rules';
+import { announceShields } from './bossRules';
 import { finishTurn } from './turns';
 import type { ActResult, CombatAction, CombatData, CombatState, CombatUnit } from './types';
 
@@ -30,6 +31,7 @@ export function act(data: CombatData, state: CombatState, action: CombatAction):
   const unit = activeUnit(ctx.s)!;
   const error = perform(ctx, unit, action);
   if (error) return { state, events: [], error };
+  if (!ctx.s.outcome) announceShields(ctx);
   if (!ctx.s.outcome && !checkOutcome(ctx) && ctx.s.active === unit.id && (unit.ap <= 0 || !isActive(unit))) finishTurn(ctx);
   return { state: ctx.s, events: ctx.events, error: null };
 }
@@ -157,6 +159,9 @@ function strike(ctx: Ctx, attacker: CombatUnit, target: CombatUnit, def: Ability
   });
   if (!hit) return;
   if (preview.damage > 0) dealDamage(ctx, target, preview.damage);
+  else if (isInvulnerable(ctx.s, target) && (!def || (def.damage ?? 0) > 0)) {
+    emit(ctx, { type: 'notice', unit: target.id, text: `${target.name} ist unverwundbar – erst den Schutz ausschalten.`, tone: 'warn' });
+  }
   if (preview.crit && preview.damage > 0 && isActive(target)) changeMorale(ctx, target, -MORALE_CRIT);
   if (def?.status && isActive(target)) tryStatus(ctx, target, def);
 }

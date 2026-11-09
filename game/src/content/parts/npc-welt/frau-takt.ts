@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './frau-takt-akt23';
 
 const ID = 'frau-takt';
 const QUEST = 'side-uebliche-verspaetung';
@@ -110,7 +111,7 @@ const takt = weltfigur({
     dislikes: ['glitzerschrott', 'kartendeck'],
     hates: ['magnet-stoerer', 'volt-limo'],
   }),
-  schedule: [ort('M,T', 'bahnhof-mitte', 'stellwerk'), weg('A,N')],
+  schedule: [...SCHEDULE_23, ort('M,T', 'bahnhof-mitte', 'stellwerk'), weg('A,N')],
   heartEvents: [
     { id: 'he-frau-takt-2', hearts: 2, map: 'bahnhof-mitte', time: ['morgen', 'tag'], dialogue: 'he-frau-takt-2' },
     { id: 'he-frau-takt-4', hearts: 4, map: 'bahnhof-mitte', time: 'morgen', when: { seen: 'he-frau-takt-2' }, dialogue: 'he-frau-takt-4' },
@@ -118,6 +119,7 @@ const takt = weltfigur({
   talk: [
     rede('takt-tag-rivale', { rival: ID }),
     rede('takt-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('takt-tag-puenktlich', { quest: QUEST, state: 'done' }),
     rede('takt-tag-standard'),
   ],

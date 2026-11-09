@@ -134,6 +134,11 @@ const T = {
   kanal: dialog('xion-tag-kanal', [knoten('start', [
     X('Weg hier. Ich hab einen Termin. Mit Ripper. Geschäftlich. Sechshundert Credits geschäftlich.', 'wut'),
   ])]),
+  festgesetzt: dialog('xion-tag-festgesetzt', [knoten('start', [
+    erz('Unter einem Berg aus Smokings, Lachs und einem Banker, der auf ihm sitzt wie auf einer Parkbank, ragt eine verbogene Kralle hervor. Der Banker lächelt. Rot.'),
+    X('Die halten mich fest. Alle. Einer hat mir Kaviar ins Ohr gesteckt. Ich bin Sicherheitschef. Ich bin sicher. Ich bin sehr sicher hier unten.', 'trauer'),
+    X('Wenn du Blade siehst: Sag ihm, ich hab nicht gekündigt. Ich bin nur … festgesetzt. Das zählt nicht als Kündigung. Oder?', 'besorgt'),
+  ])]),
   party: dialog('xion-tag-party', [knoten('start', [
     erz('Xion steht am Rand der Glastanzfläche, in einem Smoking, der über der Kralle aufgerissen ist. Er versucht, im Takt zu nicken.'),
     X('Blade hat gesagt, ich soll mich unters Volk mischen. Ich misch mich. Siehst du? Ich nicke.', 'besorgt'),
@@ -432,6 +437,8 @@ const xion: NpcDef = {
     ort('T', 'schrottmarkt', 'marktplatz-mitte', { when: EPILOG }),
     weg('*', { when: EPILOG }),
     weg('*', { when: alle(PARTYNACHT, { flag: 'xion_fehlt' }) }),
+    // Nach der Rebellion begraben ihn die gechippten Gäste im Buffet (main-3-gedankenkontrolle).
+    ort('*', 'himmelsgarten', 'buffet', { when: alle(PARTYNACHT, { flag: 'nexus_rebelliert' }) }),
     ort('*', 'himmelsgarten', 'tanzflaeche-glas', { when: PARTYNACHT }),
     ort('*', 'pumpwerk-sieben', 'op-nische', { when: queststand('main-2-kanal', 'active') }),
     ort('N', 'hafenkante', 'container-77', { days: ['di'] }),
@@ -472,6 +479,7 @@ const xion: NpcDef = {
     rede('xion-tag-rivale', rivale(ID)),
     rede('xion-tag-tuersteher', alle(EPILOG, UMGESCHULT)),
     rede('xion-tag-arbeitslos', EPILOG),
+    rede('xion-tag-festgesetzt', alle(PARTYNACHT, { flag: 'nexus_rebelliert' })),
     rede('xion-tag-party', PARTYNACHT),
     rede('xion-tag-kanal', queststand('main-2-kanal', 'active')),
     rede('xion-tag-exwache', alle(nichtGetroffen(ID), { origin: 'origin-ex-wache' })),
@@ -490,7 +498,7 @@ const xion: NpcDef = {
 export const part: ContentPart = {
   npcs: { [ID]: xion },
   dialogues: sammle(
-    T.exwache, T.gosse, T.container, T.standard, T.werbestand, T.foyer, T.zentrale, T.patrouille, T.ring, T.kanal, T.party,
+    T.exwache, T.gosse, T.container, T.standard, T.werbestand, T.foyer, T.zentrale, T.patrouille, T.ring, T.kanal, T.party, T.festgesetzt,
     T.arbeitslos, T.tuersteher, T.rivale, he2, he4, he6, he8, he10, re2, re5, re8,
   ),
   encounters: Object.fromEntries(encounters.map((e) => [e.id, e])),

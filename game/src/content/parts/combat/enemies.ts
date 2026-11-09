@@ -44,11 +44,15 @@ const types: EnemyDef[] = [
   }),
 
   // --- Quantum ------------------------------------------------------------
-  foe({
-    id: 'quantum-wachmann', name: 'Quantum-Wachmann', level: 4, hp: 34, armor: 2, ref: 5, fw: 4, morale: 70,
-    dmg: [8, 10], kind: 'fernkampf', range: 6, ai: 'vorsichtig', abilities: ['quantum-wachmann-schockstufe'],
-    faction: 'quantum', credits: pocket(4), loot: [{ item: 'medipflaster', chance: 0.35 }, { item: 'stoergranate', chance: 0.1 }],
-  }),
+  // Funkruf (world.md §8.4): nach 2 Runden 1 Verstärkung, höchstens 2 je Kampf, nicht solange gehackt.
+  {
+    ...foe({
+      id: 'quantum-wachmann', name: 'Quantum-Wachmann', level: 4, hp: 34, armor: 2, ref: 5, fw: 4, morale: 70,
+      dmg: [8, 10], kind: 'fernkampf', range: 6, ai: 'vorsichtig', abilities: ['quantum-wachmann-schockstufe'],
+      faction: 'quantum', credits: pocket(4), loot: [{ item: 'medipflaster', chance: 0.35 }, { item: 'stoergranate', chance: 0.1 }],
+    }),
+    rules: [{ kind: 'reinforce', enemy: 'quantum-wachmann', every: 2, from: 3, count: 1, max: 2, line: 'Zentrale, hier Streife sieben. Brauche Verstärkung. Und Kaffee. Vor allem Verstärkung.' }],
+  },
   foe({
     id: 'quantum-schildtraeger', name: 'Quantum-Schildträger', level: 5, hp: 46, armor: 4, ref: 3, fw: 4, morale: 80,
     dmg: [7, 9], kind: 'nahkampf', range: 1, ai: 'vorsichtig', abilities: ['quantum-schildtraeger-schildwall'],

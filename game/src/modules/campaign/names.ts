@@ -19,6 +19,9 @@ export const portraitKeyOf = (portrait: string): string =>
 export function portraitKey(content: GameContent, state: Readonly<GameState>, speaker: SpeakerId, variant?: string): string | null {
   if (speaker === 'narrator') return null;
   if (speaker === 'player') {
+    // Vertretung (Prolog als Raven): Porträt der vertretenen Figur.
+    const stand = state.player.standIn?.npc;
+    if (stand && has(content.npcs, stand)) return portraitKeyOf(content.npcs[stand].portrait);
     // Ich-Perspektive (design.md §3.1a): kein Porträt; nur die fertige Figur (Vex) hat eines.
     const preset = state.player.preset ? content.presets?.[state.player.preset] : undefined;
     if (preset) return portraitKeyOf(preset.portrait);

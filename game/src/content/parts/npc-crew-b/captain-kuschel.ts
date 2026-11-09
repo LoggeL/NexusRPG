@@ -10,6 +10,7 @@ import {
   tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
 import { KUSCHEL_FREI, akt23, he10, he8, menue23 } from './kuschel-akt23';
+import { KUSCHEL_RE, kuschelEvents } from './_rivalitaet';
 
 const K = sprecher('captain-kuschel');
 const D = sprecher('dante');
@@ -371,6 +372,8 @@ const kuschel: NpcDef = {
     { id: 'he-captain-kuschel-8', hearts: 8, map: 'schrottmarkt', time: 'tag', when: { all: [{ act: 2 }, KUSCHEL_FREI] }, dialogue: 'he-captain-kuschel-8' },
     { id: 'he-captain-kuschel-10', hearts: 10, map: 'crew-quartier', time: ['abend', 'nacht'], when: { all: [{ act: 2 }, { seen: 'he-captain-kuschel-8' }, KUSCHEL_FREI] }, dialogue: 'he-captain-kuschel-10' },
     { id: 're-captain-kuschel-5', hearts: -5, map: 'dantes-werkstatt', when: KUSCHEL_FREI, dialogue: 're-captain-kuschel-5' },
+    // Rivalität −2 (Zettel „Ich bin enttäuscht.“) und −8 (Ohren zugebunden): _rivalitaet.ts.
+    ...kuschelEvents(KUSCHEL_FREI),
   ],
   talk: [
     rede('kuschel-tag-rivale', { rival: 'captain-kuschel' }),
@@ -391,7 +394,7 @@ export const part: ContentPart = {
   npcs: { 'captain-kuschel': kuschel },
   dialogues: sammle(
     T.rivale, T.zeit, T.werkstattMorgen, T.werkstatt, T.nacht, T.nest, T.beiNyra, T.meer, T.vertraut,
-    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
+    he2, he4, he6, he8, he10, re5, ...KUSCHEL_RE, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   phone: {
     ...A23.phone,

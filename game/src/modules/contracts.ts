@@ -148,8 +148,18 @@ export interface ConditionMap {
   itemsOf: { itemsOf: string; min: number; distinct?: boolean };
   /** Mindestens `min` der Bedingungen sind erfüllt („4 von 8 Spuren“). */
   atLeast: { atLeast: readonly Condition[]; min: number };
+  // Wetter und Ausrüstung (Bereich engine-welt, modules/time/weather.ts)
+  /**
+   * Heutiges Wetter (world.md §3.4) im Bezirk der aktuellen Karte bzw. in `district` (z. B. `{ weather: 'sandsturm',
+   * district: 'oednis' }` für eine Nachricht in der Stadt). Ödnis hat eigenes Wetter, alle anderen Bezirke das Stadtwetter.
+   */
+  weather: { weather: WeatherId | readonly WeatherId[]; district?: DistrictId };
+  /** Gegenstand ist angelegt (Ausrüstungsplatz), nicht nur im Gepäck. */
+  equipped: { equipped: ItemId };
 }
 export type ConditionKey = keyof ConditionMap;
+/** Wetter je Tag (world.md §3.4, concepts/welt.md §5.2); `hitzeglocke` und `sandsturm` vor allem in der Ödnis. */
+export type WeatherId = 'klar' | 'smog' | 'rostregen' | 'neonnebel' | 'hitzeglocke' | 'sandsturm';
 export type Condition = { [K in ConditionKey]: ConditionMap[K] }[ConditionKey];
 
 // ---------------------------------------------------------------------------
@@ -206,8 +216,19 @@ export interface EffectMap {
   /** In die Crew aufnehmen (nur wenn CompanionDef.recruit erfüllt ist) und bei freiem Platz in die Party. */
   recruit: { recruit: NpcId };
   dismiss: { dismiss: NpcId };
+  /**
+   * Spielfigur vorübergehend durch eine andere Figur ersetzen (Prolog als Raven, world.md §5.1): Name, Werte, Laufblatt
+   * und Porträt der Figur; Inventar, Credits und Uhr bleiben gemeinsam. `null` wechselt zurück (XP aus der Zeit als
+   * andere Figur werden gutgeschrieben, Ausrüstungswechsel bleiben).
+   */
+  standIn: { standIn: StandInDef | null };
   // Zeit
   advanceTime: { advanceTime: number };
+  /**
+   * Uhr auf eine Tageszeit stellen (Minuten seit 0:00 wie `clockBetween`, 06:00 = 360 … 01:59 = 1559).
+   * Nur vorwärts am selben Tag (läuft wie `advanceTime` über die Zwischenzeit); ist es schon später, passiert nichts.
+   */
+  setClock: { setClock: number };
   sleep: { sleep: true };
   // Quests und Aufträge
   startQuest: { startQuest: QuestId };
@@ -231,10 +252,20 @@ export interface EffectMap {
    */
   battle: { battle: EncounterId } & BattleFollowUp;
   /**
+   * Kampfpuffer für den nächsten passenden Kampf (Arias „Ermutigt“ vor dem Dach, Vorbereitungen): Zustand ab
+   * Kampfbeginn. Gespeichert als Flag, verbraucht nach dem Kampf, in dem er galt.
+   */
+  battleBuff: { battleBuff: BattleBuff };
+  /**
    * Minispiel starten (Darstellung zeigt es, `CampaignPort.finishMinigame` rechnet ab).
    * `level` 1–5 (Standard 2), `key` für `wonMinigame` (Standard: Minispiel-ID), `win`/`lose` danach.
    */
   minigame: { minigame: MinigameId; level?: number; key?: string; win?: Effect[]; lose?: Effect[]; label?: string };
+  /**
+   * Eine Ladung eines Gegenstands mit `ItemDef.charges` verbrauchen (Staubmaske im Sandsturm). Ist die letzte Ladung
+   * eines Stücks weg, verschwindet das Stück; ohne Gegenstand im Gepäck passiert nichts.
+   */
+  useCharge: { useCharge: ItemId };
 }
 export type EffectKey = keyof EffectMap;
 export type Effect = { [K in EffectKey]: EffectMap[K] }[EffectKey];
@@ -263,6 +294,19 @@ export interface RequestMap {
   cityMap: { cityMap: true };
   /** Schlafen bzw. Zusammenbruch: Abblende, neuer Tag. */
   sleep: { sleep: 'bed' | 'collapse' };
+}
+/**
+ * Kampfpuffer (Effekt `battleBuff`): `target` = 'party', 'player' oder eine Begleiter-ID; `encounters` begrenzt ihn auf
+ * diese Kämpfe (ohne Angabe: der nächste Kampf). `id` ersetzt einen Puffer gleicher ID.
+ */
+export interface BattleBuff {
+  id: string;
+  status: StatusId;
+  rounds: number;
+  target?: 'party' | 'player' | NpcId;
+  encounters?: EncounterId[];
+  /** Meldung beim Geben (Standard: „Kampfpuffer: <Zustand>“). */
+  label?: string;
 }
 /** Nachlauf eines Kampfes aus dem Effekt `battle` (die Darstellung gibt ihn an `finishBattle` weiter). */
 export interface BattleFollowUp { win?: Effect[]; lose?: Effect[]; flee?: Effect[]; stay?: boolean }
@@ -911,6 +955,8 @@ export interface ItemDef {
   cyberware?: CyberwareId;
   /** Gegenstand gibt Check-Boni, solange er im Inventar ist (z. B. Dietrich-Set). */
   checkBonus?: readonly CheckBonusRule[];
+  /** Ladungen je Stück (Staubmaske: 10); Verbrauch über den Effekt `{ useCharge }`, Anzeige im Inventar. */
+  charges?: number;
   use?: {
     label: string;
     /** LP für die Spielfigur. */
@@ -951,13 +997,22 @@ export interface ShopDef {
   buyRate?: number;
   /** Kauft nur diese Kategorien an (Standard: alles außer Quest). */
   buys?: ItemCategory[];
-  /** Ripperdoc: baut Cyberware ein; `fee` Standardgebühr der Werkstatt, frei ab `freeWhen`. */
-  ripperdoc?: { freeWhen?: Condition; fee?: number };
+  /**
+   * Ripperdoc: baut Cyberware ein; `fee` Standardgebühr der Werkstatt, frei ab `freeWhen`. `refuseWhen`: Einbau
+   * verweigert (z. B. Rivalität), `refuseText` ist der Grund im Laden.
+   */
+  ripperdoc?: { freeWhen?: Condition; fee?: number; refuseWhen?: Condition; refuseText?: string };
   /**
    * Preisregeln nach Bedingung (alle passenden gelten): `discount` in Prozentpunkten (positiv = Rabatt, negativ =
-   * Aufschlag; zählt zu Perk- und Rufrabatt, Gesamtfaktor 0,5–2), `refuse` = der Händler verkauft nicht (Grund).
+   * Aufschlag; zählt zu Perk- und Rufrabatt, Gesamtfaktor 0,5–2), `refuse` = der Händler verkauft nicht (Grund),
+   * `note` = kurzer Hinweis im Ladenkopf („Familienrabatt“, „Babette schneidet die Nudeln halb“).
    */
-  priceRules?: { when: Condition; discount?: number; refuse?: string }[];
+  priceRules?: { when: Condition; discount?: number; refuse?: string; note?: string }[];
+  /**
+   * Fahndung senken als Dienst (world.md §10.3, Dr. Winkel): −1 Stufe für `fee` Credits; `halfWhen` halbiert die
+   * Gebühr (side-streaming-suenden), `pardonItem` setzt die Fahndung gegen diesen Gegenstand auf 0 (Richters Gefallen).
+   */
+  wantedService?: { fee: number; halfWhen?: Condition; pardonItem?: ItemId };
 }
 
 export type JobKind = 'kurier' | 'schulden' | 'datenraub' | 'kopfgeld' | 'eskorte';
@@ -1036,6 +1091,11 @@ export interface UnitStats {
 export interface CompanionDef {
   /** Rekrutierbar, sobald erfüllt; vorher lehnt der Effekt `recruit` ab (Warps setzen die Crew direkt). */
   recruit?: Condition;
+  /**
+   * Haustier (Bolzen, world.md §8 „+ Haustier ohne Feld“): steht in der Party (Bedingung `companion`, Folgen, Checkboni,
+   * Duo-Fähigkeiten mit `holder: 'player'`), belegt aber keinen der `MAX_PARTY` Plätze und kämpft nicht als eigene Einheit.
+   */
+  pet?: boolean;
   stats: UnitStats;
   /** Zusätzliche Fähigkeiten ab Herzstufe. */
   heartAbilities?: { hearts: number; ability: AbilityId }[];
@@ -1165,7 +1225,40 @@ export interface QuestDef {
 // ---------------------------------------------------------------------------
 // Kampf: Inhalte (design.md §3.7)
 
-export type StatusId = 'gehackt' | 'betaeubt' | 'brennt' | 'markiert' | 'geschuetzt' | 'blutet';
+/**
+ * Kampfzustände. `ermutigt`: +1 AP im nächsten eigenen Zug. `gesteuert`: die Einheit kämpft ihren nächsten Zug für die
+ * Gegenseite (Charmeur, Nexus-Chip), danach wieder normal.
+ */
+export type StatusId = 'gehackt' | 'betaeubt' | 'brennt' | 'markiert' | 'geschuetzt' | 'blutet' | 'ermutigt' | 'gesteuert';
+
+/**
+ * Sonderregeln für Bosse und besondere Gegner (Auswertung in modules/combat/bossRules.ts). Gemeinsame Schalter:
+ * `phase` = gilt ab diesem Phasenindex (EnemyDef.phases, −1 = von Beginn an), `untilPhase` = nur vor dieser Phase,
+ * `afterDown` = erst, wenn keiner dieser Gegner mehr kämpft (z. B. alle Knoten aus).
+ */
+export interface EnemyRuleGate { phase?: number; untilPhase?: number; afterDown?: EnemyId[] }
+export type EnemyRule = EnemyRuleGate & (
+  /** Nimmt keinen Schaden, solange einer dieser Gegner kämpft (Nexus-Kern hinter den Knoten). */
+  | { kind: 'invulnerable'; while: EnemyId[]; line?: string; endLine?: string }
+  /** Gibt bei diesem LP-Anteil auf bzw. flieht – statt K.O.; `all`: die übrigen Gegner hören mit auf. */
+  | { kind: 'yield'; below: number; mode: 'surrender' | 'flee'; line?: string; all?: boolean }
+  /** Funkruf: alle `every` Runden ab Runde `from` (Standard `every` + 1) `count` neue Einheiten, höchstens `max`; nicht, solange gehackt oder betäubt. */
+  | { kind: 'reinforce'; enemy: EnemyId; every: number; count?: number; max?: number; from?: number; line?: string }
+  /** Flächenwelle: kündigt alle `every` Runden `rows` Reihen an und trifft sie eine Runde später (Schaden + Zustand). */
+  | { kind: 'wave'; name: string; every: number; rows: number; damage: number; status?: StatusId; turns?: number; warn?: string; line?: string }
+  /**
+   * Fluchtuhr (Gleiter): `rounds` Runden ab Gate; Runden, in denen die Einheit betäubt oder gehackt ist, zählen nicht.
+   * Bei 0 flieht sie zu Beginn ihres nächsten Zugs, und der Kampf endet mit `outcome`.
+   */
+  | { kind: 'countdown'; name: string; rounds: number; outcome: 'lose' | 'fled'; line?: string; readyLine?: string; endLine?: string; holdLine?: string }
+  /** Charmeur: alle `every` Runden kämpft der Begleiter mit den wenigsten Herzen einen Zug lang für die Gegenseite; ab `immuneHearts` wirkungslos. */
+  | { kind: 'charm'; every: number; immuneHearts?: number; line?: string; resistLine?: string }
+  /** Zögern: steht diese Figur angrenzend, verliert die Einheit jede `every`. Runde (Standard 2) `ap` AP (Standard 1). */
+  | { kind: 'hesitate'; near: NpcId; every?: number; ap?: number; line?: string }
+  /** Terminal halten: Runden mit Party am Feld (Abstand ≤ 1) und ohne Gegner daneben zählen; nach `rounds` gewonnen. */
+  | { kind: 'hold'; name: string; cell: Cell; rounds: number; line?: string; winLine?: string }
+);
+
 export type AiProfile = 'aggressiv' | 'vorsichtig' | 'support' | 'boss';
 export type AbilityKind = 'nahkampf' | 'fernkampf' | 'hack' | 'support' | 'sozial' | 'trick' | 'gegenstand';
 export type AbilityTarget = 'enemy' | 'ally' | 'self' | 'cell' | 'area';
@@ -1207,6 +1300,8 @@ export interface EnemyDef {
   loot?: { item: ItemId; chance: number; qty?: number }[];
   /** Bossphasen nach verbleibenden LP (Anteil 0..1). */
   phases?: { below: number; ai?: AiProfile; abilities?: AbilityId[]; line?: string }[];
+  /** Sonderregeln (Unverwundbarkeit, Aufgabe, Funkruf, Welle, Fluchtuhr, Charmeur, Zögern, Terminal halten). */
+  rules?: EnemyRule[];
 }
 
 /**
@@ -1228,7 +1323,7 @@ export type BattleObjective =
   | { kind: 'reach'; cells: Cell[] }
   | { kind: 'hack'; cell: Cell; ap: number }
   /** Schutzperson: NPC- oder Gegner-ID (Werte, Bild); `name`/`sprite` überschreiben die Anzeige (z. B. „Proband 47“). */
-  | { kind: 'rescue'; unit: string; cell: Cell; name?: string; sprite?: string };
+  | { kind: 'rescue'; unit: string; cell: Cell; name?: string; sprite?: string; /** Bewusstlos: bewegt sich nicht. */ immobile?: boolean };
 
 export interface EncounterDef {
   id: EncounterId;
@@ -1254,9 +1349,9 @@ export interface EncounterDef {
   solo?: boolean;
   /**
    * Zustände ab Kampfbeginn, wenn `when` gilt (Vorbereitung, Sabotage): `target` = 'party', 'enemies', 'player' oder
-   * eine Gegner-ID (alle Einheiten dieses Typs). Z. B. Stromschnitt: Boss eine Runde `betaeubt`.
+   * eine Gegner-ID (alle Einheiten dieses Typs) oder eine Begleiter-ID. Z. B. Stromschnitt: Boss eine Runde `betaeubt`.
    */
-  startStatus?: { when?: Condition; target: 'party' | 'enemies' | 'player' | EnemyId; status: StatusId; rounds: number }[];
+  startStatus?: { when?: Condition; target: 'party' | 'enemies' | 'player' | EnemyId | NpcId; status: StatusId; rounds: number }[];
   /** Nach so vielen Runden endet der Kampf als Flucht (Standard 60). */
   maxRounds?: number;
 }
@@ -1399,6 +1494,18 @@ export interface PhoneMessageDef {
 // ---------------------------------------------------------------------------
 // Spielzustand und Speicherformat (version 2: Charakter-Baukasten; version 1 wird beim Laden migriert)
 
+/** Vertretung der Spielfigur durch eine andere Figur (Effekt `standIn`). */
+export interface StandInDef {
+  npc: NpcId;
+  /** Angezeigter Name; Standard: Name der Figur. */
+  name?: string;
+  /** Basiswerte der Figur (1..10). */
+  attributes: Record<AttributeId, number>;
+  perks?: readonly PerkId[];
+  /** Ersetzt Wochentag und Spieltag im HUD, z. B. „Vor 7 Jahren“. */
+  dateLabel?: string;
+}
+
 export interface PlayerState {
   /** Charaktererstellung abgeschlossen. */
   created: boolean;
@@ -1424,6 +1531,11 @@ export interface PlayerState {
   hp: number;
   /** Vorübergehende Check-Boni (Effekt `checkBuff`); verfallen nach `untilDay` bzw. beim Verbrauch. */
   checkBuffs?: CheckBuff[];
+  /**
+   * Nur während einer Vertretung (Effekt `standIn`): Diese Werte gehören der Figur `npc`; `own` ist die eigene
+   * Spielfigur, die mit `{ standIn: null }` zurückkommt. Fehlt in alten Spielständen.
+   */
+  standIn?: { npc: NpcId; dateLabel?: string; own: PlayerState };
 }
 
 export interface RelationState {

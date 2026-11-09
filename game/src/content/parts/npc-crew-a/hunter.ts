@@ -6,8 +6,10 @@ import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '.
 import {
   type Menue, AKT2, COUNTDOWN_DONE, NICHT_MASTER, RUHIG, abblende, dialog, erz, flag, frei, herz, ich, knoten, neu,
   pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, und, ZEIT_HINWEIS,
+  fremdGeflirtet, fremdFlirtLoeschen, geflirtet,
 } from './_helfer';
 import { HUNTER_PLAN_23, HUNTER_TEL_23, hunter23 } from './_hunter23';
+import { HUNTER_MIETE, HUNTER_RAUS, HUNTER_RE, hunterEvents } from './_rivalitaet';
 
 const H = sprecher('hunter');
 const N = sprecher('kaeptn-nebelhorn');
@@ -21,9 +23,8 @@ const ROM: Condition = { romance: 'hunter' };
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: 'hunter' }, { hearts: 'hunter', min: 6 }] };
 const PROBEZEIT_DONE: Condition = { quest: 'main-1-probezeit', state: 'done' };
-/** Heute mit einer anderen freigegebenen Figur geflirtet (Tagesflag, fällt morgens; world.md §4.7 „Trennung und Eifersucht“). */
-const FLIRT_FREMD = ['heute_flirt_dante', 'heute_flirt_aria', 'heute_flirt_collin-charleston', 'heute_flirt_lio-funkel'];
-const HAT_FREMD_GEFLIRTET: Condition = { any: FLIRT_FREMD.map((f): Condition => ({ flag: f })) };
+/** Heute mit einer anderen freigegebenen Figur geflirtet (Konvention `heute_flirt_<npc>`, _helfer.ts „Eifersucht“). */
+const HAT_FREMD_GEFLIRTET: Condition = fremdGeflirtet('hunter');
 const ZUSAMMEN: Condition = { all: [ROM, { flag: 'hunter_romanze_zusammen' }] };
 
 // ---------------------------------------------------------------------------------------------- Menü
@@ -34,7 +35,7 @@ function menue(): Menue {
   /** Flirt-Varianten nach Wochentag (world.md §4.7, Hunter-Flirtzeilen). */
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Hunter flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: { all: [FLIRT, { weekday: tage }] }, effects: [flag('heute_flirt_hunter')],
+    when: { all: [FLIRT, { weekday: tage }] }, effects: [geflirtet('hunter')],
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann setz es mir auf die Rechnung. Ganz oben.“', check: pruefung('hunter-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -726,7 +727,7 @@ const eifersucht = dialog('hunter-eifersucht', [
     H('Ich hab gesehen, wie du geguckt hast. Noch einmal und ich zieh dir die Ohren lang.', 'wut'),
     H('Ich bin Anfang fünfzig. Ich hab keine Zeit für Spielchen. Ich hab gesagt, ich bin treu. Ich hab nicht gesagt, ich bin blöd.'),
   ], {
-    effects: [flag('hunter_eifersucht_gewarnt'), ...FLIRT_FREMD.map((f) => flag(f, false))],
+    effects: [flag('hunter_eifersucht_gewarnt'), ...fremdFlirtLoeschen('hunter')],
     choices: [
       { text: '„War nur Gerede, Hunter.“', next: 'gerede' },
       { text: '„Eifersüchtig steht dir.“', check: pruefung('hunter-eifersucht-frech', 'ausstrahlung', 7, ['flirt']), next: 'steht' },
@@ -743,7 +744,7 @@ const trennung = dialog('hunter-trennung', [
   ], {
     effects: [
       herz('hunter', -150), flag('hunter_romanze_zusammen', false), flag('hunter_nacht', false), flag('hunter_getrennt'),
-      ...FLIRT_FREMD.map((f) => flag(f, false)),
+      ...fremdFlirtLoeschen('hunter'),
     ],
     choices: [
       { text: '„Es tut mir leid.“', next: 'leid' },
@@ -833,6 +834,8 @@ const hunter: NpcDef = {
       when: und(RUHIG, { seen: 'he-hunter-8' }, { any: [{ not: ROM }, { notFlag: 'hunter_romanze_tanz' }, { seen: 'rom-hunter-date' }] }),
       dialogue: 'he-hunter-10',
     },
+    // Rivalität −2 (Miete ×2), −5 (nur Botengänge), −8 (Rauswurf): _rivalitaet.ts.
+    ...hunterEvents(und(PROBEZEIT_DONE, NICHT_MASTER, { not: { all: [{ act: 3 }, { notFlag: 'epilog' }] } })),
   ],
   companion: {
     // world.md §4.6/§11.2: Hunter kämpft erst ab act2 (Sondermissionen, Finale). Im Master-Modus kommt er nicht mit.
@@ -868,6 +871,8 @@ const hunter: NpcDef = {
   talk: [
     ...A23.talkFirst,
     rede('hunter-tag-rivale', { rival: 'hunter' }),
+    // Vega petzt (Rivalität mit Vega): einmal pro Woche landet ein Zettel mit deinen Fehlern bei Hunter.
+    rede('hunter-tag-vega-petzt', und({ rival: 'vega' }, { notFlag: 'woche_vega_gepetzt' }, PROBEZEIT_DONE)),
     rede('hunter-tag-vor-probezeit', { not: PROBEZEIT_DONE }),
     // Eifersucht: heute mit einer anderen freigegebenen Figur geflirtet, während Hunter und die Spielfigur zusammen sind.
     rede('hunter-trennung', und(ZUSAMMEN, HAT_FREMD_GEFLIRTET, { flag: 'hunter_eifersucht_gewarnt' })),
@@ -892,6 +897,13 @@ const hunter: NpcDef = {
 export const part: ContentPart = {
   npcs: { hunter },
   mapAdditions: {
+    // Rauswurf bei −8: Das Schloss ist neu, jedes Betreten endet wieder in der Neon-Gasse (world.md §4.2).
+    'crew-quartier': {
+      onEnter: [{
+        id: 'hunter-rauswurf', once: false, when: HUNTER_RAUS, dialogue: 'hunter-rauswurf-tuer',
+        effects: [{ travel: 'neon-gasse', entry: 'von-crew-quartier', minutes: 0 }],
+      }],
+    },
     'hv-hinterzimmer': {
       hotspots: [{
         id: 'hunter-hausbar', at: 'schreibtisch', label: 'Hunters Hausbar', kind: 'loot', daily: true,
@@ -901,6 +913,8 @@ export const part: ContentPart = {
   },
   // Teilhaberschaft (he-hunter-10): Gewinnanteil montags, nicht im Master-Modus.
   daily: {
+    // Rivalität: doppelte Miete montags (_rivalitaet.ts).
+    ...HUNTER_MIETE,
     'hunter-gewinnanteil': {
       id: 'hunter-gewinnanteil',
       when: und({ flag: 'hunter_teilhaber' }, { notFlag: 'hunter_teilhaber_verhandelt' }, { weekday: 'mo' }, NICHT_MASTER),
@@ -916,7 +930,7 @@ export const part: ContentPart = {
     ...A23.dialogues,
     T.rivale, T.vorProbezeit, T.vexariaTanz, T.vexariaZusammen, T.ariaRomanze, T.zeit, T.plan, T.angeln, T.montag,
     T.morgen, T.markt, T.buero, T.vertraut, T.bar,
-    he2, he4, he6, he8, date, he10, morgenDanach, morgenWoche, eifersucht, trennung, hausbar,
+    he2, he4, he6, he8, date, he10, morgenDanach, morgenWoche, eifersucht, trennung, hausbar, ...HUNTER_RE,
   ),
   cutscenes: sammleSzenen(
     {

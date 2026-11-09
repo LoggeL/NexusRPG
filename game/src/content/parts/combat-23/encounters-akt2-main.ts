@@ -4,7 +4,7 @@
 // Fassungen (Quests wählen per Bedingung, IDs in design/plan/gaps/combat-23.md):
 // - `enc-labor-xion`: 5 Runden überleben (Ausgang = Ziel der Quest danach). Xion zieht sich bei 50 % zurück.
 // - `enc-bruch-overwatch`: Rolle „auf der Brücke“ (Raven + Vega): Brücke 4 Runden halten, bis drinnen alle durch sind.
-// - `enc-kanal-xion-ripper`: Xion, Ripper, Zerleger und Xions Verstärkung.
+// - `enc-kanal-xion-ripper`: Xion, Ripper, Zerleger; Xion funkt ab Runde 2 Venom-Rekruten herbei (höchstens 2).
 //   `…-fluchtweg` mit `prep-fluchtweg`: das Kanalvolk blockiert die Verstärkung.
 //   `…-ueberrumpelt` nach `gc-33` [Körper 7]: Xion überrascht (Spielerseite zuerst, +15 auf den ersten Angriff).
 import type { DialogueLine, EncounterDef } from '../../../modules/contracts';
@@ -32,7 +32,7 @@ const list: EncounterDef[] = [
     name: 'Der Bruch: Xion im Labor',
     arena: 'arena-labor-quantum',
     enemies: [
-      { enemy: 'boss-xion' },
+      { enemy: 'boss-xion-labor' },
       { enemy: 'quantum-wachmann', count: 2 },
       { enemy: 'geschuetzdrohne' },
     ],
@@ -77,14 +77,14 @@ const list: EncounterDef[] = [
     id: 'enc-kanal-xion-ripper',
     name: 'Unter der Stadt: Xion und Ripper',
     arena: 'arena-rohre',
-    enemies: [...kanalKern, { enemy: 'venom-rekrut', count: 2 }],
+    enemies: [{ enemy: 'boss-xion-kanal-funk' }, ...kanalKern.slice(1)],
     objective: { kind: 'rescue', unit: 'aria', cell: [1, 3] },
     canFlee: false,
     when: { act: 2 },
     intro: [
       ...kanalIntro,
       { speaker: 'xion-venom', text: 'Funkruf! Alle Mann ins Pumpwerk! … Ja, ALLE. Auch du, Gerd. Zieh dir was an.' },
-      { speaker: 'narrator', text: 'Ziel: alle Gegner besiegen. Aria liegt auf der Trage neben dir – fällt sie, ist der Kampf verloren.' },
+      { speaker: 'narrator', text: 'Ziel: alle Gegner besiegen. Aria liegt auf der Trage neben dir – fällt sie, ist der Kampf verloren. Xion funkt nach Verstärkung; gehackt oder betäubt kriegt er keinen Ton raus.' },
     ],
     reward: { xp: 150, credits: 100 },
     onWin: [{ message: 'Ripper ist durch ein Abflussrohr verschwunden, Xion humpelt fluchend davon. Aria atmet. Ihr Arm summt.' }],

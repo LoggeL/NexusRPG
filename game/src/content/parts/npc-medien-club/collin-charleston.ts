@@ -13,6 +13,7 @@ import { MASTER } from './_util';
 import {
   COLLIN_EVENT_FLUTMAUER, COLLIN_PHONE, COLLIN_SCHEDULE_23, COLLIN_TALK_23, COLLIN_TALK_MASTER, ZUSAMMEN, collin23,
 } from './collin-charleston-23';
+import { fremdFlirtLoeschen, fremdGeflirtet, geflirtet } from '../npc-crew-a/_helfer';
 
 const C = sp('collin-charleston');
 const K = sp('kameramann');
@@ -23,6 +24,8 @@ const ID = 'collin-charleston';
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const PROBEZEIT: Condition = { quest: 'main-1-probezeit', state: 'done' };
+/** Heute mit einer anderen freigegebenen Figur geflirtet (Konvention `heute_flirt_<npc>`, npc-crew-a/_helfer.ts). */
+const FREMD: Condition = fremdGeflirtet(ID);
 const VOR_DER_SENDUNG: Condition = all({ weekday: ['mo', 'mi', 'fr'] }, { clockBetween: [600, 720] });
 
 // ------------------------------------------------------------------------------------------- Menü
@@ -33,7 +36,7 @@ function menu(): Menu {
   /** Flirtzeilen (world.md §4.7) nach Wochentag, nur Romanzefassung. */
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Collin flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: all(FLIRT, noFlag('collin_romanze_abgelehnt'), { weekday: tage }), effects: [set('flirt_collin-charleston')],
+    when: all(FLIRT, noFlag('collin_romanze_abgelehnt'), { weekday: tage }), effects: [geflirtet(ID)],
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann geh off air. Mit mir.“', check: chk('collin-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a', effects: [rel(ID, 15)] },
@@ -477,6 +480,9 @@ const collin: NpcDef = {
   talk: [
     COLLIN_TALK_MASTER,
     talk('collin-tag-rivale', { rival: ID }),
+    // Eifersucht: heute mit einer anderen freigegebenen Figur geflirtet, während Collin und die Spielfigur zusammen sind.
+    talk('collin-trennung', all(ZUSAMMEN, FREMD, flag('collin_eifersucht_gewarnt'))),
+    talk('collin-eifersucht', all(ZUSAMMEN, FREMD)),
     talk('collin-tag-peruecke', all(PROBEZEIT, VOR_DER_SENDUNG, { dayAtLeast: 3 }, { quest: 'side-collins-peruecke', state: 'inactive' })),
     talk('collin-tag-morgen-danach', all(flag('collin_nacht'), noFlag('collin_morgen_danach'), { time: 'morgen' })),
     // „Bleib heute Nacht“: höchstens einmal pro Woche (Flag woche_*), nach „Ein andermal“ erst morgen wieder.
@@ -495,11 +501,50 @@ const collin: NpcDef = {
   ],
 };
 
+// ------------------------------------------------------------------------------------------- Eifersucht
+
+/** Erste Annäherung an eine andere Figur, während Collin und die Spielfigur zusammen sind (world.md §4.7). */
+const eifersucht = dlg('collin-eifersucht', [
+  node('start', [
+    C('Exklusiv. Unglaublich. Skandalös. Ich hab gesehen, wie du geguckt hast. Und nicht in meine Kamera.', 'wut'),
+    C('Noch einmal, und ich zieh dir live die Ohren lang. Mit Zeitlupe. Und Wiederholung. In HD.', 'wut'),
+    erz('Er rückt die Perücke zurecht. Die Hand zittert ein bisschen. Nur ein bisschen. Er ist Profi.'),
+  ], {
+    effects: [set('collin_eifersucht_gewarnt'), ...fremdFlirtLoeschen(ID)],
+    choices: [
+      { text: '„Das war nur Small Talk, Collin.“', next: 'smalltalk' },
+      { text: '„Du bist ja eifersüchtig. Steht dir. Besser als die Frisur.“', check: chk('collin-eifersucht-frech', 'ausstrahlung', 7, ['flirt']), next: 'frech' },
+    ],
+  }),
+  node('smalltalk', [C('Small Talk ist mein Beruf. Ich erkenne Small Talk. Das war Medium Talk. Mindestens.', 'signatur')]),
+  node('frech', [C('… Die Frisur hört das. Sie ist nachtragend. Ich bin es nicht. Fast nicht. Komm her.', 'verlegen')]),
+]);
+
+/** Zweite Annäherung: Trennungsgespräch, −150 (world.md §4.7). Keine Rivalität. */
+const trennung = dlg('collin-trennung', [
+  node('start', [
+    erz('Collin sitzt vor dem ausgeschalteten Studiomonitor. Kein Licht, kein Teleprompter, keine Kamera. So hast du ihn noch nie gesehen.'),
+    C('Ich hab dreihundert Leute interviewt. Ich weiß, wie es klingt, wenn jemand lügt. Ich wollte es bei dir nur nicht hören.', 'trauer'),
+    C('Wir sind raus. Keine Sendung mehr. Keine Fortsetzung. Abspann.', 'trauer'),
+  ], {
+    effects: [
+      rel(ID, -150), set('collin_kuss', false), set(`${ID}_romanze_zusammen`, false), set('collin_nacht', false),
+      set('collin_eifersucht_gewarnt', false), set('collin_getrennt'), ...fremdFlirtLoeschen(ID),
+    ],
+    choices: [
+      { text: '„Es tut mir leid.“', next: 'leid' },
+      { text: '„Dann eben Abspann.“', next: 'abspann' },
+    ],
+  }),
+  node('leid', [C('Das glaub ich dir. Das ist ja das Gemeine. Ich bin morgen wieder frisiert. Versprochen.', 'trauer')]),
+  node('abspann', [C('Abspann. Ja. Und im Abspann steht dein Name ganz klein. Ich hab die Schriftgröße selbst gewählt.', 'wut')]),
+]);
+
 export const part: ContentPart = {
   npcs: { [ID]: collin },
   dialogues: byId([
     T.rivale, T.peruecke, T.vexaria, T.nacht, T.paar, T.zeit, T.radio, T.live, T.spiegel, T.karaoke, T.cafe, T.vertraut,
-    T.fremd, T.standard, he2, he4, he6, ...collin23(M), nachtDlg, morgenDlg,
+    T.fremd, T.standard, he2, he4, he6, ...collin23(M), nachtDlg, morgenDlg, eifersucht, trennung,
   ]),
   cutscenes: byId(cutscenes),
   phone: byId(COLLIN_PHONE),

@@ -22,20 +22,21 @@ const quest: QuestDef = {
       id: 'tuer',
       text: 'Triff Raven vor Dantes Werkstatt in den Lötgassen (morgens bis abends – nachts schläft Dante).',
       done: flag('dante_tuer'),
-      marker: { map: 'loetgassen' },
+      marker: { map: 'loetgassen', at: 'werkstatt-tuer' },
     },
     {
       id: 'besuch',
       text: 'Hör dir an, was Dante zu Hunters Plan sagt.',
       when: flag('dante_tuer'),
       done: flag('dante_abgelehnt'),
-      marker: { map: 'dantes-werkstatt' },
+      marker: { map: 'dantes-werkstatt', at: 'werkbank' },
     },
     {
       id: 'nyra',
       text: 'Rede mit Nyra, nachdem Dante abgelehnt hat.',
       when: flag('dante_abgelehnt'),
       done: flag('dante_nachgespraech'),
+      marker: { map: 'loetgassen', at: 'werkstatt-fenster' },
     },
   ],
   reward: {

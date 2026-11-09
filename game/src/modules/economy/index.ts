@@ -48,6 +48,8 @@ export interface TradeTerms {
   sellRate: number;
   /** Grund, warum der Händler nicht handelt (Ruf „Verhasst“), sonst null. */
   refused: string | null;
+  /** Hinweise der passenden Preisregeln (`priceRules[].note`), z. B. „Familienrabatt“. */
+  notes: string[];
 }
 
 /** Konditionen; mit `evaluate` gelten auch die Preisregeln des Händlers (`ShopDef.priceRules`). */
@@ -56,15 +58,32 @@ export function tradeTerms(content: GameContent, state: Readonly<GameState>, sho
   const discount = perkDiscount(content, state);
   let ruleDiscount = 0;
   let ruleRefused: string | null = null;
+  const notes: string[] = [];
   for (const rule of evaluate ? shop.priceRules ?? [] : []) {
     if (!evaluate?.(rule.when)) continue;
     if (Number.isFinite(rule.discount)) ruleDiscount += rule.discount ?? 0;
     if (rule.refuse && !ruleRefused) ruleRefused = rule.refuse;
+    if (rule.note && !notes.includes(rule.note)) notes.push(rule.note);
   }
   const buyFactor = clamp(1 + (tier.priceModifier - discount - ruleDiscount) / 100, MIN_BUY_FACTOR, MAX_BUY_FACTOR);
   const sellRate = clamp((shop.buyRate ?? DEFAULT_BUY_RATE) + (perkSellBonus(content, state) + tier.sellBonus) / 100, 0, MAX_SELL_RATE);
   const refused = tier.refusesTrade ? `${shop.name} handelt nicht mit dir (Ruf: ${tier.name}).` : ruleRefused;
-  return { tier, perkDiscount: discount, buyFactor, sellRate, refused };
+  return { tier, perkDiscount: discount, buyFactor, sellRate, refused, notes };
+}
+
+/** Verweigert die Werkstatt den Einbau (`ripperdoc.refuseWhen`)? Liefert den Grund oder null. */
+export function installRefusal(shop: ShopDef, evaluate: Evaluate): string | null {
+  const doc = shop.ripperdoc;
+  if (!doc?.refuseWhen || !evaluate(doc.refuseWhen)) return null;
+  return doc.refuseText ?? `${shop.name} baut dir nichts ein.`;
+}
+
+/** Gebühr für „Fahndung −1“ bei einem Händler mit `wantedService` (halbiert bei `halfWhen`), sonst null. */
+export function wantedServiceFee(shop: ShopDef, evaluate: Evaluate): number | null {
+  const service = shop.wantedService;
+  if (!service || !(Number.isFinite(service.fee) && service.fee >= 0)) return null;
+  const fee = service.halfWhen && evaluate(service.halfWhen) ? service.fee / 2 : service.fee;
+  return Math.max(0, Math.round(fee));
 }
 
 /** Rabatt (positiv) bzw. Aufschlag (negativ) in Prozent gegenüber dem Grundpreis, wie er im Laden angezeigt wird. */

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './gutschein-gerd-akt23';
 
 const ID = 'gutschein-gerd';
 const G = sprecher(ID);
@@ -126,6 +127,7 @@ const gerd = weltfigur({
   talk: [
     rede('gerd-tag-rivale', { rival: ID }),
     rede('gerd-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('gerd-tag-entlarvt', ENTLARVT),
     rede('gerd-tag-hinterhof', { time: 'abend' }),
     rede('gerd-tag-standard'),

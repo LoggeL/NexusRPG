@@ -2,9 +2,11 @@
 // Weltfigur mit erweitertem Eintrag: höchstens 6 Herzen. Kein Begleiter, keine Romanze.
 // side-oma-volts-lager (Rostzähne, Opa Blech) und side-ki-fluestern (Akt 2, Neffe Paul) baut der Quest-Agent.
 // he-oma-volt-6 läuft in Akt 1 als Vorahnung (Paul ist „so komisch höflich“); die Quest startet ab Akt 2 im Gespräch.
-import type { DialogueChoice, DialogueLine, ItemDef, NpcDef } from '../../../modules/contracts';
-import type { ContentPart } from '../../part';
-import { AKT2, L, N, VEX, NICHT_VEX, chk, dialogs, dlg, herz, node } from './_dsl';
+// Opa Blechs Kiosk-Gruß (Wahl in he-oma-volt-4: opa_blech_gruss_hoeflich/_ruppig/_collin) begrüßt einmal am Tag beim
+// Betreten der Neon-Gasse (onEnter, Flag heute_blech_gruss); im Master-Modus meldet er den geschlossenen Kiosk.
+import type { Condition, DialogueChoice, DialogueLine, ItemDef, NpcDef, Weekday } from '../../../modules/contracts';
+import type { ContentPart, MapAddition } from '../../part';
+import { AKT2, L, MASTER, N, NICHT_MASTER, VEX, NICHT_VEX, chk, dialogs, dlg, herz, node } from './_dsl';
 import { OMA_SCHEDULE_23, OMA_TALK_FRUEH, OMA_TALK_MASTER, OMA_TALK_POOL } from './oma-volt-akt23';
 
 const O = 'oma-volt';
@@ -412,8 +414,37 @@ const dialogues = dialogs(
   ]),
 );
 
+// ------------------------------------------------------------------------------------------- Opa Blechs Kiosk-Gruß
+
+const BLECH_WACHE: Condition = { any: [{ seen: 'he-oma-volt-4' }, LAGER_FERTIG] };
+const KIOSK_OFFEN: Condition = { time: ['morgen', 'tag', 'abend'] };
+const NOCH_NICHT_GEGRUESST: Condition = { notFlag: 'heute_blech_gruss' };
+const TAGE_A: Weekday[] = ['mo', 'mi', 'fr', 'so'];
+const TAGE_B: Weekday[] = ['di', 'do', 'sa'];
+
+/** Ein Gruß je Stil und Wochentagsgruppe; `gruss` = Flag aus he-oma-volt-4. */
+function blechGruss(id: string, when: Condition, text: string): NonNullable<MapAddition['onEnter']>[number] {
+  return {
+    id: `blech-gruss-${id}`,
+    when: { all: [BLECH_WACHE, KIOSK_OFFEN, NOCH_NICHT_GEGRUESST, when] },
+    effects: [{ setFlag: 'heute_blech_gruss' }, { message: `Opa Blech, am Volt-Eck: „${text}“` }],
+  };
+}
+const stil = (flag: string, tage: Weekday[]): Condition => ({ all: [NICHT_MASTER, { flag }, { weekday: tage }] });
+
+const BLECH_GRUSS = [
+  blechGruss('master', MASTER, 'MASTER ERKANNT. VOLT-ECK FÜR SIE GESCHLOSSEN. BITTE NICHTS KLAUEN. ES GIBT NICHTS. FRAU VOLT HAT ALLES VERSTECKT. IN MIR.'),
+  blechGruss('hoeflich-a', stil('opa_blech_gruss_hoeflich', TAGE_A), 'HERZLICH WILLKOMMEN IM VOLT-ECK. BITTE NICHTS KLAUEN. DAS IST EINE BITTE. NOCH.'),
+  blechGruss('hoeflich-b', stil('opa_blech_gruss_hoeflich', TAGE_B), 'HERZLICH WILLKOMMEN IM VOLT-ECK. HEUTE IM ANGEBOT: NOUGATBOMBEN. HEUTE NICHT IM ANGEBOT: KLAUEN.'),
+  blechGruss('ruppig-a', stil('opa_blech_gruss_ruppig', TAGE_A), 'KAUF WAS ODER VERPISS DICH, BÜRGER. ICH WÜNSCHE EINEN ANGENEHMEN TAG.'),
+  blechGruss('ruppig-b', stil('opa_blech_gruss_ruppig', TAGE_B), 'KAUF WAS ODER VERPISS DICH, BÜRGER. OH. SIE SIND ES. KAUF WAS UND VERPISS DICH TROTZDEM. FREUNDLICH GEMEINT.'),
+  blechGruss('collin-a', stil('opa_blech_gruss_collin', TAGE_A), 'GUTEN ABEND, NOXIUS! HIER IST COLLIN CHARLESTON MIT DEN NACHRICHTEN, DIE SIE NICHT HÖREN WOLLEN. ZEITUNGEN DREI CREDITS.'),
+  blechGruss('collin-b', stil('opa_blech_gruss_collin', TAGE_B), 'EILMELDUNG AUS DER NEON-GASSE: KUNDE GESICHTET. COLLIN CHARLESTON BERICHTET LIVE. NOUGATBOMBEN ZWEI CREDITS. ZURÜCK INS STUDIO.'),
+];
+
 export const part: ContentPart = {
   npcs: { [O]: npc },
   items: { [rezept.id]: rezept },
   dialogues,
+  mapAdditions: { 'neon-gasse': { onEnter: BLECH_GRUSS } },
 };

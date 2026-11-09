@@ -3,6 +3,8 @@
 import { jobTitle } from '../../modules/campaign';
 import { discountPercent } from '../../modules/campaign/domains/economy';
 import { CYBER_SLOT_LABELS, cyberwareBonusText, cyberwareSlots, planInstall, planUninstall } from '../../modules/character';
+import { installRefusal, wantedServiceFee } from '../../modules/economy';
+import { WANTED_LEVELS, wantedLevelOf } from '../../modules/reputation';
 import { ATTRIBUTE_LABELS } from '../../modules/campaign';
 import type { CampaignPort, CyberwareId, JobBoardId, ShopId } from '../../modules/contracts';
 import type { AssetCatalog } from '../../platform/assets/manifest';
@@ -11,7 +13,7 @@ import { canRemoveCyberware, installCyberware, removeCyberware, sellPrice } from
 import { Modal, tabBar, type UiShell } from './shell';
 import { CATEGORY_LABEL } from './viewModels';
 
-type ShopTab = 'kaufen' | 'verkaufen' | 'einbau';
+type ShopTab = 'kaufen' | 'verkaufen' | 'einbau' | 'fahndung';
 
 export function openShop(shell: UiShell, catalog: AssetCatalog, campaign: CampaignPort, shopId: ShopId): Modal {
   const def = campaign.content.shops[shopId];
@@ -68,9 +70,56 @@ export function openShop(shell: UiShell, catalog: AssetCatalog, campaign: Campai
     panel.append(list.childElementCount ? list : h('p', { class: 'empty' }, 'Nichts dabei, was hier jemand ankauft.'));
   };
 
+  const evaluate = (c?: Parameters<CampaignPort['evaluate']>[0]) => campaign.evaluate(c);
+
+  /** Fahndung senken (Dienst des Händlers, z. B. Dr. Winkel) bzw. per Gegenstand ganz löschen. */
+  const renderWanted = (panel: HTMLElement) => {
+    if (!def?.wantedService) return;
+    const state = campaign.state();
+    const level = wantedLevelOf(state);
+    const fee = wantedServiceFee(def, evaluate) ?? 0;
+    const pardon = def.wantedService.pardonItem;
+    const pardonDef = pardon ? campaign.content.items[pardon] : undefined;
+    const hasPardon = !!pardon && (state.inventory[pardon] ?? 0) > 0;
+    const run = (effects: Parameters<CampaignPort['apply']>[0]) => {
+      const outcome = campaign.apply(effects);
+      for (const message of outcome.messages) shell.toast(message, /nicht|fehl/i.test(message) ? 'bad' : 'good');
+    };
+    panel.append(h('p', { class: 'meta', 'data-testid': 'shop-wanted' }, level ? `Fahndung: Stufe ${level} von ${WANTED_LEVELS}` : 'Gegen dich liegt nichts vor. Noch nicht.'));
+    if (!level) return;
+    const halved = !!def.wantedService.halfWhen && evaluate(def.wantedService.halfWhen);
+    const poor = state.credits < fee;
+    const list = h('ul', { class: 'list-rows trade', 'aria-label': 'Fahndung' });
+    list.append(h('li', null,
+      h('span', { class: 'row-main' }, h('span', null, h('strong', null, 'Fahndung senken'),
+        h('span', { class: 'desc' }, `Eine Stufe weniger (${level} → ${level - 1}). Dauert eine Stunde.${halved ? ' Halber Preis – der Richter schuldet dir was.' : ''}`))),
+      h('span', { class: 'price' }, `${fee} ¢`),
+      h('button', {
+        class: 'btn small primary', type: 'button', 'data-testid': 'wanted-lower', 'aria-disabled': String(poor),
+        title: poor ? `Dir fehlen ${fee - state.credits} ¢.` : 'Fahndung um eine Stufe senken',
+        onclick: () => {
+          if (campaign.state().credits < fee) { shell.toast(`Dir fehlen ${fee - campaign.state().credits} ¢.`, 'bad'); return; }
+          run([...(fee > 0 ? [{ credits: -fee }] : []), { wanted: -1 }, { advanceTime: 60 }]);
+        },
+      }, 'Senken')));
+    if (pardon && hasPardon) {
+      list.append(h('li', null,
+        h('span', { class: 'row-main' }, h('span', null, h('strong', null, `${pardonDef?.name ?? pardon} einlösen`),
+          h('span', { class: 'desc' }, 'Die ganze Akte verschwindet. Fahndung 0. Der Zettel ist danach weg.'))),
+        h('span', { class: 'price' }, 'gratis'),
+        h('button', {
+          class: 'btn small', type: 'button', 'data-testid': 'wanted-pardon',
+          onclick: () => run([{ take: pardon }, { wanted: -WANTED_LEVELS }]),
+        }, 'Einlösen')));
+    }
+    panel.append(list);
+  };
+
   const renderInstall = (panel: HTMLElement) => {
     const state = campaign.state();
     const content = campaign.content;
+    const refusal = def ? installRefusal(def, evaluate) : null;
+    if (refusal) { panel.append(h('p', { class: 'empty', 'data-testid': 'install-refused' }, refusal)); return; }
     const free = !!def?.ripperdoc?.freeWhen && campaign.evaluate(def.ripperdoc.freeWhen);
     if (free) panel.append(h('p', { class: 'badge good' }, 'Einbau für dich kostenlos.'));
     const slots = h('ul', { class: 'cyber-grid', 'aria-label': 'Eingebaut' });
@@ -128,6 +177,8 @@ export function openShop(shell: UiShell, catalog: AssetCatalog, campaign: Campai
       def.owner ? h('span', { class: 'meta' }, campaign.displayName(def.owner)) : null,
       h('span', { class: 'credits', 'data-testid': 'shop-credits' }, `Deine Credits: ${state.credits} ¢`),
       discount ? h('span', { class: `badge ${discount > 0 ? 'good' : 'bad'}` }, discount > 0 ? `${discount} % Rabatt` : `${-discount} % Aufschlag`) : null));
+    const notes = campaign.shopView(shopId)?.terms.notes ?? [];
+    if (notes.length) root.append(h('p', { class: 'meta shop-notes', 'data-testid': 'shop-notes' }, notes.join(' · ')));
     if (prices.length && !prices[0].open) {
       const reason = campaign.shopView(shopId)?.terms.refused;
       root.append(h('p', { class: 'empty' }, reason ?? 'Geschlossen. Komm zu den Öffnungszeiten wieder.'));
@@ -135,11 +186,13 @@ export function openShop(shell: UiShell, catalog: AssetCatalog, campaign: Campai
     }
     const tabs: { id: ShopTab; label: string }[] = [{ id: 'kaufen', label: 'Kaufen' }, { id: 'verkaufen', label: 'Verkaufen' }];
     if (def.ripperdoc) tabs.push({ id: 'einbau', label: 'Einbau' });
+    if (def.wantedService) tabs.push({ id: 'fahndung', label: 'Fahndung' });
     root.append(tabBar<ShopTab>('Handel', tabs, tab, (next) => { tab = next; render(); (root.querySelector(`[data-tab="${next}"]`) as HTMLElement | null)?.focus(); }));
     const panel = h('div', { class: 'tab-panel', role: 'tabpanel', 'data-panel': tab });
     if (tab === 'kaufen') renderBuy(panel);
     else if (tab === 'verkaufen') renderSell(panel);
-    else renderInstall(panel);
+    else if (tab === 'einbau') renderInstall(panel);
+    else renderWanted(panel);
     root.append(panel);
     if (focused) (root.querySelector(`[data-testid="${CSS.escape(focused)}"]`) as HTMLElement | null)?.focus({ preventScroll: true });
   };

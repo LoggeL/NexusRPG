@@ -80,15 +80,20 @@ export function classifyToast(text: string): ToastModel {
 // ---------------------------------------------------------------------------
 // HUD: Uhr, Tageszeit, Wochentag
 
-export interface ClockModel { time: string; slot: TimeSlot; slotLabel: string; weekday: string; day: number; label: string }
+export interface ClockModel { time: string; slot: TimeSlot; slotLabel: string; weekday: string; day: number; label: string; dateLabel?: string }
 
-export function clockModel(day: number, minutes: number, slot: TimeSlot, weekday: Weekday): ClockModel {
+/** `dateLabel` (Vertretung im Prolog, z. B. „Vor 7 Jahren“) ersetzt Wochentag und Spieltag. */
+export function clockModel(day: number, minutes: number, slot: TimeSlot, weekday: Weekday, dateLabel?: string): ClockModel {
   const time = formatClock(minutes);
   const weekdayLabel = WEEKDAY_LABELS[weekday];
-  return {
+  const model: ClockModel = {
     time, slot, slotLabel: TIME_SLOT_LABELS[slot], weekday: weekdayLabel, day,
-    label: `${weekdayLabel}, Tag ${day}, ${time} Uhr (${TIME_SLOT_LABELS[slot]})`,
+    label: dateLabel
+      ? `${dateLabel}, ${time} Uhr (${TIME_SLOT_LABELS[slot]})`
+      : `${weekdayLabel}, Tag ${day}, ${time} Uhr (${TIME_SLOT_LABELS[slot]})`,
   };
+  if (dateLabel) model.dateLabel = dateLabel;
+  return model;
 }
 
 /** Prozent LP und Warnstufe für Balken. */

@@ -11,8 +11,8 @@ const EPILOG: Condition = { flag: 'epilog' };
 
 /** Oberstadt-Preise: Seraphinas Rabatt, Sybellas Aufschlag aus der Rivalität – für alle Chrome-Läden. */
 const CHROME_PREISE: NonNullable<ShopDef['priceRules']> = [
-  { when: RABATT, discount: 10 },
-  { when: { flag: 'sybella_aufschlag' }, discount: -20 },
+  { when: RABATT, discount: 10, note: 'Seraphinas Empfehlung – die Verkäuferin lächelt plötzlich echt.' },
+  { when: { flag: 'sybella_aufschlag' }, discount: -20, note: 'Sybellas „Gästepreis“ für Leute, die sie nicht leiden kann.' },
 ];
 
 /** Ware mit festem Tagesbestand (Preise über die Preisregeln des Ladens). */

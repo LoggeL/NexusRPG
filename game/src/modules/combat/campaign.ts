@@ -5,6 +5,7 @@ import { combatBonus, effectiveAttribute, maxHpOf } from '../campaign/domains/ch
 import { heartsOf, relationOf } from '../campaign/domains/relations';
 import { ATTRIBUTE_IDS, CYBER_SLOTS, has, hashText } from '../campaign/ids';
 import { evaluateCondition } from '../campaign/conditions';
+import { battleBuffsFor } from '../campaign/domains/combat';
 import { itemAbility, usableInBattle } from './actions';
 import { findUnit } from './queries';
 import type { BattleSetup, CombatData, CombatState, PartyMemberSpec } from './types';
@@ -114,17 +115,22 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
       sprite: npc.sprite ?? `${npcId}-walk`, portrait: npc.portrait, level: player.level,
       hp: stats.hp, maxHp: stats.hp, armor: stats.armor, attributes: { ...stats.attributes },
       weapons: [{ ...stats.weapon }], abilities: [...new Set(own.filter(id => has(content.abilities, id)))],
-      morale: stats.morale,
+      morale: stats.morale, hearts,
     });
   }
   return party;
 }
 
-/** Zustände ab Kampfbeginn (`EncounterDef.startStatus`), deren Bedingung im Spielstand gilt. */
+/**
+ * Zustände ab Kampfbeginn: `EncounterDef.startStatus`, deren Bedingung im Spielstand gilt, plus gespeicherte
+ * Kampfpuffer (Effekt `battleBuff`) für diese Begegnung.
+ */
 export function startStatusFromCampaign(content: GameContent, state: Readonly<GameState>, encounter: EncounterDef): NonNullable<BattleSetup['startStatus']> {
-  return (encounter.startStatus ?? [])
+  const out = (encounter.startStatus ?? [])
     .filter(entry => evaluateCondition(content, state, entry.when))
     .map(({ target, status, rounds }) => ({ target, status, rounds }));
+  for (const { buff } of battleBuffsFor(state, encounter.id)) out.push({ target: buff.target, status: buff.status, rounds: buff.rounds });
+  return out;
 }
 
 /** Gegenstände aus dem Inventar, die im Kampf nutzbar sind (Kampffähigkeit oder Heilung). */

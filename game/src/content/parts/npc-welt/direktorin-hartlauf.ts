@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './direktorin-hartlauf-akt23';
 
 const ID = 'direktorin-hartlauf';
 const H = sprecher(ID);
@@ -113,6 +114,7 @@ const hartlauf = weltfigur({
   talk: [
     rede('hartlauf-tag-rivale', { rival: ID }),
     rede('hartlauf-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('hartlauf-tag-standard'),
   ],
 });

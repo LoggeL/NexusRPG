@@ -90,6 +90,13 @@
     "bytes": 125784,
     "blurhash": "L46G=Cp0o~%5s;J4,^aw-HFyK6o$"
   },
+  "lumo-dante-legt-auf": {
+    "file": "assets/cut/lumo-dante-legt-auf.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 191164,
+    "blurhash": "L28D3Q|N-X=z%7}I-EWBEP-D$j$l"
+  },
   "main-2-bruch": {
     "file": "assets/cut/main-2-bruch.webp",
     "width": 1536,
@@ -152,6 +159,13 @@
     "height": 1024,
     "bytes": 172602,
     "blurhash": "L455U.GFDN@[bAX8MxwIibjEtmS}"
+  },
+  "peruecke-sendung": {
+    "file": "assets/cut/peruecke-sendung.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 147282,
+    "blurhash": "LGB3BI9GNHog~WD*ayxv?IM{WAt7"
   },
   "rom-aria-albtraum": {
     "file": "assets/cut/rom-aria-albtraum.webp",
@@ -397,5 +411,54 @@
     "height": 1024,
     "bytes": 131436,
     "blurhash": "L570}fMt-YImInt8n$ayI.xbW9s;"
+  },
+  "rostlaube-probefahrt": {
+    "file": "assets/cut/rostlaube-probefahrt.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 162546,
+    "blurhash": "LIBfbP0K-pbd?J9ZxuoN-qIoobR+"
+  },
+  "side-jimmy-tuerme": {
+    "file": "assets/cut/side-jimmy-tuerme.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 122046,
+    "blurhash": "L3556FI7xIJO%QWAf4oMIRxwWAkD"
+  },
+  "side-keksalarm-nacht": {
+    "file": "assets/cut/side-keksalarm-nacht.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 179002,
+    "blurhash": "L48C:v,wsGJ:IxIxW[xG,d}usr9^"
+  },
+  "side-kessel-feierabend": {
+    "file": "assets/cut/side-kessel-feierabend.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 110146,
+    "blurhash": "LA8|h+9p^nTK-q$+j]t8W9xIWAog"
+  },
+  "side-live-dabei-sendung": {
+    "file": "assets/cut/side-live-dabei-sendung.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 147142,
+    "blurhash": "L45|{J^6sSJ8-tw[jZaxxejXslWU"
+  },
+  "side-zehn-credits-abend": {
+    "file": "assets/cut/side-zehn-credits-abend.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 204880,
+    "blurhash": "L58{?^}lOZ-V#[IUIvEQ={-Ot5%2"
+  },
+  "strom-licht-im-kanal": {
+    "file": "assets/cut/strom-licht-im-kanal.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 285664,
+    "blurhash": "L49F~PEU5*$d}]9^NZe?EfNGadxG"
   }
 }

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './frau-klingel-akt23';
 
 const ID = 'frau-klingel';
 const K = sprecher(ID);
@@ -122,6 +123,7 @@ const klingel = weltfigur({
   talk: [
     rede('klingel-tag-rivale', { rival: ID }),
     rede('klingel-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('klingel-tag-kalibriert', KALIBRIERT),
     rede('klingel-tag-standard'),
   ],

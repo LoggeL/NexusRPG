@@ -1,9 +1,10 @@
 // Jimmy – ehemaliges Crew-Mitglied mit verseuchtem Neurochip (world.md §4.2, §4.6, §6.2 #6, §11.2).
 // Vor side-jimmys-chip: unsichtbar, bis man 4 Spuren jimmy-spur-01…08 hat ([Gosse] zählt doppelt); dann M Wartehäuschen,
 // T Bahnsteig, A/N Ölfass-Türme an der Hafenkante. Die Spuren liegen als Loot-Hotspots der Zonen-Agenten auf den Karten.
-// Nach side-jimmys-chip (Quest-Agent, Wahl Neustart/Patch → Flags jimmy_status_neustart | jimmy_status_patch):
+// Nach side-jimmys-chip (Wahl Neustart/Patch → Flags jimmy_neustart | jimmy_patch; ältere Stände jimmy_status_*):
 // M Dantes Werkstatt, T Botendienste (away), A High Voltage, N Crew-Quartier-Couch; Begleiter.
-// Herz-Ereignisse 2/4/6 nach der Rettung, 8/10 ab Akt 2 als volle Szenen in jimmy-akt23.ts (dort auch Akt 2/3, Nachspiel). Keine Rivalität (nur verletzte Werbesprüche).
+// Herz-Ereignisse 2/4/6 nach der Rettung, 8/10 ab Akt 2 als volle Szenen in jimmy-akt23.ts (dort auch Akt 2/3, Nachspiel). Rivalität nur als
+// verletzte Werbesprüche (re-jimmy-2/5/8 in _rivalitaet.ts), Versöhnung mit einer Entschuldigung.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
@@ -11,6 +12,7 @@ import {
   sprecher, tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
 import { akt23, he10, he8, menue23 } from './jimmy-akt23';
+import { JIMMY_RE, JIMMY_RIVALE, JIMMY_RIVALE_GRUSS, JIMMY_RIVALE_PLAUSCH, jimmyEvents } from './_rivalitaet';
 
 const J = sprecher('jimmy');
 const X = sprecher('xion-venom');
@@ -27,7 +29,11 @@ const JIMMY_DA: Condition = {
 };
 const GERETTET: Condition = { any: [done(QUEST), { flag: 'jimmy_gerettet' }] };
 const VERWIRRT: Condition = { all: [{ not: GERETTET }, JIMMY_DA] };
-const PATCH: Condition = { flag: 'jimmy_status_patch' };
+/**
+ * Variante „Patch“: side-jimmys-chip setzt bei der Wahl `jimmy_patch` (bzw. `jimmy_neustart`), ältere Stände
+ * `jimmy_status_patch`. Beide zählen, sobald Jimmy gerettet ist.
+ */
+const PATCH: Condition = { all: [GERETTET, { any: [{ flag: 'jimmy_status_patch' }, { flag: 'jimmy_patch' }] }, { notFlag: 'jimmy_status_neustart' }] };
 const NEUSTART: Condition = { all: [GERETTET, { not: PATCH }] };
 /** Nicht auf der Party, kein Master-Modus. */
 const DA: Condition = { all: [{ not: PARTYNACHT }, { not: MASTER }] };
@@ -185,6 +191,8 @@ const M = menue();
 const A23 = akt23(M);
 
 const T = {
+  // Rivalität nach der Rettung: nur verletzte Werbesprüche, Versöhnung mit einer Entschuldigung (_rivalitaet.ts).
+  rivale: tagesgespraech('jimmy-tag-rivale', JIMMY_RIVALE_GRUSS, JIMMY_RIVALE_PLAUSCH, JIMMY_RIVALE),
   zeit: tagesgespraech('jimmy-tag-zeit',
     [J('{name}! Mein Lieblingsmensch auf Platz … ich hab die Liste neu sortiert. Du stehst oben. Hunter ist sauer.', 'freude'), erz(ZEIT_HINWEIS)],
     [J('Da ist noch was, das ich Hunter sagen muss. Oder er mir. Wir wissen beide nicht, wer anfängt. Wir warten auf den richtigen Moment. Der richtige Moment ist schüchtern.', 'trauer')],
@@ -363,6 +371,8 @@ const jimmy: NpcDef = {
     { id: 'he-jimmy-6', hearts: 6, map: 'neon-gasse', time: 'abend', when: { all: [GERETTET, { seen: 'he-jimmy-4' }, DA] }, cutscene: 'szene-he-jimmy-6', dialogue: 'he-jimmy-6' },
     { id: 'he-jimmy-8', hearts: 8, map: 'high-voltage', time: ['abend', 'nacht'], when: { all: [{ act: 2 }, GERETTET, DA] }, dialogue: 'he-jimmy-8' },
     { id: 'he-jimmy-10', hearts: 10, map: 'crew-quartier', time: 'nacht', when: { all: [{ act: 2 }, { seen: 'he-jimmy-8' }, GERETTET, DA] }, dialogue: 'he-jimmy-10' },
+    // Rivalität −2/−5/−8: verletzte Werbesprüche, bei −8 verzeiht er auf eine Entschuldigung hin (_rivalitaet.ts).
+    ...jimmyEvents({ all: [GERETTET, DA] }),
   ],
   companion: {
     // world.md §4.6: ab side-jimmys-chip. Neustart = Hacker (Firewall-Kuss), Patch = Chaos (Chipfieber).
@@ -378,7 +388,7 @@ const jimmy: NpcDef = {
     // Variante „Patch“ statt „Neustart“ (side-jimmys-chip): Chipfieber statt Firewall-Kuss.
     // Nach he-jimmy-8 (Hunter entschuldigt sich): Ersatzmann wird Stammspieler.
     abilityRules: [
-      { when: { flag: 'jimmy_status_patch' }, replace: ['jimmy-firewall-kuss', 'jimmy-chipfieber'] },
+      { when: PATCH, replace: ['jimmy-firewall-kuss', 'jimmy-chipfieber'] },
       { when: { flag: 'hunter_entschuldigt_jimmy' }, replace: ['jimmy-ersatzmann', 'jimmy-ersatzmann-plus'] },
     ],
   },
@@ -395,6 +405,7 @@ const jimmy: NpcDef = {
     rede('jimmy-tag-verwirrt-bahnsteig', { all: [VERWIRRT, { time: 'tag' }] }),
     rede('jimmy-tag-verwirrt-turm', VERWIRRT),
     // Danach.
+    rede('jimmy-tag-rivale', { all: [GERETTET, { rival: 'jimmy' }] }),
     rede('jimmy-tag-danke', { all: [GERETTET, { notFlag: 'jimmy_kommentar_danke' }] }),
     rede('jimmy-tag-zeit', { all: [GERETTET, { not: { act: 2 } }] }, 8),
     rede('jimmy-tag-patch', { all: [PATCH, { weekday: ['mo', 'mi', 'fr'] }] }),
@@ -410,8 +421,8 @@ export const part: ContentPart = {
   npcs: { jimmy },
   dialogues: sammle(
     erstkontakt, V.turm, V.schlaf, V.bahnsteig, V.traurig,
-    T.zeit, T.danke, T.werkstatt, T.club, T.couch, T.patch, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
+    T.rivale, T.zeit, T.danke, T.werkstatt, T.club, T.couch, T.patch, T.vertraut, T.standard,
+    he2, he4, he6, he8, he10, ...JIMMY_RE, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: {
     'szene-he-jimmy-6': {

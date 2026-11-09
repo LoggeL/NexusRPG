@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './vinyl-vincent-akt23';
 
 const ID = 'vinyl-vincent';
 const V = sprecher(ID);
@@ -89,6 +90,9 @@ const he4 = dialog('he-vinyl-vincent-4', [
   ], { effects: [{ xp: 60 }, { give: 'vinyl-platte' }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: vinyl-vincent-akt23.ts.
+const A23 = akt23(M);
+
 const vincent = weltfigur({
   id: ID,
   name: 'Vinyl-Vincent',
@@ -109,11 +113,12 @@ const vincent = weltfigur({
   talk: [
     rede('vincent-tag-rivale', { rival: ID }),
     rede('vincent-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('vincent-tag-standard'),
   ],
 });
 
 export const part: ContentPart = {
   npcs: { [ID]: vincent },
-  dialogues: sammle(T.rivale, T.erstes, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.standard, he2, he4, ...A23.dialogues),
 };

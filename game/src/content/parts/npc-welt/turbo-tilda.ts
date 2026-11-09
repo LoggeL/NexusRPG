@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './turbo-tilda-akt23';
 
 const ID = 'turbo-tilda';
 const QUEST = 'side-drohnenrennen';
@@ -98,6 +99,9 @@ const he4 = dialog('he-turbo-tilda-4', [
   ], { effects: [{ xp: 60 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: turbo-tilda-akt23.ts.
+const A23 = akt23(M);
+
 const tilda = weltfigur({
   id: ID,
   name: 'Turbo-Tilda',
@@ -122,6 +126,7 @@ const tilda = weltfigur({
   talk: [
     rede('tilda-tag-rivale', { rival: ID }),
     rede('tilda-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('tilda-tag-rennen', { all: [{ weekday: 'fr' }, { time: 'abend' }] }),
     rede('tilda-tag-besiegt', { quest: QUEST, state: 'done' }),
     rede('tilda-tag-standard'),
@@ -130,5 +135,5 @@ const tilda = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: tilda },
-  dialogues: sammle(T.rivale, T.erstes, T.rennen, T.besiegt, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.rennen, T.besiegt, T.standard, he2, he4, ...A23.dialogues),
 };

@@ -8,8 +8,10 @@ import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '.
 import {
   type Menue, AKT2, COUNTDOWN_DONE, EPILOG_FREI, NICHT_MASTER, RUHIG, abblende, dialog, erz, flag, frei, herz, ich, knoten,
   neu, pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, und, ZEIT_HINWEIS,
+  fremdGeflirtet, fremdFlirtLoeschen, geflirtet,
 } from './_helfer';
 import { DANTE_PLAN_23, DANTE_TEL_23, dante23 } from './_dante23';
+import { DANTE_JINGLES, DANTE_RE, danteEvents } from './_rivalitaet';
 
 const D = sprecher('dante');
 const A = sprecher('aria');
@@ -22,9 +24,8 @@ const ROM: Condition = { romance: 'dante' };
 const FLIRT: Condition = { all: [{ romanceEnabled: 'dante' }, { hearts: 'dante', min: 6 }] };
 const VEX: Condition = { playerIs: 'vex' };
 const KENNT: Condition = { quest: 'main-1-dante', state: 'done' };
-/** Konvention `heute_flirt_<npc>` (Tagesflag, morgens zurückgesetzt), siehe design/plan/gaps/npc-crew-a.md. */
-const FLIRT_FREMD = ['heute_flirt_hunter', 'heute_flirt_aria', 'heute_flirt_collin-charleston', 'heute_flirt_lio-funkel'];
-const HAT_FREMD_GEFLIRTET: Condition = { any: FLIRT_FREMD.map((f): Condition => ({ flag: f })) };
+/** Heute mit einer anderen freigegebenen Figur geflirtet (Konvention `heute_flirt_<npc>`, _helfer.ts „Eifersucht“). */
+const HAT_FREMD_GEFLIRTET: Condition = fremdGeflirtet('dante');
 const ZUSAMMEN: Condition = { all: [ROM, { flag: 'dante_romanze_zusammen' }] };
 /** Dante ist in der Crew: Beitritt im Countdown (main-2-countdown setzt dante_beigetreten). */
 const IN_CREW: Condition = { any: [{ flag: 'dante_beigetreten' }, COUNTDOWN_DONE] };
@@ -35,7 +36,7 @@ function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Dante.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Dante flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: { all: [FLIRT, { weekday: tage }] },
-    effects: [flag('heute_flirt_dante')],
+    effects: [geflirtet('dante')],
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann verbrenn dich halt. Ich puste.“', check: pruefung('dante-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -729,7 +730,7 @@ const eifersucht = dialog('dante-eifersucht', [
     D('Ich hab gesehen, wie du geguckt hast. Noch einmal und ich zieh dir die Ohren lang. Mit der Zange. Der kleinen. Die tut mehr weh.', 'wut'),
     D('… Ich hab noch nie jemandem gedroht. Fühlt sich komisch an. Ich mach’s trotzdem. Weil ich dich mag. Sehr. Um Himmels Willen.', 'besorgt'),
   ], {
-    effects: [flag('dante_eifersucht_gewarnt'), ...FLIRT_FREMD.map((f) => flag(f, false))],
+    effects: [flag('dante_eifersucht_gewarnt'), ...fremdFlirtLoeschen('dante')],
     choices: [
       { text: '„Nur Gerede, Dante. Versprochen.“', next: 'gerede' },
       { text: '„Eifersüchtig siehst du süß aus.“', check: pruefung('dante-eifersucht-frech', 'ausstrahlung', 7, ['flirt']), next: 'suess' },
@@ -746,7 +747,7 @@ const trennung = dialog('dante-trennung', [
   ], {
     effects: [
       herz('dante', -150), flag('dante_romanze_zusammen', false), flag('dante_nacht', false), flag('dante_getrennt'),
-      ...FLIRT_FREMD.map((f) => flag(f, false)),
+      ...fremdFlirtLoeschen('dante'),
     ],
     choices: [
       { text: '„Es tut mir leid, Dante.“', next: 'leid' },
@@ -823,6 +824,8 @@ const dante: NpcDef = {
       when: und(RUHIG, { seen: 'he-dante-8' }, { any: [{ not: ROM }, { notFlag: 'dante_romanze_tanz' }, { seen: 'rom-dante-date' }, { flag: 'paar_dante_raven_geholfen' }] }),
       dialogue: 'he-dante-10',
     },
+    // Rivalität −2 (Preise ×2, Jingle), −5 (kein Einbau), −8 (Plattenkiste): _rivalitaet.ts.
+    ...danteEvents(und(KENNT, NICHT_MASTER, { not: { all: [{ act: 3 }, { notFlag: 'epilog' }] } })),
   ],
   companion: {
     // world.md §4.6/§11.2: Dante kämpft ab main-2-countdown (dort { recruit: 'dante' }). Im Master-Modus nicht.
@@ -875,7 +878,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.verpetzt, T.muellsack, T.vexariaZusammen, T.ariaRomanze, T.fremd, T.zeit, T.eins, T.plattenkiste,
     T.ofen, T.werkbank, T.tanzflaeche, T.vertraut, T.platten, armwartung,
-    he2, he4, he6, he8, date, he10, morgenDanach, morgenWoche, eifersucht, trennung, reEifersucht,
+    he2, he4, he6, he8, date, he10, morgenDanach, morgenWoche, eifersucht, trennung, reEifersucht, ...DANTE_RE,
     ...A23.dialogues,
   ),
   cutscenes: sammleSzenen(
@@ -893,7 +896,7 @@ export const part: ContentPart = {
     {
       id: 'szene-dante-nacht', title: 'Nicht jugendfrei für Hasen', gallery: false,
       beats: [
-        { image: 'cut-rom-dante-werkstatt', pan: 'out', lines: [D('Captain Kuschel, raus. Ja, du auch. Der Rest der Nacht ist … nicht jugendfrei für Hasen. Oder Hunde. Was auch immer du bist.', 'verlegen')] },
+        { image: 'cut-rom-dante-werkstatt', pan: 'out', lines: [D('Captain Kuschel, raus. Ja, du auch. Der Rest der Nacht ist … nicht jugendfrei für Plüschhasen. Ohren zu, Captain.', 'verlegen')] },
         abblende('Die Röhren glimmen weiter. Irgendwo knistert eine Platte, die keiner mehr umdreht.'),
       ],
       effects: [{ sleep: true }, { dialogue: 'dante-morgen-danach' }],
@@ -913,6 +916,7 @@ export const part: ContentPart = {
   ),
   phone: {
     ...DANTE_TEL_23,
+    ...DANTE_JINGLES,
     'tel-dante-kekse': {
       id: 'tel-dante-kekse', from: 'dante',
       text: 'KEKSALARM! Morgens oder abends, Werkstatt! Bring Hunger mit! Und Schuhe, der Boden ist heiß!',

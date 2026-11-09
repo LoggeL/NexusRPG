@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './opa-blech-akt23';
 
 const ID = 'opa-blech';
 const B = sprecher(ID);
@@ -95,6 +96,9 @@ const he4 = dialog('he-opa-blech-4', [
   knoten('ende', [B('BÜRGER {name}: STATUS AKTUALISIERT. NEUER STATUS: FREUND. KATEGORIE: SEHR SELTEN.')], { effects: [{ xp: 50 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: opa-blech-akt23.ts.
+const A23 = akt23(M, WAECHTER);
+
 const blech = weltfigur({
   id: ID,
   name: 'Opa Blech',
@@ -119,11 +123,12 @@ const blech = weltfigur({
     rede('opa-blech-tag-rivale', { rival: ID }),
     rede('opa-blech-tag-lager', { not: WAECHTER }),
     rede('opa-blech-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('opa-blech-tag-standard'),
   ],
 });
 
 export const part: ContentPart = {
   npcs: { [ID]: blech },
-  dialogues: sammle(T.rivale, T.lager, T.erstes, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.lager, T.erstes, T.standard, he2, he4, ...A23.dialogues),
 };

@@ -91,11 +91,11 @@ const M = erweitere(menue(), MENUE_23);
 /** Rivalität: Er verkauft der Spielfigur Schrott als Ware; Versöhnung über Essen, Geld oder Verhandlung. */
 const RIVALE: Menue = {
   choices: [
-    { text: 'Ihm eine Dampfnudel von Babette hinhalten.', when: { item: 'bao-dampfnudel' }, next: 'nudel', effects: [{ take: 'bao-dampfnudel' }, { reconcile: 'dexter' }] },
-    { text: 'Ihm 25 Credits leihen. Ohne Schuldschein.', requires: { credits: 25 }, next: 'leihen', effects: [{ credits: -25 }, { reconcile: 'dexter' }] },
+    { text: 'Ihm eine Dampfnudel von Babette hinhalten.', when: { item: 'bao-dampfnudel' }, next: 'nudel', effects: [{ take: 'bao-dampfnudel' }, { reconcile: 'dexter' }, flag('rivale_dexter', false)] },
+    { text: 'Ihm 25 Credits leihen. Ohne Schuldschein.', requires: { credits: 25 }, next: 'leihen', effects: [{ credits: -25 }, { reconcile: 'dexter' }, flag('rivale_dexter', false)] },
     {
       text: '„Wir zwei sind die einzigen ehrlichen Lügner auf dem Markt. Lass uns das nicht verschwenden.“', next: 'deal',
-      check: pruefung('dexter-versoehnung-deal', 'strasse', 5, ['verhandeln']), effects: [{ reconcile: 'dexter' }],
+      check: pruefung('dexter-versoehnung-deal', 'strasse', 5, ['verhandeln']), effects: [{ reconcile: 'dexter' }, flag('rivale_dexter', false)],
     },
     { text: 'Vergiss es.' },
   ],
@@ -370,6 +370,33 @@ const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
+/** Rivalität −2: Dexter dreht der Spielfigur Schrott als Ware an (Laden: { rival: 'dexter' }). */
+const re2 = dialog('re-dexter-2', [
+  knoten('start', [
+    erz('Dexter fängt dich ab, bevor du am Stand vorbei bist. Er strahlt. Er strahlt nie. Er hält eine Dose hoch, rostig, mit einem frisch aufgeklebten Etikett: „QUANTUM-ENERGIEZELLE · NEU · ORIGINAL“.'),
+    D('Sonderposten! Nur für dich! Eine Energiezelle, direkt aus dem Labor! Fällt runter, sagt Pling, läuft ewig! Vierzig Credits! Für jeden anderen: vierzig Credits!', 'signatur'),
+    erz('In der Dose schwappt etwas. Energiezellen schwappen nicht.'),
+  ], {
+    choices: [
+      { text: 'Vierzig Credits hinlegen. Wird schon stimmen.', requires: { credits: 40 }, next: 'gekauft', effects: [{ credits: -40 }, { give: 'rostige-dose' }] },
+      { text: '„Das ist eine Dose, du Arsch. Eine rostige Dose. Da lebt was drin.“', tag: '[Straße 3]', check: pruefung('re-dexter-2-durchschaut', 'strasse', 3, ['durchschauen']), next: 'durchschaut' },
+      { text: 'Weitergehen.', next: 'weiter' },
+    ],
+  }),
+  knoten('gekauft', [
+    D('Ausgezeichnete Wahl! Keine Rückgabe, kein Umtausch, keine Fragen! Das ist bei mir das Garantiepaket!', 'freude'),
+    erz('Kaum hast du sie in der Hand, löst sich das Etikett. Darunter: „ROSTIGE DOSE, 1 CR“. Darunter, kleiner, in Dexters Schrift: „HA.“'),
+  ], { effects: [flag('rivale_dexter')] }),
+  knoten('durchschaut', [
+    D('Eine Dose mit Potenzial! Mit Bewohnern! Mit Geschichte!', 'ueberrascht'),
+    D('Gut. Gut! Dann eben nicht. Aber merk dir eins: Bei mir kriegst du ab jetzt nur noch Sonderposten. Nur noch die guten Sachen. Die wirklich guten. Von der Halde.', 'wut'),
+  ], { effects: [flag('rivale_dexter')] }),
+  knoten('weiter', [
+    D('Weitergehen! Bei Dexter! Das hat noch keiner gemacht, ohne es zu bereuen!', 'wut'),
+    D('Ich hab ein Gedächtnis wie ein Gläubiger. Und ein Lager voller Schrott, der nur auf dich wartet.'),
+  ], { effects: [flag('rivale_dexter')] }),
+]);
+
 const dexter: NpcDef = {
   id: 'dexter',
   name: 'Dexter',
@@ -401,6 +428,8 @@ const dexter: NpcDef = {
     { id: 'he-dexter-6', hearts: 6, map: 'schrottmarkt', time: 'abend', when: { not: { quest: HAUPT, state: 'active' } }, dialogue: 'he-dexter-6' },
     { id: 'he-dexter-8', hearts: 8, map: 'high-voltage', time: 'abend', when: { all: [AB_AKT2, { seen: 'he-dexter-6' }] }, dialogue: 'he-dexter-8' },
     { id: 'he-dexter-10', hearts: 10, map: 'schrottmarkt', time: 'tag', when: { all: [AB_AKT2, { seen: 'he-dexter-8' }] }, dialogue: 'he-dexter-10' },
+    // Rivalität (world.md §4.4): verkauft der Spielfigur Schrott als Ware (Laden: { rival: 'dexter' }).
+    { id: 're-dexter-2', hearts: -2, map: 'schrottmarkt', time: 'tag', dialogue: 're-dexter-2' },
   ],
   talk: [
     rede('dexter-tag-rivale', { rival: 'dexter' }),
@@ -426,6 +455,6 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.herkunft, T.versteckt, T.versteckAria, T.vexaria, T.hauptquest, T.zeit, T.chrome10, T.rennen, T.hv,
     T.nacht, T.vertraut, T.buero, T.standard,
-    he2, he4, he6, ...A23.dialogues,
+    he2, he4, he6, re2, ...A23.dialogues,
   ),
 };

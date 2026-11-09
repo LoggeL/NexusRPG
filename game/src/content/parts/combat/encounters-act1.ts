@@ -19,6 +19,9 @@ const list: EncounterDef[] = [
       { speaker: 'narrator', text: 'Tipp: Bewegen kostet 1 AP, Angreifen 1 AP. Hinter halber Deckung (h) wirst du schlechter getroffen.' },
     ],
     reward: { xp: 20 },
+    // Niederlage im Prolog: Raven rappelt sich zwischen den Regalen auf, die Drohne kreist weiter.
+    stayOnLose: true,
+    onLose: [{ message: 'Raven rappelt sich zwischen den Regalen wieder auf. Die Drohne kreist weiter, als wäre nichts gewesen.' }],
   },
 
   // --- Hauptgeschichte Akt 1 ----------------------------------------------
@@ -36,6 +39,9 @@ const list: EncounterDef[] = [
     ],
     reward: { xp: 30, credits: 20 },
     onWin: [{ message: 'Knut und Kurt rennen heulend zum Ausgang. „Das sag ich meiner Mama!“' }],
+    // Niederlage: Man bleibt am Bahnsteig, die Ankunft geht weiter (main-1-ankunft fragt abzieher_verloren ab).
+    stayOnLose: true,
+    onLose: [{ setFlag: 'abzieher_verloren' }],
   },
   {
     id: 'enc-hv-ripper-tisch',
@@ -51,6 +57,9 @@ const list: EncounterDef[] = [
     ],
     reward: { xp: 40, credits: 30 },
     onWin: [{ message: 'Ripper ist durch die Hintertür verschwunden. Der Barkeeper wischt schon den Tisch ab.' }],
+    // Niederlage: Man bleibt im Club, Hunter holt einen ins Hinterzimmer (main-1-probezeit, Urteil „u-verloren“).
+    stayOnLose: true,
+    onLose: [{ setFlag: 'ripper_kampf_verloren' }],
   },
   {
     id: 'enc-schrott-drohnen',

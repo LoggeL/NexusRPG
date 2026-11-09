@@ -19,7 +19,13 @@ export function zusatz(list: [string, Hotspot][]): Record<string, MapAddition> {
   return out;
 }
 
-export const vorlage = (def: JobTemplateDef): JobTemplateDef => def;
+/** Rivalität mit Hunter (world.md §4.2): An seiner Auftragstafel gibt es dann nur noch Botengänge (Kurier). */
+export const HUNTER_GIBT_ARBEIT: Condition = { not: { rival: 'hunter' } };
+/** Auftragsvorlage; alles außer Kurier an Hunters Tafel ruht, solange Hunter dein Rivale ist. */
+export const vorlage = (def: JobTemplateDef): JobTemplateDef =>
+  (def.kind === 'kurier' || !def.boards.includes('auftragstafel')
+    ? def
+    : { ...def, when: def.when ? { all: [def.when, HUNTER_GIBT_ARBEIT] } : HUNTER_GIBT_ARBEIT });
 export const ziele = (list: Ziel[]): JobTemplateDef['targets'] => list.map((z) => ({ map: z.map, label: z.label }));
 
 /** Kampf zu einem Auftrag: Sieg schließt den Auftrag ab (plus weitere Effekte). */

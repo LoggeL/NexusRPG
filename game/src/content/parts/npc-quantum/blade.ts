@@ -17,6 +17,12 @@ const B = sprecher(ID);
 const N = sprecher('ki-nexus');
 
 const GEFASST: Condition = alle(EPILOG, { flag: 'blade_gefasst' });
+/** Finale (quest-main-3): Nach der Rebellion rennt Blade zum Gleiter; danach sitzt er gefasst am Landeplatz oder ist weg. */
+const REBELLION: Condition = { flag: 'nexus_rebelliert' };
+const DACH_GEFASST: Condition = eins({ flag: 'blade_gefasst' }, { flag: 'blade_angekettet' });
+const BLADE_Q_AKTIV: Condition = queststand('main-3-blade', 'active');
+const GESTELLT: Condition = { flag: 'blade_gestellt' };
+const AUFGEHALTEN: Condition = eins({ won: 'enc-dach-blade' }, { won: 'enc-dach-blade-allein' }, { flag: 'blade_aufgehalten' });
 const Z = zurueck('Noch etwas, Herr Nocturne.', 'Ich muss los.');
 
 // ---------------------------------------------------------------------------------------------- Menü
@@ -134,6 +140,25 @@ const T = {
     erz('Blade wirkt müde. Nicht schlecht frisiert, das nie. Aber müde.'),
     B('Weißt du, was das Schlimmste an Macht ist? Es gibt keinen, der dir sagt, dass du zu weit gehst. Nur Leute, die „Ja, Master“ sagen.', 'trauer'),
   ], M),
+  // Finale: am Gleiter bzw. gefasst am Landeplatz. Leitet in die Quest-Dialoge von main-3-blade weiter.
+  dach: dialog('blade-tag-dach', [knoten('start', [
+    erz('Der Rotorwind zerrt an Blades Teddymantel. Er hält sich mit einer Hand am Gleiter fest und mit der anderen an einer Flasche Champagner.'),
+  ], {
+    choices: [
+      { text: '„Blade.“', id: 'dach-ankunft', when: alle(BLADE_Q_AKTIV, nicht(GESTELLT)), effects: [{ cutscene: 'main-3-blade' }] },
+      { text: '„Blade.“', id: 'dach-nochmal', when: alle(BLADE_Q_AKTIV, GESTELLT, nicht(AUFGEHALTEN), nicht(DACH_GEFASST), nicht({ flag: 'blade_entkommen' })), effects: [{ dialogue: 'main-3-blade-nochmal' }] },
+      { text: '„Blade.“', id: 'dach-urteil', when: alle(BLADE_Q_AKTIV, AUFGEHALTEN, nicht(DACH_GEFASST), nicht({ flag: 'blade_entkommen' })), effects: [{ dialogue: 'main-3-blade-urteil' }] },
+      { text: '„Na, Blade?“', id: 'dach-gefasst', when: DACH_GEFASST, next: 'gefasst' },
+      { text: '„Na, Blade?“', id: 'dach-warten', when: alle(nicht(BLADE_Q_AKTIV), nicht(DACH_GEFASST)), next: 'warten' },
+    ],
+  }), knoten('warten', [
+    erz('Die Rotoren stehen still. Blade tritt gegen die Kufe. Dann noch mal, mit dem anderen Fuß, weil der erste wehtut.'),
+    B('Startfreigabe verweigert. Von meiner eigenen KI. Ich habe sie gebaut. Also, bauen lassen. Das ist dasselbe.', 'wut'),
+    B('Geh nach unten und mach sie kaputt, ja? Danach können wir uns gern wieder hassen. Ich warte hier. Ich habe ja Champagner.', 'signatur'),
+  ]), knoten('gefasst', [
+    erz('Blade sitzt auf dem Rand des Landeplatzes, den Mantel um die Knie gezogen. Der Champagner ist alle. Er hält die leere Flasche trotzdem fest.'),
+    B('Kessel ist unterwegs. Siebenundneunzig Stockwerke. Ich hoffe, der Aufzug bleibt stecken. Mit ihm drin. Für ein paar Jahre.', 'trauer'),
+  ])]),
   party: dialog('blade-tag-party', [knoten('start', [
     erz('Blade steht an der Rednerbrücke, ein Glas Champagner in der Hand, und übt sein Lächeln im Spiegelbild der Glasplatten.'),
     B('Heute nicht, Schätzchen. Heute bin ich Geschichte. Die Art Geschichte, die man in Schulen auswendig lernt.', 'signatur'),
@@ -459,6 +484,9 @@ const blade: NpcDef = {
     ort('T', 'zellentrakt', 'besucherraum', { days: ['di', 'do', 'sa'], when: GEFASST }),
     ort('*', 'zellentrakt', 'haftzelle', { when: GEFASST }),
     weg('*', { when: EPILOG }),
+    weg('*', { when: alle(PARTYNACHT, { flag: 'blade_entkommen' }) }),
+    ort('*', 'himmelsgarten', 'landeplatz', { when: alle(PARTYNACHT, DACH_GEFASST) }),
+    ort('*', 'himmelsgarten', 'gleiter', { when: alle(PARTYNACHT, REBELLION) }),
     ort('*', 'himmelsgarten', 'rednerbruecke', { when: alle(PARTYNACHT, nicht(queststand('main-3-blade', 'done'))) }),
     ort('M', 'blades-buero', 'schreibtisch-blade'),
     ort('T', 'chrome-boulevard', 'boulevard-mitte', { days: ['mo', 'do'] }),
@@ -481,6 +509,7 @@ const blade: NpcDef = {
     rede('blade-tag-zelle-vertraut', GEFASST, 6),
     rede('blade-tag-zelle', GEFASST),
     rede('blade-tag-rivale', rivale(ID)),
+    rede('blade-tag-dach', alle(PARTYNACHT, REBELLION)),
     rede('blade-tag-party', PARTYNACHT),
     rede('blade-tag-oberstadt', alle(nichtGetroffen(ID), { origin: 'origin-oberstadt' })),
     rede('blade-tag-knast', alle(nichtGetroffen(ID), { origin: 'origin-knastvogel' })),
@@ -498,7 +527,7 @@ const blade: NpcDef = {
 export const part: ContentPart = {
   npcs: { [ID]: blade },
   dialogues: sammle(
-    T.oberstadt, T.knast, T.standard, T.cafe, T.buero, T.boulevard, T.studio, T.vertraut, T.zweifel, T.party, T.zelle,
+    T.oberstadt, T.knast, T.standard, T.cafe, T.buero, T.boulevard, T.studio, T.vertraut, T.zweifel, T.party, T.dach, T.zelle,
     T.zelleVertraut, T.rivale, he2, he4, he6, he8, he10, re2, re5, re8,
   ),
   enemies: Object.fromEntries(enemies.map((e) => [e.id, e])),

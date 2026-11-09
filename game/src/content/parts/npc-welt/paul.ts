@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { GECHIPPT, akt23 } from './paul-akt23';
 
 const ID = 'paul';
 const P = sprecher(ID);
@@ -98,6 +99,10 @@ const he4 = dialog('he-paul-4', [
   knoten('ende', [P('Du bist mein erster Freund in der Gasse, der nicht mit mir verwandt ist. Das schreib ich mir auch auf eine Karte.')], { effects: [{ xp: 50 }, herz('oma-volt', 30)] }),
 ]);
 
+// Akt 2 (gechippt bis side-ki-fluestern), Partynacht und Nachspiel: paul-akt23.ts.
+const A23 = akt23(M);
+const NICHT_GECHIPPT = { not: GECHIPPT };
+
 const paul = weltfigur({
   id: ID,
   name: 'Paul',
@@ -110,14 +115,15 @@ const paul = weltfigur({
     dislikes: ['gesetzbuch', 'tai-chi-tee'],
     hates: ['handschellen'],
   }),
-  schedule: [ort('T', 'neon-gasse', 'paul-ecke'), weg()],
+  schedule: [...A23.schedule, ort('T', 'neon-gasse', 'paul-ecke'), weg()],
   heartEvents: [
-    { id: 'he-paul-2', hearts: 2, map: 'neon-gasse', time: 'tag', dialogue: 'he-paul-2' },
-    { id: 'he-paul-4', hearts: 4, map: 'neon-gasse', time: 'tag', when: { seen: 'he-paul-2' }, dialogue: 'he-paul-4' },
+    { id: 'he-paul-2', hearts: 2, map: 'neon-gasse', time: 'tag', when: NICHT_GECHIPPT, dialogue: 'he-paul-2' },
+    { id: 'he-paul-4', hearts: 4, map: 'neon-gasse', time: 'tag', when: { all: [{ seen: 'he-paul-2' }, NICHT_GECHIPPT] }, dialogue: 'he-paul-4' },
   ],
   talk: [
     rede('paul-tag-rivale', { rival: ID }),
     rede('paul-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('paul-tag-vertraut', undefined, 3),
     rede('paul-tag-standard'),
   ],
@@ -125,5 +131,5 @@ const paul = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: paul },
-  dialogues: sammle(T.rivale, T.erstes, T.vertraut, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.vertraut, T.standard, he2, he4, ...A23.dialogues),
 };

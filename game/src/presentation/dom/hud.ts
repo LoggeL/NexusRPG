@@ -1,7 +1,8 @@
 // HUD (Bereich dom-ui): Crew-Leiste mit Porträts und LP, Uhr mit Tageszeit-Symbol und Wochentag, Credits,
 // aktives Ziel, Menüknöpfe, Interaktionshinweis, Kartenname. Toasts (inkl. Herz +/−) zeigt die UiShell.
 import { monogramUrl, playerAccent } from '../appearance/accent';
-import type { CampaignPort, GameState, NpcId, TimeSlot } from '../../modules/contracts';
+import type { CampaignPort, GameState, NpcId, TimeSlot, WeatherId } from '../../modules/contracts';
+import { WEATHER_LABELS, WEATHER_TEXT, weatherAt } from '../../modules/time/weather';
 import type { AssetCatalog } from '../../platform/assets/manifest';
 import { GAME_H, GAME_W } from './layout';
 import { clear, h, setPortrait } from './dom';
@@ -24,6 +25,29 @@ export function slotIcon(slot: TimeSlot): SVGSVGElement {
   svg.setAttribute('class', `slot-icon ${slot}`);
   svg.setAttribute('aria-hidden', 'true');
   for (const d of SLOT_PATHS[slot]) {
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('d', d);
+    svg.append(path);
+  }
+  return svg;
+}
+
+/** Wettersymbole (Bereich engine-welt): Funkelstern, Smogwellen, Regenwolke, Nebelbänder, Thermometer, Sandwirbel. */
+const WEATHER_PATHS: Record<WeatherId, string[]> = {
+  klar: ['M12 3l2 7 7 2-7 2-2 7-2-7-7-2 7-2z'],
+  smog: ['M3 8c3-2 5 2 8 0s5-2 8 0', 'M3 13c3-2 5 2 8 0s5-2 8 0', 'M3 18c3-2 5 2 8 0s5-2 8 0'],
+  rostregen: ['M6 14a4 4 0 0 1 1-7.9A5 5 0 0 1 17 7a3.5 3.5 0 0 1 1 7z', 'M8 17l-1 3', 'M12 17l-1 3', 'M16 17l-1 3'],
+  neonnebel: ['M8 6h8', 'M4 10h16', 'M6 14h12', 'M4 18h16'],
+  hitzeglocke: ['M10 4a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z', 'M12 9v6'],
+  sandsturm: ['M3 8h12a3 3 0 1 0-3-3', 'M3 12h16a3 3 0 1 1-3 3', 'M3 16h8'],
+};
+
+export function weatherIcon(weather: WeatherId): SVGSVGElement {
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('class', `weather-icon ${weather}`);
+  svg.setAttribute('aria-hidden', 'true');
+  for (const d of WEATHER_PATHS[weather]) {
     const path = document.createElementNS(SVG_NS, 'path');
     path.setAttribute('d', d);
     svg.append(path);
@@ -174,17 +198,20 @@ export class Hud {
         else setPortrait(entry.img, this.catalog, portrait || null, name);
       }
     }
-    const clock = clockModel(state.clock.day, state.clock.minutes, this.campaign.timeSlot(), this.campaign.weekday());
-    const statusKey = `${clock.label}|${state.credits}|${state.player.hp}/${maxHp}`;
+    const clock = clockModel(state.clock.day, state.clock.minutes, this.campaign.timeSlot(), this.campaign.weekday(), state.player.standIn?.dateLabel);
+    const weather = weatherAt(this.campaign.content.maps, state);
+    const statusKey = `${clock.label}|${weather}|${state.credits}|${state.player.hp}/${maxHp}`;
     if (statusKey !== this.statusKey) {
       this.statusKey = statusKey;
       clear(this.status);
       const hp = hpModel(state.player.hp, maxHp);
-      this.status.setAttribute('aria-label', `${clock.label}, ${state.credits} Credits, ${state.player.hp} von ${maxHp} Lebenspunkten`);
+      this.status.setAttribute('aria-label', `${clock.label}, ${WEATHER_LABELS[weather]}, ${state.credits} Credits, ${state.player.hp} von ${maxHp} Lebenspunkten`);
       this.status.dataset.slot = clock.slot;
       this.status.append(
         h('span', { class: 'clock', title: clock.label, 'data-testid': 'hud-clock' }, slotIcon(clock.slot), h('span', { class: 'time' }, clock.time)),
-        h('span', { class: 'day', title: clock.label }, `${clock.weekday.slice(0, 2)} · Tag ${clock.day}`),
+        h('span', { class: 'day', title: clock.label }, clock.dateLabel ?? `${clock.weekday.slice(0, 2)} · Tag ${clock.day}`),
+        h('span', { class: `weather ${weather}`, title: `${WEATHER_LABELS[weather]}: ${WEATHER_TEXT[weather]}`, 'data-testid': 'hud-weather', 'data-weather': weather },
+          weatherIcon(weather), h('span', { class: 'weather-label' }, WEATHER_LABELS[weather])),
         h('span', { class: `lp ${hp.level}`, title: 'Lebenspunkte', 'data-testid': 'hud-hp' }, h('span', { class: 'lp-label' }, 'LP'), `${state.player.hp}/${maxHp}`),
         h('span', { class: 'credits', title: 'Credits', 'data-testid': 'hud-credits' }, `${state.credits} ¢`),
       );

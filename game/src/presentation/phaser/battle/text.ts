@@ -16,9 +16,11 @@ export const STATUS_META: Record<StatusId, StatusMeta> = {
   markiert: { label: 'Markiert', color: '#ff3fa4', description: 'Leichter zu treffen (+20 Trefferchance).' },
   geschuetzt: { label: 'Geschützt', color: '#6dffb0', description: 'Weniger Schaden durch Treffer.' },
   blutet: { label: 'Blutet', color: '#ff4a6a', description: 'Verliert jede Runde Lebenspunkte.' },
+  ermutigt: { label: 'Ermutigt', color: '#ffb84a', description: '+1 Aktionspunkt im nächsten Zug.' },
+  gesteuert: { label: 'Gesteuert', color: '#9b5cff', description: 'Kämpft den nächsten Zug für die Gegenseite.' },
 };
 
-export const STATUS_ORDER: readonly StatusId[] = ['gehackt', 'betaeubt', 'brennt', 'blutet', 'markiert', 'geschuetzt'];
+export const STATUS_ORDER: readonly StatusId[] = ['gesteuert', 'gehackt', 'betaeubt', 'brennt', 'blutet', 'markiert', 'geschuetzt', 'ermutigt'];
 
 export const COVER_LABEL: Record<CoverLevel, string> = { none: 'keine Deckung', half: 'halbe Deckung', full: 'volle Deckung' };
 
@@ -67,7 +69,7 @@ export function attackStyle(content: Lookup, attacker: BattleUnit | undefined, a
 
 const turnsText = (turns: number) => `${turns} ${turns === 1 ? 'Runde' : 'Runden'}`;
 const statusLabel = (status: StatusId) => STATUS_META[status]?.label ?? status;
-const DOT_LABEL = { brennt: 'Feuer', blutet: 'Blutung', gefahr: 'Gefahrenfeld' } as const;
+const DOT_LABEL = { brennt: 'Feuer', blutet: 'Blutung', gefahr: 'Gefahrenfeld', welle: 'Welle' } as const;
 
 /** Protokollzeile zu einem Ereignis (null = nichts protokollieren). */
 export function eventLine(content: Lookup, state: Pick<BattleState, 'units'>, event: SessionEvent): string | null {
@@ -103,6 +105,8 @@ export function eventLine(content: Lookup, state: Pick<BattleState, 'units'>, ev
     case 'flee': return `${who(event.unit)} flieht.`;
     case 'surrender': return `${who(event.unit)} ergibt sich.`;
     case 'bark': return `${who(event.unit)}: „${event.text}“`;
+    case 'notice': return event.tone === 'warn' ? `⚠ ${event.text}` : event.text;
+    case 'spawn': return `${who(event.unit)} stößt dazu.`;
     case 'end': return event.outcome === 'win' ? 'Der Kampf ist gewonnen.' : event.outcome === 'lose' ? 'Der Kampf ist verloren.' : 'Die Crew zieht sich zurück.';
   }
 }
@@ -127,10 +131,11 @@ export function eventFloats(event: SessionEvent, content?: Lookup): FloatText[] 
     case 'weapon': return [{ unit: event.unit, text: 'Waffenwechsel', tone: 'info' }];
     case 'ability': return [{ unit: event.unit, text: content?.abilities[event.ability]?.name ?? event.ability, tone: 'info' }];
     case 'item': return [{ unit: event.unit, text: content?.items?.[event.item]?.name ?? event.item, tone: 'info' }];
-    case 'objective': return [{ unit: event.unit, text: `Hack ${event.progress}/${event.needed}`, tone: 'status' }];
+    case 'objective': return [{ unit: event.unit, text: `Terminal ${event.progress}/${event.needed}`, tone: 'status' }];
     case 'phase': return [{ unit: event.unit, text: 'Neue Phase!', tone: 'info' }];
     case 'flee': return [{ unit: event.unit, text: 'Flieht!', tone: 'info' }];
     case 'surrender': return [{ unit: event.unit, text: 'Ergibt sich', tone: 'info' }];
+    case 'spawn': return [{ unit: event.unit, text: 'Verstärkung!', tone: 'info' }];
     default: return [];
   }
 }

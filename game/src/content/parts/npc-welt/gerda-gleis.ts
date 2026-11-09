@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './gerda-gleis-akt23';
 
 const ID = 'gerda-gleis';
 const G = sprecher(ID);
@@ -125,6 +126,7 @@ const gerda = weltfigur({
   talk: [
     rede('gerda-tag-rivale', { rival: ID }),
     rede('gerda-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('gerda-tag-paket', { flag: 'vex_paket_gerda' }),
     rede('gerda-tag-vertraut', undefined, 4),
     rede('gerda-tag-standard'),

@@ -7,6 +7,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './henk-angler-akt23';
 
 const ID = 'henk-angler';
 const QUEST = 'side-hunde-der-brackbucht';
@@ -110,7 +111,7 @@ const henk = weltfigur({
     dislikes: ['volt-limo', 'parfuem-ozon'],
     hates: ['waschpulver', 'plastikpflanze'],
   }),
-  schedule: [ort('M,T,A', 'flutmauer', 'leuchtturm'), ort('N', 'flutmauer', 'leuchtturm-oben')],
+  schedule: [...SCHEDULE_23, ort('M,T,A', 'flutmauer', 'leuchtturm'), ort('N', 'flutmauer', 'leuchtturm-oben')],
   heartEvents: [
     { id: 'he-henk-angler-2', hearts: 2, map: 'flutmauer', time: ['morgen', 'tag'], dialogue: 'he-henk-angler-2' },
     { id: 'he-henk-angler-4', hearts: 4, map: 'flutmauer', time: 'nacht', when: { seen: 'he-henk-angler-2' }, dialogue: 'he-henk-angler-4' },
@@ -118,6 +119,7 @@ const henk = weltfigur({
   talk: [
     rede('henk-tag-rivale', { rival: ID }),
     rede('henk-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('henk-tag-nacht', { time: 'nacht' }),
     rede('henk-tag-standard'),
   ],

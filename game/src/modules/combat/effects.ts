@@ -3,7 +3,7 @@
 import type { BattleOutcome, Cell, StatusId } from '../contracts';
 import { clamp, has } from '../campaign/ids';
 import { distance, facingToward, isHazard, sameCell } from './grid';
-import { findUnit, isActive, livingOf, opponents } from './queries';
+import { findUnit, homeTeam, isActive, isInvulnerable, livingOf, opponents, ruleOpen, rulesOf } from './queries';
 import { nextRandom, randomInt } from './rng';
 import {
   FLED_XP_FACTOR, MORALE_ALLY_DOWN, MORALE_FLEE_BELOW, MORALE_SURRENDER_BELOW, STATUS_LABELS,
@@ -34,14 +34,37 @@ export const rollPercent = (ctx: Ctx, percent: number): boolean => percent >= 10
 // ---------------------------------------------------------------------------
 // Lebenspunkte
 
-/** Schaden ohne weitere Abzüge anwenden; 0 LP = K.O. Liefert den tatsächlichen Schaden. */
+/**
+ * Schaden ohne weitere Abzüge anwenden; 0 LP = K.O. Liefert den tatsächlichen Schaden.
+ * Bossregeln: Unverwundbare nehmen nichts; mit Regel `yield` gibt die Einheit unter ihrer Schwelle auf, statt K.O. zu gehen.
+ */
 export function dealDamage(ctx: Ctx, target: CombatUnit, amount: number): number {
   if (!isActive(target) || amount <= 0) return 0;
+  if (isInvulnerable(ctx.s, target)) {
+    emit(ctx, { type: 'notice', unit: target.id, text: `${target.name} ist unverwundbar.`, tone: 'warn' });
+    return 0;
+  }
   const dealt = Math.min(target.hp, Math.round(amount));
+  const giveUp = rulesOf(target, 'yield').find(({ rule }) => ruleOpen(ctx.s, target, rule) && (target.hp - dealt) / Math.max(1, target.maxHp) < rule.below);
+  if (giveUp) {
+    target.hp = Math.max(1, target.hp - dealt);
+    checkPhases(ctx, target);
+    yieldField(ctx, target, giveUp.rule);
+    return dealt;
+  }
   target.hp -= dealt;
   if (target.hp <= 0) knockOut(ctx, target);
   else checkPhases(ctx, target);
   return dealt;
+}
+
+/** Aufgabe/Flucht statt K.O. (Regel `yield`); mit `all` hören die übrigen Mitstreiter mit auf. */
+function yieldField(ctx: Ctx, unit: CombatUnit, rule: { mode: 'surrender' | 'flee'; line?: string; all?: boolean }): void {
+  if (rule.line) emit(ctx, { type: 'bark', unit: unit.id, text: rule.line });
+  leaveField(ctx, unit, rule.mode === 'flee' ? 'fled' : 'surrendered');
+  if (!rule.all) return;
+  const team = homeTeam(unit);
+  for (const other of ctx.s.units) if (other.id !== unit.id && isActive(other) && homeTeam(other) === team) leaveField(ctx, other, 'surrendered');
 }
 
 export function heal(ctx: Ctx, by: CombatUnit, target: CombatUnit, amount: number): number {
@@ -103,7 +126,7 @@ export function removeStatus(ctx: Ctx, target: CombatUnit, status: StatusId): vo
  * Unter 15 ergibt sich die Einheit, unter 30 flieht sie.
  */
 export function changeMorale(ctx: Ctx, unit: CombatUnit, delta: number): void {
-  if (unit.team !== 'enemy' || unit.morale === undefined || !isActive(unit) || delta === 0) return;
+  if (unit.team !== 'enemy' || unit.home || unit.morale === undefined || !isActive(unit) || delta === 0) return;
   const before = unit.morale;
   unit.morale = clamp(before + delta, 0, 100);
   emit(ctx, { type: 'morale', unit: unit.id, morale: unit.morale, delta: unit.morale - before });
@@ -146,8 +169,8 @@ export const statusLabel = (status: StatusId): string => STATUS_LABELS[status];
 // ---------------------------------------------------------------------------
 // Ausgang und Belohnung
 
-/** Party-Kämpfer (ohne Schutzperson). */
-const partyFighters = (s: CombatState) => s.units.filter(unit => unit.team === 'party' && !unit.vip);
+/** Party-Kämpfer (ohne Schutzperson; gesteuerte zählen zu ihrer eigentlichen Seite). */
+const partyFighters = (s: CombatState) => s.units.filter(unit => homeTeam(unit) === 'party' && !unit.vip);
 
 /** Prüft Sieg und Niederlage; beendet den Kampf, wenn entschieden. */
 export function checkOutcome(ctx: Ctx): boolean {
@@ -155,7 +178,7 @@ export function checkOutcome(ctx: Ctx): boolean {
   if (s.outcome) return true;
   if (!partyFighters(s).some(isActive)) return finish(ctx, 'lose');
   if (s.units.some(unit => unit.vip && unit.state === 'down')) return finish(ctx, 'lose');
-  if (!livingOf(s, 'enemy').length) return finish(ctx, 'win');
+  if (!s.units.some(unit => homeTeam(unit) === 'enemy' && isActive(unit))) return finish(ctx, 'win');
   const objective = s.objective;
   if (objective.kind === 'hack' && s.progress >= objective.ap) return finish(ctx, 'win');
   if (objective.kind === 'reach') {
@@ -170,7 +193,7 @@ export function finish(ctx: Ctx, outcome: BattleOutcome): true {
   const s = ctx.s;
   s.outcome = outcome;
   s.active = null;
-  for (const unit of s.units) { unit.ap = 0; unit.overwatch = false; }
+  for (const unit of s.units) { unit.ap = 0; unit.overwatch = false; releaseControl(unit); }
   s.rewards = outcome === 'win' ? rollRewards(ctx) : null;
   emit(ctx, { type: 'end', outcome });
   return true;
@@ -195,3 +218,26 @@ function rollRewards(ctx: Ctx): CombatRewards {
 }
 
 export const unitById = (ctx: Ctx, id: string | undefined): CombatUnit | undefined => findUnit(ctx.s, id);
+
+/** „Gesteuert“: Die Einheit kämpft ihren Zug für die Gegenseite (KI steuert). */
+export function takeControl(ctx: Ctx, unit: CombatUnit): void {
+  if (unit.home) return;
+  unit.home = unit.team;
+  unit.homeController = unit.controller;
+  unit.team = unit.team === 'party' ? 'enemy' : 'party';
+  unit.controller = 'ai';
+  unit.overwatch = false;
+  emit(ctx, {
+    type: 'notice', unit: unit.id, tone: 'warn',
+    text: unit.home === 'party' ? `${unit.name} ist gesteuert und kämpft diesen Zug gegen euch!` : `${unit.name} kämpft diesen Zug auf eurer Seite.`,
+  });
+}
+
+/** Ende von „gesteuert“: zurück auf die eigene Seite. */
+export function releaseControl(unit: CombatUnit): void {
+  if (!unit.home) return;
+  unit.team = unit.home;
+  unit.controller = unit.homeController ?? (unit.home === 'party' ? 'player' : 'ai');
+  delete unit.home;
+  delete unit.homeController;
+}

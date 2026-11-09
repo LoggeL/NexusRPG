@@ -28,7 +28,7 @@ const quest: QuestDef = {
       text: 'Weg: Über die Rattenbrücke im Kanal-Sammler traut sich keiner mehr. Räum sie frei.',
       done: { won: 'enc-kanal-ratten' },
       optional: true,
-      marker: { map: 'kanal-sammler' },
+      marker: { map: 'kanal-sammler', at: 'rattennest-2' },
       effects: [{ setFlag: GESICHERT }, { rep: 'kanalvolk', delta: 5 }],
     },
     {
@@ -36,14 +36,14 @@ const quest: QuestDef = {
       text: 'Weg: Bürgermeister Gully regiert das Kanalvolk (morgens und tagsüber im Rathaus). Überzeug ihn.',
       done: flag('fluchtweg_gully'),
       optional: true,
-      marker: { map: 'kanal-sammler' },
+      marker: { map: 'kanal-sammler', at: 'gullys-rathaus' },
     },
     {
       id: 'weg-spende',
       text: 'Weg: Gully nimmt auch drei Schrott-Ersatzteile für die Pumpen.',
       done: flag('fluchtweg_spende'),
       optional: true,
-      marker: { map: 'kanal-sammler' },
+      marker: { map: 'kanal-sammler', at: 'gullys-rathaus' },
     },
   ],
   reward: {

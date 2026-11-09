@@ -96,6 +96,7 @@ function menu(): Menu {
       erz('Du legst dreißig Credits auf den Tisch. Ripper zählt sie zweimal, beißt auf eine Münze und steckt sie in eine Westentasche, die vorher nicht da war.'),
       R('Freundschaftspreis. Andere zahlen fünfzig. Andere sind aber auch nicht meine Freunde. Sie sind meine Kunden.', 'signatur'),
       R('Regeln: Ich schieß nur, wenn’s sich lohnt. Was die Gegner fallen lassen, prüf ich zuerst. Und wenn’s brenzlig wird, bin ich der Erste, der „Das ist mir zu heiß!“ ruft.'),
+      R('Und: Dreißig. Jeden Morgen. Solange ich hinter dir herlaufe, buch ich das selbst ab. Ist die Kasse leer, bin ich weg. Ich bin kein Ehrenamt, Schätzchen.', 'signatur'),
     ]),
     node('entlassen', [R('Hat mich gefreut. Nein, hat’s nicht. Aber das Geld schon. Bis zum nächsten Mal, Kundschaft.', 'signatur')]),
   ];
@@ -425,7 +426,7 @@ const ripper: NpcDef = {
     { id: 'he-ripper-10', hearts: 10, map: 'ripper-praxis', time: 'tag', when: all(AKT2, seen('he-ripper-8')), dialogue: 'he-ripper-10' },
   ],
   companion: {
-    // world.md §4.6: Söldner ab ♥6, 30 Cr pro Tag (Anheuern im Tagesgespräch, siehe gaps/npc-medien-club.md).
+    // world.md §4.6: Söldner ab ♥6, 30 Cr pro Tag (Anheuern im Tagesgespräch, Tagessatz über `daily` unten).
     recruit: hearts('ripper', 6),
     stats: {
       hp: 48, armor: 1, morale: 45,
@@ -453,8 +454,29 @@ const ripper: NpcDef = {
   ],
 };
 
+/**
+ * Söldner-Tagessatz (world.md §4.6: 30 Cr pro Tag, im Master-Modus 60): zum Tageswechsel, solange Ripper in der Party
+ * ist. Reicht das Geld nicht, verlässt er die Party (bleibt in der Crew). Reihenfolge: zahlen vor pleite.
+ */
+const IN_PARTY: Condition = { companion: 'ripper' };
+const TAGESSATZ = {
+  'ripper-tagessatz': {
+    id: 'ripper-tagessatz', when: all(IN_PARTY, not(MASTER), { credits: 30 }),
+    effects: [{ credits: -30 }, set('heute_ripper_bezahlt'), { message: 'Ripper bucht seinen Tagessatz ab: 30 Credits. „Freundschaftspreis. Jeden Morgen neu.“' }],
+  },
+  'ripper-tagessatz-master': {
+    id: 'ripper-tagessatz-master', when: all(IN_PARTY, MASTER, { credits: 60 }),
+    effects: [{ credits: -60 }, set('heute_ripper_bezahlt'), { message: 'Ripper bucht 60 Credits ab. „Für den Master. Doppelt. Aus Respekt. Und aus Angst.“' }],
+  },
+  'ripper-tagessatz-pleite': {
+    id: 'ripper-tagessatz-pleite', when: all(IN_PARTY, noFlag('heute_ripper_bezahlt')),
+    effects: [{ dismiss: 'ripper' }, { message: 'Ripper schaut in deine Kasse, dann in dein Gesicht. „Kein Tagessatz, kein Ripper. Ruf mich, wenn du wieder flüssig bist, du Pleitegeier.“' }],
+  },
+} satisfies NonNullable<ContentPart['daily']>;
+
 export const part: ContentPart = {
   npcs: { ripper },
+  daily: TAGESSATZ,
   dialogues: byId([
     T.rivale, T.vexaria, T.nacht, T.zeit, T.fremd, T.container, T.kanal, T.praxis, T.ecktisch, T.vertraut, T.standard,
     he2, he4, he6, ...ripper23(M),

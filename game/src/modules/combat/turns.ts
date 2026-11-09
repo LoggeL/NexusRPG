@@ -5,9 +5,12 @@
 // - Zugbeginn: 2 AP, Überwachung endet, Gefahrenfeld, Brennen und Bluten, dann ticken die Zustände; „Gehackt“
 //   oder „Betäubt“ lassen den Zug aussetzen.
 // - Zugende: Blick zum nächsten Gegner, Abklingzeiten laufen (außer für in diesem Zug Eingesetztes).
-import { applyHazard, checkOutcome, dealDamage, emit, faceNearestOpponent, finish, removeStatus, type Ctx } from './effects';
+import { rulesAtRoundStart, rulesAtTurnStart } from './bossRules';
+import {
+  applyHazard, checkOutcome, dealDamage, emit, faceNearestOpponent, finish, releaseControl, removeStatus, takeControl, type Ctx,
+} from './effects';
 import { activeUnit, findUnit, hasStatus, isActive } from './queries';
-import { AP_PER_TURN, BLEED_DAMAGE, BURN_DAMAGE, SKIP_STATUS } from './rules';
+import { AP_PER_TURN, BLEED_DAMAGE, BURN_DAMAGE, ENCOURAGED_AP, SKIP_STATUS } from './rules';
 import type { BattleStart, CombatState, CombatUnit } from './types';
 import type { StatusId } from '../contracts';
 
@@ -27,6 +30,7 @@ export function initiativeOrder(units: readonly CombatUnit[], start: BattleStart
 /** Startet den Kampf: Runde 1, erste Einheit am Zug. */
 export function startBattle(ctx: Ctx): void {
   emit(ctx, { type: 'round', round: ctx.s.round });
+  rulesAtRoundStart(ctx);
   if (!checkOutcome(ctx)) advance(ctx);
 }
 
@@ -37,7 +41,17 @@ export function finishTurn(ctx: Ctx): void {
   if (!checkOutcome(ctx)) advance(ctx);
 }
 
+/** Zustände, die erst am Ende des eigenen Zugs herunterzählen (sie wirken auf genau diesen Zug). */
+const TURN_END_STATUS: readonly StatusId[] = ['gesteuert', 'ermutigt'];
+
 function closeTurn(ctx: Ctx, unit: CombatUnit): void {
+  releaseControl(unit);
+  for (const status of TURN_END_STATUS) {
+    if (!unit.status[status]) continue;
+    const left = unit.status[status]! - 1;
+    if (left > 0) unit.status[status] = left;
+    else removeStatus(ctx, unit, status);
+  }
   if (isActive(unit)) faceNearestOpponent(ctx, unit);
   for (const [ability, left] of Object.entries(unit.cooldowns)) {
     if (unit.usedThisTurn.includes(ability)) continue;
@@ -55,6 +69,7 @@ function newRound(ctx: Ctx): void {
   if (s.objective.kind === 'survive' && s.round > s.objective.rounds) { finish(ctx, 'win'); return; }
   if (s.round > s.maxRounds) { finish(ctx, 'fled'); return; }
   if (s.round === 2 && s.start !== 'normal') s.order = initiativeOrder(s.units, 'normal');
+  rulesAtRoundStart(ctx);
 }
 
 /** Nächste Einheit in der Reihenfolge, die noch kämpft (startet bei Bedarf eine neue Runde). */
@@ -95,7 +110,10 @@ function beginTurn(ctx: Ctx, unit: CombatUnit): boolean {
   const s = ctx.s;
   s.active = unit.id;
   emit(ctx, { type: 'turn', unit: unit.id, round: s.round });
-  unit.ap = AP_PER_TURN;
+  // „Ermutigt“ gibt diesem Zug +1 AP, „Gesteuert“ steuert diesen Zug; beide zählen erst am Zugende herunter.
+  const encouraged = hasStatus(unit, 'ermutigt');
+  const controlled = hasStatus(unit, 'gesteuert');
+  unit.ap = AP_PER_TURN + (encouraged ? ENCOURAGED_AP : 0);
   unit.attacked = false;
   unit.swapped = false;
   unit.usedThisTurn = [];
@@ -115,6 +133,7 @@ function beginTurn(ctx: Ctx, unit: CombatUnit): boolean {
   const skip = SKIP_STATUS.find(status => hasStatus(unit, status));
   if (unit.stunImmune > 0) unit.stunImmune -= 1;
   for (const status of Object.keys(unit.status) as StatusId[]) {
+    if (TURN_END_STATUS.includes(status)) continue;
     const left = (unit.status[status] ?? 0) - 1;
     if (left > 0) unit.status[status] = left;
     else {
@@ -127,6 +146,8 @@ function beginTurn(ctx: Ctx, unit: CombatUnit): boolean {
     unit.ap = 0;
     return false;
   }
+  if (controlled) takeControl(ctx, unit);
+  if (rulesAtTurnStart(ctx, unit)) return false;
   return true;
 }
 

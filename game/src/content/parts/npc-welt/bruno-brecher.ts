@@ -6,6 +6,7 @@ import {
   type Menue, VEX, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './bruno-brecher-akt23';
 
 const ID = 'bruno-brecher';
 const B = sprecher(ID);
@@ -149,6 +150,7 @@ const bruno = weltfigur({
   talk: [
     rede('bruno-tag-rivale', { rival: ID }),
     rede('bruno-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('bruno-tag-vip', { flag: 'bruno_vip' }),
     rede('bruno-tag-pfeffer', { all: [{ weekday: ['fr', 'sa'] }, { time: 'nacht' }] }),
     rede('bruno-tag-stammgast', { flag: 'bruno_stammgast' }),

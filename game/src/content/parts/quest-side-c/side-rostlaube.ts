@@ -183,12 +183,12 @@ const probefahrt: CutsceneDef = {
   title: 'Die Probefahrt',
   beats: [
     {
-      image: 'black', fade: 'in', sfx: 'engine',
+      image: 'cut-rostlaube-probefahrt', fade: 'in', sfx: 'engine',
       caption: 'Käpt’n Nebelhorn sitzt am Steuer. Er hält es wie ein Ruder. Er hat sich angeschnallt. Zweimal.',
       lines: [l(NB, 'Wo ist der Anker? Warum hat das Ding keinen Anker? Wie hält man das an?', 'besorgt')],
     },
     {
-      image: 'black',
+      image: 'cut-rostlaube-probefahrt',
       caption: 'Einmal um das Hafenbecken. Im Schritttempo. Hafen-Hannes winkt mit dem Greifarm. Zwei Möwen überholen euch zu Fuß.',
       lines: [
         p('Du kannst ruhig Gas geben, Käpt’n.'),
@@ -196,7 +196,7 @@ const probefahrt: CutsceneDef = {
       ],
     },
     {
-      image: 'black',
+      image: 'cut-rostlaube-probefahrt',
       caption: 'Am Ende der Kaimauer, wo die Straße zur Ödnis abzweigt, hält er an. Lange. Der Motor brummt. Weit hinten, hinter dem Dunst, ahnt man den Horizont.',
       lines: [
         l(NB, 'Da lang ist Oma gefahren. Bis ans Meer. Das richtige. Nicht das Hafenbecken.', 'trauer'),
@@ -204,7 +204,7 @@ const probefahrt: CutsceneDef = {
       ],
     },
     {
-      image: 'black', fade: 'out',
+      image: 'cut-rostlaube-probefahrt', fade: 'out',
       caption: 'Er dreht um. Aber er lächelt. Und auf dem Rückweg drückt er einmal auf die Hupe. Sie klingt fast wie ein Nebelhorn.',
       lines: [l(NB, 'TUUUT! Klar Schiff, Landratte. Du hast mir die Laube wiedergegeben.', 'freude')],
     },

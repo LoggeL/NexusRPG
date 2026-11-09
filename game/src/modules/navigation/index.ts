@@ -408,3 +408,4 @@ export function createTrail(start: Point, options: { maxLength?: number; minStep
     length: () => total,
   };
 }
+export * from './subway';

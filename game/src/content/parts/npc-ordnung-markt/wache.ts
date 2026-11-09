@@ -91,10 +91,10 @@ const RIVALE: Menue = {
   choices: [
     {
       text: 'Formular „Wiederherstellung Vertrauensverhältnis“ ausfüllen. Fehlerfrei.', next: 'formular',
-      check: pruefung('wache-versoehnung-formular', 'technik', 5, ['formular']), effects: [{ reconcile: 'wache' }],
+      check: pruefung('wache-versoehnung-formular', 'technik', 5, ['formular']), effects: [{ reconcile: 'wache' }, flag('rivale_kessel', false)],
     },
-    { text: 'Bearbeitungsgebühr zahlen. 30 Credits.', requires: { credits: 30 }, next: 'gebuehr', effects: [{ credits: -30 }, { reconcile: 'wache' }] },
-    { text: 'Ihr einen Synth-Kaffee hinstellen. Wortlos.', when: { item: 'synth-kaffee' }, next: 'kaffee', effects: [{ take: 'synth-kaffee' }, { reconcile: 'wache' }] },
+    { text: 'Bearbeitungsgebühr zahlen. 30 Credits.', requires: { credits: 30 }, next: 'gebuehr', effects: [{ credits: -30 }, { reconcile: 'wache' }, flag('rivale_kessel', false)] },
+    { text: 'Ihr einen Synth-Kaffee hinstellen. Wortlos.', when: { item: 'synth-kaffee' }, next: 'kaffee', effects: [{ take: 'synth-kaffee' }, { reconcile: 'wache' }, flag('rivale_kessel', false)] },
     { text: 'Ich geh schon.' },
   ],
   nodes: [
@@ -352,6 +352,29 @@ const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
+/** Rivalität −2: Kessel setzt die Spielfigur auf die Liste. Haft eine Stufe früher (Engine: { rival: 'wache' }). */
+const re2 = dialog('re-wache-2', [
+  knoten('start', [
+    erz('Bahnhof, Feierabendverkehr. Eine Hand legt sich auf deine Schulter. Schwer. Dienstlich. Wachtmeisterin Kessel, Notizbuch schon offen.'),
+    K('Personenkontrolle. Taschen leeren. Alle. Auch die, von denen Sie glauben, ich wüsste nichts.', 'wut'),
+    erz('Sie zählt deinen Kram auf den Kiosktresen. Kaugummi. Kabel. Ein Credit-Chip. Eine Nougatbombe, angebissen. Sie notiert die Bissspuren.'),
+    K('Ab heute stehen Sie auf meiner Liste. Spalte „Vorsorglich“. Wer in dieser Spalte steht, kommt bei mir eine Stufe früher in die Zelle. Ich nenne das Effizienz.', 'neutral'),
+  ], {
+    choices: [
+      { text: '„Ihre Liste kann mich mal.“', next: 'kannmich', effects: [herz('wache', -10)] },
+      { text: '„Und wie komm ich da wieder raus?“', next: 'raus' },
+    ],
+  }),
+  knoten('kannmich', [
+    K('Ihre Liste kann mich mal. Notiert. Wortwörtlich. Mit Anführungszeichen. Ich habe sehr schöne Anführungszeichen.', 'wut'),
+    K('Ich hoffe, wir sehen uns nicht wieder. Diesmal meine ich es.'),
+  ], { effects: [flag('rivale_kessel')] }),
+  knoten('raus', [
+    K('Formular „Wiederherstellung Vertrauensverhältnis“. Fehlerfrei. Oder Bearbeitungsgebühr. Oder ein Heißgetränk, das ich nicht als Bestechung werte.', 'neutral'),
+    K('Bis dahin: Arme hoch, wenn Sie mich sehen. Freiwillig. Das spart uns beiden Zeit.'),
+  ], { effects: [flag('rivale_kessel')] }),
+]);
+
 const wache: NpcDef = {
   id: 'wache',
   name: 'Wachtmeisterin Kessel',
@@ -382,6 +405,8 @@ const wache: NpcDef = {
     { id: 'he-wache-6', hearts: 6, map: 'eisenhof', time: 'morgen', when: { not: { weekday: 'mi' } }, dialogue: 'he-wache-6' },
     { id: 'he-wache-8', hearts: 8, map: 'bahnhof-mitte', time: 'abend', when: AB_AKT2, dialogue: 'he-wache-8' },
     { id: 'he-wache-10', hearts: 10, map: 'bahnhof-mitte', time: 'nacht', when: { all: [AB_AKT2, { seen: 'he-wache-8' }, { cycleDay: [7, 21] }] }, dialogue: 'he-wache-10' },
+    // Rivalität (world.md §4.4): Taschenkontrollen, Haft eine Stufe früher. Engine liest { rival: 'wache' }.
+    { id: 're-wache-2', hearts: -2, map: 'bahnhof-mitte', time: 'abend', dialogue: 're-wache-2' },
   ],
   companion: {
     recruit: REKRUT,
@@ -423,7 +448,7 @@ export const part: ContentPart = {
     ...A23.dialogues,
     T.rivale, T.exWache, T.knast, T.vexaria, T.zeit, T.gekuendigt, T.quest, T.saal, T.besucher, T.kiosk, T.vertraut,
     T.morgen, T.standard,
-    he2, he4, he6,
+    he2, he4, he6, re2,
   ),
   phone: {
     'tel-wache-kiosk': {

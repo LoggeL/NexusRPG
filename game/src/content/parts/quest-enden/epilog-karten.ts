@@ -407,10 +407,12 @@ export const KARTEN: readonly Karte[] = [
 export const ENDING_EPILOGUE: { when?: Condition; text: string }[] = [
   { when: all(ENDE_MEER, noFlag('ende_doch_noch_meer')), text: 'Ende 1 · Das Meer. Hunters Crew ist ans Meer gefahren. Nicht für einen Tag. Für immer, oder wenigstens bis die Bar läuft.' },
   { when: ENDE_NEXUS, text: 'Ende 2 · Die neue Nexus. Eine KI, die „bitte“ sagt, hat die Chips abgeschaltet. Nicht alle trauen ihr. Sie versteht das.' },
+  { when: all(ENDE_MASTER, noFlag('ende_doch_noch_meer')), text: 'Ende 3 · Master. Du hast die Stadt und den Turm und einen Sessel, der knarzt. Die Crew sitzt am Meer. Neben dem Feuer ist ein Platz frei. Er bleibt es.' },
   { when: ENDE_3B, text: 'Ende 3b · Doch noch ans Meer. Du hattest die ganze Stadt. Du hast sie zurückgegeben. Raven hat gesagt: „Du teilst ja doch.“' },
   { when: flag('kraehe_teilhaberin'), text: 'Krähe ist Teilhaberin des Strandclubs. Sie hat im Vertrag nur ein Wort geändert: „Ehre“ statt „Gewinn“.' },
   ...KARTEN.map((x) => ({ when: x.when, text: x.text })),
-  { text: 'Noxius leuchtet weiter. Mit dir mittendrin.' },
+  { when: all(ENDE_MASTER, noFlag('ende_doch_noch_meer')), text: 'Noxius leuchtet weiter. Weil du es befiehlst.' },
+  { when: noFlag('master_modus'), text: 'Noxius leuchtet weiter. Mit dir mittendrin.' },
 ];
 
 // --------------------------------------------------------------------------------------------- Dialog

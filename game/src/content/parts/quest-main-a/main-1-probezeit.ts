@@ -64,14 +64,14 @@ export const part: ContentPart = {
           id: 'einlass',
           text: 'Komm am Türsteher des High Voltage vorbei.',
           done: { any: [{ flag: 'hv_einlass' }, { visited: 'high-voltage' }] },
-          marker: { map: 'neon-gasse', at: [582, 332] },
+          marker: { map: 'neon-gasse', at: 'hv-eingang' },
         },
         {
           id: 'szene',
           text: 'Warte im High Voltage auf Hunter. 18 Uhr.',
           when: { questStep: Q, step: 'einlass' },
           done: { any: [{ flag: 'probezeit_ripper_geloest' }, { won: 'enc-hv-ripper-tisch' }, { flag: 'ripper_kampf_verloren' }] },
-          marker: { map: 'high-voltage', at: [292, 640] },
+          marker: { map: 'high-voltage', at: 'tresen-ende' },
           effects: [{ setFlag: 'probezeit_gespraech' }],
         },
         {
@@ -79,7 +79,7 @@ export const part: ContentPart = {
           text: 'Bewerbungsgespräch: Hunter wartet im Hinterzimmer.',
           when: { questStep: Q, step: 'szene' },
           done: { flag: 'probezeit_bestanden' },
-          marker: { map: 'hv-hinterzimmer', at: [520, 214] },
+          marker: { map: 'hv-hinterzimmer', at: 'schreibtisch' },
         },
       ],
       reward: {
@@ -91,6 +91,18 @@ export const part: ContentPart = {
           { message: 'Freigeschaltet: Crew-Quartier über dem High Voltage, Hunters Auftragstafel im Hinterzimmer.' },
         ],
       },
+    },
+  },
+
+  cutscenes: {
+    // Standbild vor der Ripper-Szene (nur wenn man zwischen 17:55 und 20 Uhr hereinkommt; wer früh kommt und wartet, sieht es nicht).
+    'main-1-probezeit-ecktisch': {
+      id: 'main-1-probezeit-ecktisch',
+      title: 'Der Ecktisch',
+      beats: [{
+        image: 'cut-probezeit-ecktisch', pan: 'in', fade: 'in', hold: 1800,
+        caption: 'High Voltage, Ecktisch. Drei Kinder, ein Implantat, das blinkt, und ein Mann mit grünem Kreuz auf der Jacke.',
+      }],
     },
   },
 
@@ -233,7 +245,13 @@ export const part: ContentPart = {
           L('hunter', 'Abgelehnt.'),
           N('Die drei verschwinden zur Tür, Jakko mit einer Handvoll Erdnüsse vom Tresen. Ripper steht auf. Hinter ihm erhebt sich ein Kerl, der aussieht wie ein Kühlschrank mit Kapuze.'),
           L('ripper', 'Was haben wir denn da? Ein Held. Helden haben die schönsten Ersatzteile.', 'signatur'),
-        ], { effects: [{ battle: 'enc-hv-ripper-tisch' }] }),
+        ], {
+          effects: [{
+            battle: 'enc-hv-ripper-tisch',
+            win: [{ dialogue: 'main-1-probezeit-nach-kampf' }],
+            lose: [{ dialogue: 'main-1-probezeit-nach-niederlage' }],
+          }],
+        }),
         node('aufloesung', [
           N('Die Kinder ziehen ab, Daria zählt die Credits zweimal, Freya notiert etwas in ein Heft. Ripper verzieht sich an seinen Ecktisch, beleidigt wie eine nasse Katze.'),
           N('Die Musik setzt wieder ein. Der Barkeeper stellt das Glas ab.'),
@@ -253,6 +271,24 @@ export const part: ContentPart = {
           L('barkeeper', 'Glas ist ganz geblieben / der Tisch nicht, der Stolz auch nicht / Hunter winkt dir zu.'),
           L('hunter', 'Hinterzimmer. Jetzt.'),
         ], { effects: [{ setFlag: 'probezeit_nach_kampf' }, { setFlag: 'probezeit_gespraech' }] }),
+      ],
+    },
+
+    // Niederlage am Ecktisch: Man bleibt im Club (stayOnLose), Hunter sammelt einen auf.
+    'main-1-probezeit-nach-niederlage': {
+      id: 'main-1-probezeit-nach-niederlage',
+      start: 'start',
+      nodes: [
+        node('start', [
+          N('Decke. Lichterketten. Ein Glühwürmchen davon flackert. Oder das bist du.'),
+          N('Ripper steht über dir, wischt sich die Schraubhand an der Jacke ab und zählt mit den Lippen seine Zähne. Alle noch da. Deine wahrscheinlich auch, aber du würdest jetzt nicht wetten.'),
+          L('ripper', 'Helden. Immer dasselbe. Große Klappe, weiche Rippen.', 'signatur'),
+          L('hunter', 'Ripper. Du hast deinen Spaß gehabt. Die Kinder kriegen zwanzig, und du gehst jetzt, bevor ich mir dein Gesicht merke.'),
+          L('ripper', '… Zwanzig. Wegen der Unterhaltung.', 'wut'),
+          N('Er zieht ab, sein Kühlschrank mit Kapuze hinterher. Eine Hand packt dich am Kragen und stellt dich auf die Füße, als wärst du ein umgefallener Barhocker.'),
+          L('barkeeper', 'Boden ist frisch gewischt / jetzt hat er einen Abdruck / sieht fast aus wie Kunst.'),
+          L('hunter', 'Hinterzimmer. Jetzt. Du kannst humpeln, das ist erlaubt.'),
+        ], { effects: [{ setFlag: 'probezeit_nach_kampf' }, { setFlag: 'probezeit_gespraech' }, ...KINDER(20)] }),
       ],
     },
 
@@ -420,10 +456,19 @@ export const part: ContentPart = {
     },
     'high-voltage': {
       onEnter: [
+        {
+          id: 'probezeit-ecktisch-bild', when: { all: [SZENE_OFFEN, { clockBetween: [UHR(17, 55), UHR(20)] }] },
+          cutscene: 'main-1-probezeit-ecktisch',
+        },
         { id: 'probezeit-szene', once: false, when: SZENE_OFFEN, dialogue: 'main-1-probezeit-szene' },
         {
           id: 'probezeit-nach-kampf', when: { all: [{ won: 'enc-hv-ripper-tisch' }, { notFlag: 'probezeit_bestanden' }, { notFlag: 'probezeit_nach_kampf' }] },
           dialogue: 'main-1-probezeit-nach-kampf',
+        },
+        {
+          id: 'probezeit-nach-niederlage',
+          when: { all: [{ flag: 'ripper_kampf_verloren' }, { notFlag: 'probezeit_bestanden' }, { notFlag: 'probezeit_nach_kampf' }] },
+          dialogue: 'main-1-probezeit-nach-niederlage',
         },
       ],
     },

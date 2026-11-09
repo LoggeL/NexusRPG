@@ -150,9 +150,9 @@ const sendung: CutsceneDef = {
   id: 'side-live-dabei-sendung',
   title: 'Live dabei',
   beats: [
-    { image: 'black', caption: 'NX-1, Abendsendung. Ein Rotor schief, die Linse verschmiert, das Bild trotzdem scharf.', fade: 'in', hold: 1400 },
-    { image: 'black', caption: 'Zum ersten Mal seit Wochen zeigt das Stadt-TV etwas, das die Unterstadt selbst erlebt hat.', hold: 1500 },
-    { image: 'black', caption: 'Auf dem Visier des Kameramanns, ganz klein, in der Ecke: [ : ) ].', fade: 'out', hold: 1500 },
+    { image: 'cut-side-live-dabei-sendung', caption: 'NX-1, Abendsendung. Ein Rotor schief, die Linse verschmiert, das Bild trotzdem scharf.', fade: 'in', hold: 1400 },
+    { image: 'cut-side-live-dabei-sendung', caption: 'Zum ersten Mal seit Wochen zeigt das Stadt-TV etwas, das die Unterstadt selbst erlebt hat.', hold: 1500 },
+    { image: 'cut-side-live-dabei-sendung', caption: 'Auf dem Visier des Kameramanns, ganz klein, in der Ecke: [ : ) ].', fade: 'out', hold: 1500 },
   ],
 };
 

@@ -7,6 +7,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './meister-watt-akt23';
 
 const ID = 'meister-watt';
 const W = sprecher(ID);
@@ -99,6 +100,9 @@ const he4 = dialog('he-meister-watt-4', [
   ], { effects: [{ xp: 60 }, flag('watt_bewegt')] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: meister-watt-akt23.ts.
+const A23 = akt23(M);
+
 const watt = weltfigur({
   id: ID,
   name: 'Meister Watt',
@@ -123,6 +127,7 @@ const watt = weltfigur({
   talk: [
     rede('watt-tag-rivale', { rival: ID }),
     rede('watt-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('watt-tag-studio', { all: [LEHRER, { time: 'morgen' }] }),
     rede('watt-tag-standard'),
   ],
@@ -130,5 +135,5 @@ const watt = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: watt },
-  dialogues: sammle(T.rivale, T.erstes, T.studio, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.studio, T.standard, he2, he4, ...A23.dialogues),
 };

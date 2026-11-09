@@ -22,7 +22,7 @@ const quest: QuestDef = {
       id: 'ankommen',
       text: 'Komm abends ins High Voltage: Party für Raven.',
       done: flag('raven_party_begonnen'),
-      marker: { map: 'high-voltage' },
+      marker: { map: 'high-voltage', at: 'tresen' },
     },
     {
       id: 'tanzen',
@@ -30,13 +30,14 @@ const quest: QuestDef = {
       when: flag('raven_party_begonnen'),
       done: flag('party_getanzt'),
       optional: true,
-      marker: { map: 'high-voltage' },
+      marker: { map: 'high-voltage', at: 'tanzflaeche' },
     },
     {
       id: 'geruechte',
       text: 'Optional: Der Barkeeper kennt die Gerüchte der Woche.',
       when: flag('raven_party_begonnen'),
       done: flag('party_geruechte'),
+      marker: { map: 'high-voltage', at: 'tresen' },
       optional: true,
     },
     {
@@ -44,6 +45,7 @@ const quest: QuestDef = {
       text: 'Optional: Zwei Quantum-Fahrer in der Sitzecke reden zu laut über ihren Chef.',
       when: flag('raven_party_begonnen'),
       done: { item: 'geruecht-master' },
+      marker: { map: 'high-voltage', at: 'sitzecke-gaeste' },
       optional: true,
     },
     {
@@ -51,6 +53,7 @@ const quest: QuestDef = {
       text: 'Optional: Nyra sitzt allein in der Laptop-Ecke.',
       when: flag('raven_party_begonnen'),
       done: flag('party_nyra_meer'),
+      marker: { map: 'high-voltage', at: 'laptop-ecke' },
       optional: true,
     },
     {
@@ -58,6 +61,7 @@ const quest: QuestDef = {
       text: 'Bring am Tresen den Toast auf Raven aus.',
       when: flag('raven_party_begonnen'),
       done: flag('raven_partyfoto'),
+      marker: { map: 'high-voltage', at: 'tresen' },
     },
   ],
   reward: {

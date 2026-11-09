@@ -33,6 +33,7 @@ export const DARIA_TALK_FRUEH: TalkDef[] = [
   { dialogue: 'daria-nachspiel', when: einmal('daria-nachspiel', NACHSPIEL) },
   { dialogue: 'daria-meer', when: { all: [KINDER_MEER, { weekday: 'sa' }, { time: 'tag' }] } },
   { dialogue: 'daria-partynacht', when: PARTYNACHT },
+  { dialogue: 'daria-mila', when: einmal('daria-mila', { all: [{ flag: 'mila_freundin_kinder' }, { not: PARTYNACHT }, { not: MASTER }] }) },
   { dialogue: 'daria-a2-bruch', when: einmal('daria-a2-bruch', A2_CHAOS) },
   { dialogue: 'daria-a2-aria', when: einmal('daria-a2-aria', { all: [A2_FREI, ARIA_GECHIPPT] }) },
   { dialogue: 'daria-a2-party', when: einmal('daria-a2-party', A2_PARTY) },
@@ -53,6 +54,29 @@ export const DARIA_SCHEDULE_23: ScheduleEntry[] = [
 ];
 
 const dialogues = dialogs(
+  // ------------------------------------------------------------------------------------------- Mila (side-captain-kuschel)
+  dlg('daria-mila', [
+    node('a', [
+      N('Am Botenstand sitzt ein Mädchen mit Kreidestaub bis zu den Ellbogen und malt Pfeile auf den Asphalt. Mila. Neben ihr steht ein neues Pappschild: „DARIA & CO. – JETZT AUCH OBERSTADT (TEILWEISE)“.'),
+      L(D, 'Mila ist jetzt bei uns. Probezeit. Sie wollte gleich Teilhaberin werden. Ich hab gesagt: erst Botin, dann Teilhaberin, dann Weltherrschaft. In der Reihenfolge.', 'signatur'),
+      L(D, 'Sie kennt die Oberstadt. Welche Aufzüge nicht kontrolliert werden, welche Wachleute Kaugummi nehmen. Ihr Papa weiß nix davon. Ihr Papa ist nett. Nette Leute muss man schützen. Vor Informationen.'),
+    ], {
+      effects: [{ markSeen: 'daria-mila' }, herz(D, 10)],
+      choices: [
+        { text: '„Ihr nehmt eine Achtjährige aus der Oberstadt in die Bande?“', next: 'bande' },
+        { text: '„Was malt sie da?“', next: 'karte' },
+      ],
+    }),
+    node('bande', [
+      L(D, 'Fast neun. Und sie hat Captain Kuschel nicht geklaut, sie hat ihn gerettet. Aus einem Fundbüro. Das ist mehr, als die meisten Erwachsenen je gerettet haben.', 'wut'),
+      L(D, 'Außerdem: Wer Freya beim Eins! schlägt, darf bleiben. Das ist Gesetz. Freya hat es selbst geschrieben. Sie bereut es.', 'freude'),
+    ]),
+    node('karte', [
+      L(D, 'Die Oberstadt. Für die Karte im Nest. Bisher war da oben nur ein großer Fleck mit „HIER WOHNEN ARSCHLÖCHER“ drauf. Das hat Jakko geschrieben. Das war unpräzise.', 'signatur'),
+      L(D, 'Jetzt stehen da Aufzüge, Abkürzungen und wo es Pudding gibt. Mila sagt, die Kantine im Campus hat Pudding mit Haut. Das ist Information. Information ist Geld.'),
+    ], { effects: [{ setFlag: 'daria_karte_oberstadt' }] }),
+  ]),
+
   // ------------------------------------------------------------------------------------------- Herz-Ereignis 8
   dlg('dlg-he-daria-8', [
     node('start', [N('Am Botenstand drängen sich Leute. Jemand flucht, jemand lacht, und mittendrin hört man Darias Stimme, eine Oktave höher als sonst.')], {

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './herr-blitz-akt23';
 
 const ID = 'herr-blitz';
 const QUEST = 'side-uebliche-verspaetung';
@@ -117,6 +118,7 @@ const blitz = weltfigur({
   talk: [
     rede('blitz-tag-rivale', { rival: ID }),
     rede('blitz-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('blitz-tag-erwischt', ERWISCHT),
     rede('blitz-tag-standard'),
   ],

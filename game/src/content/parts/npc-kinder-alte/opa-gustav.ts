@@ -1,10 +1,12 @@
 // Opa Gustav (Schrotthändler mit Kran „Elsa“, Wohnwagen und Wachroboter Knurri, Schrottmarkt): NpcDef,
 // Tagesgespräche, he-opa-gustav-2…10 (world.md §4.4). Kein Begleiter, keine Romanze.
-// Werkbank: Die Karte schrottmarkt zeigt `gustavs-werkbank`, sobald he-opa-gustav-6 gesehen ist.
+// Werkbank: Die Karte schrottmarkt zeigt `gustavs-werkbank`, sobald he-opa-gustav-6 gesehen ist. Herkunft Schrott hat sie ab
+// Tag 1 (world.md §2.2): eigener Hotspot `gustavs-werkbank-schrott` (mapAdditions), bis he-opa-gustav-6 die normale freigibt.
+// Kranblick (he-opa-gustav-2): Flags gustav_kranblick (dauerhaft) und heute_gustav_kranblick (fällt am nächsten Morgen).
 // pers-gustav-alte-liebe (Elsa im Aussiedlerhof, Akt 2) baut der Quest-Agent; he-opa-gustav-8 startet sie.
 // Akt 2/3, Nachspiel, he-opa-gustav-8/10: opa-gustav-akt23.ts.
 import type { DialogueChoice, NpcDef } from '../../../modules/contracts';
-import type { ContentPart } from '../../part';
+import type { ContentPart, MapAddition } from '../../part';
 import { L, N, OEDNIS, SCHROTT, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann } from './_dsl';
 import { GUSTAV_HE_23, GUSTAV_SCHEDULE_23, GUSTAV_TALK_FRUEH, GUSTAV_TALK_POOL } from './opa-gustav-akt23';
 
@@ -271,7 +273,7 @@ const dialogues = dialogs(
     node('damals', [L(G, 'Hab ich. Und du hast in die Kabine gekotzt. Elsa hat’s dir verziehen. Ich nicht.', 'freude')], { next: 'ende' }),
     node('ende', [
       L(G, 'Komm wieder, wenn Elsa gute Laune hat. Und jetzt runter mit dir, ich muss arbeiten. Also: Kaffee trinken und über die Jugend schimpfen.', 'signatur'),
-    ], { effects: [{ setFlag: 'gustav_kranblick' }, { markSeen: 'gustav-kranblick' }, { message: 'Gustavs Kranblick: Für heute kennst du die Fundorte der Unterstadt.' }] }),
+    ], { effects: [{ setFlag: 'gustav_kranblick' }, { setFlag: 'heute_gustav_kranblick' }, { markSeen: 'gustav-kranblick' }, { message: 'Gustavs Kranblick: Für heute kennst du die Fundorte der Unterstadt.' }] }),
   ]),
 
   dlg('dlg-he-opa-gustav-4', [
@@ -366,7 +368,25 @@ const dialogues = dialogs(
   ]),
 );
 
+/** Herkunft Schrott: Werkbank ab Tag 1, gleiche Wirkung wie `gustavs-werkbank` auf maps/schrottmarkt.ts. */
+const WERKBANK_SCHROTT: NonNullable<MapAddition['hotspots']>[number] = {
+  id: 'gustavs-werkbank-schrott', at: [176, 250], radius: 56, label: 'An Gustavs Werkbank basteln', kind: 'use',
+  when: { all: [SCHROTT, { not: { seen: 'he-opa-gustav-6' } }] },
+  lines: [
+    N('Unter der Markise steht noch deine alte Werkbank vom Platz. Die mit der Brandnarbe in Form von Italien. Gustav hat sie nie weggeräumt. „Werkzeug zurück an den Haken. Wie früher. Sonst Ohrfeige. Wie früher.“'),
+  ],
+  effects: [
+    { take: 'schrott-ersatzteil', qty: 2 },
+    {
+      minigame: 'akt-werkbank', level: 2, key: 'werkbank-gustav', label: 'Basteln an Gustavs Werkbank',
+      win: [{ give: 'reparaturset' }, { xp: 10 }, { message: 'Aus zwei Schrottteilen wird ein Reparaturset. Gustav: „Hände wie früher. Nur größer. Und dreckiger.“' }],
+      lose: [{ message: 'Es zischt, es knallt, es riecht nach Haaren. Gustav: „Na, wie früher eben.“ Er reicht dir den Feuerlöscher.' }],
+    },
+  ],
+};
+
 export const part: ContentPart = {
   npcs: { [G]: npc },
   dialogues,
+  mapAdditions: { schrottmarkt: { hotspots: [WERKBANK_SCHROTT] } },
 };

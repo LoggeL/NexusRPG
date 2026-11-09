@@ -4,7 +4,7 @@
 // gültiges `CombatEvent`, jede `CombatUnit` eine gültige `BattleUnit`.
 import type {
   AbilityDef, AbilityId, ArenaDef, ArenaId, BattleObjective, BattleOutcome, BattleState, BattleUnit, Cell,
-  CombatBonus, EncounterId, GameContent, ItemDef, ItemId, StatusId, WeaponKind, WeaponStats,
+  CombatBonus, EncounterId, EnemyRule, GameContent, ItemDef, ItemId, StatusId, Team, WeaponKind, WeaponStats,
 } from '../contracts';
 
 /** Inhalte, die der Kampf liest (Teilmenge von GameContent – Tests dürfen kleinere Objekte übergeben). */
@@ -47,6 +47,30 @@ export interface CombatUnit extends BattleUnit {
   stunImmune: number;
   /** Reihenfolge beim Aufstellen (Gleichstände). */
   spawn: number;
+  /** Sonderregeln aus EnemyDef.rules (Kopie, damit Vorschau und Regeln ohne Inhalte auskommen). */
+  rules?: EnemyRule[];
+  /** Eigentliche Seite, solange die Einheit „gesteuert“ für die Gegenseite kämpft (nur während ihres Zugs). */
+  home?: Team;
+  /** Vorheriger Steuermodus während „gesteuert“. */
+  homeController?: 'player' | 'ai';
+  /** Herzen der Spielfigur bei diesem Begleiter (Charmeur). */
+  hearts?: number;
+}
+
+/** Laufzeitstand der Bossregeln (bossRules.ts), Schlüssel `<Einheit>#<Regelindex>`. */
+export interface BossRuntime {
+  /** Fluchtuhr: verbleibende Runden (0 = bereit). */
+  countdown: Record<string, number>;
+  /** Angekündigte Wellenreihen (0-basiert). */
+  wave: Record<string, number[]>;
+  /** Runde, ab der eine Welle zählt (Beginn des Gates). */
+  since: Record<string, number>;
+  /** Gerufene Verstärkungen. */
+  called: Record<string, number>;
+  /** Gehaltene Terminalrunden. */
+  hold: Record<string, number>;
+  /** Schon ausgelöste einmalige Meldungen. */
+  said: string[];
 }
 
 /** Belohnung nach einem Sieg (gezogen mit dem Kampf-Zufall). */
@@ -77,6 +101,8 @@ export interface CombatState extends Omit<BattleState, 'units' | 'log'> {
   rewards: CombatRewards | null;
   /** Nach so vielen Runden endet der Kampf als Flucht (Schutz gegen Endlosschleifen). */
   maxRounds: number;
+  /** Stand der Bossregeln (fehlt bei Kämpfen ohne Regeln). */
+  boss?: BossRuntime;
 }
 
 /** Aktionen der aktiven Einheit. Obermenge von `BattleAction`. */
@@ -109,7 +135,7 @@ export type CombatEvent =
   | { type: 'ability'; unit: string; ability: AbilityId; target?: string; cell?: Cell }
   | { type: 'item'; unit: string; item: ItemId; target?: string }
   | { type: 'heal'; unit: string; target: string; amount: number }
-  | { type: 'damage'; unit: string; amount: number; source: 'brennt' | 'blutet' | 'gefahr' }
+  | { type: 'damage'; unit: string; amount: number; source: 'brennt' | 'blutet' | 'gefahr' | 'welle' }
   | { type: 'status'; unit: string; status: StatusId; turns: number }
   | { type: 'statusEnd'; unit: string; status: StatusId }
   | { type: 'resist'; unit: string; status: StatusId }
@@ -125,6 +151,10 @@ export type CombatEvent =
   | { type: 'flee'; unit: string }
   | { type: 'surrender'; unit: string }
   | { type: 'bark'; unit: string; text: string }
+  /** Hinweis der Bossregeln (Countdown, Welle, Seitenwechsel, Terminal …); `unit` = Bezug, falls vorhanden. */
+  | { type: 'notice'; text: string; unit?: string; tone?: 'warn' | 'info' | 'good' }
+  /** Neue Einheit im Feld (Funkruf). */
+  | { type: 'spawn'; unit: string }
   | { type: 'end'; outcome: BattleOutcome };
 
 /** Ergebnis einer Aktion. Bei `error` bleibt der Zustand unverändert (`state` ist dann der alte). */
@@ -156,6 +186,8 @@ export interface PartyMemberSpec {
   bonus?: CombatBonus;
   /** Standard 'player' (Darstellung steuert); Simulationen setzen 'ai'. */
   controller?: 'player' | 'ai';
+  /** Herzen bei der Spielfigur (Begleiter; Charmeur wählt den mit den wenigsten). */
+  hearts?: number;
 }
 
 export interface BattleSetup {

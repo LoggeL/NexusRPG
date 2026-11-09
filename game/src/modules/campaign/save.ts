@@ -3,7 +3,7 @@
 // Jede Domäne prüft ihren Teil (parse…); unbekannte Felder werden verworfen, ungültige Daten abgelehnt.
 import { templateAppearance } from '../appearance';
 import type { GameContent, GameState, MapId } from '../contracts';
-import { parsePlayer } from './domains/character';
+import { parsePlayerState } from './domains/player';
 import { parseClock } from './domains/clock';
 import { parseFlags, parseIdList, parseInventory, parsePhone } from './domains/core';
 import { isCredits, parseReputation, parseShops } from './domains/economy';
@@ -83,7 +83,7 @@ function validate(raw: unknown, content: GameContent, notes: string[] = []): Gam
     map: d.map as MapId,
     position: [pos[0] as number, pos[1] as number],
     facing: d.facing as GameState['facing'],
-    player: parsePlayer(d.player, content, notes),
+    player: parsePlayerState(d.player, content, notes),
     party: crew.party,
     recruited: crew.recruited,
     credits: d.credits as number,

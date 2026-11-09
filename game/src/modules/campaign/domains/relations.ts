@@ -266,6 +266,9 @@ export function parseRelations(value: unknown, content: GameContent): Record<Npc
 export function parseCrew(recruitedRaw: unknown, partyRaw: unknown, content: GameContent): { recruited: NpcId[]; party: NpcId[] } {
   const companion = (id: unknown) => isKey(id) && has(content.npcs, id as string) && !!content.npcs[id as string].companion;
   const recruited = uniqueList(recruitedRaw, Object.keys(content.npcs).length, companion, 'Crew');
-  const party = uniqueList(partyRaw, MAX_PARTY, id => companion(id) && recruited.includes(id as string), 'Party');
-  return { recruited, party };
+  // Haustiere (`companion.pet`) belegen keinen Platz: Liste bis zur Crewgröße, danach höchstens MAX_PARTY ohne Haustiere.
+  const pet = (id: string) => !!content.npcs[id]?.companion?.pet;
+  const listed = uniqueList(partyRaw, Math.max(MAX_PARTY, recruited.length), id => companion(id) && recruited.includes(id as string), 'Party');
+  if (listed.filter(id => !pet(id)).length > MAX_PARTY) fail('Ungültige Liste: Party.');
+  return { recruited, party: listed };
 }

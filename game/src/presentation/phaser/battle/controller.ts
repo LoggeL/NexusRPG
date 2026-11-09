@@ -13,6 +13,7 @@ import type { BattleSessionPort, ReachOption, SessionAction, SessionEvent, Sessi
 type BattleAction = SessionAction;
 type BattleEvent = SessionEvent;
 import { activeStatuses, eventLine, OUTCOME_TITLE, previewBadge, previewLines, STATUS_META, unitById } from './text';
+import { ruleMarks } from '../../../modules/combat/bossRules';
 
 // ---------------------------------------------------------------- Schnittstellen zu Szene und Oberfläche
 
@@ -32,8 +33,10 @@ export interface Highlights {
   cursor: Cell | null;
   active: string | null;
   inspect: string | null;
-  /** Missionsziele (Erreichen, Hacken, Retten). */
+  /** Missionsziele (Erreichen, Hacken, Retten, Terminal halten). */
   goals: Cell[];
+  /** Angekündigte Gefahr (Firewall-Welle der nächsten Runde). */
+  danger?: Cell[];
 }
 
 export interface BattleWorldView {
@@ -226,7 +229,8 @@ export class BattleController {
         continue;
       }
       await this.announceSide(unit);
-      if (unit.team === 'enemy' || unit.state !== 'active') {
+      // Gegner und „gesteuerte“ Crew (Charmeur, Nexus-Chip) zieht die KI.
+      if (unit.team === 'enemy' || unit.state !== 'active' || (unit as { controller?: string }).controller === 'ai') {
         const before = this.fingerprint();
         this.setPhase('enemy');
         const events = port.aiStep();
@@ -486,6 +490,7 @@ export class BattleController {
       if (this.aborted) return;
       const line = eventLine({ abilities: content.abilities, items: content.items }, state, event);
       if (line && event.type !== 'turn') hud.log(line);
+      if (event.type === 'notice') hud.toast(event.text, event.tone === 'good' ? 'good' : event.tone === 'warn' ? 'bad' : 'info');
       await world.play(event, state);
     }
     world.sync(state);
@@ -643,6 +648,10 @@ export class BattleController {
       reach: [], range: [], area: [], targets: [], path: null, pathAp: 0, cursor: null,
       active: state.active, inspect: this.inspect, goals: this.goals,
     };
+    // Bossregeln: Terminal-Felder und angekündigte Wellenreihen (nur wenn der Zustand sie mitführt).
+    const marks = ruleMarks(state as unknown as Parameters<typeof ruleMarks>[0]);
+    if (marks.goals.length) highlights.goals = [...this.goals, ...marks.goals];
+    if (marks.danger.length) highlights.danger = marks.danger;
     let target: HudModel['target'] = null;
     let prompt = '';
     let actions: ActionEntry[] = [];

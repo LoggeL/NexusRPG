@@ -221,7 +221,7 @@ CHARACTERS: dict[str, dict] = {
                 "buttons and a black bow tie",
         "mood": "sweet, gentle stitched smile",
         "rim": "pink",
-        "walk": False,
+        "walk": True,  # Laufblatt für die Karte (watschelnder Plüschhase, char_config/captain-kuschel.json)
         "prop": True,
         "special": "plush",
     },
@@ -962,6 +962,117 @@ CHARACTERS.update({
     },
 })
 
+# Statisten ohne Kostümreferenz (Kunst-Phase gaps): nur Porträts, laufen auf der Karte mit einem generischen
+# Laufblatt. Referenzen ("style_refs", Pfade relativ zum Projektordner): ein vorhandenes gemaltes Statisten-Porträt
+# (nur Stil) und, wo das Kostüm zum Laufblatt passen soll, das generische Rohlaufblatt (nur Kostüm).
+_COSTUME_FROM_SHEET = (". REFERENCES: the first attached image is a STYLE reference only (drawing style, never its "
+                       "face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and "
+                       "colors at small size: match the clothing, but paint a new, individual face")
+_ODNIS_STYLE = ["output/imagegen/raw/characters/staubbaron-broesel-portrait.png"]
+_CITY_STYLE = ["output/imagegen/raw/characters/dexter-portrait.png"]
+_SHEET = "output/imagegen/raw/characters/{}-walk.png"
+CHARACTERS.update({
+    "staubfalke-bolle": {  # Torwache der Wrackburg (npc-oednis/statisten.ts)
+        "desc": "huge, broad man in his thirties built like a refrigerator, a big bushy brown beard, sunburnt "
+                "friendly face with puppy-like eyes, dusty round welding goggles pushed up on his shaved head; a "
+                "sleeveless worn leather vest over bare tattooed arms, a single black crow feather tacked to his "
+                "chest, a sand-colored dust scarf around his neck; a heavy bolt slingshot that looks like a toy in "
+                "his big hands" + _STYLE_ONLY,
+        "mood": "big goofy grin, a bit slow but warm-hearted",
+        "rim": "pink", "walk": False, "style_refs": _ODNIS_STYLE,
+    },
+    "aussiedlerin-juna": {  # Aussiedlerin an den Beeten
+        "desc": "young woman in her early twenties, sun-tanned skin, freckles, a crooked cheerful smile, messy "
+                "dark-blond hair under a wide frayed straw sun hat, arms brown with dried clay; a faded green work "
+                "shirt with rolled-up sleeves, a patched canvas apron with seed pouches, a red bandana around the "
+                "neck; holds a dented tin watering can" + _STYLE_ONLY,
+        "mood": "cheerful, a little fierce, about to yell at a tomato",
+        "rim": "cyan", "walk": False, "style_refs": _ODNIS_STYLE,
+    },
+    "konvoi-doro": {  # Diesel-Doro, Konvoi-Chefin
+        "desc": "stocky woman in her late forties, weathered tanned face with laugh lines, short grey-streaked "
+                "black hair under a backwards trucker cap, an unlit fat cigar in the corner of her mouth; an "
+                "oil-stained orange work overall rolled down to the waist with the sleeves tied around her hips, a "
+                "black tank top, strong arms with grease smudges, dusty driving goggles around her neck, a ring of "
+                "keys on her belt" + _STYLE_ONLY,
+        "mood": "shrewd trader's grin, one eyebrow raised",
+        "rim": "pink", "walk": False, "style_refs": _ODNIS_STYLE,
+    },
+    "rohrwartin-muffe": {  # Kanalvolk-Sperre im Pumpwerk Sieben
+        "desc": "sturdy, short woman in her fifties of the sewer people, ruddy round face, bushy eyebrows, frizzy "
+                "grey hair sticking out from under a battered yellow miner's helmet with a headlamp and a bottle cap "
+                "stuck on it; olive rubber chest waders with suspenders over a patched blue-green tarp poncho, a "
+                "knitted scarf; rests a huge red pipe wrench as long as a leg on her shoulder" + _STYLE_ONLY,
+        "mood": "grumpy, stubborn, cursing under her breath",
+        "rim": "cyan", "walk": False, "style_refs": _ODNIS_STYLE,
+    },
+    "technikerin-kalibri": {  # Quantum-Technikerin in der Außenstelle
+        "desc": "slim woman around thirty, pale tired face with dark circles, sharp clever eyes, black hair in a "
+                "messy short ponytail, a white respirator half mask pushed down under her chin; a once-white lab coat "
+                "now stained sewer-grey and green, a small abstract violet geometric emblem on the coat (no text), a "
+                "violet ID lanyard; holds an open tin can of instant noodles with a plastic fork" + _STYLE_ONLY,
+        "mood": "deadpan, exhausted, no questions please",
+        "rim": "cyan", "walk": False, "style_refs": _ODNIS_STYLE,
+    },
+    "funzel": {  # Chef der Rostzähne an der Hafenkante
+        "desc": "gaunt, wiry gang boss in his late thirties of the Rust Teeth gang, hollow cheeks, narrow mocking "
+                "eyes, rust-orange dyed spiky hair, a wide arrogant grin with rusty metal teeth and one shiny GOLD "
+                "front tooth, a wooden toothpick between his teeth; a sleeveless faded denim vest, bare tattooed arms, "
+                "a glowing orange neon chain whip coiled over one shoulder" + _COSTUME_FROM_SHEET,
+        "mood": "smug, menacing, ego the size of a container ship",
+        "rim": "pink", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("rostzahn-schlaeger")],
+    },
+    "welt23-gechippter-nachbar": {  # Akt 2, gechippter Schrottsammler
+        "desc": "wiry adult scrap collector, sharp face, welding goggles pushed up on the forehead, oil-stained olive "
+                "overall with torn-off sleeves, a sack of scrap over one shoulder; a tiny glittering violet chrome "
+                "chip on the side of his neck, eyes slightly glassy with a faint violet shimmer" + _COSTUME_FROM_SHEET,
+        "mood": "eerily polite, frozen too-wide friendly smile",
+        "rim": "pink", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-schrotti")],
+    },
+    "welt23-gechippte-pendlerin": {  # Akt 2, gechippte Pendlerin
+        "desc": "adult upper-city businesswoman, sleek blond bob, thin glowing AR visor glasses flickering violet, an "
+                "immaculate white-and-silver tailored suit with a violet scarf, a slim silver briefcase; a tiny "
+                "glittering violet chrome chip behind her ear" + _COSTUME_FROM_SHEET,
+        "mood": "perfectly identical customer-service smile, eyes a little empty",
+        "rim": "cyan", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-anzug")],
+    },
+    "welt23-kanalvolk": {  # Rohrputzerin vom Kanalvolk
+        "desc": "adult woman of the sewer people, cheerful round face, a few strands of green algae in her curly "
+                "brown hair, a headlamp on a woolly hat, a patched rain poncho sewn from blue and green tarps, a "
+                "knitted scarf, a small glass jar lantern with glowing blue mushrooms" + _COSTUME_FROM_SHEET,
+        "mood": "happy, humming, proud",
+        "rim": "cyan", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-kanalvolk")],
+    },
+    "welt23-spaziergaenger": {  # Spaziergänger an der Flutmauer
+        "desc": "adult man, a bit chubby, sunburnt nose, wide straw sun hat, loud neon-pink and teal flower-pattern "
+                "short-sleeve shirt, a fanny pack strap across his chest" + _COSTUME_FROM_SHEET,
+        "mood": "suspicious squint, doesn't believe a word the sea says",
+        "rim": "cyan", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-tourist")],
+    },
+    "welt23-nachbarin": {  # Nachbarin mit Einkaufsnetz
+        "desc": "elderly woman, small, white-grey hair in a tidy bun, round glasses, a small glowing cyan hearing "
+                "implant behind one ear, a purple raincoat, a floral headscarf around the neck, a string shopping bag "
+                "with leeks over her arm" + _COSTUME_FROM_SHEET,
+        "mood": "feisty, delighted, finally rude again",
+        "rim": "pink", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-oma")],
+    },
+    "welt23-pendler": {  # Pendler ohne Termin
+        "desc": "adult man in his forties, short brown hair, tired but relaxed face, a scuffed yellow hard hat tilted "
+                "back, an orange high-visibility vest with grey reflective stripes over a dark grey work coverall; "
+                "holds a half-eaten ice cream cone" + _COSTUME_FROM_SHEET,
+        "mood": "calm, dreamy, slightly lost, content",
+        "rim": "cyan", "walk": False, "style_refs": _CITY_STYLE + [_SHEET.format("passant-arbeiterin")],
+    },
+    "welt23-promoterin": {  # Chrome-10-Promoterin am Pavillon
+        "desc": "young adult woman promoter, glossy violet-dyed bob, flawless makeup, a white promo uniform jacket "
+                "with violet light seams and a small abstract violet geometric emblem (no text), a headset "
+                "microphone, a tiny glittering violet chip behind her ear; holds up a small chip in shiny gift wrap "
+                "between two fingers" + _STYLE_ONLY,
+        "mood": "relentlessly bright sales smile, a little too eager",
+        "rim": "pink", "walk": False, "style_refs": _CITY_STYLE,
+    },
+})
+
 # Ausdrucksvarianten für Porträts (--variants=happy,angry …). ki-nexus-angry hat einen eigenen Text.
 VARIANT_MOODS = {
     "happy": "laughing happily, eyes bright",
@@ -989,6 +1100,8 @@ def refs_for(cid: str, kind: str) -> list[Path]:
     """Referenzbilder aus work/refs (privat). Laufblatt/Requisit: Kostümfigur zuerst, Porträt: Brustbild zuerst."""
     if CHARACTERS[cid].get("generic"):  # generische Laufblätter: nur Stilreferenz (vorhandene Rohlaufblätter)
         return [RAW / r for r in GENERIC_STYLE_REFS if (RAW / r).exists()]
+    if CHARACTERS[cid].get("style_refs"):  # Statisten ohne Kostümreferenz: vorhandene Bilder nur für Stil/Kostüm
+        return [ROOT / r for r in CHARACTERS[cid]["style_refs"]]
     stem = json.loads(REFMAP.read_text())[cid]
     if stem.startswith("unique:"):
         base = f"character-unique-{stem.split(':', 1)[1]}"

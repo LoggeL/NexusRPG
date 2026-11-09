@@ -10,7 +10,7 @@
 import type { AbilityDef, AttributeId, Cell } from '../contracts';
 import { ATTRIBUTE_LABELS, clamp } from '../campaign/ids';
 import { coverAgainst, distance, lineOfSight, relationTo } from './grid';
-import { attributeOf, hasStatus, isBeneficial, needsSight } from './queries';
+import { attributeOf, hasStatus, isBeneficial, isInvulnerable, needsSight } from './queries';
 import {
   ABILITY_REVIVE, ABILITY_WEAPON, COVER_FULL, CRIT_MULTIPLIER, EASY_HIT_BONUS, FLANK_BONUS, HIT_BASE, HIT_MAX,
   HIT_MIN, HIT_PER_REFLEX, MARKED_BONUS, MIN_DAMAGE, OVERWATCH_PENALTY, PROTECTED_PENALTY, REVIVE_FRACTION,
@@ -158,6 +158,10 @@ export function strikePreview(state: CombatState, attacker: CombatUnit, target: 
   if (!def || (def.damage ?? 0) > 0) {
     const crit = (hit.flank && hit.cover === 0) || hasStatus(target, 'markiert');
     const dmg = damageOf(attacker, target, { ...options, crit });
+    if (isInvulnerable(state, target)) {
+      dmg.parts.push({ label: 'Unverwundbar', value: -dmg.damage });
+      dmg.damage = 0;
+    }
     base.crit = crit;
     base.damage = dmg.damage;
     base.damageParts = dmg.parts;

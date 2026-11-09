@@ -10,6 +10,7 @@ import {
   PARTY_PLAN, all, any, chk, daily, dlg, erz, flag, ich, mehr, noFlag, node, not, rel, rep, seen, set, sp, talk,
   weiter, xp,
 } from './_util';
+import { geflirtet } from '../npc-crew-a/_helfer';
 
 const C = sp('collin-charleston');
 const K = sp('kameramann');
@@ -22,7 +23,7 @@ export const ID = 'collin-charleston';
 export const ROM: Condition = all({ romance: ID }, noFlag('collin_romanze_abgelehnt'));
 /** Eine aktive Romanze gleichzeitig (world.md §4.7): keine andere freigegebene Figur ist „zusammen“. */
 const FREI: Condition = all(
-  ...['hunter_romanze_zusammen', 'dante_romanze_zusammen', 'aria_romanze_zusammen', 'aria_kuss', 'lio-funkel_romanze_zusammen'].map(noFlag),
+  ...['hunter_romanze_zusammen', 'dante_romanze_zusammen', 'aria_romanze_zusammen', 'lio-funkel_romanze_zusammen'].map(noFlag),
 );
 /** Nächster Romanze-Schritt möglich (Händchen, Date, Kuss). */
 const ROM_NEU: Condition = all(ROM, FREI);
@@ -63,7 +64,7 @@ const he8 = dlg('he-collin-charleston-8', [
   ], { next: 'refrain' }),
   node('refrain', [erz('Der letzte Refrain. Der ganze Club steht. Collin steht neben dir, verschwitzt, die Frisur zum ersten Mal in Gefahr, und er grinst wie ein Junge.')], {
     choices: [
-      { text: 'Beim letzten Refrain seine Hand nehmen.', when: ROM_NEU, next: 'rom', effects: [set('flirt_collin-charleston')] },
+      { text: 'Beim letzten Refrain seine Hand nehmen.', when: ROM_NEU, next: 'rom', effects: [geflirtet(ID)] },
       { text: 'Ihm den Arm um die Schulter legen und den Refrain grölen.', next: 'freund' },
     ],
   }),
@@ -126,7 +127,7 @@ const flutmauer = dlg('rom-collin-flutmauer', [
     C('Nein. Nicht hier. Den Kuss heb ich mir auf. Für einen Moment, der es verdient. Ich bin Fernsehmann. Ich hab ein Gespür für Dramaturgie.', 'signatur'),
     ich('Du bist unmöglich.'),
     C('Unglaublich. Das Wort heißt unglaublich.', 'zaertlich'),
-  ], { effects: [xp(60), rel(ID, 40), set('collin_gestaendnis'), set('flirt_collin-charleston'), { message: 'Romanze mit Collin: Er hebt sich den Kuss auf.' }] }),
+  ], { effects: [xp(60), rel(ID, 40), set('collin_gestaendnis'), geflirtet(ID), { message: 'Romanze mit Collin: Er hebt sich den Kuss auf.' }] }),
   node('nein', [
     C('Oh.', 'trauer'),
     erz('Er nickt. Zu schnell. Dann lacht er, ein bisschen zu laut, und wirft seinen Becher in hohem Bogen über die Mauer ins Meer.'),

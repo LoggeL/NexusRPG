@@ -3,3 +3,4 @@
 export * from './clock';
 export * from './collapse';
 export * from './schedule';
+export * from './weather';

@@ -68,12 +68,17 @@ export const ABILITY_WEAPON: Readonly<Partial<Record<AbilityDef['kind'], WeaponK
 export const UNARMED: WeaponStats = { kind: 'nahkampf', damage: 2, range: 1 };
 
 /** Positive Zustände (für KI und Flächenwirkung auf Verbündete). */
-export const POSITIVE_STATUS: ReadonlySet<StatusId> = new Set<StatusId>(['geschuetzt']);
+export const POSITIVE_STATUS: ReadonlySet<StatusId> = new Set<StatusId>(['geschuetzt', 'ermutigt']);
+/** „Ermutigt“: zusätzliche AP im nächsten eigenen Zug. */
+export const ENCOURAGED_AP = 1;
+/** Zustände, die eine Fluchtuhr anhalten (der Boss kommt nicht vom Fleck). */
+export const HOLD_STATUS: readonly StatusId[] = ['betaeubt', 'gehackt'];
 /** Zustände, die den eigenen Zug aussetzen lassen. */
 export const SKIP_STATUS: readonly StatusId[] = ['gehackt', 'betaeubt'];
 
 export const STATUS_LABELS: Readonly<Record<StatusId, string>> = {
   gehackt: 'Gehackt', betaeubt: 'Betäubt', brennt: 'Brennt', markiert: 'Markiert', geschuetzt: 'Geschützt', blutet: 'Angeschlagen',
+  ermutigt: 'Ermutigt', gesteuert: 'Gesteuert',
 };
 
 /** Fähigkeiten, die jede Party-Einheit kennt. Inhalte dürfen sie unter derselben ID überschreiben. */

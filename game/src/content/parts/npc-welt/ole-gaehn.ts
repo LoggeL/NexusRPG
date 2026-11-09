@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './ole-gaehn-akt23';
 
 const ID = 'ole-gaehn';
 const O = sprecher(ID);
@@ -103,6 +104,9 @@ const he4 = dialog('he-ole-gaehn-4', [
   ], { effects: [{ xp: 60 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: ole-gaehn-akt23.ts.
+const A23 = akt23(M);
+
 const ole = weltfigur({
   id: ID,
   name: 'Ole Gähn',
@@ -123,6 +127,7 @@ const ole = weltfigur({
   talk: [
     rede('ole-tag-rivale', { rival: ID }),
     rede('ole-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('ole-tag-gerda', BRIEF),
     rede('ole-tag-standard'),
   ],
@@ -130,5 +135,5 @@ const ole = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: ole },
-  dialogues: sammle(T.rivale, T.erstes, T.gerda, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.gerda, T.standard, he2, he4, ...A23.dialogues),
 };

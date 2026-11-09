@@ -1,10 +1,9 @@
 // Hauptquest `main-1-ankunft` · „Neu in Noxius“ (world.md §5.2): Tag 1, 16:30, Bahnhof Mitte → (Schrottmarkt) → Neon-Gasse.
-// Auslöser: Ende des Prologs (`prolog_done`). Beim ersten Betreten von bahnhof-mitte stellt eine Treppe aus onEnter-
-// Auslösern die Uhr auf 16:30 (der Prolog läuft ab 06:00, weil es keinen Effekt „Uhr stellen“ gibt), dann laufen die
+// Auslöser: Ende des Prologs (`prolog_done`; prolog-verrat stellt die Uhr per `setClock` auf 16:30). Am Bahnhof laufen die
 // Ankunftsszene (Hunters Nachricht) und die Abzieher-Brüder Knut und Kurt (gc-01/02/03, [Gosse], Vex, zahlen, Kampf).
 // Danach freier Weg: Stadt-TV und Kinder am Schrottmarkt, Oma Volt am Kiosk, Ziel High Voltage um 18 Uhr.
 import type { Condition } from '../../../modules/contracts';
-import type { ContentPart, MapAddition } from '../../part';
+import type { ContentPart } from '../../part';
 import { KINDERZEIT, L, N, NICHT_VEX, UHR, VEX, node } from './_dsl';
 
 const Q = 'main-1-ankunft';
@@ -13,20 +12,6 @@ const VOR_PROBEZEIT: Condition = { not: { quest: 'main-1-probezeit', state: 'don
 const ABZIEHER_OFFEN: Condition = {
   all: [{ flag: 'prolog_done' }, { notFlag: 'ankunft_abzieher_geloest' }, { not: { won: 'enc-bahnhof-abzieher' } }, { notFlag: 'abzieher_verloren' }],
 };
-
-/** Uhr-Treppe: Wer nach dem Prolog (ab 06:00) am Bahnhof ankommt, landet um 16:30 (+ höchstens 15 Minuten). */
-function uhrStellen(): NonNullable<MapAddition['onEnter']> {
-  const out: NonNullable<MapAddition['onEnter']> = [];
-  for (let t = UHR(6); t < ANKUNFT; t += 15) {
-    out.push({
-      id: `ankunft-uhr-${t}`,
-      when: { all: [{ flag: 'prolog_done' }, { notFlag: 'ankunft_uhr' }, { clockBetween: [t, Math.min(t + 15, ANKUNFT)] }] },
-      effects: [{ advanceTime: ANKUNFT - t }, { setFlag: 'ankunft_uhr' }],
-    });
-  }
-  out.push({ id: 'ankunft-uhr-spaet', when: { all: [{ flag: 'prolog_done' }, { notFlag: 'ankunft_uhr' }] }, effects: [{ setFlag: 'ankunft_uhr' }] });
-  return out;
-}
 
 const geloest = { setFlag: 'ankunft_abzieher_geloest' } as const;
 
@@ -45,7 +30,7 @@ export const part: ContentPart = {
           id: 'abzieher',
           text: 'Werd die Abzieher-Brüder am Bahnsteig los – mit Worten, Beinen, Credits oder Fäusten.',
           done: { any: [{ flag: 'ankunft_abzieher_geloest' }, { won: 'enc-bahnhof-abzieher' }, { flag: 'abzieher_verloren' }] },
-          marker: { map: 'bahnhof-mitte', at: [962, 552] },
+          marker: { map: 'bahnhof-mitte', at: 'bahnsteig-2' },
         },
         {
           id: 'weg',
@@ -60,7 +45,7 @@ export const part: ContentPart = {
           when: { flag: 'ankunft_oma_tipp' },
           done: { flag: 'ankunft_oma_volt' },
           optional: true,
-          marker: { map: 'neon-gasse', at: [250, 480] },
+          marker: { map: 'neon-gasse', at: 'kiosk' },
         },
         {
           id: 'stadt-tv',
@@ -68,7 +53,7 @@ export const part: ContentPart = {
           when: { questStep: Q, step: 'abzieher' },
           done: { flag: 'ankunft_tv' },
           optional: true,
-          marker: { map: 'schrottmarkt', at: [776, 552] },
+          marker: { map: 'schrottmarkt', at: 'stadt-tv' },
         },
         {
           id: 'kinder',
@@ -76,14 +61,14 @@ export const part: ContentPart = {
           when: { all: [{ questStep: Q, step: 'abzieher' }, KINDERZEIT] },
           done: { flag: 'ankunft_kinder' },
           optional: true,
-          marker: { map: 'schrottmarkt', at: [530, 470] },
+          marker: { map: 'schrottmarkt', at: 'botenstand' },
         },
         {
           id: 'tuer',
           text: 'Sei um 18 Uhr im High Voltage. Pünktlich.',
           when: { visited: 'neon-gasse' },
           done: { any: [{ flag: 'hv_einlass' }, { visited: 'high-voltage' }] },
-          marker: { map: 'neon-gasse', at: [582, 332] },
+          marker: { map: 'neon-gasse', at: 'hv-eingang' },
         },
       ],
       reward: { xp: 60, credits: 50 },
@@ -121,14 +106,14 @@ export const part: ContentPart = {
       title: 'Bahnhof Mitte',
       beats: [
         {
-          image: 'black', caption: 'Noxius, 2086. Montag, 16:30.', fade: 'in', hold: 1600,
+          image: 'cut-ankunft-bahnhof', pan: 'in', caption: 'Noxius, 2086. Montag, 16:30.', fade: 'in', hold: 1600,
           lines: [
             N('Die U-Bahn-Linie 4 schleift sich mit siebenundvierzig Minuten Verspätung in den Bahnhof Mitte. Die Durchsage entschuldigt sich „bei allen Fahrgästen, die noch leben“.'),
             N('Die Türen klemmen. Jemand tritt dagegen. Sie gehen auf. Es riecht nach Bremsstaub, Frittierfett und nassem Beton.'),
           ],
         },
         {
-          image: 'black', sfx: 'phone',
+          image: 'cut-ankunft-bahnhof', sfx: 'phone',
           lines: [
             N('Dein Telefon brummt. Eine Nachricht von einer Nummer, die du nur von einem zerknitterten Zettel kennst.'),
             L('hunter', 'Sei um 18 Uhr im High Voltage. Pünktlich. – H.'),
@@ -206,10 +191,53 @@ export const part: ContentPart = {
         node('kampf', [
           N('Knut lässt die Fingerknöchel knacken. Kurt auch, verzieht das Gesicht und schüttelt die Hand aus.'),
           L('kurt', 'Au. Okay. Jetzt bin ich sauer.'),
-        ], { effects: [{ battle: 'enc-bahnhof-abzieher' }] }),
+        ], {
+          effects: [{
+            battle: 'enc-bahnhof-abzieher',
+            win: [{ dialogue: 'main-1-ankunft-nach-kampf' }],
+            lose: [{ dialogue: 'main-1-ankunft-verloren' }],
+          }],
+        }),
         node('danach', [
           N('Bahnhof Mitte. Kacheln, Rauch, ein Musiker auf einer Kiste. Auf der Treppe zur Neon-Gasse hat jemand „SCHNELLER ALS DIE U-BAHN: LAUFEN“ gesprayt.'),
           N('Das High Voltage liegt in der Neon-Gasse, 18 Uhr. Bis dahin ist Zeit: Auf dem Schrottmarkt läuft das Stadt-TV, und die Kinder am Botenstand wissen sowieso alles.'),
+        ]),
+      ],
+    },
+
+    // Nach dem Kampf am Bahnsteig (Folgedialog des battle-Effekts; die Begegnung bleibt bei Niederlage vor Ort).
+    'main-1-ankunft-nach-kampf': {
+      id: 'main-1-ankunft-nach-kampf',
+      start: 'start',
+      nodes: [
+        node('start', [
+          N('Knut sitzt auf dem Hosenboden und hält sich die Nase. Kurt hält sich Knut. Beide schniefen im Takt.'),
+          L('knut', 'Das war unfair! Du hast zurückgehauen!'),
+          L('kurt', 'Komm, Knut. Mama macht Fischstäbchen.'),
+          N('Sie humpeln die Treppe hoch, und irgendwo auf halber Strecke fängt einer an zu heulen. Du tippst auf Kurt.'),
+        ], { next: 'weiter' }),
+        node('weiter', [
+          N('Das High Voltage liegt in der Neon-Gasse, 18 Uhr. Bis dahin ist Zeit: Auf dem Schrottmarkt läuft das Stadt-TV, und die Kinder am Botenstand wissen sowieso alles.'),
+        ]),
+      ],
+    },
+
+    'main-1-ankunft-verloren': {
+      id: 'main-1-ankunft-verloren',
+      start: 'start',
+      nodes: [
+        node('start', [
+          N('Kacheln. Kalte Kacheln an der Wange. Über dir zwei Kapuzen, die sich gegenseitig auf die Schulter klopfen.'),
+          L('kurt', 'Wir haben gewonnen! Knut, wir haben echt mal gewonnen!'),
+          L('knut', 'Psst! Benimm dich wie ein Profi!'),
+          N('Knut durchwühlt deine Jackentasche, findet einen alten Kaugummi und eine Fahrkarte von letzter Woche und guckt so enttäuscht, als hätte er dich adoptieren wollen.'),
+          L('knut', 'Nix drin. Du bist ja ärmer als wir. Das ist … das ist echt traurig, ey.'),
+          L('kurt', 'Gib ihm wenigstens einen Tipp. Mama sagt, man tritt nicht nach, wenn einer schon liegt.'),
+          L('knut', 'Na gut. Wenn du Hunter suchst: Neon-Gasse. Frag Oma Volt am Kiosk. Und erzähl keinem, dass wir nett waren!'),
+        ], { effects: [{ setFlag: 'ankunft_oma_tipp' }], next: 'weiter' }),
+        node('weiter', [
+          N('Sie trollen sich. Du rappelst dich auf, klopfst dir den Bahnsteig von der Hose und beschließt, dass Noxius dich gerade nur getestet hat.'),
+          N('Das High Voltage liegt in der Neon-Gasse, 18 Uhr. Pünktlich. Mit Nasenbluten zählt auch.'),
         ]),
       ],
     },
@@ -301,7 +329,8 @@ export const part: ContentPart = {
   mapAdditions: {
     'bahnhof-mitte': {
       onEnter: [
-        ...uhrStellen(),
+        // Sicherheitsnetz (Sprünge, alte Stände): Wer nach dem Prolog ohne gestellte Uhr ankommt, landet um 16:30.
+        { id: 'ankunft-uhr', when: { all: [{ flag: 'prolog_done' }, { notFlag: 'ankunft_uhr' }] }, effects: [{ setClock: ANKUNFT }, { setFlag: 'ankunft_uhr' }] },
         { id: 'ankunft-intro', when: ABZIEHER_OFFEN, cutscene: 'main-1-ankunft-intro', dialogue: 'main-1-ankunft-abzieher' },
       ],
     },

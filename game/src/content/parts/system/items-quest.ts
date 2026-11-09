@@ -10,7 +10,8 @@ const Q = (id: string, name: string, description: string, extra: Partial<ItemDef
 
 const list: ItemDef[] = [
   // --- Hauptstrang Akt 1 -----------------------------------------------------------------------------------
-  Q('partyfoto-raven', 'Partyfoto von Raven', 'Ein Foto aus dem High Voltage, aufgenommen kurz vor Ravens Verhaftung. Im Hintergrund ein Gesicht, das dort nicht hätte sein dürfen.'),
+  Q('partyfoto-raven', 'Partyfoto von Raven', 'Ein Foto von Ravens Willkommensparty im High Voltage, ihre erste Nacht nach sieben Jahren draußen: Raven halb grinsend in der Mitte, Hunter mit Sonnenbrille, Vega mit Glas, Aria mit Schläger. Ganz hinten an der Tür ein Mann im Quantum-Mantel, der als Einziger nicht lacht.',
+    { inspect: 'Auf der Rückseite hat jemand mit Kuli geschrieben: „Willkommen zurück, Rabe.“ Der Mann an der Tür ist unscharf. Absichtlich, glaubt man nach dem dritten Hinsehen.' }),
   Q('geruecht-master', 'Gerücht: „Master“', 'Ein Zettel aus dem Club: Gechippte flüstern im Schlaf „Ja, Master“. Wer oder was ist der Master?'),
   Q('wissen-zentrator', 'Wissen: Zentrator', 'Dantes Skizze auf einer Serviette: Wie der Quantum-Zentrator funktioniert – und wo er verwundbar ist.'),
   Q('grundriss-labor', 'Grundriss des Labors', 'Ein Digitech-Bauplan des Quantum-Labors mit Lüftungsschächten. Ein Kaffeefleck verdeckt den Notausgang.'),

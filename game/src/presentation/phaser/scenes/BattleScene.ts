@@ -27,6 +27,8 @@ export interface BattleSceneInput {
 export interface BattleSceneData {
   arena: ArenaDef;
   units: readonly BattleUnit[];
+  /** Weitere Laufblätter (Funkruf-Verstärkung), die erst im Kampf auftauchen. */
+  extraSprites?: readonly string[];
   content: Pick<GameContent, 'abilities' | 'items'>;
   catalog: AssetCatalog;
   assets: SceneAssets;
@@ -207,7 +209,7 @@ export class BattleScene extends Phaser.Scene implements BattleWorldView {
   private arenaKey(): string { return this.cfg.catalog.canonical(this.cfg.arena.bg, 'arena'); }
 
   private needs(): AssetNeed[] {
-    const sprites = new Set(this.cfg.units.map((unit) => unit.sprite));
+    const sprites = new Set([...this.cfg.units.map((unit) => unit.sprite), ...(this.cfg.extraSprites ?? [])]);
     return [...sprites].map((key) => ({ kind: 'walk' as const, key }));
   }
 
@@ -435,6 +437,10 @@ export class BattleScene extends Phaser.Scene implements BattleWorldView {
     const g = this.highlightGfx;
     g.clear();
     const rect = (cell: Cell, inset = 4) => [cell[0] * CELL + inset, cell[1] * CELL + inset, CELL - inset * 2, CELL - inset * 2] as const;
+    for (const cell of highlights.danger ?? []) {
+      g.fillStyle(COLOR.red, 0.22).fillRect(...rect(cell, 2));
+      g.lineStyle(2, COLOR.red, 0.7).strokeRect(...rect(cell, 2));
+    }
     for (const cell of highlights.goals) {
       g.fillStyle(COLOR.yellow, 0.14).fillRect(...rect(cell, 6));
       g.lineStyle(3, COLOR.yellow, 0.85).strokeRect(...rect(cell, 6));
@@ -688,6 +694,24 @@ export class BattleScene extends Phaser.Scene implements BattleWorldView {
       case 'objective': {
         this.floats(eventFloats(event, this.cfg.content));
         await this.wait(reduced ? 60 : 220);
+        return;
+      }
+      case 'notice': {
+        // Hinweis der Bossregeln: kurzer Ruck am Bezug, Text zeigt die Oberfläche (Toast und Protokoll).
+        const target = event.unit ? this.views.get(event.unit) : undefined;
+        if (target && event.tone === 'warn') this.flash(target, COLOR.yellow);
+        await this.wait(reduced ? 80 : 420);
+        return;
+      }
+      case 'spawn': {
+        const unit = state.units.find((entry) => entry.id === event.unit);
+        if (!unit) return;
+        const view = this.views.get(unit.id) ?? this.addUnit(unit);
+        view.cell = unit.cell;
+        view.place(...cellFoot(unit.cell));
+        this.flash(view, COLOR.pink);
+        this.floats(eventFloats(event, this.cfg.content));
+        await this.wait(reduced ? 100 : 380);
         return;
       }
       case 'round':

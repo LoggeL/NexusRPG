@@ -10,6 +10,7 @@ import type {
   AttributeId, Condition, DialogueChoice, DialogueDef, DialogueLine, EncounterDef, Effect, JobTemplateDef, QuestDef,
 } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
+import { vorlage as hunterTafel } from '../quest-pers-jobs/_auftrag';
 import type { Hotspot } from './_lib';
 import {
   ACT2, L, N, abRang, all, any, byId, c, chk, cr, dlg, done, fight, flag, job, karten, msg, node, noFlag, not, nutze, rep,
@@ -297,7 +298,7 @@ const zielHotspots = (k: Kopfgeld): [string, Hotspot][] => k.ziele.map((z, i) =>
   `p23-kg-${k.key}`, all(job(id(k)), z.wann, not(istGestellt(k)), noFlag(erledigt(k))))]);
 
 export const part: ContentPart = {
-  jobs: { ...Object.fromEntries(KOPFGELDER.map((k) => [id(k), vorlage(k)])), [G3]: g3vorlage },
+  jobs: { ...Object.fromEntries(KOPFGELDER.map((k) => [id(k), hunterTafel(vorlage(k))])), [G3]: hunterTafel(g3vorlage) },
   quests: Object.fromEntries(KOPFGELDER.map((k) => [id(k), begleitquest(k)])),
   encounters: { [g3kampf.id]: g3kampf },
   dialogues: byId(...KOPFGELDER.map(zielDialog), ...KOPFGELDER.flatMap((k) => k.hilfeDialoge ?? []), g3ziel, abgabe),

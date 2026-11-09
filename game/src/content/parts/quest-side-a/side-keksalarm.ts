@@ -257,9 +257,9 @@ const nacht: CutsceneDef = {
   id: 'side-keksalarm-nacht',
   title: 'Keksalarm',
   beats: [
-    { image: 'black', caption: 'Lötgassen, kurz nach Mitternacht. In Dantes Werkstatt brennt noch Licht.', fade: 'in', hold: 1400 },
-    { image: 'black', caption: 'Auf dem Sofa schlafen drei Kinder. Auf dem Tisch liegt ein letzter Keks. Niemand traut sich, ihn zu essen.', hold: 1600 },
-    { image: 'black', caption: 'Der Ofen piept einmal, ganz leise. Diesmal ohne Grund. Vielleicht vor Glück.', fade: 'out', hold: 1600 },
+    { image: 'cut-side-keksalarm-nacht', caption: 'Lötgassen, kurz nach Mitternacht. In Dantes Werkstatt brennt noch Licht.', fade: 'in', hold: 1400 },
+    { image: 'cut-side-keksalarm-nacht', caption: 'Auf dem Sofa schlafen drei Kinder. Auf dem Tisch liegt ein letzter Keks. Niemand traut sich, ihn zu essen.', hold: 1600 },
+    { image: 'cut-side-keksalarm-nacht', caption: 'Der Ofen piept einmal, ganz leise. Diesmal ohne Grund. Vielleicht vor Glück.', fade: 'out', hold: 1600 },
   ],
 };
 

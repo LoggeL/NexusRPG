@@ -313,16 +313,20 @@ const bolzen: NpcDef = {
     herzEreignis('he-bolzen-10', 10, 'crew-quartier', 'morgen', alle(AKT2, DA, { seen: 'he-bolzen-8' })),
   ],
   companion: {
-    // Haustier (world.md §4.4): kämpft nicht, 1× pro Kampf Bellen, passiv Schnüffeln – Engine-Lücke, siehe gaps.
+    // Haustier (world.md §4.4, §8 „+ Haustier Bolzen ohne Feld“): belegt keinen Party-Platz (pet) und kämpft nicht als
+    // eigene Einheit. Seine Kommandos hält die Spielfigur (duo, holder 'player'): Bellen ab Akt 2, Schnüffeln ab ♥8.
     recruit: DA,
+    pet: true,
     stats: {
       hp: 30, armor: 3, morale: 100,
       attributes: { technik: 1, koerper: 5, reflexe: 7, ausstrahlung: 3, strasse: 4 },
       weapon: { kind: 'nahkampf', damage: 3, range: 1, hit: 5 },
       abilities: [],
     },
-    heartAbilities: [{ hearts: 8, ability: SCHNUEFFELN.id }],
-    abilityRules: [{ when: AKT2, add: BELLEN.id }],
+    duo: [
+      { ability: BELLEN.id, holder: 'player', when: AKT2 },
+      { ability: SCHNUEFFELN.id, holder: 'player', when: { hearts: ID, min: 8 } },
+    ],
     callMinutes: 10,
   },
   partyCheckBonus: [

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './knuspi-akt23';
 
 const ID = 'knuspi';
 const K = sprecher(ID);
@@ -102,7 +103,7 @@ const knuspi = weltfigur({
     dislikes: ['frisches-gemuese', 'gesetzbuch'],
     hates: ['handschellen', 'peilsender'],
   }),
-  schedule: [ort('A,N', 'hafenkante', 'knuspi-versteck'), weg('M,T')],
+  schedule: [...SCHEDULE_23, ort('A,N', 'hafenkante', 'knuspi-versteck'), weg('M,T')],
   heartEvents: [
     { id: 'he-knuspi-2', hearts: 2, map: 'hafenkante', time: 'abend', dialogue: 'he-knuspi-2' },
     { id: 'he-knuspi-4', hearts: 4, map: 'hafenkante', time: ['abend', 'nacht'], when: { seen: 'he-knuspi-2' }, dialogue: 'he-knuspi-4' },
@@ -110,6 +111,7 @@ const knuspi = weltfigur({
   talk: [
     rede('knuspi-tag-rivale', { rival: ID }),
     rede('knuspi-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('knuspi-tag-standard'),
   ],
 });

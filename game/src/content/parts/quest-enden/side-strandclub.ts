@@ -358,7 +358,10 @@ export const part: ContentPart = {
         {
           id: 'strandclub-shuttle-hin', at: 'faehre', radius: 50, label: 'Strand-Shuttle zum Meer', kind: 'use',
           when: all(MEER_OFFEN, any(SHUTTLE, done(Q))),
-          lines: [n('Das Shuttle legt ab. Möwen, Gischt, irgendwo hinten singt jemand ein Seemannslied mit falschem Text. Eine Stunde später: Sand.')],
+          lines: [
+            n('Am Fährsteg schaukelt das Strand-Shuttle, ein Kahn mit Sonnensegel, Lichterkette und einem Fahrplan, auf dem nur „Morgens. Mittags. Wenn’s passt.“ steht.'),
+            n('Das Shuttle legt ab. Möwen, Gischt, irgendwo hinten singt jemand ein Seemannslied mit falschem Text. Eine Stunde später: Sand.'),
+          ],
           effects: [{ travel: 'das-meer', entry: 'shuttle', minutes: 60 }],
         },
       ],

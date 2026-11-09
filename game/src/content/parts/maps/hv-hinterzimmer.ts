@@ -11,6 +11,7 @@ const ich = (text: string): DialogueLine => ({ speaker: 'player', text });
 const V: Condition = { playerIs: 'vex' };
 const PROBEZEIT_DONE: Condition = { quest: 'main-1-probezeit', state: 'done' };
 const PLAN_LAEUFT: Condition = { quest: 'main-1-der-plan', state: ['active', 'done'] };
+const PLAN_GEFASST: Condition = { flag: 'plan_gefasst' };
 
 const hinterzimmer: MapDef = {
   id: 'hv-hinterzimmer',
@@ -44,6 +45,8 @@ const hinterzimmer: MapDef = {
     'jimmys-kiste': { at: [815, 640], facing: 'e' },
     fotowand: { at: [865, 268], facing: 'n' },
     tresor: { at: [715, 272], facing: 'n' },
+    // Zwischen Planungstisch, Whiteboard-Füßen und Jimmys Kiste; Ziel der Questmarker „Planungstafel“.
+    planungstafel: { at: [930, 525], facing: 'n' },
   },
   hotspots: [
     {
@@ -59,8 +62,17 @@ const hinterzimmer: MapDef = {
       ],
     },
     {
-      id: 'planungstafel', at: [880, 520], radius: 80, label: 'Planungstafel', kind: 'board', board: 'planungstafel',
-      when: PLAN_LAEUFT,
+      // Öffnet den Dialog „planungstafel“ aus quest-main-b (Vorbereitungen, „Heute Nacht losschlagen“). Ab Akt 2 hängt
+      // am Planungstisch die Party-Planungstafel (quest-main-2/planungstafel-party.ts).
+      id: 'planungstafel', at: [880, 520], radius: 80, label: 'Planungstafel: Heute Nacht losschlagen', kind: 'use',
+      dialogue: 'planungstafel', when: PLAN_GEFASST, hideWhen: { act: 2 },
+    },
+    {
+      id: 'planungstafel-leer', at: [880, 520], radius: 80, label: 'Planungstafel ansehen', kind: 'look',
+      when: { all: [PLAN_LAEUFT, { not: PLAN_GEFASST }] },
+      lines: [
+        n('Eine Korkwand, frisch leergeräumt. Oben hängt ein einzelner Zettel in Hunters Handschrift: „VORBEREITUNG“. Darunter nichts. Noch nicht. Erst redet die Crew, dann hängen hier rote Fäden.'),
+      ],
     },
     {
       id: 'planungstisch', at: [470, 452], radius: 64, label: 'Stadtplan ansehen', kind: 'look',

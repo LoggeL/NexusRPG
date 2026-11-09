@@ -43,8 +43,10 @@ function menue(): Menue {
       effects: [{ startQuest: MARKTTAG }],
     },
     {
-      text: 'Jakko sammelt Rezepte. Verrätst du ihm eins?', next: 'rezept', once: true, id: 'b-rezept',
-      when: { quest: 'pers-jakko-kochbuch', state: 'active' }, effects: [flag('rezept_babette'), herz('jakko', 10)],
+      // Den Rezeptzettel selbst gibt es nur über die Quest (pers-jakko-kochbuch: rezeptzettel-babette); hier die Tipps dazu.
+      text: 'Der Rezeptzettel für Jakko – noch ein Tipp dazu?', next: 'rezept', once: true, id: 'b-rezept',
+      when: { all: [{ quest: 'pers-jakko-kochbuch', state: 'active' }, { item: 'rezeptzettel-babette' }] },
+      effects: [flag('rezept_babette'), herz('jakko', 10)],
     },
     { text: '„Draußen kochen wir Kaktus. Willst du wissen, wie?“', tag: '[Ödnis]', when: { origin: 'origin-oednis' }, once: true, id: 'b-oednis', next: 'kaktus' },
     { text: 'Danke, Babette. Bis später.' },
@@ -86,11 +88,11 @@ const M = erweitere(menue(), MENUE_23);
 /** Rivalität: kleinere Portionen; Versöhnung über Abwasch, Kaktusfrucht oder eine ehrliche Entschuldigung. */
 const RIVALE: Menue = {
   choices: [
-    { text: 'Eine Stunde lang abwaschen. Ohne Murren.', next: 'abwasch', effects: [{ advanceTime: 60 }, { reconcile: 'babette-bao' }] },
-    { text: 'Ihr eine Kaktusfrucht hinlegen.', when: { item: 'kaktusfrucht' }, next: 'kaktusfrucht', effects: [{ take: 'kaktusfrucht' }, { reconcile: 'babette-bao' }] },
+    { text: 'Eine Stunde lang abwaschen. Ohne Murren.', next: 'abwasch', effects: [{ advanceTime: 60 }, { reconcile: 'babette-bao' }, flag('rivale_babette', false)] },
+    { text: 'Ihr eine Kaktusfrucht hinlegen.', when: { item: 'kaktusfrucht' }, next: 'kaktusfrucht', effects: [{ take: 'kaktusfrucht' }, { reconcile: 'babette-bao' }, flag('rivale_babette', false)] },
     {
       text: '„Ich hab mich wie ein Arsch benommen, Babette. Es tut mir leid.“', next: 'sorry',
-      check: pruefung('babette-versoehnung-sorry', 'ausstrahlung', 5, ['ueberzeugen']), effects: [{ reconcile: 'babette-bao' }],
+      check: pruefung('babette-versoehnung-sorry', 'ausstrahlung', 5, ['ueberzeugen']), effects: [{ reconcile: 'babette-bao' }, flag('rivale_babette', false)],
     },
     { text: 'Dann eben nicht.' },
   ],
@@ -462,6 +464,28 @@ const date = dialog('babette-bao-date-aria', [
 
 // ---------------------------------------------------------------------------------------------- Figur
 
+/** Rivalität −2: Babette schneidet die Portionen. Laden: { rival: 'babette-bao' }. */
+const re2 = dialog('re-babette-bao-2', [
+  knoten('start', [
+    erz('An der Garküche dampft es wie immer. Babette sieht dich kommen, nimmt eine Dampfnudel aus dem Korb, legt sie aufs Brett und halbiert sie. Mit einem Hackbeil. Sehr laut.'),
+    B('Deine Portion. Ab heute. Die andere Hälfte kriegt Jakko. Der hat sie verdient.', 'wut'),
+    B('Bei mir wird gegessen, was auf den Tisch kommt. Und bei dir kommt eben weniger auf den Tisch. Das ist keine Strafe. Das ist Küche.'),
+  ], {
+    choices: [
+      { text: '„Halbe Nudel, voller Preis? Das ist Wucher, Babette.“', next: 'wucher' },
+      { text: 'Die halbe Nudel nehmen und schweigen.', next: 'schweigen', effects: [herz('babette-bao', 5)] },
+    ],
+  }),
+  knoten('wucher', [
+    B('Wucher? WUCHER? Ich hab vierzig Jahre lang zu viel gekocht für Leute, die nie gezahlt haben! Das hier ist Ausgleich. Kosmisch.', 'wut'),
+    B('Wenn du wieder ganze Portionen willst: Abwasch. Eine Stunde. Oder du sagst, was du bist. Laut.'),
+  ], { effects: [flag('rivale_babette')] }),
+  knoten('schweigen', [
+    erz('Du isst. Die halbe Nudel ist trotzdem die beste Nudel der Unterstadt. Das macht es schlimmer.'),
+    B('Schmeckt, was? Natürlich schmeckt’s. Ich bin ja nicht du. Ich bin nicht gemein, nur weil ich sauer bin.', 'neutral'),
+  ], { effects: [flag('rivale_babette'), { heal: 5 }] }),
+]);
+
 const babette: NpcDef = {
   id: 'babette-bao',
   name: 'Babette Bao',
@@ -492,6 +516,8 @@ const babette: NpcDef = {
     { id: 'he-babette-bao-6', hearts: 6, map: 'schrottmarkt', time: 'tag', when: { not: { weekday: 'mo' } }, dialogue: 'he-babette-bao-6' },
     { id: 'he-babette-bao-8', hearts: 8, map: 'schrottmarkt', time: 'morgen', when: { all: [AB_AKT2, { not: { weekday: 'mo' } }] }, dialogue: 'he-babette-bao-8' },
     { id: 'he-babette-bao-10', hearts: 10, map: 'schrottmarkt', time: 'abend', when: { all: [AB_AKT2, { seen: 'he-babette-bao-8' }, { weekday: 'mo' }] }, dialogue: 'he-babette-bao-10' },
+    // Rivalität (world.md §4.4): kleinere Portionen (Laden: { rival: 'babette-bao' }).
+    { id: 're-babette-bao-2', hearts: -2, map: 'schrottmarkt', time: ['morgen', 'tag'], dialogue: 're-babette-bao-2' },
   ],
   talk: [
     rede('babette-bao-tag-rivale', { rival: 'babette-bao' }),
@@ -516,7 +542,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.oednis, T.gosse, T.ariaRomanze, T.zeit, T.markttag, T.fischmarkt, T.nest, T.vertraut, T.morgen, T.tag,
     T.abend, T.standard,
-    he2, he4, he6, ...A23.dialogues, date,
+    he2, he4, he6, re2, ...A23.dialogues, date,
   ),
   phone: {
     'tel-babette-fruehstueck': {

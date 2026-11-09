@@ -5,7 +5,7 @@
 // Damit ersetzt der Rasterkampf den DOM-Platzhalter. Liefert die Fabrik `null`, bleibt der Platzhalter.
 import type Phaser from 'phaser';
 import type {
-  AudioPort, BattleOutcome, BattleResult, CampaignPort, EncounterId, GameContent, SfxId,
+  AudioPort, BattleOutcome, BattleResult, BattleUnit, CampaignPort, EncounterId, GameContent, SfxId,
 } from '../../../modules/contracts';
 import type { AssetCatalog } from '../../../platform/assets/manifest';
 import type { SettingsStore } from '../../../platform/settings';
@@ -99,6 +99,7 @@ export class BattleRunner {
     try {
       scene = await this.startScene({
         arena: session.arena, units: session.state().units, content, catalog, assets, reducedMotion, zoom: initialZoom,
+        extraSprites: reinforcementSprites(content, session.state().units),
         insets: () => ui.insets(),
         sfx: (id) => audio.sfx(SCENE_SFX[id]),
         input: {
@@ -190,4 +191,18 @@ export function installBattleRunner(director: Director, createSession: BattleSes
     return typeof result === 'string' ? result : result.outcome;
   };
   return runner;
+}
+
+/** Laufblätter für Funkruf-Verstärkungen (EnemyDef.rules `reinforce`), damit sie beim Auftauchen geladen sind. */
+function reinforcementSprites(content: Pick<GameContent, 'enemies'>, units: readonly BattleUnit[]): string[] {
+  const out = new Set<string>();
+  for (const unit of units) {
+    if (unit.source.kind !== 'enemy') continue;
+    for (const rule of content.enemies[unit.source.enemy]?.rules ?? []) {
+      if (rule.kind !== 'reinforce') continue;
+      const def = content.enemies[rule.enemy];
+      if (def) out.add(def.sprite ?? `${def.id}-walk`);
+    }
+  }
+  return [...out];
 }

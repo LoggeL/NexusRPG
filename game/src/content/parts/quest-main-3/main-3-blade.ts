@@ -22,6 +22,10 @@ const ZUSAMMEN: Condition = flag('aria_romanze_zusammen');
 /** Raven kann die Handschellen nehmen: Persönliche Quest erledigt, wieder bei Sinnen. ♥6 als ausgegraute Bedingung. */
 const HANDSCHELLEN_WEG: Condition = all({ quest: 'pers-raven-handschellen', state: 'done' }, flag('raven_zurueck'));
 const HANDSCHELLEN_HERZ: Condition = hearts('raven', 6);
+/** Partynacht-Hilfen (Figuren-Dateien): Kikis Fluchttaxi hinter dem Turm, Nebelhorns Fähre am Steg, Lio unten am Turm. */
+const KIKI_TAXI = flag('kiki_fluchttaxi');
+const FAEHRE = flag('nebelhorn_faehre_bereit');
+const LIO = flag('lio_ablenkung');
 
 const quest: QuestDef = {
   id: Q,
@@ -135,6 +139,47 @@ const schlussNode: DialogueNode = {
     nar('Unten auf der Tanzfläche wachen die ersten Gäste auf. Jemand fragt nach seiner Hose. Jemand anders sehr leise nach seiner Würde.'),
     l('hunter', 'Champagner ist alle. Gut so. Ich hasse Champagner. Schmeckt wie Geld, das sich für was Besseres hält.', 'signatur'),
   ],
+  choices: [
+    { text: '(Vom Hafen her: drei Mal ein Nebelhorn.)', id: 'schluss-faehre', when: FAEHRE, next: 'schluss-faehre' },
+    { text: '(Von unten: eine Gitarre.)', id: 'schluss-lio', when: all(not(FAEHRE), LIO), next: 'schluss-lio' },
+  ],
+};
+
+/** Nebelhorns Fähre (npc-unterstadt/nebelhorn-akt23.ts): der Fluchtweg übers Wasser für alle, die aus dem Turm wollen. */
+const schlussFaehreNode: DialogueNode = {
+  id: 'schluss-faehre',
+  lines: [
+    nar('Tuuut. Tuuut. Tuuut. Tief und schief, vom Hafen herauf, durch den ganzen Morgen. Am Steg der Hafenkante liegt eine alte Fähre mit laufendem Motor und sehr viel Rost.'),
+    l('kaeptn-nebelhorn', '(Funk, sehr laut) Moin, Kleines! Motor läuft seit Mitternacht! Wer aus dem Turm will, ohne Chip-Kontrolle und ohne Fragen: Steg Hafenkante, Rettungswesten liegen bereit. Die Ziege ist auch an Bord. Sie gehört keinem.', 'freude'),
+    l('hunter', 'Der alte Sack hat die ganze Nacht getutet. Für uns. Die Hälfte der Unterstadt-Gäste fährt übers Wasser heim, bevor die Ordnung ihre Listen sortiert hat.', 'zaertlich'),
+    l('dante', 'Ich hör das Ding bis hier oben. Heiliges Kanonenrohr. Ich glaub, ich heul.', 'freude'),
+  ],
+  effects: [set('finale_faehre_genutzt'), herz('kaeptn-nebelhorn', 40), { rep: 'unterstadt', delta: 5 }, { xp: 50 }],
+  choices: [{ text: '(Von unten: eine Gitarre.)', id: 'schluss-faehre-lio', when: LIO, next: 'schluss-lio' }],
+};
+
+/** Lio (npc-unterstadt/lio-akt23.ts) hat die ganze Nacht vor dem Turm gespielt. */
+const schlussLioNode: DialogueNode = {
+  id: 'schluss-lio',
+  lines: [
+    nar('Ganz unten, vor dem Turm, zwischen umgekippten Absperrgittern: ein heiserer Typ mit Gitarre und einer Lichterkette um den Hals. Er spielt immer noch. Das Protestlied. Zum vierzigsten Mal.'),
+    l('lio-funkel', '(von ganz unten, kaum zu hören) … und wenn sie dich wegtragen, sing im Liegen weiter …', 'signatur'),
+    l('raven', 'Der hat die Wachen die ganze Nacht vor dem Haupteingang festgehalten. Mit drei Akkorden. Respekt. Ich hätte ihn erschossen.', 'signatur'),
+  ],
+  effects: [set('finale_lio_gehoert'), herz('lio-funkel', 30)],
+};
+
+/** Kikis Fluchttaxi (npc-ordnung-markt/kiki-akt23.ts): parkt hinter dem Turm und blockt den Gleiter. */
+const kikiNode: DialogueNode = {
+  id: 'kiki',
+  lines: [
+    nar('Du hältst das Telefon in den Rotorwind. „Kanal neun.“ Drei Sekunden lang passiert nichts. Dann taucht hinter der Turmkante ein gelbes Schwebetaxi auf, mit offenen Fenstern und viel zu lauter Musik.'),
+    l('kiki-karbon', 'Fluchttaxi Karbon! Wer hat hier einen Gleiter ohne Parkschein abgestellt?', 'freude'),
+    nar('Kiki setzt das Taxi quer vor die Startbahn, Stoßstange an Gleiternase. Der Pilot bremst. Blade fliegt nicht. Blade fliegt auf die Knie, mitten in eine Pfütze aus Champagner.'),
+    l('blade', 'Das ist ein Taxi! Ein gelbes! Mit einem Wackeldackel!', 'wut'),
+    l('kiki-karbon', 'Und du bist ein Fahrgast ohne Ziel, Goldknauf. Steig aus oder zahl den Nachttarif.', 'signatur'),
+  ],
+  effects: [set('blade_aufgehalten'), set('kiki_gleiter_geblockt'), herz('kiki-karbon', 40), { xp: 60 }, zumUrteil],
 };
 
 const wahl: DialogueChoice[] = [
@@ -144,6 +189,7 @@ const wahl: DialogueChoice[] = [
   { text: '(Den Teddymantel packen, bevor er einsteigt.)', check: 'gc-49', next: 'mantel' },
   { text: '„Raven. Du hast da noch was für ihn.“', tag: '[Raven ♥6]', when: HANDSCHELLEN_WEG, requires: HANDSCHELLEN_HERZ, next: 'handschellen' },
   { text: '„Nexus. Gleiter sperren.“', id: 'master', when: UPLOAD.master, next: 'master-sperre' },
+  { text: '„Kiki. Kanal neun. Jetzt.“', tag: '[Fluchttaxi Karbon]', id: 'kiki', when: KIKI_TAXI, next: 'kiki' },
   { text: '(Zur Seite treten. Ihn fliegen lassen.)', next: 'laufen' },
 ];
 
@@ -188,6 +234,9 @@ const wahlNodes: DialogueNode[] = [
   handschellenNode,
   laufenNode,
   schlussNode,
+  schlussFaehreNode,
+  schlussLioNode,
+  kikiNode,
 ];
 
 // -------------------------------------------------------------------------------------------- Am Gleiter
@@ -413,6 +462,8 @@ const urteil: DialogueDef = {
     handschellenNode,
     laufenNode,
     schlussNode,
+    schlussFaehreNode,
+    schlussLioNode,
   ],
 };
 

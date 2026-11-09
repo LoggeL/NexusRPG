@@ -41,21 +41,14 @@ const statusChoices: DialogueChoice[] = PREPS.flatMap((key): DialogueChoice[] =>
   { text: `[ ] ${LABEL[key].name}`, when: noFlag(prepFlag(key)), next: `offen-${key}` },
 ]);
 
-/** Wartetreppe 06:00 → 22:00 vor dem Aufbruch. */
-function losWarten(): DialogueChoice[] {
-  const out: DialogueChoice[] = [];
-  for (let t = 360; t < 1320; t += 15) {
-    out.push({
-      id: `los-warten-${t}`,
-      text: '„Wir warten, bis es dunkel ist.“ (bis 22:00)',
-      when: { clockBetween: [t, Math.min(t + 15, 1320)] },
-      effects: [{ advanceTime: 1320 - t }],
-      next: 'los-jetzt',
-    });
-  }
-  return out;
-}
-const LOS_WARTEN = losWarten();
+/** Warten bis 22:00 vor dem Aufbruch (Uhr stellen). */
+const LOS_WARTEN: DialogueChoice[] = [{
+  id: 'los-warten',
+  text: '„Wir warten, bis es dunkel ist.“ (bis 22:00)',
+  when: { clockBetween: [360, 1320] },
+  effects: [{ setClock: 1320 }],
+  next: 'los-jetzt',
+}];
 
 const tafel: DialogueDef = {
   id: 'planungstafel',
@@ -163,7 +156,7 @@ const tafel: DialogueDef = {
         l('hunter', 'Dann los. Alle Mann, Treffpunkt vor dem Club. Wer zu spät kommt, bleibt hier und spült.', 'signatur'),
       ],
       choices: [
-        // Die Bruch-Nacht beginnt um 22:00 (Engine kennt kein „Uhr stellen“, darum die Wartetreppe).
+        // Die Bruch-Nacht beginnt um 22:00 (früher: Uhr per setClock vorstellen).
         ...LOS_WARTEN,
         { text: '„Jetzt. Bevor einer kalte Füße kriegt.“', when: { clockBetween: [1320, 1410] }, next: 'los-jetzt' },
         { text: '„Heute noch?“', when: { clockBetween: [1410, 1600] }, next: 'zu-spaet' },
@@ -204,7 +197,8 @@ const cliffhanger: CutsceneDef = {
   title: 'Heute Nacht',
   beats: [
     {
-      image: 'black',
+      image: 'cut-akt1-aufbruch',
+      pan: 'in',
       fade: 'in',
       caption: 'Noch in derselben Nacht · Neon-Gasse',
       lines: [
@@ -217,7 +211,7 @@ const cliffhanger: CutsceneDef = {
       ],
     },
     {
-      image: 'black',
+      image: 'cut-akt1-aufbruch',
       sfx: 'phone',
       caption: 'EILMELDUNG · NX-1',
       lines: [
@@ -227,7 +221,8 @@ const cliffhanger: CutsceneDef = {
       ],
     },
     {
-      image: 'black',
+      image: 'cut-akt1-labor-null',
+      pan: 'in',
       sfx: 'hack',
       caption: 'Quantum-Campus · Labor 0',
       lines: [
@@ -273,23 +268,7 @@ export const part: ContentPart = {
   cutscenes: { [cliffhanger.id]: cliffhanger },
   phone: { [eilmeldung.id]: eilmeldung },
   mapAdditions: {
-    'hv-hinterzimmer': {
-      hotspots: [
-        {
-          // Die Zone legt dort schon „planungstafel“ als Auftragstafel an (kind 'board'); diese Fassung öffnet den
-          // Dialog. Vorschlag in gaps/quest-main-b.md: Zonen-Hotspot auf kind 'use' + dialogue 'planungstafel' umstellen.
-          id: 'planungstafel-plan',
-          at: [880, 520],
-          radius: 80,
-          label: 'Planungstafel: Heute Nacht losschlagen',
-          kind: 'use',
-          dialogue: tafel.id,
-          when: flag('plan_gefasst'),
-          // Ab Akt 2 hängt dort die Party-Planungstafel (parts/quest-main-2/planungstafel-party.ts).
-          hideWhen: { act: 2 },
-        },
-      ],
-    },
+    // Im Hinterzimmer öffnet der Karten-Hotspot „planungstafel“ (parts/maps/hv-hinterzimmer.ts) diesen Dialog.
     'crew-quartier': {
       hotspots: [
         {

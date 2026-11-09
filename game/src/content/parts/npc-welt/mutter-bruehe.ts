@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './mutter-bruehe-akt23';
 
 const ID = 'mutter-bruehe';
 const B = sprecher(ID);
@@ -126,6 +127,9 @@ const he4 = dialog('he-mutter-bruehe-4', [
   ], { effects: [{ xp: 60 }, { give: 'bruehes-suppe', qty: 2 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: mutter-bruehe-akt23.ts.
+const A23 = akt23(M);
+
 const bruehe = weltfigur({
   id: ID,
   name: 'Mutter Brühe',
@@ -138,7 +142,7 @@ const bruehe = weltfigur({
     dislikes: ['synth-nudeln', 'chrome-10-gutschein'],
     hates: ['plastikpflanze', 'kanalschlamm'],
   }),
-  schedule: [ort('M,T,A', 'suppenkueche', 'kessel'), weg('N')],
+  schedule: [...A23.schedule, ort('M,T,A', 'suppenkueche', 'kessel'), weg('N')],
   heartEvents: [
     { id: 'he-mutter-bruehe-2', hearts: 2, map: 'suppenkueche', time: 'morgen', dialogue: 'he-mutter-bruehe-2' },
     { id: 'he-mutter-bruehe-4', hearts: 4, map: 'suppenkueche', time: 'tag', when: { seen: 'he-mutter-bruehe-2' }, dialogue: 'he-mutter-bruehe-4' },
@@ -146,6 +150,7 @@ const bruehe = weltfigur({
   talk: [
     rede('bruehe-tag-rivale', { rival: ID }),
     rede('bruehe-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('bruehe-tag-vertraut', undefined, 4),
     rede('bruehe-tag-sonntag', { weekday: 'so' }),
     rede('bruehe-tag-morgen', { time: 'morgen' }),
@@ -155,5 +160,5 @@ const bruehe = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: bruehe },
-  dialogues: sammle(T.rivale, T.erstes, T.sonntag, T.morgen, T.vertraut, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.sonntag, T.morgen, T.vertraut, T.standard, he2, he4, ...A23.dialogues),
 };

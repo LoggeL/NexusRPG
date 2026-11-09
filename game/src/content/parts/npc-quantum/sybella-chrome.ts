@@ -8,7 +8,7 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, AKT2, EPILOG, PARTYNACHT, ab, alle, dialog, erz, flag, gesehen, geschenk, gespraech, herz, ich, knoten,
-  meldung, nicht, nichtGetroffen, ort, pruefung, queststand, rede, rivale, sammle, sprecher, weg, xp, zurueck,
+  meldung, nicht, nichtGetroffen, ort, pruefung, queststand, rede, rivale, sammle, sprecher, VEX, weg, xp, zurueck,
 } from './_q';
 
 const ID = 'sybella-chrome';
@@ -18,6 +18,12 @@ const EINBRUCH: Condition = queststand('side-alte-gewohnheiten', 'active');
 /** Nach he-4 weiß sie, dass die Spielfigur die Verkleidung kennt. */
 const ENTTARNT: Condition = gesehen('he-sybella-chrome-4');
 const Z = zurueck('Noch was, Sybella.', 'Ich muss weiter.');
+/** side-alte-gewohnheiten: Der Lastenaufzug fuhr als „Blumenlieferung, Rosen, dringend“ ins Penthouse. */
+const BLUMEN: Condition = { flag: 'alte-gewohnheiten-blumenlieferung' };
+const BLUMEN_ERKANNT = 'sybella_blumenlieferung_erkannt';
+/** side-chrome-10: Gutschein-Gerd entlarvt, gefälschte Chrome-10-Gutscheine aus dem Verkehr. */
+const PIRATERIE: Condition = { flag: 'chrome10_markenpiraterie' };
+const PIRATERIE_GEDANKT = 'sybella_markenpiraterie_gedankt';
 
 // ---------------------------------------------------------------------------------------------- Menü
 
@@ -135,6 +141,74 @@ const T = {
     S('Angenommen. Ich hasse mich dafür. Aber Respekt für die Dreistigkeit. Achtzehn Prozent Respekt.', 'freude'),
   ])]),
 };
+
+// ---------------------------------------------------------------------------------------------- Teekränzchen und Finale
+
+/**
+ * Teekränzchen (side-teekraenzchen, Akt 2): Wer nach side-alte-gewohnheiten als „Blumenlieferung“ im Penthouse war,
+ * wird an der Salontür erkannt. Eigener Dialogweg, danach läuft das Teekränzchen normal weiter.
+ */
+const blumenlieferung = dialog('sybella-tee-blumenlieferung', [
+  knoten('start', [
+    erz('An der Salontür bleibt Sybella stehen. Sie sieht dich an. Dann deine Hände. Dann wieder dich. Ihr Abakus-Finger zuckt.'),
+    S('Moment. Moment, Moment, Moment. Sie waren doch die Blumenlieferung!', 'ueberrascht'),
+    S('„Rosen, dringend.“ Hauslog, Lastenaufzug, Dienstag, dreiundzwanzig Uhr zwölf. Es kamen keine Rosen. Es kamen Fußspuren. Auf meinem Teppich. Bis zum Tresor.', 'wut'),
+  ], {
+    choices: [
+      { text: '„Die Rosen waren unterwegs. Lieferengpass. Sie wissen ja, wie das ist.“', next: 'engpass' },
+      {
+        text: '„Ich hab eine Pollenallergie. Ich würde nie im Leben Blumen liefern. Fragen Sie meinen Arzt.“', tag: '[Straße 5]',
+        check: pruefung('sybella-blumen-bluff', 'strasse', 5, ['bluff']), next: 'bluff',
+      },
+      { text: '„Unterschrift bei Lieferung. Die fehlt übrigens noch.“', tag: '[Kurierin]', when: VEX, next: 'kurierin' },
+      { text: '„Ja. War ich. Und die Rosen hätten Sie sowieso runtergehandelt.“', next: 'gestaendnis' },
+    ],
+  }),
+  knoten('engpass', [
+    S('Lieferengpass. Bei Rosen. In der Oberstadt. Wo ein Laden pro Straße nur Rosen verkauft.', 'signatur'),
+    S('Das ist die schlechteste Ausrede, die ich je gehört habe. Ich bin beeindruckt. Ich ziehe sie Ihnen vom Tee ab.'),
+  ], { next: 'ende', effects: [herz(ID, 10)] }),
+  knoten('bluff', [
+    S('Eine Pollenallergie. Natürlich. Sie sehen auch … verschnupft aus. Ein wenig. Um die Augen.', 'besorgt'),
+    erz('Sie zieht ein rotes Seidentuch aus dem Ärmel und reicht es dir. Dann, ganz leise, zu sich selbst: „Das Hauslog lügt. Ich muss das Hauslog verklagen.“'),
+  ], { next: 'ende', effects: [herz(ID, 20)] }),
+  knoten('kurierin', [
+    S('Eine Kurierin. Natürlich. Kurierinnen tragen Rosen, Pakete und Fußspuren. Das steht so im Tarifvertrag.', 'signatur'),
+    S('Ich unterschreibe nichts. Ich habe noch nie etwas unterschrieben, das ich nicht bestellt habe. Außer einmal. Das war Chrome 10.', 'trauer'),
+  ], { next: 'ende', effects: [herz(ID, 20)] }),
+  knoten('gestaendnis', [
+    S('Natürlich hätte ich sie runtergehandelt! Rosen, Dienstag, Nacht, Expresszuschlag! Auf dreißig Prozent! Mindestens!', 'wut'),
+    S('… Sie haben nichts mitgenommen. Ich habe gezählt. Dreimal. Wer einbricht und nichts mitnimmt, ist entweder dumm oder will etwas anderes. Sie sehen nicht dumm aus. Meistens.', 'besorgt'),
+    S('Setzen Sie sich. Wir reden über Chrome 10. Und danach reden wir über meinen Teppich. Der Teppich kriegt eine eigene Rechnung.'),
+  ], { next: 'ende', effects: [herz(ID, 30)] }),
+  knoten('ende', [
+    erz('Hinter ihr klappern im Salon die Tassen. Seraphina ruft nach dir, als wärst du ein Hund, der zu spät zum Gassi kommt.'),
+    S('Kein Wort zu meinen Schwestern. Seraphina würde die Blumenlieferung verklagen. Serenity würde ein Kapitel darüber schreiben. Beides wäre teuer.', 'signatur'),
+  ], { effects: [flag(BLUMEN_ERKANNT), xp(40)] }),
+]);
+
+/** Akt 3: Nach side-chrome-10 bedankt sie sich für die Jagd auf Gutschein-Gerd („Markenpiraterie!“). */
+const markenpiraterie = dialog('sybella-tag-markenpiraterie', [
+  knoten('start', [
+    erz('Sybella zieht dich zwischen zwei Champagnerpyramiden. Sie hat einen Ausdruck in der Hand, zerknittert, mit einem Polizeifoto: Gutschein-Gerd, frontal, mit Druckerschwärze im Gesicht.'),
+    S('Sie! Sie waren das! Gutschein-Gerd! Viertausend gefälschte Chrome-10-Gutscheine, auf meinem Logo, in MEINER Schrift!', 'ueberrascht'),
+    S('Das ist ja Markenpiraterie! Und Sie haben sie beendet. Einfach so. Ohne Rechnung.', 'freude'),
+  ], {
+    choices: [
+      { text: '„Dexter hat sein Geld zurück. Das war die Rechnung.“', next: 'dexter' },
+      { text: '„Ihr Logo hat mir nie gefallen. Aber gefälscht ist es noch hässlicher.“', next: 'logo' },
+    ],
+  }),
+  knoten('dexter', [
+    S('Ein Schrotthändler. Sie haben das für einen Schrotthändler getan. Das ist unwirtschaftlich. Das ist … schön.', 'zaertlich'),
+  ], { next: 'ende' }),
+  knoten('logo', [
+    S('Frech. Ehrlich. Und leider richtig. Das Rot ist zu laut. Ich habe es Seraphina gesagt. Sie hat gesagt: „Laut verkauft sich.“', 'signatur'),
+  ], { next: 'ende' }),
+  knoten('ende', [
+    S('Ich verschenke nichts. Aber ich vergesse auch nichts. Wenn heute Nacht hier etwas schiefgeht: Ich stehe auf Ihrer Seite der Rechnung.', 'signatur'),
+  ], { effects: [herz(ID, 40), flag(PIRATERIE_GEDANKT), meldung('Sybella Chrome ♥ +40: „Das ist ja Markenpiraterie!“')] }),
+]);
 
 // ---------------------------------------------------------------------------------------------- Herz-Ereignisse
 
@@ -339,6 +413,7 @@ const sybella: NpcDef = {
   ],
   talk: [
     rede('sybella-tag-rivale', rivale(ID)),
+    rede('sybella-tag-markenpiraterie', alle(PARTYNACHT, PIRATERIE, { notFlag: PIRATERIE_GEDANKT })),
     rede('sybella-tag-party-foyer', alle(PARTYNACHT, nicht(queststand('main-3-einlass', 'done')))),
     rede('sybella-tag-party', PARTYNACHT),
     rede('sybella-tag-nacht', { time: 'nacht' }),
@@ -358,6 +433,18 @@ export const part: ContentPart = {
   npcs: { [ID]: sybella },
   dialogues: sammle(
     T.gosse, T.oberstadt, T.nacht, T.standard, T.verkleidet, T.enttarnt, T.bibliothek, T.boutique, T.flohmarkt, T.vertraut,
-    T.partyFoyer, T.party, T.rivale, he2, he4, he6, he8, he8Danach, he10, re2, re5,
+    T.partyFoyer, T.party, T.rivale, he2, he4, he6, he8, he8Danach, he10, re2, re5, blumenlieferung, markenpiraterie,
   ),
+  mapAdditions: {
+    // Teekränzchen: Sybella erkennt die Blumenlieferung, bevor das Teekränzchen im Salon beginnt.
+    'chrome-penthouse': {
+      onEnter: [{
+        id: 'sybella-tee-blumenlieferung', once: true, dialogue: blumenlieferung.id,
+        when: alle(
+          queststand('side-teekraenzchen', 'active'), { flag: 'tee_sybella_getroffen' }, { notFlag: 'tee_tee_getrunken' },
+          BLUMEN, { notFlag: BLUMEN_ERKANNT },
+        ),
+      }],
+    },
+  },
 };

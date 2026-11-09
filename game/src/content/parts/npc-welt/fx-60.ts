@@ -7,6 +7,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './fx-60-akt23';
 
 const ID = 'fx-60';
 const FAX = sprecher(ID);
@@ -123,6 +124,7 @@ const fx60 = weltfigur({
   talk: [
     rede('fx60-tag-rivale', { rival: ID }),
     rede('fx60-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('fx60-tag-werkstatt', MITGENOMMEN),
     rede('fx60-tag-standard'),
   ],

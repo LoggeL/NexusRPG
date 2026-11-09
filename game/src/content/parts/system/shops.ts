@@ -14,15 +14,30 @@ const used = (item: string, price: number, extra: Partial<ShopStockEntry> = {}):
 
 const RIPPER_HINTERZIMMER: Condition = { any: [{ flag: 'ripper_kennt_dich' }, { rep: 'unterstadt', min: 20 }] };
 
+// --- Dauer-Belohnungen und Rivalitäts-Folgen (world.md §4.4/§4.5, gaps/quest-side-*.md, gaps/npc-ordnung-markt.md) ---
+/** side-riegel-krise: Solange die Krise läuft, gibt es in der Unterstadt keine Nougatbomben. */
+const NOUGAT_DA: Condition = { not: { quest: 'side-riegel-krise', state: 'active' } };
+/** Master-Modus (wie npc-kinder-alte/_dsl.ts `MASTER`): Oma Volt macht den Laden für dich dicht. */
+const MASTER: Condition = { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] };
+const DANTE_RIVALE: Condition = { rival: 'dante' };
+const DEXTER_RIVALE: Condition = { rival: 'dexter' };
+const DEXTER_EHRLICH: Condition = { not: DEXTER_RIVALE };
+const BABETTE_RIVALE: Condition = { rival: 'babette-bao' };
+
 const shops: Record<string, ShopDef> = {
   // --- Neon-Gasse ------------------------------------------------------------------------------------------
   'volt-eck': {
     id: 'volt-eck', name: 'Volt-Eck', owner: 'oma-volt', faction: 'unterstadt', open: TAGSUEBER,
-    // Dank aus side-ki-fluestern (Akt 2).
-    priceRules: [{ when: { flag: 'oma_volt_rabatt_5' }, discount: 5 }],
+    priceRules: [
+      { when: MASTER, refuse: 'Am Fliegengitter hängt ein gesticktes Schild: „FÜR MASTER GESCHLOSSEN“. Oma Volt zieht das Rollo runter, bevor du „Oma“ sagen kannst.' },
+      // side-oma-volts-lager: Familienrabatt auf Dauer.
+      { when: { flag: 'oma_volt_rabatt' }, discount: 15, note: 'Familienrabatt – „Nicht weitersagen, Kindchen.“' },
+      // Dank aus side-ki-fluestern (Akt 2).
+      { when: { flag: 'oma_volt_rabatt_5' }, discount: 5, note: 'Pauls Dankeschön' },
+    ],
     stock: [
       { item: 'medipflaster', qty: 8 },
-      { item: 'nougatbombe', qty: 12 },
+      { item: 'nougatbombe', qty: 12, when: NOUGAT_DA },
       { item: 'volt-limo', qty: 8 },
       { item: 'synth-kaffee', qty: 10 },
       { item: 'u-bahn-ticket' },
@@ -49,7 +64,7 @@ const shops: Record<string, ShopDef> = {
       { item: 'kuehlmittel-mocktail', qty: 8 },
       { item: 'neon-limo', qty: 6, when: { quest: 'side-neon-limo', state: 'done' } },
       { item: 'synth-kaffee', qty: 6 },
-      { item: 'nougatbombe', qty: 6, price: 8 },
+      { item: 'nougatbombe', qty: 6, price: 8, when: NOUGAT_DA },
       { item: 'poster-hv', qty: 2 },
       { item: 'vinyl-platte', qty: 1, price: 140 },
     ],
@@ -59,6 +74,8 @@ const shops: Record<string, ShopDef> = {
   'garkueche-babette': {
     id: 'garkueche-babette', name: 'Bao Babette – Dampfnudeln seit 2061', owner: 'babette-bao', faction: 'unterstadt',
     open: { all: [TAGSUEBER, { not: { weekday: 'mo' } }] },
+    // Rivalität: kleinere Portionen zum alten Preis – macht pro Bissen die Hälfte mehr.
+    priceRules: [{ when: BABETTE_RIVALE, discount: -50, note: 'Babette schneidet deine Dampfnudeln neuerdings in der Mitte durch. Der Preis bleibt ganz.' }],
     stock: [
       { item: 'bao-dampfnudel', qty: 20 },
       { item: 'synth-nudeln', qty: 12 },
@@ -92,6 +109,8 @@ const shops: Record<string, ShopDef> = {
   'ripper-praxis': {
     id: 'ripper-praxis', name: 'Rippers Praxis', owner: 'ripper', faction: 'zerleger', open: { clockBetween: [600, 1260] },
     ripperdoc: { fee: 100, freeWhen: { repTier: 'zerleger', min: 'verehrt' } },
+    // side-container-77 („Freund des Hauses“) bzw. das Murmel-Auge: 15 % auf Dauer.
+    priceRules: [{ when: { any: [{ flag: 'ripper_rabatt' }, { flag: 'c77_ripper_rabatt' }] }, discount: 15, note: 'Freund des Hauses – Ripper fragt nicht, wo du das Geld her hast.' }],
     stock: [
       { item: 'schockpistole', qty: 2 },
       { item: 'funkenschleuder', qty: 1 },
@@ -111,12 +130,18 @@ const shops: Record<string, ShopDef> = {
   'dexters-schrott': {
     id: 'dexters-schrott', name: 'Dexters Schrott', owner: 'dexter', faction: 'unterstadt',
     open: { all: [{ time: ['tag', 'abend'] }, { quest: 'main-1-dexter', state: 'done' }] },
+    // Rivalität: Dexter verkauft dir Haldenschrott zum Preis der echten Ware.
+    priceRules: [{ when: DEXTER_RIVALE, note: 'Dexter grinst zu breit. Die Ware riecht verdächtig nach Halde.' }],
     stock: [
-      { item: 'drohnen-propeller', qty: 4 },
-      { item: 'ersatz-rotor', qty: 1 },
-      { item: 'arme-greifhaken', qty: 1 },
-      { item: 'schrott-ersatzteil', qty: 10, price: 7 },
-      { item: 'reparaturset', qty: 2 },
+      { item: 'drohnen-propeller', qty: 4, when: DEXTER_EHRLICH },
+      { item: 'ersatz-rotor', qty: 1, when: DEXTER_EHRLICH },
+      { item: 'arme-greifhaken', qty: 1, when: DEXTER_EHRLICH },
+      { item: 'schrott-ersatzteil', qty: 10, price: 7, when: DEXTER_EHRLICH },
+      { item: 'reparaturset', qty: 2, when: DEXTER_EHRLICH },
+      { item: 'rostige-schraube', qty: 4, price: 20, when: DEXTER_RIVALE },
+      { item: 'glitzerschrott', qty: 1, price: 90, when: DEXTER_RIVALE },
+      { item: 'rostige-dose', qty: 2, price: 35, when: DEXTER_RIVALE },
+      { item: 'schrott-ersatzteil', qty: 10, price: 21, when: DEXTER_RIVALE },
     ],
   },
   'vinyl-vincent': {
@@ -133,7 +158,7 @@ const shops: Record<string, ShopDef> = {
     stock: [
       { item: 'synth-nudeln', qty: 15 },
       { item: 'roestzwiebeln', qty: 10 },
-      { item: 'nougatbombe', qty: 10 },
+      { item: 'nougatbombe', qty: 10, when: NOUGAT_DA },
       { item: 'synth-kaffee', qty: 10 },
       { item: 'volt-limo', qty: 6, price: 14 },
     ],
@@ -200,7 +225,12 @@ const shops: Record<string, ShopDef> = {
   'dantes-werkstatt': {
     id: 'dantes-werkstatt', name: 'Dantes Werkstatt', owner: 'dante', faction: 'crew-hunter',
     open: { all: [TAGSUEBER, { quest: 'main-1-dante', state: 'done' }] },
-    ripperdoc: { fee: 50, freeWhen: { hearts: 'dante', min: 2 } },
+    ripperdoc: {
+      fee: 50, freeWhen: { all: [{ hearts: 'dante', min: 2 }, { not: DANTE_RIVALE }] },
+      refuseWhen: DANTE_RIVALE, refuseText: 'Dante hält den Lötkolben wie eine Waffe. „Ich bau dir nicht mal ’ne Batterie ein. Geh zu Ripper. Lass dir ein Rücklicht ins Auge schrauben.“',
+    },
+    // Rivalität: doppelte Preise.
+    priceRules: [{ when: DANTE_RIVALE, discount: -100, note: 'Dantes „Freundschaftspreis“ für Ex-Freunde: das Doppelte.' }],
     stock: [
       { item: 'reparaturset', qty: 2, price: 30 },
       { item: 'kopf-ruhepol', qty: 1, when: { hearts: 'dante', min: 6 } },
@@ -254,7 +284,7 @@ const shops: Record<string, ShopDef> = {
       { item: 'zeitung-papier', qty: 10 },
       { item: 'synth-kaffee', qty: 10 },
       { item: 'chips-tuete', qty: 8 },
-      { item: 'nougatbombe', qty: 8 },
+      { item: 'nougatbombe', qty: 8, when: NOUGAT_DA },
       { item: 'u-bahn-ticket' },
     ],
   },
@@ -286,7 +316,7 @@ const shops: Record<string, ShopDef> = {
     id: 'rennhallen-kiosk', name: 'Rennhallen-Kiosk', open: { time: ['tag', 'abend', 'nacht'] },
     stock: [
       { item: 'volt-limo', qty: 10 },
-      { item: 'nougatbombe', qty: 10 },
+      { item: 'nougatbombe', qty: 10, when: NOUGAT_DA },
       { item: 'synth-kaffee', qty: 8 },
       { item: 'gleitbrett', qty: 1 },
       { item: 'kurier-funk', qty: 1, price: 85 },

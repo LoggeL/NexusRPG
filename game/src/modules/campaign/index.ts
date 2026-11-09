@@ -11,6 +11,7 @@ import { shopView as shopViewOf } from '../economy';
 import { jobBoardView } from '../jobs';
 import { newsBulletin as newsBulletinOf } from '../news';
 import { factionStandings as factionStandingsOf } from '../reputation';
+import { subwayMinutes } from '../navigation/subway';
 import { relationView } from '../relationships';
 import { whereIs as whereIsOf } from '../time';
 import { checkSeenKey, checkXp, evaluateCheck, resolveCheck } from './checks';
@@ -385,7 +386,7 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
       if (!state.stations.includes(station)) return result(false, `${def.name} ist noch nicht freigeschaltet.`);
       if (!evaluate(def.when)) return result(false, `${def.name} ist gerade nicht erreichbar.`);
       return mutate((ctx) => {
-        advanceClockIn(ctx, SUBWAY_MINUTES);
+        advanceClockIn(ctx, subwayMinutes(ctx.draft) || SUBWAY_MINUTES);
         if (ctx.requests.some(request => 'sleep' in request)) return null; // Zusammenbruch unterwegs
         ctx.requests.push({ travel: def.map, entry: def.entry, minutes: 0 });
         return null;

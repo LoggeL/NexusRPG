@@ -217,6 +217,7 @@ kbd { font-family: var(--font-text); font-weight: 700; font-size: 0.8em; padding
 .list button { text-align: left; display: flex; align-items: center; gap: 8px; padding: 4px 8px; min-height: 40px; background: rgba(20,50,48,0.55); border: 2px solid transparent; cursor: pointer; font-size: var(--fs-small); }
 .list button[aria-selected="true"], .list button:hover { border-color: var(--sand); background: rgba(60,80,60,0.6); }
 .list .qty { margin-left: auto; font-family: var(--font-text); font-weight: 700; color: var(--accent); }
+.list .qty.charges { color: var(--neon-cyan); } .list .qty.charges.low { color: var(--hp-low); }
 .list .cat { font-family: var(--font-display); color: var(--sea); font-size: var(--fs-label); margin: 8px 0 2px; }
 .list .empty { color: var(--muted); padding: 8px; }
 .detail { background: var(--inset); border: 2px solid var(--sand-dark); padding: 10px 12px; overflow: auto; max-height: calc(var(--ch) * 0.62); }
@@ -394,6 +395,11 @@ img.portrait-thumb { flex: none; width: 56px; height: 56px; object-fit: cover; b
 .slot-icon { width: 1.1em; height: 1.1em; fill: currentColor; }
 .slot-icon.morgen { color: #ffd37a; } .slot-icon.tag { color: #ffe14a; } .slot-icon.abend { color: var(--neon-pink); } .slot-icon.nacht { color: var(--neon-violet); }
 .hud-status .day { color: var(--muted); }
+.hud-status .weather { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); }
+.weather-icon { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.weather-icon.klar { color: #ffe14a; fill: currentColor; } .weather-icon.smog { color: #c9b98a; } .weather-icon.rostregen { color: #e07a3c; }
+.weather-icon.neonnebel { color: var(--neon-pink); } .weather-icon.hitzeglocke { color: #ff6a3d; } .weather-icon.sandsturm { color: #e8c27a; }
+[data-layout="portrait-touch"] .hud-status .weather-label { display: none; }
 .hud-status .lp { color: var(--hp); }
 .hud-status .lp.low { color: var(--hp-low); }
 .hud-status .lp.crit { color: var(--hp-crit); animation: blink 1s steps(2) infinite; }
@@ -656,6 +662,14 @@ img.portrait-thumb { flex: none; width: 56px; height: 56px; object-fit: cover; b
 .city-map .pin.focus .pin-dot, .city-map .pin:hover .pin-dot { transform: scale(1.4); }
 .city-map .pin-label { position: absolute; top: calc(50% + 10px); left: 50%; transform: translateX(-50%); padding: 0 4px; white-space: nowrap; font-family: var(--font-display); font-size: 13px; color: var(--text); background: rgba(5,3,11,0.72); pointer-events: none; }
 .city-map .pin.locked .pin-label { color: var(--muted); }
+.city-map .hint-marker { position: absolute; transform: translate(-50%, -50%); pointer-events: auto; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; line-height: 1; text-shadow: 0 0 4px #000; }
+.city-map .hint-marker.fund { min-width: 18px; height: 18px; padding: 0 3px; border-radius: 9px; font-size: 11px; color: #1a1006; background: #ffcf4a; border: 1px solid #000; box-shadow: 0 0 8px #ffcf4a; }
+.city-map .hint-marker.klatsch { font-size: 18px; color: #ffe14a; animation: hint-blink 1.8s ease-in-out infinite; }
+@keyframes hint-blink { 50% { opacity: 0.45; } }
+.map-hints .hint-list { margin: 0 0 8px; padding-left: 18px; font-size: 13px; }
+.map-hints .hint-list.fund li::marker { content: '◆ '; color: #ffcf4a; }
+.map-hints .hint-list.klatsch li::marker { content: '★ '; color: #ffe14a; }
+.reduced-motion .city-map .hint-marker.klatsch { animation: none; }
 @keyframes pin-pulse { 50% { box-shadow: 0 0 0 8px rgba(255,63,164,0.1), 0 0 16px var(--neon-pink); } }
 .city-side h3 { margin: 0 0 6px; font-family: var(--font-display); font-weight: 500; font-size: var(--fs-small); color: var(--neon-cyan); }
 .station-list { list-style: none; margin: 0 0 10px; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: calc(var(--ch) * 0.42); overflow: auto; }

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './herr-glanz-akt23';
 
 const ID = 'herr-glanz';
 const G = sprecher(ID);
@@ -101,7 +102,7 @@ const glanz = weltfigur({
     dislikes: ['rostige-schraube', 'zeitung-papier'],
     hates: ['kanalschlamm', 'magnet-stoerer'],
   }),
-  schedule: [ort('M,T,A', 'quantum-schauraum', 'verkaufstresen'), weg('N')],
+  schedule: [...SCHEDULE_23, ort('M,T,A', 'quantum-schauraum', 'verkaufstresen'), weg('N')],
   heartEvents: [
     { id: 'he-herr-glanz-2', hearts: 2, map: 'quantum-schauraum', time: 'tag', dialogue: 'he-herr-glanz-2' },
     { id: 'he-herr-glanz-4', hearts: 4, map: 'glasarkaden', time: 'abend', when: { seen: 'he-herr-glanz-2' }, dialogue: 'he-herr-glanz-4' },
@@ -109,6 +110,7 @@ const glanz = weltfigur({
   talk: [
     rede('glanz-tag-rivale', { rival: ID }),
     rede('glanz-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('glanz-tag-vertraut', undefined, 4),
     rede('glanz-tag-standard'),
   ],

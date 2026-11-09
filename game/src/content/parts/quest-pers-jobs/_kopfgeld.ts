@@ -3,7 +3,7 @@
 //   gestellt (Check, Weg ohne Check oder Kampfsieg) → beim Gerichtssaal an der Saalwache abliefern (voller Lohn) ·
 //   laufen lassen gegen Information (halber Lohn, Ziel wird Kontakt) · zur Selbstanzeige überreden (voll, Ruf `unterstadt` +5).
 import type { AttributeId, Condition, DialogueChoice, DialogueDef, DialogueLine, Effect, JobTemplateDef } from '../../../modules/contracts';
-import { fertig, zielSpot } from './_auftrag';
+import { HUNTER_GIBT_ARBEIT, fertig, zielSpot } from './_auftrag';
 import type { Hotspot } from './_lib';
 import { N, abRang, all, any, c, chk, cr, dlg, flag, job, msg, node, noFlag, not, rep, set } from './_lib';
 
@@ -47,7 +47,7 @@ export function vorlageKopfgeld(k: Kopfgeld): JobTemplateDef {
   return {
     id: kgId(k), kind: 'kopfgeld', title: `Kopfgeld: ${k.name}`,
     text: `${k.steckbrief} Ort: ${k.ortLabel}. Lebend beim Richter abliefern. {credits} Cr.`,
-    boards: ['auftragstafel'], when: all(abRang(k.stufe === 1 ? 2 : 4), noFlag(erledigt(k))),
+    boards: ['auftragstafel'], when: all(abRang(k.stufe === 1 ? 2 : 4), noFlag(erledigt(k)), HUNTER_GIBT_ARBEIT),
     targets: [{ map: k.map, label: k.ortLabel }],
     reward: { credits: [LOHN[k.stufe], LOHN[k.stufe]], xp: XP[k.stufe], rep: { 'crew-hunter': 4 } },
   };

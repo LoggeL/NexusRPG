@@ -5,6 +5,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './mira-loetzinn-akt23';
 
 const ID = 'mira-loetzinn';
 const M_ = sprecher(ID);
@@ -103,6 +104,9 @@ const he4 = dialog('he-mira-loetzinn-4', [
   ], { effects: [{ xp: 60 }, flag('mira_stammkunde')] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: mira-loetzinn-akt23.ts.
+const A23 = akt23(M);
+
 const mira = weltfigur({
   id: ID,
   name: 'Mira Lötzinn',
@@ -123,6 +127,7 @@ const mira = weltfigur({
   talk: [
     rede('mira-tag-rivale', { rival: ID }),
     rede('mira-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('mira-tag-vertraut', undefined, 4),
     rede('mira-tag-morgen', { time: 'morgen' }),
     rede('mira-tag-standard'),
@@ -131,5 +136,5 @@ const mira = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: mira },
-  dialogues: sammle(T.rivale, T.erstes, T.morgen, T.vertraut, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.morgen, T.vertraut, T.standard, he2, he4, ...A23.dialogues),
 };

@@ -62,7 +62,7 @@ export class PlayerTextureBaker implements DynamicSheet {
   private update() {
     if (!this.texture) return;
     const state = this.campaign.state();
-    if (state.player.preset) return; // Vex: gemaltes Laufblatt statt Baukasten
+    if (state.player.preset || state.player.standIn) return; // Vex bzw. Vertretung: gemaltes Laufblatt statt Baukasten
     const key = appearanceKey(state.player.appearance, wearOverlays(this.campaign, state));
     if (key === this.key) return;
     this.key = key;

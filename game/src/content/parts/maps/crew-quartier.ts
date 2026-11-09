@@ -52,8 +52,13 @@ const ausbau: DialogueDef = {
           next: 'werkbank-fertig',
         },
         {
-          text: 'Mehr geht gerade nicht. (Gästecouch, Dachgarten und Aussicht kommen später.)',
-          when: STUFE_3, next: 'ende-voll',
+          text: 'Mehr geht hier gerade nicht.',
+          when: { all: [STUFE_3, { not: { act: 2 } }] }, next: 'ende-voll',
+        },
+        {
+          // Stufen 4–6 baut world-23/quartier-23.ts über den Hotspot „Großer Ausbau“ (ab Akt 2).
+          text: '„Phase zwei“? Captain Kuschels zweiter Zettel. (Großer Ausbau: Couch, Dachgarten, Aussicht.)',
+          when: { all: [STUFE_3, { act: 2 }] }, next: 'phase-zwei',
         },
         { text: 'Später. Geld ist gerade emotional gebunden.' },
       ],
@@ -81,7 +86,17 @@ const ausbau: DialogueDef = {
     },
     {
       id: 'ende-voll',
-      lines: [n('Der Container ist voll. Noch eine Verbesserung, und du musst im Flur schlafen.')],
+      lines: [
+        n('Der Container ist voll. Noch eine Verbesserung, und du musst im Flur schlafen.'),
+        { speaker: 'captain-kuschel', text: 'Für mehr brauchen wir mehr Stadt. Und mehr Geld. Warte, bis es draußen ungemütlich wird. Dann wird es hier drin gemütlich. – C. K.' },
+      ],
+    },
+    {
+      id: 'phase-zwei',
+      lines: [
+        n('Neben dem ersten Zettel klebt ein zweiter, größer und ungeduldiger: „PHASE ZWEI. Couch. Garten. Aussicht. Geld her. – C. K.“ Ein Pfeil zeigt auf die Ecke mit dem Werkzeugkasten.'),
+        { speaker: 'captain-kuschel', text: 'Der große Ausbau. Da drüben. Ich hab schon Maß genommen. Mit den Ohren.' },
+      ],
     },
   ],
 };
@@ -128,6 +143,12 @@ const quartier: MapDef = {
   district: 'unterstadt',
   lighting: 'indoor',
   bg: 'bg-crew-quartier',
+  // Ausbau §3.7 Stufen 4–6 (world-23/quartier-23.ts): Gästecouch, Leiter zum Dachgarten, Meer am Bullauge.
+  // Die Stufen sind unabhängig, deshalb je Kombination ein Bild (scripts/art/cq_ausbau.py), die größte zuerst.
+  bgVariants: ([['4', '5', '6'], ['4', '5'], ['4', '6'], ['5', '6'], ['4'], ['5'], ['6']] as const).map((s) => ({
+    when: { all: s.map((st): Condition => ({ flag: `quartier_stufe_${st}` })) },
+    bg: `bg-crew-quartier-s${s.join('')}`,
+  })),
   walk: [[[12, 302], [200, 302], [204, 270], [876, 270], [876, 468], [936, 468], [936, 526], [1012, 526], [1012, 672], [12, 672]]],
   block: [
     box([54, 248, 142, 90]), // Truhe

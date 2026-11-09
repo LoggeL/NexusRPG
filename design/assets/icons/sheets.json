@@ -458,6 +458,16 @@
     "generic-sammeln"
    ],
    "prompt": "A sprite sheet of 16 inventory item icons for a cyberpunk RPG set in 2086, arranged in a strict 4x4 grid (4 columns, 4 rows) on a perfectly flat pure white background. Each icon sits centered in its own equal square cell with generous white space around it; icons never touch or overlap each other or the cell borders. Style: hand-painted cartoon illustration, bold clean dark ink outline around every object, soft painterly shading, slight three-quarter view, saturated colors with small neon accents in pink, cyan and violet, gritty underground-city materials (rust, tape, scratched metal) where fitting. Every icon is a single clearly readable object, large in its cell (about 70 percent of the cell). No text, no letters, no numbers, no logos, no labels, no grid lines, no frames, no drop shadows, no background scenery, no watermark.\n\nCells, left to right, top to bottom:\nRow 1, column 1: a cut-out tin star from a street lamp.\nRow 1, column 2: an instant photo of a pink lightning graffiti tag.\nRow 1, column 3: a torn advertising flyer with an oil barrel drawing.\nRow 1, column 4: a corked glass bottle with a rolled letter inside.\nRow 2, column 1: a shard of a broken chrome chip.\nRow 2, column 2: a crossed wrench and stun baton, generic weapon icon.\nRow 2, column 3: a small medkit tin with a snack bar on top, generic consumable icon.\nRow 2, column 4: a small wrapped gift box with a neon pink ribbon bow.\nRow 3, column 1: a chrome cybernetic implant module with glowing cyan contacts.\nRow 3, column 2: a folded dark jacket with a neon trim.\nRow 3, column 3: a sealed brown parcel with a glowing violet star tag.\nRow 3, column 4: a small glowing violet crystal shard collectible.\nThe remaining 4 cells at the end stay completely empty white."
+  },
+  {
+   "id": "sheet-22",
+   "icons": [
+    "fisch-vom-grill",
+    "glasperlen",
+    "talisman-grosse-ohren",
+    "taschenuhr-ripper"
+   ],
+   "prompt": "A sprite sheet of 16 inventory item icons for a cyberpunk RPG set in 2086, arranged in a strict 4x4 grid (4 columns, 4 rows) on a perfectly flat pure white background. Each icon sits centered in its own equal square cell with generous white space around it; icons never touch or overlap each other or the cell borders. Style: hand-painted cartoon illustration, bold clean dark ink outline around every object, soft painterly shading, slight three-quarter view, saturated colors with small neon accents in pink, cyan and violet, gritty underground-city materials (rust, tape, scratched metal) where fitting. Every icon is a single clearly readable object, large in its cell (about 70 percent of the cell). No text, no letters, no numbers, no logos, no labels, no grid lines, no frames, no drop shadows, no background scenery, no watermark.\n\nCells, left to right, top to bottom:\nRow 1, column 1: a whole grilled fish on a driftwood skewer with char marks and a lemon wedge.\nRow 1, column 2: a small handful of colorful sparkling glass beads in a tiny open cloth pouch.\nRow 1, column 3: a tiny cream-white plush charm shaped like two very long floppy bunny ears, tied with a pink thread loop.\nRow 1, column 4: an old scratched brass pocket watch, lid open, a crack across the glass, short chain.\nThe remaining 12 cells at the end stay completely empty white."
   }
  ]
 }

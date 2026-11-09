@@ -108,11 +108,20 @@ export const clockConditions: ConditionSpecs<'time' | 'weekday' | 'dayAtLeast' |
   },
 };
 
-export const clockEffects: EffectSpecs<'advanceTime' | 'sleep'> = {
+export const clockEffects: EffectSpecs<'advanceTime' | 'setClock' | 'sleep'> = {
   advanceTime: {
     apply(e, ctx) {
       if (!Number.isFinite(e.advanceTime) || e.advanceTime < 0) return 'Ungültige Zeitangabe.';
       advanceClockIn(ctx, e.advanceTime);
+      return null;
+    },
+  },
+  // Uhr stellen: nur vorwärts am selben Tag, über advanceClockIn (Zeitereignisse und noCollapse gelten wie beim Warten).
+  setClock: {
+    apply(e, ctx) {
+      if (!Number.isInteger(e.setClock) || e.setClock < DAY_START || e.setClock >= DAY_END) return 'Ungültige Uhrzeit.';
+      const delta = e.setClock - ctx.draft.clock.minutes;
+      if (delta > 0) advanceClockIn(ctx, delta);
       return null;
     },
   },

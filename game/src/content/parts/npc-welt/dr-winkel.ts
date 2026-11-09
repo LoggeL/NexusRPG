@@ -7,6 +7,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './dr-winkel-akt23';
 
 const ID = 'dr-winkel';
 const W = sprecher(ID);
@@ -121,6 +122,7 @@ const winkel = weltfigur({
   talk: [
     rede('winkel-tag-rivale', { rival: ID }),
     rede('winkel-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('winkel-tag-gesucht', { any: [{ flag: 'fahndung_1' }, { flag: 'fahndung_2' }, { flag: 'fahndung_3' }] }),
     rede('winkel-tag-standard'),
   ],

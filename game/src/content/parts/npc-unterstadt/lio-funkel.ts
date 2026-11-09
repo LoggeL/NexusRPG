@@ -10,6 +10,7 @@ import {
   pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere,
 } from './_lib';
 import { MENUE_23, STADTHIT, akt23 } from './lio-akt23';
+import { fremdFlirtLoeschen, fremdGeflirtet, geflirtet } from '../npc-crew-a/_helfer';
 
 const ID = 'lio-funkel';
 const L = sprecher(ID);
@@ -19,6 +20,9 @@ const ROM: Condition = { romance: ID };
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const AUGE: Condition = { quest: 'side-zweite-hand', state: 'done' };
+/** Paar (Kuss unter der Lichterkette) und heute mit einer anderen freigegebenen Figur geflirtet (world.md §4.7). */
+const ZUSAMMEN: Condition = { all: [ROM, { flag: 'lio-funkel_romanze_zusammen' }] };
+const FREMD: Condition = fremdGeflirtet(ID);
 const done = (quest: string): Condition => ({ quest, state: 'done' });
 
 // ---------------------------------------------------------------------------------------------- Menü
@@ -28,7 +32,7 @@ function menue(): Menue {
 
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Lio flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: alle(FLIRT, { weekday: tage }),
+    when: alle(FLIRT, { weekday: tage }), effects: [geflirtet(ID)],
   });
   const antworten: DialogueChoice[] = [
     { text: '„Reim auf göttlich? ‚Verboten köstlich.‘ Gern geschehen.“', check: pruefung('lio-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -40,9 +44,10 @@ function menue(): Menue {
     { text: 'Spiel mir was.', next: 'lieder', id: 'lieder' },
     { text: 'Warum kneifst du beim Spielen die Augen zusammen?', when: nicht(AUGE), once: true, id: 'l-augen', next: 'augen' },
     {
-      // side-zweite-hand (Dante): Lio bekommt sein Augenimplantat. Der Quest-Agent prüft das Flag zweite_hand_lio.
+      // side-zweite-hand (Dante): Lio bekommt sein Augenimplantat. Die Quest zählt den Schritt über zh_lio
+      // (zh_lio_bezahlt, wenn die Spielfigur zahlt); zweite_hand_lio bleibt als alter Name mitgesetzt.
       text: 'Dante schickt dich was. Dein Augenimplantat.', next: 'implantat', id: 'l-implantat',
-      when: alle({ quest: 'side-zweite-hand', state: 'active' }, { notFlag: 'zweite_hand_lio' }),
+      when: alle({ quest: 'side-zweite-hand', state: 'active' }, { item: 'augenimplantat-lio' }, { notFlag: 'zh_lio' }, { notFlag: 'zweite_hand_lio' }),
     },
     { text: '„Läuft hier eigentlich noch Radio Rost? Draußen haben wir das jeden Abend gehört.“', tag: '[Ödnis]', when: { origin: 'origin-oednis' }, once: true, id: 'l-oednis', next: 'oednis' },
     { text: 'Wovon lebst du eigentlich?', once: true, id: 'l-leben', next: 'leben' },
@@ -140,8 +145,14 @@ function menue(): Menue {
       L('Was kostet das? Ich hab … warte … elf Credits und einen Knopf.', 'verlegen'),
     ], {
       choices: [
-        { text: 'Ich leg die 60 Credits für Dante aus.', next: 'implantat-bezahlt', effects: [{ credits: -60 }, flag('zweite_hand_lio'), flag('zweite_hand_lio_bezahlt'), herz(ID, 40)] },
-        { text: '„Dante sagt, das ist gratis. Er sagt das immer.“', next: 'implantat-gratis', effects: [flag('zweite_hand_lio')] },
+        {
+          text: 'Ich leg die 60 Credits für Dante aus.', next: 'implantat-bezahlt', requires: { credits: 60 },
+          effects: [{ credits: -60 }, { take: 'augenimplantat-lio' }, flag('zh_lio'), flag('zh_lio_bezahlt'), flag('zweite_hand_lio'), flag('zweite_hand_lio_bezahlt'), herz(ID, 40)],
+        },
+        {
+          text: '„Dante sagt, das ist gratis. Er sagt das immer.“', next: 'implantat-gratis',
+          effects: [{ take: 'augenimplantat-lio' }, flag('zh_lio'), flag('zweite_hand_lio')],
+        },
       ],
     }),
     knoten('implantat-bezahlt', [
@@ -558,6 +569,9 @@ const lio: NpcDef = {
   ],
   talk: [
     rede('lio-tag-rivale', { rival: ID }),
+    // Eifersucht: heute mit einer anderen freigegebenen Figur geflirtet, während Lio und die Spielfigur zusammen sind.
+    rede('lio-trennung', alle(ZUSAMMEN, FREMD, { flag: 'lio_eifersucht_gewarnt' })),
+    rede('lio-eifersucht', alle(ZUSAMMEN, FREMD)),
     rede('lio-tag-erstes', { not: { met: ID } }),
     rede('lio-tag-zeit', alle(VOR_AKT2, { notFlag: 'lio_zeit_hinweis' }), 8),
     rede('lio-tag-vexaria', alle({ playerIs: 'vex' }, { flag: 'aria_kuss' }, { notFlag: 'lio_kommentar_vexaria' })),
@@ -574,12 +588,52 @@ const lio: NpcDef = {
   ],
 };
 
+// ---------------------------------------------------------------------------------------------- Eifersucht
+
+/** Erste Annäherung an eine andere Figur, während Lio und die Spielfigur zusammen sind. */
+const eifersucht = dialog('lio-eifersucht', [
+  knoten('start', [
+    erz('Lio spielt. Falsch. Absichtlich falsch, in einer Tonart, die es nicht gibt. Dann bricht er ab.'),
+    L('Ich hab gesehen, wie du geguckt hast. Noch einmal und ich zieh dir die Ohren lang. Und schreib ein Lied drüber. In Moll.', 'wut'),
+    L('Berta ist auch sauer. Hör mal, wie sie atmet.', 'trauer'),
+    erz('Das Akkordeon gibt ein langes, beleidigtes Pfeifen von sich.'),
+  ], {
+    effects: [flag('lio_eifersucht_gewarnt'), ...fremdFlirtLoeschen(ID)],
+    choices: [
+      { text: '„Das war nichts, Lio. Wirklich.“', next: 'nichts' },
+      { text: '„Spiel mir das Moll-Lied. Ich will hören, wie eifersüchtig du klingst.“', check: pruefung('lio-eifersucht-frech', 'ausstrahlung', 7, ['flirt']), next: 'moll' },
+    ],
+  }),
+  knoten('nichts', [L('„Nichts“ reimt sich auf „Gesicht“. Und deins hat gerade was anderes gesagt. Okay. Einmal. Ich hab’s notiert.', 'besorgt')]),
+  knoten('moll', [L('… Du bist unmöglich. Komm her. Strophe eins ist eh über dich. Alle sind über dich.', 'verlegen')]),
+]);
+
+/** Zweite Annäherung: Trennungsgespräch, −150. Keine Rivalität. */
+const trennung = dialog('lio-trennung', [
+  knoten('start', [
+    erz('Lio sitzt am Bahnsteigende, das Akkordeon zu, die Riemen fest. Er sieht dich kommen und spielt keinen Ton.'),
+    L('Ich hab ein Lied ohne Reim geschrieben. Über dich. Du reimst dich auf nichts, hab ich gesagt. Ich dachte, das ist was Gutes.', 'trauer'),
+    L('Ich bin raus. Wir sind raus. Ich such mir eine neue letzte Strophe.', 'trauer'),
+  ], {
+    effects: [
+      herz(ID, -150), flag('lio-funkel_romanze_zusammen', false), flag('lio-funkel_nacht', false),
+      flag('lio_eifersucht_gewarnt', false), flag('lio_getrennt'), ...fremdFlirtLoeschen(ID),
+    ],
+    choices: [
+      { text: '„Es tut mir leid, Lio.“', next: 'leid' },
+      { text: '„Dann schreib halt was anderes.“', next: 'anders' },
+    ],
+  }),
+  knoten('leid', [L('Weiß ich. Ich glaub dir. Das macht’s nicht leiser.', 'trauer')]),
+  knoten('anders', [L('Mach ich. Es wird ein Hit. Und du wirst jedes Mal zuhören müssen, wenn es im Radio läuft.', 'wut')]),
+]);
+
 export const part: ContentPart = {
   npcs: { [ID]: lio },
   dialogues: sammle(
     T.rivale, T.erstes, T.zeit, T.vexaria, T.karaoke, T.buehne, T.nacht, T.sehen, T.abend, T.verliebt, T.freunde,
     T.tag, T.standard,
-    he2, he4, he6, ...A23.dialogues,
+    he2, he4, he6, eifersucht, trennung, ...A23.dialogues,
   ),
   abilities: A23.teil.abilities,
   cutscenes: sammleSzenen(

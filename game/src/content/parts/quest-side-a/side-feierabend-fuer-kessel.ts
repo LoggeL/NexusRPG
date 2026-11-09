@@ -174,9 +174,9 @@ export const part: ContentPart = {
       id: 'side-kessel-feierabend',
       title: 'Feierabend',
       beats: [
-        { image: 'black', caption: 'Eisenhof, Entlassungstor. Das Drehkreuz dreht nur nach außen.', fade: 'in', hold: 1300 },
-        { image: 'black', caption: 'Zweiundzwanzig Jahre hat Kessel daneben gestanden. Heute geht sie hindurch.', hold: 1500 },
-        { image: 'black', caption: 'Draußen bleibt sie stehen, schließt die Augen und atmet ein. Smog. Neon. Freiheit. In der Reihenfolge.', fade: 'out', hold: 1600 },
+        { image: 'cut-side-kessel-feierabend', caption: 'Eisenhof, Entlassungstor. Das Drehkreuz dreht nur nach außen.', fade: 'in', hold: 1300 },
+        { image: 'cut-side-kessel-feierabend', caption: 'Zweiundzwanzig Jahre hat Kessel daneben gestanden. Heute geht sie hindurch.', hold: 1500 },
+        { image: 'cut-side-kessel-feierabend', caption: 'Draußen bleibt sie stehen, schließt die Augen und atmet ein. Smog. Neon. Freiheit. In der Reihenfolge.', fade: 'out', hold: 1600 },
       ],
     } satisfies CutsceneDef,
   },

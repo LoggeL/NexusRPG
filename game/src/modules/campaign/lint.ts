@@ -378,7 +378,7 @@ export function findContentProblems(content: GameContent): string[] {
     condition(at, encounter.when);
     for (const entry of encounter.startStatus ?? []) {
       condition(`${at} Startzustand`, entry.when);
-      if (!['party', 'enemies', 'player'].includes(entry.target) && !has(content.enemies, entry.target)) report(at, `Startzustand: unbekanntes Ziel „${entry.target}“`);
+      if (!['party', 'enemies', 'player'].includes(entry.target) && !has(content.enemies, entry.target) && !has(content.npcs, entry.target)) report(at, `Startzustand: unbekanntes Ziel „${entry.target}“`);
     }
     effects(`${at} Sieg`, encounter.onWin);
     effects(`${at} Niederlage`, encounter.onLose);

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './madame-satin-akt23';
 
 const ID = 'madame-satin';
 const S = sprecher(ID);
@@ -84,6 +85,9 @@ const he4 = dialog('he-madame-satin-4', [
   ], { effects: [{ xp: 60 }, { give: 'seidentuch-gruen' }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: madame-satin-akt23.ts.
+const A23 = akt23(M);
+
 const satin = weltfigur({
   id: ID,
   name: 'Madame Satin',
@@ -96,7 +100,7 @@ const satin = weltfigur({
     dislikes: ['glitzerschrott', 'chips-tuete'],
     hates: ['kanalschlamm', 'rostige-schraube'],
   }),
-  schedule: [ort('M,T,A', 'glasarkaden', 'satin-und-chrom'), weg('N')],
+  schedule: [...A23.schedule, ort('M,T,A', 'glasarkaden', 'satin-und-chrom'), weg('N')],
   heartEvents: [
     { id: 'he-madame-satin-2', hearts: 2, map: 'glasarkaden', time: 'tag', dialogue: 'he-madame-satin-2' },
     { id: 'he-madame-satin-4', hearts: 4, map: 'glasarkaden', time: 'abend', when: { seen: 'he-madame-satin-2' }, dialogue: 'he-madame-satin-4' },
@@ -104,11 +108,12 @@ const satin = weltfigur({
   talk: [
     rede('satin-tag-rivale', { rival: ID }),
     rede('satin-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('satin-tag-standard'),
   ],
 });
 
 export const part: ContentPart = {
   npcs: { [ID]: satin },
-  dialogues: sammle(T.rivale, T.erstes, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.standard, he2, he4, ...A23.dialogues),
 };

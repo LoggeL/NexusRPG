@@ -20,6 +20,14 @@ const BEFREIT = flag('nyra_befreit');
 const AUSGANG = flag('labor_ausgang');
 const KUSCHEL_DA: Condition = any(flag('nyra_hat_kuschel'), item('captain-kuschel'));
 const ARIA_TISCH: Condition = flag('aria_gechippt');
+/** Partynacht-Hilfen (Figuren-Dateien): Nyras Kleiner-Finger-Schwur, Pims umverkabelte Labortür. */
+const TEAMGEIST = flag('nyra_teamgeist');
+const PIM_TUER = flag('pim_labortuer_offen');
+const KIKI_TAXI = flag('kiki_fluchttaxi');
+/** Variante B des Bruchs: Jimmy liegt gechippt auf der Probanden-Liege (npc-crew-b/jimmy-akt23 JIMMY_IM_TURM). */
+const JIMMY_HIER: Condition = all(
+  flag('jimmy_gechippt'), noFlag('jimmy_gerettet'), not(done('side-jimmys-chip')), noFlag('jimmy_aus_labor'),
+);
 
 const quest: QuestDef = {
   id: Q,
@@ -133,6 +141,7 @@ const wahl: DialogueChoice[] = [
   { text: '„Hunter. Du bist dran.“', next: 'hunter' },
   { text: '„Dr. Zero, Ihr Kern läuft mit Vorwärtskühlung? Bei der Last? Schwingt der nicht über?“', check: 'gc-42', next: 'fach' },
   { text: '„Alesa. Sie wissen, was Blade vorhat. Gehen Sie einen Kaffee holen.“', tag: '[Alesa ♥4]', requires: hearts('alesa-zero', 4), next: 'herz' },
+  { text: '(Den kleinen Finger heben. Richtung Nyra.)', tag: '[Teamgeist]', when: TEAMGEIST, next: 'teamgeist' },
   { text: '(Zu Aria, leise.) „Hey. Du bist nicht mehr auf dem Tisch. Du stehst neben mir.“', id: 'aria-vex', when: all(VEX, ARIA_TISCH), once: true, next: 'aria-vex' },
   { text: '(Zu Aria, leise.) „Alles okay?“', id: 'aria', when: all(NOT_VEX, ARIA_TISCH), once: true, next: 'aria' },
 ];
@@ -217,6 +226,20 @@ const ablenken: DialogueDef = {
       next: 'op',
     },
     {
+      // nyra_teamgeist (npc-crew-b/nyra.ts): „Dann komm ich zurück. Schneller, als ihr denkt.“ – sie tut es.
+      id: 'teamgeist',
+      lines: [
+        nar('Du hebst den kleinen Finger. Nur ein bisschen. Nyra sieht es aus dem Augenwinkel, und ihre Finger hören mitten im Wort auf zu tippen.'),
+        l('nyra', 'Dr. Zero? Kern B meldet Überschwingen. Vorwärtskühlung. Bei Last. Ich würde ja selbst gehen, aber Master hat gesagt, ich soll sitzen bleiben.', 'neutral'),
+        l('alesa-zero', 'Überschwingen? Er schwingt nicht über! Er darf nicht überschwingen! Wo ist mein Feuerlöscher? Ich nehme ihn mit!', 'ueberrascht'),
+        nar('Alesa rennt raus, den Feuerlöscher im Arm wie ein Baby. Die Tür fällt zu. Nyra reißt sich die Haube vom Kopf.'),
+        l('nyra', 'Schneller, als ihr denkt. Hab ich gesagt. Hab ich gehalten. Ich hab den Chip seit einer Woche nur noch auf Durchzug. Jetzt holt das Ding raus, bevor ich anfange zu heulen.', 'freude'),
+        l('dante', 'Du verrücktes, wunderbares Kind.', 'freude'),
+      ],
+      effects: [set('alesa_abgelenkt'), set('nyra_frueh_zurueck'), herz('nyra', 50), herz('dante', 10), { xp: 40 }],
+      next: 'op',
+    },
+    {
       id: 'op',
       lines: [
         l('dante', 'Nyra. Hey. Silent-Angel. Ich bin’s. Du kannst aufhören.', 'besorgt'),
@@ -260,6 +283,20 @@ const chipRaus: CutsceneDef = {
 
 // --------------------------------------------------------------------------------------------- Peilsender und Blade
 
+/** Weiche nach dem Peilsender-Wissen aus Akt 2. */
+const PEIL_WEICHE: DialogueChoice[] = [
+  { text: '(Weiter.)', id: 'w-kuschel', when: flag('peilsender_ausgenutzt'), next: 'kuschel-plan' },
+  { text: '(Weiter.)', id: 'w-hinterhalt', when: all(flag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'hinterhalt-plan' },
+  {
+    text: '(Weiter.)', id: 'w-entdeckt',
+    when: all(flag('peilsender_entdeckt'), noFlag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'entdeckt',
+  },
+  {
+    text: '(Weiter.)', id: 'w-spaet',
+    when: all(noFlag('peilsender_entdeckt'), noFlag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'zu-spaet',
+  },
+];
+
 const peilsender: DialogueDef = {
   id: 'main-3-labor-peilsender',
   start: 'start',
@@ -268,17 +305,77 @@ const peilsender: DialogueDef = {
       id: 'start',
       lines: [nar('Dante wirft den Chip in die Keksdose und klappt sie zu. Nyra rutscht vom Tisch, wackelig, aber auf eigenen Beinen.')],
       choices: [
-        { text: '(Weiter.)', id: 'w-kuschel', when: flag('peilsender_ausgenutzt'), next: 'kuschel-plan' },
-        { text: '(Weiter.)', id: 'w-hinterhalt', when: all(flag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'hinterhalt-plan' },
-        {
-          text: '(Weiter.)', id: 'w-entdeckt',
-          when: all(flag('peilsender_entdeckt'), noFlag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'entdeckt',
-        },
-        {
-          text: '(Weiter.)', id: 'w-spaet',
-          when: all(noFlag('peilsender_entdeckt'), noFlag('peilsender_gewarnt'), noFlag('peilsender_ausgenutzt')), next: 'zu-spaet',
-        },
+        { text: '(Nyra zeigt auf die zweite Liege.)', id: 'w-jimmy', when: JIMMY_HIER, next: 'jimmy' },
+        ...PEIL_WEICHE.map(c => ({ ...c, when: c.when ? all(not(JIMMY_HIER), c.when) : not(JIMMY_HIER) })),
       ],
+    },
+    // Variante B: Jimmy liegt gechippt auf der Probanden-Liege. Ziehen wäre zu gefährlich (sein Chip hängt direkt an
+    // Nexus); Nyra legt ihn schlafen, die Crew schafft ihn raus. Wach wird er im Nachspiel (jimmy-erwacht).
+    {
+      id: 'jimmy',
+      lines: [
+        l('nyra', 'Wartet. Da. Die zweite Liege. Den haben sie in der Bruchnacht reingebracht. Er sagt jeden Morgen „Willkommen“ zu der Wand.', 'besorgt'),
+        nar('Auf der Probanden-Liege liegt Jimmy, festgeschnallt, ein blau pulsierender Chip hinter dem Ohr. Er lächelt euch an. Das Lächeln ist perfekt. Das macht es so verdammt schlimm.'),
+        l('jimmy', 'Willkommen! Wie kann ich Ihre Zukunft optimieren?', 'freude'),
+        l('dante', 'Jimmy. Ach du grüne Neune. Jimmy.', 'trauer'),
+        nar('Dante hat die Pinzette schon in der Hand. Nyra hält sein Handgelenk fest.'),
+        l('nyra', 'Nicht ziehen! Seiner ist ein Beta. Der hängt direkt an Nexus, ohne Zentrator dazwischen. Wenn du den rausreißt, ist Jimmy danach ein sehr freundlicher Blumenkohl.', 'besorgt'),
+        l('nyra', 'Aber ich kann ihn schlafen legen. Standby. Dann hört er wenigstens auf, Wände zu begrüßen.', 'signatur'),
+      ],
+      choices: [
+        { text: '„Mach. Und dann nehmen wir ihn mit.“', next: 'jimmy-schlaf' },
+        { text: '(Jimmy die Hand auf die Schulter legen.) „Halt durch, Kumpel. Wir sind da.“', next: 'jimmy-schlaf', effects: [herz('jimmy', 20)] },
+      ],
+    },
+    {
+      id: 'jimmy-schlaf',
+      lines: [
+        nar('Nyra tippt drei Befehle in die Liege. Das blaue Pulsieren wird langsamer. Jimmy blinzelt, einmal, sehr langsam.'),
+        l('jimmy', 'Willkommen … zurück?', 'neutral'),
+        nar('Dann schläft er. Mit offenem Mund. Wie ein Mensch.'),
+        l('aria', 'Ich trag ihn. Gebt her. Ich hab schon schwerere Idioten aus Labors geschleppt. Mich zum Beispiel.', 'wut'),
+      ],
+      choices: [
+        { text: '(Weiter.)', id: 'jimmy-pim', when: PIM_TUER, next: 'jimmy-pim' },
+        { text: '(Weiter.)', id: 'jimmy-kiki', when: all(not(PIM_TUER), KIKI_TAXI), next: 'jimmy-kiki' },
+        { text: '(Weiter.)', id: 'jimmy-vega', when: all(not(PIM_TUER), not(KIKI_TAXI)), next: 'jimmy-vega' },
+      ],
+    },
+    {
+      id: 'jimmy-pim',
+      lines: [
+        nar('Hinter der Werkbank, ganz hinten, steckt ein Kopf aus einem Kabelschacht. Brille, Haube, eine Tüte kalte Pommes in der Hand.'),
+        l('pim-pinzette', 'Ich nehm ihn. Durch die Werkstattschleuse, die hab ich heute Nachmittag … verkabelt. Ich bring ihn in Dantes Werkstatt. Er kriegt eine Decke. Und die Pommes.', 'besorgt'),
+        l('dante', 'Pim. Du bist ein Held.', 'freude'),
+        l('pim-pinzette', 'Nein. Ich bin Spätschicht. Gehen Sie.', 'verlegen'),
+      ],
+      effects: [set('jimmy_aus_labor'), set('jimmy_von_pim_gerettet'), herz('pim-pinzette', 30), herz('jimmy', 30), { xp: 60 }],
+      next: 'weiche',
+    },
+    {
+      id: 'jimmy-kiki',
+      lines: [
+        nar('Dein Telefon brummt. Kanal neun.'),
+        l('kiki-karbon', 'Ich steh hinterm Turm, Süße. Lastenschacht Ost hat eine Klappe. Werft ihn rein, ich fang ihn auf. Ich hab schon Kühlschränke gefangen. Ein Jimmy ist ein Kühlschrank mit Gefühlen.', 'signatur'),
+        nar('Aria wickelt Jimmy in einen Laborkittel und legt ihn in den Lastenschacht, so vorsichtig, wie man es ihr nie zutrauen würde. Ein Rumpeln. Dann von ganz unten ein Hupen. Zweimal kurz. Gefangen.'),
+      ],
+      effects: [set('jimmy_aus_labor'), set('jimmy_von_kiki_gerettet'), herz('kiki-karbon', 30), herz('jimmy', 30), { xp: 60 }],
+      next: 'weiche',
+    },
+    {
+      id: 'jimmy-vega',
+      lines: [
+        nar('Aria legt Jimmy in den Wartungsschacht, unter drei Laborkittel, mit einem Schild auf der Brust: „NICHT ANFASSEN. GEHÖRT DER CREW.“'),
+        l('dante', 'Ich schreib Vega. Vega holt ihn. Vega holt immer jeden. Sie hat mich mal aus einem Schornstein geholt. Frag nicht.', 'besorgt'),
+        nar('Die Antwort kommt nach vier Sekunden: „Komme. Fasst ihn nicht an.“'),
+      ],
+      effects: [set('jimmy_aus_labor'), herz('vega', 20), herz('jimmy', 30), { xp: 60 }],
+      next: 'weiche',
+    },
+    {
+      id: 'weiche',
+      lines: [nar('Aria hat Jimmy über der Schulter, Dante die Keksdose unterm Arm, Nyra hält sich an Dantes Ärmel fest. Bleibt noch das andere Problem: Nyras Ohrläppchen.')],
+      choices: PEIL_WEICHE,
     },
     {
       id: 'kuschel-plan',
@@ -361,6 +458,7 @@ const peilsender: DialogueDef = {
           text: '„Euer Hubschrauber wird geklaut!“', tag: '[Xion hat euch am Eingang prügeln sehen]',
           when: flag('einlass_kampf'), requires: noFlag('einlass_kampf'), next: 'klo',
         },
+        { text: '„Pim! Jetzt!“ (Den Alarmknopf an der Wand drücken.)', tag: '[Pims Labortür]', when: PIM_TUER, next: 'pim-tuer' },
         { text: '(Zu Aria.) „Nicht. Noch nicht.“', id: 'aria-vex', when: VEX, once: true, next: 'aria-vex' },
         { text: '„Dann eben so.“ (Kämpfen, bis Dante fertig ist)', effects: [{ battle: 'enc-labor-blade-vorspiel', stay: true }, { dialogue: 'main-3-labor-nach-vorspiel' }] },
         { text: '(Die Hände heben.)', next: 'gefangen' },
@@ -376,6 +474,20 @@ const peilsender: DialogueDef = {
       ],
       effects: [herz('aria', 20)],
       next: 'blade-wahl',
+    },
+    {
+      // pim_labortuer_offen (npc-unterstadt/pim-akt23.ts): Bei Alarm geht die Labortür auf statt zu – und die Schleuse
+      // hinter Blades Leuten zu.
+      id: 'pim-tuer',
+      lines: [
+        nar('Du haust auf den roten Knopf. Sirenen. Rotlicht. Und dann passiert alles falsch herum: Die Sicherheitsschleuse hinter Blade knallt zu und sperrt die halbe Garde im Flur ein. Die Werkstatttür hinter der Werkbank springt auf.'),
+        l('xion-venom', 'Boss? Boss, die Tür geht falsch rum auf! Türen gehen nicht falsch rum auf!', 'ueberrascht'),
+        l('blade', 'Wer hat diese Tür verkabelt? Ich will einen Namen! Ich will eine Abmahnung!', 'wut'),
+        nar('Hinter der Werkbank winkt eine Hand mit Pommesgabel. Ihr rennt. Blade bleibt mit Xion und zwei Gardisten auf der falschen Seite einer sehr dicken Glasscheibe stehen und klopft dagegen. Höflich. Dann weniger höflich.'),
+        l('nyra', 'Ein sehr absichtliches Versehen! Ich liebe Pim! Ich hab Pim nie getroffen und ich liebe Pim!', 'freude'),
+      ],
+      effects: [set('labor_frei'), set('pim_tuer_genutzt'), set('blade_blamiert'), herz('pim-pinzette', 40), { xp: 80 }],
+      next: 'raus',
     },
     {
       id: 'klo',

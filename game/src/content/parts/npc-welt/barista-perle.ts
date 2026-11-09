@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './barista-perle-akt23';
 
 const ID = 'barista-perle';
 const P = sprecher(ID);
@@ -107,6 +108,7 @@ const perle = weltfigur({
   talk: [
     rede('perle-tag-rivale', { rival: ID }),
     rede('perle-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('perle-tag-vertraut', undefined, 4),
     rede('perle-tag-standard'),
   ],

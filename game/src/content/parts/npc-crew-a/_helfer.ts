@@ -98,14 +98,39 @@ export const ohne = (name: string): Condition => ({ notFlag: name });
 /** Alle Bedingungen. */
 export const und = (...list: Condition[]): Condition => ({ all: list });
 
-/** Romanze-Flags der freigegebenen Figuren (eine aktive Romanze gleichzeitig, world.md §4.7). */
+/**
+ * Romanze-Flags der freigegebenen Figuren (eine aktive Romanze gleichzeitig, world.md §4.7). `aria_kuss` zählt nicht:
+ * Der Kuss setzt immer auch `aria_romanze_zusammen`, und nach einer Trennung bleibt der Kuss gesehen.
+ */
 export const ZUSAMMEN_FLAGS: Record<string, string[]> = {
   hunter: ['hunter_romanze_zusammen'],
   dante: ['dante_romanze_zusammen'],
-  aria: ['aria_romanze_zusammen', 'aria_kuss'],
+  aria: ['aria_romanze_zusammen'],
   'collin-charleston': ['collin_kuss'],
   'lio-funkel': ['lio-funkel_romanze_zusammen'],
 };
+
+// ---------------------------------------------------------------------------------------------- Eifersucht
+
+/**
+ * Eifersucht und Trennung über alle freigegebenen Romanzen (world.md §4.7 „Trennung und Eifersucht“), eine Konvention:
+ * - Jede Flirt-Wahl (Flirtzeile, Flirtantwort, Date-Annäherung) an Figur X setzt das Tagesflag `heute_flirt_<X>`
+ *   (fällt morgens von selbst, Engine-Präfix `heute_`).
+ * - Ist die Spielfigur mit P `zusammen` und steht ein `heute_flirt_<X>` mit X ≠ P, kommt bei P beim nächsten
+ *   Gespräch die Warnung (`<p>_eifersucht_gewarnt`, löscht alle fremden Flirtflags), beim zweiten Mal die Trennung.
+ * - Raven ist nicht freigegeben und flirtet nicht mit (ihre Flirtzeilen ruhen).
+ */
+export const FLIRT_ROMANZEN = ['hunter', 'dante', 'aria', 'collin-charleston', 'lio-funkel'] as const;
+export const flirtFlag = (npc: string): string => `heute_flirt_${npc}`;
+/** Effekt für jede Flirt-Wahl an `npc`. */
+export const geflirtet = (npc: string): Effect => ({ setFlag: flirtFlag(npc) });
+/** Heute mit einer anderen freigegebenen Figur als `npc` geflirtet. */
+export const fremdGeflirtet = (npc: string): Condition => ({
+  any: FLIRT_ROMANZEN.filter((id) => id !== npc).map((id): Condition => ({ flag: flirtFlag(id) })),
+});
+/** Löscht die Flirtflags aller anderen Figuren (nach Warnung oder Trennung). */
+export const fremdFlirtLoeschen = (npc: string): Effect[] =>
+  FLIRT_ROMANZEN.filter((id) => id !== npc).map((id): Effect => ({ setFlag: flirtFlag(id), value: false }));
 /** Keine andere Romanze als mit `npc` ist „zusammen“. */
 export const frei = (npc: string): Condition => ({
   all: Object.entries(ZUSAMMEN_FLAGS).filter(([id]) => id !== npc).flatMap(([, flags]) => flags.map((f): Condition => ({ notFlag: f }))),

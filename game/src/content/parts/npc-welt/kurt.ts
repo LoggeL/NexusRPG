@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './kurt-akt23';
 
 const ID = 'kurt';
 const KU = sprecher(ID);
@@ -113,6 +114,7 @@ const kurt = weltfigur({
     hates: ['handschellen', 'kanalschlamm'],
   }),
   schedule: [
+    ...SCHEDULE_23,
     weg('*', { when: { flag: 'ab_lockvogel' } }),
     ort('A,N', 'neon-gasse', 'hv-eingang', { when: TUERSTEHER }),
     ort('A', 'bahnhof-mitte', 'bahnsteig-2'),
@@ -126,6 +128,7 @@ const kurt = weltfigur({
   talk: [
     rede('kurt-tag-rivale', { rival: ID }),
     rede('kurt-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('kurt-tag-tuer', TUERSTEHER),
     rede('kurt-tag-standard'),
   ],

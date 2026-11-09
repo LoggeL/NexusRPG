@@ -9,6 +9,7 @@ import {
   sprecher, tagesgespraech, und, ZEIT_HINWEIS,
 } from './_helfer';
 import { RAVEN_PLAN_23, RAVEN_TEL_23, raven23 } from './_raven23';
+import { RAVEN_RE, ravenEvents } from './_rivalitaet';
 
 const R = sprecher('raven');
 const G = sprecher('zellennachbarin');
@@ -653,6 +654,8 @@ const raven: NpcDef = {
     { id: 'he-raven-6', hearts: 6, map: 'zellentrakt', time: 'tag', when: { all: [FREI, { weekday: ['di', 'do', 'sa'] }] }, cutscene: 'szene-he-raven-6', dialogue: 'he-raven-6' },
     { id: 'he-raven-8', hearts: 8, map: 'digitech-tresor', when: RUHIG, dialogue: 'he-raven-8' },
     { id: 'he-raven-10', hearts: 10, map: 'neon-gasse', time: 'nacht', when: und(RUHIG, { seen: 'he-raven-8' }), dialogue: 'he-raven-10' },
+    // Rivalität −2 (Tresen), −5 Duell auf den Dächern, −8 Hafenbecken: _rivalitaet.ts.
+    ...ravenEvents(und(FREI, NICHT_MASTER, { not: { all: [{ act: 3 }, { notFlag: 'epilog' }] } })),
   ],
   companion: {
     recruit: { all: [PARTY_VORBEI, NICHT_MASTER] },
@@ -715,7 +718,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.zelle, T.frei, T.dante, T.einbruch, T.zeit, T.handschellen, T.laufen, T.training, T.markt,
     T.dachWeich, T.dach, T.bar,
-    he2, he4, he6, he8, he10, reEifersucht, gerdaTag,
+    he2, he4, he6, he8, he10, reEifersucht, gerdaTag, ...RAVEN_RE,
     ...A23.dialogues,
   ),
   cutscenes: sammleSzenen({

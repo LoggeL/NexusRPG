@@ -20,7 +20,7 @@ const quest: QuestDef = {
       id: 'tor',
       text: 'Sei morgens am Entlassungstor im Eisenhof. Wachtmeisterin Kessel lässt Raven raus.',
       done: { any: [flag('raven_entlassen'), flag('raven_frei')] },
-      marker: { map: 'eisenhof' },
+      marker: { map: 'eisenhof', at: 'entlassungstor' },
     },
     {
       id: 'einholen',
@@ -28,7 +28,7 @@ const quest: QuestDef = {
       when: flag('raven_flucht'),
       done: { any: [flag('raven_frei'), flag('raven_laufen_gelassen')] },
       optional: true,
-      marker: { map: 'schrottmarkt' },
+      marker: { map: 'schrottmarkt', at: 'marktstaende' },
     },
     {
       id: 'ringkampf',
@@ -42,7 +42,7 @@ const quest: QuestDef = {
       id: 'ankommen',
       text: 'Bring Raven ins High Voltage. Wenn sie nicht will: Abends sitzt sie bestimmt trotzdem am Tresen.',
       done: flag('raven_frei'),
-      marker: { map: 'high-voltage' },
+      marker: { map: 'high-voltage', at: 'bar-hocker' },
     },
   ],
   reward: {
@@ -302,7 +302,8 @@ const freeze: CutsceneDef = {
   title: 'Raven',
   beats: [
     {
-      image: 'black',
+      image: 'cut-raven-freeze',
+      pan: 'in',
       caption: 'Stadt-TV · irgendwo in der Unterstadt',
       fade: 'in',
       lines: [
@@ -312,7 +313,7 @@ const freeze: CutsceneDef = {
       ],
     },
     {
-      image: 'black',
+      image: 'cut-raven-freeze',
       caption: 'FREEZE',
       sfx: 'switch',
       lines: [

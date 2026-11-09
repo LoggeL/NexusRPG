@@ -359,4 +359,9 @@ DESC = {
     "jimmy-spur": "a torn advertising flyer with an oil barrel drawing",
     "flaschenpost": "a corked glass bottle with a rolled letter inside",
     "chip-fragment": "a shard of a broken chrome chip",
+    # ---------------------------------------------------------------- Kunst-Phase (Nachträge)
+    "taschenuhr-ripper": "an old scratched brass pocket watch, lid open, a crack across the glass, short chain",
+    "fisch-vom-grill": "a whole grilled fish on a driftwood skewer with char marks and a lemon wedge",
+    "glasperlen": "a small handful of colorful sparkling glass beads in a tiny open cloth pouch",
+    "talisman-grosse-ohren": "a tiny cream-white plush charm shaped like two very long floppy bunny ears, tied with a pink thread loop",
 }

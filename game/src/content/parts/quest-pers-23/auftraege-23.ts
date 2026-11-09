@@ -5,6 +5,7 @@
 import type { AttributeId, Condition, DialogueDef, DialogueLine, EncounterDef, Effect, ItemDef, JobTemplateDef } from '../../../modules/contracts';
 import type { JobBoardDef } from '../../../modules/jobs';
 import type { ContentPart } from '../../part';
+import { vorlage } from '../quest-pers-jobs/_auftrag';
 import type { Hotspot } from './_lib';
 import {
   ACT2, N, abRang, all, byId, c, chk, cr, credits, dlg, ding, fahndung, fight, flag, item, job, karten, msg, node, noFlag,
@@ -318,7 +319,7 @@ const wegezettel: JobBoardDef = {
 
 export const part: ContentPart = {
   items,
-  jobs: Object.fromEntries(AUFTRAEGE.map((a) => [a.def.id, a.def])),
+  jobs: Object.fromEntries(AUFTRAEGE.map((a) => [a.def.id, vorlage(a.def)])),
   jobBoards: { 'marlas-wegezettel': wegezettel },
   encounters: Object.fromEntries(AUFTRAEGE.map((a) => [`p23-enc-${a.def.id}`, kampf(a)])),
   dialogues: byId(...AUFTRAEGE.map(zielDialog), ...AUFTRAEGE.flatMap(abholDialog)),

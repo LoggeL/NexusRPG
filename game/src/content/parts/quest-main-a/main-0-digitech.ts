@@ -1,11 +1,12 @@
 // Prolog `main-0-digitech` · „Vor sieben Jahren“ (world.md §5.1) plus Intro nach der Charaktererstellung.
-// Gespielt wird Raven (Körper 6, Reflexe 6, Ausstrahlung 4, Technik 2, Straße 5): Ihre Werte stehen als Tags an den
-// Wahlen, der Kartenleser `[Technik 4]` bleibt bewusst ausgegraut. Ablauf: Intro (START.cutscene) → digitech-areal
+// Gespielt wird Raven (Körper 6, Reflexe 6, Ausstrahlung 4, Technik 2, Straße 5): Der Effekt `standIn` (RAVEN_PROLOG)
+// ersetzt die Spielfigur für den Prolog durch Ravens Werte, Namen, Laufblatt und Porträt, das HUD zeigt „Vor 7 Jahren“.
+// Ende der Gerichtsszene: zurück zur eigenen Figur, Uhr auf 16:30 (`setClock`). Der Kartenleser `[Technik 4]` bleibt bewusst ausgegraut. Ablauf: Intro (START.cutscene) → digitech-areal
 // „damals“ (Einstieg prolog-start, Funk) → Wachdrohne (schleichen oder enc-prolog-drohne) → Kellertreppe →
 // digitech-tresor: Kartenleser (Dante öffnet) → Tresor (Blade, Chip, Handschellen) → Freeze/Gericht → Bahnhof Mitte.
 import type { Condition } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
-import { L, N, node } from './_dsl';
+import { L, N, RAVEN_PROLOG, UHR, node } from './_dsl';
 
 const Q = 'main-0-digitech';
 const IM_PROLOG: Condition = { notFlag: 'prolog_done' };
@@ -34,28 +35,28 @@ export const part: ContentPart = {
           id: 'drohne',
           text: 'Komm an der Wachdrohne vor der Kellertreppe vorbei – leise oder laut.',
           done: { any: [{ flag: 'prolog_geschlichen' }, { won: 'enc-prolog-drohne' }, { visited: 'digitech-tresor' }] },
-          marker: { map: 'digitech-areal', at: [600, 640] },
+          marker: { map: 'digitech-areal', at: 'prolog-funkpunkt' },
         },
         {
           id: 'keller',
           text: 'Steig die Kellertreppe hinab zum Tresor.',
           when: { questStep: Q, step: 'drohne' },
           done: { visited: 'digitech-tresor' },
-          marker: { map: 'digitech-areal', at: [516, 346] },
+          marker: { map: 'digitech-areal', at: 'kellertreppe' },
         },
         {
           id: 'tuer',
           text: 'Öffne die Tresortür. Der Kartenleser will mehr Technik, als Raven hat.',
           when: { visited: 'digitech-tresor' },
           done: { flag: 'prolog_tuer_offen' },
-          marker: { map: 'digitech-tresor', at: [870, 520] },
+          marker: { map: 'digitech-tresor', at: 'kartenleser' },
         },
         {
           id: 'chip',
           text: 'Hol den Chip aus dem Tresor.',
           when: { flag: 'prolog_tuer_offen' },
           done: { flag: 'prolog_done' },
-          marker: { map: 'digitech-tresor', at: [1380, 470] },
+          marker: { map: 'digitech-tresor', at: 'tresor-rohr' },
         },
       ],
       reward: { xp: 60 },
@@ -83,10 +84,12 @@ export const part: ContentPart = {
           image: 'black', caption: 'Vor sieben Jahren.', hold: 1600,
           lines: [
             N('Sie fängt mit einem Einbruch an. Mit einem Chip. Mit einem Mann im Teddyfell-Mantel. Und mit Raven.'),
-            N('Prolog: Du spielst Raven. Körper 6, Reflexe 6, Ausstrahlung 4, Technik 2, Straße 5. Nicht alles, was du siehst, kann sie auch.'),
+            N('Prolog: Du spielst Raven. Körper 6, Reflexe 6, Ausstrahlung 4, Technik 2, Straße 5. Nicht alles, was du siehst, kann sie auch. Deine eigene Geschichte fängt danach an.'),
           ],
         },
       ],
+      // Ab hier spielt man Raven (bis zum Ende von prolog-verrat).
+      effects: [{ standIn: RAVEN_PROLOG }],
       gallery: false,
     },
 
@@ -95,7 +98,7 @@ export const part: ContentPart = {
       title: 'Ich teile nicht gerne',
       beats: [
         {
-          image: 'black', fade: 'in', sfx: 'alarm',
+          image: 'cut-prolog-rohr', pan: 'in', fade: 'in', sfx: 'alarm',
           lines: [
             N('Rotes Licht, Sirenen, und an deinem Handgelenk ein Metallring, dessen anderes Ende um ein Kühlrohr geschlossen ist.'),
             L('blade', 'Ich teile nicht gerne. Tut mir leid.', 'signatur'),
@@ -104,7 +107,7 @@ export const part: ContentPart = {
           ],
         },
         {
-          image: 'black', caption: 'Er geht. Er dreht sich nicht um.', hold: 1400,
+          image: 'cut-prolog-rohr', caption: 'Er geht. Er dreht sich nicht um.', hold: 1400,
           lines: [
             L('hunter', 'Raven? Raven, antworte! Wo ist Blade?', 'besorgt'),
             L('raven', 'Weg. Mit dem Chip. Ich häng hier am Rohr wie ein Fahrrad vorm Supermarkt.', 'wut'),
@@ -112,14 +115,14 @@ export const part: ContentPart = {
           ],
         },
         {
-          image: 'black', caption: 'FREEZE.', fade: 'cross', hold: 1200,
+          image: 'cut-prolog-rohr', caption: 'FREEZE.', fade: 'cross', hold: 1200,
           lines: [
             L('vega', 'Stopp. Genau da. Das ist Raven. Beste Einbrecherin, die Noxius je hatte, angekettet an ein Rohr, während oben die Stiefel trampeln.'),
             L('vega', 'Und der Kerl im Teddyfell-Mantel, der da gerade durch den Lieferausgang verschwindet, heißt Blade Nocturne. Merkt euch die Fresse. Wir haben sie uns gemerkt.'),
           ],
         },
         {
-          image: 'black', caption: 'Noxius, Gerichtssaal. Drei Wochen später.', hold: 1200,
+          image: 'cut-prolog-gericht', pan: 'right', caption: 'Noxius, Gerichtssaal. Drei Wochen später.', hold: 1200,
           lines: [
             L('richter', 'Hunter. Drei Jahre.'),
             L('richter', 'Dante. Vier Jahre. Inklusive zehntausend Stunden illegal gestreamter Musik und Filme.'),
@@ -129,7 +132,7 @@ export const part: ContentPart = {
           ],
         },
         {
-          image: 'black', hold: 1200,
+          image: 'cut-prolog-gericht', hold: 1200,
           lines: [
             L('vega', 'Blade? Kein Prozess, keine Fingerabdrücke. Drei Monate später gründet er mit den Chrome-Schwestern eine Firma: Quantum Industries.'),
             L('vega', 'Hunter kommt nach drei Jahren raus und baut aus dem Nichts einen Club. Dante nach vier Jahren eine Werkstatt voller Schallplatten. Raven sitzt die vollen sieben.'),
@@ -140,6 +143,10 @@ export const part: ContentPart = {
       ],
       effects: [
         { setFlag: 'prolog_done' },
+        // Zurück zur eigenen Figur; die Ankunft spielt am selben Montag um 16:30 (main-1-ankunft).
+        { standIn: null },
+        { setClock: UHR(16, 30) },
+        { setFlag: 'ankunft_uhr' },
         { travel: 'bahnhof-mitte', entry: 'start', minutes: 0 },
       ],
       gallery: false,
@@ -163,6 +170,8 @@ export const part: ContentPart = {
           L('dante', 'Fokus, ja! Der Tresor liegt im Keller. Vor der Kellertreppe kreist eine Wachdrohne mit eigenem Akku, an die komm ich nicht ran.'),
           L('hunter', 'Rein, Chip holen, raus. Keiner spielt den Helden. Verstanden?'),
         ], {
+          // Sicherheitsnetz für Spielstände, die mitten im Prolog ohne Vertretung geladen wurden.
+          effects: [{ standIn: RAVEN_PROLOG }],
           choices: [
             { text: '„Verstanden. Blade, du bleibst hinter mir.“', next: 'hinter', effects: [{ setFlag: 'prolog_skepsis' }] },
             { text: '„Verstanden. Und Blade spielt nicht mit seinem Stock.“', next: 'stock' },

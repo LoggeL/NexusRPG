@@ -20,7 +20,7 @@ const quest: QuestDef = {
       id: 'briefing',
       text: 'Komm ins Hinterzimmer des High Voltage zur Crew-Besprechung.',
       done: flag('plan_gefasst'),
-      marker: { map: 'hv-hinterzimmer' },
+      marker: { map: 'hv-hinterzimmer', at: 'planungstisch' },
     },
   ],
   reward: {

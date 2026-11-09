@@ -283,7 +283,12 @@ const chip: DialogueDef = {
 
 // ----------------------------------------------------------------------------------------------------- Raven
 
+/** Ravens Klopfzeichen (npc-crew-a/_raven23.ts): abgemacht im Tagesgespräch „Nerven“, geübt am Glas in der Partynacht. */
+const KLOPFZEICHEN = flag('raven_klopfzeichen_abgemacht');
+const GEKLOPFT = flag('raven_gechippt_geklopft');
+
 const ravenWahl: DialogueChoice[] = [
+  { text: '(Klopfen. Drei kurz, zwei lang. Und nicht aufhören.)', tag: '[Klopfzeichen]', when: KLOPFZEICHEN, next: 'klopfen' },
   { text: '(Dante den Vortritt lassen.)', tag: '[Dantes Geständnis]', when: DANTE_GESTEHT, next: 'dante' },
   { text: '(Ravens Chip im Lauf vom Netz trennen.)', check: 'gc-44', next: 'technik' },
   { text: '„Weißt du noch? Der Tresen im High Voltage. ‚Auf Raven!‘“', tag: '[Raven ♥8]', requires: hearts('raven', 8), next: 'erinnerung' },
@@ -340,6 +345,36 @@ const raven: DialogueDef = {
         nar('Hinter Ravens Ohr knackt es. Ein Funke, dann nichts mehr. Sie schlägt Dante gegen die Schulter. Fest. Und lässt die Hand dort liegen.'),
       ],
       effects: [herz('dante', 60), herz('raven', 40), set('raven_dante_gestaendnis'), ...zurueckEffekte],
+    },
+    {
+      id: 'klopfen',
+      lines: [
+        nar('Du klopfst. Gegen das Geländer der Rednerbrücke, mit dem Champagnerglas, mit den Knöcheln. Drei kurz, zwei lang. Und noch mal. Und noch mal.'),
+        l('raven', 'Master sagt …', 'neutral'),
+        nar('Drei kurz, zwei lang. Ravens linke Hand zuckt. Zum Handgelenk. Dahin, wo sieben Jahre lang eine Handschelle war.'),
+      ],
+      choices: [
+        { text: '(Weiter.)', id: 'klopfen-geuebt', when: GEKLOPFT, next: 'klopfen-geuebt' },
+        { text: '(Weiter.)', id: 'klopfen-zaeh', when: not(GEKLOPFT), next: 'klopfen-zaeh' },
+      ],
+    },
+    {
+      // Schon einmal am Glas geklopft: Sie kennt den Weg zurück und findet ihn sofort.
+      id: 'klopfen-geuebt',
+      lines: [
+        nar('Diesmal braucht sie keine Sekunde. Ihre Faust schlägt gegen das Geländer. Drei kurz. Zwei lang. Das Violett in ihren Augen bricht wie dünnes Eis.'),
+        l('raven', 'Hab dich gehört. Schon vorhin am Glas. Hab nur gewartet, bis du laut genug bist, du Schnarchnase.', 'signatur'),
+      ],
+      effects: [herz('raven', 60), set('raven_klopfzeichen_eingeloest'), ...zurueckEffekte],
+    },
+    {
+      id: 'klopfen-zaeh',
+      lines: [
+        nar('Es dauert. Raven steht da, die Handschellen in der Faust, und das Violett flackert wie eine Neonröhre bei Stromausfall. Du klopfst weiter. Deine Knöchel bluten. Du klopfst weiter.'),
+        nar('Dann, ganz leise, gegen ihren eigenen Oberschenkel: drei kurz. Zwei lang.'),
+        l('raven', 'Du hast … nicht aufgehört. Hab ich doch gesagt. Nicht aufhören.', 'trauer'),
+      ],
+      effects: [herz('raven', 40), set('raven_klopfzeichen_eingeloest'), { damage: 5 }, ...zurueckEffekte],
     },
     {
       id: 'technik',
@@ -586,6 +621,7 @@ const zumKern: DialogueDef = {
       lines: [nar('Der Himmelsgarten ist ein Tollhaus aus Konfetti, rotem Licht und Leuten in Abendkleidung, die sich gegenseitig festhalten. Unter euren Füßen brummt der Turm. Ganz unten denkt etwas sehr viel.')],
       choices: [
         { text: '(Nyra: „Ich kenn einen Weg.“)', id: 'turmplan', when: flag('prep_turm_plan'), next: 'turmplan' },
+        { text: '(Pfeffer winkt dir von der Treppe Ost zu.)', tag: '[Pfeffer gewarnt]', id: 'pfeffer', when: all(noFlag('prep_turm_plan'), flag('pfeffer_gewarnt')), next: 'pfeffer' },
         { text: '(Zum Gästeaufzug.)', id: 'aufzug', when: noFlag('prep_turm_plan'), next: 'aufzug' },
       ],
     },
@@ -596,6 +632,17 @@ const zumKern: DialogueDef = {
         nar('Hinter der Bar, zwischen leeren Champagnerkisten, eine Tür ohne Griff. Nyra tritt dagegen. Sie geht auf.'),
       ],
       effects: [{ travel: 'server-kern', entry: 'von-quantum-labor', minutes: 10 }],
+    },
+    {
+      // pfeffer_gewarnt (npc-quantum/pfeffer.ts): Er hat auf dich gehört und die Treppe Ost genommen, nicht den Aufzug.
+      id: 'pfeffer',
+      lines: [
+        nar('An der Tür zur Treppe Ost steht Pfeffer, der Schnurrbart gesträubt, die Mütze schief. Hinter ihm ein Treppenhaus voller Notlicht und keine einzige Wache.'),
+        l('pfeffer', 'Treppe Ost. Nicht der Aufzug. Ich hab gefragt, warum, und mir selbst nicht geantwortet. Die Aufzüge hängen jetzt alle fest. Mit Gästen drin, die „Master“ singen. Im Kanon.', 'besorgt'),
+        l('pfeffer', 'Die Treppe geht bis runter zum Kernschacht. Nottreppe. Wartungsschlüssel steckt. Ich hab nichts gesehen. Ich bin eine Statue. Mit Knien, die das nicht mehr lange mitmachen.', 'signatur'),
+        nar('Neunhundert Stufen später steht ihr vor der runden Tür am Kernschacht. Kein Foyer, kein Labor, keine Panik. Nur Muskelkater.'),
+      ],
+      effects: [set('pfeffer_treppe_ost'), herz('pfeffer', 30), { travel: 'server-kern', entry: 'von-quantum-labor', minutes: 15 }],
     },
     {
       id: 'aufzug',

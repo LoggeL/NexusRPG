@@ -28,21 +28,21 @@ const quest: QuestDef = {
       text: 'Weg: Am Quantum-Depot der Hafenkante lädt eine Lieferdrohne mit Planungsunterlagen. Route umschreiben?',
       done: flag('grundriss_drohne'),
       optional: true,
-      marker: { map: 'hafenkante' },
+      marker: { map: 'hafenkante', at: 'quantum-depot' },
     },
     {
       id: 'weg-pim',
       text: 'Weg: Pim Pinzette, Laborassistentin bei Quantum, sitzt abends am Imbiss „Lötkolben“ auf dem Schrottmarkt.',
       done: flag('grundriss_pim'),
       optional: true,
-      marker: { map: 'schrottmarkt' },
+      marker: { map: 'schrottmarkt', at: 'imbiss-loetkolben' },
     },
     {
       id: 'weg-kameramann',
       text: 'Weg: Der Kameramann filmt abends auf dem Schrottmarkt. Er war beim Pressetermin im Labor (300 Cr).',
       done: flag('grundriss_kameramann'),
       optional: true,
-      marker: { map: 'schrottmarkt' },
+      marker: { map: 'schrottmarkt', at: 'filmposten' },
     },
     {
       id: 'weg-archiv',
@@ -50,7 +50,7 @@ const quest: QuestDef = {
       when: { origin: 'origin-ex-wache' },
       done: flag('grundriss_archiv'),
       optional: true,
-      marker: { map: 'digitech-areal' },
+      marker: { map: 'digitech-areal', at: 'archiv' },
     },
   ],
   reward: {

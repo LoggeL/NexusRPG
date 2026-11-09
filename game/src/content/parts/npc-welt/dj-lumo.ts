@@ -5,6 +5,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './dj-lumo-akt23';
 
 const ID = 'dj-lumo';
 const L = sprecher(ID);
@@ -156,7 +157,7 @@ const lumo = weltfigur({
     dislikes: ['raubkopie-stick', 'zeitung-papier'],
     hates: ['magnet-stoerer'],
   }),
-  schedule: [ort('A', 'neon-gasse', 'lumos-ecke'), ort('N', 'high-voltage', 'dj-pult'), weg('M,T')],
+  schedule: [...SCHEDULE_23, ort('A', 'neon-gasse', 'lumos-ecke'), ort('N', 'high-voltage', 'dj-pult'), weg('M,T')],
   heartEvents: [
     { id: 'he-dj-lumo-2', hearts: 2, map: 'neon-gasse', time: 'abend', dialogue: 'he-dj-lumo-2' },
     { id: 'he-dj-lumo-4', hearts: 4, map: 'high-voltage', time: 'nacht', when: { all: [{ weekday: ['fr', 'sa'] }, { seen: 'he-dj-lumo-2' }] }, dialogue: 'he-dj-lumo-4' },
@@ -164,6 +165,7 @@ const lumo = weltfigur({
   talk: [
     rede('lumo-tag-rivale', { rival: ID }),
     rede('lumo-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('lumo-tag-vertraut', undefined, 4),
     rede('lumo-tag-gasse', { time: 'abend' }),
     rede('lumo-tag-pult', { time: 'nacht' }),

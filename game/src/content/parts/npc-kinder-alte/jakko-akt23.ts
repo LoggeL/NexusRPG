@@ -31,6 +31,7 @@ export const JAKKO_TALK_FRUEH: TalkDef[] = [
   { dialogue: 'jakko-nyra-nudel', when: einmal('jakko-nyra-nudel', { all: [NYRA_NUDEL, NYRA_BEFREIT] }) },
   { dialogue: 'jakko-meer', when: { all: [KINDER_MEER, { weekday: 'sa' }, { time: 'tag' }] } },
   { dialogue: 'jakko-partynacht', when: PARTYNACHT },
+  { dialogue: 'jakko-mila', when: einmal('jakko-mila', { all: [{ flag: 'mila_freundin_kinder' }, { not: PARTYNACHT }, { not: MASTER }] }) },
   { dialogue: 'jakko-a2-bruch', when: einmal('jakko-a2-bruch', A2_CHAOS) },
   { dialogue: 'jakko-a2-aria', when: einmal('jakko-a2-aria', { all: [A2_FREI, ARIA_GECHIPPT] }) },
   { dialogue: 'jakko-a2-party', when: einmal('jakko-a2-party', A2_PARTY) },
@@ -49,6 +50,28 @@ export const JAKKO_SCHEDULE_23: ScheduleEntry[] = [
 ];
 
 const dialogues = dialogs(
+  // ------------------------------------------------------------------------------------------- Mila (side-captain-kuschel)
+  dlg('jakko-mila', [
+    node('a', [
+      N('Jakko steht am Topf. Neben ihm, auf einer Obstkiste, damit sie über den Rand gucken kann, steht Mila und streut etwas hinein. Jakko sieht aus, als würde er gleich weinen. Vor Glück.'),
+      L(J, 'Mila hat Pudding mitgebracht! Aus der Quantum-Kantine! Ihr Papa hat ihn eingepackt! Echter Pudding! Mit Haut!', 'freude'),
+      L(J, 'Und sie hat mich beim Eins! geschlagen. Dreimal. Mit Absicht. Ich hab gesagt, Gäste lässt man gewinnen. Sie hat gesagt, sie ist kein Gast. Sie ist jetzt eine von uns. Da hab ich nix mehr gesagt. Da hab ich nur noch geheult. Ein bisschen.'),
+    ], {
+      effects: [{ markSeen: 'jakko-mila' }, herz(J, 10)],
+      choices: [
+        { text: '„Pudding in die Suppe?“', next: 'pudding' },
+        { text: '„Dreimal verloren? Gegen eine Achtjährige?“', next: 'verloren' },
+      ],
+    }),
+    node('pudding', [
+      L(J, 'Nein! Der Pudding ist der Nachtisch! In die Suppe kommt Kreide. Nein! Spaß! Salz! Mila hat Salz und Kreide verwechselt, einmal, ganz am Anfang. Die Suppe war blau. Wir haben sie trotzdem gegessen.', 'signatur'),
+      L(J, 'Willst du probieren? Heute ist sie nicht blau. Glaub ich.'),
+    ], { effects: [{ heal: 10 }] }),
+    node('verloren', [
+      L(J, 'FAST NEUN! Und sie zählt Karten! Das hat ihr Papa ihr beigebracht, für die Arbeit. Der zählt sonst Leute. Jetzt zählt sie Karten. Das ist unfair. Freya sagt, es ist erlaubt. Freya ist bestechlich. Mit Pudding.', 'wut'),
+    ]),
+  ]),
+
   // ------------------------------------------------------------------------------------------- Herz-Ereignis 8
   dlg('dlg-he-jakko-8', [
     node('start', [N('Über dem Schrottmarkt hängt ein Geruch, der nicht nach Öl riecht. Sondern nach Zwiebeln. Sehr vielen Zwiebeln.')], {

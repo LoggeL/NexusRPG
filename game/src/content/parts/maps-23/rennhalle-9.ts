@@ -4,7 +4,7 @@
 // Tribüne (oben rechts), Wettschalter und Siegerpodest (rechts), alte Kabelbrand-Bühne unter Planen (oben links),
 // die gestürzte Lichttraverse davor, Lichtfleck des Glasoberlichts. Rolltor unten zur Hafenkante.
 // Wiedereröffnung: setzt `rennhalle-9-geoeffnet` ab Akt 2 per mapAdditions.hafenkante.onEnter (unten).
-// Dazu das Strand-Shuttle an hafenkante:faehre (act23.json notes), weil es auf den Einstieg das-meer/shuttle zeigt.
+// Das Strand-Shuttle an hafenkante:faehre liegt in quest-enden/side-strandclub.ts (nur mit meer_offen, nie im Master-Modus).
 // Geometrie am fertigen Bild game/public/assets/bg/rennhalle-9.webp nachgezogen (scripts/map_tool.mjs).
 // Nicht hier: Turbo-Tilda (Tagesablauf N Mi/Sa an der boxengasse), sonder-letzte-runde (alte-buehne),
 // prep-fahrzeug und pers-lio-album (rennbahn) – per Spot-Name von den Quest-Paketen.
@@ -537,16 +537,6 @@ export const part: ContentPart = {
             { setFlag: 'rennhalle-9-geoeffnet' },
             { message: 'An der Rennhalle 9 hängt die Zielflagge wieder draußen: „WIEDERERÖFFNUNG! Rennnacht Mi + Sa ab 21 Uhr.“' },
           ],
-        },
-      ],
-      hotspots: [
-        {
-          id: 'strand-shuttle', at: 'faehre', radius: 56, label: 'Strand-Shuttle ans Meer', kind: 'use',
-          when: { all: [{ flag: 'epilog' }, { any: [{ flag: 'strandclub_shuttle' }, { quest: 'side-strandclub', state: 'done' }] }] },
-          lines: [
-            { speaker: 'narrator', text: 'Am Fährsteg schaukelt das Strand-Shuttle, ein Kahn mit Sonnensegel, Lichterkette und einem Fahrplan, auf dem nur „Morgens. Mittags. Wenn’s passt.“ steht.' },
-          ],
-          effects: [{ travel: 'das-meer', entry: 'shuttle', minutes: 60 }],
         },
       ],
     },

@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-crew-quartier-s46": "assets/bg/crew-quartier-s46.webp"
+ },
+ "size": [
+  1024,
+  768
+ ],
+ "raw": "output/imagegen/raw/maps/crew-quartier-s46-composite.png",
+ "prompt": "Edit of the attached image (a hand-painted top-down game map of a small cosy flat). Keep EVERYTHING exactly as it is: same canvas size and framing, same camera, every object at exactly the same position and size, same floor, rug, walls, colours, lighting and painting style (clean dark ink outlines, soft painterly cel shading). Change ONLY the one area described below and leave every other pixel untouched. STRICT: no people, no animals, no readable text, no letters, no numbers, no logos, no watermark.\n\nCHANGE: The round porthole window on the back wall (top right of center) now shows a calm blue sea panorama with a bright horizon and a soft sunset glow instead of the pink alley neon; its glass is new and clean. On the wall directly to the right of the porthole (between the porthole and the desk lamp), add a framed poster of turquoise ocean waves under a blue sky (no text), plus a thin string of small shells hanging from the porthole frame. A soft blue light from the window falls on the record shelf below."
+}

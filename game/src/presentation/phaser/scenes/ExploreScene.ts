@@ -201,6 +201,8 @@ export class ExploreScene extends Phaser.Scene {
 
   private playerSprite(): string {
     const player = this.rt.campaign.state().player;
+    // Vertretung (Prolog als Raven): Laufblatt der vertretenen Figur.
+    if (player.standIn) return this.npcSprite(player.standIn.npc).key;
     // Fertige Spielfigur (Vex): gemaltes Laufblatt; sonst die gebackene Baukasten-Textur 'player-walk'.
     const preset = player.preset ? this.rt.content.presets?.[player.preset] : undefined;
     if (preset) return this.rt.catalog.canonical(preset.sprite);

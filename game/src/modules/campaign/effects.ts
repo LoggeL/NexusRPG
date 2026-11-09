@@ -12,6 +12,8 @@
 //   quests.ts      quests+economy (Quests, Aufträge)
 //   economy.ts     quests+economy (Credits, Ruf, Händler)
 //   combat.ts      combat-rules (Kampfstart, Abrechnung)
+//   player.ts      Vertretung der Spielfigur (Prolog als Raven, Effekt standIn)
+//   weather.ts     engine-welt (Wetter, angelegte Ausrüstung, Ladungen, eintägige Kartenhinweise)
 import type { Condition, Effect, GameContent, GameState, Request } from '../contracts';
 import { evaluateCondition } from './conditions';
 import { characterEffects } from './domains/character';
@@ -20,8 +22,11 @@ import { combatEffects } from './domains/combat';
 import { coreEffects, coreSettle } from './domains/core';
 import { economyEffects } from './domains/economy';
 import { minigameEffects } from './domains/minigames';
+import { playerEffects } from './domains/player';
 import { jobSettle, questEffects, questSettle } from './domains/quests';
 import { crewSettle, relationEffects } from './domains/relations';
+import { weatherEffects, weatherSettle } from './domains/weather';
+import { wantedDecaySettle } from '../reputation/wanted';
 import { discriminant, type EffectContext, type EffectSpec, type EffectSpecs, type SettleHook } from './registry';
 
 /** Alle Effekthandler. Eine neue Variante in `EffectMap` ohne Handler ist ein Compilerfehler. */
@@ -34,10 +39,12 @@ export const EFFECT_SPECS: EffectSpecs = {
   ...economyEffects,
   ...combatEffects,
   ...minigameEffects,
+  ...weatherEffects,
+  ...playerEffects,
 };
 
 /** Nachlauf in dieser Reihenfolge; jeder Haken meldet, ob er etwas geändert hat. */
-export const SETTLE_HOOKS: SettleHook[] = [questSettle, jobSettle, coreSettle, crewSettle];
+export const SETTLE_HOOKS: SettleHook[] = [questSettle, jobSettle, coreSettle, crewSettle, wantedDecaySettle, weatherSettle];
 
 const MAX_NESTING = 16;
 const MAX_SETTLE_ROUNDS = 8;

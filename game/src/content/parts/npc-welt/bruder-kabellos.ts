@@ -5,6 +5,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23 } from './bruder-kabellos-akt23';
 
 const ID = 'bruder-kabellos';
 const B = sprecher(ID);
@@ -109,6 +110,7 @@ const kabellos = weltfigur({
   talk: [
     rede('kabellos-tag-rivale', { rival: ID }),
     rede('kabellos-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('kabellos-tag-standard'),
   ],
 });

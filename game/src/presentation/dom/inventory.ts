@@ -1,6 +1,7 @@
 // Inventar (Bereich dom-ui): Kategorien als Reiter, Details, Benutzen, Ausrüsten, Ansehen – und Geschenkmodus im Gespräch.
 import type { CampaignPort, EffectOutcome, ItemCategory, ItemDef, ItemId, NpcId } from '../../modules/contracts';
 import { GIFT_LIMIT_TEXT, relationView } from '../../modules/relationships';
+import { chargeView } from '../../modules/campaign/domains/weather';
 import type { AssetCatalog } from '../../platform/assets/manifest';
 import { clear, h, itemIcon } from './dom';
 import { knownGiftTastes } from './portExtras';
@@ -84,10 +85,19 @@ export function openInventory(
       h('span', { class: 'row-main' }, def.name),
       taste ? h('span', { class: `taste ${taste}`, title: `${npcName} ${GIFT_TASTE_TEXT[taste]} das` }, GIFT_TASTE_TEXT[taste]) : null,
       equippedIds.has(id) ? h('span', { class: 'qty' }, 'angelegt') : null,
+      chargeBadge(id),
       state.inventory[id] > 1 ? h('span', { class: 'qty' }, `×${state.inventory[id]}`) : null));
     }
     renderDetail(detail, selected);
     if (focusedItem) (list.querySelector(`[data-item="${CSS.escape(focusedItem)}"]`) as HTMLElement | null)?.focus({ preventScroll: true });
+  };
+
+  /** Ladungsanzeige (Staubmaske 7/10), Bereich engine-welt. */
+  const chargeBadge = (id: ItemId) => {
+    const charges = chargeView(campaign.content, campaign.state(), id);
+    if (!charges || charges.total <= 0) return null;
+    return h('span', { class: `qty charges${charges.current <= 2 ? ' low' : ''}`, title: `Ladungen: ${charges.current} von ${charges.per}`, 'data-testid': 'item-charges' },
+      `${charges.current}/${charges.per}`);
   };
 
   const renderDetail = (detail: HTMLElement, id: ItemId | null) => {
@@ -97,6 +107,8 @@ export function openInventory(
     const qty = state.inventory[id] ?? 0;
     const facts: string[] = [CATEGORY_LABEL[def.category] ?? def.category];
     if (qty > 1) facts.push(`${qty} Stück`);
+    const charges = chargeView(campaign.content, state, id);
+    if (charges && qty > 0) facts.push(`Ladungen ${charges.current}/${charges.per}${qty > 1 ? ` (insgesamt ${charges.total})` : ''}`);
     if (def.weapon) facts.push(`Schaden ${def.weapon.damage}, Reichweite ${def.weapon.range}`);
     if (def.price > 0) facts.push(`Wert ${def.price} ¢`);
     detail.append(

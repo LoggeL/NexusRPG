@@ -26,4 +26,5 @@ export { activeUnit, findUnit, hasStatus, isActive, livingOf, abilityDef } from 
 export { PLAYER_UNIT_ID, battleResult, battleSeed, bagFromInventory, companionStatsAt, companionUnitId, partyFromCampaign, startStatusFromCampaign } from './campaign';
 export { simulateBattle, withAutopilot, type SimulationResult } from './simulate';
 export { validateCombatContent } from './validate';
+export { ruleMarks } from './bossRules';
 export { initialRng, nextRandom } from './rng';

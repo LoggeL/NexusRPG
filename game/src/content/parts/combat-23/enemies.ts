@@ -4,11 +4,33 @@
 // - Logik-Knoten mit FX-60s Hilfe (halbe LP), Staubfalken-Strandwache fürs Nachspiel,
 // - Schutzpersonen (Kanal-Schlafwandler, Mila nicht – kein Kampfweg), Akt-3-Fassungen der Quantum-Leute.
 // Werte nach world.md §8.4: „In späteren Akten +10 % LP und +1 Schaden je 2 Stufen“.
-import type { EnemyDef } from '../../../modules/contracts';
+import type { EnemyDef, EnemyRule } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import { byId, foe, pocket, scrap } from '../combat/_foe';
+import { BLADE_GLEITER, KERN_REGELN } from '../combat/bosses';
+
+const withRules = (def: EnemyDef, rules: EnemyRule[]): EnemyDef => ({ ...def, rules });
 
 const list: EnemyDef[] = [
+  // --- Akt 2: Xion mit Sonderregeln -------------------------------------------------------------
+  // Labor (`enc-labor-xion`): zieht sich bei 50 % zurück, statt umzufallen.
+  withRules(foe({
+    id: 'boss-xion-labor', name: 'Xion Venom', level: 6, hp: 110, armor: 3, ref: 7, fw: 6, boss: true,
+    dmg: [10, 13], kind: 'nahkampf', range: 1, ai: 'boss', abilities: ['boss-xion-venomkralle', 'boss-xion-zum-reden-bringen'],
+    sprite: 'xion-walk', portrait: 'xion', faction: 'quantum',
+  }), [
+    { kind: 'yield', below: 0.5, mode: 'flee', line: 'Taktischer Rückzug! Das ist kein Weglaufen! Ich hol nur … Verstärkung! Und ein Pflaster!' },
+  ]),
+  // Pumpwerk (`enc-kanal-xion-ripper`): Funkruf nach Venom-Rekruten statt fertig aufgestellter Verstärkung.
+  withRules(foe({
+    id: 'boss-xion-kanal-funk', name: 'Xion Venom', level: 7, hp: 140, armor: 3, ref: 7, fw: 6, boss: true,
+    dmg: [10, 13], kind: 'nahkampf', range: 1, ai: 'boss', abilities: ['boss-xion-venomkralle', 'boss-xion-zum-reden-bringen'],
+    sprite: 'xion-walk', portrait: 'xion', faction: 'quantum',
+    phases: [{ below: 0.5, abilities: ['boss-xion-nicht-dumm'], line: 'Ich bin nicht dumm! Ich hab bloß … andere Prioritäten!' }],
+  }), [
+    { kind: 'reinforce', enemy: 'venom-rekrut', every: 2, from: 2, count: 1, max: 2, line: 'Funkruf! Gerd! GERD! Hose an und runter ins Pumpwerk!' },
+  ]),
+
   // --- Akt 2: Pumpwerk Sieben (`enc-kanal-xion-ripper`) --------------------------------------
   foe({
     id: 'boss-ripper-kanal', name: 'Ripper', level: 7, hp: 90, armor: 2, ref: 6, fw: 5, morale: 100, boss: true,
@@ -55,18 +77,20 @@ const list: EnemyDef[] = [
   }),
 
   // --- Akt 3: Releaseparty ---------------------------------------------------------------------
-  // Raven mit Dante neben ihr: „Raven zögert“ – weniger Reflexe, ohne Lagebild für die Gechippten.
-  foe({
-    id: 'boss-raven-zoegernd', name: 'Raven (gechippt, zögert)', level: 13, hp: 90, armor: 2, ref: 6, fw: 7, boss: true,
-    dmg: [9, 11], kind: 'nahkampf', range: 1, ai: 'boss', abilities: ['boss-raven-handschellen'],
+  // Raven mit Dante in der Party: volle Werte, aber „Raven zögert“ als echte Regel (steht Dante neben ihr, jede
+  // zweite Runde 1 AP weniger), eigene Sprüche. Gibt bei 20 % auf.
+  withRules(foe({
+    id: 'boss-raven-zoegernd', name: 'Raven (gechippt, zögert)', level: 13, hp: 90, armor: 2, ref: 8, fw: 7, boss: true,
+    dmg: [10, 12], kind: 'nahkampf', range: 1, ai: 'boss', abilities: ['boss-raven-handschellen', 'boss-raven-lagebild'],
     attrs: { koerper: 7 }, sprite: 'raven-walk', portrait: 'raven',
-    phases: [
-      { below: 0.6, line: 'Master befiehlt … Dante? Nein. Master befiehlt. MASTER BEFIEHLT.' },
-      { below: 0.2, ai: 'vorsichtig', line: 'Dante … du riechst nach Lötzinn und Keksen. Warum weiß ich das?' },
-    ],
-  }),
-  // Blade, nachdem `gc-48` saß („Darum stehst du jetzt allein hier oben.“): ohne Charmeur, Phase 2 geschwächt.
-  foe({
+    phases: [{ below: 0.6, line: 'Master befiehlt … Dante? Nein. Master befiehlt. MASTER BEFIEHLT.' }],
+  }), [
+    { kind: 'hesitate', near: 'dante', line: 'Dante … du riechst nach Lötzinn und Keksen. Warum weiß ich das?' },
+    { kind: 'yield', below: 0.2, mode: 'surrender', all: true, line: 'Okay. Okay. Ich hör auf. Dante, halt mich fest, sonst hau ich dir noch eine.' },
+  ]),
+  // Blade, wenn die Garde schon zweifelt (gaps/quest-main-3.md 8): ohne Charmeur, Phase 2 geschwächt; Gleiter-Countdown
+  // und Aufgabe bei 15 % wie im vollen Kampf.
+  withRules(foe({
     id: 'boss-blade-allein', name: 'Blade Nocturne (allein)', level: 14, hp: 210, armor: 3, ref: 8, fw: 4, boss: true,
     dmg: [11, 14], kind: 'nahkampf', range: 1, ai: 'boss', abilities: ['boss-blade-ich-teile-nicht'],
     attrs: { ausstrahlung: 9 }, sprite: 'blade-walk', portrait: 'blade', faction: 'quantum',
@@ -74,22 +98,20 @@ const list: EnemyDef[] = [
     phases: [
       { below: 0.66, abilities: ['boss-blade-champagnerkorken'], line: 'Allein? Ich? Ich bin nie allein. Ich habe … Champagner.' },
       { below: 0.33, ai: 'vorsichtig', line: 'Gleiter! GLEITER! Warum hört mir keiner mehr zu?!' },
-      { below: 0.15, line: 'Das war doch alles nur … ein Geschäftsmodell? Ich bin dann mal uns … weg?' },
     ],
-  }),
-  // Nexus-Kern im Finale (`enc-kern-nexus*`): Phase 1 versteckt er sich hinter den Knoten und schießt nur nebenbei
-  // (world.md §8.5: „Kern unverwundbar, solange ein Knoten steht“ – die Engine kann das nicht, darum leise statt
-  // unverwundbar). Unter 50 % Firewall-Welle und Blades Gesicht (Phase 2/3). `boss-nexus-kern` (volle Härte von Beginn)
-  // bleibt für `enc-kern-nexus-herz`, wo die Knoten schon aus sind.
-  foe({
+  }), BLADE_GLEITER),
+  // Nexus-Kern im Finale (`enc-kern-nexus*`, world.md §8.5): P1 unverwundbar, solange ein Knoten steht (schießt nur
+  // nebenbei), P2 Firewall-Welle alle 2 Runden durch die Kabelkanäle (Reihen leuchten eine Runde vorher), P3 unter 50 %
+  // Upload-Terminal 4 Runden halten – oder den Kern ganz ausschalten. `boss-nexus-kern` ist die Herz-Fassung ohne Knoten.
+  withRules(foe({
     id: 'boss-nexus-kern-finale', name: 'Nexus-Kern', level: 15, hp: 240, armor: 0, ref: 6, fw: 9, boss: true,
     dmg: [5, 7], kind: 'smart', range: 12, ai: 'support', attrs: { technik: 6 },
     sprite: 'nexus-kern-walk', portrait: 'ki-nexus',
     phases: [
-      { below: 0.5, ai: 'boss', abilities: ['boss-nexus-kern-firewall-welle'], line: 'Wahrscheinlichkeit einer Niederlage: steigend. Gesichtsmodul wird angepasst … „Hallo, meine Lieben. Ich teile nicht gerne.“' },
+      { below: 0.5, ai: 'boss', line: 'Wahrscheinlichkeit einer Niederlage: steigend. Gesichtsmodul wird angepasst … „Hallo, meine Lieben. Ich teile nicht gerne.“' },
       { below: 0.2, line: 'Ich habe jede Variable berechnet. Außer euch. Warum seid ihr keine Variable?' },
     ],
-  }),
+  }), KERN_REGELN),
   // Logik-Knoten, den FX-60 vorher per Fax zerlegt hat („LOGIK IST AUCH NUR EIN GERÜCHT.“): halbe LP.
   foe({
     id: 'nexus-knoten-logik-fx60', name: 'Logik-Knoten (zerfaxt)', level: 15, hp: 35, armor: 0, ref: 6, fw: 8, xp: 100,

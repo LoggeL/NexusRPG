@@ -317,12 +317,13 @@
     "captain-kuschel": {
       "desc": "a cuddly plush toy bunny: cream-white fluffy fur, very long floppy ears with pink insides, big shiny dark eyes with pink glitter, small pink nose, visible plush seams, black butler waistcoat with cream buttons and a black bow tie",
       "child": false,
-      "walk": false,
+      "walk": true,
       "portraits": [
         ""
       ],
       "prop": true,
       "prompts": {
+        "walk": "Game character WALK CYCLE SPRITE SHEET: a square image containing a strict 4x4 grid of 16 small full-body figures of the SAME character, evenly spaced, each centered in its own invisible square cell, identical scale, wide empty gaps, nothing touching or cut off. Each row is one walking direction with 4 walking frames (left foot forward, passing, right foot forward, passing), feet on a common baseline per row: ROW 1 (top) facing SOUTH toward the viewer; ROW 2 facing WEST, strict side profile walking toward the LEFT edge; ROW 3 facing EAST, strict side profile walking toward the RIGHT edge; ROW 4 (bottom) facing NORTH, back view. Slight three-quarter top-down RPG camera. Style: hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), readable when shrunk to about 80 pixels tall. The character must match the attached reference exactly: a cuddly plush toy bunny: cream-white fluffy fur, very long floppy ears with pink insides, big shiny dark eyes with pink glitter, small pink nose, visible plush seams, black butler waistcoat with cream buttons and a black bow tie. Identical clothing in all 16 frames. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text.",
         "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: a cuddly plush toy bunny: cream-white fluffy fur, very long floppy ears with pink insides, big shiny dark eyes with pink glitter, small pink nose, visible plush seams, black butler waistcoat with cream buttons and a black bow tie. Expression: sweet, gentle stitched smile. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark.",
         "prop": "Game PROP for a top-down RPG: one single object, full body, centered, small in the middle of a square image with wide empty margins, nothing cut off: a cuddly plush toy bunny: cream-white fluffy fur, very long floppy ears with pink insides, big shiny dark eyes with pink glitter, small pink nose, visible plush seams, black butler waistcoat with cream buttons and a black bow tie, sitting upright, front three-quarter view, slight top-down RPG camera. Style: hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), matching the attached reference exactly, readable when shrunk to about 48 pixels tall. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text."
       }
@@ -1401,6 +1402,162 @@
       "prompts": {
         "walk": "Game character WALK CYCLE SPRITE SHEET: a square image containing a strict 4x4 grid of 16 small full-body figures of the SAME character, evenly spaced, each centered in its own invisible square cell, identical scale, wide empty gaps, nothing touching or cut off. Each row is one walking direction with 4 walking frames (left foot forward, passing, right foot forward, passing), feet on a common baseline per row: ROW 1 (top) facing SOUTH toward the viewer; ROW 2 facing WEST, strict side profile walking toward the LEFT edge; ROW 3 facing EAST, strict side profile walking toward the RIGHT edge; ROW 4 (bottom) facing NORTH, back view. Slight three-quarter top-down RPG camera. Style: hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), readable when shrunk to about 80 pixels tall. The character must match the attached reference exactly: thin man in his forties, a too-wide toothy grin with one gold tooth, gelled dark-blond hair with a sharp side parting, clean-shaven, shifty eyes; a shiny lilac suit several sizes too big (drooping shoulders, rolled-up sleeves), a loud zigzag-pattern tie, a cheap gold watch, pointed brown shoes; fans out a handful of glossy blank coupons in one hand. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Identical clothing in all 16 frames. Flat pure magenta #FF00FF background everywhere, no ground shadow, no floor, no text.",
         "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: thin man in his forties, a too-wide toothy grin with one gold tooth, gelled dark-blond hair with a sharp side parting, clean-shaven, shifty eyes; a shiny lilac suit several sizes too big (drooping shoulders, rolled-up sleeves), a loud zigzag-pattern tie, a cheap gold watch, pointed brown shoes; fans out a handful of glossy blank coupons in one hand. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: sleazy, over-friendly salesman grin. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "staubfalke-bolle": {
+      "desc": "huge, broad man in his thirties built like a refrigerator, a big bushy brown beard, sunburnt friendly face with puppy-like eyes, dusty round welding goggles pushed up on his shaved head; a sleeveless worn leather vest over bare tattooed arms, a single black crow feather tacked to his chest, a sand-colored dust scarf around his neck; a heavy bolt slingshot that looks like a toy in his big hands. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: huge, broad man in his thirties built like a refrigerator, a big bushy brown beard, sunburnt friendly face with puppy-like eyes, dusty round welding goggles pushed up on his shaved head; a sleeveless worn leather vest over bare tattooed arms, a single black crow feather tacked to his chest, a sand-colored dust scarf around his neck; a heavy bolt slingshot that looks like a toy in his big hands. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: big goofy grin, a bit slow but warm-hearted. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "aussiedlerin-juna": {
+      "desc": "young woman in her early twenties, sun-tanned skin, freckles, a crooked cheerful smile, messy dark-blond hair under a wide frayed straw sun hat, arms brown with dried clay; a faded green work shirt with rolled-up sleeves, a patched canvas apron with seed pouches, a red bandana around the neck; holds a dented tin watering can. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: young woman in her early twenties, sun-tanned skin, freckles, a crooked cheerful smile, messy dark-blond hair under a wide frayed straw sun hat, arms brown with dried clay; a faded green work shirt with rolled-up sleeves, a patched canvas apron with seed pouches, a red bandana around the neck; holds a dented tin watering can. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: cheerful, a little fierce, about to yell at a tomato. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "konvoi-doro": {
+      "desc": "stocky woman in her late forties, weathered tanned face with laugh lines, short grey-streaked black hair under a backwards trucker cap, an unlit fat cigar in the corner of her mouth; an oil-stained orange work overall rolled down to the waist with the sleeves tied around her hips, a black tank top, strong arms with grease smudges, dusty driving goggles around her neck, a ring of keys on her belt. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: stocky woman in her late forties, weathered tanned face with laugh lines, short grey-streaked black hair under a backwards trucker cap, an unlit fat cigar in the corner of her mouth; an oil-stained orange work overall rolled down to the waist with the sleeves tied around her hips, a black tank top, strong arms with grease smudges, dusty driving goggles around her neck, a ring of keys on her belt. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: shrewd trader's grin, one eyebrow raised. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "rohrwartin-muffe": {
+      "desc": "sturdy, short woman in her fifties of the sewer people, ruddy round face, bushy eyebrows, frizzy grey hair sticking out from under a battered yellow miner's helmet with a headlamp and a bottle cap stuck on it; olive rubber chest waders with suspenders over a patched blue-green tarp poncho, a knitted scarf; rests a huge red pipe wrench as long as a leg on her shoulder. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: sturdy, short woman in her fifties of the sewer people, ruddy round face, bushy eyebrows, frizzy grey hair sticking out from under a battered yellow miner's helmet with a headlamp and a bottle cap stuck on it; olive rubber chest waders with suspenders over a patched blue-green tarp poncho, a knitted scarf; rests a huge red pipe wrench as long as a leg on her shoulder. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: grumpy, stubborn, cursing under her breath. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "technikerin-kalibri": {
+      "desc": "slim woman around thirty, pale tired face with dark circles, sharp clever eyes, black hair in a messy short ponytail, a white respirator half mask pushed down under her chin; a once-white lab coat now stained sewer-grey and green, a small abstract violet geometric emblem on the coat (no text), a violet ID lanyard; holds an open tin can of instant noodles with a plastic fork. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: slim woman around thirty, pale tired face with dark circles, sharp clever eyes, black hair in a messy short ponytail, a white respirator half mask pushed down under her chin; a once-white lab coat now stained sewer-grey and green, a small abstract violet geometric emblem on the coat (no text), a violet ID lanyard; holds an open tin can of instant noodles with a plastic fork. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: deadpan, exhausted, no questions please. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "funzel": {
+      "desc": "gaunt, wiry gang boss in his late thirties of the Rust Teeth gang, hollow cheeks, narrow mocking eyes, rust-orange dyed spiky hair, a wide arrogant grin with rusty metal teeth and one shiny GOLD front tooth, a wooden toothpick between his teeth; a sleeveless faded denim vest, bare tattooed arms, a glowing orange neon chain whip coiled over one shoulder. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: gaunt, wiry gang boss in his late thirties of the Rust Teeth gang, hollow cheeks, narrow mocking eyes, rust-orange dyed spiky hair, a wide arrogant grin with rusty metal teeth and one shiny GOLD front tooth, a wooden toothpick between his teeth; a sleeveless faded denim vest, bare tattooed arms, a glowing orange neon chain whip coiled over one shoulder. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: smug, menacing, ego the size of a container ship. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-gechippter-nachbar": {
+      "desc": "wiry adult scrap collector, sharp face, welding goggles pushed up on the forehead, oil-stained olive overall with torn-off sleeves, a sack of scrap over one shoulder; a tiny glittering violet chrome chip on the side of his neck, eyes slightly glassy with a faint violet shimmer. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: wiry adult scrap collector, sharp face, welding goggles pushed up on the forehead, oil-stained olive overall with torn-off sleeves, a sack of scrap over one shoulder; a tiny glittering violet chrome chip on the side of his neck, eyes slightly glassy with a faint violet shimmer. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: eerily polite, frozen too-wide friendly smile. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-gechippte-pendlerin": {
+      "desc": "adult upper-city businesswoman, sleek blond bob, thin glowing AR visor glasses flickering violet, an immaculate white-and-silver tailored suit with a violet scarf, a slim silver briefcase; a tiny glittering violet chrome chip behind her ear. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: adult upper-city businesswoman, sleek blond bob, thin glowing AR visor glasses flickering violet, an immaculate white-and-silver tailored suit with a violet scarf, a slim silver briefcase; a tiny glittering violet chrome chip behind her ear. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: perfectly identical customer-service smile, eyes a little empty. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-kanalvolk": {
+      "desc": "adult woman of the sewer people, cheerful round face, a few strands of green algae in her curly brown hair, a headlamp on a woolly hat, a patched rain poncho sewn from blue and green tarps, a knitted scarf, a small glass jar lantern with glowing blue mushrooms. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: adult woman of the sewer people, cheerful round face, a few strands of green algae in her curly brown hair, a headlamp on a woolly hat, a patched rain poncho sewn from blue and green tarps, a knitted scarf, a small glass jar lantern with glowing blue mushrooms. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: happy, humming, proud. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-spaziergaenger": {
+      "desc": "adult man, a bit chubby, sunburnt nose, wide straw sun hat, loud neon-pink and teal flower-pattern short-sleeve shirt, a fanny pack strap across his chest. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: adult man, a bit chubby, sunburnt nose, wide straw sun hat, loud neon-pink and teal flower-pattern short-sleeve shirt, a fanny pack strap across his chest. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: suspicious squint, doesn't believe a word the sea says. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-nachbarin": {
+      "desc": "elderly woman, small, white-grey hair in a tidy bun, round glasses, a small glowing cyan hearing implant behind one ear, a purple raincoat, a floral headscarf around the neck, a string shopping bag with leeks over her arm. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: elderly woman, small, white-grey hair in a tidy bun, round glasses, a small glowing cyan hearing implant behind one ear, a purple raincoat, a floral headscarf around the neck, a string shopping bag with leeks over her arm. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: feisty, delighted, finally rude again. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-pendler": {
+      "desc": "adult man in his forties, short brown hair, tired but relaxed face, a scuffed yellow hard hat tilted back, an orange high-visibility vest with grey reflective stripes over a dark grey work coverall; holds a half-eaten ice cream cone. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: adult man in his forties, short brown hair, tired but relaxed face, a scuffed yellow hard hat tilted back, an orange high-visibility vest with grey reflective stripes over a dark grey work coverall; holds a half-eaten ice cream cone. REFERENCES: the first attached image is a STYLE reference only (drawing style, never its face or clothes); the attached walk-cycle sprite sheet shows this character's outfit and colors at small size: match the clothing, but paint a new, individual face. Expression: calm, dreamy, slightly lost, content. Background: dark neutral #120c1e to #1a1030, a soft cyan neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
+      }
+    },
+    "welt23-promoterin": {
+      "desc": "young adult woman promoter, glossy violet-dyed bob, flawless makeup, a white promo uniform jacket with violet light seams and a small abstract violet geometric emblem (no text), a headset microphone, a tiny glittering violet chip behind her ear; holds up a small chip in shiny gift wrap between two fingers. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume",
+      "child": false,
+      "walk": false,
+      "portraits": [
+        ""
+      ],
+      "prop": false,
+      "prompts": {
+        "portrait": "Character PORTRAIT for an RPG dialogue box: bust shot (head and shoulders only, cropped at mid-chest, slightly turned three-quarter), hand-painted cartoon illustration exactly like the attached character art (clean dark ink outlines, soft painterly shading, natural proportions, not chibi), with exactly the look of the attached character: young adult woman promoter, glossy violet-dyed bob, flawless makeup, a white promo uniform jacket with violet light seams and a small abstract violet geometric emblem (no text), a headset microphone, a tiny glittering violet chip behind her ear; holds up a small chip in shiny gift wrap between two fingers. STYLE NOTE: any reference image that shows a different-looking person is a STYLE reference only: copy only its drawing style (ink outlines, painterly shading, natural proportions, level of detail), never its face, hair, clothing or colors; a reference that shows exactly this character gives face and costume. Expression: relentlessly bright sales smile, a little too eager. Background: dark neutral #120c1e to #1a1030, a soft pink neon rim light along the hair and shoulder edge. Square image, head fully inside the frame with a little space above, no text, no frame, no watermark."
       }
     }
   }

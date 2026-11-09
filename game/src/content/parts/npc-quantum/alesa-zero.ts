@@ -140,6 +140,11 @@ const T = {
   zweifel: gespraech('alesa-tag-zweifel', [
     A('Ich habe nachgerechnet. Die Chip-Charge, die Probanden, die Zeitpläne. Es geht auf. Alles geht auf. Das ist das Schlimmste daran.', 'trauer'),
   ], M),
+  festgesetzt: dialog('alesa-tag-festgesetzt', [knoten('start', [
+    erz('An der Bar: Alesa, links und rechts eine Dame mit Perlenkette, die sie freundlich und unerbittlich an den Ärmeln festhält. Beide lächeln. Rot. Alesa nicht.'),
+    A('Sie lassen mich nicht los. Sie sagen „Bitte bleiben Sie, Doktor“. Mit meiner Stimme. Die habe ich für die Ansagen aufgenommen. Das ist so, als würde einen der eigene Toaster verhaften.', 'besorgt'),
+    A('Wir haben ja von nichts gewusst. Also, ich. Also … nein. Ich hab es gewusst. Sagen Sie Nexus, sie soll aufhören, mich zu siezen.', 'trauer'),
+  ])]),
   party: dialog('alesa-tag-party', [knoten('start', [
     erz('Alesa im Abendkleid, darüber der Laborkittel. Sie hat ihn nicht ausgezogen. Sie zieht ihn nie aus.'),
     A('Heute Abend gehen viertausend Chips raus. Ich habe einen Trinkspruch für Blade geschrieben. Er wird ihn falsch betonen. Wie immer.', 'besorgt'),
@@ -403,6 +408,8 @@ const alesa: NpcDef = {
     ort('M', 'cafe-sahnehaube', 'fenstertisch', { days: WERKTAG, when: alle(EPILOG, MORGENS) }),
     weg('*', { when: EPILOG }),
     ort('*', 'quantum-labor', 'alesas-pult', { when: alle(PARTYNACHT, nicht(queststand('main-3-labor', 'done'))) }),
+    // Nach der Rebellion halten zwei gechippte Damen mit Perlenketten sie an der Bar fest (main-3-gedankenkontrolle).
+    ort('*', 'himmelsgarten', 'bar-himmel', { when: alle(PARTYNACHT, { flag: 'nexus_rebelliert' }) }),
     ort('*', 'himmelsgarten', 'vip-lounge', { when: PARTYNACHT }),
     ort('M', 'cafe-sahnehaube', 'fenstertisch', { days: WERKTAG, when: MORGENS }),
     ort('T', 'digitech-areal', 'lieferzone', { days: ['mi'] }),
@@ -434,6 +441,7 @@ const alesa: NpcDef = {
     rede('alesa-tag-rivale', rivale(ID)),
     rede('alesa-tag-epilog-cafe', alle(EPILOG, { time: 'morgen' })),
     rede('alesa-tag-werkstatt', EPILOG),
+    rede('alesa-tag-festgesetzt', alle(PARTYNACHT, { flag: 'nexus_rebelliert' })),
     rede('alesa-tag-party', PARTYNACHT),
     rede('alesa-tag-schrott', alle(nichtGetroffen(ID), { origin: 'origin-schrott' })),
     rede('alesa-tag-standard', nichtGetroffen(ID)),
@@ -449,7 +457,7 @@ const alesa: NpcDef = {
 export const part: ContentPart = {
   npcs: { [ID]: alesa },
   dialogues: sammle(
-    T.schrott, T.digitech, T.standard, T.cafe, T.glaspark, T.labor, T.zweifel, T.party, T.werkstatt, T.epilogCafe, T.rivale,
+    T.schrott, T.digitech, T.standard, T.cafe, T.glaspark, T.labor, T.zweifel, T.party, T.festgesetzt, T.werkstatt, T.epilogCafe, T.rivale,
     he2, he4, he6, he8, he10, re2, re5,
   ),
   enemies: Object.fromEntries(enemies.map((e) => [e.id, e])),

@@ -11,6 +11,7 @@ import {
   type Menue, NICHT_VEX, VEX, ZEIT_HINWEIS, dialog, erz, flag, gespraech, herz, ich, knoten, nichtGetroffen, ort,
   pruefung, rede, sammle, sprecher, weg, zurueck,
 } from './_welt';
+import { akt23 } from './vex-schrapnell-akt23';
 
 const ID = 'vex-schrapnell';
 const V = sprecher(ID);
@@ -456,6 +457,9 @@ const abilities: Record<string, AbilityDef> = {
 
 // ---------------------------------------------------------------------------------------------- Figur
 
+// Akt 2, Partynacht und Nachspiel: vex-schrapnell-akt23.ts.
+const A23 = akt23(M);
+
 const vex: NpcDef = {
   id: ID,
   name: 'Vex Schrapnell',
@@ -505,6 +509,7 @@ const vex: NpcDef = {
   talk: [
     rede('vex-tag-rivale', { all: [NICHT_VEX, { rival: ID }] }),
     rede('vex-tag-erstes', { all: [NICHT_VEX, nichtGetroffen(ID)] }),
+    ...A23.talk,
     rede('vex-tag-begleitung', { all: [NICHT_VEX, { companion: ID }] }),
     rede('vex-tag-aria-romanze', { all: [NICHT_VEX, { flag: 'aria_romanze_zusammen' }, { notFlag: 'vex_kommentar_aria_romanze' }] }),
     rede('vex-tag-zeit', { all: [NICHT_VEX, { not: { act: 2 } }] }, 8),
@@ -525,7 +530,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.erstes, T.begleitung, T.zeit, T.ariaRomanze, T.paket, T.ratentag, T.morgen, T.tag, T.abend,
     T.nachtRennen, T.vertraut, T.standard,
-    he2, he4, he4Sieg, he4Ziel, he6, he8, he10,
+    he2, he4, he4Sieg, he4Ziel, he6, he8, he10, ...A23.dialogues,
   ),
   phone: {
     'tel-vex-paket': {

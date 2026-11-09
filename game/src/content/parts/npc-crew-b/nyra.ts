@@ -10,6 +10,7 @@ import {
   tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
 import { NYRA_DA, NYRA_VOLL, akt23, he10, he8, menue23 } from './nyra-akt23';
+import { NYRA_NEWS, NYRA_RE, nyraEvents } from './_rivalitaet';
 
 const N = sprecher('nyra');
 const K = sprecher('captain-kuschel');
@@ -17,6 +18,21 @@ const K = sprecher('captain-kuschel');
 const PROBEZEIT: Condition = done('main-1-probezeit');
 const DANTE_DONE: Condition = done('main-1-dante');
 const KUSCHEL: Condition = { flag: 'nyra_hat_kuschel' };
+/** Akt 1 (vor dem Akt-2-Morgen): Nyra kommt nur zu Hack-Einsätzen mit (world.md §4.2/§4.6). */
+const AKT1: Condition = { not: { act: 2 } };
+/**
+ * Hack-Einsatz: ein offener Datenraub-Auftrag oder eine laufende Hack-Nebenquest (Terminals, Drohnen, Server, Fax).
+ * Nur in Akt 1 nötig; danach gelten die Akt-2/3-Regeln (Turm, ab main-3-labor voll).
+ */
+export const NYRA_HACK_QUESTS = ['side-container-77', 'side-drohnenrennen', 'side-digitech-geist', 'side-eingehendes-fax', 'side-weg-zum-meer'] as const;
+const HACK_EINSATZ: Condition = {
+  any: [
+    { job: 'job-datenraub' }, { job: 'job-datenraub-nx1' },
+    ...NYRA_HACK_QUESTS.map((quest): Condition => ({ quest, state: 'active' })),
+  ],
+};
+/** In Akt 1 ohne Hack-Einsatz bleibt Nyra im Netzcafé. */
+const NUR_HACKEN: Condition = { all: [AKT1, { not: HACK_EINSATZ }] };
 
 // ---------------------------------------------------------------------------------------------- Menü
 
@@ -43,8 +59,12 @@ function menue(): Menue {
       next: 'muschel', effects: [{ take: 'fossile-muschel' }, { give: 'kuestenkarte-fragment' }, flag('nyra_kuestenkarte'), herz('nyra', 60)],
     },
     {
-      text: 'Ich brauch eine Hackerin.', when: { all: [PROBEZEIT, { not: { recruited: 'nyra' } }, { not: NYRA_VOLL }] }, next: 'rekrut',
+      text: 'Ich brauch eine Hackerin.', when: { all: [PROBEZEIT, { not: { recruited: 'nyra' } }, { not: NYRA_VOLL }, { not: NUR_HACKEN }] }, next: 'rekrut',
       effects: [{ recruit: 'nyra' }],
+    },
+    {
+      text: 'Kommst du mit? Einfach so, auf Streife.', once: true, id: 'n-streife',
+      when: { all: [PROBEZEIT, { not: { recruited: 'nyra' } }, NUR_HACKEN] }, next: 'nur-hacken',
     },
     { text: '„Wenn ich zurückkomme …“ – Was meinst du damit immer?', requires: { hearts: 'nyra', min: 4 }, tag: '[Nyra ♥4]', once: true, id: 'n-zurueck', next: 'zurueckkommen', when: { not: { flag: 'nyra_zurueckgelassen' } } },
     ...M23.choices,
@@ -86,6 +106,10 @@ function menue(): Menue {
       N('Eine … das ist eine echte fossile Muschel. Die war mal im Meer. IM MEER.', 'ueberrascht'),
       erz('Nyra dreht sie im Licht. Auf der Innenseite ist eine eingeritzte Linie, fein wie ein Haar: ein Stück Küste, zwei Kreise, ein Kreuz. Jemand hat hier vor langer Zeit eine Karte versteckt.'),
       N('Das ist ein Stück Küstenkarte. Das erste. Wir haben das erste Stück.', 'freude'),
+    ], { choices: zurueck }),
+    knoten('nur-hacken', [
+      N('Auf Streife? Mit Fäusten und so? Nee. Nee nee nee. Ich bin Hintergrundrauschen, kein Vordergrundgeprügel.', 'besorgt'),
+      N('Aber wenn du einen Datenraub von der Tafel hast oder irgendwo ein Terminal rumzickt, eine Drohne, ein Server, ein Faxgerät mit Persönlichkeit … dann ruf mich. Dann bin ich in zehn Minuten da. Mit Kapuze.', 'freude'),
     ], { choices: zurueck }),
     knoten('rekrut', [
       N('Ich? Echt? Okay. Aber nur für Hack-Sachen. Terminals, Drohnen, Türen, die beleidigt sind.', 'ueberrascht'),
@@ -376,15 +400,18 @@ const nyra: NpcDef = {
     { id: 'he-nyra-8', hearts: 8, map: 'high-voltage', time: 'abend', when: { all: [{ act: 3 }, { flag: 'epilog' }, NYRA_DA] }, dialogue: 'he-nyra-8' },
     { id: 'he-nyra-10', hearts: 10, map: 'flutmauer', time: 'abend', when: { all: [{ act: 3 }, { seen: 'he-nyra-8' }, NYRA_DA] }, dialogue: 'he-nyra-10' },
     { id: 're-nyra-5', hearts: -5, map: 'netzcafe-datenkruemel', when: NYRA_DA, dialogue: 're-nyra-5' },
+    // Rivalität −2 (entfolgt, Stadt-TV) und −8 (Sondersendung): _rivalitaet.ts.
+    ...nyraEvents({ all: [PROBEZEIT, NYRA_DA] }),
   ],
   companion: {
-    // world.md §4.6/§11.2: Akt 1 eingeschränkt (Hack-Aufträge, Hack-Nebenquests), ab Akt 3 voll. Die Einschränkung
-    // kennt die Engine nicht (Lücke notiert); Nyra stellt sie im Dialog klar.
+    // world.md §4.6/§11.2: Akt 1 eingeschränkt (Hack-Aufträge, Hack-Nebenquests), ab Akt 3 voll.
+    // Akt 1: rekrutierbar und einsetzbar nur während eines Hack-Einsatzes (HACK_EINSATZ); danach verlässt sie die Party
+    // von selbst und bleibt in der Crew, bis der nächste Hack-Einsatz läuft.
     // Nicht, solange sie im Turm sitzt (main-2-bruch bis main-3-labor).
-    recruit: { all: [PROBEZEIT, { any: [{ notFlag: 'nyra_zurueckgelassen' }, NYRA_VOLL] }] },
-    // Im Turm zurückgelassen: raus aus der Party, bis main-3-labor sie befreit.
-    unavailableWhen: { all: [{ flag: 'nyra_zurueckgelassen' }, { not: NYRA_VOLL }] },
-    unavailableText: 'Nyra sitzt im Quantum-Turm fest. Erst rausholen, dann mitnehmen.',
+    recruit: { all: [PROBEZEIT, { not: NUR_HACKEN }, { any: [{ notFlag: 'nyra_zurueckgelassen' }, NYRA_VOLL] }] },
+    // Im Turm zurückgelassen: raus aus der Party, bis main-3-labor sie befreit. In Akt 1 ohne Hack-Einsatz: Netzcafé.
+    unavailableWhen: { any: [{ all: [{ flag: 'nyra_zurueckgelassen' }, { not: NYRA_VOLL }] }, NUR_HACKEN] },
+    unavailableText: 'Nyra kommt gerade nicht mit. In Akt 1 nur zu Hack-Aufträgen (Datenraub) und Hack-Nebenquests; sitzt sie im Quantum-Turm, erst rausholen, dann mitnehmen.',
     stats: {
       hp: 36, armor: 0, morale: 65,
       attributes: { technik: 8, koerper: 2, reflexe: 6, ausstrahlung: 4, strasse: 4 },
@@ -422,7 +449,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.zeit, T.kuschelNeu, T.team, T.zweifel, T.vexaria, T.flutmauer, T.netzcafe, T.markt, T.club, T.dach,
     T.vertraut, T.standard,
-    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
+    he2, he4, he6, he8, he10, re5, ...NYRA_RE, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-nyra-4', title: 'Die rote Boje',
@@ -430,6 +457,8 @@ export const part: ContentPart = {
       { image: 'cut-he-nyra-4', pan: 'right', fade: 'in', caption: 'Flutmauer, Abend. Fünf Credits für drei Minuten Horizont.', hold: 1600 },
     ],
   }),
+  // Peinliche Aufnahmen auf dem Stadt-TV, solange Nyra Rivalin ist (world.md §4.2).
+  news: NYRA_NEWS,
   phone: {
     ...A23.phone,
     'tel-nyra-selfie': {

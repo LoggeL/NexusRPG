@@ -32,6 +32,13 @@ const fahndung = (stufe: 1 | 2 | 3): Condition => ({ flag: `fahndung_${stufe}` }
 const act3: Condition = { act: 3 };
 // Nachspiel: Flag `epilog` (gesetzt mit dem Ende, design.md §3.8 Passantensprüche nutzen dasselbe Flag).
 const epilog: Condition = { flag: 'epilog' };
+// Rostzähne lösen sich mit side-rostzaehne-ende auf (Flag `rostzaehne_aufgeloest`): danach keine Rostzahn-Gruppen mehr.
+const ROSTZAEHNE_DA: Condition = { notFlag: 'rostzaehne_aufgeloest' };
+const istRostzahn = (enemies: EncounterDef['enemies']) => enemies.some((e) => e.enemy.startsWith('rostzahn'));
+const entryWhen = (entry: Entry): Condition | undefined => {
+  if (!istRostzahn(entry.enemies)) return entry.when;
+  return entry.when ? { all: [entry.when, ROSTZAEHNE_DA] } : ROSTZAEHNE_DA;
+};
 // Staubfalken lassen dich in Ruhe nach dem Frieden oder mit Krähes freiem Geleit.
 const falkenFeindlich: Condition = {
   all: [
@@ -147,7 +154,7 @@ function build(): Record<string, EncounterDef> {
         arena: entry.arena ?? zone.arena,
         enemies: entry.enemies,
         intro: [{ speaker: 'narrator', text: entry.intro }],
-        ...(entry.when ? { when: entry.when } : {}),
+        ...(entryWhen(entry) ? { when: entryWhen(entry) } : {}),
       });
       const prefix = `enc-zufall-${zone.map}-${entry.key}`;
       if (entry.chance !== undefined) {

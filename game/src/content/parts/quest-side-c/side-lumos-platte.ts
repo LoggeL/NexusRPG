@@ -176,17 +176,17 @@ const danteLegtAuf: CutsceneDef = {
   title: 'Dante legt auf',
   beats: [
     {
-      image: 'black', fade: 'in',
+      image: 'cut-lumo-dante-legt-auf', fade: 'in',
       caption: 'Dante kommt mit zwei Plattenkoffern, einer Schutzbrille auf der Stirn und der Würde eines Mannes, der zehntausend Stunden geübt hat. Für Gitarre. Aber trotzdem.',
       lines: [l('dante', 'Lumo, mein Junge. Leih mir deine Teller. Heute spielt die Analogtechnik.', 'signatur')],
     },
     {
-      image: 'black', sfx: 'switch',
+      image: 'cut-lumo-dante-legt-auf', sfx: 'switch',
       caption: 'Er legt Platten auf, die keiner kennt. Funk aus den Sechzigern, Synthpop aus den Achtzigern, eine Polka, die irgendwie funktioniert. Die Tanzfläche geht steil.',
       lines: [l(LU, 'Was IST das? Warum kann ich nicht aufhören zu tanzen?', 'freude')],
     },
     {
-      image: 'black',
+      image: 'cut-lumo-dante-legt-auf',
       caption: 'Dann legt Dante etwas Langsames auf. Und an der Bar stellt Raven ihr Glas ab. Sie geht über die Tanzfläche, ohne jemanden anzusehen, und bleibt vor dem DJ-Pult stehen.',
       lines: [
         l('raven', 'Ein Lied. Eins. Und wenn du mir auf den Fuß trittst, brech ich dir die Nadel.', 'signatur'),
@@ -194,7 +194,7 @@ const danteLegtAuf: CutsceneDef = {
       ],
     },
     {
-      image: 'black', fade: 'out',
+      image: 'cut-lumo-dante-legt-auf', fade: 'out',
       caption: 'Lumo übernimmt die Teller. Dante tanzt mit Raven. Er tritt ihr zweimal auf den Fuß. Sie bricht ihm nicht die Nadel. Hunter hinter der Bar poliert ein Glas sehr, sehr lange.',
       lines: [l(LU, 'Alter. Das war das beste Set, das ich nie gespielt hab.', 'freude')],
     },

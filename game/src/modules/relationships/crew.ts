@@ -1,5 +1,5 @@
 // Crew und Party (design.md §3.3): Begleitfiguren (`NpcDef.companion`) lassen sich nach Bedingung rekrutieren;
-// höchstens 2 sind aktiv in der Party, weitere warten in Reserve. Entlassen nimmt aus der Party, die Figur bleibt
+// höchstens 2 sind aktiv in der Party, weitere warten in Reserve; Haustiere (`companion.pet`) kommen ohne Platz dazu. Entlassen nimmt aus der Party, die Figur bleibt
 // in der Crew und kann später wieder mitkommen.
 import type { AbilityId, GameContent, NpcDef, NpcId } from '../contracts';
 
@@ -11,7 +11,16 @@ const own = (record: object, key: string): boolean => typeof key === 'string' &&
 const npcOf = (content: GameContent, npc: NpcId): NpcDef | undefined => (own(content.npcs, npc) ? content.npcs[npc] : undefined);
 
 export const isCompanion = (content: GameContent, npc: NpcId): boolean => !!npcOf(content, npc)?.companion;
-export const partySlotsFree = (crew: CrewState): number => Math.max(0, MAX_PARTY - crew.party.length);
+/** Haustier (`CompanionDef.pet`): in der Party, aber ohne Platz und ohne eigene Kampfeinheit. */
+export const isPet = (content: GameContent, npc: NpcId): boolean => !!npcOf(content, npc)?.companion?.pet;
+/** Belegte Party-Plätze (Haustiere zählen nicht). */
+export const partySlotsUsed = (content: GameContent, party: readonly NpcId[]): number =>
+  party.filter(npc => !isPet(content, npc)).length;
+export const partySlotsFree = (crew: CrewState, content?: GameContent): number =>
+  Math.max(0, MAX_PARTY - (content ? partySlotsUsed(content, crew.party) : crew.party.length));
+/** Party voll für diese Figur? Haustiere passen immer dazu. */
+export const partyFullFor = (content: GameContent, party: readonly NpcId[], npc: NpcId): boolean =>
+  !party.includes(npc) && !isPet(content, npc) && partySlotsUsed(content, party) >= MAX_PARTY;
 /** Rekrutiert, aber gerade nicht in der Party. */
 export const reserveOf = (crew: CrewState): NpcId[] => crew.recruited.filter(npc => !crew.party.includes(npc));
 
@@ -31,7 +40,7 @@ export function recruit(content: GameContent, crew: CrewState, npc: NpcId, allow
   if (!known && !allowed) return { ok: false, reason: `${def.name} will noch nicht mitkommen.` };
   const recruited = known ? [...crew.recruited] : [...crew.recruited, npc];
   const party = [...crew.party];
-  const joinedParty = !party.includes(npc) && party.length < MAX_PARTY;
+  const joinedParty = !party.includes(npc) && (!!def.companion.pet || partySlotsUsed(content, party) < MAX_PARTY);
   if (joinedParty) party.push(npc);
   return { ok: true, crew: { recruited, party }, joinedCrew: !known, joinedParty };
 }
@@ -50,7 +59,7 @@ export function partyProblem(
   content: GameContent, crew: CrewState, party: readonly NpcId[], unavailable?: (npc: NpcId) => string | null,
 ): string | null {
   const list = [...new Set(party)];
-  if (list.length > MAX_PARTY) return `Höchstens ${MAX_PARTY} Begleiter.`;
+  if (partySlotsUsed(content, list) > MAX_PARTY) return `Höchstens ${MAX_PARTY} Begleiter.`;
   for (const npc of list) {
     const def = npcOf(content, npc);
     if (!def?.companion) return `${def?.name ?? npc} ist keine Begleitfigur.`;

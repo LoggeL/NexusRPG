@@ -7,7 +7,7 @@
 // Lüftungsweg, Nachspiel des Kampfes und das Live-Interview mit Collin und Delya. Das Interview rechnet die öffentliche
 // Meinung `meinung` −3…+3 aus (Flags meinung_m3 … meinung_p3, meinung_positiv/_hoch/_negativ, siehe _lib).
 import type { ContentPart } from '../../part';
-import type { Condition, CutsceneDef, DialogueChoice, DialogueDef, PhoneMessageDef, QuestDef } from '../../../modules/contracts';
+import type { Condition, CutsceneDef, DialogueChoice, DialogueDef, Effect, PhoneMessageDef, QuestDef } from '../../../modules/contracts';
 import {
   MEINUNG_PLUS_FLAGS, NOT_VEX, PARTYNACHT, Q_EINLASS, VEX, VEX_ARIA_ZUSAMMEN, active, all, any, done, flag, herz, item, l,
   nar, noFlag, not, set, visier, waitUntilEvening, won,
@@ -22,6 +22,11 @@ const DRIN: Condition = any(
   flag('einlass_wache'), flag('einlass_kampf'), flag('einlass_presse'), won('enc-einlass-kontrolle'),
 );
 const BRIEFING = flag('einlass_briefing');
+/** Vor dem Turm wird Lio Funkel spielen, wenn er in der Partynacht davon erzählt hat. */
+const LIO_WAHL: DialogueChoice[] = [{ text: '(Vom Rand der Absperrung: eine verstimmte Gitarre.)', id: 'lio', when: flag('lio_ablenkung'), next: 'lio' }];
+/** Outfit-Bonus der Partynacht: gilt für alle Ausstrahlungs-Checks bis zum Ende des nächsten Tages, wird nicht verbraucht. */
+const OUTFIT_BUFF = (id: string, label: string, value: number): Effect =>
+  ({ checkBuff: { id, label, value, attribute: 'ausstrahlung', forDays: 1, consumes: false } });
 const INTERVIEW = flag('interview_gefuehrt');
 
 const quest: QuestDef = {
@@ -114,7 +119,16 @@ const briefing: DialogueDef = {
       id: 'outfit',
       lines: [nar('Die Lichterbögen gehen an, einer nach dem anderen. Irgendwo oben im Himmelsgarten setzt der Bass ein. Die Releaseparty hat begonnen.')],
       choices: [
-        { text: '(Weiter.)', id: 'outfit-gut', when: flag('prep_outfits'), next: 'outfit-gut' },
+        // Outfit-Bonus (prep-outfits): Glanz +2, schlicht +1 Ausstrahlung für die ganze Partynacht (bis morgen früh).
+        {
+          text: '(Weiter.)', id: 'outfit-glanz', when: all(flag('prep_outfits'), flag('outfits_glanz')), next: 'outfit-gut',
+          effects: [OUTFIT_BUFF('outfit-glanz', 'Partygarderobe: Glanz', 2), { message: 'Glanz-Outfit: Ausstrahlung +2 für die ganze Partynacht.' }],
+        },
+        {
+          text: '(Weiter.)', id: 'outfit-schlicht', when: all(flag('prep_outfits'), flag('outfits_schlicht'), noFlag('outfits_glanz')), next: 'outfit-gut',
+          effects: [OUTFIT_BUFF('outfit-schlicht', 'Partygarderobe: schlicht', 1), { message: 'Schlichtes Outfit: Ausstrahlung +1 für die ganze Partynacht.' }],
+        },
+        { text: '(Weiter.)', id: 'outfit-gut', when: all(flag('prep_outfits'), noFlag('outfits_glanz'), noFlag('outfits_schlicht')), next: 'outfit-gut' },
         { text: '(Weiter.)', id: 'outfit-lumpen', when: noFlag('prep_outfits'), next: 'outfit-lumpen' },
       ],
     },
@@ -126,6 +140,7 @@ const briefing: DialogueDef = {
         l('raven', 'Du siehst aus wie ein Kellner, der geklaut hat.', 'signatur'),
         l('dante', 'Danke!', 'freude'),
       ],
+      choices: LIO_WAHL,
       next: 'plan',
     },
     {
@@ -134,6 +149,23 @@ const briefing: DialogueDef = {
         l('hunter', 'Ich hab gesagt: Geht da nicht in diesen Lumpen hin. Ihr seid trotzdem in Lumpen hier. Ihr seht aus wie ein Insolvenzverfahren mit Beinen.', 'wut'),
         l('aria', 'Und du siehst aus wie ein Pinguin, der einen Club besitzt. Wir haben alle unsere Kreuze.', 'signatur'),
         l('hunter', 'Mein Club hat Stil. Gut. Dann eben mit Charme. Hat ja bei mir auch keiner gedacht.', 'neutral'),
+      ],
+      choices: LIO_WAHL,
+      next: 'plan',
+    },
+    {
+      // lio_ablenkung (npc-unterstadt/lio-akt23.ts): Lio spielt vor dem Turm, die Wachen schauen zu ihm statt zu euch.
+      id: 'lio',
+      lines: [
+        nar('Am Rand der Absperrung, zwischen zwei Blumenkübeln: ein heiserer Typ mit Gitarre, Lichterkette um den Hals und einem Verstärker, der eindeutig aus einer Mülltonne stammt. Er tritt auf den Kübel und dreht voll auf.'),
+        l('lio-funkel', 'Guten Abend, Oberstadt! Das hier ist ein Lied über euch. Es reimt sich nicht. Ihr auch nicht.', 'signatur'),
+        nar('Drei Eventschutz-Leute drehen sich um. Dann fünf. Kessel am Pult seufzt so laut, dass man es bis zur Vorfahrt hört. Die Seitentür zum Catering steht plötzlich sehr unbewacht da.'),
+        l('raven', 'Der Funkel. Nicht schlecht. Wenn die Wachen ihm zuhören, hören sie uns nicht zu. Nutzt das.', 'signatur'),
+      ],
+      effects: [
+        set('einlass_lio_ablenkung'),
+        { checkBuff: { id: 'lio-ablenkung', label: 'Lio lenkt die Wachen ab', value: 2, tags: ['schleichen', 'verstecke', 'geruecht', 'klettern', 'etikette', 'ueberreden'], forDays: 0 } },
+        { message: 'Lio spielt vor dem Turm: +2 auf den nächsten Einlass-Check (Schleichen, Verstecken, Klettern, Überreden).' },
       ],
       next: 'plan',
     },

@@ -29,21 +29,21 @@ const quest: QuestDef = {
       text: 'Weg: Collin Charleston braucht dringend eine Exklusivstory (NX-1-Studio am Stufenplatz, morgens und tagsüber).',
       done: flag('ablenkung_collin'),
       optional: true,
-      marker: { map: 'nx1-studio' },
+      marker: { map: 'nx1-studio', at: 'redaktion' },
     },
     {
       id: 'weg-kinder',
       text: 'Weg: Die Straßenkinder im Nest könnten ein lautes Eins!-Turnier vor dem Tor veranstalten – wenn sie dich mögen.',
       done: flag('ablenkung_kinder'),
       optional: true,
-      marker: { map: 'das-nest' },
+      marker: { map: 'das-nest', at: 'eins-kiste' },
     },
     {
       id: 'weg-feuerwerk',
       text: 'Weg: Oma Volt verkauft am Kiosk in der Neon-Gasse Feuerwerk, das zwei Kriege überlebt hat (150 Cr).',
       done: flag('ablenkung_feuerwerk'),
       optional: true,
-      marker: { map: 'neon-gasse' },
+      marker: { map: 'neon-gasse', at: 'kiosk' },
     },
     {
       id: 'weg-dexter',
@@ -51,7 +51,7 @@ const quest: QuestDef = {
       when: done('main-1-dexter'),
       done: flag('ablenkung_dexter'),
       optional: true,
-      marker: { map: 'schrottmarkt' },
+      marker: { map: 'schrottmarkt', at: 'dexter-buero' },
     },
   ],
   reward: {

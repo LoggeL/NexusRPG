@@ -8,7 +8,7 @@ import {
   DEFAULT_HAZARD_DAMAGE, DEFAULT_MAX_ROUNDS, DIFFICULTY_HP, GRID_COLS, GRID_ROWS, INITIATIVE_REFLEX_FACTOR,
   MOVE_BASE, MOVE_REFLEX_DIVISOR, PARTY_BUILTINS, UNARMED,
 } from './rules';
-import type { BattleSetup, CombatData, CombatState, CombatUnit, PartyMemberSpec } from './types';
+import type { BattleSetup, BossRuntime, CombatData, CombatState, CombatUnit, Difficulty, PartyMemberSpec } from './types';
 import type { Ctx } from './effects';
 
 const ZERO_BONUS: Required<CombatBonus> = { hit: 0, damage: 0, armor: 0, hp: 0, move: 0, initiative: 0, bandwidth: 0, firewall: 0 };
@@ -39,6 +39,7 @@ function partyUnit(spec: PartyMemberSpec, cell: Cell, spawn: number): CombatUnit
     controller: spec.controller ?? 'player', vip: false, level: Math.max(1, spec.level), weapons, weaponIndex: 0,
     move: moveOf(attributes.reflexe, bonus), initiative: initiativeOf(attributes.reflexe, bonus), bonus,
     attacked: false, swapped: false, usedThisTurn: [], phase: -1, stunImmune: 0, spawn,
+    ...(spec.hearts !== undefined ? { hearts: spec.hearts } : {}),
   };
 }
 
@@ -67,9 +68,9 @@ const CIVILIAN: UnitStats = {
   weapon: UNARMED, abilities: [],
 };
 
-class Placer {
+export class Placer {
   private taken: Cell[] = [];
-  constructor(private readonly layout: readonly string[]) {}
+  constructor(private readonly layout: readonly string[], taken: readonly Cell[] = []) { this.taken = [...taken]; }
 
   free(cell: Cell): boolean {
     return inBounds(cell) && isWalkable(this.layout, cell) && !this.taken.some(t => sameCell(t, cell));
@@ -127,6 +128,19 @@ function enemyNames(entries: { def: EnemyDef }[]): string[] {
   });
 }
 
+/** Gegner-Einheit aus ihrer Definition (Aufbau und Funkruf-Verstärkung). */
+export function enemyUnit(def: EnemyDef, id: string, name: string, cell: Cell, spawn: number, difficulty: Difficulty): CombatUnit {
+  const unit = statsUnit({
+    id, name, team: 'enemy', source: { kind: 'enemy', enemy: def.id },
+    sprite: def.sprite ?? `${def.id}-walk`, portrait: def.portrait, stats: def.stats,
+    level: def.level, hpFactor: DIFFICULTY_HP[difficulty], ai: def.ai,
+  }, cell, spawn);
+  if (def.rules?.length) unit.rules = def.rules.map(rule => ({ ...rule }));
+  return unit;
+}
+
+export const emptyBossRuntime = (): BossRuntime => ({ countdown: {}, wave: {}, since: {}, called: {}, hold: {}, said: [] });
+
 /**
  * Neuer Kampf. Wirft bei unbekannter Begegnung/Arena/Gegner oder ungültigem Layout (Inhaltsfehler, die
  * `validateCombatContent` vorher findet). Nach dem Aufbau ist die erste handlungsfähige Einheit am Zug.
@@ -169,11 +183,7 @@ export function createBattle(data: CombatData, setup: BattleSetup): CombatState 
   entries.forEach((entry, index) => {
     const n = (counters.get(entry.def.id) ?? 0) + 1;
     counters.set(entry.def.id, n);
-    units.push(statsUnit({
-      id: `${entry.def.id}#${n}`, name: names[index], team: 'enemy', source: { kind: 'enemy', enemy: entry.def.id },
-      sprite: entry.def.sprite ?? `${entry.def.id}-walk`, portrait: entry.def.portrait, stats: entry.def.stats,
-      level: entry.def.level, hpFactor: DIFFICULTY_HP[difficulty], ai: entry.def.ai,
-    }, placer.place(entry.at, enemyStarts, 'right'), units.length));
+    units.push(enemyUnit(entry.def, `${entry.def.id}#${n}`, names[index], placer.place(entry.at, enemyStarts, 'right'), units.length, difficulty));
   });
 
   const state: CombatState = {
@@ -192,10 +202,12 @@ export function createBattle(data: CombatData, setup: BattleSetup): CombatState 
       const hit = entry.target === 'party' ? unit.team === 'party'
         : entry.target === 'enemies' ? unit.team === 'enemy'
         : entry.target === 'player' ? unit.source.kind === 'player'
-        : unit.source.kind === 'enemy' && unit.source.enemy === entry.target;
+        : (unit.source.kind === 'enemy' && unit.source.enemy === entry.target)
+          || (unit.source.kind === 'companion' && (unit.source.npc === entry.target || unit.id === entry.target));
       if (hit && !unit.vip) unit.status[entry.status] = Math.max(unit.status[entry.status] ?? 0, rounds);
     }
   }
+  if (units.some(unit => unit.rules?.length)) state.boss = emptyBossRuntime();
   const ctx: Ctx = { data, s: state, events: [] };
   startBattle(ctx);
   return state;

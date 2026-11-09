@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './opa-gurrmann-akt23';
 
 const ID = 'opa-gurrmann';
 const G = sprecher(ID);
@@ -102,6 +103,9 @@ const he4 = dialog('he-opa-gurrmann-4', [
   ], { effects: [{ xp: 50 }, flag('gurrmann_taube_benannt')] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: opa-gurrmann-akt23.ts.
+const A23 = akt23(M);
+
 const gurrmann = weltfigur({
   id: ID,
   name: 'Opa Gurrmann',
@@ -122,6 +126,7 @@ const gurrmann = weltfigur({
   talk: [
     rede('gurrmann-tag-rivale', { rival: ID }),
     rede('gurrmann-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('gurrmann-tag-paket', { flag: 'vex_paket_gurrmann' }),
     rede('gurrmann-tag-standard'),
   ],
@@ -129,5 +134,5 @@ const gurrmann = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: gurrmann },
-  dialogues: sammle(T.rivale, T.erstes, T.paket, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.paket, T.standard, he2, he4, ...A23.dialogues),
 };

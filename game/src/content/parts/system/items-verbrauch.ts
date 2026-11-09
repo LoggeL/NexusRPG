@@ -122,8 +122,8 @@ const items: Record<string, ItemDef> = {
     description: 'Kabelbinder, Lötzinn, Klebeband und Gebete. Repariert Bots, Ventile und die Rostlaube.',
   }),
   staubmaske: T({
-    id: 'staubmaske', name: 'Staubmaske', price: 45,
-    description: 'Filtermaske mit zwei Patronen. Zehn Einsätze Giftschutz in Kanal und Ödnis.',
+    id: 'staubmaske', name: 'Staubmaske', price: 45, charges: 10,
+    description: 'Filtermaske mit zwei Patronen. Zehn Einsätze Giftschutz in Kanal und Ödnis, eine Ladung je Sandsturm. Danach ist sie Müll.',
   }),
   stirnlampe: T({
     id: 'stirnlampe', name: 'Stirnlampe', price: 60,

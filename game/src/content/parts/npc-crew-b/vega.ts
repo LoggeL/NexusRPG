@@ -10,6 +10,7 @@ import {
   pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
 import { akt23, he10, he8, menue23 } from './vega-akt23';
+import { VEGA_RE, VEGA_RIVALE, vegaEvents } from './_rivalitaet';
 
 const V = sprecher('vega');
 const A = sprecher('aria');
@@ -472,10 +473,12 @@ const vega: NpcDef = {
     { id: 'he-vega-8', hearts: 8, map: 'glasarkaden', time: 'abend', when: { all: [{ act: 2 }, { not: PARTYNACHT }, { not: MASTER }] }, dialogue: 'he-vega-8' },
     { id: 'he-vega-10', hearts: 10, map: 'neon-gasse', time: 'morgen', when: { all: [{ act: 2 }, { seen: 'he-vega-8' }, { not: PARTYNACHT }, { not: MASTER }] }, dialogue: 'he-vega-10' },
     { id: 're-vega-5', hearts: -5, map: 'hafenkante', time: 'tag', when: { not: PARTYNACHT }, dialogue: 're-vega-5' },
+    // Rivalität −2 (keine Hinweise mehr) und −8 (petzt bei Hunter): _rivalitaet.ts.
+    ...vegaEvents({ all: [PROBEZEIT, { not: PARTYNACHT }, { not: MASTER }] }),
   ],
   companion: {
-    // world.md §4.6: ab main-1-dexter. Fernkampf.
-    recruit: DEXTER,
+    // world.md §4.6: ab main-1-dexter (schon während des Einsatzes, damit der Treffpunkt-Dialog sie holt). Fernkampf.
+    recruit: { quest: 'main-1-dexter', state: ['active', 'done'] },
     stats: {
       hp: 40, armor: 1, morale: 85,
       attributes: { technik: 4, koerper: 3, reflexe: 7, ausstrahlung: 3, strasse: 5 },
@@ -492,9 +495,10 @@ const vega: NpcDef = {
       { ability: 'duo-die-wachhunde-plus', when: { all: [{ companion: 'aria' }, { flag: 'vega_wachhunde_verstaerkt' }, { hearts: 'vega', min: 6 }, { hearts: 'aria', min: 6 }] } },
     ],
   },
+  // Rivalität: Vega gibt keine Hinweise mehr (world.md §4.2).
   partyCheckBonus: [
-    { attribute: 'reflexe', tags: ['fernkampf', 'beobachten'], value: 1, label: 'Vega gibt dir Wind und Meter' },
-    { attribute: 'strasse', tags: ['verstecke'], value: 1, label: 'Vega hat es von oben gesehen' },
+    { attribute: 'reflexe', tags: ['fernkampf', 'beobachten'], value: 1, label: 'Vega gibt dir Wind und Meter', when: { not: VEGA_RIVALE } },
+    { attribute: 'strasse', tags: ['verstecke'], value: 1, label: 'Vega hat es von oben gesehen', when: { not: VEGA_RIVALE } },
   ],
   talk: [
     rede('vega-tag-rivale', { rival: 'vega' }),
@@ -523,7 +527,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.vorProbezeit, T.zeit, T.vexariaKnutsch, T.vexariaOberlicht, T.vexariaWette, T.ariaRomanze, T.jimmyDanke,
     T.bahnhof, T.wachplan, T.morgen, T.nacht, T.club, T.markt, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
+    he2, he4, he6, he8, he10, re5, ...VEGA_RE, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-vega-6', title: 'Fünfzehn Meter',

@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './salzige-grete-akt23';
 
 const ID = 'salzige-grete';
 const G = sprecher(ID);
@@ -94,6 +95,9 @@ const he4 = dialog('he-salzige-grete-4', [
   ], { effects: [{ xp: 60 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: salzige-grete-akt23.ts.
+const A23 = akt23(M);
+
 const grete = weltfigur({
   id: ID,
   name: 'Salzige Grete',
@@ -114,6 +118,7 @@ const grete = weltfigur({
   talk: [
     rede('grete-tag-rivale', { rival: ID }),
     rede('grete-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('grete-tag-paket', { flag: 'vex_paket_grete' }),
     rede('grete-tag-vertraut', undefined, 4),
     rede('grete-tag-standard'),
@@ -122,5 +127,5 @@ const grete = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: grete },
-  dialogues: sammle(T.rivale, T.erstes, T.paket, T.vertraut, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.paket, T.vertraut, T.standard, he2, he4, ...A23.dialogues),
 };

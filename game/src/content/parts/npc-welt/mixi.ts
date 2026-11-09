@@ -5,6 +5,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, ort, pruefung, rede, sammle, sprecher,
   weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './mixi-akt23';
 
 const ID = 'mixi';
 const X = sprecher(ID);
@@ -82,6 +83,9 @@ const he4 = dialog('he-mixi-4', [
   knoten('ende', [X('Du bist mein Lieblingsgast. Nicht weitersagen. Hunter denkt, er ist es.')], { effects: [{ xp: 50 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: mixi-akt23.ts.
+const A23 = akt23(M, REPARIERT);
+
 const mixi = weltfigur({
   id: ID,
   name: 'Mixi',
@@ -102,12 +106,13 @@ const mixi = weltfigur({
   talk: [
     rede('mixi-tag-rivale', { rival: ID }),
     rede('mixi-tag-kaputt', { not: REPARIERT }),
+    ...A23.talk,
     rede('mixi-tag-standard'),
   ],
 });
 
 export const part: ContentPart = {
   npcs: { [ID]: mixi },
-  dialogues: sammle(T.rivale, T.kaputt, T.standard, he2, he4),
+  dialogues: sammle(T.rivale, T.kaputt, T.standard, he2, he4, ...A23.dialogues),
 };
 

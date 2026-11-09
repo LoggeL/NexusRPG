@@ -7,6 +7,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './sina-spray-akt23';
 
 const ID = 'sina-spray';
 const QUEST = 'side-wand-der-freiheit';
@@ -105,6 +106,9 @@ const he4 = dialog('he-sina-spray-4', [
   ], { effects: [{ xp: 60 }, flag('sina_portrait'), { rep: 'unterstadt', delta: 2 }] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: sina-spray-akt23.ts.
+const A23 = akt23(M);
+
 const sina = weltfigur({
   id: ID,
   name: 'Sina Spray',
@@ -117,7 +121,7 @@ const sina = weltfigur({
     dislikes: ['planungsbrett-glas', 'seidentuch-blau'],
     hates: ['waschpulver', 'peilsender'],
   }),
-  schedule: [ort('T,N', 'flutmauer', 'wand-der-freiheit'), weg('M,A')],
+  schedule: [...A23.schedule, ort('T,N', 'flutmauer', 'wand-der-freiheit'), weg('M,A')],
   heartEvents: [
     { id: 'he-sina-spray-2', hearts: 2, map: 'flutmauer', time: 'tag', dialogue: 'he-sina-spray-2' },
     { id: 'he-sina-spray-4', hearts: 4, map: 'flutmauer', time: 'nacht', when: { seen: 'he-sina-spray-2' }, dialogue: 'he-sina-spray-4' },
@@ -125,6 +129,7 @@ const sina = weltfigur({
   talk: [
     rede('sina-tag-rivale', { rival: ID }),
     rede('sina-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('sina-tag-nacht', { time: 'nacht' }),
     rede('sina-tag-standard'),
   ],
@@ -132,5 +137,5 @@ const sina = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: sina },
-  dialogues: sammle(T.rivale, T.erstes, T.nacht, T.standard, he2, he2Ende, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.nacht, T.standard, he2, he2Ende, he4, ...A23.dialogues),
 };

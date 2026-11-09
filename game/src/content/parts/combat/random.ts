@@ -38,6 +38,13 @@ interface Zone {
 const fahndung = (stufe: 1 | 2 | 3): Condition => ({ flag: `fahndung_${stufe}` });
 const act2: Condition = { act: 2 };
 const act3: Condition = { act: 3 };
+// Rostzähne lösen sich mit side-rostzaehne-ende auf (Flag `rostzaehne_aufgeloest`): danach keine Rostzahn-Gruppen mehr.
+const ROSTZAEHNE_DA: Condition = { notFlag: 'rostzaehne_aufgeloest' };
+const istRostzahn = (enemies: EncounterDef['enemies']) => enemies.some((e) => e.enemy.startsWith('rostzahn'));
+const entryWhen = (entry: Entry): Condition | undefined => {
+  if (!istRostzahn(entry.enemies)) return entry.when;
+  return entry.when ? { all: [entry.when, ROSTZAEHNE_DA] } : ROSTZAEHNE_DA;
+};
 
 const ZONES: Zone[] = [
   {
@@ -282,7 +289,7 @@ function build(): Record<string, EncounterDef> {
         arena: entry.arena ?? zone.arena,
         enemies: entry.enemies,
         intro: [{ speaker: 'narrator', text: entry.intro }],
-        ...(entry.when ? { when: entry.when } : {}),
+        ...(entryWhen(entry) ? { when: entryWhen(entry) } : {}),
       });
       const prefix = `enc-zufall-${zone.map}-${entry.key}`;
       if (entry.chance !== undefined) {

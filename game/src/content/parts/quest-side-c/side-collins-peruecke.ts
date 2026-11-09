@@ -194,17 +194,17 @@ const sendung: CutsceneDef = {
   title: 'Collin, ehrlich',
   beats: [
     {
-      image: 'black', fade: 'in',
+      image: 'cut-peruecke-sendung', fade: 'in',
       caption: 'Zwölf Uhr. Die Bühne am Stufenplatz. Die Kamera schwenkt auf Collin Charleston. Auf seinen Kopf. Der Stufenplatz hält die Luft an.',
       lines: [l(CO, 'Meine Damen und Herren! Live! Exklusiv! Und heute zum ersten Mal: ohne Haare!', 'signatur')],
     },
     {
-      image: 'black',
+      image: 'cut-peruecke-sendung',
       caption: 'Stille. Eine Taube landet auf dem Geländer. Dann lacht jemand. Dann klatscht jemand. Dann klatscht der ganze Platz.',
       lines: [l(CO, 'Das hier bin ich. Glänzend. Rund. Unglaublich. Und wer mich nicht mag, schaltet um. Auf Pixel-Pete. Der hat nicht mal einen Kopf!', 'freude')],
     },
     {
-      image: 'black', fade: 'out',
+      image: 'cut-peruecke-sendung', fade: 'out',
       caption: 'Die Einschaltquote steigt um vierzig Prozent. Am Abend tragen in der Unterstadt drei Leute stolz eine Glatze. Einer davon ist Opa Gustav, aber der hatte schon eine.',
       lines: [l(CO, 'Danke. Ich mein das ehrlich. Zum ersten Mal in meiner Karriere mein ich was ehrlich.', 'zaertlich')],
     },

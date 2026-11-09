@@ -49,6 +49,9 @@ const off = (id: keyof typeof S, dx: number, dy: number): Point => [S[id][0] + d
 const NACHTS: Condition = { time: 'nacht' };
 const ABENDS_NACHTS: Condition = { time: ['abend', 'nacht'] };
 const VEX: Condition = { playerIs: 'vex' };
+/** Nach side-rostzaehne-ende (Belohnungs-Flag) gibt es keine Rostzähne mehr: keine Streifen, kein Schutzgeld. */
+const ROSTZ_DA: Condition = { notFlag: 'rostzaehne_aufgeloest' };
+const ROSTZ_WEG: Condition = { flag: 'rostzaehne_aufgeloest' };
 
 const hafenkante: MapDef = {
   id: 'hafenkante',
@@ -321,6 +324,14 @@ const hafenkante: MapDef = {
       ],
     },
     {
+      id: 'labyrinth-ohne-rostzaehne', at: off('container-labyrinth', 0, -40), radius: 56, label: 'Container-Labyrinth ansehen', kind: 'look',
+      when: ROSTZ_WEG,
+      lines: [
+        { speaker: 'narrator', text: 'Über das Zahn-Graffiti der Rostzähne hat jemand mit Rollerfarbe ein schiefes Schild gepinselt: „HAFEN OHNE SCHUTZGELD. Wer kassiert, kriegt einen Container auf den Kopf. Gez. die Hafenarbeiter“.' },
+        { speaker: 'narrator', text: 'Darunter klebt eine gelbe Quittung mit aufgestempeltem Zahn. Durchgestrichen. Daneben, in Kinderschrift: „Funzel ist doof“.' },
+      ],
+    },
+    {
       id: 'kraene-ansehen', at: off('rostkai-kraene', 0, 70), radius: 50, label: 'Rostkai-Kräne ansehen', kind: 'look',
       lines: [
         { speaker: 'narrator', text: 'Zwei Containerkräne, rostig wie ein Kiefer voller Karies. Seit Jahren hebt hier nichts mehr was, außer der Stimmung beim Drohnenrennen.' },
@@ -330,13 +341,13 @@ const hafenkante: MapDef = {
   encounters: [
     {
       id: 'rostzaehne-abends', encounter: 'enc-zufall-hafenkante-rostzaehne-abend', at: [365, 500],
-      sprite: 'rostzahn-schlaeger-walk', when: { time: 'abend' },
+      sprite: 'rostzahn-schlaeger-walk', when: { all: [{ time: 'abend' }, ROSTZ_DA] },
       patrol: [[365, 500], [545, 640], [545, 750], [365, 500]],
       avoid: { id: 'hk-rostzaehne-abwimmeln', attribute: 'strasse', threshold: 5, tags: ['einschuechtern', 'geruecht'], label: '[Straße 5]' },
     },
     {
       id: 'rostzaehne-nachts', encounter: 'enc-zufall-hafenkante-rostzaehne-zerleger-nacht', at: [500, 940],
-      sprite: 'rostzahn-schlaeger-walk', when: NACHTS,
+      sprite: 'rostzahn-schlaeger-walk', when: { all: [NACHTS, ROSTZ_DA] },
       patrol: [[500, 940], [250, 970], [380, 750]],
       avoid: { id: 'hk-rostzaehne-umgehen', attribute: 'reflexe', threshold: 5, tags: ['schleichen'], label: '[Reflexe 5]' },
     },
@@ -387,7 +398,7 @@ const hafenkante: MapDef = {
     barks: [
       { text: 'Wer hat schon wieder die Laterne geklaut? Die war festgeschraubt!' },
       { text: 'Mutter Brühe sagt, heute gibt’s Suppe. Gestern gab’s auch Suppe.' },
-      { text: 'Die Rostzähne haben gestern meinen Schatten erpresst.' },
+      { text: 'Die Rostzähne haben gestern meinen Schatten erpresst.', when: ROSTZ_DA },
       { text: 'Spielt jemand Eins? Ich hab nur noch Plus-Vier-Karten.' },
       { text: 'Grete hat heute Algen-Chips. Oder Algen. Oder Chips. Schwer zu sagen.' },
       { text: 'Der Kran hat sich bewegt. Ich schwör’s. Ganz von allein.' },
@@ -396,7 +407,11 @@ const hafenkante: MapDef = {
       { text: 'Kaffee. Bitte. Irgendwer. Ich zahl in Fisch.', when: { time: 'morgen' } },
       { text: 'Freitag Drohnenrennen! Ich setz alles auf Tilda. Alles heißt: drei Credits.', when: { weekday: ['do', 'fr'] } },
       { text: 'Hörst du die Laster am Depot? Die fahren ohne Licht. Ich guck da nicht hin.', when: NACHTS },
-      { text: 'Bleib aus dem Labyrinth, Schätzchen. Abends gehört das den Rostzähnen.', when: ABENDS_NACHTS },
+      { text: 'Bleib aus dem Labyrinth, Schätzchen. Abends gehört das den Rostzähnen.', when: { all: [ABENDS_NACHTS, ROSTZ_DA] } },
+      { text: 'Zwei Wochen kein Schutzgeld. Ich weiß gar nicht, wohin mit dem ganzen Geld. Ach doch: Miete.', when: ROSTZ_WEG },
+      { text: 'Hab gestern einen Ex-Rostzahn gesehen. Der hat Grete beim Fischeschuppen geholfen. Freiwillig!', when: ROSTZ_WEG },
+      { text: 'Funzel? Verkauft jetzt Nachtlichter am Bahnhof. Die Enten-Edition geht weg wie nix.', when: ROSTZ_WEG },
+      { text: 'Ich geh nachts wieder durchs Labyrinth. Abkürzung. Ohne Wegzoll. Herrlich.', when: { all: [ABENDS_NACHTS, ROSTZ_WEG] } },
       { text: 'Früher war die Rennhalle voll. Bis die Traverse kam. Seitdem … na ja.', when: { time: ['tag', 'abend'] } },
       { text: 'Mein Nachbar sagt jetzt immer „Ja, Master“. Früher hat er nur gegrunzt.', when: { act: 2 } },
       { text: 'Chrome 10 hier, Chrome 10 da. Ich will einfach nur meine Nougatbombe.', when: { act: 2 } },
@@ -408,6 +423,7 @@ const hafenkante: MapDef = {
   ambience: 'unterstadt',
   onEnter: [
     { id: 'hafenkante-erstbesuch', once: true, dialogue: 'hafenkante-ankunft', effects: [{ markSeen: 'hafenkante-betreten' }] },
+    { id: 'hafenkante-ohne-schutzgeld', once: true, when: ROSTZ_WEG, dialogue: 'hafenkante-ohne-schutzgeld' },
   ],
 };
 
@@ -425,6 +441,21 @@ export const part: ContentPart = {
             { speaker: 'narrator', text: 'Die Hafenkante. Salzluft, Diesel und eine Brise, die nach Fisch riecht und nach Fisch schmeckt. Zwei rostige Kräne stehen über dem grünen Becken wie Rentner, die nicht nach Hause wollen.' },
             { speaker: 'narrator', text: 'Ein Hausboot dümpelt am Steg, die Rennhalle schweigt, und hinten am Depot brummt Quantum-Strom durch einen Zaun, der viel zu sauber ist für diese Gegend.' },
           ],
+        },
+      ],
+    },
+    // Kurze Reaktion beim ersten Besuch nach side-rostzaehne-ende (Flag rostzaehne_aufgeloest).
+    'hafenkante-ohne-schutzgeld': {
+      id: 'hafenkante-ohne-schutzgeld',
+      start: 'a',
+      nodes: [
+        {
+          id: 'a',
+          lines: [
+            { speaker: 'narrator', text: 'Die Hafenkante klingt anders. Keine Leuchtketten, die im Labyrinth klirren. Kein „Wegzoll, Süße“. Nur Möwen, Diesel und Grete, die Fischpreise über den Kai brüllt, als hätte sie eine Wette verloren.' },
+            { speaker: 'narrator', text: 'Ein Hafenarbeiter hält dir im Vorbeigehen seine Brotdose hin. „Heute keine Quittung drin. Nimm ’nen Keks. Auf den Hafen.“' },
+          ],
+          effects: [{ message: 'Hafen ohne Schutzgeld: Die Rostzähne sind Geschichte. Keine Streifen mehr an der Hafenkante.' }],
         },
       ],
     },

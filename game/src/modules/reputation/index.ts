@@ -135,3 +135,4 @@ export function repTierProblems(tiers: readonly RepTierDef[]): string[] {
   });
   return problems;
 }
+export * from './wanted';

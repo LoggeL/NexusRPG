@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { TALK_23, SCHEDULE_23 } from './falke-akt23';
 
 const ID = 'falke';
 const QUEST = 'pers-vega-adlerauge';
@@ -111,7 +112,7 @@ const falke = weltfigur({
     dislikes: ['glitzerschrott', 'poster-hv'],
     hates: ['magnet-stoerer', 'kanalschlamm'],
   }),
-  schedule: [ort('T', 'hafenkante', 'falke-kran'), ort('N', 'hafenkante', 'falkes-wohnwagen'), weg('M,A')],
+  schedule: [...SCHEDULE_23, ort('T', 'hafenkante', 'falke-kran'), ort('N', 'hafenkante', 'falkes-wohnwagen'), weg('M,A')],
   heartEvents: [
     { id: 'he-falke-2', hearts: 2, map: 'hafenkante', time: 'tag', dialogue: 'he-falke-2' },
     { id: 'he-falke-4', hearts: 4, map: 'hafenkante', time: 'nacht', when: { seen: 'he-falke-2' }, dialogue: 'he-falke-4' },
@@ -119,6 +120,7 @@ const falke = weltfigur({
   talk: [
     rede('falke-tag-rivale', { rival: ID }),
     rede('falke-tag-erstes', nichtGetroffen(ID)),
+    ...TALK_23,
     rede('falke-tag-besiegt', { quest: QUEST, state: 'done' }),
     rede('falke-tag-wohnwagen', { time: 'nacht' }),
     rede('falke-tag-standard'),

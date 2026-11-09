@@ -6,6 +6,7 @@ import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
 } from './_welt';
+import { akt23 } from './wett-willi-akt23';
 
 const ID = 'wett-willi';
 const W = sprecher(ID);
@@ -94,6 +95,9 @@ const he4 = dialog('he-wett-willi-4', [
   ], { effects: [{ xp: 60 }, flag('willi_opa_trick')] }),
 ]);
 
+// Akt 2, Partynacht und Nachspiel: wett-willi-akt23.ts.
+const A23 = akt23(M);
+
 const willi = weltfigur({
   id: ID,
   name: 'Wett-Willi',
@@ -114,6 +118,7 @@ const willi = weltfigur({
   talk: [
     rede('willi-tag-rivale', { rival: ID }),
     rede('willi-tag-erstes', nichtGetroffen(ID)),
+    ...A23.talk,
     rede('willi-tag-vertraut', undefined, 4),
     rede('willi-tag-standard'),
   ],
@@ -121,5 +126,5 @@ const willi = weltfigur({
 
 export const part: ContentPart = {
   npcs: { [ID]: willi },
-  dialogues: sammle(T.rivale, T.erstes, T.standard, T.vertraut, he2, he4),
+  dialogues: sammle(T.rivale, T.erstes, T.standard, T.vertraut, he2, he4, ...A23.dialogues),
 };

@@ -30,7 +30,7 @@ const quest: QuestDef = {
       text: 'Weg: Wachmann Pfeffer trinkt freitags und samstags abends im High Voltage. Seine Karte hängt an einem Jojo-Band.',
       done: flag('zugangskarte_pfeffer'),
       optional: true,
-      marker: { map: 'high-voltage' },
+      marker: { map: 'high-voltage', at: 'pfeffer-tisch' },
     },
     {
       id: 'weg-behoerdenkarte',
@@ -38,14 +38,14 @@ const quest: QuestDef = {
       when: { item: 'behoerdenkarte' },
       done: flag('zugangskarte_umprogrammiert'),
       optional: true,
-      marker: { map: 'crew-quartier' },
+      marker: { map: 'crew-quartier', at: 'werkbank' },
     },
     {
       id: 'weg-kampf',
       text: 'Weg: Pfeffer geht Fr/Sa nachts durch die Neon-Gasse heim. Man könnte ihn … überzeugen.',
       done: { won: 'enc-gasse-pfeffer' },
       optional: true,
-      marker: { map: 'neon-gasse' },
+      marker: { map: 'neon-gasse', at: 'pfeffer-gasse' },
       effects: [
         { give: KARTE },
         { wanted: 1 },

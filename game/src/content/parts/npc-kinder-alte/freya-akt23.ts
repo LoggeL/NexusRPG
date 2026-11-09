@@ -35,6 +35,7 @@ export const FREYA_TALK_FRUEH: TalkDef[] = [
   { dialogue: 'freya-nachspiel', when: einmal('freya-nachspiel', NACHSPIEL) },
   { dialogue: 'freya-meer', when: { all: [KINDER_MEER, { weekday: 'sa' }, { time: 'tag' }] } },
   { dialogue: 'freya-partynacht', when: PARTYNACHT },
+  { dialogue: 'freya-mila', when: einmal('freya-mila', { all: [{ flag: 'mila_freundin_kinder' }, { not: PARTYNACHT }, { not: MASTER }] }) },
   { dialogue: 'freya-a2-bruch', when: einmal('freya-a2-bruch', A2_CHAOS) },
   { dialogue: 'freya-a2-aria', when: einmal('freya-a2-aria', { all: [A2_FREI, ARIA_GECHIPPT] }) },
   { dialogue: 'freya-a2-party', when: einmal('freya-a2-party', A2_PARTY) },
@@ -53,6 +54,29 @@ export const FREYA_SCHEDULE_23: ScheduleEntry[] = [
 ];
 
 const dialogues = dialogs(
+  // ------------------------------------------------------------------------------------------- Mila (side-captain-kuschel)
+  dlg('freya-mila', [
+    node('a', [
+      N('Freya sitzt auf ihrer Kiste, die Fluchdose auf dem Schoß. Neben ihr, auf einer kleineren Kiste, sitzt Mila und hält eine zweite Fluchdose. Sie ist leer. Sie ist sehr ernst.'),
+      L(F, 'Darf ich vorstellen: Mila. Neue Schöffin am Kindergericht. Zuständig für Oberstadtrecht. Und für die Fluchdose Nummer zwei.', 'signatur'),
+      L(F, 'In der Oberstadt flucht keiner, sagt sie. Da sagt man „Das ist nicht ideal“. Ich hab beschlossen, das kostet auch einen Credit. Wer „nicht ideal“ sagt, meint „Scheiße“. Das weiß jeder.'),
+    ], {
+      effects: [{ markSeen: 'freya-mila' }, herz(F, 10)],
+      choices: [
+        { text: '„Das ist nicht ideal.“ (Einen Credit in Milas Dose werfen.)', requires: { credits: 1 }, effects: [{ credits: -1 }, herz(F, 10)], next: 'dose' },
+        { text: '„Ist sie streng?“', next: 'streng' },
+      ],
+    }),
+    node('dose', [
+      N('Es klimpert. Mila strahlt, als hätte sie eine Goldmedaille gewonnen, und macht einen Strich auf ihren Unterarm.'),
+      L(F, 'Ihr erster Fall. Sie wird ihn nie vergessen. Und du auch nicht. Weil ich es aufschreibe.', 'freude'),
+    ]),
+    node('streng', [
+      L(F, 'Strenger als ich. Sie hat Jakko zu drei Tagen Gemüse verurteilt, weil er ihren Kreidehasen angemalt hat. Mit Schnurrbart.', 'ueberrascht'),
+      L(F, 'Ich hab das Urteil aufgehoben. Gnade vor Recht. Aber nur, weil der Schnurrbart wirklich gut war.'),
+    ]),
+  ]),
+
   // ------------------------------------------------------------------------------------------- Herz-Ereignis 8
   dlg('dlg-he-freya-8', [
     node('a', [

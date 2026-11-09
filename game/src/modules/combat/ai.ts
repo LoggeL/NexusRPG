@@ -24,7 +24,7 @@ interface Option { action: CombatAction; value: number; reason: string }
 export interface AiPlan { action: CombatAction; reason: string; value: number }
 
 const STATUS_VALUE: Readonly<Record<StatusId, number>> = {
-  gehackt: 6, betaeubt: 6, brennt: 4, blutet: 3, markiert: 2.5, geschuetzt: 2,
+  gehackt: 6, betaeubt: 6, brennt: 4, blutet: 3, markiert: 2.5, geschuetzt: 2, ermutigt: 2, gesteuert: 7,
 };
 
 export function roleOf(unit: CombatUnit): AiRole {
@@ -188,7 +188,8 @@ export function planAi(data: CombatData, state: CombatState, unitId: string | nu
     return { action: { type: 'flee' }, reason: 'zu verletzt', value: 1 };
   }
 
-  if (role === 'schutz') return planShelter(state, unit) ?? end;
+  // Bewusstlose Schutzperson (`rescue.immobile`): bleibt liegen, die Party muss sie abschirmen.
+  if (role === 'schutz') return state.objective.kind === 'rescue' && state.objective.immobile ? { ...end, reason: 'bewusstlos' } : planShelter(state, unit) ?? end;
 
   if (unit.team === 'party') {
     const objective = planObjective(state, unit);

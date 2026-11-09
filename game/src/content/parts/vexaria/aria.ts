@@ -22,6 +22,8 @@ import {
   a, all, ANGEBAHNT, any, byId, ch, chk, dlg, flag, GOSSE_ANDERE, herz, n, node, noFlag, not, NOT_V, R, s, seen, set, STREIT,
   V, v, WARTEN_VORBEI, ZUSAMMEN,
 } from './_util';
+import { fremdFlirtLoeschen, fremdGeflirtet, geflirtet } from '../npc-crew-a/_helfer';
+import { ARIA_RE, ARIA_RIVALE_TALK, ariaEvents } from '../npc-crew-b/_rivalitaet';
 
 // ---------------------------------------------------------------------------
 // Kanon-Herzereignisse (alle Spielfiguren; he-aria-6 nicht für Vex, dort Station 3)
@@ -134,9 +136,9 @@ function pool(prefix: string, lines: DialogueLine[][], base: Condition, answers?
   return { defs, talk };
 }
 
-const ANDERE_ROMANZEN = ['hunter', 'dante', 'collin-charleston', 'lio-funkel', 'raven', 'kiki-karbon', 'delya-delloraine', 'marla-sand'];
-const FREMDFLIRT: Condition = any(...ANDERE_ROMANZEN.map((id) => flag(`flirt_${id}`)));
-const FREMDFLIRT_LOESCHEN = ANDERE_ROMANZEN.map((id) => set(`flirt_${id}`, false));
+/** Heute mit einer anderen freigegebenen Figur geflirtet (Konvention `heute_flirt_<npc>`, npc-crew-a/_helfer.ts „Eifersucht“). */
+const FREMDFLIRT: Condition = fremdGeflirtet('aria');
+const FREMDFLIRT_LOESCHEN = fremdFlirtLoeschen('aria');
 const IN_BEZIEHUNG: Condition = all(R, ZUSAMMEN);
 
 // Eifersucht und Trennung (beide Spielfiguren).
@@ -163,7 +165,7 @@ const trennung = dlg('aria-tag-trennung', [
   ], {
     effects: [
       set('aria_romanze_zusammen', false), set('aria_romanze_angebahnt', false), set('aria_romanze_freundschaft'),
-      set('aria_eifersucht_gewarnt', false), ...FREMDFLIRT_LOESCHEN, herz(-200),
+      set('aria_eifersucht_gewarnt', false), ...FREMDFLIRT_LOESCHEN, herz(-150),
     ],
   }),
 ]);
@@ -529,8 +531,8 @@ const ANDERE_FLIRT = pool('aria-flirt', [
   [a('Ich kann mit der Hand Stahl biegen. Willst du wissen, was ich mit der anderen kann? … Kochen. Schlecht.', 'signatur')],
   [a('Du bist das Einzige hier, das ich nicht kaputtmachen will.', 'zaertlich')],
 ], all(NOT_V, R, ANGEBAHNT, noFlag('aria_romanze_zusammen')), () => [
-  ch('„Glotz ich doch gern.“', undefined, { effects: [] }),
-  ch('Ihr eine Strähne aus dem Gesicht streichen.', undefined, { check: chk('aria-flirt-ausstrahlung', 'ausstrahlung', 5, ['flirt']) }),
+  ch('„Glotz ich doch gern.“', undefined, { effects: [geflirtet('aria')] }),
+  ch('Ihr eine Strähne aus dem Gesicht streichen.', undefined, { check: chk('aria-flirt-ausstrahlung', 'ausstrahlung', 5, ['flirt']), effects: [geflirtet('aria')] }),
 ]);
 const ANDERE_ZUSAMMEN = pool('aria-zusammen', [
   [a('Da ist ja mein Lieblingsproblem.', 'zaertlich')],
@@ -570,6 +572,8 @@ const talk: TalkDef[] = [
   // Eifersucht/Trennung zuerst.
   { dialogue: 'aria-tag-trennung', when: all(IN_BEZIEHUNG, flag('aria_eifersucht_gewarnt'), FREMDFLIRT) },
   { dialogue: 'aria-tag-eifersucht', when: all(IN_BEZIEHUNG, noFlag('aria_eifersucht_gewarnt'), FREMDFLIRT) },
+  // Rivalität (world.md §4.2): Schutzgeld-Gag, Versöhnung über neues Griffband (npc-crew-b/_rivalitaet.ts).
+  { dialogue: ARIA_RIVALE_TALK, when: { rival: 'aria' } },
   // Streit.
   { dialogue: 'aria-tag-streit-kanal4', when: all(V, any(STREIT, flag('aria_krach')), flag('vexaria_kanal4')) },
   { dialogue: 'aria-tag-streit', when: any(STREIT, flag('aria_krach')) },
@@ -632,9 +636,15 @@ const aria: NpcDef = {
   heartEvents: [
     ...KANON_EVENTS, ...ARIA_AKT1_EVENTS, ...RIVALINNEN_EVENTS, ...FUNKEN_EVENTS, ...BRUCH_EVENTS, ...HOEHEPUNKT_EVENTS, ...DANACH_EVENTS,
     ...ZERBERSTER_EVENTS, ...AKT2_EVENTS, ...VERSOEHNUNG_EVENTS, ...KRISE_EVENTS, ...AKT3_EVENTS, ...ENDEN_EVENTS, ...NACHSPIEL_EVENTS,
+    // Rivalität −2 Schutzgeld, −5 Bällebad im Pixelpalast, −8 Griffband (npc-crew-b/_rivalitaet.ts).
+    ...ariaEvents(all(
+      not(all(flag('aria_gechippt'), not({ quest: 'main-2-countdown', state: 'done' }), noFlag('vexaria_gerettet'))),
+      noFlag('master_modus'), not(all({ act: 3 }, noFlag('epilog'))),
+    )),
   ],
   companion: {
-    recruit: { quest: 'main-1-dexter', state: 'done' },
+    // Schon während main-1-dexter: Der Treffpunkt-Dialog holt Aria (und Vega) in die Party.
+    recruit: { quest: 'main-1-dexter', state: ['active', 'done'] },
     // Variante A: gechippt bei Ripper bzw. bis Dante den Chip zieht (wie ihr „away“ im Tagesablauf).
     // Ende 3 ohne 3b: Aria sitzt mit der Crew am Meer (Integration).
     unavailableWhen: any(
@@ -689,7 +699,7 @@ export const part: ContentPart = {
     eifersucht, eifersuchtVex, eifersuchtAndere, trennung, redenTrennung, streitZeile, streitKanal4,
     montag, montagRaten, dachrennen, mast, gegangenAbend, budeMorgens, armSummt,
     ...VEX_FLIRT.defs, ...VEX_ZUSAMMEN.defs, ...VEX_RIVALINNEN.defs, ...VEX_CREW.defs,
-    ...ANDERE_FLIRT.defs, ...ANDERE_ZUSAMMEN.defs, ...ANDERE_ALLTAG.defs,
+    ...ANDERE_FLIRT.defs, ...ANDERE_ZUSAMMEN.defs, ...ANDERE_ALLTAG.defs, ...ARIA_RE,
   ]),
 };
 
