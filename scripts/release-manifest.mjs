@@ -49,6 +49,6 @@ const files = await collect(dist);
 if (!files.some((file) => file.path === 'index.html')) throw new Error('Build has no index.html');
 const artifactSha256 = createHash('sha256').update(JSON.stringify(files)).digest('hex');
 await writeFile(path.join(dist, 'release.json'), `${JSON.stringify({
-  schemaVersion: 1, application: 'InselRPG', commit, artifactSha256, files,
+  schemaVersion: 1, application: 'NexusRPG', commit, artifactSha256, files,
 }, null, 2)}\n`);
 console.log(`Release ${commit}: ${files.length} files, artifact ${artifactSha256}`);
