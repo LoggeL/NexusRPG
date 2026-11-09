@@ -69,4 +69,4 @@ Immer: Vex-Vorlage, `aria_heute` aus, Aria-Herzen wie angegeben.
 | 9 Kuss | ♥8, seen `rom-vexaria-umdrehen`, `aria_versoehnung_verdient`, `aria_romanze_angebahnt`, `vexaria_kas_erzaehlt`; A `neon-gasse` |
 | 10/11 Licht/Morgen | ♥8, `aria_kuss`, `aria_romanze_zusammen`; A `neon-gasse` |
 | 12 Funkmast | `vexaria_kas_erzaehlt`, seen `rom-vexaria-kuss`, `aria_romanze_zusammen`, `aria_warte1`/`aria_warte2` aus; A `loetgassen` |
-| 13 Konzert | seen `rom-vexaria-funkmast`, `vexaria_konzert_einladung`, Item `kabelbrand-pass`; A `flutmauer` |
+| 13 Konzert | seen `rom-vexaria-funkmast`, `vexaria_kas_erzaehlt`, `vexaria_konzert_einladung`, `aria_romanze_zusammen` (Romanze), Item `kabelbrand-pass`; A `flutmauer` |

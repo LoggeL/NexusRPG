@@ -278,7 +278,7 @@ const flutmauer: MapDef = {
     },
     // --- Sammelobjekte ---------------------------------------------------------------------------------------------
     {
-      id: 'glueckstern-19', at: [36, 350], radius: 44, label: 'Etwas glitzert am Geländer', kind: 'loot', once: true,
+      id: 'glueckstern-19', at: [40, 350], radius: 60, label: 'Etwas glitzert am Geländer', kind: 'loot', once: true,
       lines: [{ speaker: N, text: 'Zwischen Geländerpfosten und Turmfuß klemmt ein Glücksstern, festgefroren in Möwenkacke. Glück hat seinen Preis.' }],
       effects: [{ give: 'glueckstern-19' }],
     },

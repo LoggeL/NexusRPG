@@ -137,16 +137,16 @@ try { content = await loadContent(); } catch (error) { warnings.push(`content/in
 if (!content) warnings.push('Inhalte fehlen – nur das Manifest wurde geprüft.');
 else {
   requireImage('ui-title', 'ui', 'Titel');
-  requireImage('ui-island-map', 'ui', 'Inselkarte');
+  requireImage('ui-city-map', 'ui', 'Stadtkarte');
   for (const map of Object.values(content.maps ?? {})) {
     requireImage(map.bg, 'bg', `Karte ${map.id}`);
     for (const hotspot of map.hotspots ?? []) if (hotspot.prop) requireImage(hotspot.prop, 'prop', `Karte ${map.id}/Hotspot ${hotspot.id}`);
     for (const npc of map.npcs ?? []) {
-      if (npc.pose) requireSprite(`${npc.actor}-${npc.pose}`, `Karte ${map.id}/NPC ${npc.id}`);
-      else {
-        const def = content.npcs?.[npc.actor] ?? content.members?.[npc.actor];
-        requireSprite(def?.sprite ?? `${npc.actor}-walk`, `Karte ${map.id}/NPC ${npc.id}`);
-      }
+      // NpcPlacement nennt die Figur `npc` (früher `actor`); Figuren ohne Laufblatt (z. B. KI) haben keins.
+      const id = npc.npc ?? npc.actor;
+      const def = content.npcs?.[id] ?? content.members?.[id];
+      if (npc.pose) requireSprite(`${(def?.sprite ?? `${id}-walk`).replace(/-walk$/, '')}-${npc.pose}`, `Karte ${map.id}/NPC ${npc.id}`);
+      else if (def?.sprite || !def) requireSprite(def?.sprite ?? `${id}-walk`, `Karte ${map.id}/NPC ${npc.id}`);
     }
   }
   for (const member of Object.values(content.members ?? {})) {

@@ -22,6 +22,14 @@ RAW = ROOT / "output/imagegen/raw/cut"
 OUT = ROOT / "game/public/assets/cut"
 PROMPTS = ROOT / "design/assets/cut.json"
 MANIFEST = ROOT / "design/assets/cut.manifest.json"
+# Fragment für scripts/build_manifest.mjs (Schlüssel cut-<id>, wie Cutscenes sie nennen).
+FRAGMENT = ROOT / "design/assets/cut.images.json"
+
+
+def write_fragment(manifest: dict) -> None:
+    images = {f"cut-{pid}": e["file"] for pid, e in sorted(manifest.items())}
+    hashes = {f"cut-{pid}": e["blurhash"] for pid, e in sorted(manifest.items()) if e.get("blurhash")}
+    FRAGMENT.write_text(json.dumps({"images": images, "blurhash": hashes}, indent=2, ensure_ascii=False) + "\n")
 SHEET = ROOT / "output/qa/art/cut.jpg"
 SIZE = (1536, 1024)
 MAX_BYTES = 1_200_000
@@ -106,6 +114,7 @@ def main() -> None:
                          "bytes": size, "blurhash": blurhash(img)}
         print(f"ok     {pid}.webp ({size // 1024} KB, {manifest[pid]['blurhash']})")
     MANIFEST.write_text(json.dumps(dict(sorted(manifest.items())), indent=2, ensure_ascii=False) + "\n")
+    write_fragment(manifest)
     built = [OUT / f"{k}.webp" for k in sorted(manifest) if (OUT / f"{k}.webp").exists()]
     if built:
         tw, th = 512, 341

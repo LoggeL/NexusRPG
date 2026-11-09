@@ -27,11 +27,13 @@ describe('Integration Inhalte ↔ Regeln ↔ Darstellungsparameter', () => {
       for (const [id, entry] of entries) expect(n.walkable(entry.at[0], entry.at[1]), `${map.id}#${id}`).toBe(true);
       // Laufinseln mit eigenem Einstieg sind erlaubt: Ziel gilt als erreichbar, wenn irgendein Einstieg hinkommt.
       const reach = (target: Point, radius: number, label: string) => {
-        const best = Math.min(...entries.map(([, entry]) => {
+        let best = Infinity;
+        for (const [, entry] of entries) {
           const path = n.findPath(entry.at, target);
           const end = path.length ? path[path.length - 1]! : entry.at;
-          return Math.hypot(end[0] - target[0], end[1] - target[1]);
-        }));
+          best = Math.min(best, Math.hypot(end[0] - target[0], end[1] - target[1]));
+          if (best <= radius) break;
+        }
         expect(best, label).toBeLessThanOrEqual(radius);
       };
       // Orte tragen oft sitzende Figuren (Hocker, Bank): ansprechbar reicht (NPC_RADIUS mit Rand).
@@ -39,7 +41,7 @@ describe('Integration Inhalte ↔ Regeln ↔ Darstellungsparameter', () => {
       for (const hotspot of map.hotspots) reach(hotspot.at, hotspot.radius ?? 56, `${map.id} Hotspot ${hotspot.id}`);
       if (map.bed) reach(map.bed.at, 56, `${map.id} Bett`);
     }
-  });
+  }, 60_000); // ganzer Akt-1-Inhalt: einige tausend Pfadsuchen
 
   it('Akt-Warps landen begehbar auf ihrer Startkarte', () => {
     for (const act of [1, 2, 3] as const) {

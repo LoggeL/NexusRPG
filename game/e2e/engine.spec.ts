@@ -1,5 +1,6 @@
-// Bleibender Integrationstest (Bereich Integration): kompletter Spielablauf mit dem Testinhalt.
-// Figur erstellen → Teststraße erkunden → Raven (Check-Wahl) → Geschenk → Quest/Auftrag → Kampf gewinnen → Händler → schlafen.
+// Bleibender Integrationstest (Bereich Integration): kompletter Spielablauf mit dem Akt-1-Inhalt.
+// Figur erstellen → Prolog im Digitech-Areal → Bahnhof (Abzieher, Check-Wahl) → Geschenk an Oma Volt → Auftragstafel
+// im Hinterzimmer → Kampf gewinnen → Volt-Eck (Händler) → im Crew-Quartier schlafen.
 // Headless, 1 Worker, Port 5201 (playwright.config.ts). Screenshots nach output/qa/engine/.
 import { expect, test, type Page } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
@@ -27,6 +28,22 @@ interface TestState {
 
 const gameState = (page: Page) => page.evaluate(() => window.__nexus!.state() as unknown as TestState);
 
+/** Klickt laufende Cutscenes und Dialogzeilen weg, bis die Erkundung frei ist (Wahlen: erste freigegebene). */
+async function clearToExplore(page: Page) {
+  for (let i = 0; i < 200; i++) {
+    const v = await view(page);
+    if (v.scene === 'explore' && !v.busy && !v.overlay && !v.dialogue) return v;
+    if (v.dialogue?.choices?.length) {
+      const pick = v.dialogue.choices.find((choice) => choice.enabled) ?? v.dialogue.choices[0];
+      await page.evaluate((index) => window.__nexus!.choose(index), pick.index);
+    } else if (!(await page.evaluate(() => window.__nexus!.advance()))) {
+      await page.evaluate(() => window.__nexus!.skipCutscene());
+    }
+    await page.waitForTimeout(60);
+  }
+  return view(page);
+}
+
 /** Wartet, bis der Kampf auf einen Spielerzug steht; Kampfintro-Zeilen werden weitergeklickt. */
 async function waitForPlayerTurn(page: Page) {
   for (let i = 0; i < 300; i++) {
@@ -38,8 +55,8 @@ async function waitForPlayerTurn(page: Page) {
   throw new Error('Kein Spielerzug im Kampf');
 }
 
-test('Engine: kompletter Ablauf mit Testinhalt', async ({ page }) => {
-  test.setTimeout(120_000);
+test('Engine: kompletter Ablauf mit dem Akt-1-Inhalt', async ({ page }) => {
+  test.setTimeout(150_000);
   await openGame(page, '?newchar&seed=7');
 
   // 1 · Charaktererstellung
@@ -54,69 +71,82 @@ test('Engine: kompletter Ablauf mit Testinhalt', async ({ page }) => {
   await shot(page, '01-erstellung');
   await page.getByTestId('creation-start').click();
 
-  // 2 · Intro überspringen, Erkundung der Teststraße
+  // 2 · Intro und Funkspruch überspringen, Prolog im Digitech-Areal
   await settle(page);
-  let current = await waitForView(page, (v) => v.scene === 'explore' && !v.busy && !v.overlay);
-  expect(current.map).toBe('test-strasse');
+  let current = await clearToExplore(page);
+  expect(current.map).toBe('digitech-areal');
   await expect(page.getByTestId('hud')).toBeVisible();
   await shot(page, '02-erkundung');
   // Zeit läuft beim Erkunden
   const t0 = (await gameState(page)).clock.minutes;
   await page.waitForTimeout(2500);
   expect((await gameState(page)).clock.minutes).toBeGreaterThan(t0);
-  expect((await gameState(page)).quests['test-chip']?.status).toBe('active');
+  expect((await gameState(page)).quests['main-0-digitech']?.status).toBe('active');
 
-  // 3 · Raven ansprechen, Check-Wahl
-  const raven = (await page.evaluate(() => window.__nexus!.npcs())).find((npc) => npc.id === 'raven');
-  expect(raven, 'Raven steht auf der Teststraße').toBeDefined();
-  await page.evaluate(([x, y]) => window.__nexus!.teleport(x, y), [raven!.x, raven!.y + 20] as const);
-  expect(await page.evaluate(() => window.__nexus!.talk('raven'))).toBe(true);
-  await expect(page.getByTestId('npc-talk')).toBeVisible();
-  await shot(page, '03-npc-aktionen');
-  await page.getByTestId('npc-talk').click();
-  current = await waitForView(page, (v) => !!v.dialogue?.choices?.length, 15_000).catch(async () => {
-    // Zeilen bis zur Wahl weiterklicken
-    for (let i = 0; i < 20; i++) {
+  // 3 · Prolog abschließen, Ankunft am Bahnhof: Abzieher-Dialog mit Check-Wahlen
+  await page.evaluate(() => window.__nexus!.runEffects([{ setFlag: 'prolog_done' }]));
+  await page.evaluate(() => window.__nexus!.travel('bahnhof-mitte', 'start'));
+  await settle(page);
+  current = await waitForView(page, (v) => !!v.dialogue?.choices?.length, 20_000).catch(async () => {
+    // Cutscene und Zeilen bis zur Wahl weiterklicken
+    for (let i = 0; i < 60; i++) {
       const v = await view(page);
       if (v.dialogue?.choices?.length) return v;
-      await page.evaluate(() => window.__nexus!.advance());
+      if (!(await page.evaluate(() => window.__nexus!.advance()))) await page.evaluate(() => window.__nexus!.skipCutscene());
       await page.waitForTimeout(60);
     }
     return view(page);
   });
+  expect(current.map).toBe('bahnhof-mitte');
+  expect((await gameState(page)).quests['main-1-ankunft']?.status).toBe('active');
   const choices = current.dialogue?.choices ?? [];
-  const technik = choices.find((choice) => choice.check === 'test-chip-technik');
-  expect(technik, JSON.stringify(choices)).toBeDefined();
-  expect(technik!.enabled).toBe(true);
+  const checks = choices.filter((choice) => ['gc-01', 'gc-02', 'gc-03'].includes(choice.check ?? ''));
+  expect(checks.length, JSON.stringify(choices)).toBe(3);
   // Zeit steht im Dialog
   const tDialog = (await gameState(page)).clock.minutes;
   await page.waitForTimeout(1500);
   expect((await gameState(page)).clock.minutes).toBe(tDialog);
   await shot(page, '04-dialog-check');
-  await page.evaluate((index) => window.__nexus!.choose(index), technik!.index);
+  // Bestehbarer Check, sonst der Weg ohne Check (zehn Credits)
+  const pick = checks.find((choice) => choice.enabled) ?? choices.find((choice) => choice.text.includes('Zehn Credits'));
+  expect(pick, JSON.stringify(choices)).toBeDefined();
+  await page.evaluate((index) => window.__nexus!.choose(index), pick!.index);
   await settle(page);
-  expect((await gameState(page)).flags['test-chip-entschluesselt']).toBeTruthy();
+  await clearToExplore(page);
+  expect((await gameState(page)).flags['ankunft_abzieher_geloest']).toBeTruthy();
 
-  // 4 · Geschenk
-  const before = (await gameState(page)).relations.raven?.points ?? 0;
+  // 4 · Geschenk an Oma Volt (Kiosk in der Neon-Gasse)
+  await page.evaluate(() => window.__nexus!.travel('neon-gasse', 'von-bahnhof-mitte'));
+  await settle(page);
+  await clearToExplore(page);
+  await page.evaluate(() => window.__nexus!.setTime('tag'));
+  const oma = (await page.evaluate(() => window.__nexus!.npcs())).find((npc) => npc.id === 'oma-volt');
+  expect(oma, 'Oma Volt steht am Kiosk').toBeDefined();
+  await page.evaluate(([x, y]) => window.__nexus!.teleport(x, y), [oma!.x + 30, oma!.y + 20] as const);
+  const before = (await gameState(page)).relations['oma-volt']?.points ?? 0;
   await page.evaluate(() => window.__nexus!.giveItem('synth-kaffee'));
-  await page.evaluate(() => window.__nexus!.talk('raven'));
+  expect(await page.evaluate(() => window.__nexus!.talk('oma-volt'))).toBe(true);
+  await expect(page.getByTestId('npc-talk')).toBeVisible();
+  await shot(page, '03-npc-aktionen');
   await page.getByTestId('npc-gift').click();
   await expect(page.getByTestId('gift-picker')).toBeVisible();
   await page.locator('[data-testid="gift-picker"] [data-item="synth-kaffee"]').click();
   await shot(page, '05-geschenk');
   await page.getByTestId('gift-give').click();
   await settle(page);
-  await waitForView(page, (v) => !v.overlay && !v.busy);
-  expect((await gameState(page)).relations.raven?.points ?? 0).not.toBe(before);
+  await clearToExplore(page);
+  expect((await gameState(page)).relations['oma-volt']?.points ?? 0).not.toBe(before);
 
-  // 5 · Auftrag an der Tafel (Kopfgeld auf die Schläger)
-  expect(await page.evaluate(() => window.__nexus!.interact('tafel'))).toBe(true);
+  // 5 · Auftrag an Hunters Tafel im Hinterzimmer (nach der Probezeit offen)
+  await page.evaluate(() => window.__nexus!.runEffects([{ completeQuest: 'main-1-probezeit' }]));
+  await page.evaluate(() => window.__nexus!.travel('hv-hinterzimmer', 'von-high-voltage'));
+  await settle(page);
+  await clearToExplore(page);
+  expect(await page.evaluate(() => window.__nexus!.interact('auftragstafel'))).toBe(true);
   await expect(page.getByTestId('job-board')).toBeVisible();
   const offerId = await page.evaluate(() => {
     const campaign = window.__nexus!.campaign as unknown as { jobOffers(board: string): { id: string; template: string }[] };
-    const offers = campaign.jobOffers('test-tafel');
-    return (offers.find((offer) => offer.template === 'test-kopfgeld') ?? offers[0])?.id ?? null;
+    return campaign.jobOffers('auftragstafel')[0]?.id ?? null;
   });
   expect(offerId).not.toBeNull();
   await page.getByTestId(`accept-${offerId}`).click();
@@ -126,8 +156,8 @@ test('Engine: kompletter Ablauf mit Testinhalt', async ({ page }) => {
   const accepted = (await gameState(page)).jobs.active.map((job) => job.template);
   expect(accepted.length).toBe(1);
 
-  // 6 · Kampf starten, eine echte Aktion, gewinnen
-  await page.evaluate(() => window.__nexus!.startBattle('test-schlaeger'));
+  // 6 · Kampf starten (Abzieher-Brüder Knut und Kurt), eine echte Aktion, gewinnen
+  await page.evaluate(() => window.__nexus!.startBattle('enc-bahnhof-abzieher'));
   await waitForView(page, (v) => v.battle === true, 15_000);
   const battle = await waitForPlayerTurn(page);
   expect(battle.units.filter((unit) => unit.team === 'enemy').length).toBe(2);
@@ -138,18 +168,18 @@ test('Engine: kompletter Ablauf mit Testinhalt', async ({ page }) => {
   await shot(page, '08-kampf-runde2');
   expect(await page.evaluate(() => window.__nexus!.winBattle('win'))).toBe(true);
   await settle(page);
-  current = await waitForView(page, (v) => v.scene === 'explore' && !v.busy && !v.overlay, 15_000);
+  current = await clearToExplore(page);
   expect(current.battle).toBeFalsy();
-  const afterBattle = await gameState(page);
-  expect(afterBattle.flags['test-schlaeger-besiegt']).toBeTruthy();
-  if (accepted[0] === 'test-kopfgeld') expect(afterBattle.jobs.active).toEqual([]);
-  expect((await page.evaluate(() => window.__nexus!.hotspots())).some((spot) => spot.id === 'encounter:schlaeger')).toBe(false);
+  expect(await page.evaluate(() => window.__nexus!.campaign!.evaluate({ won: 'enc-bahnhof-abzieher' }))).toBe(true);
   await shot(page, '09-nach-kampf');
 
-  // 7 · Händler: Synth-Kaffee kaufen
+  // 7 · Händler: Synth-Kaffee am Volt-Eck kaufen
+  await page.evaluate(() => window.__nexus!.travel('neon-gasse', 'von-bahnhof-mitte'));
+  await settle(page);
+  await clearToExplore(page);
   await page.evaluate(() => window.__nexus!.setTime('tag'));
   const coffee = (await gameState(page)).inventory['synth-kaffee'] ?? 0;
-  expect(await page.evaluate(() => window.__nexus!.interact('kiosk'))).toBe(true);
+  expect(await page.evaluate(() => window.__nexus!.interact('volt-eck'))).toBe(true);
   await expect(page.getByTestId('shop')).toBeVisible();
   await page.getByTestId('buy-synth-kaffee').click();
   await expect.poll(async () => (await gameState(page)).inventory['synth-kaffee'] ?? 0).toBe(coffee + 1);
@@ -157,16 +187,17 @@ test('Engine: kompletter Ablauf mit Testinhalt', async ({ page }) => {
   await page.keyboard.press('Escape');
   await waitForView(page, (v) => !v.overlay && !v.busy);
 
-  // 8 · Unterschlupf, schlafen
+  // 8 · Crew-Quartier, schlafen
   const day = (await gameState(page)).clock.day;
-  await page.evaluate(() => window.__nexus!.travel('test-innen', 'tuer'));
+  await page.evaluate(() => window.__nexus!.travel('crew-quartier', 'aufwachen'));
   await settle(page);
-  await waitForView(page, (v) => v.map === 'test-innen' && !v.busy);
+  await clearToExplore(page);
+  await waitForView(page, (v) => v.map === 'crew-quartier' && !v.busy);
   await shot(page, '11-unterschlupf');
   expect(await page.evaluate(() => window.__nexus!.interact('bed'))).toBe(true);
   await page.waitForTimeout(200);
   await settle(page);
-  await waitForView(page, (v) => v.scene === 'explore' && !v.busy && !v.overlay, 15_000);
+  await clearToExplore(page);
   const morning = await gameState(page);
   expect(morning.clock.day).toBe(day + 1);
   expect(morning.clock.minutes).toBeLessThan(7 * 60);

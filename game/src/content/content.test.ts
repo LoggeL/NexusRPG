@@ -173,6 +173,7 @@ describe('Nexus-Inhalt', () => {
       if (ausstrahlung >= 5) {
         expect(talk?.enabled).toBe(true);
         session.choose(talk?.index ?? -1);
+        for (let i = 0; i < 20 && !session.view().done; i++) session.advance();
         expect(campaign.evaluate({ flag: 'ankunft_oma_tipp' })).toBe(true);
       } else {
         expect(talk?.enabled).toBe(false);
@@ -181,6 +182,7 @@ describe('Nexus-Inhalt', () => {
         const pay = choices.find(c => c.text.includes('Zehn Credits'));
         expect(pay?.enabled).toBe(true);
         session.choose(pay?.index ?? -1);
+        for (let i = 0; i < 20 && !session.view().done; i++) session.advance();
       }
       expect(campaign.evaluate({ flag: 'ankunft_abzieher_geloest' })).toBe(true);
       expect(campaign.evaluate({ questStep: 'main-1-ankunft', step: 'abzieher' })).toBe(true);
