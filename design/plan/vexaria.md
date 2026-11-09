@@ -154,3 +154,21 @@ Vex-Vorlage, `aria_heute` aus. „Kanon“ = ohne `seen rom-vexaria-ripperdeal`,
 | Autoradio | zusätzlich `ende_neue_nexus`, `vexaria_meer`; M `das-meer` |
 | Master | `epilog`, `ende_master`, Paar; `blades-buero` betreten |
 | Nachspiel | `epilog`, `ende_meer`, Paar, seen `rom-vexaria-meer`; Zähne M `das-meer`, Schlüssel A `loetgassen`, Rate Mo `ripper-praxis`, Ausblick N `das-meer` nach zwei Szenen |
+
+## Ausbau „intensiver“ (09.11.2026, Nutzerwunsch)
+
+Grenze unverändert: alles bis zur Abblende, die Nacht selbst nie beschrieben, Kleidung fällt höchstens bis Gurtzeug/Top/Shirt/Stiefel, beide fragen nach. Neue Abblende-Beats sind `black`, keine neuen Bilder.
+
+- **Spannung vor Station 10** (`funken.ts`, `aria.ts`, `rivalinnen.ts`): Beinahe-Momente in 4 (Rolltor klemmt, Kanal 4 funkt dazwischen), 5 (Aria bricht nach dem Gassenkuss selbst ab, `zuviel`), 6 (Hunter ruft auf dem Container an; `[Reflexe 6]` `vexaria-oberlicht-hunter-reflexe`). Pools: Vex-Flirt 15, Vex „zusammen“ 26 Zeilen, neue mit eigenen Antworten. Ripper-Tag-Zweig `aria-revier`, Armdrücken „Sag: besetzt.“
+- **Station 10** `rom-vexaria-licht-bude` (`hoehepunkt.ts`): Gasse → Rolltor → Handschuh → wer führt (Vex/Aria am Rolltor, langsam auf der Matratze) → elf Schnallen (alte Checks + „zusammen aufmachen“) → Haut/Narben → Necken/ehrlich/Kas/Schulternaht → unveränderter `schluss`.
+- **Morgen danach** (`hoehepunkt.ts`): Spuren (Knutschfleck, Kratzer, Shirt-Tausch), „Liegen“ mit drei Wahlen und „Nochmal?“ auf Kanal 4; Frühstück mit Dantes „Wer hat wen wachgehalten?“. Wiederholung `vexaria-nacht-wieder`: wild/zärtlich/albern mit `vexaria-nacht-wild|-zart|-albern` und `vexaria-morgen-wild|-zart|-albern`; `vexaria-nacht-kurz`/`vexaria-morgen-kurz` wechseln nach Kalendertag.
+- **Klatsch der Crew** (`danach.ts`): onEnter `vexaria-klatsch-*` ab dem zweiten Tageswechsel nach der ersten Nacht, höchstens eine pro Tag (Hunter, Dante → `vexaria_schnalle_neu`, Kiki, Vega, Lio, Ripper, Opa Gurrmann, Captain Kuschel, Nachbarn, Oma Volt). Nach fünf: `vexaria-klatsch-dach` → „Rolltor“ (Abblende `vexaria-nacht-kurz`) oder „Dach“.
+- **Akt 2** (`krise.ts`, `akt2.ts`): Dachnacht K2 lang und wild (Angst → Verlangen, „Revierverhalten“, Schnallen-Countdown) → unveränderte Abblende. Dachfrage „Bude“ mit Vorspiel je Wochenthema, „Hier“ als Kuss auf der Brüstung. `vexaria-bruch-b` verzweifelter, drei Wahlen.
+- **Akt 3, Enden, Nachspiel** (`akt3.ts`, `enden.ts`, `nachspiel.ts`): Outfit mit Reißverschluss hinter dem Vorhang; Stirn-„Bude“ zärtlich im Regen; Geständnis mit Wahl. Meer: Lagerfeuer (Zöpfe / Sommersprossen → `vexaria_sommersprossen` / Sandkrieg) → Wagen → Abblende; Morgen mit Spuren. Master-Sprachnachricht dreistufig. Strandnacht nur Fr–So, Vorspiel je Wochentag. Zähne/Schlüssel mit kleinen Wahlen.
+- **Baukasten-Nächte** (`baukasten-naechte.ts`, angehängt über `BAUKASTEN_NAECHTE_EVENTS` in `versoehnung.ts`):
+
+| # | ID | Karte · Zeit | Bedingung | Ablauf |
+|---|----|--------------|-----------|--------|
+| B1 | `aria-baukasten-nacht` | `crew-quartier` · A/N | NOT_V, Paar, `rom-aria-kuss` gesehen, Folgetag, Tagessperre | Tür (rein / Zahnbürste / „Nicht heute“ → `aria_baukasten_spaeter`) → `aria-baukasten-nacht-drinnen` (wer führt, Arm, Worte) → Abblende `aria-baukasten-abblende` → `aria-baukasten-morgen`. Setzt `aria_nacht`, `aria_baukasten_nacht`. |
+| B2 | onEnter `aria-baukasten-klopfen-*` | `crew-quartier` · A/N | nach B1, 1×/Woche (`woche_aria_baukasten_nacht`) | Varianten nach Wochentag, je eigene Abblende und Morgen. |
+| B3 | `aria-baukasten-meernacht` | `das-meer` · A/N | NOT_V, Paar, `epilog`, `rom-aria-meer` gesehen | Tafel `cut-rom-aria-meer` → Feuer/Strandkonzert/Dünen → Abblende → Morgen. |

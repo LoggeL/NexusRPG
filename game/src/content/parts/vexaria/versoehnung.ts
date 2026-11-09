@@ -12,6 +12,7 @@ import {
   a, AKT2, all, ANGEBAHNT, any, BRUECKE, byId, ch, chk, cut, dlg, EPILOG, flag, herz, HEUTE_FREI, msg, n, node, noFlag,
   not, NOT_V, R, s, seen, set, STATION_START, STREIT, twin, V, v, WARTEN_VORBEI, ZUSAMMEN, ZWEI_TAGE,
 } from './_util';
+import { BAUKASTEN_NAECHTE_EVENTS } from './baukasten-naechte';
 
 const Q_DONE: Condition = { quest: 'pers-aria-zerberster', state: 'done' };
 /** Kanonweg: alle außer Vex mit Akt-1-Brücke. */
@@ -550,6 +551,8 @@ export const VERSOEHNUNG_EVENTS: HeartEventDef[] = [
     dialogue: 'he-aria-10',
     effects: [{ setFlag: 'aria_heute' }, { xp: 25 }, { markSeen: 'rom-aria-kuss' }],
   },
+  // Nächte der Baukasten-Spielfigur nach dem Kuss und am Meer (baukasten-naechte.ts).
+  ...BAUKASTEN_NAECHTE_EVENTS,
 ];
 
 export const part: ContentPart = {

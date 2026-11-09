@@ -4,7 +4,8 @@
 import type { ContentPart } from '../../part';
 import type { DialogueDef, HeartEventDef } from '../../../modules/contracts';
 import {
-  a, all, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, s, seen, set, station, STATION_START, V, v,
+  a, all, ANGEBAHNT, any, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, R, s, seen, set, station, STATION_START, V, v,
+  ZUSAMMEN,
 } from './_util';
 
 // ---------------------------------------------------------------------------
@@ -230,6 +231,9 @@ const armdrueckenNach = (prefix: string) => [
     s('kiki-karbon', 'Oh. Oh, das geht übern Taxifunk. Das geht SOFORT übern Taxifunk.'),
     a('KIKI. Ich weiß, wo dein Taxi parkt.', 'wut'),
     s('kiki-karbon', 'Im Halteverbot, Süße. Wie immer. Kurs liegt an!'),
+    n('Aria lässt deine Hand nicht los. Im Gegenteil. Sie zieht sie über den Tisch, ein Stück zu sich, bis eure verkeilten Metallfinger mitten in der Bierpfütze liegen, gut sichtbar für die ganze Crew. Dann sieht sie Kiki an. Und zeigt die Zähne.'),
+    a('Gib\'s ruhig durch, Kiki. Sag: besetzt.', 'signatur'),
+    n('Die Crew macht „Uuuh“. Diesmal leiser. Und du merkst, dass du nicht widersprichst.'),
   ], { next: `${prefix}-ende` }),
   node(`${prefix}-los`, [
     n('Du lässt los. Sie auch. Gleichzeitig, als hättet ihr es abgesprochen. Hattet ihr nicht.'),
@@ -251,6 +255,11 @@ const armdruecken: DialogueDef = dlg('rom-vexaria-armdruecken', [
     s('kiki-karbon', 'Kurs liegt an, Süße! Metall gegen Metall, Leute, Abstand, gleich spritzt Hydrauliköl! Drei zu eins auf den Zopf, fünf zu eins auf die Locken!'),
     v('Fünf zu eins? Kiki, ich bring dir nie wieder ein Paket.', 'wut'),
     s('kiki-karbon', 'Dann fahr ich halt selber, Süße. Ich hab \'ne Rückbank.'),
+    n('Aria dreht nicht mal den Kopf. Sie lächelt nur, ganz langsam, und lässt die Knöchel vom Zerberster auf der Tischplatte knacken. Einen nach dem anderen. Kiki hört auf zu grinsen.'),
+    a('Kiki. Deine Rückbank bleibt heut leer. Die Postbotin läuft. Und wenn sie mal fährt, dann nicht bei dir.', 'signatur'),
+    s('kiki-karbon', 'Uiuiui. Kurs liegt an: Revierkampf! Einsätze verdoppeln sich, Süße!'),
+    v('Seit wann bestimmst du, wo ich mitfahr?', 'wut'),
+    a('Seit grad eben. Gewöhn dich dran.', 'signatur'),
     n('Kiki gibt das Zeichen. Die Servos singen. Das Holz knackt. Zwei Metallhände, die beide nichts spüren, und zwei Gesichter, die sich über ihnen immer näher kommen.'),
     a('Dein Ding zischt.', 'signatur'),
     v('Deins klappert.', 'signatur'),
@@ -338,6 +347,14 @@ const ripperVarianten: { id: string; days: number[]; line: string }[] = [
   { id: 'd', days: [22, 23, 24, 25, 26, 27, 28], line: 'Montag, Schätzchen. Mein Lieblingstag. Ich zähl Geld, du zählst Finger.' },
 ];
 
+/** Aria steht als Begleiterin daneben. Mit Romanze (angebahnt/zusammen) markiert sie vor Ripper ihr Revier. */
+const ARIA_DABEI = all({ companion: 'aria' }, seen('rom-vexaria-armdruecken'));
+const REVIER = all(R, any(ANGEBAHNT, ZUSAMMEN));
+const ariaAnsehen = [
+  ch('Aria ansehen, die mit dem Schläger neben dem Tisch steht.', 'aria', { when: all(ARIA_DABEI, not(REVIER)) }),
+  ch('Aria ansehen, die mit dem Schläger neben dem Tisch steht.', 'aria-revier', { when: all(ARIA_DABEI, REVIER) }),
+];
+
 const ripperTag = (id: string, line: string): DialogueDef => dlg(`vexaria-ripper-tag-${id}`, [
   node('start', [
     n('Montagabend. Rippers Ecktisch im High Voltage. Ein Kassenbuch, ein Glas mit irgendwas Grünem, eine Lupe. Er sieht nicht hoch, als du dich setzt.'),
@@ -354,7 +371,7 @@ const ripperTag = (id: string, line: string): DialogueDef => dlg(`vexaria-ripper
   ], {
     choices: [
       ch('Aufstehen.', 'raus'),
-      ch('Aria ansehen, die mit dem Schläger neben dem Tisch steht.', 'aria', { when: all({ companion: 'aria' }, seen('rom-vexaria-armdruecken')) }),
+      ...ariaAnsehen,
     ],
   }),
   node('anschreiben', [
@@ -363,7 +380,7 @@ const ripperTag = (id: string, line: string): DialogueDef => dlg(`vexaria-ripper
   ], {
     choices: [
       ch('Aufstehen.', 'raus'),
-      ch('Aria ansehen, die mit dem Schläger neben dem Tisch steht.', 'aria', { when: all({ companion: 'aria' }, seen('rom-vexaria-armdruecken')) }),
+      ...ariaAnsehen,
     ],
   }),
   node('aria', [
@@ -377,6 +394,28 @@ const ripperTag = (id: string, line: string): DialogueDef => dlg(`vexaria-ripper
       ch('Ihr Angebot, die Raten zu übernehmen, ablehnen.', 'angebot', { when: flag('aria_kuss') }),
     ],
   }),
+  node('aria-revier', [
+    a('Ich zahl nix. Ich guck nur. Das ist gratis.', 'signatur'),
+    s('ripper', 'Die Brecherin. Wie reizend. Weißt du, Schätzchen, wenn dir die Raten mal zu schwer werden, nehm ich auch andere Zahlungsmittel. Ich bin flexibel. Der Arm ist flexibel. Du bist es bestimmt auch.'),
+    n('Aria sagt nichts. Sie tritt hinter dich, ganz ruhig, und legt dir den Zerberster auf die Hüfte. Flach, über dem Nietengürtel, die Metallfinger gespreizt, der Daumen in deiner Gürtelschlaufe. Vor Ripper. Vor dem halben High Voltage. Ihr Kinn landet auf deiner Schulter, ihre Zöpfe streifen deinen Hals.'),
+    a('Andere Zahlungsmittel. Sag das nochmal, Ripper. Langsam. Ich will mir merken, welcher Zahn zuerst rausfliegt.', 'signatur'),
+    n('Ripper lehnt sich zurück. Zum ersten Mal, seit du an diesem Tisch zahlst, sieht er hoch. Er sieht die Hand. Er sieht das Lächeln über deiner Schulter. Dann schreibt er etwas ins Kassenbuch und unterstreicht es zweimal.'),
+    s('ripper', 'Fünfundzwanzig Credits. Bar. Nichts sonst. Ich hab verstanden, Liebes. Ich hab Augen. Die meisten davon sind sogar meine eigenen.', 'signatur'),
+    n('Aria lässt die Hand, wo sie ist. Die Metallfinger sind kühl durch das Top, und ihr Daumen streicht einmal über deinen Hüftknochen, ganz langsam, nur für dich. Ripper sieht es trotzdem. Das ist der Sinn der Sache.'),
+  ], {
+    choices: [
+      ch('Sich gegen sie zurücklehnen. Nur ein kleines bisschen.', 'revier-lehnen', { effects: [herz(10)] }),
+      ch('„Lass gut sein, Stern.“', 'raus', { when: flag('vexaria_oberlicht') }),
+      ch('„Lass gut sein, Zöpfe.“', 'raus', { when: noFlag('vexaria_oberlicht') }),
+      ch('Ihr Angebot, die Raten zu übernehmen, ablehnen.', 'angebot', { when: flag('aria_kuss') }),
+    ],
+  }),
+  node('revier-lehnen', [
+    n('Du lehnst dich zurück. Gegen sie, gegen den roten Stern auf ihrem Shirt. Ein kleines bisschen. Genug. Ihr Atem stockt neben deinem Ohr, und dann lacht sie leise, tief, ein Geräusch, das nur für dich gedacht ist und das trotzdem der ganze Ecktisch hört.'),
+    a('Siehst du, Ripper? Sie zahlt in Credits. Alles andere ist nicht im Angebot.', 'signatur'),
+    v('Montag. Wie immer.', 'signatur'),
+    n('Aria nimmt die Hand nicht von deiner Hüfte. Auch nicht, als du aufstehst. Auch nicht, als Ripper demonstrativ wegsieht.'),
+  ], { next: 'raus' }),
   node('angebot', [
     a('Ich könnte die übernehmen, weißt du. Die Raten. Alle. Hunter zahlt mir zu viel, ich kauf eh nur Kronkorken.', 'besorgt'),
     v('Nee. Den stotter ich selber ab. Ist das Einzige, was ich behalt.', 'zaertlich'),

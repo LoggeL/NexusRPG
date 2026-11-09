@@ -2,7 +2,9 @@
 // Kanon-Herzereignisse he-aria-2/4/6, „Zerberster-Herz“ Akt 1 (aria-akt1.ts) und Vex × Aria (rivalinnen/funken/bruch/
 // hoehepunkt/danach). world.md §4.2 `aria`, §4.7.
 import type { ContentPart } from '../../part';
-import type { Condition, DialogueChoice, DialogueDef, DialogueLine, HeartEventDef, NpcDef, TalkDef } from '../../../modules/contracts';
+import type {
+  CheckDef, Condition, DialogueChoice, DialogueDef, DialogueLine, Effect, HeartEventDef, NpcDef, TalkDef,
+} from '../../../modules/contracts';
 import { AKT2_EVENTS, AKT2_TALK } from './akt2';
 import { AKT3_EVENTS } from './akt3';
 import { ARIA_AKT1_EVENTS } from './aria-akt1';
@@ -147,6 +149,7 @@ const eifersucht = zeile('aria-tag-eifersucht', [
 const eifersuchtVex = zeile('aria-tag-eifersucht-vex', [
   a('Noch einmal, und ich häng dein Gurtzeug an den Funkmast. Mit dir drin.', 'wut'),
   v('… Verstanden.', 'besorgt'),
+  n('Sie packt dich am Brustriemen und zieht dich ran, mitten im Satz, vor allen, die gerade gucken. Der Zerberster liegt schwer und kühl in deinem Kreuz, und sie dreht dich ein kleines Stück, damit die richtigen Leute alles gut sehen.'),
   a('Gut. Und jetzt küss mich, damit alle sehen, wem du gehörst. Ich mein: zu wem.', 'verlegen'),
 ]);
 const eifersuchtAndere = zeile('aria-tag-eifersucht-andere', [
@@ -225,16 +228,19 @@ const armSummt = zeile('aria-vex-arm-summt', [
 ], [ch('„Summt nur, wenn du da bist.“', undefined, { effects: [set('vexaria_summt_zeile')] })]);
 
 // Vex: Flirt-Antworten (world.md „Vex-Antworten“), an jeder Flirt- und Zusammen-Zeile.
+const FLIRT_A = chk('vexaria-flirt-ausstrahlung', 'ausstrahlung', 3, ['flirt']);
+const FLIRT_R = chk('vexaria-flirt-reflexe', 'reflexe', 6, ['flirt']);
+const FLIRT_BESCHWINGT: Effect = { checkBuff: { id: 'aria-flirt-beschwingt', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } };
 const vexAntworten = (i: number): DialogueChoice[] => [
   ch('„Ich liefer pünktlich. Auch das.“', `ant-${i}-a`),
   ch('„Zöpfe. Du bist laut. Ich mag laut. Sag\'s keinem.“', `ant-${i}-b`),
-  ch('„Ich hab \'ne Hose mit acht Taschen. Rate, in welcher meine Hände gleich sind.“', `ant-${i}-c`, { check: chk('vexaria-flirt-ausstrahlung', 'ausstrahlung', 3, ['flirt']) }),
-  ch('Zopf schnappen, Kuss auf die Wange, weg.', `ant-${i}-d`, { check: chk('vexaria-flirt-reflexe', 'reflexe', 6, ['flirt']) }),
+  ch('„Ich hab \'ne Hose mit acht Taschen. Rate, in welcher meine Hände gleich sind.“', `ant-${i}-c`, { check: FLIRT_A }),
+  ch('Zopf schnappen, Kuss auf die Wange, weg.', `ant-${i}-d`, { check: FLIRT_R }),
 ];
 const vexAntwortKnoten = (i: number) => [
   node(`ant-${i}-a`, [a('Pünktlich. Klar. Das ist dein Vorspiel, oder? Pünktlichkeit.', 'verlegen')]),
   node(`ant-${i}-b`, [a('Ich sag\'s allen. Laut. Ich bin ja laut.', 'freude')]),
-  node(`ant-${i}-c`, [a('… In MEINER Jacke, du Sau.', 'verlegen')], { effects: [{ checkBuff: { id: 'aria-flirt-beschwingt', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
+  node(`ant-${i}-c`, [a('… In MEINER Jacke, du Sau.', 'verlegen')], { effects: [FLIRT_BESCHWINGT] }),
   node(`ant-${i}-d`, [
     n('Du schnappst einen Zopf, ziehst sie dran zu dir, Kuss auf die Wange, und bist zwei Meter weg, bevor der Zerberster da ist, wo du eben warst.'),
     a('DU! Komm zurück, ich war noch nicht fertig mit dir!', 'verlegen'),
@@ -243,14 +249,26 @@ const vexAntwortKnoten = (i: number) => [
 const flirtDlg = (id: string, lines: DialogueLine[], i: number): DialogueDef =>
   dlg(id, [node('start', lines, { choices: vexAntworten(i) }), ...vexAntwortKnoten(i)]);
 
-function vexPool(prefix: string, lines: DialogueLine[][], base: Condition): { defs: DialogueDef[]; talk: TalkDef[] } {
+/**
+ * Pool-Eintrag mit eigenen Vex-Antworten statt der vier allgemeinen: frech, verlegen, mit Check (Beschwingt wie oben).
+ * Knoten `ant-0..n`; Antworten mit Check geben bei Erfolg Beschwingt.
+ */
+interface Antwort { text: string; lines: DialogueLine[]; check?: CheckDef }
+interface Eintrag { lines: DialogueLine[]; antworten: Antwort[] }
+const ant = (text: string, lines: DialogueLine[], check?: CheckDef): Antwort => (check ? { text, lines, check } : { text, lines });
+const eintragDlg = (id: string, e: Eintrag): DialogueDef => dlg(id, [
+  node('start', e.lines, { choices: e.antworten.map((x, k) => ch(x.text, `ant-${k}`, x.check ? { check: x.check } : {})) }),
+  ...e.antworten.map((x, k) => node(`ant-${k}`, x.lines, x.check ? { effects: [FLIRT_BESCHWINGT] } : {})),
+]);
+
+function vexPool(prefix: string, lines: (DialogueLine[] | Eintrag)[], base: Condition): { defs: DialogueDef[]; talk: TalkDef[] } {
   const defs: DialogueDef[] = [];
   const talk: TalkDef[] = [];
   lines.forEach((l, i) => {
     const id = `${prefix}-${i + 1}`;
     const days: number[] = [];
     for (let d = i + 1; d <= 28; d += lines.length) days.push(d);
-    defs.push(flirtDlg(id, l, i));
+    defs.push(Array.isArray(l) ? flirtDlg(id, l, i) : eintragDlg(id, l));
     talk.push({ dialogue: id, when: all(base, { cycleDay: days }) });
   });
   return { defs, talk };
@@ -264,6 +282,101 @@ const VEX_FLIRT = vexPool('aria-vex-flirt', [
   [a('Du bist das Einzige hier, das schneller ist als ich. Und das Einzige, das ich einholen will.', 'zaertlich')],
   [a('Glotz nicht so. Oder doch. Mir egal. … Nee, glotz weiter.', 'verlegen')],
   [a('Wenn du heute wieder mit dem Gurtzeug über die Dächer turnst, guck ich zu. Nur damit du\'s weißt. Ich guck immer zu.', 'verlegen')],
+  // Zweideutig und knisternd, vor der ersten Nacht (eigene Antworten: frech / verlegen / Check).
+  {
+    lines: [a('Wie viele Schnallen hat das Ding eigentlich? Ich zähl jedes Mal und komm durcheinander. Liegt nicht an den Schnallen.', 'verlegen')],
+    antworten: [
+      ant('„Mehr, als du heut Abend schaffst.“', [a('Das ist \'ne Wette. Ich hör \'ne Wette. Ich nehm jede Wette an, Postbotin. Jede.', 'signatur')]),
+      ant('„Genug, dass keiner schnell rankommt.“', [a('Ich bin nicht schnell. Ich bin gründlich. … Das kam falsch raus. Oder genau richtig. Ich geh jetzt.', 'verlegen')]),
+      ant('Ihre Hand nehmen und auf die oberste Schnalle legen. „Eins.“', [
+        n('Unter ihren Fingern klopft dein Herz gegen das Leder. Sie lässt die Hand liegen. Viel zu lange für eine Zählung.'),
+        a('… Eins. Okay. Ich merk mir, wo ich war.', 'zaertlich'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Ich hab geträumt, du hast mich huckepack über die Dächer getragen. Ich bin aufgewacht und war sauer, dass es nur huckepack war.', 'verlegen')],
+    antworten: [
+      ant('„Was wär dir lieber gewesen?“', [a('Frag mich das nicht am helllichten Tag. Frag mich das nachts. Nein. Frag gar nicht. … Doch. Frag nachts.', 'verlegen')]),
+      ant('„Du bist schwer.“', [a('ZIERLICH. Und im Traum hast du nicht gejammert. Du hast gar nichts gesagt. Du hast nur festgehalten. Sehr fest. Ich wach jetzt öfter auf.', 'verlegen')]),
+      ant('Sie einfach hochheben. Einmal im Kreis. Absetzen.', [
+        n('Der Ratenarm ächzt, die Kolben zischen, und Aria macht ein Geräusch, das verdächtig nach Quieken klingt. Ihre Arme liegen um deinen Hals, ihre Nase steckt in deinen Locken, und als du sie absetzt, lässt sie nicht sofort los.'),
+        a('Das erzählst du keinem. Und das machst du nochmal. Später. Wenn keiner guckt. Länger.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Dein Handschuh. Der fingerlose. Ziehst du den eigentlich je aus? … Vergiss es. Ich will\'s gar nicht wissen. Ich will\'s sehen.', 'verlegen')],
+    antworten: [
+      ant('„Nur für Leute, die ich mag.“', [a('Und? Mag ich dich? Ich mein: magst du mich? Scheiße. Grammatik. Ich geh.', 'verlegen')]),
+      ant('Die Hand in die Hosentasche schieben.', [
+        n('Sie sieht es. Natürlich sieht sie es.'),
+        a('Okay. Ich frag nicht nochmal. Ich warte. Ich bin scheiße im Warten. Für dich nicht. Glaub ich.', 'zaertlich'),
+      ]),
+      ant('Den Klettverschluss am Handgelenk aufziehen. Nur den. Nicht mehr.', [
+        n('Das Ratschen ist leise. Aria hört trotzdem auf zu atmen. Ihr Blick hängt an dem schmalen Streifen Haut über deinem Handgelenk, als wäre er das Unanständigste, was sie je gesehen hat.'),
+        a('… Du bist so gemein. Mach ihn wieder zu. Bevor ich hier vor allen was Dummes mach.', 'verlegen'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Vega sagt, ich soll aufhören, auf deinen Mund zu gucken, wenn du redest. Ich hab gesagt, du redest so wenig, da muss man gucken, sonst verpasst man\'s.', 'verlegen')],
+    antworten: [
+      ant('„Dann red ich jetzt mehr.“', [a('Nein! Dann guck ich ja nur noch. Halt die Klappe. Sag was. Scheiße, Postbotin.', 'verlegen')]),
+      ant('„Vega soll sich um ihr Fernglas kümmern.“', [a('Hat sie. Sie sagt, sie sieht uns sogar von der Hafenkante aus. Ich glaub, sie meint nicht das Fernglas.', 'freude')]),
+      ant('Nichts sagen. Nur ganz langsam die Unterlippe zwischen die Zähne ziehen.', [
+        n('Aria vergisst, was sie in der Hand hält. Es ist der Schläger. Er fällt ihr auf den Fuß.'),
+        a('Au. AU. Das war Absicht. Das war so Absicht. Ich zeig dich bei Hunter an. Wegen Sachbeschädigung. An mir.', 'verlegen'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Wenn ich dich mit dem Zerberster anfass, zuckst du. Wegen kalt. Ich hab beschlossen, das jetzt öfter zu machen.', 'signatur')],
+    antworten: [
+      ant('„Mach doch.“', [
+        n('Kühle Metallfinger in deinem Nacken, genau unter den Locken, ganz langsam abwärts bis zum Schulterriemen. Du zuckst. Sie grinst wie eine Siegerin.'),
+        a('Hab ich doch gesagt. Und jetzt die andere Hand. Zum Vergleich.', 'verlegen'),
+      ]),
+      ant('„Ich zuck nicht wegen kalt.“', [a('… Weswegen dann? Nee. Sag nix. Ich stell\'s mir selber vor. Heute Nacht. Ausführlich.', 'verlegen')]),
+      ant('Ihr Handgelenk abfangen, bevor die Finger ankommen.', [
+        n('Metall in Metall, ein trockenes Klack. Ihr Gesicht ist plötzlich sehr nah, und keine von euch lässt los.'),
+        a('Zu schnell. Ich hasse das. Ich lieb das. Lass nicht los. … Okay, lass los, Hunter guckt.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Ich hab heut Nacht nicht gepennt. Wegen dir. Nicht WEGEN dir. Wegen Gedanken. Die du verursacht hast. Du schuldest mir Schlaf.', 'verlegen')],
+    antworten: [
+      ant('„Ich liefer auch Schlaf. Hausbesuch.“', [a('Hausbesuch. Klar. Und dann pennt keiner. Ich kenn dich. Vor allem kenn ich mich.', 'verlegen')]),
+      ant('„Was für Gedanken?“', [a('Dreckige. Und ein paar nette. Die netten sind schlimmer. Frag nicht weiter, sonst werd ich rot, und ich werd nie rot.', 'verlegen')]),
+      ant('„Ich auch nicht.“', [
+        n('Das Zugeben kostet dich mehr als jede Feuertreppe. Aria starrt dich an. Dann grinst sie, langsam, und das Grinsen geht bis in die Zöpfe.'),
+        a('… Okay. Dann sind wir quitt. Und beide komplett am Arsch. Schön.', 'zaertlich'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Mach das nochmal. Das mit dem Kopf schief legen. Nicht für mich. Für die Wissenschaft. Ich will wissen, ob mir wieder die Knie weich werden.', 'verlegen')],
+    antworten: [
+      ant('Den Kopf schief legen. Ganz langsam.', [a('… Ja. Ergebnis bestätigt. Scheiße. Ich muss mich setzen.', 'verlegen')]),
+      ant('„Deine Knie werden nie weich.“', [a('Hab ich auch immer gedacht. Und dann kamst du mit deinem blöden Gurtzeug.', 'zaertlich')]),
+      ant('Ihr einen Schritt entgegen. Einen zu viel.', [
+        n('Sie weicht nicht zurück. Ihre Stiefelspitzen stehen an deinen, ihr Atem streift dein Kinn, ihre Hand hebt sich schon Richtung Brustriemen. Dann kommt jemand um die Ecke, und ihr springt auseinander wie zwei Diebe.'),
+        a('Das zählt nicht als abgebrochen. Das zählt als vertagt. Ich führ Liste.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Ich hab gesehen, wie du über den Zaun bist. Das Top ist hochgerutscht. Dieser Streifen Rücken. Ich hab danach dreimal gegen dieselbe Tür gehauen. Die war nicht mal abgeschlossen.', 'verlegen')],
+    antworten: [
+      ant('„Soll ich nochmal über den Zaun?“', [a('Ja. Nein. Ja. Aber nur, wenn ich hinter dir bin. Wegen der Aussicht. Ich mein: Sicherheit.', 'verlegen')]),
+      ant('Das Top glattziehen. Viel zu spät.', [a('Bringt nix. Ich hab\'s gesehen. Ich hab\'s abgespeichert. Ich hab \'nen Ordner.', 'verlegen')]),
+      ant('Über die Schulter zurückgucken. Und langsam weitergehen.', [
+        n('Du spürst ihren Blick zwischen den Schulterblättern wie eine warme Hand. Bis zur nächsten Ecke. Und noch ein ganzes Stück weiter.'),
+        a('… Das hast du mit Absicht gemacht. Ich weiß, dass das Absicht war. Mach\'s nochmal.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
 ], all(V, R, any(ANGEBAHNT, seen('rom-vexaria-bude')), noFlag('aria_romanze_zusammen'), noFlag('aria_romanze_streit')));
 
 const VEX_ZUSAMMEN = vexPool('aria-vex-zusammen', [
@@ -284,6 +397,111 @@ const VEX_ZUSAMMEN = vexPool('aria-vex-zusammen', [
   [v('Wenn du mich weiter so anguckst, liefer ich heut nix aus.', 'verlegen'), a('Dann guck ich weiter. Die Pakete können warten. Ich nicht.', 'verlegen')],
   [v('Paket für dich. Inhalt: ich. Unterschreib hier.', 'signatur'), a('Wo? … Oh. DA. Okay. Mit Zähnen oder mit Kuli?', 'verlegen')],
   [v('Hab dir was mitgebracht.', 'neutral'), a('Ist es ein Paket?', 'freude'), v('Es ist immer ein Paket.', 'signatur')],
+  // Zweideutig und knisternd (eigene Antworten: frech / verlegen / Check). Passen vor und nach der ersten Nacht.
+  {
+    lines: [a('Ich hab Hunter gesagt, ich hab heut Abend Inkasso. Ich hab gelogen. Ich hab heut Abend dich.', 'verlegen')],
+    antworten: [
+      ant('„Dann treib was ein.“', [a('Oh, ich treib was ein. Mit Zinsen. Zieh dich warm an. Oder nicht. Eher nicht.', 'signatur')]),
+      ant('„Hunter weiß das.“', [a('Hunter weiß alles. Er hat mir \'nen Zettel gegeben: „Nicht auf meinem Tresen.“ Ich hab gefragt, ob die Bude zählt. Er ist einfach gegangen.', 'freude')]),
+      ant('Sie an der Gürtelschlaufe ranziehen. „Wieso erst heut Abend?“', [
+        n('Sie stolpert einen halben Schritt in dich rein. Ihre echte Hand landet flach auf deinem Bauch, über dem Top, und bleibt da.'),
+        a('… Weil ich tagsüber arbeiten muss, du Sau. Lass los. Lass nicht los.', 'verlegen'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Du hast \'nen Knutschfleck. Links. Ich sag\'s nur, bevor Dante ihn sieht und \'nen Vortrag über Blutgefäße hält.', 'freude')],
+    antworten: [
+      ant('„Der ist von dir.“', [a('WEISS ICH. Ich wollt nur, dass du weißt, dass ich\'s weiß. … Soll ich rechts auch einen machen? Wegen Symmetrie.', 'verlegen')]),
+      ant('Am Schulterriemen rumzupfen, als ob das was verdeckt.', [a('Bringt nix. Das Gurtzeug hat keinen Kragen. Steh einfach dazu. Ich tu\'s.', 'zaertlich')]),
+      ant('Sie am Nacken ranziehen und ihr denselben machen. Rechts. Schnell.', [
+        n('Ihre Haut ist warm, ihr Puls springt dir gegen die Lippen. Sie macht ein Geräusch, das sie nachher abstreiten wird.'),
+        a('… Jetzt hab ICH einen. Toll. Partnerlook. Hunter bringt uns um.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Wenn du so schweigst, weiß ich nie, ob du an Pakete denkst oder an mich. Sag\'s mir. Nein. Zeig\'s mir.', 'zaertlich')],
+    antworten: [
+      ant('„Pakete.“', [a('Lügnerin. Deine Ohren sind rot. Pakete machen keine roten Ohren.', 'signatur')]),
+      ant('„An dich. Ohne Verpackung.“', [a('… Ohne Verpackung. OH. Ich brauch \'n Bier. Und \'ne kalte Dusche. Und dich. Reihenfolge egal.', 'verlegen')]),
+      ant('Ihr Kinn mit dem Metallzeigefinger anheben und sie küssen. Kurz. Mit Absicht.', [
+        a('Okay. Das war deutlich. Das war sehr deutlich. Mach\'s nochmal undeutlich. Länger.', 'verlegen'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Dein Arm summt, wenn du mich hältst. So ganz tief. Ich spür das im Bauch. Sag Dante nix, der baut sonst \'nen Regler ein.', 'verlegen')],
+    antworten: [
+      ant('„Ich hab den Regler schon.“', [a('Wo? … WO, Vex?', 'verlegen')]),
+      ant('„Der summt immer.“', [a('Nee. Bei mir summt er anders. Ich hab verglichen. Bei Hunter brummt er. Bei mir schnurrt er.', 'zaertlich')]),
+      ant('Den Ratenarm um sie legen. Ganz ruhig. Und einfach halten.', [
+        n('Die Kolben zischen leise. Du hältst sie nicht fest, nur da, die Metallhand flach in ihrem Kreuz. Aria macht die Augen zu und lauscht dem Summen wie einem Lied, das nur sie kennt.'),
+        a('… Okay. Jetzt schnurrt er. Und ich gleich auch. Lass mich los, bevor Vega reinkommt. Langsam.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Ich hab mir überlegt, wie lang du brauchst, um die ganzen Schnallen aufzukriegen. Rein theoretisch. Ich hab \'ne Stoppuhr.', 'signatur')],
+    antworten: [
+      ant('„Zwei Sekunden. Wenn ich will.“', [
+        a('Und wenn du nicht willst?', 'verlegen'),
+        v('Dann zwei Stunden.', 'signatur'),
+        a('… Ich nehm die zwei Stunden.', 'verlegen'),
+      ]),
+      ant('„Kommt drauf an, wer zuguckt.“', [a('Ich. Nur ich. Mit Stoppuhr. Und Popcorn. Nee, ohne Popcorn, ich brauch beide Hände.', 'verlegen')]),
+      ant('Ihr die Stoppuhr abnehmen, auf null drücken, zurückgeben. „Nachher.“', [
+        a('Nachher. Okay. Nachher ist ein gutes Wort. Ich mag nachher. Ich mag nachher sehr.', 'zaertlich'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [a('Mein Shirt riecht nach dir. Ich hab\'s nicht gewaschen. Ich bin nicht eklig, ich bin sentimental. Halt die Klappe.', 'verlegen')],
+    antworten: [
+      ant('„Gib\'s mir. Dann riecht\'s nach uns beiden.“', [a('Das ist das Kabelbrand-Shirt. Das kriegt keiner. … Du vielleicht. Für eine Nacht. Als Pfand.', 'zaertlich')]),
+      ant('„Ich riech nach Kettenöl.“', [a('Ja. Und nach Regen. Und nach deinem Hals. Der riecht am besten.', 'verlegen')]),
+      ant('Sich vorbeugen und an ihrem Hals riechen. Ganz langsam.', [
+        n('Unter ihrem Ohr, da, wo der Zopf anfängt. Volt-Limo und Metall und etwas Warmes, das nur nach ihr riecht. Sie hält sehr still. Ihre echte Hand krallt sich in deinen Brustriemen.'),
+        a('… Und? Wonach riech ich?', 'verlegen'),
+        v('Nach Ärger.', 'zaertlich'),
+        a('Gut. Ich riech gern nach Ärger.', 'zaertlich'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Ich hab beim Inkasso heut an dich gedacht und den Kerl aus Versehen nett angeguckt. Er hat sofort gezahlt. Aus Angst. Danke für nix.', 'freude')],
+    antworten: [
+      ant('„Woran genau?“', [a('An deinen Hals. Die Stelle unterm Ohr, wo du zuckst. Und dann hab ich gelächelt. Der arme Kerl.', 'verlegen')]),
+      ant('„Nett guckst du nie.“', [a('Bei dir schon. Merkst du nur nicht, weil du da immer gerade wegguckst.', 'zaertlich')]),
+      ant('Hinter sie treten und ihr zeigen, wo SIE zuckt. Nacken, unterm Zopfansatz.', [
+        n('Deine Lippen, ganz leicht, genau da, wo die Zöpfe anfangen. Sie zuckt. Richtig. Der Zerberster schlägt gegen den Türrahmen, und Putz rieselt.'),
+        a('… Scheiße. Okay. Jetzt hab ich auch so \'ne Stelle. Und morgen Inkasso. Wir sind beide am Arsch.', 'verlegen'),
+      ], FLIRT_R),
+    ],
+  },
+  {
+    lines: [
+      v('Du hast \'nen Kronkorken in meiner Hüfttasche vergessen.'),
+      a('Vergessen? Ich hab ihn da reingesteckt. Mit Absicht. Und mit sehr viel Zeit.', 'verlegen'),
+    ],
+    antworten: [
+      ant('„Nächstes Mal such ich bei dir.“', [a('Viel Glück. Ich hab mehr Taschen als du. Nein, hab ich nicht. Such trotzdem. Gründlich.', 'verlegen')]),
+      ant('Den Kronkorken behalten. Ohne Kommentar.', [a('Ohne Kommentar. Bei dir ist das quasi \'n Heiratsantrag.', 'zaertlich')]),
+      ant('„Wie viel Zeit?“', [
+        a('Genug, dass du\'s hättest merken müssen. Du bist auf dem Dach weggepennt. Mit offenem Mund. Ich hab den Kronkorken reingesteckt und dich angeguckt. Lange. Sehr lange.', 'zaertlich'),
+      ], FLIRT_A),
+    ],
+  },
+  {
+    lines: [a('Hör auf, dir auf die Lippe zu beißen, wenn du nachdenkst. Ich krieg sonst nix mehr eingetrieben. Ich steh nur noch rum und guck.', 'verlegen')],
+    antworten: [
+      ant('„Ich denk viel nach.“', [a('Ja. Merk ich. Seit Tagen. Ich bin pleite, Vex.', 'verlegen')]),
+      ant('„Mach ich gar nicht.“', [a('Du machst es GRAD.', 'wut'), n('Machst du. Mist.')]),
+      ant('„Dann denk ich jetzt an dich.“ Und es nochmal machen.', [
+        a('Oh, du Miststück. Komm her. Nein. Doch. Hier. Jetzt. Nein, Hunter guckt. … Mir egal.', 'verlegen'),
+      ], FLIRT_A),
+    ],
+  },
 ], all(V, IN_BEZIEHUNG));
 
 const VEX_RIVALINNEN = pool('aria-vex-rivalinnen', [

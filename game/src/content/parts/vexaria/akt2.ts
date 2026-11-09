@@ -89,11 +89,45 @@ const bruchB: DialogueDef = dlg('vexaria-bruch-b', [
     ],
   }),
   node('paar', [
-    n('Sie findet das Wort nicht. Sie küsst dich stattdessen. Hart, gegen die Hofmauer, die Metallhand flach neben deinem Kopf auf dem Stein, damit sie nicht an dir landet. Die echte krallt sich in dein Gurtzeug und hält fest, als würdest du gleich wieder springen.'),
-    n('Du schmeckst Rauch vom Labor, Salz von ihr, Kronkorken. Sie atmet in deinen Mund. Ihre Stirn stößt gegen deine, und dann küsst sie dich noch mal, langsamer, so langsam, dass du die Mülltonnen vergisst, den Hof, die Stadt.'),
+    n('Sie findet das Wort nicht. Sie küsst dich stattdessen. Hart, gegen die Hofmauer, dass dir der Putz in den Kragen rieselt, die Metallhand flach neben deinem Kopf auf dem Stein, damit sie nicht an dir landet. Die echte krallt sich in dein Gurtzeug und hält fest, als würdest du gleich wieder springen.'),
+    n('Du schmeckst Rauch vom Labor, Salz von ihr, Kronkorken. Es ist kein schöner Kuss. Es ist ein verzweifelter: zu viele Zähne, zu wenig Luft, und ihr Herz hämmert so laut gegen deins, dass du nicht mehr weißt, wessen Takt das ist.'),
+    n('Dann lässt sie los. Nur mit dem Mund. Ihre Hand fährt über dich, schnell, grob, suchend. Deine Schultern. Deine Rippen unter den Riemen. Dein Hals, wo die Kralle dich gestreift hat. Ihre Finger sind kalt und zittern.'),
+    a('Bist du ganz? Sag, dass du ganz bist. Wo blutest du? Du blutest doch irgendwo, du blutest immer irgendwo –', 'besorgt'),
+  ], {
+    choices: [
+      ch('„Bin ganz. Fühl nach.“', 'p-fuehl'),
+      ch('Sie hochheben. Mit dem Metallarm. Ihr Rücken an die Mauer.', 'p-heben'),
+      ch('„Ich hab dich auf dem Tisch gesehen. Ich dachte, du stehst nicht mehr auf.“', 'p-angst'),
+    ],
+  }),
+  node('p-fuehl', [
+    n('Sie fühlt nach. Gründlich. Ihre echte Hand schiebt sich unter die Riemen, über dein Top, um deine Seite herum auf deinen Rücken und die Wirbelsäule hoch, Wirbel für Wirbel, als würde sie zählen, ob noch alle da sind. Dein Atem stockt bei jedem einzelnen.'),
+    n('Sie findet die Schramme am Hals und küsst sie. Dann die daneben. Dann eine, die es gar nicht gibt.'),
+    v('Da ist nix.', 'verlegen'),
+    a('Sicher ist sicher. Ich bin gründlich. Ich bin \'ne verdammt gründliche Sanitäterin.', 'verlegen'),
+    n('Ihre Lippen wandern zurück zu deinem Mund, und diesmal küsst sie dich, als hätte sie gefunden, was sie gesucht hat: dich. In einem Stück.'),
+  ], { next: 'p-ende' }),
+  node('p-heben', [
+    n('Du hebst sie hoch. Der Ripper-Arm unter ihren Oberschenkeln, die Hydraulik zischt, und plötzlich ist sie über dir, den Rücken an der Mauer, die Beine um deine Hüften geschlungen, und guckt auf dich runter, mit offenem Mund.'),
+    a('Was – du kannst mich nicht einfach – Vex, ich wieg mit Arm neunzig Kilo –', 'ueberrascht'),
+    v('Hab dich vom Tisch getragen. Ich kann alles.', 'signatur'),
+    n('Sie lacht. Kaputt, laut, gegen deine Stirn. Dann nimmt sie dein Gesicht in beide Hände, die echte warm, die silberne kühl und so behutsam an deiner Wange, dass die Finger nicht mal surren, und küsst dich von oben. Langsam. Gründlich. Als hätte sie alle Zeit der Welt und keine Mülltonnen daneben.'),
+    a('Lass mich nicht fallen.', 'verlegen'),
+    v('Nie.', 'zaertlich'),
+  ], { next: 'p-ende' }),
+  node('p-angst', [
+    n('Sie erstarrt. Ihre Hand liegt flach auf deiner Brust, über dem Riemen, und rührt sich nicht mehr.'),
+    a('Ich auch. Ich dachte, ich steh nicht mehr auf. Und dann warst du da, über der Bank, in der Luft, und ich dachte: Die Idiotin. Die fällt. Die fällt für mich.', 'trauer'),
+    v('Bin nicht gefallen.', 'zaertlich'),
+    a('Doch. Bist du. Komplett. Ich auch.', 'zaertlich'),
+    n('Diesmal küsst sie dich langsam. So langsam, dass du die Mülltonnen vergisst, den Hof, die Stadt. Nur ihr Atem, ihre Stirn an deiner, ihre Finger in deinem Nacken, die nicht mehr zittern.'),
+  ], { next: 'p-ende' }),
+  node('p-ende', [
     a('Wenn du das noch mal machst … mach das noch mal. Nein. Mach das nie wieder. Doch. Ich weiß nicht.', 'verlegen'),
     v('Entscheid dich, Großmaul.', 'zaertlich'),
     a('Halt die Klappe und lass mich weiterküssen.', 'zaertlich'),
+    n('Ihr küsst weiter, bis neben euch ein Mülltonnendeckel scheppert und sich eine Katze beschwert. Dann noch ein bisschen. Dann geht hinter euch die Hintertür auf, Hunter sagt sehr laut gar nichts und macht sie wieder zu.'),
+    n('Und dann fällt dir ein, wessen Platz am Tresen leer ist. Ihr auch. Du siehst es in ihrem Gesicht, noch bevor sie die Stirn von deiner nimmt.'),
   ], { effects: [herz(60), BESCHWINGT], next: 'nyra' }),
   node('angebahnt', [
     n('Sie findet das Wort nicht. Sie steht ganz nah vor dir, so nah, dass ihre Zöpfe deine Schulter streifen. Ihre Hand liegt flach auf deinem Gurtzeug, über dem Brustriemen, da, wo dein Herz noch immer so rast wie über der Bank.'),
@@ -312,7 +346,7 @@ const dachGespraech: DialogueDef = dlg('vexaria-dach-gespraech', [
     a('Zeig mal.', 'neutral'),
     v('Was?', 'ueberrascht'),
     a('Wo der Ripper-Arm anfängt. Du zeigst mir nie, wo er anfängt.', 'zaertlich'),
-    n('Du schiebst den Ärmel hoch. Über dem Ellbogen, wo das Schwarz in die Haut übergeht, eine wulstige Naht, schlecht verheilt, Rippers Handschrift. Aria fährt sie mit dem Zeigefinger nach. Ganz langsam. Du hältst die Luft an, ohne es zu wollen.'),
+    n('Du schiebst den Schulterriemen zur Seite. Oben am Schultergelenk, wo das Schwarz in die Haut übergeht, eine wulstige Naht, schlecht verheilt, Rippers Handschrift. Aria fährt sie mit dem Zeigefinger nach. Ganz langsam. Du hältst die Luft an, ohne es zu wollen.'),
     a('Das spürst du.', 'verlegen'),
     v('Das spür ich.', 'verlegen'),
     a('Gut. Ich mein … gut. Für dich. Wegen … Medizin.', 'verlegen'),
@@ -323,10 +357,55 @@ const dachGespraech: DialogueDef = dlg('vexaria-dach-gespraech', [
     a('Bude? Oder hier, bis Vega mit dem Fernglas um die Ecke kommt?', 'verlegen'),
   ], {
     choices: [
-      ch('„Bude.“', undefined, { effects: [set('vexaria_nacht_woche'), BESCHWINGT, { cutscene: 'vexaria-nacht-kurz' }] }),
-      ch('„Hier. Noch ein bisschen.“', undefined, { effects: [herz(15), BESCHWINGT, { advanceTime: 120 }] }),
+      ch('„Bude.“', 'bude'),
+      ch('„Hier. Noch ein bisschen.“', 'hier'),
     ],
   }),
+  // Kurzes Vorspiel je Thema, dann Abblende `vexaria-nacht-kurz` (hoehepunkt.ts).
+  node('bude', [], {
+    choices: [
+      ch('…', 'bude-kas', { when: { weekday: ['mo', 'di'] } }),
+      ch('…', 'bude-klinik', { when: { weekday: ['mi', 'do'] } }),
+      ch('…', 'bude-meer', { when: { weekday: ['fr', 'sa'] } }),
+      ch('…', 'bude-narben', { when: { weekday: 'so' } }),
+    ],
+  }),
+  node('bude-kas', [
+    n('Auf der Feuerleiter runter in die Lötgassen singst du. Leise, falsch, mit voller Absicht. Kabelbrand. Aria bleibt drei Sprossen über dir stehen und lacht so sehr, dass sie sich am Geländer festhalten muss.'),
+    a('Das ist ja grauenhaft. Das ist ja WUNDERSCHÖN grauenhaft. Weiter.', 'freude'),
+    n('Vor dem Rolltor gräbt sie die echte Hand in deine Haare und zieht deinen Kopf sacht nach hinten, bis dein Hals frei ist.'),
+    a('Lass die nie wieder schneiden. Mit keiner Rohrzange der Welt. Ich brauch was zum Festhalten.', 'verlegen'),
+    n('Dann küsst sie dich unter dem Kinn, und das Lied bricht mitten in der Strophe ab. Diesmal nicht, weil jemand rennt.'),
+  ], { effects: [set('vexaria_nacht_woche'), BESCHWINGT, { cutscene: 'vexaria-nacht-kurz' }] }),
+  node('bude-klinik', [
+    n('In der Bude macht sie die Glühbirne nicht an. Sie legt sich auf die Matratze, auf den Rücken, und guckt hoch an die Decke. Wellblech. Keine Platten. Kein Wasserfleck, der aussieht wie ein Hund.'),
+    a('Hier kann man nix zählen.', 'trauer'),
+    v('Doch.', 'zaertlich'),
+    n('Du legst dich neben sie und küsst sie. Auf die Schläfe: eins. Auf die Narbe an der Schulter, da, wo das Silber anfängt: zwei. Auf die Naht darunter: drei. Sie zählt leise mit, und ihr Atem wird bei jeder Zahl ein bisschen kürzer. Bei elf verzählt sie sich mit Absicht.'),
+    a('Von vorn. Vierundsechzig. Mindestens. Sonst schlaf ich nicht.', 'zaertlich'),
+  ], { effects: [set('vexaria_nacht_woche'), BESCHWINGT, { cutscene: 'vexaria-nacht-kurz' }] }),
+  node('bude-meer', [
+    n('Kaum ist das Rolltor unten, schubst sie dich. Einfach so. Du kippst rückwärts auf die Matratze, und sie springt hinterher, ein Knie links, eins rechts, beide Arme hoch wie beim Zieleinlauf.'),
+    a('GEWONNEN! Erste am Meer! Die Brecherin schlägt die Rennsemmel um eine Nasenlänge!', 'freude'),
+    v('Das ist \'ne Matratze.', 'neutral'),
+    a('Ist Strand, wenn ich\'s sag. Hör mal. Hörst du\'s? Schschsch. Wellen.', 'freude'),
+    n('Sie macht Wellengeräusche an deinem Hals, bis du lachen musst und dich nicht mehr wehren kannst. Dann macht sie keine Geräusche mehr. Du auch nicht.'),
+  ], { effects: [set('vexaria_nacht_woche'), BESCHWINGT, { cutscene: 'vexaria-nacht-kurz' }] }),
+  node('bude-narben', [
+    n('In der Bude lässt sie dich das Licht gar nicht erst anmachen. Sie schiebt dir im Dunkeln den Riemen von der Schulter, da, wo die Naht ist, und küsst sie. Rippers schlechte Handschrift. Stich für Stich.'),
+    a('Spürst du das?', 'verlegen'),
+    v('Jeden.', 'verlegen'),
+    n('Dann nimmt sie deine echte Hand und legt sie an ihre eigene Schulter, auf die Narbe, wo das Silber anfängt. Haut an Haut, Naht an Naht. Ihr Atem stockt, als deine Finger darüberstreichen.'),
+    a('Gleichstand. Zwei kaputte Schultern. Passt doch.', 'zaertlich'),
+  ], { effects: [set('vexaria_nacht_woche'), BESCHWINGT, { cutscene: 'vexaria-nacht-kurz' }] }),
+  node('hier', [
+    n('Ihr bleibt. Sie dreht sich ganz zu dir um, und plötzlich sitzt sie auf deinem Schoß, die Knie links und rechts von dir auf dem kalten Beton der Brüstung, neun Stockwerke hinter ihrem Rücken und keine Angst davor. Deine Metallhand liegt in ihrem Kreuz. Ganz still. Damit sie nicht rutscht.'),
+    n('Sie küsst dich, als hätte sie den ganzen Tag darauf gewartet. Ihre echte Hand in deinem Nacken, die Fingernägel in deinen Locken. Deine echte fährt ihr unter den Zöpfen den Nacken hoch, langsam, bis sie in deinen Mund seufzt und dir die Unterlippe zwischen die Zähne nimmt.'),
+    a('Wenn Vega jetzt mit dem Fernglas guckt …', 'verlegen'),
+    v('Dann guckt sie.', 'signatur'),
+    a('Gott. Du bist so … Halt die Klappe. Nein. Sag das nochmal. Gegen meinen Hals.', 'verlegen'),
+    n('Du sagst es nochmal. Gegen ihren Hals. Sie lacht und zittert gleichzeitig. Ihr bleibt beim Küssen, lange, bis der Wind kalt wird und eure Lippen warm bleiben und die Stadt unter euch die ersten Lichter ausmacht.'),
+  ], { effects: [herz(15), BESCHWINGT, { advanceTime: 120 }] }),
 ]);
 
 // ---------------------------------------------------------------------------
