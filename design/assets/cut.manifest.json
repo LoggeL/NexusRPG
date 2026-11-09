@@ -258,6 +258,13 @@
     "bytes": 124542,
     "blurhash": "L45}RJ+JISGCxxr=jYI.9WJ~t8#W"
   },
+  "rom-vexaria-am-kragen": {
+    "file": "assets/cut/rom-vexaria-am-kragen.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 171108,
+    "blurhash": "L379-E]{nqR}}a$v,^sjS6j;xHxB"
+  },
   "rom-vexaria-armdruecken": {
     "file": "assets/cut/rom-vexaria-armdruecken.webp",
     "width": 1536,
@@ -265,12 +272,26 @@
     "bytes": 165052,
     "blurhash": "L57TFZxb1HRkojn,$*t5=hw{I.Na"
   },
+  "rom-vexaria-auf-drei": {
+    "file": "assets/cut/rom-vexaria-auf-drei.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 187402,
+    "blurhash": "L38fJ+]}16-4^6-4^6X35r$x=xSd"
+  },
   "rom-vexaria-bude": {
     "file": "assets/cut/rom-vexaria-bude.webp",
     "width": 1536,
     "height": 1024,
     "bytes": 162272,
     "blurhash": "L26Q*stp-4=r^7xIo#t7VrsCSiSK"
+  },
+  "rom-vexaria-fuenfzig-meter": {
+    "file": "assets/cut/rom-vexaria-fuenfzig-meter.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 257210,
+    "blurhash": "L5714r0y={E2xbt7R*n%NM%1EL$y"
   },
   "rom-vexaria-funkmast": {
     "file": "assets/cut/rom-vexaria-funkmast.webp",
@@ -321,6 +342,13 @@
     "bytes": 126478,
     "blurhash": "LG7UMVnMjGt9%jadRibcx_axadjs"
   },
+  "rom-vexaria-pullitausch": {
+    "file": "assets/cut/rom-vexaria-pullitausch.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 144210,
+    "blurhash": "L47T;8R9rx-Y.AIBV]%3?cR5t9-q"
+  },
   "rom-vexaria-rettung": {
     "file": "assets/cut/rom-vexaria-rettung.webp",
     "width": 1536,
@@ -334,6 +362,13 @@
     "height": 1024,
     "bytes": 193246,
     "blurhash": "L367.rJYt:p1-VIpR%R%oNbJsosp"
+  },
+  "rom-vexaria-schattenriss": {
+    "file": "assets/cut/rom-vexaria-schattenriss.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 119230,
+    "blurhash": "L241kDbE0}xH=doJE#R+ELoMxaNZ"
   },
   "rom-vexaria-sprung": {
     "file": "assets/cut/rom-vexaria-sprung.webp",

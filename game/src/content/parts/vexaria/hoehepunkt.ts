@@ -214,7 +214,7 @@ const licht: DialogueDef = dlg('rom-vexaria-licht', [
  * Die Nacht in der Kurierbude; auch Wiederholung über das Tagesgespräch, solange Station 11 fehlt.
  * Ablauf: Gasse (Hand / zuhören / Hauseingang) → Rolltor (Kronkorken) → Handschuh → wer führt (Vex am Rolltor / Aria am
  * Rolltor / langsam auf der Matratze) → elf Schnallen (eine reißt) → Haut → was gesagt wird → Schluss mit „Klick“.
- * Alle Wege münden in `rom-vexaria-licht-aus` (Nacht-Flags und Abblende).
+ * Nach dem Klick beginnen auf allen Wegen dieselbe Abblende und derselbe Morgen.
  */
 const lichtBude: DialogueDef = dlg('rom-vexaria-licht-bude', [
   node('start', [
@@ -468,12 +468,11 @@ const lichtDrinnen: DialogueDef = dlg('rom-vexaria-licht-drinnen', [
   ], { effects: [{ dialogue: 'rom-vexaria-licht-aus' }] }),
 ]);
 
-const lichtAus = dlg('rom-vexaria-licht-aus', [
-  node('start', [
-    n('Du greifst nach der Kette der Glühbirne.'),
-    n('Klick.'),
-  ], { effects: [set('aria_nacht'), set('vexaria_nacht'), set('vexaria_nacht_woche'), { cutscene: 'rom-vexaria-licht' }] }),
-]);
+const lichtAusZeilen = [n('Du greifst nach der Kette der Glühbirne.'), n('Klick.')];
+const lichtAusEffekte: Effect[] = [
+  set('aria_nacht'), set('vexaria_nacht'), set('vexaria_nacht_woche'), { cutscene: 'rom-vexaria-licht' },
+];
+const lichtAus = dlg('rom-vexaria-licht-aus', [node('start', lichtAusZeilen, { effects: lichtAusEffekte })]);
 
 // ---------------------------------------------------------------------------
 // Station 11 · rom-vexaria-morgen · „Bin gleich zurück. Echt jetzt.“
@@ -874,10 +873,17 @@ const cutscenes: CutsceneDef[] = [
         n('Aria lässt sich Zeit. Du krallst die Finger ins Kissen. Sie merkt es und grinst.'),
         v('Drei, Großmaul. Bitte.', 'verlegen'),
         a('Scheiße, Vex. Sag das später noch mal. Drei.', 'zaertlich'),
+      ],
+    },
+    {
+      image: 'cut-rom-vexaria-am-kragen', pan: 'none',
+      lines: [
         n('Du ziehst sie am Kragen zu dir. Sie kommt dir so schnell entgegen, dass eure Zähne zusammenstoßen. Ihr küsst euch trotzdem.'),
       ],
     },
-  ], [{ dialogue: 'rom-vexaria-licht-aus' }]),
+    { image: 'black', lines: lichtAusZeilen },
+    { image: 'cut-rom-vexaria-schattenriss', pan: 'none', fade: 'out', hold: 2400 },
+  ], lichtAusEffekte),
   // Abblende Station 10 → Schlafen → Station 11.
   cut('rom-vexaria-licht', 'Elf Schnallen', [
     { image: 'black', fade: 'out', hold: 1800, caption: 'Regen auf dem Wellblech.' },

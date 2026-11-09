@@ -42,7 +42,7 @@ export function spriteProblems(key, entry) {
 export function mergeFragments(fragments, base = {}) {
   const images = {};
   const sprites = {};
-  const blurhash = { ...(isObject(base.blurhash) ? base.blurhash : {}) };
+  const fragmentBlurhash = {};
   let items = isObject(base.items) ? base.items : DEFAULT_ITEMS;
   let itemsSource = null;
   const origin = new Map();
@@ -70,7 +70,7 @@ export function mergeFragments(fragments, base = {}) {
       if (problems.length) { errors.push(...problems.map((problem) => `${source}: ${problem}`)); continue; }
       put(sprites, 'Laufblatt', key, entry, source);
     }
-    if (isObject(data.blurhash)) for (const [key, hash] of Object.entries(data.blurhash)) if (typeof hash === 'string') put(blurhash, 'Blurhash', key, hash, source);
+    if (isObject(data.blurhash)) for (const [key, hash] of Object.entries(data.blurhash)) if (typeof hash === 'string') put(fragmentBlurhash, 'Blurhash', key, hash, source);
     if (isObject(data.items)) {
       if (itemsSource && stable(items) !== stable(data.items)) conflicts.push(`items: ${itemsSource} ≠ ${source}`);
       items = data.items;
@@ -78,6 +78,7 @@ export function mergeFragments(fragments, base = {}) {
     }
   }
   const manifest = { schemaVersion: 1, images: sortObject(images), sprites: sortObject(sprites), items };
+  const blurhash = { ...(isObject(base.blurhash) ? base.blurhash : {}), ...fragmentBlurhash };
   if (Object.keys(blurhash).length) manifest.blurhash = sortObject(blurhash);
   return { manifest, conflicts, errors, used };
 }

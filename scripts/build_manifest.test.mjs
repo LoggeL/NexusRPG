@@ -33,6 +33,16 @@ test('meldet widersprüchliche Schlüssel und kaputte Laufblätter', () => {
   assert.deepEqual(spriteProblems('ok', sheet('x.png')), []);
 });
 
+test('aktualisiert den Blurhash einer ersetzten Tafel und erkennt Konflikte zwischen Fragmenten', () => {
+  const base = { blurhash: { tafel: 'vorher', archiv: 'behalten' } };
+  const fragment = { source: 'cut.json', data: { images: { tafel: 'tafel.webp' }, blurhash: { tafel: 'neu' } } };
+  const { manifest, conflicts } = mergeFragments([fragment], base);
+  assert.deepEqual(conflicts, []);
+  assert.deepEqual(manifest.blurhash, { archiv: 'behalten', tafel: 'neu' });
+  const other = { source: 'other.json', data: { images: {}, blurhash: { tafel: 'anders' } } };
+  assert.deepEqual(mergeFragments([fragment, other], base).conflicts, ['Blurhash „tafel“: cut.json ≠ other.json']);
+});
+
 test('behält bestehende Itemsymbole und meldet fehlende Dateien', (t) => {
   const root = mkdtempSync(join(tmpdir(), 'nexus-manifest-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
