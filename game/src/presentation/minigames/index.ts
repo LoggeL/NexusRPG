@@ -28,6 +28,17 @@ import { tanz } from './tanz';
 import { taubenpost } from './taubenpost';
 import { ventil } from './ventil';
 import { werkbank } from './werkbank';
+// Teil 3
+import { countdown } from './countdown';
+import { etikette } from './etikette';
+import { gaertnern } from './gaertnern';
+import { hochstapeln } from './hochstapeln';
+import { overwatch } from './overwatch';
+import { radioRost } from './radio-rost';
+import { schleichen } from './schleichen';
+import { schrottbotRennen } from './schrottbot-rennen';
+import { strandlauf } from './strandlauf';
+import { wrackrennen } from './wrackrennen';
 import type { MinigameDef, MinigameResult } from './types';
 
 export type { MinigameEnv } from './host';
@@ -62,6 +73,17 @@ export const MINIGAMES: Record<MinigameId, MinigameDef> = {
   'akt-taubenpost': taubenpost,
   // Romanze Vex × Aria (world.md „rom-vexaria-luecke“, Dachrennen Fr/Sa N wiederholbar)
   'akt-dachrennen': dachrennen,
+  // Teil 3 (Akt 2/3, Ödnis, Küste)
+  'akt-gaertnern': gaertnern,
+  'akt-hochstapeln': hochstapeln,
+  'akt-radio-rost': radioRost,
+  'akt-schrottbot-rennen': schrottbotRennen,
+  'akt-strandlauf': strandlauf,
+  'akt-wrackrennen': wrackrennen,
+  'akt-etikette': etikette,
+  'akt-overwatch': overwatch,
+  'akt-schleichen': schleichen,
+  'akt-countdown': countdown,
 };
 
 /** Weitere Spiele zur Laufzeit anmelden (Teil 2 und später). */

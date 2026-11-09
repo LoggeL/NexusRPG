@@ -1,0 +1,80 @@
+{
+  "images": {
+    "portrait-chrome-haushaelterin": "assets/portraits/chrome-haushaelterin.webp"
+  },
+  "sprites": {
+    "chrome-haushaelterin-walk": {
+      "file": "assets/sprites/chrome-haushaelterin-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    }
+  }
+}

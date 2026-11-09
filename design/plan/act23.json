@@ -1,0 +1,3822 @@
+{
+  "version": 1,
+  "act": "2-3",
+  "districts": {
+    "unterstadt": {
+      "name": "Unterstadt",
+      "ambience": "unterstadt",
+      "music": {
+        "day": "unterstadt-tag",
+        "night": "unterstadt-nacht"
+      },
+      "owner": "vorhanden (pkg-neon-gasse, Akt 1) – nicht neu anlegen; rennhalle-9 nutzt ihn"
+    },
+    "oberstadt": {
+      "name": "Oberstadt",
+      "ambience": "oberstadt",
+      "music": "oberstadt",
+      "owner": "vorhanden (pkg-stufenplatz-digitech, Akt 1) – nicht neu anlegen"
+    },
+    "kanalisation": {
+      "name": "Kanalisation",
+      "ambience": "kanal",
+      "music": "kanalisation",
+      "owner": "vorhanden (pkg-kanal-sammler, Akt 1) – nicht neu anlegen"
+    },
+    "oednis": {
+      "name": "Ödnis",
+      "ambience": "oednis",
+      "music": "oednis",
+      "owner": "vorhanden (parts/world/bezirke-fraktionen.ts) – nicht neu anlegen"
+    },
+    "kueste": {
+      "name": "Küste",
+      "ambience": "meer",
+      "music": "flutmauer",
+      "owner": "vorhanden (pkg-flutmauer, Akt 1) – nicht neu anlegen; das-meer überschreibt mit music: meer"
+    }
+  },
+  "stations": {
+    "station-chrome-allee": {
+      "name": "Chrome-Allee",
+      "map": "chrome-boulevard",
+      "entry": "station",
+      "cityPos": [
+        0.69,
+        0.1
+      ],
+      "when": "chrome-boulevard einmal betreten (visited) – Zugang nur mit Ausweis, wie der Panoramaaufzug",
+      "owner": "pkg-chrome-himmel",
+      "note": "cityPos nach ui-city-map: weiße Türme oben rechts neben dem Spire. Die Station fehlt bewusst in parts/world/bezirke-fraktionen.ts; das Paket legt sie an."
+    }
+  },
+  "maps": {
+    "chrome-boulevard": {
+      "name": "Chrome-Boulevard",
+      "kind": "zone",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-chrome-himmel",
+      "parent": "",
+      "station": "station-chrome-allee",
+      "ambience": "oberstadt",
+      "bgVariants": [
+        "epilog-stiftung (Banner „Chrome-Stiftung für die Unterstadt“ nach he-seraphina-chrome-10)",
+        "master (Ende 3: Quantum-Fahnen mit dem Gesicht der Spielfigur, nur als Silhouette/Logo)"
+      ],
+      "unlock": "act2 über den Panoramaaufzug (ausweis-oberstadt, Ruf chrome-haus 20, gc-108, act3) oder die Penthouse-Wohnungstür",
+      "exits": [
+        {
+          "id": "nach-glasarkaden",
+          "to": "glasarkaden",
+          "entry": "von-chrome-boulevard",
+          "label": "Panoramaaufzug nach unten",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "penthouse-tuer",
+          "to": "chrome-penthouse",
+          "entry": "von-chrome-boulevard",
+          "label": "Chrome-Penthouse (Portierloge)",
+          "edge": "tuer",
+          "when": "act2 und (Portier Albert lässt rein: chrome-einladung, side-teekraenzchen aktiv, Seraphina ♥4, Sybella ♥4, Keks-Lieferung für side-teekraenzchen oder gc-108 [Ausstrahlung 7]); Nachspiel offen",
+          "lockedText": "Portier Albert hebt eine behandschuhte Hand: „Das Haus Chrome empfängt heute nicht. Und Sie, mit Verlaub, empfängt es nie.“"
+        },
+        {
+          "id": "nach-quantum-campus",
+          "to": "quantum-campus",
+          "entry": "von-chrome-boulevard",
+          "label": "Zum Quantum-Campus (Außengelände)",
+          "edge": "n",
+          "when": "act2",
+          "lockedText": "Eine Schranke mit Goldrand. Ein Schild: „Quantum-Campus · Nur für Mitarbeitende, Investoren und die Zukunft.“"
+        },
+        {
+          "id": "turmaufzug",
+          "to": "himmelsgarten",
+          "entry": "von-chrome-boulevard",
+          "label": "Aufzug Chrome Tower (Himmelsgarten)",
+          "edge": "tuer",
+          "when": "act3 oder he-serenity-chrome-6 gesehen (nur Besuch, tags) oder Flag epilog",
+          "lockedText": "Der Aufzug hat keinen Knopf, nur ein Ohr aus Messing. Es hört dir zu und sagt: „Nein.“"
+        }
+      ],
+      "entries": [
+        "von-glasarkaden",
+        "von-chrome-penthouse",
+        "von-quantum-campus",
+        "von-himmelsgarten",
+        "station"
+      ],
+      "spots": {
+        "aufzug-ankunft": "Ankunft Panoramaaufzug (von glasarkaden); Liftboy grüßt von unten per Lautsprecher",
+        "portierloge": "Portierloge vor dem Penthouse: Portier Albert M/T/A, Concierge-Tafel (act2, Ruf chrome-haus 30), side-chrome-pudel Auftakt/Abschluss, side-teekraenzchen Zutritt",
+        "penthouse-eingang": "Eingang Chrome-Penthouse (drei farbige Balkone darüber): Seraphina/Sybella kommen M heraus",
+        "balkone-blick": "Blick hoch auf die Balkone blau/rot/grün (look, Klatsch)",
+        "boutique-chrome": "Boutique „Chrome & Co.“: Sybella T (Händler chrome-und-co), pers-ripper-taschenuhr, he-sybella-chrome-6/-10",
+        "juwelier-glanzstueck": "Juwelier Glanzstück mit Diamant-Hologramm (Händler glanzstueck, schallplatte-10 selten), Tresor der Blech-Schwestern",
+        "boulevard-mitte": "Mitte des Boulevards: Blade T Mo/Do, re-blade-8, pers-seraphina-plan-b Gala-Bühne, he-seraphina-chrome-10",
+        "wolkenbank": "Bank an der Wolkenkante: he-blade-6 („Auf einer Bank fällt die Maske“), Liebespaare N",
+        "promenade": "Promenade mit Glasbrüstung: Serenity T (außer Mi), akt-hochstapeln Startpunkt",
+        "cafe-terrasse": "Terrasse „Le Nuage“ (Kulisse, kein Händler): akt-hochstapeln Gesprächskette, Klatsch, chrome-einladung-Hinweis",
+        "pudelwiese": "Kunstrasen mit Wasserspender: Bijou T, side-chrome-pudel (Werbedrohne startet hier)",
+        "werbedrohne-start": "Werbedrohnen-Mast (side-chrome-pudel: Drohne hacken [Technik 5])",
+        "turmaufzug": "Aufzug Chrome Tower zum Himmelsgarten (Messing-Ohr)",
+        "campus-schranke": "Schranke Richtung Quantum-Campus (Rand Nord)",
+        "blech-schwestern-ecke": "Hinter dem Juwelier: kopfgeld-blech-schwestern A, enc-kopfgeld-blech-schwestern",
+        "ubahn-abgang": "Zugang station-chrome-allee (goldene Rolltreppe)",
+        "auftrag-a": "Auftragsziel (Oberstadt-Aufträge Rang 4/5, Concierge-Aufträge)"
+      },
+      "hotspots": {
+        "chrome-und-co": "shop chrome-und-co (Sybella, T)",
+        "glanzstueck": "shop glanzstueck (T/A bis 19 Uhr)",
+        "concierge-tafel": "board concierge-chrome (act2, Ruf chrome-haus 30)",
+        "hochstapeln": "minigame akt-hochstapeln (cafe-terrasse, T/A)",
+        "werbedrohne": "check (side-chrome-pudel) [Technik 5] oder leckerli-schraube / Bolzen",
+        "balkone": "look: drei Balkone, drei Farben, drei Meinungen",
+        "wolkenkante": "look: Blick über die Wolken auf die Unterstadt (kein Aussichtspunkt, nur Text)",
+        "ubahn-zugang": "use: U-Bahn station-chrome-allee ({ cityMap: true })",
+        "datenwuerfel-11": "loot datenwuerfel-11 (Mülleimer mit Goldrand, akt-schloss)",
+        "glueckstern-12": "loot glueckstern-12 (Brunnenrand bei der wolkenbank)"
+      }
+    },
+    "himmelsgarten": {
+      "name": "Himmelsgarten",
+      "kind": "zone",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-chrome-himmel",
+      "parent": "",
+      "station": "",
+      "ambience": "oberstadt",
+      "music": "releaseparty",
+      "bgVariants": [
+        "party (act3 bis Ende: Lichterkugeln, Glasboden leuchtet, Gäste)",
+        "gekippt (main-3-gedankenkontrolle nach der Rebellion: umgestürzte Tische, Konfetti, Rauch)",
+        "park (Flag epilog: öffentlicher Park, Blumenstand, Hecki)"
+      ],
+      "unlock": "act3 (Party), he-serenity-chrome-6 (Besuch tags), Flag epilog (öffentlicher Park)",
+      "exits": [
+        {
+          "id": "nach-quantum-campus",
+          "to": "quantum-campus",
+          "entry": "von-himmelsgarten",
+          "label": "Fußgängerbrücke zum Quantum-Campus",
+          "edge": "s",
+          "when": "act3 nach main-3-einlass oder Flag epilog",
+          "lockedText": "Die Brücke ist mit Rosen zugestellt. Ein Schild: „Heute nur für Gäste. Morgen für niemanden.“"
+        },
+        {
+          "id": "turmaufzug",
+          "to": "chrome-boulevard",
+          "entry": "von-himmelsgarten",
+          "label": "Aufzug Chrome Tower nach unten",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "gaesteaufzug",
+          "to": "quantum-foyer",
+          "entry": "von-himmelsgarten",
+          "label": "Gästeaufzug ins Quantum-Foyer",
+          "edge": "tuer",
+          "when": "act3 oder Flag epilog",
+          "lockedText": "Der Gästeaufzug fährt nur mit Armband. Du hast kein Armband. Du hast Ellbogen."
+        }
+      ],
+      "entries": [
+        "von-quantum-campus",
+        "von-chrome-boulevard",
+        "von-quantum-foyer",
+        "catering",
+        "wartungsgang",
+        "landeplatz"
+      ],
+      "spots": {
+        "gaesteeingang": "Ankunft aus dem Gästeaufzug: Einlasskontrolle, Kessel (act3, [Wache ♥8] Abkürzung), Pfeffer als Party-Wache",
+        "partysaal": "Partysaal unter Rosenbögen: gechippte Gäste, enc-turm-raven (main-3-gedankenkontrolle), Spielfigur nimmt/lehnt Chip",
+        "tanzflaeche-glas": "Tanzfläche aus beleuchteten Glasplatten: enc-turm-xion, akt-tanz (Party, optional)",
+        "rosenboegen": "Rosenbögen: he-serenity-chrome-8 (M, Besuch), Liebespaar-Ecke (rom-Abschiedsblick)",
+        "buffet": "Buffet mit Champagnerkühlern: Ziel des Catering-Wegs (gc-39), Dantes Nougatbomben-Versteck",
+        "champagnerkuehler": "Champagnerkühler (Bossphase P2 Korken, Deko)",
+        "bar-himmel": "Bar mit Mixi-Kopie „Mixi Gold“: Gerüchte während der Party, Nexus-Bildschirm (he-ki-nexus-6 Alternative)",
+        "vip-lounge": "VIP-Lounge: Seraphina, Sybella, Serenity (act3), Alesa vor ihrer Ablenkung",
+        "rednerbruecke": "Rednerbrücke über dem Saal: Blades Rede (main-3-gedankenkontrolle), Hunter wird gefesselt, Vega schießt ihn frei",
+        "rednerpult": "Rednerpult mit Hunters Stick-Buchse (Upload 1 vorbereitet), Collin/Delya-Liveschalte",
+        "presse-podest": "Presse-Podest: Collin, Delya, Kameramann live (act3), Interview → meinung",
+        "wartungsgang": "Wartungsgang hinter den Hecken: Ziel des Lüftungswegs (gc-40), Abkürzung zum Landeplatz",
+        "antennen": "Antennenmasten (Bossphase P2 „Handschellen an Antennen“), Funk zu Nyra/Vega",
+        "landeplatz": "Landeplatz mit goldenem Gleiter: main-3-blade, enc-dach-blade; im Nachspiel Kiki landet hier (Einstieg landeplatz)",
+        "gleiter": "Goldener Gleiter (Fluchtziel Blades, Countdown 4 Runden)",
+        "hecki": "Hecki der Gärtnerroboter (immer, schneidet Rosen in Herzform)",
+        "serenity-beet": "Serenitys Beet (Nachspiel M: Serenity gießt, pers-serenity-gewaechshaus Ableger)",
+        "blumenstand": "Blumenstand (Nachspiel, Händler himmelsgarten-blumen)",
+        "aussicht-stadt": "Brüstung mit Blick über ganz Noxius bis zum dunklen Meer (akt-sternegucken „später himmelsgarten“, Nachspiel N)",
+        "catering-tuer": "Hintertür der Küche (Einstieg catering)",
+        "bruecke-sued": "Brückenkopf zur Fußgängerbrücke (zum Quantum-Campus)"
+      },
+      "hotspots": {
+        "rednerpult": "use: Rednerpult (main-3-gedankenkontrolle, Hunters Stick)",
+        "gleiter": "use/look: Goldener Gleiter (main-3-blade)",
+        "buffet": "look/use: Buffet (Kekse von Dante tauschen, Ruf nx1-medien bei Fotos)",
+        "blumenstand": "shop himmelsgarten-blumen (Flag epilog)",
+        "sternegucken": "minigame akt-sternegucken (Flag epilog, N, mit Vega)",
+        "hecki": "talk: Hecki (Herz-Rose als Geschenk 1× pro Woche)",
+        "glueckstern-13": "loot glueckstern-13 (Rosenbogen, nur epilog oder während der Party)",
+        "datenwuerfel-15": "loot datenwuerfel-15 (Wartungsgang, akt-hacken)"
+      }
+    },
+    "quantum-campus": {
+      "name": "Quantum-Campus",
+      "kind": "zone",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-quantum-campus",
+      "parent": "",
+      "station": "",
+      "ambience": "oberstadt",
+      "bgVariants": [
+        "bruch (main-2-bruch aktiv: Nacht, Scheinwerfer, Alarm nach nexus_erwacht)",
+        "party (act3: Lichterbögen, roter Teppich, Presse)",
+        "offene-werkstatt (side-offene-werkstatt erledigt: Stände, Wimpel)"
+      ],
+      "unlock": "act2 Außengelände (Boulevard Rand Nord, Lieferzone mit gc-109/karte-lieferzone, Wartungsleiter aus dem Datentunnel); act3 Party",
+      "exits": [
+        {
+          "id": "nach-chrome-boulevard",
+          "to": "chrome-boulevard",
+          "entry": "von-quantum-campus",
+          "label": "Zum Chrome-Boulevard",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "lieferzone",
+          "to": "digitech-areal",
+          "entry": "von-quantum-campus",
+          "label": "Lieferzone zum Digitech-Areal",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "foyer-tuer",
+          "to": "quantum-foyer",
+          "entry": "von-quantum-campus",
+          "label": "Gläsernes Foyer",
+          "edge": "tuer",
+          "when": "act3, Flag epilog, main-2-bruch aktiv (Haupttor-Weg), blades-visitenkarte (einmal, he-blade-4) oder xion-passierschein",
+          "lockedText": "Drehtür aus Panzerglas. Sie dreht sich, du nicht. Eine Stimme: „Zutritt verweigert. Haben Sie es schon mit Freundlichkeit versucht?“"
+        },
+        {
+          "id": "seiteneingang",
+          "to": "quantum-foyer",
+          "entry": "seiteneingang",
+          "label": "Seiteneingang (Personalschleuse)",
+          "edge": "tuer",
+          "when": "main-2-bruch mit prep_zugangskarte oder gc-105 [Technik 6]; danach act3/epilog",
+          "lockedText": "Ein Kartenleser blinkt rot. Darunter klebt ein Kaugummi in Form eines Herzens. Hilft nicht."
+        },
+        {
+          "id": "lueftungsschacht",
+          "to": "quantum-labor",
+          "entry": "lueftung",
+          "label": "Lüftungsschacht",
+          "edge": "tuer",
+          "when": "main-2-bruch mit prep_grundriss (2 Schächte markiert) oder gc-105; act3 nur main-3-einlass Lüftungsweg (gc-40)",
+          "lockedText": "Das Gitter ist verschraubt. Mit einem Grundriss wüsstest du, welcher Schacht nicht im Häcksler endet."
+        },
+        {
+          "id": "wartungsleiter",
+          "to": "datentunnel",
+          "entry": "von-quantum-campus",
+          "label": "Wartungsleiter nach unten",
+          "edge": "tuer",
+          "when": "Flag wartungsleiter_gefunden (einmal von unten heraufgestiegen)",
+          "lockedText": "Ein Gullydeckel mit Quantum-Logo. Von oben geht er nicht auf. Von unten vielleicht."
+        },
+        {
+          "id": "bruecke",
+          "to": "himmelsgarten",
+          "entry": "von-quantum-campus",
+          "label": "Fußgängerbrücke zum Himmelsgarten",
+          "edge": "n",
+          "when": "act3 nach main-3-einlass oder Flag epilog",
+          "lockedText": "Wachtürme, Scheinwerfer, ein Schild: „Brücke gesperrt bis zur Releaseparty. Freut euch drauf.“"
+        }
+      ],
+      "entries": [
+        "von-chrome-boulevard",
+        "von-digitech-areal",
+        "von-quantum-foyer",
+        "seiteneingang",
+        "lueftungsschacht",
+        "von-datentunnel",
+        "von-himmelsgarten",
+        "bruch-treffpunkt",
+        "party-vorplatz"
+      ],
+      "spots": {
+        "hauptallee": "Hauptallee vom Boulevard, geometrische Rasenflächen",
+        "haupttor": "Haupttor mit Schranke: prep-ablenkung (Runde 1–3 frei), main-3-einlass gc-38 Haupteingang",
+        "haupteingang": "Roter Teppich vor dem Foyer (act3): Collin/Delya-Vorberichte, Einlasskontrolle Kessel",
+        "party-vorplatz": "Vorfahrt der Limousinen/Rostlaube (act3, Einstieg party-vorplatz), prep-fahrzeug Ankunft",
+        "bruch-treffpunkt": "Hecke am Zaun Ost: Crew-Treffpunkt in der Bruch-Nacht (Einstieg bruch-treffpunkt), Rollenwahl drinnen/Brücke",
+        "brueckenkopf": "Campus-Ende der Fußgängerbrücke (erhöht): Overwatch-Posten Raven+Vega im Bruch, pers-nyra-silent-angel Treffen, enc-bruecke-patrouille",
+        "kamera-mast-west": "Kameramast West (Bruch-Overwatch: ausschießen/hacken)",
+        "kamera-mast-ost": "Kameramast Ost (Bruch-Overwatch)",
+        "scheinwerfer-turm": "Wachturm mit Scheinwerfer: quantum-scharfschuetze, Bruch-Overwatch „Lichter ausschießen“, Falke N (act2)",
+        "seiteneingang": "Personalschleuse mit Kartenleser (prep-zugangskarte, gc-105)",
+        "lueftungsgitter": "Lüftungsgitter am Sockel des Spire (prep-grundriss, gc-40)",
+        "lieferzone": "Lieferzone mit Drohnenrampe (Übergang zum Digitech-Areal), pers-pim-kleine-schrift Übergabe",
+        "drohnenrampe": "Drohnenrampe der Lieferdrohnen (look, Loot chip-fragment-01)",
+        "wartungsdeckel": "Gullydeckel der Wartungsleiter (zum Datentunnel)",
+        "patrouillenweg": "Patrouillenrunde: enc-campus-patrouille, Leutnant Nadel N, kopfgeld-leutnant-nadel",
+        "wachhaeuschen-campus": "Wachhäuschen am Zaun: Pfeffer T (act2), Schichtwechsel 01:00",
+        "altlager-zaun": "Zaun um das Altlager (side-alesas-zuendholz Schritt 2: Zaun + Patrouille)",
+        "altlager": "Altlager-Hof mit Container-Hallen: Projekt Zündholz, enc-altlager-zuendholz (arena-labor-altlager)",
+        "loeschwassertank": "Löschwassertank (side-alesas-zuendholz Lösung „Tank öffnen“)",
+        "pausenraum": "Pausenraum-Pavillon mit Automat: Treffen mit Alesa (side-alesas-zuendholz), Pim M (act2) heimlich",
+        "campus-wiese": "Geometrische Wiese: side-offene-werkstatt Stände (Gustav, Lötzinn, Pim), Nachspiel",
+        "spire-sockel": "Sockel des Quantum-Spire (look: violette Spitze pulsiert)",
+        "bruecke-nord": "Brückentor zum Himmelsgarten (act3/epilog)",
+        "auftrag-a": "Auftragsziel (Datenraub, Kurier Rang 4/5)"
+      },
+      "hotspots": {
+        "kamera-west": "check/use: Kamera ausschalten (Bruch-Overwatch, Vega-Schuss oder akt-hacken)",
+        "kamera-ost": "check/use: Kamera ausschalten (Bruch-Overwatch)",
+        "scheinwerfer": "use: Scheinwerfer ausschießen (Bruch-Overwatch, Vega)",
+        "kartenleser": "check gc-105 [Technik 6] oder Zugangskarte (prep_zugangskarte) → Ausgang seiteneingang",
+        "lueftungsgitter": "use: Schacht wählen (prep_grundriss) → Ausgang lueftungsschacht",
+        "altlager-tor": "check gc-88 [Technik 7] Löschmodus (side-alesas-zuendholz) / battle enc-altlager-zuendholz",
+        "loeschtank": "use: Löschwassertank öffnen (side-alesas-zuendholz)",
+        "spire": "look: Quantum-Spire",
+        "datenwuerfel-12": "loot datenwuerfel-12 (Pausenraum-Automat, akt-hacken)",
+        "datenwuerfel-13": "loot datenwuerfel-13 (Altlager, nach side-alesas-zuendholz)",
+        "datenwuerfel-14": "loot datenwuerfel-14 (Wachhäuschen, nachts akt-schloss)",
+        "chip-fragment-01": "loot chip-fragment-01 (Lieferzone, Drohnenrampe)",
+        "chip-fragment-02": "loot chip-fragment-02 (Brückenkopf)"
+      }
+    },
+    "quantum-foyer": {
+      "name": "Quantum-Foyer",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "indoor",
+      "package": "pkg-quantum-campus",
+      "parent": "quantum-campus",
+      "station": "",
+      "ambience": "labor",
+      "music": "oberstadt",
+      "bgVariants": [
+        "bruch (Notbeleuchtung rot nach nexus_erwacht)",
+        "party (act3: Presse, Banner „Releaseparty Nexus 1.0“)"
+      ],
+      "unlock": "act2 nur in main-2-bruch, mit blades-visitenkarte (he-blade-4) oder xion-passierschein; act3; Flag epilog",
+      "exits": [
+        {
+          "id": "nach-quantum-campus",
+          "to": "quantum-campus",
+          "entry": "von-quantum-foyer",
+          "label": "Drehtür nach draußen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "personalschleuse",
+          "to": "quantum-campus",
+          "entry": "seiteneingang",
+          "label": "Personalschleuse nach draußen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "laboraufzug",
+          "to": "quantum-labor",
+          "entry": "von-quantum-foyer",
+          "label": "Laboraufzug (Ebene −3)",
+          "edge": "tuer",
+          "when": "main-2-bruch (Empfang gehackt, Zugangskarte oder Nyra), act3 ab main-3-labor, Flag epilog",
+          "lockedText": "Der Aufzug verlangt einen Fingerabdruck. Deiner gefällt ihm nicht. „Bitte waschen Sie sich die Hände und Ihre Absichten.“"
+        },
+        {
+          "id": "chefaufzug",
+          "to": "blades-buero",
+          "entry": "von-quantum-foyer",
+          "label": "Chefaufzug (Turmbüro)",
+          "edge": "tuer",
+          "when": "he-blade-4 (Führung), main-3 nach der Rebellion, Flag epilog (side-zweite-chance, Ende 3: immer)",
+          "lockedText": "Ein goldener Aufzug mit nur einem Knopf: „MASTER“. Er leuchtet nicht für dich."
+        },
+        {
+          "id": "gaesteaufzug",
+          "to": "himmelsgarten",
+          "entry": "von-quantum-foyer",
+          "label": "Gästeaufzug zum Himmelsgarten",
+          "edge": "tuer",
+          "when": "act3 nach main-3-einlass (Gästeliste, Ausweis oder Einlass-Check) oder Flag epilog",
+          "lockedText": "Ein Türsteher-Droide mit Fliege: „Ihr Name steht nicht auf der Liste. Ihr Name steht nirgends.“"
+        }
+      ],
+      "entries": [
+        "von-quantum-campus",
+        "seiteneingang",
+        "von-quantum-labor",
+        "von-blades-buero",
+        "von-himmelsgarten"
+      ],
+      "spots": {
+        "drehtuer": "Drehtür vom Campus",
+        "empfang": "Empfangstresen mit Terminal: Bruch-Hack, main-3-einlass Einlass, gc-87 Alesas Kalender (side-teekraenzchen)",
+        "nexus-avatar": "Riesiges Nexus-Hologramm: ki-nexus act2 (A/N), he-ki-nexus-4, he-ki-nexus-6 (act3)",
+        "logo-wand": "Logo-Wand: he-blade-4 Führung („Master“), Fotowand der Party",
+        "xion-posten": "Xions Posten am Treppenabsatz (M), he-xion-venom-6",
+        "sicherheitszentrale": "Glaskasten der Sicherheitszentrale: Xion T, Leutnant Nadel T, Funkgerät (boss-xion Funkruf-Hotspot)",
+        "fundbuero-quantum": "Quantum-Fundbüro (Schalter): Captain Kuschel nach dem Bruch (ohne nyra_hat_kuschel), side-captain-kuschel richtiger Hinweis",
+        "kantinen-automat": "Kantinen-Automat (act3/epilog, Händler quantum-kantine)",
+        "wartebank": "Wartebank für Besucher: Pim M (Pendlerin), Alesa-Ablenkung beginnt hier",
+        "presse-ecke": "Presse-Ecke (act3): Collin, Delya, Kameramann live, Interview → meinung",
+        "gaesteliste-pult": "Gästelisten-Pult (act3): gc-41 [Technik 7], prep-gaesteliste, chrome-einladung, party-ausweis",
+        "catering-tuer": "Catering-Durchgang (act3): gc-39 [Straße 5] → himmelsgarten catering",
+        "sybella-stand": "Chrome-10-Stand (act3): Sybella wirbt",
+        "laboraufzug": "Laboraufzug (Ebene −3)",
+        "chefaufzug": "Goldener Chefaufzug zum Turmbüro",
+        "gaesteaufzug": "Gästeaufzug zum Himmelsgarten (act3)",
+        "personalgang": "Personalgang hinter dem Empfang (Einstieg seiteneingang), Toiletten (main-3-labor Ausrede)"
+      },
+      "hotspots": {
+        "empfang-terminal": "minigame akt-hacken / check gc-105 (Bruch), gc-87 (side-teekraenzchen)",
+        "nexus-avatar": "talk: Nexus (ki-nexus, Geschenke als Datei)",
+        "fundbuero-schalter": "talk/use: Quantum-Fundbüro (side-captain-kuschel)",
+        "kantine": "shop quantum-kantine (act3/epilog)",
+        "gaesteliste": "check gc-41 [Technik 7] / Gegenstand chrome-einladung, party-ausweis (main-3-einlass)",
+        "catering": "check gc-39 [Straße 5] (main-3-einlass)",
+        "funkgeraet": "use: Funkgerät der Sicherheitszentrale (Xion-Funkruf stören, 3 BB)"
+      }
+    },
+    "quantum-labor": {
+      "name": "Quantum-Labor",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "indoor",
+      "package": "pkg-quantum-turm",
+      "parent": "quantum-campus",
+      "station": "",
+      "ambience": "labor",
+      "music": "quantum-labor",
+      "bgVariants": [
+        "bruch (Alarmlicht nach nexus_erwacht)",
+        "leer (Flag epilog: abgedeckte Geräte, Konfetti)"
+      ],
+      "unlock": "main-2-bruch (Laboraufzug oder Lüftung), act3 main-3-labor, Flag epilog",
+      "exits": [
+        {
+          "id": "nach-quantum-foyer",
+          "to": "quantum-foyer",
+          "entry": "von-quantum-labor",
+          "label": "Laboraufzug nach oben",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "lueftung",
+          "to": "quantum-campus",
+          "entry": "lueftungsschacht",
+          "label": "Lüftungsschacht (raus)",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "kernschacht",
+          "to": "server-kern",
+          "entry": "von-quantum-labor",
+          "label": "Kernschacht (Serverkern)",
+          "edge": "tuer",
+          "when": "act3 ab main-3-nexus oder Flag epilog (side-zweite-chance, side-offene-werkstatt)",
+          "lockedText": "Eine runde Tür mit Rad. Dahinter brummt etwas, das sehr viel denkt."
+        }
+      ],
+      "entries": [
+        "von-quantum-foyer",
+        "lueftung",
+        "von-server-kern"
+      ],
+      "spots": {
+        "aufzug-labor": "Ankunft Laboraufzug",
+        "lueftungsgitter": "Lüftungsgitter an der Decke (Einstieg lueftung, Fluchtweg)",
+        "zentralrechner": "Zentralrechner: Nexus erwacht („Alarm, jemand versucht, in mein System einzudringen.“), gc-29 Abschirmung → nexus-forschungsdaten",
+        "chip-tresor": "Chip-Tresor: Ziel des Bruchs (Chip + Daten)",
+        "notschalter": "Notschalter (gc-28 notschalter aus main-1-der-plan)",
+        "op-tisch": "OP-Tisch: Variante A (Aria gechippt), main-3-labor Dante entfernt Nyras Chip",
+        "probanden-liege": "Probanden-Liege: Variante B (namenloser Proband bzw. Jimmy)",
+        "nyras-arbeitsplatz": "Nyras Arbeitsplatz (act2 nach dem Bruch: Nyra immer, Herzen eingefroren), main-3-labor",
+        "kuschel-ablage": "Captain Kuschel neben Nyras Tastatur (mit nyra_hat_kuschel)",
+        "alesas-pult": "Alesas Pult: Alesa M/N, main-3-labor Ablenkung (Hunter flirtet, gc-42)",
+        "pims-werkbank": "Pims Werkbank: Pim T (act2/3), pers-pim-kleine-schrift (Notizen)",
+        "labortuer": "Labortür zum Flur: Blade/Xion platzen herein (main-3-labor), Toiletten-Ausrede",
+        "xion-tuer": "Sicherheitstür: enc-labor-xion (Bruch, 5 Runden oder Ausgang), enc-labor-blade-vorspiel",
+        "kernschacht": "Runde Tür zum Kernschacht",
+        "laborfenster": "Panzerglas mit Blick in den Kernschacht (look)"
+      },
+      "hotspots": {
+        "zentralrechner": "check gc-29 [Technik 7] Abschirmung (main-2-bruch)",
+        "chip-tresor": "use: Chip und Daten (main-2-bruch) / akt-hacken",
+        "notschalter": "use: Notschalter (Flag notschalter)",
+        "nyras-tastatur": "talk: Nyra (act2 kalt-höflich, „Master“)",
+        "pims-notizen": "use: Labornotizen (pers-pim-kleine-schrift, nachts, [Technik 7] oder Schleichen)"
+      }
+    },
+    "blades-buero": {
+      "name": "Blades Turmbüro",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-quantum-turm",
+      "parent": "quantum-campus",
+      "station": "",
+      "ambience": "innen",
+      "music": "oberstadt",
+      "bgVariants": [
+        "master (Ende 3: Name der Spielfigur am Schreibtisch, Blades Mantel fehlt)",
+        "verlassen (Ende 1/2 Nachspiel: Siegel, Absperrband)"
+      ],
+      "shelter": "Ende 3 Master-Modus: Notschlafplatz auf dem Chefsessel (aufwachen) – MapDef.shelter mit when { flag: ende_master }",
+      "unlock": "he-blade-4 Führung (einmal), act3 nach der Rebellion, Flag epilog",
+      "exits": [
+        {
+          "id": "chefaufzug",
+          "to": "quantum-foyer",
+          "entry": "von-blades-buero",
+          "label": "Chefaufzug nach unten",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-quantum-foyer",
+        "aufwachen"
+      ],
+      "spots": {
+        "aufzug-buero": "Ankunft Chefaufzug",
+        "schreibtisch-blade": "Schreibtisch aus Glas: Blade M, Ende 3 Spielfigur als neuer Master",
+        "flipchart": "Flipchart „Kontrolle der Stadt“ (look, Beweis für Collin/Delya)",
+        "geheimfach": "Geheimfach (he-blade-10 Code, Nachspiel), pers-blade-teddymantel Hinweis",
+        "panoramafenster": "Panoramafenster über der Stadt (look)",
+        "garderobe": "Garderobe mit leerem Haken für den Teddyfell-Mantel",
+        "champagnerbar": "Champagnerbar (Deko)",
+        "kuschel-sessel": "Besuchersessel: Captain Kuschel mit Zettel „Er ist ein sehr guter Zuhörer.“ (side-zweite-chance)",
+        "nexus-terminal": "Nexus-Terminal (Ende 3: „Soll ich Ihnen eine Nougatbombe bestellen, Master?“), gc-101/gc-102 Vorstufe",
+        "goldknauf-vitrine": "Vitrine mit Ersatz-Goldknäufen (look)"
+      },
+      "hotspots": {
+        "flipchart": "look: Blades Plan",
+        "geheimfach": "use: Geheimfach (Code aus he-blade-10)",
+        "kuschel-sessel": "talk/use: Captain Kuschel (side-zweite-chance Start)",
+        "nexus-terminal": "talk: Nexus (Ende 3, Master-Modus)"
+      }
+    },
+    "server-kern": {
+      "name": "Serverkern",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-quantum-turm",
+      "parent": "quantum-campus",
+      "station": "",
+      "ambience": "labor",
+      "music": "ki-nexus",
+      "bgVariants": [
+        "kampf (main-3-nexus: Knoten glühen)",
+        "ruhig (nach main-3-nexus)",
+        "stadtnetz (side-offene-werkstatt: grüne Leitungen)"
+      ],
+      "unlock": "act3 main-3-nexus; Flag epilog (side-zweite-chance, side-offene-werkstatt)",
+      "exits": [
+        {
+          "id": "nach-quantum-labor",
+          "to": "quantum-labor",
+          "entry": "von-server-kern",
+          "label": "Steg zurück ins Labor",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-quantum-labor"
+      ],
+      "spots": {
+        "eingang-steg": "Steg vom Kernschacht",
+        "kern": "Der Kern: Boss enc-kern-nexus (arena-serverkern), gc-47 Gesprächsaktion, gc-101/gc-102 (side-zweite-chance)",
+        "knoten-logik": "Logik-Knoten (FX-60 halbiert ihn)",
+        "knoten-kontrolle": "Kontroll-Knoten (ruft gechippte Partygäste)",
+        "knoten-stimme": "Stimm-Knoten (vertraute Stimme)",
+        "upload-konsole": "Upload-Konsole: Upload-Entscheidung (1 Stick, 2 umschreiben, 3 überzeugen, 4 Master), side-offene-werkstatt gc-141",
+        "terminal-halten": "Terminal (Bossphase 3: 4 Runden halten)",
+        "kabelkanal": "Kabelkanäle (Firewall-Welle, look)",
+        "fx60-anschluss": "Alter Digitech-Anschluss: FX-60 hilft, wenn side-eingehendes-fax erledigt"
+      },
+      "hotspots": {
+        "kern": "battle enc-kern-nexus (main-3-nexus)",
+        "upload-konsole": "use: Upload-Entscheidung (main-3-nexus) / check gc-141 (side-offene-werkstatt)",
+        "fx60-anschluss": "use: FX-60 einstöpseln (Bosshilfe)"
+      }
+    },
+    "pumpwerk-sieben": {
+      "name": "Pumpwerk Sieben",
+      "kind": "zone",
+      "district": "kanalisation",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "underground",
+      "package": "pkg-kanal-tief",
+      "parent": "",
+      "station": "",
+      "ambience": "kanal",
+      "bgVariants": [
+        "op (main-2-kanal: OP-Nische beleuchtet)"
+      ],
+      "unlock": "act2 und Licht (augen-restlicht oder stirnlampe) über den Tunnel Ost im kanal-sammler",
+      "exits": [
+        {
+          "id": "tunnel-west",
+          "to": "kanal-sammler",
+          "entry": "von-pumpwerk-sieben",
+          "label": "Tunnel West zum Kanal-Sammler",
+          "edge": "w",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "ueberlaufrohr",
+          "to": "hafenkante",
+          "entry": "ueberlaufrohr",
+          "label": "Überlaufrohr zur Hafenkante (einseitig)",
+          "edge": "tuer",
+          "when": "Handrad am Überlaufrohr einmal von innen geöffnet (Flag ueberlaufrohr_offen: akt-ventil gewonnen oder Kanalvolk hilft nach prep_fluchtweg)",
+          "lockedText": "Ein Rohr, so dick wie ein Haus, mit einem Handrad. Es klemmt. Dahinter riecht es nach Hafen und Freiheit."
+        }
+      ],
+      "entries": [
+        "von-kanal-sammler"
+      ],
+      "spots": {
+        "tunnel-west": "Ankunft aus dem Tunnel Ost des Kanal-Sammlers",
+        "pumpenrad-1": "Pumpenrad 1 (akt-ventil)",
+        "pumpenrad-2": "Pumpenrad 2 (akt-ventil)",
+        "pumpenrad-3": "Pumpenrad 3 (akt-ventil)",
+        "ventil-stand": "Ventilstand (akt-ventil, Lösungshinweis mit Technik), öffnet Abkürzungen",
+        "gitterboden": "Gitterböden über Schächten (Schleichweg main-2-kanal mit kaeseecke)",
+        "quantum-aussenstelle": "Quantum-Außenstelle Kanal (weiße Container): Quantum-Techniker ab act2, job-datenraub-Ziel",
+        "aussenstelle-terminal": "Terminal der Außenstelle (job-datenraub, sonder-pumpwerk-pegel)",
+        "op-nische": "OP-Nische: Szene „Ripper und Xion verkaufen Aria“, enc-kanal-xion-ripper, gc-31/32/33",
+        "kanalvolk-sperre": "Engstelle: Kanalvolk blockiert die Verstärkung (prep_fluchtweg)",
+        "molch-nest": "Kabelmolch-Nest (glitzert im Licht, Zufallsbegegnung)",
+        "rohrbruecke": "Rohrbrücke über dem Hauptschacht",
+        "schlafwandler-pumpe": "Kanal-Schlafwandler 2 (pers-delya-quelle)",
+        "ueberlaufrohr": "Überlaufrohr mit Handrad (einseitig zur Hafenkante)",
+        "auftrag-a": "Auftragsziel (Bergung, Kanal-Säuberung Rang 3+)"
+      },
+      "hotspots": {
+        "ventilraetsel": "minigame akt-ventil (Pumpenräder), öffnet ueberlaufrohr",
+        "aussenstelle-terminal": "minigame akt-hacken (job-datenraub, Quantum-Außenstelle)",
+        "op-nische": "battle enc-kanal-xion-ripper / Gesprächswege (main-2-kanal)",
+        "ueberlaufrohr-rad": "use: Handrad (Flag ueberlaufrohr_offen)",
+        "chip-fragment-03": "loot chip-fragment-03 (OP-Nische, nach main-2-kanal)",
+        "chip-fragment-04": "loot chip-fragment-04 (Außenstelle)",
+        "datenwuerfel-19": "loot datenwuerfel-19 (Logbuch am Ventilstand)"
+      }
+    },
+    "datentunnel": {
+      "name": "Datentunnel",
+      "kind": "zone",
+      "district": "kanalisation",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "underground",
+      "package": "pkg-kanal-tief",
+      "parent": "",
+      "station": "",
+      "ambience": "kanal",
+      "music": "ki-nexus",
+      "bgVariants": [
+        "splitter (Flag epilog: Nexus-Splitter, Glasfasern flackern grün)"
+      ],
+      "unlock": "act2: Schott im kanal-sammler (schottschluessel oder gc-110) oder Kabelschacht im digitech-areal",
+      "exits": [
+        {
+          "id": "schott",
+          "to": "kanal-sammler",
+          "entry": "von-datentunnel",
+          "label": "Schott zum Kanal-Sammler",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "kabelschacht",
+          "to": "digitech-areal",
+          "entry": "von-datentunnel",
+          "label": "Kabelschacht zum Digitech-Areal",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "wartungsleiter",
+          "to": "quantum-campus",
+          "entry": "von-datentunnel",
+          "label": "Wartungsleiter zum Quantum-Campus",
+          "edge": "tuer",
+          "when": "act2",
+          "lockedText": "Die Leiter endet an einem Deckel mit Quantum-Logo. Noch nicht. Erst wenn die Stadt schläft. Also in Akt 2."
+        }
+      ],
+      "entries": [
+        "von-kanal-sammler",
+        "von-digitech-areal",
+        "von-quantum-campus"
+      ],
+      "spots": {
+        "schott-innen": "Innenseite des Schotts",
+        "kabelschacht": "Kabelschacht hoch zum Digitech-Areal",
+        "netzknoten": "Netzknoten wie ein Baum aus Kabeln: Hack-Rätsel (akt-hacken), Nexus-Stimme",
+        "serverschraenke": "Serverschränke in Nischen (Loot, Sicherheitsprogramme)",
+        "glasfaser-welle": "Glasfaserstränge, die in Wellen leuchten (look)",
+        "nexus-lautsprecher": "Lautsprecher: Nexus-Stimme (act2/3 Kommentare)",
+        "nyra-funkpunkt": "Funkloch-Ecke mit Empfang: Nyra-Funk (prep-turm-plan, pers-nyra-silent-angel Nachricht 2)",
+        "stoerdrohnen-nische": "Nische der Stördrohnen (Zufallsbegegnung)",
+        "splitter-nest": "Nexus-Splitter (Flag epilog, Zufallsbegegnung nexus-splitter, pers-ki-nexus-seele)",
+        "schlafwandler-tunnel": "Kanal-Schlafwandler 3 (pers-delya-quelle)",
+        "wartungsleiter": "Wartungsleiter nach oben (setzt wartungsleiter_gefunden)",
+        "auftrag-a": "Auftragsziel (Datenraub Rang 3+)"
+      },
+      "hotspots": {
+        "netzknoten": "minigame akt-hacken (Hack-Rätsel, öffnet Abkürzung)",
+        "nyra-funk": "use: Funk (prep-turm-plan per Nyra)",
+        "chip-fragment-05": "loot chip-fragment-05 (Serverschrank)",
+        "chip-fragment-06": "loot chip-fragment-06 (Netzknoten)",
+        "datenwuerfel-20": "loot datenwuerfel-20 (Netzknoten, nach dem Hack)"
+      }
+    },
+    "staubstrasse": {
+      "name": "Staubstraße",
+      "kind": "zone",
+      "district": "oednis",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-staubstrasse",
+      "parent": "",
+      "station": "",
+      "ambience": "oednis",
+      "bgVariants": [
+        "frieden (side-oednis-frieden erledigt: Wimpel beider Seiten am Diner)"
+      ],
+      "unlock": "side-rostlaube erledigt und act2 (Garage an der hafenkante, +60 Minuten); Kiki-Taxi nach pers-kiki-reichweite",
+      "exits": [
+        {
+          "id": "rostlaube",
+          "to": "hafenkante",
+          "entry": "von-staubstrasse",
+          "label": "Mit der Rostlaube zurück in die Stadt",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-aussiedlerhof",
+          "to": "aussiedlerhof",
+          "entry": "von-staubstrasse",
+          "label": "Piste zum Aussiedlerhof",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-funkturm-ruine",
+          "to": "funkturm-ruine",
+          "entry": "von-staubstrasse",
+          "label": "Piste zur Funkturm-Ruine",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-glasduenen",
+          "to": "glasduenen",
+          "entry": "von-staubstrasse",
+          "label": "Piste zu den Glasdünen",
+          "edge": "w",
+          "when": "Giftschutz: haut-filtermembran, staubmaske oder gc-111 [Körper 8]",
+          "lockedText": "Der Wind trägt Glasstaub. Nach drei Atemzügen schmeckst du Blut und Regenbogen. Ohne Filter geht hier keiner weiter."
+        },
+        {
+          "id": "diner-tuer",
+          "to": "rudis-diner",
+          "entry": "von-staubstrasse",
+          "label": "Rudis Diner",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-hafenkante",
+        "von-aussiedlerhof",
+        "von-funkturm-ruine",
+        "von-glasduenen",
+        "von-rudis-diner",
+        "taxi"
+      ],
+      "spots": {
+        "rostlaube-parkplatz": "Parkplatz der Rostlaube (Ankunft von der Hafenkante)",
+        "diner-tuer": "Rudis Diner (Flugzeugrumpf mit Leuchtschild)",
+        "diner-leuchtschild": "Leuchtschild „RUDIS – Pfannkuchen seit dem Absturz“ (look)",
+        "wrackburg-tor": "Tor der Wrackburg mit Krähenfedern-Wimpeln: Staubfalken A, side-kraehes-ehre Auftakt",
+        "wrackburg-hof": "Hof der Wrackburg: Krähe T (und N), enc-wrackburg-kraehe, side-oednis-frieden, side-strandclub Pacht",
+        "staubfalken-wache": "Wachposten der Staubfalken (A), Wegzoll-Gespräche",
+        "rennpiste-start": "Start der Rennpiste: akt-wrackrennen, side-kraehes-ehre",
+        "sprungschanze": "Sprungschanze (gc-134 [Reflexe 7])",
+        "lagerfeuer": "Lagerplatz am Lagerfeuer: Marla N, Staubfalken A, he-marla-sand-6 Alternative",
+        "konvoi-halt": "Konvoi-Halt (Mo/Do T): Händler konvoi, schallplatte-11, he-marla-sand-8",
+        "broesel-wasserstand": "Wasserstand von Staubbaron Brösel (T): kopfgeld-staubbaron-broesel",
+        "wegzoll-schranke": "Schranke der Staubfalken an der Piste zu den Glasdünen: side-weg-zum-meer Wegzoll (gc-93, 300 Cr, enc-oednis-staubfalken)",
+        "singende-masten": "Singende Masten im Sandsturm (side-weg-zum-meer, gc-92 Wind lesen)",
+        "pisten-kreuz": "Pistenkreuz mit Wegweisern (he-marla-sand-6 Sandsturm)",
+        "windraeder-blick": "Windräder am Horizont (look)",
+        "auftrag-a": "Auftragsziel (Bergung, Eskorte, Wegezettel, job-oednis-paket)"
+      },
+      "hotspots": {
+        "wrackrennen": "minigame akt-wrackrennen (Rennpiste, T/A)",
+        "sprungschanze": "check gc-134 [Reflexe 7] (side-kraehes-ehre Wrackrennen)",
+        "konvoi": "shop konvoi (Mo/Do T)",
+        "singende-masten": "check gc-92 [Straße 6] ([Ödnis] automatisch) oder einen Tag warten",
+        "wegzoll": "check gc-93 [Ausstrahlung 6] / 300 Cr / battle enc-oednis-staubfalken",
+        "glueckstern-16": "loot glueckstern-16 (Wrackburg-Mauer)",
+        "neon-tag-09": "loot neon-tag-09 (Diner-Rückseite)",
+        "flaschenpost-03": "loot flaschenpost-03 (im Sand bei den Masten)"
+      }
+    },
+    "rudis-diner": {
+      "name": "Rudis Diner",
+      "kind": "innen",
+      "district": "oednis",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-staubstrasse",
+      "parent": "staubstrasse",
+      "station": "",
+      "ambience": "innen",
+      "music": "oednis",
+      "unlock": "mit der Staubstraße",
+      "exits": [
+        {
+          "id": "nach-staubstrasse",
+          "to": "staubstrasse",
+          "entry": "von-rudis-diner",
+          "label": "Raus in den Staub",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-staubstrasse"
+      ],
+      "spots": {
+        "tresen": "Tresen: Rudi M/A (Händler rudis-diner), side-oednis-frieden „beide Seiten an Rudis Tresen“",
+        "kueche": "Küche mit Durchreiche: Rudi T, pers-jakko-kochbuch (Rudis Rezept)",
+        "sitznischen": "Sitznischen aus Flugzeugsitzen (Konvoi-Leute, Gerüchte)",
+        "verhandlungstisch": "Langer Tisch im Heck: Vertrag side-oednis-frieden (gc-136/137)",
+        "jukebox": "Jukebox (Radio Rost läuft nach side-verlorene-frequenz)",
+        "cockpit": "Altes Cockpit als Rudis Büro (look, Fotos vom Absturz)"
+      },
+      "hotspots": {
+        "rudis-tresen": "shop rudis-diner (M/A)",
+        "jukebox": "use: Jukebox (Radio Rost / Platten)",
+        "cockpit": "look: Cockpit"
+      }
+    },
+    "funkturm-ruine": {
+      "name": "Funkturm-Ruine",
+      "kind": "zone",
+      "district": "oednis",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-staubstrasse",
+      "parent": "",
+      "station": "",
+      "ambience": "oednis",
+      "bgVariants": [
+        "sendet (side-verlorene-frequenz erledigt: Windrad dreht, Lämpchen am Mast)"
+      ],
+      "unlock": "von der Staubstraße",
+      "exits": [
+        {
+          "id": "nach-staubstrasse",
+          "to": "staubstrasse",
+          "entry": "von-funkturm-ruine",
+          "label": "Piste zur Staubstraße",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-staubstrasse",
+        "taxi"
+      ],
+      "spots": {
+        "pisten-ende": "Ankunft von der Staubstraße",
+        "bunker-eingang": "Bunker mit Antennenwald",
+        "radio-rost-pult": "Radio Rost: Opa Funk (immer), akt-radio-rost Gastmoderation, side-verlorene-frequenz, erste Sendung mit Lio",
+        "plattenarchiv": "Plattenarchiv (Händler radio-rost)",
+        "windrad": "Windrad mit Stoffbändern: side-verlorene-frequenz Reparatur (gc-139)",
+        "windrad-drohnen-nest": "Nest der Windrad-Drohnen (Zufallsbegegnung, side-verlorene-frequenz Kampfweg)",
+        "sendemast": "Umgeknickter Sendemast auf dem Felsplateau (look)",
+        "plattenleine": "Wäscheleine mit trocknenden Schallplatten (schallplatte-06 als Questlohn, neon-tag-10)",
+        "felsplateau": "Felsplateau mit Blick über die Ödnis (look)",
+        "auftrag-a": "Auftragsziel (Kurier, job-oednis-paket)"
+      },
+      "hotspots": {
+        "radio-rost": "minigame akt-radio-rost (Opa Funk, A)",
+        "plattenarchiv": "shop radio-rost (Opa Funk)",
+        "windrad": "check gc-139 [Technik 6] (side-verlorene-frequenz)",
+        "neon-tag-10": "loot neon-tag-10 (Bunkertür)"
+      }
+    },
+    "aussiedlerhof": {
+      "name": "Aussiedlerhof",
+      "kind": "zone",
+      "district": "oednis",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-oednis-hof",
+      "parent": "",
+      "station": "",
+      "ambience": "oednis",
+      "bgVariants": [
+        "feld (Ruf aussiedler 80 oder pers-marla-brunnen: eigenes Feld bepflanzt)"
+      ],
+      "shelter": "Marlas Veranda (aufwachen), ohne Bedingung",
+      "unlock": "von der Staubstraße",
+      "exits": [
+        {
+          "id": "nach-staubstrasse",
+          "to": "staubstrasse",
+          "entry": "von-aussiedlerhof",
+          "label": "Piste zur Staubstraße",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-staubstrasse",
+        "aufwachen",
+        "taxi"
+      ],
+      "spots": {
+        "hoftor": "Hoftor (Ankunft von der Staubstraße)",
+        "hofladen": "Hofladen (Händler hofladen, M/T)",
+        "brunnen": "Brunnen mit Handpumpe: Marla M, pers-marla-brunnen, he-marla-sand-10, pers-alesa-wasserfilter",
+        "beete": "Beete unter Netzen (Aussiedler T)",
+        "eigenes-feld": "Eigenes Feld (akt-gaertnern ab Ruf aussiedler 80 / pers-marla-brunnen)",
+        "marlas-wohnwagen": "Marlas Wohnwagen mit Muscheln am Fenster: side-weg-zum-meer Start, schallplatte-12 (♥5)",
+        "veranda": "Marlas Veranda: Notschlafplatz (Einstieg aufwachen), he-marla-sand-4 (Geschichte vom Meer)",
+        "wegezettel": "Pinnwand „Marlas Wegezettel“ am Wohnwagen (Tafel marlas-wegezettel, act2)",
+        "elsas-werkstatt": "Elsas Werkstatt: Elsa M/T, pers-gustav-alte-liebe, pers-alesa-wasserfilter",
+        "ziegenroboter": "Ziegenroboter (look/talk, meckert in Morsecode)",
+        "waescheleine": "Wäscheleine (look)",
+        "solarsegel": "Solarsegel (look)",
+        "zaun-ost": "Zaun: Glasskorpione N (Zufallsbegegnung)",
+        "lagerfeuer-hof": "Lagerfeuer A: Aussiedler singen, Oldie-Tanz Gustav/Elsa (pers-gustav-alte-liebe), Lagerfeuerlied Marla+Lio",
+        "gustav-bank": "Bank vor Elsas Werkstatt: Gustav So A nach pers-gustav-alte-liebe",
+        "serenity-garten": "Gartenecke: Serenity Sa M (Flag epilog), he-serenity-chrome-10",
+        "auftrag-a": "Auftragsziel (Wasser für Aussiedler, Eskorte)"
+      },
+      "hotspots": {
+        "hofladen": "shop hofladen (M/T)",
+        "wegezettel": "board marlas-wegezettel (act2)",
+        "gaertnern": "minigame akt-gaertnern (eigenes Feld)",
+        "veranda": "sleep: Notschlafplatz (Marlas Veranda)",
+        "brunnen": "check (pers-marla-brunnen) [Körper 6]/[Technik 6]",
+        "glueckstern-17": "loot glueckstern-17 (Beete)"
+      }
+    },
+    "glasduenen": {
+      "name": "Glasdünen",
+      "kind": "zone",
+      "district": "oednis",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-oednis-hof",
+      "parent": "",
+      "station": "",
+      "ambience": "oednis",
+      "bgVariants": [
+        "abend (Glas funkelt rot, Meer am Horizont dunkelblau)"
+      ],
+      "unlock": "Giftschutz (haut-filtermembran, staubmaske oder gc-111) über die Piste der Staubstraße",
+      "exits": [
+        {
+          "id": "nach-staubstrasse",
+          "to": "staubstrasse",
+          "entry": "von-glasduenen",
+          "label": "Piste zur Staubstraße",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "wagenpiste",
+          "to": "das-meer",
+          "entry": "von-glasduenen",
+          "label": "Wagenpiste zum Meer",
+          "edge": "w",
+          "when": "Flag epilog (Ende 1, 2 oder 3b); vorher nur Fernblick von der Aussichtsdüne",
+          "lockedText": "Die Piste endet an einem Schild: „Meer – 40 km. Wagen erforderlich. Mut auch.“ Noch nicht."
+        }
+      ],
+      "entries": [
+        "von-staubstrasse",
+        "von-das-meer",
+        "taxi"
+      ],
+      "spots": {
+        "pisten-ost": "Ankunft von der Staubstraße",
+        "glaswerkstatt": "Glaswerkstatt mit Ofen: Glasbläserin T/A (Händler glaswerkstatt), side-glasherz Start",
+        "glasofen": "Glasofen (look; Glasherz wird hier gegossen)",
+        "skorpionnest": "Skorpionnest: Glasskorpione, enc-duenen-koenigin (boss)",
+        "broesel-versteck": "Versteck von Staubbaron Brösel mit dem gestohlenen Ei (side-glasherz, gc-138)",
+        "eingestuerzte-bruecke": "Eingestürzte Brücke über eine Glasschlucht (side-weg-zum-meer: gc-94 Seilwinde, gc-103 hangeln)",
+        "seilwinde": "Seilwinde (gc-94 [Technik 6])",
+        "aussichtsduene": "Aussichtsdüne: Aussichtspunkt (20 XP), Fernblick aufs Meer, side-weg-zum-meer Ziel, meer-foto",
+        "wagenpiste": "Wagenpiste zum Meer (Flag epilog)",
+        "auftrag-a": "Auftragsziel (Bergung)"
+      },
+      "hotspots": {
+        "glaswerkstatt": "shop glaswerkstatt (T/A)",
+        "aussicht-duene": "look: Aussichtspunkt Aussichtsdüne (20 XP, Meer-Fernblick, meer-foto mit Fotomodus)",
+        "seilwinde": "check gc-94 [Technik 6] / gc-103 [Körper 7] (side-weg-zum-meer)",
+        "skorpionnest": "battle enc-duenen-koenigin (side-glasherz) / look",
+        "glueckstern-18": "loot glueckstern-18 (Dünenkamm)",
+        "flaschenpost-04": "loot flaschenpost-04 (Glasschlucht)"
+      }
+    },
+    "rennhalle-9": {
+      "name": "Rennhalle 9",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "indoor",
+      "package": "pkg-rennhalle-meer",
+      "parent": "hafenkante",
+      "station": "",
+      "ambience": "club",
+      "bgVariants": [
+        "rennnacht (Mi/Sa 21–01: Flutlicht, Publikum)"
+      ],
+      "unlock": "Flag rennhalle-9-geoeffnet (Wiedereröffnung ab act2; setzt das Paket per mapAdditions.hafenkante.onEnter)",
+      "exits": [
+        {
+          "id": "nach-hafenkante",
+          "to": "hafenkante",
+          "entry": "von-rennhalle-9",
+          "label": "Rolltor zur Hafenkante",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-hafenkante"
+      ],
+      "spots": {
+        "rolltor": "Rolltor (Ankunft von der Hafenkante)",
+        "rennbahn": "Rennbahn: akt-schrottbot-rennen (Mi/Sa N), prep-fahrzeug Rennen",
+        "startrampe": "Startrampe der Schrottbots",
+        "boxengasse": "Boxengasse: Turbo-Tilda Mi/Sa N, Bot-Tuning",
+        "tribuene": "Tribüne (Publikum, Gerüchte)",
+        "wettschalter": "Wettschalter (Credits, Pokal)",
+        "siegerpodest": "Siegerpodest (Pokal)",
+        "alte-buehne": "Alte Kabelbrand-Bühne, mit Planen verhängt (look; Aria betritt die Halle nie freiwillig)",
+        "traverse": "Die gestürzte Lichttraverse, verrostet am Boden (look, Aria-Strang)",
+        "oberlicht": "Glasoberlicht hoch oben (look: Kas und Vex lagen hier 2083)"
+      },
+      "hotspots": {
+        "schrottbot-rennen": "minigame akt-schrottbot-rennen (Mi/Sa N)",
+        "wettschalter": "use: Wetten (Credits)",
+        "traverse": "look: Traverse (eigener Text bei Aria in der Party bzw. playerIs vex)",
+        "oberlicht": "look: Oberlicht"
+      }
+    },
+    "das-meer": {
+      "name": "Das Meer",
+      "kind": "zone",
+      "district": "kueste",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-rennhalle-meer",
+      "parent": "",
+      "station": "",
+      "ambience": "meer",
+      "music": "meer",
+      "bgVariants": [
+        "baustelle (side-strandclub Stufe 1–4: Treibholz, Lichterketten)",
+        "strandclub (side-strandclub erledigt)"
+      ],
+      "shelter": "Lagerfeuer (aufwachen), ohne Bedingung",
+      "unlock": "Flag epilog (Ende 1, 2, nach Ende 3 erst mit 3b) über die Wagenpiste der Glasdünen; Kiki-Taxi; Strand-Shuttle (side-strandclub)",
+      "exits": [
+        {
+          "id": "wagenpiste",
+          "to": "glasduenen",
+          "entry": "von-das-meer",
+          "label": "Wagenpiste zurück in die Ödnis",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-glasduenen",
+        "ankunft",
+        "aufwachen",
+        "shuttle",
+        "taxi"
+      ],
+      "spots": {
+        "wagenplatz": "Wagenplatz am Dünenrand (Ankunft Wagenpiste, Einstieg ankunft für die Ende-Szenen)",
+        "duenengras": "Dünengras (look)",
+        "strand": "Heller Sandstrand: Crew-Picknick, Hunters Schlussmonolog (Ende 1)",
+        "wasserlinie": "Wasserlinie: rom-aria-meer („Wer zuerst am Wasser ist!“), akt-strandlauf",
+        "steg": "Holzsteg: Angeln (muschel-frisch), Nebelhorn im Nachspiel",
+        "strandclub": "Strandclub-Baustelle aus Treibholz und Lichterketten: side-strandclub (Hunter)",
+        "strandclub-bar": "Bar des Strandclubs (Händler strandclub-bar nach Ausbau)",
+        "strandclub-buehne": "Bühne: Eröffnungsparty, Kabelbrand-Konzert (rom-aria-meer Folge, rom-vexaria-konzert)",
+        "lagerfeuer": "Lagerfeuerplatz: Notschlafplatz (Einstieg aufwachen), Lagerfeuer-Szene side-strandclub",
+        "krabbe-karl": "Krabbe Karl (Strandreinigungsroboter) läuft hier entlang",
+        "karls-stein": "Großer Stein: Krabbe Karl sitzt drauf (he-krabbe-karl-2/4)",
+        "grundstueck-pflock": "Pflock der Staubfalken: side-strandclub Pacht, enc-strand-staubfalken (ohne Einigung)",
+        "shuttle-halt": "Halt des Strand-Shuttles (Einstieg shuttle, side-strandclub Stufe Shuttle)",
+        "hunter-liegestuhl": "Hunters Liegestuhl (Nachspiel)",
+        "nyra-muschelplatz": "Nyras Muschelplatz (Nachspiel)",
+        "auftrag-a": "Auftragsziel (Lieferungen für den Strandclub)"
+      },
+      "hotspots": {
+        "strandlauf": "minigame akt-strandlauf (mit Aria)",
+        "angeln-steg": "minigame akt-angeln (Steg, muschel-frisch)",
+        "strandclub-bar": "shop strandclub-bar (nach side-strandclub)",
+        "lagerfeuer": "sleep: Notschlafplatz (Lagerfeuer)",
+        "muscheln": "loot muschel-frisch (täglich, daily: true)",
+        "abspann": "use: „Abspann ansehen“ ({ ending: true }, nur mit Rückfrage) – siehe notes"
+      }
+    }
+  },
+  "shops": {
+    "chrome-und-co": {
+      "map": "chrome-boulevard",
+      "spot": "boutique-chrome",
+      "owner": "sybella-chrome",
+      "note": "Luxus: seidentuch-blau/-rot/-gruen, haut-spiegelhaut, parfuem-ozon, taschenspiegel-gold; Rippers Taschenuhr (600 Cr, pers-ripper-taschenuhr). T (bis 19 Uhr). Rabatt Seraphina ♥6 −10 %."
+    },
+    "glanzstueck": {
+      "map": "chrome-boulevard",
+      "spot": "juwelier-glanzstueck",
+      "owner": "",
+      "note": "Juwelier: taschenspiegel-gold, perlenkette, vinyl-platte selten, schallplatte-10 selten. T/A bis 19 Uhr. Verkäufer ohne eigene Figur."
+    },
+    "quantum-kantine": {
+      "map": "quantum-foyer",
+      "spot": "kantinen-automat",
+      "owner": "",
+      "note": "Automat ab act3 (Party) und im Nachspiel: Synth-Kaffee, Algen-Chips, Medipflaster."
+    },
+    "rudis-diner": {
+      "map": "rudis-diner",
+      "spot": "tresen",
+      "owner": "rudi",
+      "note": "Hofhonig-Pfannkuchen, medipflaster, reparaturset, Kaffee. M/A (T Küche, Verkauf über Durchreiche)."
+    },
+    "konvoi": {
+      "map": "staubstrasse",
+      "spot": "konvoi-halt",
+      "owner": "",
+      "note": "Mo/Do T: postkarte-meer, vinyl-platte, strandclub-prospekt, schallplatte-11; nach side-oednis-frieden Wunschware."
+    },
+    "hofladen": {
+      "map": "aussiedlerhof",
+      "spot": "hofladen",
+      "owner": "",
+      "note": "M/T: hofhonig, frisches-gemuese, samenbombe, wasserfilter. Ruf aussiedler senkt Preise."
+    },
+    "radio-rost": {
+      "map": "funkturm-ruine",
+      "spot": "plattenarchiv",
+      "owner": "opa-funk",
+      "note": "vinyl-platte, Funkteile (Reparaturset, stoersender). Immer offen außer N."
+    },
+    "glaswerkstatt": {
+      "map": "glasduenen",
+      "spot": "glaswerkstatt",
+      "owner": "glasblaeserin",
+      "note": "T/A: muschel-glas, Glasperlen (Ablenkung side-glasherz), glasherz erst nach der Quest."
+    },
+    "himmelsgarten-blumen": {
+      "map": "himmelsgarten",
+      "spot": "blumenstand",
+      "owner": "hecki",
+      "note": "Nur Flag epilog: orchidee, blumensamen, Rosen (Geschenke)."
+    },
+    "strandclub-bar": {
+      "map": "das-meer",
+      "spot": "strandclub-bar",
+      "owner": "hunter",
+      "note": "Nach side-strandclub: Getränke, Neon-Limo, Fisch vom Grill; Mixi kann aushelfen."
+    }
+  },
+  "boards": {
+    "concierge-chrome": {
+      "map": "chrome-boulevard",
+      "spot": "portierloge",
+      "hotspot": "concierge-tafel",
+      "note": "Concierge am Chrome-Boulevard (act2, Ruf chrome-haus 30), geführt von Portier Albert: Bijou ausführen, Tischordnung, verschwundene Ohrringe, [Ausstrahlung 6–8]."
+    },
+    "marlas-wegezettel": {
+      "map": "aussiedlerhof",
+      "spot": "wegezettel",
+      "hotspot": "wegezettel",
+      "note": "act2: Bergungen, Eskorten, Wasser für Aussiedler."
+    },
+    "streitschlichtung": {
+      "map": "gerichtssaal",
+      "spot": "richterbank",
+      "hotspot": "streitschlichtung",
+      "note": "Nach he-richter-10: Streit schlichten (Hotspot per mapAdditions am Spot richterbank)."
+    }
+  },
+  "npcSchedules": {
+    "hunter": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "vip-lounge"
+      },
+      {
+        "when": "T,A Fr,Sa,So | Flag epilog und side-strandclub gestartet",
+        "map": "das-meer",
+        "spot": "strandclub"
+      },
+      {
+        "when": "N Fr,Sa | Flag epilog und side-strandclub erledigt",
+        "map": "das-meer",
+        "spot": "lagerfeuer"
+      },
+      {
+        "when": "T | main-2-krisensitzung aktiv (Hunter brütet über Aussiedler-Prospekten)",
+        "map": "hv-hinterzimmer",
+        "spot": "sofa"
+      }
+    ],
+    "raven": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und nicht raven_zurueck (gechippt)",
+        "map": "himmelsgarten",
+        "spot": "partysaal"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "A Sa,So | Flag epilog",
+        "map": "das-meer",
+        "spot": "strand"
+      }
+    ],
+    "dante": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "T Sa | Flag epilog",
+        "map": "das-meer",
+        "spot": "steg"
+      },
+      {
+        "when": "A Mo,Mi,Fr | main-2-countdown erledigt (Crew-Abend, nicht Do)",
+        "map": "high-voltage",
+        "spot": "stammtisch"
+      }
+    ],
+    "vega": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "antennen"
+      },
+      {
+        "when": "A Sa,So | Flag epilog",
+        "map": "das-meer",
+        "spot": "duenengras"
+      }
+    ],
+    "aria": [
+      {
+        "when": "* | aria_gechippt und main-2-countdown nicht erledigt (Variante A: bei Xion/Ripper bzw. bewusstlos)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | aria_weg (Alleingang in pers-aria-zerberster, zwei Tage)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "tanzflaeche-glas"
+      },
+      {
+        "when": "A Fr,Sa,So | Flag epilog",
+        "map": "das-meer",
+        "spot": "wasserlinie"
+      }
+    ],
+    "nyra": [
+      {
+        "when": "* | nyra_zurueckgelassen und main-3-labor nicht erledigt (Nyra im Turm, Herzen eingefroren, nur Telefon)",
+        "map": "quantum-labor",
+        "spot": "nyras-arbeitsplatz"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "M,T | Flag epilog",
+        "map": "das-meer",
+        "spot": "nyra-muschelplatz"
+      }
+    ],
+    "jimmy": [
+      {
+        "when": "* | jimmy_gechippt und main-3-labor nicht erledigt (Variante B ohne Rettung)",
+        "map": "quantum-labor",
+        "spot": "probanden-liege"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "A So | Flag epilog und side-strandclub erledigt (Lieferdienst)",
+        "map": "das-meer",
+        "spot": "strandclub-bar"
+      }
+    ],
+    "captain-kuschel": [
+      {
+        "when": "* | ende_master und side-zweite-chance nicht erledigt",
+        "map": "blades-buero",
+        "spot": "kuschel-sessel"
+      },
+      {
+        "when": "* | main-2-bruch erledigt und nyra_hat_kuschel und main-3-labor nicht erledigt",
+        "map": "quantum-labor",
+        "spot": "kuschel-ablage"
+      },
+      {
+        "when": "* | main-2-bruch erledigt und nicht nyra_hat_kuschel und nicht kuschel_bei_mila und side-captain-kuschel nicht erledigt",
+        "map": "quantum-foyer",
+        "spot": "fundbuero-quantum"
+      },
+      {
+        "when": "T | kuschel_bei_mila und side-captain-kuschel nicht erledigt",
+        "map": "schrottmarkt",
+        "spot": "mila-ecke"
+      },
+      {
+        "when": "* | kuschel_bei_mila und side-captain-kuschel nicht erledigt",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "T So | kuschel_sorgerecht (gc-95: sonntags bei Mila)",
+        "map": "schrottmarkt",
+        "spot": "mila-ecke"
+      }
+    ],
+    "mila": [
+      {
+        "when": "A Do | side-captain-kuschel erledigt (Freundin der Kinder, Eins! bei Dante)",
+        "map": "dantes-werkstatt",
+        "spot": "eins-tisch"
+      }
+    ],
+    "blade": [
+      {
+        "when": "T Di,Do,Sa | Flag epilog und blade_gefasst",
+        "map": "zellentrakt",
+        "spot": "besucherraum"
+      },
+      {
+        "when": "* | Flag epilog und blade_gefasst",
+        "map": "zellentrakt",
+        "spot": "haftzelle"
+      },
+      {
+        "when": "* | Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-blade nicht erledigt",
+        "map": "himmelsgarten",
+        "spot": "rednerbruecke"
+      },
+      {
+        "when": "M",
+        "map": "blades-buero",
+        "spot": "schreibtisch-blade"
+      },
+      {
+        "when": "T Mo,Do",
+        "map": "chrome-boulevard",
+        "spot": "boulevard-mitte"
+      },
+      {
+        "when": "T Di",
+        "map": "nx1-studio",
+        "spot": "studio-set"
+      },
+      {
+        "when": "T",
+        "map": "blades-buero",
+        "spot": "schreibtisch-blade"
+      },
+      {
+        "when": "A",
+        "map": "cafe-sahnehaube",
+        "spot": "blade-tisch"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "alesa-zero": [
+      {
+        "when": "T,A | Flag epilog",
+        "map": "digitech-areal",
+        "spot": "glasfassade"
+      },
+      {
+        "when": "M Mo,Di,Mi,Do,Fr | Flag epilog und 07:00–09:00",
+        "map": "cafe-sahnehaube",
+        "spot": "fenstertisch"
+      },
+      {
+        "when": "* | Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-labor nicht erledigt",
+        "map": "quantum-labor",
+        "spot": "alesas-pult"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "vip-lounge"
+      },
+      {
+        "when": "M Mo,Di,Mi,Do,Fr | 07:00–09:00",
+        "map": "cafe-sahnehaube",
+        "spot": "fenstertisch"
+      },
+      {
+        "when": "T Mi",
+        "map": "digitech-areal",
+        "spot": "lieferzone"
+      },
+      {
+        "when": "A",
+        "map": "glasarkaden",
+        "spot": "glaspark-bank"
+      },
+      {
+        "when": "*",
+        "map": "quantum-labor",
+        "spot": "alesas-pult"
+      }
+    ],
+    "xion-venom": [
+      {
+        "when": "A,N | Flag epilog und pers-xion-umschulung erledigt (Türsteher)",
+        "map": "neon-gasse",
+        "spot": "hv-eingang"
+      },
+      {
+        "when": "T | Flag epilog",
+        "map": "schrottmarkt",
+        "spot": "marktplatz-mitte"
+      },
+      {
+        "when": "* | Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und xion_fehlt („hat Urlaub genommen“)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "tanzflaeche-glas"
+      },
+      {
+        "when": "* | main-2-kanal aktiv",
+        "map": "pumpwerk-sieben",
+        "spot": "op-nische"
+      },
+      {
+        "when": "N Di",
+        "map": "hafenkante",
+        "spot": "container-77"
+      },
+      {
+        "when": "N Sa | act2 und side-xions-kralle nicht erledigt (Schrottring)",
+        "map": "hafenkante",
+        "spot": "alte-arena"
+      },
+      {
+        "when": "M",
+        "map": "quantum-foyer",
+        "spot": "xion-posten"
+      },
+      {
+        "when": "T",
+        "map": "quantum-foyer",
+        "spot": "sicherheitszentrale"
+      },
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "werbestand"
+      },
+      {
+        "when": "N | act2",
+        "map": "quantum-campus",
+        "spot": "patrouillenweg"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "ki-nexus": [
+      {
+        "when": "* | Flag epilog und ende_neue_nexus",
+        "map": "dantes-werkstatt",
+        "spot": "faxgeraet"
+      },
+      {
+        "when": "* | ende_master",
+        "map": "blades-buero",
+        "spot": "nexus-terminal"
+      },
+      {
+        "when": "* | Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3",
+        "map": "quantum-foyer",
+        "spot": "nexus-avatar"
+      },
+      {
+        "when": "A,N | act2",
+        "map": "quantum-foyer",
+        "spot": "nexus-avatar"
+      },
+      {
+        "when": "M,T,A",
+        "map": "quantum-schauraum",
+        "spot": "hologramm"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "seraphina-chrome": [
+      {
+        "when": "A | Flag epilog",
+        "map": "nx1-studio",
+        "spot": "studio-set"
+      },
+      {
+        "when": "M | Flag epilog",
+        "map": "chrome-penthouse",
+        "spot": "salon"
+      },
+      {
+        "when": "T | Flag epilog",
+        "map": "chrome-boulevard",
+        "spot": "boulevard-mitte"
+      },
+      {
+        "when": "* | Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "vip-lounge"
+      },
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-blau"
+      },
+      {
+        "when": "M",
+        "map": "chrome-penthouse",
+        "spot": "salon"
+      },
+      {
+        "when": "T Mo,Do (Vorstand)",
+        "map": "quantum-foyer",
+        "spot": "chefaufzug"
+      },
+      {
+        "when": "T",
+        "map": "chrome-penthouse",
+        "spot": "balkon-blau"
+      },
+      {
+        "when": "A",
+        "map": "glasarkaden",
+        "spot": "glaspark-tauben"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "sybella-chrome": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-einlass nicht erledigt",
+        "map": "quantum-foyer",
+        "spot": "sybella-stand"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "vip-lounge"
+      },
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-rot"
+      },
+      {
+        "when": "T So",
+        "map": "schrottmarkt",
+        "spot": "flohmarkt"
+      },
+      {
+        "when": "M",
+        "map": "chrome-penthouse",
+        "spot": "bibliothek"
+      },
+      {
+        "when": "T",
+        "map": "chrome-boulevard",
+        "spot": "boutique-chrome"
+      },
+      {
+        "when": "A Di,Sa",
+        "map": "schrottmarkt",
+        "spot": "sybella-verkleidet"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "serenity-chrome": [
+      {
+        "when": "M Sa | Flag epilog",
+        "map": "aussiedlerhof",
+        "spot": "serenity-garten"
+      },
+      {
+        "when": "M | Flag epilog",
+        "map": "himmelsgarten",
+        "spot": "serenity-beet"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "rosenboegen"
+      },
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-gruen"
+      },
+      {
+        "when": "M",
+        "map": "glasarkaden",
+        "spot": "glaspark"
+      },
+      {
+        "when": "T Mi",
+        "map": "nx1-studio",
+        "spot": "schminkspiegel"
+      },
+      {
+        "when": "T",
+        "map": "chrome-boulevard",
+        "spot": "promenade"
+      },
+      {
+        "when": "A",
+        "map": "cafe-sahnehaube",
+        "spot": "ecktisch-cafe"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "leutnant-nadel": [
+      {
+        "when": "* | kopfgeld-leutnant-nadel erledigt oder Flag epilog",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "N | act2",
+        "map": "quantum-campus",
+        "spot": "patrouillenweg"
+      },
+      {
+        "when": "T | act2",
+        "map": "quantum-foyer",
+        "spot": "sicherheitszentrale"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "pim-pinzette": [
+      {
+        "when": "T | Flag epilog",
+        "map": "digitech-areal",
+        "spot": "glasfassade"
+      },
+      {
+        "when": "M",
+        "map": "bahnhof-mitte",
+        "spot": "pendlerbank"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "quantum-labor",
+        "spot": "pims-werkbank"
+      },
+      {
+        "when": "T",
+        "map": "quantum-labor",
+        "spot": "pims-werkbank"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "imbiss-loetkolben"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "pfeffer": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "gaesteeingang"
+      },
+      {
+        "when": "A,N Fr,Sa",
+        "map": "high-voltage",
+        "spot": "pfeffer-tisch"
+      },
+      {
+        "when": "T | act2",
+        "map": "quantum-campus",
+        "spot": "wachhaeuschen-campus"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "falke": [
+      {
+        "when": "N | act2 und Flag epilog nicht gesetzt",
+        "map": "quantum-campus",
+        "spot": "scheinwerfer-turm"
+      }
+    ],
+    "portier-albert": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "portier-runde"
+      },
+      {
+        "when": "M,T,A",
+        "map": "chrome-boulevard",
+        "spot": "portierloge"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "bijou": [
+      {
+        "when": "* | side-chrome-pudel aktiv und bijou_spur_1 nicht gesetzt",
+        "map": "glasarkaden",
+        "spot": "springbrunnen"
+      },
+      {
+        "when": "* | side-chrome-pudel aktiv und bijou_spur_2 nicht gesetzt",
+        "map": "stufenplatz",
+        "spot": "windkante"
+      },
+      {
+        "when": "* | side-chrome-pudel aktiv und bijou_spur_3 nicht gesetzt",
+        "map": "neon-gasse",
+        "spot": "gassenmitte"
+      },
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "sofa-bijou"
+      },
+      {
+        "when": "T",
+        "map": "chrome-boulevard",
+        "spot": "pudelwiese"
+      },
+      {
+        "when": "M,A",
+        "map": "chrome-boulevard",
+        "spot": "portierloge"
+      },
+      {
+        "when": "N",
+        "map": "chrome-penthouse",
+        "spot": "sofa-bijou"
+      }
+    ],
+    "hecki": [
+      {
+        "when": "*",
+        "map": "himmelsgarten",
+        "spot": "hecki"
+      }
+    ],
+    "collin-charleston": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-einlass nicht erledigt",
+        "map": "quantum-foyer",
+        "spot": "presse-ecke"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "presse-podest"
+      }
+    ],
+    "delya-delloraine": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-einlass nicht erledigt",
+        "map": "quantum-foyer",
+        "spot": "presse-ecke"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "presse-podest"
+      }
+    ],
+    "kameramann": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-einlass nicht erledigt",
+        "map": "quantum-foyer",
+        "spot": "presse-ecke"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "presse-podest"
+      }
+    ],
+    "wache": [
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht) und main-3-einlass nicht erledigt (Einlass der Party)",
+        "map": "quantum-campus",
+        "spot": "haupteingang"
+      },
+      {
+        "when": "* | act3 und nicht Flag epilog (Partynacht)",
+        "map": "himmelsgarten",
+        "spot": "gaesteeingang"
+      }
+    ],
+    "ripper": [
+      {
+        "when": "* | main-2-kanal aktiv",
+        "map": "pumpwerk-sieben",
+        "spot": "op-nische"
+      }
+    ],
+    "turbo-tilda": [
+      {
+        "when": "N Mi,Sa | Flag rennhalle-9-geoeffnet (Rennnacht 21–01)",
+        "map": "rennhalle-9",
+        "spot": "boxengasse"
+      }
+    ],
+    "direktorin-hartlauf": [
+      {
+        "when": "T | side-hartlaufs-rache aktiv",
+        "map": "digitech-areal",
+        "spot": "archiv"
+      }
+    ],
+    "lio-funkel": [
+      {
+        "when": "A | side-verlorene-frequenz aktiv und Flag frequenz_relais (erste Sendung)",
+        "map": "funkturm-ruine",
+        "spot": "radio-rost-pult"
+      },
+      {
+        "when": "N Fr | Flag epilog und side-strandclub erledigt",
+        "map": "das-meer",
+        "spot": "strandclub-buehne"
+      }
+    ],
+    "kaeptn-nebelhorn": [
+      {
+        "when": "T So | Flag epilog und he-kaeptn-nebelhorn-10 gesehen",
+        "map": "das-meer",
+        "spot": "steg"
+      }
+    ],
+    "opa-gustav": [
+      {
+        "when": "A So | pers-gustav-alte-liebe erledigt (bei Elsa)",
+        "map": "aussiedlerhof",
+        "spot": "gustav-bank"
+      },
+      {
+        "when": "T Sa | side-offene-werkstatt erledigt (Stand)",
+        "map": "quantum-campus",
+        "spot": "campus-wiese"
+      }
+    ],
+    "marla-sand": [
+      {
+        "when": "M,T Sa",
+        "map": "schrottmarkt",
+        "spot": "karawanenstand"
+      },
+      {
+        "when": "A Sa",
+        "map": "high-voltage",
+        "spot": "oldie-ecke"
+      },
+      {
+        "when": "* | act2 nicht erreicht (Ödnis gesperrt)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "N",
+        "map": "staubstrasse",
+        "spot": "lagerfeuer"
+      },
+      {
+        "when": "M",
+        "map": "aussiedlerhof",
+        "spot": "brunnen"
+      },
+      {
+        "when": "T Mo,Do",
+        "map": "staubstrasse",
+        "spot": "konvoi-halt"
+      },
+      {
+        "when": "T",
+        "map": "aussiedlerhof",
+        "spot": "marlas-wohnwagen"
+      },
+      {
+        "when": "A",
+        "map": "aussiedlerhof",
+        "spot": "lagerfeuer-hof"
+      }
+    ],
+    "rudi": [
+      {
+        "when": "M",
+        "map": "rudis-diner",
+        "spot": "tresen"
+      },
+      {
+        "when": "T",
+        "map": "rudis-diner",
+        "spot": "kueche"
+      },
+      {
+        "when": "A",
+        "map": "rudis-diner",
+        "spot": "tresen"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "kraehe": [
+      {
+        "when": "A Sa | Flag epilog und kraehe_teilhaberin (side-strandclub gc-99)",
+        "map": "das-meer",
+        "spot": "grundstueck-pflock"
+      },
+      {
+        "when": "T",
+        "map": "staubstrasse",
+        "spot": "wrackburg-hof"
+      },
+      {
+        "when": "A",
+        "map": "staubstrasse",
+        "spot": "wrackburg-tor"
+      },
+      {
+        "when": "N",
+        "map": "staubstrasse",
+        "spot": "wrackburg-hof"
+      },
+      {
+        "when": "M",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "elsa": [
+      {
+        "when": "M,T",
+        "map": "aussiedlerhof",
+        "spot": "elsas-werkstatt"
+      },
+      {
+        "when": "A",
+        "map": "aussiedlerhof",
+        "spot": "lagerfeuer-hof"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "opa-funk": [
+      {
+        "when": "N",
+        "map": "funkturm-ruine",
+        "spot": "bunker-eingang"
+      },
+      {
+        "when": "*",
+        "map": "funkturm-ruine",
+        "spot": "radio-rost-pult"
+      }
+    ],
+    "glasblaeserin": [
+      {
+        "when": "T,A",
+        "map": "glasduenen",
+        "spot": "glaswerkstatt"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "staubbaron-broesel": [
+      {
+        "when": "* | kopfgeld-staubbaron-broesel erledigt",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "T | side-glasherz aktiv und Ei nicht zurück (glasherz_ei_zurueck nicht gesetzt)",
+        "map": "glasduenen",
+        "spot": "broesel-versteck"
+      },
+      {
+        "when": "T",
+        "map": "staubstrasse",
+        "spot": "broesel-wasserstand"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "krabbe-karl": [
+      {
+        "when": "A",
+        "map": "das-meer",
+        "spot": "karls-stein"
+      },
+      {
+        "when": "*",
+        "map": "das-meer",
+        "spot": "krabbe-karl"
+      }
+    ],
+    "schlafwandler-ede": [
+      {
+        "when": "N | pers-delya-quelle aktiv und nicht schlafwandler_ede_gerettet",
+        "map": "kanal-sammler",
+        "spot": "floss-anleger"
+      },
+      {
+        "when": "M,T | schlafwandler_ede_gerettet und pers-delya-quelle nicht erledigt (bei Dante zur Kontrolle)",
+        "map": "dantes-werkstatt",
+        "spot": "sofa"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "schlafwandlerin-rosi": [
+      {
+        "when": "N | pers-delya-quelle aktiv und nicht schlafwandlerin_rosi_gerettet",
+        "map": "pumpwerk-sieben",
+        "spot": "schlafwandler-pumpe"
+      },
+      {
+        "when": "M,T | schlafwandlerin_rosi_gerettet und pers-delya-quelle nicht erledigt (bei Dante zur Kontrolle)",
+        "map": "dantes-werkstatt",
+        "spot": "sofa"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "schlafwandler-bert": [
+      {
+        "when": "N | pers-delya-quelle aktiv und nicht schlafwandler_bert_gerettet",
+        "map": "datentunnel",
+        "spot": "schlafwandler-tunnel"
+      },
+      {
+        "when": "M,T | schlafwandler_bert_gerettet und pers-delya-quelle nicht erledigt (bei Dante zur Kontrolle)",
+        "map": "dantes-werkstatt",
+        "spot": "sofa"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ]
+  },
+  "scheduleMode": {
+    "hunter": "vorangestellt",
+    "raven": "vorangestellt",
+    "dante": "vorangestellt",
+    "vega": "vorangestellt",
+    "aria": "vorangestellt",
+    "nyra": "vorangestellt",
+    "jimmy": "vorangestellt",
+    "captain-kuschel": "vorangestellt",
+    "mila": "vorangestellt",
+    "blade": "ersetzt",
+    "alesa-zero": "ersetzt",
+    "xion-venom": "ersetzt",
+    "ki-nexus": "ersetzt",
+    "seraphina-chrome": "ersetzt",
+    "sybella-chrome": "ersetzt",
+    "serenity-chrome": "ersetzt",
+    "leutnant-nadel": "neu",
+    "pim-pinzette": "ersetzt",
+    "pfeffer": "ersetzt",
+    "falke": "vorangestellt",
+    "portier-albert": "ersetzt",
+    "bijou": "ersetzt",
+    "hecki": "neu",
+    "collin-charleston": "vorangestellt",
+    "delya-delloraine": "vorangestellt",
+    "kameramann": "vorangestellt",
+    "wache": "vorangestellt",
+    "ripper": "vorangestellt",
+    "turbo-tilda": "vorangestellt",
+    "direktorin-hartlauf": "vorangestellt",
+    "lio-funkel": "vorangestellt",
+    "kaeptn-nebelhorn": "vorangestellt",
+    "opa-gustav": "vorangestellt",
+    "marla-sand": "ersetzt",
+    "rudi": "neu",
+    "kraehe": "neu",
+    "elsa": "neu",
+    "opa-funk": "neu",
+    "glasblaeserin": "neu",
+    "staubbaron-broesel": "neu",
+    "krabbe-karl": "neu",
+    "schlafwandler-ede": "neu",
+    "schlafwandlerin-rosi": "neu",
+    "schlafwandler-bert": "neu"
+  },
+  "events": {
+    "he-hunter-8": {
+      "map": "hv-hinterzimmer",
+      "spot": "fotowand",
+      "when": "N, act2 (Fotowand der alten Crew; Romanze: langsamer Tanz nach Ladenschluss)",
+      "status": "vorhanden (npc-crew-a/hunter.ts)"
+    },
+    "he-hunter-10": {
+      "map": "high-voltage",
+      "spot": "tresen",
+      "when": "N, act2 nach he-hunter-8 (Toast „Auf [Name]!“; Romanze: Tafel rom-hunter-bar)",
+      "status": "vorhanden (npc-crew-a/hunter.ts)"
+    },
+    "he-raven-8": {
+      "map": "digitech-tresor",
+      "spot": "tresor-rohr",
+      "when": "act2 (Handschelle am Rohr zurücklassen)",
+      "status": "vorhanden (npc-crew-a/raven.ts)"
+    },
+    "he-raven-10": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "N, act2 nach he-raven-8 (Wingwoman bzw. Bitte um Hilfe bei Dante)",
+      "status": "vorhanden (npc-crew-a/raven.ts)"
+    },
+    "he-dante-8": {
+      "map": "schrottmarkt",
+      "spot": "flohmarkt",
+      "when": "T So, act2 (dantes-altes-deck; Romanze: Tanzen zwischen Kisten)",
+      "status": "vorhanden (npc-crew-a/dante.ts)"
+    },
+    "he-dante-10": {
+      "map": "dantes-werkstatt",
+      "spot": "plattenspieler",
+      "when": "N, act2 nach he-dante-8 (Stromausfall, Röhrenglühen; Romanze: Tafel rom-dante-werkstatt)",
+      "status": "vorhanden (npc-crew-a/dante.ts)"
+    },
+    "he-vega-8": {
+      "map": "glasarkaden",
+      "spot": "springbrunnen",
+      "when": "A, act2 (Vernissage, Ausreden-Checks)",
+      "status": "vorhanden (npc-crew-b/vega.ts)"
+    },
+    "he-vega-10": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "M, act2 nach he-vega-8 (Dachgarten mit einer Pflanze)",
+      "status": "vorhanden (npc-crew-b/vega.ts)"
+    },
+    "he-aria-8": {
+      "map": "schrottmarkt",
+      "spot": "inkasso-gasse",
+      "when": "T, act2, ♥8, Variante B von main-2-bruch (Ripper sperrt den Arm per Fernbedienung, Start pers-aria-zerberster; Szene danach rom-aria-ausfall)",
+      "status": "neu"
+    },
+    "he-aria-10": {
+      "map": "flutmauer",
+      "spot": "mauer-ziel",
+      "when": "A Sonnenuntergang, ♥10, pers-aria-zerberster erledigt (Freundschaftsfassung von rom-aria-kuss: Start neon-gasse vegas-ausguck, Ziel hier; arias-ersatzschlaeger)",
+      "status": "neu"
+    },
+    "he-nyra-8": {
+      "map": "high-voltage",
+      "spot": "stammtisch",
+      "when": "A, act3 bzw. Flag epilog (Entschuldigung bei der Crew)",
+      "status": "vorhanden (npc-crew-b/nyra.ts)"
+    },
+    "he-nyra-10": {
+      "map": "flutmauer",
+      "spot": "nyra-bank",
+      "when": "A, nach he-nyra-8 (Wellenrauschen, nyra-wellenchip)",
+      "status": "vorhanden (npc-crew-b/nyra.ts)"
+    },
+    "he-jimmy-8": {
+      "map": "high-voltage",
+      "spot": "sitzecke-gaeste",
+      "when": "A/N, act2, Jimmy gerettet (Hunter entschuldigt sich)",
+      "status": "vorhanden (npc-crew-b/jimmy.ts)"
+    },
+    "he-jimmy-10": {
+      "map": "crew-quartier",
+      "spot": "couch",
+      "when": "act2 nach he-jimmy-8",
+      "status": "vorhanden (npc-crew-b/jimmy.ts)"
+    },
+    "he-captain-kuschel-8": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "when": "T, act2 (Babette will ihn waschen)",
+      "status": "vorhanden (npc-crew-b/captain-kuschel.ts)"
+    },
+    "he-captain-kuschel-10": {
+      "map": "crew-quartier",
+      "spot": "bett",
+      "when": "act2 nach he-captain-kuschel-8 (Talisman „Große Ohren“)",
+      "status": "vorhanden (npc-crew-b/captain-kuschel.ts)"
+    },
+    "he-bolzen-8": {
+      "map": "schrottmarkt",
+      "spot": "halde",
+      "when": "T, act2 (gräbt eine Digitech-Kiste aus)",
+      "status": "vorhanden (npc-unterstadt/bolzen.ts)"
+    },
+    "he-bolzen-10": {
+      "map": "crew-quartier",
+      "spot": "hundekorb",
+      "when": "M, act2 nach he-bolzen-8",
+      "status": "vorhanden (npc-unterstadt/bolzen.ts)"
+    },
+    "he-collin-charleston-8": {
+      "map": "high-voltage",
+      "spot": "buehne",
+      "when": "A/N, act2 (Karaoke-Duett)",
+      "status": "vorhanden (npc-medien-club/collin-charleston.ts)"
+    },
+    "he-collin-charleston-10": {
+      "map": "nx1-studio",
+      "spot": "studio-set",
+      "when": "A, act2 (Sondersendung; Romanze: Tafel rom-collin-testbild)",
+      "status": "vorhanden (npc-medien-club/collin-charleston.ts)"
+    },
+    "he-delya-delloraine-8": {
+      "map": "nx1-studio",
+      "spot": "redaktion",
+      "when": "A, act2 nach he-delya-delloraine-6",
+      "status": "vorhanden (npc-medien-club/delya-delloraine.ts)"
+    },
+    "he-delya-delloraine-10": {
+      "map": "nx1-studio",
+      "spot": "studio-set",
+      "when": "A, act2 nach he-delya-delloraine-8",
+      "status": "vorhanden (npc-medien-club/delya-delloraine.ts)"
+    },
+    "he-kameramann-8": {
+      "map": "hafenkante",
+      "spot": "kai-mitte",
+      "when": "A, act2 (Premiere als Freiluftkino am Kai)",
+      "status": "vorhanden (npc-medien-club/kameramann.ts)"
+    },
+    "he-kameramann-10": {
+      "map": "schrottmarkt",
+      "spot": "filmposten",
+      "when": "A, act2 nach he-kameramann-8",
+      "status": "vorhanden (npc-medien-club/kameramann.ts)"
+    },
+    "he-barkeeper-8": {
+      "map": "high-voltage",
+      "spot": "tresen",
+      "when": "A/N Fr/Sa, act2",
+      "status": "vorhanden (npc-medien-club/barkeeper.ts)"
+    },
+    "he-barkeeper-10": {
+      "map": "high-voltage",
+      "spot": "tresen",
+      "when": "N, act2 nach he-barkeeper-8",
+      "status": "vorhanden (npc-medien-club/barkeeper.ts)"
+    },
+    "he-ripper-8": {
+      "map": "ripper-praxis",
+      "spot": "preistafel",
+      "when": "T, act2, pers-freya-fairer-lohn erledigt",
+      "status": "vorhanden (npc-medien-club/ripper.ts)"
+    },
+    "he-ripper-10": {
+      "map": "ripper-praxis",
+      "spot": "auslage",
+      "when": "T, act2 nach he-ripper-8",
+      "status": "vorhanden (npc-medien-club/ripper.ts)"
+    },
+    "he-daria-8": {
+      "map": "schrottmarkt",
+      "spot": "botenstand",
+      "when": "T, act2 (stellt sich gegen Ripper)",
+      "status": "vorhanden (npc-kinder-alte/daria.ts)"
+    },
+    "he-daria-10": {
+      "map": "das-nest",
+      "spot": "karte-der-stadt",
+      "when": "M, act2",
+      "status": "vorhanden (npc-kinder-alte/daria.ts)"
+    },
+    "he-freya-8": {
+      "map": "dantes-werkstatt",
+      "spot": "eins-tisch",
+      "when": "A Do, act2 (Kindergericht über Dantes Kekse)",
+      "status": "vorhanden (npc-kinder-alte/freya.ts)"
+    },
+    "he-freya-10": {
+      "map": "eisenhof",
+      "spot": "gerichtsgarten",
+      "when": "T Mi, act2",
+      "status": "vorhanden (npc-kinder-alte/freya.ts)"
+    },
+    "he-jakko-8": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "when": "T (nicht Mo), act2 (kocht für den ganzen Markt)",
+      "status": "vorhanden (npc-kinder-alte/jakko.ts)"
+    },
+    "he-jakko-10": {
+      "map": "das-nest",
+      "spot": "essensplatz",
+      "when": "M, act2",
+      "status": "vorhanden (npc-kinder-alte/jakko.ts)"
+    },
+    "he-opa-gustav-8": {
+      "map": "high-voltage",
+      "spot": "oldie-ecke",
+      "when": "A Fr, act2 (Oldie-Tanz mit Babette, Start pers-gustav-alte-liebe)",
+      "status": "vorhanden (npc-kinder-alte/opa-gustav.ts)"
+    },
+    "he-opa-gustav-10": {
+      "map": "schrottmarkt",
+      "spot": "wohnwagen",
+      "when": "A (nicht Fr), act2",
+      "status": "vorhanden (npc-kinder-alte/opa-gustav.ts)"
+    },
+    "he-richter-8": {
+      "map": "dantes-werkstatt",
+      "spot": "ofen",
+      "when": "T So, act2 (Keks-Wettbewerb als Juror)",
+      "status": "vorhanden (npc-ordnung-markt/richter.ts)"
+    },
+    "he-richter-10": {
+      "map": "eisenhof",
+      "spot": "richter-bank",
+      "when": "A, act2 nach he-richter-8 (öffnet Tafel streitschlichtung)",
+      "status": "vorhanden (npc-ordnung-markt/richter.ts)"
+    },
+    "he-wache-8": {
+      "map": "bahnhof-mitte",
+      "spot": "kiosk-bahnhof",
+      "when": "A, act2 ([Wache ♥8] Abkürzung beim Party-Einlass freigeschaltet)",
+      "status": "vorhanden (npc-ordnung-markt/wache.ts)"
+    },
+    "he-wache-10": {
+      "map": "bahnhof-mitte",
+      "spot": "kiosk-bahnhof",
+      "when": "N, act2, Zyklustag 7 (Feuerwerk)",
+      "status": "vorhanden (npc-ordnung-markt/wache.ts)"
+    },
+    "he-dexter-8": {
+      "map": "high-voltage",
+      "spot": "dexter-tisch",
+      "when": "A, act2 (zahlt Hunter zurück)",
+      "status": "vorhanden (npc-ordnung-markt/dexter.ts)"
+    },
+    "he-dexter-10": {
+      "map": "schrottmarkt",
+      "spot": "dexter-buero",
+      "when": "T, act2 nach he-dexter-8 (Dexters Leihhaus)",
+      "status": "vorhanden (npc-ordnung-markt/dexter.ts)"
+    },
+    "he-babette-bao-8": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "when": "M (nicht Mo), act2",
+      "status": "vorhanden (npc-ordnung-markt/babette-bao.ts)"
+    },
+    "he-babette-bao-10": {
+      "map": "schrottmarkt",
+      "spot": "garkueche-bank",
+      "when": "A Mo, act2 nach he-babette-bao-8",
+      "status": "vorhanden (npc-ordnung-markt/babette-bao.ts)"
+    },
+    "he-kiki-karbon-8": {
+      "map": "bahnhof-mitte",
+      "spot": "taxistand",
+      "when": "M, act2, pers-kiki-reichweite erledigt (Testflug bis an den Rand der Ödnis → staubstrasse taxi)",
+      "status": "vorhanden (npc-ordnung-markt/kiki-karbon.ts)"
+    },
+    "he-kiki-karbon-10": {
+      "map": "neon-gasse",
+      "spot": "vorplatz",
+      "when": "N, act2 nach he-kiki-karbon-8",
+      "status": "vorhanden (npc-ordnung-markt/kiki-karbon.ts)"
+    },
+    "he-lio-funkel-8": {
+      "map": "high-voltage",
+      "spot": "buehne",
+      "when": "N Sa, act2 (erster großer Auftritt)",
+      "status": "vorhanden (npc-unterstadt/lio-funkel.ts)"
+    },
+    "he-lio-funkel-10": {
+      "map": "neon-gasse",
+      "spot": "lichterketten-bank",
+      "when": "N, act2, pers-lio-album erledigt (Albumpremiere; Romanze: Tafel rom-lio-dach)",
+      "status": "vorhanden (npc-unterstadt/lio-funkel.ts)"
+    },
+    "he-pim-pinzette-8": {
+      "map": "eisenhof",
+      "spot": "gerichtsplatz",
+      "when": "T, act2 (Zeugenaussage)",
+      "status": "vorhanden (npc-unterstadt/pim-pinzette.ts)"
+    },
+    "he-pim-pinzette-10": {
+      "map": "schrottmarkt",
+      "spot": "marktplatz-mitte",
+      "when": "T, act3 bzw. Nachspiel (Mitgründerin „Nullpunkt“)",
+      "status": "vorhanden (npc-unterstadt/pim-pinzette.ts)"
+    },
+    "he-kaeptn-nebelhorn-8": {
+      "map": "hausboot-nebelhorn",
+      "spot": "logbuch-regal",
+      "when": "N, act2 (Logbuch der Großmutter)",
+      "status": "vorhanden (npc-unterstadt/kaeptn-nebelhorn.ts)"
+    },
+    "he-kaeptn-nebelhorn-10": {
+      "map": "hafenkante",
+      "spot": "faehre",
+      "when": "T, act2, pers-nebelhorn-letzte-faehre erledigt (Nachspiel: er sieht das Meer → das-meer steg)",
+      "status": "vorhanden (npc-unterstadt/kaeptn-nebelhorn.ts)"
+    },
+    "he-vex-schrapnell-8": {
+      "map": "loetgassen",
+      "spot": "kurierbude",
+      "when": "N, act2, Spielfigur nicht Vex",
+      "status": "vorhanden (npc-welt/vex-schrapnell.ts)"
+    },
+    "he-vex-schrapnell-10": {
+      "map": "loetgassen",
+      "spot": "funkmast",
+      "when": "A, act2 nach he-vex-schrapnell-8, Spielfigur nicht Vex",
+      "status": "vorhanden (npc-welt/vex-schrapnell.ts)"
+    },
+    "he-marla-sand-4": {
+      "map": "aussiedlerhof",
+      "spot": "veranda",
+      "when": "A, act2 (Geschichte vom Meer, kuestenkarte-fragment); bisher schrottmarkt Sa",
+      "status": "umhängen (npc-unterstadt/marla-sand.ts)"
+    },
+    "he-marla-sand-6": {
+      "map": "staubstrasse",
+      "spot": "pisten-kreuz",
+      "when": "T, act2 nach he-marla-sand-4 (Sandsturm: Wind lesen); bisher schrottmarkt Sa",
+      "status": "umhängen (npc-unterstadt/marla-sand.ts)"
+    },
+    "he-marla-sand-8": {
+      "map": "staubstrasse",
+      "spot": "konvoi-halt",
+      "when": "T Mo/Do, act2 nach he-marla-sand-6 (Karawanen-Eskorte gegen Staubfalken); bisher schrottmarkt Sa",
+      "status": "umhängen (npc-unterstadt/marla-sand.ts)"
+    },
+    "he-marla-sand-10": {
+      "map": "aussiedlerhof",
+      "spot": "brunnen",
+      "when": "M, act2 nach he-marla-sand-8 (marlas-wasserstab); bisher schrottmarkt Sa",
+      "status": "umhängen (npc-unterstadt/marla-sand.ts)"
+    },
+    "he-blade-2": {
+      "map": "cafe-sahnehaube",
+      "spot": "blade-tisch",
+      "when": "A, ab Akt 1 (blades-visitenkarte, öffnet einmal das Foyer)",
+      "status": "neu"
+    },
+    "he-blade-4": {
+      "map": "quantum-foyer",
+      "spot": "logo-wand",
+      "when": "M/T, act2 (Führung durchs Foyer, Nexus sagt „Master“; Zugang per blades-visitenkarte)",
+      "status": "neu"
+    },
+    "he-blade-6": {
+      "map": "chrome-boulevard",
+      "spot": "wolkenbank",
+      "when": "T Mo/Do, act2 (die Maske fällt, Flag blade_zweifel)",
+      "status": "neu"
+    },
+    "he-blade-8": {
+      "map": "zellentrakt",
+      "spot": "besucherraum",
+      "when": "T Di/Do/Sa, Flag epilog und blade_gefasst (Besuch)",
+      "status": "neu"
+    },
+    "he-blade-10": {
+      "map": "zellentrakt",
+      "spot": "besucherraum",
+      "when": "T Di/Do/Sa, Flag epilog nach he-blade-8 (Code zum Geheimfach → blades-buero geheimfach)",
+      "status": "neu"
+    },
+    "re-blade-8": {
+      "map": "chrome-boulevard",
+      "spot": "boulevard-mitte",
+      "when": "T Mo/Do, Rivalität −8 (optionaler Boss „Blade und die Golddrohnen“ oder [Ausstrahlung 8])",
+      "status": "neu"
+    },
+    "he-alesa-zero-2": {
+      "map": "cafe-sahnehaube",
+      "spot": "fenstertisch",
+      "when": "M Mo–Fr 07–09, ab Akt 1 (probt eine Rede)",
+      "status": "neu"
+    },
+    "he-alesa-zero-4": {
+      "map": "digitech-areal",
+      "spot": "lieferzone",
+      "when": "T Mi (Prototypen tragen, Hinweis auf Wachschichten)",
+      "status": "neu"
+    },
+    "he-alesa-zero-6": {
+      "map": "glasarkaden",
+      "spot": "glaspark-bank",
+      "when": "A, act2 (Schuldgefühle, Flag alesa_zweifel)",
+      "status": "neu"
+    },
+    "he-alesa-zero-8": {
+      "map": "gerichtssaal",
+      "spot": "zeugenstand",
+      "when": "T, Flag epilog (Zeugenaussage [Ausstrahlung 6], Sozialstunden bei Dante)",
+      "status": "neu"
+    },
+    "he-alesa-zero-10": {
+      "map": "digitech-areal",
+      "spot": "glasfassade",
+      "when": "T, Flag epilog nach he-alesa-zero-8 (Werkstatt „Nullpunkt“, zero-prototyp)",
+      "status": "neu"
+    },
+    "he-xion-venom-2": {
+      "map": "neon-gasse",
+      "spot": "werbestand",
+      "when": "A, ab Akt 1 (besseres Werbeplakat, es kommt nur eine Taube)",
+      "status": "neu"
+    },
+    "he-xion-venom-4": {
+      "map": "hafenkante",
+      "spot": "container-77",
+      "when": "N Di (ertappt mit Ripper, xion-passierschein gegen Schweigen)",
+      "status": "neu"
+    },
+    "he-xion-venom-6": {
+      "map": "quantum-foyer",
+      "spot": "xion-posten",
+      "when": "M, act2 („Dumpfbacke“: Kopfrechentrick)",
+      "status": "neu"
+    },
+    "he-xion-venom-8": {
+      "map": "schrottmarkt",
+      "spot": "marktplatz-mitte",
+      "when": "T, Flag epilog (Jobbörse)",
+      "status": "neu"
+    },
+    "he-xion-venom-10": {
+      "map": "neon-gasse",
+      "spot": "hv-eingang",
+      "when": "N, Flag epilog nach pers-xion-umschulung (Türsteher, Entschuldigung bei Aria, xion-vip-band)",
+      "status": "neu"
+    },
+    "he-ki-nexus-2": {
+      "map": "quantum-schauraum",
+      "spot": "hologramm",
+      "when": "T, ab Akt 1 („Sie sind nicht verbunden. Interessant.“)",
+      "status": "neu"
+    },
+    "he-ki-nexus-4": {
+      "map": "quantum-foyer",
+      "spot": "nexus-avatar",
+      "when": "A/N, act2 (Wie soll man dich nennen?)",
+      "status": "neu"
+    },
+    "he-ki-nexus-6": {
+      "map": "quantum-foyer",
+      "spot": "nexus-avatar",
+      "when": "act3 während main-3-einlass (Freundschaft erklären; [Nexus ♥6] überspringt Bossphase 1)",
+      "status": "neu"
+    },
+    "he-ki-nexus-8": {
+      "map": "dantes-werkstatt",
+      "spot": "faxgeraet",
+      "when": "Flag epilog und ende_neue_nexus (Fax-Splitter)",
+      "status": "neu"
+    },
+    "he-ki-nexus-10": {
+      "map": "dantes-werkstatt",
+      "spot": "faxgeraet",
+      "when": "Flag epilog nach he-ki-nexus-8 (Zeichnung vom Meer, kopf-nexus-splitter)",
+      "status": "neu"
+    },
+    "he-seraphina-chrome-2": {
+      "map": "glasarkaden",
+      "spot": "glaspark-tauben",
+      "when": "A, ab Akt 1 (Rede vor Tauben)",
+      "status": "neu"
+    },
+    "he-seraphina-chrome-4": {
+      "map": "chrome-penthouse",
+      "spot": "salon",
+      "when": "M, act2 (drei Investmentpläne, danach Nachricht)",
+      "status": "neu"
+    },
+    "he-seraphina-chrome-6": {
+      "map": "chrome-penthouse",
+      "spot": "balkon-blau",
+      "when": "T, act2 („zerlegt“; [Ausstrahlung 6] Flag seraphina_zweifel)",
+      "status": "neu"
+    },
+    "he-seraphina-chrome-8": {
+      "map": "nx1-studio",
+      "spot": "studio-set",
+      "when": "A, Flag epilog (ehrliche Entschuldigung in der Talkshow)",
+      "status": "neu"
+    },
+    "he-seraphina-chrome-10": {
+      "map": "chrome-boulevard",
+      "spot": "boulevard-mitte",
+      "when": "T, Flag epilog nach he-seraphina-chrome-8 (Chrome-Stiftung, chrome-mitgliedskarte)",
+      "status": "neu"
+    },
+    "he-sybella-chrome-2": {
+      "map": "schrottmarkt",
+      "spot": "sybella-verkleidet",
+      "when": "A Di/Sa, ab Akt 1 (Feilschduell)",
+      "status": "neu"
+    },
+    "he-sybella-chrome-4": {
+      "map": "schrottmarkt",
+      "spot": "sybella-verkleidet",
+      "when": "A Di/Sa (die Spielfigur erkennt die Verkleidung)",
+      "status": "neu"
+    },
+    "he-sybella-chrome-6": {
+      "map": "chrome-boulevard",
+      "spot": "boutique-chrome",
+      "when": "T, act2 (Bücher zeigen „Projekt Schwarm“)",
+      "status": "neu"
+    },
+    "he-sybella-chrome-8": {
+      "map": "schrottmarkt",
+      "spot": "flohmarkt",
+      "when": "T So, act2 (gemeinsamer Flohmarktstand)",
+      "status": "neu"
+    },
+    "he-sybella-chrome-10": {
+      "map": "chrome-boulevard",
+      "spot": "boutique-chrome",
+      "when": "T, act2 nach he-sybella-chrome-8 (Geschäftspartnerschaft, goldene-kundenkarte)",
+      "status": "neu"
+    },
+    "he-serenity-chrome-2": {
+      "map": "glasarkaden",
+      "spot": "glaspark",
+      "when": "M, ab Akt 1 (kranke Pflanze [Technik 4])",
+      "status": "neu"
+    },
+    "he-serenity-chrome-4": {
+      "map": "cafe-sahnehaube",
+      "spot": "ecktisch-cafe",
+      "when": "A (liest aus „Herz aus Chrom“)",
+      "status": "neu"
+    },
+    "he-serenity-chrome-6": {
+      "map": "nx1-studio",
+      "spot": "schminkspiegel",
+      "when": "T Mi, act2 (Lampenfieber [Ausstrahlung 5]; schaltet den Turmaufzug zum Himmelsgarten frei)",
+      "status": "neu"
+    },
+    "he-serenity-chrome-8": {
+      "map": "himmelsgarten",
+      "spot": "rosenboegen",
+      "when": "M, nach he-serenity-chrome-6 („Mich hat nie jemand gefragt, was ich will.“)",
+      "status": "neu"
+    },
+    "he-serenity-chrome-10": {
+      "map": "aussiedlerhof",
+      "spot": "serenity-garten",
+      "when": "M Sa, Flag epilog (eigener Garten, serenitys-ring)",
+      "status": "neu"
+    },
+    "he-portier-albert-2": {
+      "map": "chrome-boulevard",
+      "spot": "portierloge",
+      "when": "M, act2 (Etikette-Lektion: welche Gabel für Austern-Imitat)",
+      "status": "neu"
+    },
+    "he-portier-albert-4": {
+      "map": "chrome-boulevard",
+      "spot": "portierloge",
+      "when": "A, act2 (Albert zeigt seine Sammlung verlorener Handschuhe, Concierge-Bonus)",
+      "status": "neu"
+    },
+    "he-rudi-2": {
+      "map": "rudis-diner",
+      "spot": "tresen",
+      "when": "M (die Geschichte des Absturzes, Pfannkuchen aufs Haus)",
+      "status": "neu"
+    },
+    "he-rudi-4": {
+      "map": "rudis-diner",
+      "spot": "kueche",
+      "when": "T (Rudi verrät das Pfannkuchen-Rezept, pers-jakko-kochbuch)",
+      "status": "neu"
+    },
+    "he-kraehe-2": {
+      "map": "staubstrasse",
+      "spot": "wrackburg-hof",
+      "when": "T (Krähe sammelt Geschichten: eine erzählen)",
+      "status": "neu"
+    },
+    "he-kraehe-4": {
+      "map": "staubstrasse",
+      "spot": "lagerfeuer",
+      "when": "A, nach side-kraehes-ehre (Ehrenfeder, freies Geleit verstärkt)",
+      "status": "neu"
+    },
+    "he-elsa-2": {
+      "map": "aussiedlerhof",
+      "spot": "elsas-werkstatt",
+      "when": "M (Ziegenroboter reparieren)",
+      "status": "neu"
+    },
+    "he-elsa-4": {
+      "map": "aussiedlerhof",
+      "spot": "lagerfeuer-hof",
+      "when": "A, nach pers-gustav-alte-liebe (Elsa erzählt von Gustav als jungem Kranführer)",
+      "status": "neu"
+    },
+    "he-opa-funk-2": {
+      "map": "funkturm-ruine",
+      "spot": "radio-rost-pult",
+      "when": "A (Wetterbericht vorlesen dürfen)",
+      "status": "neu"
+    },
+    "he-opa-funk-4": {
+      "map": "funkturm-ruine",
+      "spot": "plattenleine",
+      "when": "T, nach side-verlorene-frequenz (Lieblingsplatte, Grüße an die Stadt)",
+      "status": "neu"
+    },
+    "he-glasblaeserin-2": {
+      "map": "glasduenen",
+      "spot": "glaswerkstatt",
+      "when": "T (eine Kugel blasen, Glasperlen)",
+      "status": "neu"
+    },
+    "he-glasblaeserin-4": {
+      "map": "glasduenen",
+      "spot": "glasofen",
+      "when": "A, nach side-glasherz (warum sie nie in die Stadt geht)",
+      "status": "neu"
+    },
+    "he-krabbe-karl-2": {
+      "map": "das-meer",
+      "spot": "karls-stein",
+      "when": "A, Flag epilog (Karl schenkt eine Muschel)",
+      "status": "neu"
+    },
+    "he-krabbe-karl-4": {
+      "map": "das-meer",
+      "spot": "strand",
+      "when": "M, Flag epilog (Karl zeigt sein Muschelversteck)",
+      "status": "neu"
+    },
+    "rom-aria-ausfall": {
+      "map": "dantes-werkstatt",
+      "spot": "einbau-liege",
+      "when": "N, act2: Variante A direkt nach main-2-countdown; Variante B nach he-aria-8 (Station 5, Auftakt pers-aria-zerberster)",
+      "status": "neu"
+    },
+    "rom-aria-meer": {
+      "map": "das-meer",
+      "spot": "wasserlinie",
+      "when": "A Sonnenuntergang, Flag epilog, erster Abend am Meer (Ende 1/2; Ende 3 erst nach 3b) (Station 11)",
+      "status": "neu"
+    },
+    "rom-vexaria-konzert": {
+      "map": "das-meer",
+      "spot": "strandclub-buehne",
+      "when": "A/N, Flag epilog, nach rom-aria-meer, Eröffnung side-strandclub, vexaria_kas_erzaehlt (Station 13, nur Vex)",
+      "status": "vorhanden (vexaria)"
+    },
+    "rom-aria-streit": {
+      "map": "neon-gasse",
+      "spot": "hv-eingang",
+      "when": "A, Akt 2",
+      "status": "act1"
+    },
+    "rom-aria-vega": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "M, Akt 2",
+      "status": "act1"
+    },
+    "rom-aria-regen": {
+      "map": "neon-gasse",
+      "spot": "vordach",
+      "when": "A/N, Akt 2, Regen",
+      "status": "act1"
+    },
+    "rom-aria-kuss": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "A Sonnenuntergang, Start; Ziel flutmauer mauer-ziel (Akt 2+)",
+      "status": "act1"
+    },
+    "rom-aria-stirn": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "N vor Akt 3",
+      "status": "act1"
+    },
+    "rom-vexaria-funkstille": {
+      "map": "loetgassen",
+      "spot": "kurierbude-dach",
+      "when": "N 23:00–02:00, Akt 2",
+      "status": "act1"
+    },
+    "rom-vexaria-umdrehen": {
+      "map": "neon-gasse",
+      "spot": "die-luecke",
+      "when": "N, Akt 2",
+      "status": "act1"
+    },
+    "rom-vexaria-kuss": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "A Sonnenuntergang, Start; über die-luecke, Ziel flutmauer mauer-ziel (Akt 2+)",
+      "status": "act1"
+    },
+    "rom-vexaria-licht": {
+      "map": "neon-gasse",
+      "spot": "vorplatz",
+      "when": "A/N beim Rausgehen aus dem HV, dann loetgassen kurierbude (Abblende)",
+      "status": "act1"
+    },
+    "rom-vexaria-morgen": {
+      "map": "loetgassen",
+      "spot": "kurierbude",
+      "when": "06:00 nach rom-vexaria-licht, danach high-voltage fruehstueckstisch",
+      "status": "act1"
+    },
+    "rom-vexaria-funkmast": {
+      "map": "loetgassen",
+      "spot": "funkmast",
+      "when": "A Sonnenuntergang, Akt 2+",
+      "status": "act1"
+    }
+  },
+  "questLocations": {
+    "main-2-bruch": [
+      "quantum-campus:bruch-treffpunkt",
+      "quantum-campus:brueckenkopf",
+      "quantum-campus:scheinwerfer-turm",
+      "quantum-campus:seiteneingang",
+      "quantum-campus:lueftungsschacht",
+      "quantum-foyer:sicherheitszentrale",
+      "quantum-labor:zentralrechner",
+      "quantum-labor:probanden-liege",
+      "quantum-labor:xion-tuer",
+      "quantum-labor:nyras-arbeitsplatz"
+    ],
+    "main-2-kanal": [
+      "kanal-sammler:fluchtweg-tuer",
+      "pumpwerk-sieben:kanalvolk-sperre",
+      "pumpwerk-sieben:op-nische",
+      "pumpwerk-sieben:ventil-stand",
+      "pumpwerk-sieben:ueberlaufrohr"
+    ],
+    "main-2-countdown": [
+      "dantes-werkstatt:eins-tisch",
+      "dantes-werkstatt:einbau-liege",
+      "dantes-werkstatt:werkbank",
+      "loetgassen:werkstatt-fenster"
+    ],
+    "main-2-krisensitzung": [
+      "hv-hinterzimmer:planungstisch",
+      "hv-hinterzimmer:schreibtisch",
+      "high-voltage:tresen"
+    ],
+    "prep-outfits": [
+      "stufenplatz:salon-gina"
+    ],
+    "prep-ausweise": [
+      "bahnhof-mitte:fotoautomat",
+      "hafenkante:quantum-depot",
+      "eisenhof:behoerden-terminal"
+    ],
+    "prep-gaesteliste": [
+      "nx1-studio:redaktion",
+      "nx1-studio:regie",
+      "quantum-foyer:gaesteliste-pult"
+    ],
+    "prep-fahrzeug": [
+      "hafenkante:garage-rostlaube",
+      "staubstrasse:rennpiste-start",
+      "rennhalle-9:rennbahn"
+    ],
+    "prep-turm-plan": [
+      "datentunnel:nyra-funkpunkt",
+      "eisenhof:beweismittellager",
+      "chrome-penthouse:bibliothek"
+    ],
+    "prep-gegenmittel": [
+      "dantes-werkstatt:werkbank",
+      "pumpwerk-sieben:quantum-aussenstelle",
+      "datentunnel:splitter-nest"
+    ],
+    "main-3-einlass": [
+      "quantum-campus:party-vorplatz",
+      "quantum-campus:haupteingang",
+      "quantum-foyer:empfang",
+      "quantum-foyer:presse-ecke",
+      "quantum-foyer:catering-tuer",
+      "quantum-campus:lueftungsschacht",
+      "quantum-foyer:gaesteliste-pult",
+      "himmelsgarten:gaesteeingang",
+      "himmelsgarten:presse-podest"
+    ],
+    "main-3-labor": [
+      "himmelsgarten:wartungsgang",
+      "quantum-labor:labortuer",
+      "quantum-labor:op-tisch",
+      "quantum-labor:alesas-pult",
+      "quantum-labor:kuschel-ablage"
+    ],
+    "main-3-gedankenkontrolle": [
+      "himmelsgarten:rednerbruecke",
+      "himmelsgarten:partysaal",
+      "himmelsgarten:tanzflaeche-glas",
+      "himmelsgarten:vip-lounge"
+    ],
+    "main-3-nexus": [
+      "quantum-foyer:chefaufzug",
+      "quantum-labor:kernschacht",
+      "server-kern:knoten-logik",
+      "server-kern:knoten-kontrolle",
+      "server-kern:knoten-stimme",
+      "server-kern:kern",
+      "server-kern:upload-konsole",
+      "server-kern:terminal-halten",
+      "server-kern:fx60-anschluss"
+    ],
+    "main-3-blade": [
+      "himmelsgarten:antennen",
+      "himmelsgarten:landeplatz",
+      "himmelsgarten:gleiter"
+    ],
+    "side-teekraenzchen": [
+      "chrome-boulevard:boutique-chrome",
+      "chrome-penthouse:salon",
+      "chrome-penthouse:sofa-bijou"
+    ],
+    "side-alesas-zuendholz": [
+      "quantum-campus:altlager-zaun",
+      "quantum-campus:patrouillenweg",
+      "quantum-campus:altlager",
+      "quantum-campus:loeschwassertank"
+    ],
+    "side-ki-fluestern": [
+      "neon-gasse:kiosk",
+      "neon-gasse:paul-ecke",
+      "schrottmarkt:klingel-stand",
+      "fundbuero:schalter",
+      "stufenplatz:prediger-kiste",
+      "cafe-sahnehaube:theke",
+      "glasarkaden:chrome-10-werbestand"
+    ],
+    "side-weg-zum-meer": [
+      "aussiedlerhof:marlas-wohnwagen",
+      "digitech-areal:archiv",
+      "hausboot-nebelhorn:logbuch-regal",
+      "staubstrasse:singende-masten",
+      "staubstrasse:wegzoll-schranke",
+      "glasduenen:eingestuerzte-bruecke",
+      "glasduenen:seilwinde",
+      "glasduenen:aussichtsduene"
+    ],
+    "side-captain-kuschel": [
+      "dantes-werkstatt:kuschel-regal",
+      "schrottmarkt:marktplatz-mitte",
+      "neon-gasse:stadt-tv",
+      "bahnhof-mitte:pendlerbank",
+      "hafenkante:container-labyrinth",
+      "schrottmarkt:mila-ecke",
+      "neon-gasse:kiosk",
+      "das-nest:eins-kiste"
+    ],
+    "side-xions-kralle": [
+      "hafenkante:alte-arena",
+      "hafenkante:boxsack",
+      "crew-quartier:pinnwand"
+    ],
+    "pers-nyra-silent-angel": [
+      "crew-quartier:fenster",
+      "datentunnel:nyra-funkpunkt",
+      "stufenplatz:fussgaengerbruecke"
+    ],
+    "pers-aria-zerberster": [
+      "schrottmarkt:inkasso-gasse",
+      "dantes-werkstatt:einbau-liege",
+      "dantes-werkstatt:faxgeraet",
+      "ripper-praxis:behandlungsstuhl",
+      "ripper-praxis:hinterzimmer-vorhang",
+      "hafenkante:container-77",
+      "kanal-sammler:rippers-lager"
+    ],
+    "side-chrome-pudel": [
+      "chrome-boulevard:portierloge",
+      "chrome-boulevard:pudelwiese",
+      "glasarkaden:glaspark",
+      "stufenplatz:windkante",
+      "schrottmarkt:halde",
+      "chrome-penthouse:sofa-bijou"
+    ],
+    "side-hartlaufs-rache": [
+      "digitech-areal:pfoertnerhaus",
+      "digitech-areal:pfoertnerhaus-bank",
+      "digitech-areal:archiv",
+      "digitech-areal:wachkoloss",
+      "nx1-studio:redaktion"
+    ],
+    "side-rostzaehne-ende": [
+      "hafenkante:kai-mitte",
+      "hafenkante:container-labyrinth",
+      "hafenkante:rostzaehne-lager",
+      "eisenhof:wachhaeuschen"
+    ],
+    "side-kraehes-ehre": [
+      "staubstrasse:wrackburg-tor",
+      "staubstrasse:wrackburg-hof",
+      "staubstrasse:rennpiste-start",
+      "staubstrasse:sprungschanze"
+    ],
+    "side-oednis-frieden": [
+      "staubstrasse:konvoi-halt",
+      "staubstrasse:wegzoll-schranke",
+      "aussiedlerhof:veranda",
+      "rudis-diner:verhandlungstisch"
+    ],
+    "side-glasherz": [
+      "glasduenen:glaswerkstatt",
+      "staubstrasse:broesel-wasserstand",
+      "glasduenen:broesel-versteck",
+      "glasduenen:skorpionnest",
+      "glasduenen:glasofen"
+    ],
+    "side-verlorene-frequenz": [
+      "funkturm-ruine:radio-rost-pult",
+      "funkturm-ruine:windrad",
+      "flutmauer:leuchtturm-oben",
+      "funkturm-ruine:plattenarchiv"
+    ],
+    "side-strandclub": [
+      "das-meer:strandclub",
+      "staubstrasse:wrackburg-hof",
+      "das-meer:grundstueck-pflock",
+      "schrottmarkt:dexter-buero",
+      "digitech-areal:pluenderer-lager",
+      "das-meer:shuttle-halt",
+      "das-meer:strandclub-buehne",
+      "das-meer:lagerfeuer"
+    ],
+    "side-zweite-chance": [
+      "blades-buero:kuschel-sessel",
+      "blades-buero:nexus-terminal",
+      "crew-quartier:bett",
+      "dantes-werkstatt:sofa",
+      "high-voltage:tresen",
+      "das-meer:wagenplatz"
+    ],
+    "side-offene-werkstatt": [
+      "quantum-campus:campus-wiese",
+      "quantum-campus:pausenraum",
+      "quantum-foyer:logo-wand",
+      "server-kern:kern",
+      "quantum-campus:haupteingang"
+    ],
+    "pers-delya-quelle": [
+      "nx1-studio:redaktion",
+      "kanal-sammler:floss-anleger",
+      "pumpwerk-sieben:schlafwandler-pumpe",
+      "datentunnel:schlafwandler-tunnel",
+      "dantes-werkstatt:sofa"
+    ],
+    "pers-collin-pixel": [
+      "stufenplatz:buehne",
+      "nx1-studio:regie",
+      "quantum-foyer:presse-ecke",
+      "nx1-studio:studio-set"
+    ],
+    "pers-ripper-taschenuhr": [
+      "ripper-praxis:auslage",
+      "chrome-boulevard:boutique-chrome",
+      "ripper-praxis:behandlungsstuhl"
+    ],
+    "pers-gustav-alte-liebe": [
+      "high-voltage:oldie-ecke",
+      "staubstrasse:konvoi-halt",
+      "aussiedlerhof:elsas-werkstatt",
+      "aussiedlerhof:gustav-bank",
+      "aussiedlerhof:lagerfeuer-hof"
+    ],
+    "pers-marla-brunnen": [
+      "aussiedlerhof:brunnen",
+      "aussiedlerhof:eigenes-feld"
+    ],
+    "pers-pim-kleine-schrift": [
+      "schrottmarkt:marktplatz-mitte",
+      "quantum-campus:pausenraum",
+      "quantum-labor:pims-werkbank",
+      "nx1-studio:redaktion"
+    ],
+    "pers-seraphina-plan-b": [
+      "chrome-penthouse:salon",
+      "schrottmarkt:wohnwagen",
+      "neon-gasse:lichterketten-bank",
+      "schrottmarkt:garkueche",
+      "chrome-boulevard:promenade"
+    ],
+    "pers-sybella-schnaeppchen": [
+      "schrottmarkt:sybella-verkleidet",
+      "schrottmarkt:flohmarkt",
+      "dantes-werkstatt:werkbank"
+    ],
+    "pers-serenity-gewaechshaus": [
+      "himmelsgarten:serenity-beet",
+      "neon-gasse:dachterrasse"
+    ],
+    "pers-blade-teddymantel": [
+      "zellentrakt:besucherraum",
+      "eisenhof:beweismittellager",
+      "zellentrakt:besucherraum-tuer"
+    ],
+    "pers-alesa-wasserfilter": [
+      "digitech-areal:glasfassade",
+      "aussiedlerhof:elsas-werkstatt",
+      "aussiedlerhof:brunnen"
+    ],
+    "pers-xion-umschulung": [
+      "schrottmarkt:marktplatz-mitte",
+      "neon-gasse:hv-eingang"
+    ],
+    "pers-ki-nexus-seele": [
+      "dantes-werkstatt:faxgeraet",
+      "high-voltage:kartentisch",
+      "fundbuero:kuriositaeten-kiste",
+      "flutmauer:muenzfernrohr",
+      "das-meer:strand",
+      "quantum-foyer:nexus-avatar"
+    ],
+    "pers-wingman-sonnenuntergang": [
+      "dantes-werkstatt:werkbank",
+      "flutmauer:nyra-bank",
+      "flutmauer:mauer-ziel"
+    ],
+    "pers-jakko-kochbuch": [
+      "rudis-diner:kueche"
+    ],
+    "pers-kiki-reichweite": [
+      "staubstrasse:konvoi-halt",
+      "staubstrasse:pisten-kreuz"
+    ],
+    "pers-lio-album": [
+      "rennhalle-9:rennbahn"
+    ],
+    "pers-nebelhorn-letzte-faehre": [
+      "das-meer:steg"
+    ],
+    "sonder-chrome-tresor": [
+      "hv-hinterzimmer:schreibtisch",
+      "chrome-boulevard:juwelier-glanzstueck",
+      "chrome-boulevard:portierloge"
+    ],
+    "sonder-konvoi-nougat": [
+      "hv-hinterzimmer:schreibtisch",
+      "staubstrasse:konvoi-halt",
+      "staubstrasse:wegzoll-schranke",
+      "aussiedlerhof:hofladen"
+    ],
+    "sonder-pumpwerk-pegel": [
+      "hv-hinterzimmer:schreibtisch",
+      "pumpwerk-sieben:ventil-stand",
+      "kanal-sammler:gullys-rathaus"
+    ],
+    "sonder-letzte-runde": [
+      "hv-hinterzimmer:fotowand",
+      "rennhalle-9:alte-buehne",
+      "high-voltage:tresen"
+    ],
+    "job-oednis-paket": [
+      "hv-hinterzimmer:schreibtisch",
+      "staubstrasse:auftrag-a",
+      "aussiedlerhof:hofladen"
+    ],
+    "job-kurier": [
+      "chrome-boulevard:auftrag-a",
+      "staubstrasse:auftrag-a"
+    ],
+    "job-schulden": [
+      "chrome-boulevard:promenade",
+      "staubstrasse:lagerfeuer"
+    ],
+    "job-datenraub": [
+      "quantum-campus:pausenraum",
+      "datentunnel:netzknoten"
+    ],
+    "job-eskorte": [
+      "chrome-boulevard:auftrag-a",
+      "aussiedlerhof:hofladen"
+    ],
+    "job-bergung": [
+      "staubstrasse:wrackburg-hof",
+      "glasduenen:eingestuerzte-bruecke"
+    ],
+    "job-kanal": [
+      "pumpwerk-sieben:schlafwandler-pumpe"
+    ],
+    "kopfgeld-blech-schwestern": [
+      "chrome-boulevard:blech-schwestern-ecke",
+      "chrome-boulevard:juwelier-glanzstueck"
+    ],
+    "kopfgeld-faxfaelscher": [
+      "digitech-tresor:fx-60-terminal",
+      "digitech-areal:notstrom-terminal"
+    ],
+    "kopfgeld-staubbaron-broesel": [
+      "staubstrasse:broesel-wasserstand",
+      "aussiedlerhof:brunnen"
+    ],
+    "kopfgeld-leutnant-nadel": [
+      "quantum-campus:wachhaeuschen-campus",
+      "quantum-campus:patrouillenweg"
+    ]
+  },
+  "encounterLocations": {
+    "enc-bruch-overwatch": "quantum-campus:brueckenkopf",
+    "enc-labor-xion": "quantum-labor:xion-tuer",
+    "enc-kanal-xion-ripper": "pumpwerk-sieben:op-nische",
+    "enc-kanal-xion-ripper-fluchtweg": "pumpwerk-sieben:kanalvolk-sperre",
+    "enc-kanal-xion-ripper-ueberrumpelt": "pumpwerk-sieben:op-nische",
+    "enc-kanal-schlafwandler": "pumpwerk-sieben:schlafwandler-pumpe",
+    "enc-datentunnel-splitter": "datentunnel:splitter-nest",
+    "enc-ring-xion": "hafenkante:alte-arena",
+    "enc-altlager-patrouille": "quantum-campus:altlager-zaun",
+    "enc-altlager-zuendholz": "quantum-campus:altlager",
+    "enc-altlager-zuendholz-loeschtank": "quantum-campus:loeschwassertank",
+    "enc-markt-betreuer": "schrottmarkt:marktplatz-mitte",
+    "enc-bruecke-patrouille": "stufenplatz:fussgaengerbruecke",
+    "enc-oednis-staubfalken": "staubstrasse:wegzoll-schranke",
+    "enc-wrackburg-kraehe": "staubstrasse:wrackburg-hof",
+    "enc-wrackburg-kraehe-duell": "staubstrasse:wrackburg-hof",
+    "enc-duenen-koenigin": "glasduenen:skorpionnest",
+    "enc-funkturm-windraeder": "funkturm-ruine:windrad",
+    "enc-ruine-wachkoloss": "digitech-areal:wachkoloss",
+    "enc-hafen-funzel": "hafenkante:rostzaehne-lager",
+    "enc-rostzahn-lager": "hafenkante:rostzaehne-lager",
+    "enc-campus-patrouille": "quantum-campus:patrouillenweg",
+    "enc-einlass-kontrolle": "quantum-foyer:empfang",
+    "enc-labor-blade-vorspiel": "quantum-labor:labortuer",
+    "enc-labor-blade-hinterhalt": "quantum-labor:labortuer",
+    "enc-turm-raven": "himmelsgarten:partysaal",
+    "enc-turm-raven-dante": "himmelsgarten:partysaal",
+    "enc-turm-xion": "himmelsgarten:tanzflaeche-glas",
+    "enc-kern-nexus": "server-kern:kern",
+    "enc-kern-nexus-ohne-garde": "server-kern:kern",
+    "enc-kern-nexus-fx60": "server-kern:fx60-anschluss",
+    "enc-kern-nexus-fx60-ohne-garde": "server-kern:fx60-anschluss",
+    "enc-kern-nexus-herz": "server-kern:kern",
+    "enc-dach-blade": "himmelsgarten:landeplatz",
+    "enc-dach-blade-allein": "himmelsgarten:landeplatz",
+    "enc-strand-staubfalken": "das-meer:grundstueck-pflock",
+    "enc-praxis-ripper": "ripper-praxis:behandlungsstuhl",
+    "enc-praxis-ripper-allein": "ripper-praxis:hinterzimmer-vorhang",
+    "enc-praxis-ripper-vex": "ripper-praxis:behandlungsstuhl",
+    "enc-praxis-ripper-allein-vex": "ripper-praxis:hinterzimmer-vorhang",
+    "enc-tuer-xion-probeabend": "neon-gasse:hv-eingang",
+    "re-blade-8": "chrome-boulevard:boulevard-mitte",
+    "enc-kopfgeld-blech-schwestern": "chrome-boulevard:blech-schwestern-ecke",
+    "enc-kopfgeld-faxfaelscher": "digitech-areal:notstrom-terminal",
+    "enc-kopfgeld-leutnant-nadel": "quantum-campus:patrouillenweg",
+    "enc-kopfgeld-staubbaron-broesel": "staubstrasse:broesel-wasserstand"
+  },
+  "actStarts": {
+    "2": {
+      "map": "quantum-campus",
+      "entry": "bruch-treffpunkt",
+      "basis": "AKT1_FLAGS, AKT1_QUESTS, AKT1_STATIONS, AKT1_VISITED, PROLOG_SEEN",
+      "flags": [
+        "prep_grundriss",
+        "prep_wachplan",
+        "prep_fluchtweg"
+      ],
+      "quests": {
+        "prep-grundriss": "done",
+        "prep-wachplan": "done",
+        "prep-fluchtweg": "done",
+        "main-2-bruch": "active"
+      },
+      "recruited": [
+        "raven",
+        "aria",
+        "vega",
+        "nyra",
+        "hunter"
+      ],
+      "party": [
+        "aria",
+        "nyra"
+      ],
+      "relations": {
+        "raven": 450,
+        "aria": 450,
+        "vega": 300,
+        "nyra": 300,
+        "hunter": 350,
+        "dante": 250
+      },
+      "items": {
+        "medipflaster": 3,
+        "reparaturset": 1,
+        "nougatbombe": 2
+      },
+      "credits": 400,
+      "level": 6,
+      "day": 10,
+      "visited": [
+        "+ quantum-campus"
+      ],
+      "note": "Direkt nach dem „los“ an der Planungstafel (akt1-cliffhanger), Nacht. Dante ist NICHT in der Crew (tritt erst in main-2-countdown bei). ActStart kennt keine Uhrzeit: entweder Feld minutes ergänzen (Engine-Lücke, 23:00 = 1380) oder main-2-bruch setzt die Zeit im ersten Knoten."
+    },
+    "3": {
+      "map": "quantum-campus",
+      "entry": "party-vorplatz",
+      "basis": "wie Akt 2 plus Hauptstrang Akt 2",
+      "flags": [
+        "nexus_erwacht",
+        "nyra_zurueckgelassen",
+        "aria_gechippt",
+        "dante_beigetreten",
+        "releaseparty_geplant",
+        "prep_outfits",
+        "prep_ausweise",
+        "prep_gaesteliste",
+        "party_bereit"
+      ],
+      "quests": {
+        "main-2-bruch": "done",
+        "main-2-kanal": "done",
+        "main-2-countdown": "done",
+        "main-2-krisensitzung": "done",
+        "prep-outfits": "done",
+        "prep-ausweise": "done",
+        "prep-gaesteliste": "done",
+        "main-3-einlass": "active"
+      },
+      "recruited": [
+        "raven",
+        "aria",
+        "vega",
+        "hunter",
+        "dante"
+      ],
+      "party": [
+        "aria",
+        "dante"
+      ],
+      "relations": {
+        "raven": 650,
+        "aria": 650,
+        "vega": 500,
+        "nyra": 500,
+        "hunter": 550,
+        "dante": 500
+      },
+      "items": {
+        "medipflaster": 5,
+        "nanogel": 2,
+        "reparaturset": 2,
+        "nougatbombe": 3
+      },
+      "credits": 1200,
+      "level": 11,
+      "day": 30,
+      "stations": [
+        "+ station-chrome-allee"
+      ],
+      "visited": [
+        "+ quantum-campus",
+        "pumpwerk-sieben",
+        "chrome-boulevard",
+        "glasarkaden",
+        "staubstrasse",
+        "aussiedlerhof"
+      ],
+      "note": "Abend der Releaseparty (A, 20:00). Nyra ist nicht in der Crew (im Turm), Raven nicht in der Party (wird auf der Party gechippt). Variante A von main-2-bruch angenommen (Aria war gechippt). nexus-chip-defekt nur, wenn gc-34 gelang – im Warp weglassen."
+    }
+  },
+  "flags": {
+    "act2": [
+      "bruch_rolle_drinnen",
+      "bruch_rolle_bruecke",
+      "nexus_erwacht",
+      "nyra_zurueckgelassen",
+      "aria_gechippt",
+      "aria_entkommen",
+      "jimmy_gechippt",
+      "aria_arm_gesperrt",
+      "dante_beigetreten",
+      "party_idee_spieler",
+      "releaseparty_geplant",
+      "peilsender_entdeckt",
+      "peilsender_gewarnt",
+      "peilsender_ausgenutzt",
+      "schwestern_gewarnt",
+      "alesa_zweifel",
+      "seraphina_zweifel",
+      "blade_zweifel",
+      "wartungsleiter_gefunden",
+      "ueberlaufrohr_offen",
+      "rennhalle-9-geoeffnet",
+      "kuschel_bei_mila",
+      "kuschel_sorgerecht",
+      "schlafwandler_ede_gerettet",
+      "schlafwandlerin_rosi_gerettet",
+      "schlafwandler_bert_gerettet",
+      "frequenz_relais",
+      "glasherz_ei_zurueck",
+      "kraehe_teilhaberin",
+      "bijou_spur_1",
+      "bijou_spur_2",
+      "bijou_spur_3",
+      "prep_outfits",
+      "prep_ausweise",
+      "prep_gaesteliste",
+      "prep_fahrzeug",
+      "prep_turm_plan",
+      "prep_gegenmittel",
+      "party_bereit"
+    ],
+    "act3": [
+      "einlass_haupteingang",
+      "einlass_catering",
+      "einlass_lueftung",
+      "einlass_gaesteliste",
+      "einlass_wache",
+      "nyra_befreit",
+      "xion_fehlt",
+      "chip_genommen",
+      "chip_abgelehnt",
+      "raven_zurueck",
+      "nexus_rebelliert",
+      "upload_stick",
+      "upload_umschreiben",
+      "upload_ueberzeugt",
+      "upload_master",
+      "blade_gefasst",
+      "blade_angekettet",
+      "blade_entkommen"
+    ],
+    "enden": [
+      "ende_meer",
+      "ende_neue_nexus",
+      "ende_master",
+      "ende_doch_noch_meer",
+      "epilog"
+    ]
+  },
+  "endings": {
+    "ende-das-meer": {
+      "bedingung": "upload_stick oder upload_ueberzeugt (Nyra mit nyra_befreit zurück; ohne sie: leerer Platz im Wagen, he-nyra-8 holt es nach)",
+      "flags": [
+        "ende_meer",
+        "epilog"
+      ],
+      "cutscene": "ende-das-meer",
+      "danach": "travel das-meer / ankunft",
+      "abspann": "das-meer:wagenplatz"
+    },
+    "ende-neue-nexus": {
+      "bedingung": "upload_umschreiben",
+      "flags": [
+        "ende_neue_nexus",
+        "epilog"
+      ],
+      "cutscene": "ende-neue-nexus",
+      "danach": "travel das-meer / ankunft",
+      "abspann": "das-meer:wagenplatz"
+    },
+    "ende-master": {
+      "bedingung": "upload_master",
+      "flags": [
+        "ende_master",
+        "epilog"
+      ],
+      "cutscene": "ende-master",
+      "danach": "travel blades-buero / aufwachen (Master-Modus: Unterstadt feindselig, Crew-Quests gesperrt, shelter blades-buero)",
+      "abspann": "– (erst nach 3b)"
+    },
+    "ende-doch-noch-ans-meer": {
+      "bedingung": "ende_master und side-zweite-chance erledigt",
+      "flags": [
+        "ende_doch_noch_meer"
+      ],
+      "cutscene": "ende-doch-noch-ans-meer",
+      "danach": "travel das-meer / ankunft",
+      "abspann": "das-meer:wagenplatz"
+    }
+  },
+  "packages": {
+    "pkg-chrome-himmel": {
+      "title": "Chrome-Boulevard und Himmelsgarten",
+      "maps": [
+        "chrome-boulevard",
+        "himmelsgarten"
+      ],
+      "notes": "Oberstadt-Prunk. Legt station-chrome-allee an, Shops chrome-und-co, glanzstueck, himmelsgarten-blumen, Tafel concierge-chrome. Himmelsgarten ist Partyebene (act3) mit Landeplatz für main-3-blade; Turmaufzug erst nach he-serenity-chrome-6 bzw. act3. Ereignisse: Blade/Seraphina/Sybella/Serenity 6–10, re-blade-8, Portier Albert 2/4. Kopfgeld Blech-Schwestern.",
+      "key": "pkg-chrome-himmel"
+    },
+    "pkg-quantum-campus": {
+      "title": "Quantum-Campus mit Foyer",
+      "maps": [
+        "quantum-campus",
+        "quantum-foyer"
+      ],
+      "notes": "Einstiege bruch-treffpunkt (Akt-2-Start) und party-vorplatz (Akt-3-Start). Altlager, Brückenkopf, Löschwassertank als Spots. Foyer: Einlass-Wege main-3-einlass (Haupteingang, Catering, Lüftung, Gästeliste), Nexus-Avatar (he-ki-nexus-4/6), Kantinen-Automat. Liefert lieferzone-Rückweg ins Digitech-Areal und die Wartungsleiter in den Datentunnel.",
+      "key": "pkg-quantum-campus"
+    },
+    "pkg-quantum-turm": {
+      "title": "Quantum-Labor, Blades Büro und Serverkern",
+      "maps": [
+        "quantum-labor",
+        "blades-buero",
+        "server-kern"
+      ],
+      "notes": "Innenräume des Turms. Labor: main-2-bruch (Xion-Kampf, Nyra bleibt zurück, Aria gechippt), main-3-labor. Serverkern: Boss enc-kern-nexus samt Varianten, Upload-Entscheidung (vier Wege) → Enden. Blades Büro: Geheimfach (he-blade-10), Kuschel-Sessel (side-zweite-chance), Master-Modus-Unterschlupf nach Ende 3.",
+      "key": "pkg-quantum-turm"
+    },
+    "pkg-kanal-tief": {
+      "title": "Pumpwerk Sieben und Datentunnel",
+      "maps": [
+        "pumpwerk-sieben",
+        "datentunnel"
+      ],
+      "notes": "Öffnet die Akt-1-Ausgänge tunnel-ost und schott (kanal-sammler) sowie kabelschacht (digitech-areal). main-2-kanal in der OP-Nische, Überlaufrohr zur Hafenkante (Einstieg ueberlaufrohr existiert schon). Datentunnel: Nyras Funkpunkt, Splitter-Nest, Nexus-Splitter im Nachspiel. Schlafwandler für pers-delya-quelle.",
+      "key": "pkg-kanal-tief"
+    },
+    "pkg-staubstrasse": {
+      "title": "Staubstraße, Rudis Diner und Funkturm-Ruine",
+      "maps": [
+        "staubstrasse",
+        "rudis-diner",
+        "funkturm-ruine"
+      ],
+      "notes": "Tor zur Ödnis über den Rostlaube-Ausgang der Hafenkante (side-rostlaube + act2). Wrackburg der Staubfalken (Krähe), Rennpiste, Konvoi-Halt, Brösels Wasserstand. Rudis Diner als Quest-Raum (side-oednis-frieden, pers-jakko-kochbuch). Funkturm: Radio Rost, side-verlorene-frequenz. Kiki-Taxi-Ziel staubstrasse/taxi.",
+      "key": "pkg-staubstrasse"
+    },
+    "pkg-oednis-hof": {
+      "title": "Aussiedlerhof und Glasdünen",
+      "maps": [
+        "aussiedlerhof",
+        "glasduenen"
+      ],
+      "notes": "Marla (he-marla-sand-4..10 hierher umhängen), Elsa, Gustavs Bank, Hofladen, Wegezettel-Tafel, Serenitys Garten im Nachspiel. Glasdünen: Glasbläserin, Skorpionkönigin, Seilwinde und Aussichtsdüne (side-weg-zum-meer); Wagenpiste zum Meer erst mit Flag epilog.",
+      "key": "pkg-oednis-hof"
+    },
+    "pkg-rennhalle-meer": {
+      "title": "Rennhalle 9 und das Meer",
+      "maps": [
+        "rennhalle-9",
+        "das-meer"
+      ],
+      "notes": "Rennhalle 9 öffnet den Hafenkante-Ausgang nach-rennhalle-9 (Paket setzt rennhalle-9-geoeffnet per mapAdditions.hafenkante.onEnter ab act2). Das Meer ist die Nachspiel-Zone: Einstiege ankunft (Enden), shuttle (Strand-Shuttle ab side-strandclub), Strandclub, rom-aria-meer, rom-vexaria-konzert, Krabbe Karl, Abspann-Hotspot.",
+      "key": "pkg-rennhalle-meer"
+    }
+  },
+  "notes": [
+    "Format wie act1.json. Neue IDs nur, wo world.md keine nennt (Spots, Hotspots, Sonder-Einstiege, sonder-*-Quests, Flags, Enden-Cutscenes).",
+    "Einstiege: Jede neue Karte bietet genau die Einstiege, auf die die Akt-1-Ausgänge zeigen (von-hafenkante, von-glasarkaden, von-chrome-penthouse, von-digitech-areal, von-kanal-sammler). Rückwege zielen nur auf vorhandene Akt-1-Einstiege (von-rennhalle-9, von-staubstrasse, von-chrome-boulevard, von-quantum-campus, von-datentunnel, von-pumpwerk-sieben, ueberlaufrohr) – mapAdditions kann keine Einstiege ergänzen.",
+    "Nachspiel = Flag epilog (ActId kennt nur 1|2|3). Bedingungen „act2“/„act3“ heißen wie in der Engine: Akt ≥ N.",
+    "Enden: Der Effekt { ending: true } beendet das Spiel (state.ended → Endbildschirm → Titel). Die Enden laufen deshalb als Cutscene + Flags + travel (siehe ENDINGS); der echte Abspann ist ein optionaler Hotspot „Abspann ansehen“ am das-meer:wagenplatz. GameContent.ending in world.ts (ende-fortsetzung-folgt) durch die vier Abspann-Fassungen ersetzen.",
+    "Integration Akt 1 → 2: Der Knoten „los“ der Planungstafel (parts/quest-main-b/planungstafel.ts) setzt act1_done, spielt akt1-cliffhanger, aber kein setAct. Ergänzen: setAct 2, startQuest main-2-bruch, travel quantum-campus/bruch-treffpunkt.",
+    "Integration Akt 2 → 3: main-2-krisensitzung startet die Party-Vorbereitungen; ab 3 erledigten prep-* bietet die Planungstafel „Releaseparty starten“ (rom-aria-stirn davor), setAct 3, travel quantum-campus/party-vorplatz.",
+    "Engine-Lücken: ActStart.minutes fehlt (Akt 2 startet nachts); MapDef.music ist nicht bedingt (Bruch-Musik schleichen über die Quest); shelter braucht eine Bedingung (blades-buero nur mit ende_master).",
+    "rennhalle-9-geoeffnet wird bisher von niemandem gesetzt: pkg-rennhalle-meer setzt es per mapAdditions.hafenkante.onEnter ab act2.",
+    "Kiki-Taxi: TAXI_ZIELE (parts/npc-ordnung-markt/_helfer) um staubstrasse, aussiedlerhof, funkturm-ruine, glasduenen (Ödnis erst nach pers-kiki-reichweite) und das-meer (nur epilog) erweitern; Einstieg jeweils taxi.",
+    "Strand-Shuttle: Hotspot an hafenkante:faehre (mapAdditions) mit travel das-meer/shuttle, ab side-strandclub Stufe Shuttle.",
+    "Marla Sand: he-marla-sand-4..10 liegen heute auf dem Samstagsmarkt; nach pkg-oednis-hof auf aussiedlerhof/staubstrasse umhängen (EVENTS status umhängen).",
+    "Alesas und Pims Werkstatt „Nullpunkt“ (he-alesa-zero-10, he-pim-pinzette-10) liegt am digitech-areal:glasfassade (keine eigene Karte).",
+    "Platzhalter-Quests aus parts/integration/luecken.ts werden unter derselben ID ersetzt (pers-delya-quelle, pers-collin-pixel, pers-ripper-taschenuhr, pers-gustav-alte-liebe, side-ki-fluestern, side-captain-kuschel).",
+    "Beta-Chip-Träger für side-ki-fluestern: paul (neon-gasse:paul-ecke), frau-klingel (schrottmarkt:klingel-stand), gerda-gleis (fundbuero:schalter), bruder-kabellos (stufenplatz:prediger-kiste), barista-perle (cafe-sahnehaube:theke) – je ein vorangestellter Tagesablauf-Eintrag ist nicht nötig, die Figuren stehen schon dort; nur Dialog-Varianten mit Flag ki_fluestern_<npc>.",
+    "Tagesabläufe: SCHEDULE_MODE je Figur – neu (vollständige Liste), ersetzt (ersetzt act1.json vollständig), vorangestellt (vor die Akt-1-Einträge setzen).",
+    "Ereignisse: status vorhanden (Datei steht dabei, nur Ort prüfen), umhängen, neu, act1 (steht schon in act1.json).",
+    "Prüfen: python3 design/plan/act23_gen.py --check"
+  ]
+}

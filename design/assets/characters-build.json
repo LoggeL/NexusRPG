@@ -349,6 +349,96 @@
    }
   }
  },
+ "barista-perle": {
+  "walk": {
+   "raws": {
+    "barista-perle-walk.png": {
+     "path": "output/imagegen/raw/characters/barista-perle-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "c1912880383f6d39",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       630
+      ],
+      [
+       630,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3623,
+    0.3707,
+    0.3609
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3623,
+    0.3707,
+    0.3609
+   ],
+   "rowSource": {
+    "s": "barista-perle-walk.png Zeile 1",
+    "w": "barista-perle-walk.png Zeile 2",
+    "e": "barista-perle-walk.png Zeile 3",
+    "n": "barista-perle-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     92,
+     94,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     93,
+     95,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/barista-perle-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/barista-perle-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "d507ee4222d04fc6",
+    "out": "game/public/assets/portraits/barista-perle.webp",
+    "bytes": 30468
+   }
+  }
+ },
  "barkeeper": {
   "walk": {
    "raws": {
@@ -436,6 +526,97 @@
     "sha256": "4af1214ab62361ef",
     "out": "game/public/assets/portraits/barkeeper.webp",
     "bytes": 34542
+   }
+  }
+ },
+ "bijou": {
+  "walk": {
+   "raws": {
+    "bijou-walk.png": {
+     "path": "output/imagegen/raw/characters/bijou-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "0c5233e5ea849bfe",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       618
+      ],
+      [
+       618,
+       928
+      ],
+      [
+       928,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 42,
+   "rowScales": [
+    0.1561,
+    0.1736,
+    0.1736,
+    0.155
+   ],
+   "rowScalesUnclamped": [
+    0.1561,
+    0.1736,
+    0.1736,
+    0.155
+   ],
+   "rowSource": {
+    "s": "bijou-walk.png Zeile 1",
+    "w": "bijou-walk.png Zeile 2",
+    "e": "bijou-walk.png Zeile 3",
+    "n": "bijou-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     42,
+     41,
+     42,
+     42,
+     41,
+     42,
+     41,
+     42,
+     41,
+     42,
+     41,
+     42,
+     42,
+     40,
+     42,
+     41
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 15,
+    "problems": []
+   },
+   "note": "Roboterpudel (Vierbeiner, Zwergpudelgröße); Laufblatt mit Trab-Zyklus.",
+   "out": "game/public/assets/sprites/bijou-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/bijou-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "8e8b25f54a56b27c",
+    "out": "game/public/assets/portraits/bijou.webp",
+    "bytes": 44918
    }
   }
  },
@@ -620,6 +801,186 @@
    }
   }
  },
+ "bruder-kabellos": {
+  "walk": {
+   "raws": {
+    "bruder-kabellos-walk.png": {
+     "path": "output/imagegen/raw/characters/bruder-kabellos-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "31538fb05b0cfd8d",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       627
+      ],
+      [
+       627,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3416,
+    0.3529,
+    0.3529,
+    0.3416
+   ],
+   "rowScalesUnclamped": [
+    0.3416,
+    0.3529,
+    0.3529,
+    0.3416
+   ],
+   "rowSource": {
+    "s": "bruder-kabellos-walk.png Zeile 1",
+    "w": "bruder-kabellos-walk.png Zeile 2",
+    "e": "bruder-kabellos-walk.png Zeile 3",
+    "n": "bruder-kabellos-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     96,
+     96,
+     96,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     94,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/bruder-kabellos-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/bruder-kabellos-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "ae238435f81e1d7d",
+    "out": "game/public/assets/portraits/bruder-kabellos.webp",
+    "bytes": 60440
+   }
+  }
+ },
+ "bruno-brecher": {
+  "walk": {
+   "raws": {
+    "bruno-brecher-walk.png": {
+     "path": "output/imagegen/raw/characters/bruno-brecher-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "d8cd3059171d6472",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       626
+      ],
+      [
+       626,
+       941
+      ],
+      [
+       941,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3265,
+    0.331,
+    0.3265,
+    0.3276
+   ],
+   "rowScalesUnclamped": [
+    0.3265,
+    0.331,
+    0.3265,
+    0.3276
+   ],
+   "rowSource": {
+    "s": "bruno-brecher-walk.png Zeile 1",
+    "w": "bruno-brecher-walk.png Zeile 2",
+    "e": "bruno-brecher-walk.png Zeile 3",
+    "n": "bruno-brecher-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     92,
+     96,
+     96,
+     96,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     92,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/bruno-brecher-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/bruno-brecher-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "41bc007480c011c4",
+    "out": "game/public/assets/portraits/bruno-brecher.webp",
+    "bytes": 23990
+   }
+  }
+ },
  "buergermeister-gully": {
   "walk": {
    "raws": {
@@ -742,6 +1103,96 @@
     46
    ],
    "magentaPixels": 0
+  }
+ },
+ "chrome-haushaelterin": {
+  "walk": {
+   "raws": {
+    "chrome-haushaelterin-walk.png": {
+     "path": "output/imagegen/raw/characters/chrome-haushaelterin-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "79f6d62ebc39e575",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       627
+      ],
+      [
+       627,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3478,
+    0.3664,
+    0.3678,
+    0.3529
+   ],
+   "rowScalesUnclamped": [
+    0.3478,
+    0.3664,
+    0.3678,
+    0.3529
+   ],
+   "rowSource": {
+    "s": "chrome-haushaelterin-walk.png Zeile 1",
+    "w": "chrome-haushaelterin-walk.png Zeile 2",
+    "e": "chrome-haushaelterin-walk.png Zeile 3",
+    "n": "chrome-haushaelterin-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     95,
+     94,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     94,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/chrome-haushaelterin-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/chrome-haushaelterin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "3bf1bddb63179d0d",
+    "out": "game/public/assets/portraits/chrome-haushaelterin.webp",
+    "bytes": 32996
+   }
   }
  },
  "collin": {
@@ -1194,6 +1645,828 @@
    }
   }
  },
+ "direktorin-hartlauf": {
+  "walk": {
+   "raws": {
+    "direktorin-hartlauf-walk.png": {
+     "path": "output/imagegen/raw/characters/direktorin-hartlauf-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "fdca36de7a81f9c1",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       626
+      ],
+      [
+       626,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3453,
+    0.3516,
+    0.3504,
+    0.3466
+   ],
+   "rowScalesUnclamped": [
+    0.3453,
+    0.3516,
+    0.3504,
+    0.3466
+   ],
+   "rowSource": {
+    "s": "direktorin-hartlauf-walk.png Zeile 1",
+    "w": "direktorin-hartlauf-walk.png Zeile 2",
+    "e": "direktorin-hartlauf-walk.png Zeile 3",
+    "n": "direktorin-hartlauf-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/direktorin-hartlauf-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/direktorin-hartlauf-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "86561189035c7b27",
+    "out": "game/public/assets/portraits/direktorin-hartlauf.webp",
+    "bytes": 28218
+   }
+  }
+ },
+ "dj-lumo": {
+  "walk": {
+   "raws": {
+    "dj-lumo-walk.png": {
+     "path": "output/imagegen/raw/characters/dj-lumo-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "bd026e4ce4b70552",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       622
+      ],
+      [
+       622,
+       935
+      ],
+      [
+       935,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3478,
+    0.3516,
+    0.3504,
+    0.3453
+   ],
+   "rowScalesUnclamped": [
+    0.3478,
+    0.3516,
+    0.3504,
+    0.3453
+   ],
+   "rowSource": {
+    "s": "dj-lumo-walk.png Zeile 1",
+    "w": "dj-lumo-walk.png Zeile 2",
+    "e": "dj-lumo-walk.png Zeile 3",
+    "n": "dj-lumo-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     93,
+     94,
+     93,
+     96,
+     94,
+     92,
+     93,
+     96,
+     93,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 32,
+    "problems": [
+     "Frame 13: 8 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/dj-lumo-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/dj-lumo-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "d6b08b51d6444794",
+    "out": "game/public/assets/portraits/dj-lumo.webp",
+    "bytes": 36752
+   }
+  }
+ },
+ "dr-winkel": {
+  "walk": {
+   "raws": {
+    "dr-winkel-walk.png": {
+     "path": "output/imagegen/raw/characters/dr-winkel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "bbfa47252c11de9c",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       625
+      ],
+      [
+       625,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3416,
+    0.3609,
+    0.3582,
+    0.3453
+   ],
+   "rowScalesUnclamped": [
+    0.3416,
+    0.3609,
+    0.3582,
+    0.3453
+   ],
+   "rowSource": {
+    "s": "dr-winkel-walk.png Zeile 1",
+    "w": "dr-winkel-walk.png Zeile 2",
+    "e": "dr-winkel-walk.png Zeile 3",
+    "n": "dr-winkel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     95,
+     96,
+     94,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/dr-winkel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/dr-winkel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "19debb1fa54ae92a",
+    "out": "game/public/assets/portraits/dr-winkel.webp",
+    "bytes": 32960
+   }
+  }
+ },
+ "elsa": {
+  "walk": {
+   "raws": {
+    "elsa-walk.png": {
+     "path": "output/imagegen/raw/characters/elsa-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "56b86b1f1021297a",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       623
+      ],
+      [
+       623,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3542,
+    0.3491,
+    0.3478,
+    0.3504
+   ],
+   "rowScalesUnclamped": [
+    0.3542,
+    0.3491,
+    0.3478,
+    0.3504
+   ],
+   "rowSource": {
+    "s": "elsa-walk.png Zeile 1",
+    "w": "elsa-walk.png Zeile 2",
+    "e": "elsa-walk.png Zeile 3",
+    "n": "elsa-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     95,
+     96,
+     96,
+     96,
+     94,
+     96,
+     95,
+     94,
+     95,
+     96,
+     95,
+     95,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/elsa-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/elsa-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "9aa76bcd8c88e31e",
+    "out": "game/public/assets/portraits/elsa.webp",
+    "bytes": 55782
+   }
+  }
+ },
+ "falke": {
+  "walk": {
+   "raws": {
+    "falke-walk.png": {
+     "path": "output/imagegen/raw/characters/falke-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "f15741fc2e400370",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       624
+      ],
+      [
+       624,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.384,
+    0.381,
+    0.3825,
+    0.3825
+   ],
+   "rowScalesUnclamped": [
+    0.384,
+    0.381,
+    0.3825,
+    0.3825
+   ],
+   "rowSource": {
+    "s": "falke-walk.png Zeile 1",
+    "w": "falke-walk.png Zeile 2",
+    "e": "falke-walk.png Zeile 3",
+    "n": "falke-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     93,
+     96,
+     93,
+     96,
+     94,
+     96,
+     94,
+     95,
+     94,
+     95,
+     95,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 137,
+    "problems": [
+     "Frame 0: 22 magentastichige Pixel",
+     "Frame 1: 12 magentastichige Pixel",
+     "Frame 2: 15 magentastichige Pixel",
+     "Frame 3: 12 magentastichige Pixel",
+     "Frame 5: 18 magentastichige Pixel",
+     "Frame 8: 9 magentastichige Pixel",
+     "Frame 9: 9 magentastichige Pixel",
+     "Frame 10: 9 magentastichige Pixel",
+     "Frame 14: 7 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/falke-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/falke-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "fd3536f4199ad0a8",
+    "out": "game/public/assets/portraits/falke.webp",
+    "bytes": 38626
+   }
+  }
+ },
+ "fluss-frieda": {
+  "walk": {
+   "raws": {
+    "fluss-frieda-walk.png": {
+     "path": "output/imagegen/raw/characters/fluss-frieda-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "597dedce41018945",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       624
+      ],
+      [
+       624,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3569,
+    0.3636,
+    0.3692,
+    0.3556
+   ],
+   "rowScalesUnclamped": [
+    0.3569,
+    0.3636,
+    0.3692,
+    0.3556
+   ],
+   "rowSource": {
+    "s": "fluss-frieda-walk.png Zeile 1",
+    "w": "fluss-frieda-walk.png Zeile 2",
+    "e": "fluss-frieda-walk.png Zeile 3",
+    "n": "fluss-frieda-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     92,
+     95,
+     94,
+     95,
+     95,
+     96,
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     93,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/fluss-frieda-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/fluss-frieda-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "9ffcf33fe7895518",
+    "out": "game/public/assets/portraits/fluss-frieda.webp",
+    "bytes": 57792
+   }
+  }
+ },
+ "fraeulein-pixel": {
+  "walk": {
+   "raws": {
+    "fraeulein-pixel-walk.png": {
+     "path": "output/imagegen/raw/characters/fraeulein-pixel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "cb9ad81730cceff6",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       630
+      ],
+      [
+       630,
+       944
+      ],
+      [
+       944,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3556,
+    0.3678,
+    0.3636,
+    0.3569
+   ],
+   "rowScalesUnclamped": [
+    0.3556,
+    0.3678,
+    0.3636,
+    0.3569
+   ],
+   "rowSource": {
+    "s": "fraeulein-pixel-walk.png Zeile 1",
+    "w": "fraeulein-pixel-walk.png Zeile 2",
+    "e": "fraeulein-pixel-walk.png Zeile 3",
+    "n": "fraeulein-pixel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     95,
+     96,
+     96,
+     95,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 16,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/fraeulein-pixel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/fraeulein-pixel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "339f6151086ec5c7",
+    "out": "game/public/assets/portraits/fraeulein-pixel.webp",
+    "bytes": 33966
+   }
+  }
+ },
+ "frau-klingel": {
+  "walk": {
+   "raws": {
+    "frau-klingel-walk.png": {
+     "path": "output/imagegen/raw/characters/frau-klingel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "b132789af80e7346",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       618
+      ],
+      [
+       618,
+       932
+      ],
+      [
+       932,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3441,
+    0.3636,
+    0.3609,
+    0.3516
+   ],
+   "rowScalesUnclamped": [
+    0.3441,
+    0.3636,
+    0.3609,
+    0.3516
+   ],
+   "rowSource": {
+    "s": "frau-klingel-walk.png Zeile 1",
+    "w": "frau-klingel-walk.png Zeile 2",
+    "e": "frau-klingel-walk.png Zeile 3",
+    "n": "frau-klingel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     92,
+     96,
+     93,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     93,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/frau-klingel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/frau-klingel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "18abb00fd4281663",
+    "out": "game/public/assets/portraits/frau-klingel.webp",
+    "bytes": 50414
+   }
+  }
+ },
+ "frau-takt": {
+  "walk": {
+   "raws": {
+    "frau-takt-walk.png": {
+     "path": "output/imagegen/raw/characters/frau-takt-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "4be80aa1d0bfa80c",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.331,
+    0.3357,
+    0.3368,
+    0.331
+   ],
+   "rowScalesUnclamped": [
+    0.331,
+    0.3357,
+    0.3368,
+    0.331
+   ],
+   "rowSource": {
+    "s": "frau-takt-walk.png Zeile 1",
+    "w": "frau-takt-walk.png Zeile 2",
+    "e": "frau-takt-walk.png Zeile 3",
+    "n": "frau-takt-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     94,
+     95,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/frau-takt-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/frau-takt-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "368b609a39fc870f",
+    "out": "game/public/assets/portraits/frau-takt.webp",
+    "bytes": 47762
+   }
+  }
+ },
  "freya": {
   "walk": {
    "raws": {
@@ -1281,6 +2554,752 @@
     "sha256": "8d21af99e1d25791",
     "out": "game/public/assets/portraits/freya.webp",
     "bytes": 35712
+   }
+  }
+ },
+ "fx-60": {
+  "walk": {
+   "raws": {
+    "fx-60-walk.png": {
+     "path": "output/imagegen/raw/characters/fx-60-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "6b3b2bb0bcdcfa13",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       624
+      ],
+      [
+       624,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 50,
+   "rowScales": [
+    0.1866,
+    0.1845,
+    0.1866,
+    0.1938
+   ],
+   "rowScalesUnclamped": [
+    0.1866,
+    0.1845,
+    0.1866,
+    0.1938
+   ],
+   "rowSource": {
+    "s": "fx-60-walk.png Zeile 1",
+    "w": "fx-60-walk.png Zeile 2",
+    "e": "fx-60-walk.png Zeile 3",
+    "n": "fx-60-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     48,
+     50,
+     47,
+     48,
+     49,
+     50,
+     48,
+     46,
+     49,
+     50,
+     47,
+     46,
+     48,
+     50,
+     47,
+     45
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "Faxgerät auf Kettenlaufwerk (Maschine, kein Mensch); Laufblatt rollt statt zu laufen.",
+   "out": "game/public/assets/sprites/fx-60-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/fx-60-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "024f30f257fe6984",
+    "out": "game/public/assets/portraits/fx-60.webp",
+    "bytes": 38670
+   }
+  }
+ },
+ "gerda-gleis": {
+  "walk": {
+   "raws": {
+    "gerda-gleis-walk.png": {
+     "path": "output/imagegen/raw/characters/gerda-gleis-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "ff8b1d2193d30608",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       627
+      ],
+      [
+       627,
+       941
+      ],
+      [
+       941,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3491,
+    0.3609,
+    0.3596,
+    0.3529
+   ],
+   "rowScalesUnclamped": [
+    0.3491,
+    0.3609,
+    0.3596,
+    0.3529
+   ],
+   "rowSource": {
+    "s": "gerda-gleis-walk.png Zeile 1",
+    "w": "gerda-gleis-walk.png Zeile 2",
+    "e": "gerda-gleis-walk.png Zeile 3",
+    "n": "gerda-gleis-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     94,
+     95,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/gerda-gleis-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/gerda-gleis-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "c18dacf3e6c83838",
+    "out": "game/public/assets/portraits/gerda-gleis.webp",
+    "bytes": 51052
+   }
+  }
+ },
+ "glasblaeserin": {
+  "walk": {
+   "raws": {
+    "glasblaeserin-walk.png": {
+     "path": "output/imagegen/raw/characters/glasblaeserin-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "61e44516d6517fd6",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       629
+      ],
+      [
+       629,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3404,
+    0.3504,
+    0.3491,
+    0.3516
+   ],
+   "rowScalesUnclamped": [
+    0.3404,
+    0.3504,
+    0.3491,
+    0.3516
+   ],
+   "rowSource": {
+    "s": "glasblaeserin-walk.png Zeile 1",
+    "w": "glasblaeserin-walk.png Zeile 2",
+    "e": "glasblaeserin-walk.png Zeile 3",
+    "n": "glasblaeserin-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     95,
+     92,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/glasblaeserin-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/glasblaeserin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "997bc60c751c6d52",
+    "out": "game/public/assets/portraits/glasblaeserin.webp",
+    "bytes": 49514
+   }
+  }
+ },
+ "gutschein-gerd": {
+  "walk": {
+   "raws": {
+    "gutschein-gerd-walk.png": {
+     "path": "output/imagegen/raw/characters/gutschein-gerd-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "06a1972ef0dd10f3",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       624
+      ],
+      [
+       624,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.338,
+    0.3504,
+    0.3453,
+    0.338
+   ],
+   "rowScalesUnclamped": [
+    0.338,
+    0.3504,
+    0.3453,
+    0.338
+   ],
+   "rowSource": {
+    "s": "gutschein-gerd-walk.png Zeile 1",
+    "w": "gutschein-gerd-walk.png Zeile 2",
+    "e": "gutschein-gerd-walk.png Zeile 3",
+    "n": "gutschein-gerd-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     92,
+     96,
+     95,
+     95,
+     96,
+     96,
+     96,
+     94,
+     96,
+     95,
+     96,
+     96,
+     93,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 4854,
+    "problems": [
+     "Frame 0: 173 magentastichige Pixel",
+     "Frame 1: 200 magentastichige Pixel",
+     "Frame 2: 137 magentastichige Pixel",
+     "Frame 3: 214 magentastichige Pixel",
+     "Frame 4: 337 magentastichige Pixel",
+     "Frame 5: 239 magentastichige Pixel",
+     "Frame 6: 290 magentastichige Pixel",
+     "Frame 7: 237 magentastichige Pixel",
+     "Frame 8: 390 magentastichige Pixel",
+     "Frame 9: 207 magentastichige Pixel",
+     "Frame 10: 308 magentastichige Pixel",
+     "Frame 11: 272 magentastichige Pixel",
+     "Frame 12: 461 magentastichige Pixel",
+     "Frame 13: 479 magentastichige Pixel",
+     "Frame 14: 422 magentastichige Pixel",
+     "Frame 15: 488 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/gutschein-gerd-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/gutschein-gerd-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "224322df7e62d159",
+    "out": "game/public/assets/portraits/gutschein-gerd.webp",
+    "bytes": 39862
+   }
+  }
+ },
+ "hafen-hannes": {
+  "walk": {
+   "raws": {
+    "hafen-hannes-walk.png": {
+     "path": "output/imagegen/raw/characters/hafen-hannes-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "6637ff318076b6f0",
+     "rowBands": [
+      [
+       0,
+       313
+      ],
+      [
+       313,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3466,
+    0.3516,
+    0.3516,
+    0.3478
+   ],
+   "rowScalesUnclamped": [
+    0.3466,
+    0.3516,
+    0.3516,
+    0.3478
+   ],
+   "rowSource": {
+    "s": "hafen-hannes-walk.png Zeile 1",
+    "w": "hafen-hannes-walk.png Zeile 2",
+    "e": "hafen-hannes-walk.png Zeile 3",
+    "n": "hafen-hannes-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     91,
+     95,
+     94,
+     96,
+     92,
+     95,
+     95,
+     96,
+     95,
+     95,
+     94,
+     96,
+     92,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/hafen-hannes-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/hafen-hannes-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6bb81abc00a7403a",
+    "out": "game/public/assets/portraits/hafen-hannes.webp",
+    "bytes": 48430
+   }
+  }
+ },
+ "henk-angler": {
+  "walk": {
+   "raws": {
+    "henk-angler-walk.png": {
+     "path": "output/imagegen/raw/characters/henk-angler-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "0c06d1c809360aab",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       622
+      ],
+      [
+       622,
+       935
+      ],
+      [
+       935,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.338,
+    0.3478,
+    0.3556,
+    0.3429
+   ],
+   "rowScalesUnclamped": [
+    0.338,
+    0.3478,
+    0.3556,
+    0.3429
+   ],
+   "rowSource": {
+    "s": "henk-angler-walk.png Zeile 1",
+    "w": "henk-angler-walk.png Zeile 2",
+    "e": "henk-angler-walk.png Zeile 3",
+    "n": "henk-angler-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     94,
+     94,
+     92,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/henk-angler-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/henk-angler-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "1be4ad1a6e280eca",
+    "out": "game/public/assets/portraits/henk-angler.webp",
+    "bytes": 54536
+   }
+  }
+ },
+ "herr-blitz": {
+  "walk": {
+   "raws": {
+    "herr-blitz-walk.png": {
+     "path": "output/imagegen/raw/characters/herr-blitz-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "540ee7abe2abdfb6",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       630
+      ],
+      [
+       630,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3416,
+    0.3542,
+    0.3529,
+    0.3416
+   ],
+   "rowScalesUnclamped": [
+    0.3416,
+    0.3542,
+    0.3529,
+    0.3416
+   ],
+   "rowSource": {
+    "s": "herr-blitz-walk.png Zeile 1",
+    "w": "herr-blitz-walk.png Zeile 2",
+    "e": "herr-blitz-walk.png Zeile 3",
+    "n": "herr-blitz-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     94,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     94,
+     95,
+     96,
+     95,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 3,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/herr-blitz-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/herr-blitz-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6020f3568bcd3edd",
+    "out": "game/public/assets/portraits/herr-blitz.webp",
+    "bytes": 39058
+   }
+  }
+ },
+ "herr-glanz": {
+  "walk": {
+   "raws": {
+    "herr-glanz-walk.png": {
+     "path": "output/imagegen/raw/characters/herr-glanz-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "357bdbae01619cf2",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       622
+      ],
+      [
+       622,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3322,
+    0.3392,
+    0.338,
+    0.3322
+   ],
+   "rowScalesUnclamped": [
+    0.3322,
+    0.3392,
+    0.338,
+    0.3322
+   ],
+   "rowSource": {
+    "s": "herr-glanz-walk.png Zeile 1",
+    "w": "herr-glanz-walk.png Zeile 2",
+    "e": "herr-glanz-walk.png Zeile 3",
+    "n": "herr-glanz-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     92,
+     96,
+     92,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     95,
+     94,
+     96,
+     91,
+     96,
+     91
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 125,
+    "problems": [
+     "Frame 0: 24 magentastichige Pixel",
+     "Frame 1: 19 magentastichige Pixel",
+     "Frame 2: 18 magentastichige Pixel",
+     "Frame 3: 14 magentastichige Pixel",
+     "Frame 5: 11 magentastichige Pixel",
+     "Frame 8: 7 magentastichige Pixel",
+     "Frame 15: 7 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/herr-glanz-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/herr-glanz-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6d5ec8c21cc0a5ad",
+    "out": "game/public/assets/portraits/herr-glanz.webp",
+    "bytes": 37130
    }
   }
  },
@@ -1551,6 +3570,20 @@
     "sha256": "e45ca378d408ccd9",
     "out": "game/public/assets/portraits/jimmy.webp",
     "bytes": 42654
+   }
+  }
+ },
+ "kabelbrand-roadie": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/kabelbrand-roadie-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "0f6a3b6ab18ce8de",
+    "out": "game/public/assets/portraits/kabelbrand-roadie.webp",
+    "bytes": 42210
    }
   }
  },
@@ -1928,6 +3961,484 @@
    }
   }
  },
+ "knuspi": {
+  "walk": {
+   "raws": {
+    "knuspi-walk.png": {
+     "path": "output/imagegen/raw/characters/knuspi-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "caae91722e514d24",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       628
+      ],
+      [
+       628,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3542,
+    0.3582,
+    0.3582,
+    0.3491
+   ],
+   "rowScalesUnclamped": [
+    0.3542,
+    0.3582,
+    0.3582,
+    0.3491
+   ],
+   "rowSource": {
+    "s": "knuspi-walk.png Zeile 1",
+    "w": "knuspi-walk.png Zeile 2",
+    "e": "knuspi-walk.png Zeile 3",
+    "n": "knuspi-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     93,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/knuspi-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/knuspi-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "b3e279692ce56d67",
+    "out": "game/public/assets/portraits/knuspi.webp",
+    "bytes": 41136
+   }
+  }
+ },
+ "knut": {
+  "walk": {
+   "raws": {
+    "knut-walk.png": {
+     "path": "output/imagegen/raw/characters/knut-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "41420386e0f07efe",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       627
+      ],
+      [
+       627,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3582,
+    0.3636,
+    0.365,
+    0.3542
+   ],
+   "rowScalesUnclamped": [
+    0.3582,
+    0.3636,
+    0.365,
+    0.3542
+   ],
+   "rowSource": {
+    "s": "knut-walk.png Zeile 1",
+    "w": "knut-walk.png Zeile 2",
+    "e": "knut-walk.png Zeile 3",
+    "n": "knut-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     93,
+     94,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 227,
+    "problems": [
+     "Frame 0: 15 magentastichige Pixel",
+     "Frame 1: 14 magentastichige Pixel",
+     "Frame 2: 22 magentastichige Pixel",
+     "Frame 3: 15 magentastichige Pixel",
+     "Frame 4: 29 magentastichige Pixel",
+     "Frame 6: 11 magentastichige Pixel",
+     "Frame 8: 13 magentastichige Pixel",
+     "Frame 10: 20 magentastichige Pixel",
+     "Frame 12: 23 magentastichige Pixel",
+     "Frame 13: 7 magentastichige Pixel",
+     "Frame 14: 15 magentastichige Pixel",
+     "Frame 15: 31 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/knut-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/knut-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "587b9a3b85681477",
+    "out": "game/public/assets/portraits/knut.webp",
+    "bytes": 26056
+   }
+  }
+ },
+ "kraehe": {
+  "walk": {
+   "raws": {
+    "kraehe-walk.png": {
+     "path": "output/imagegen/raw/characters/kraehe-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "72ddfac527bed126",
+     "rowBands": [
+      [
+       0,
+       313
+      ],
+      [
+       313,
+       625
+      ],
+      [
+       625,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3368,
+    0.3429,
+    0.3466,
+    0.3322
+   ],
+   "rowScalesUnclamped": [
+    0.3368,
+    0.3429,
+    0.3466,
+    0.3322
+   ],
+   "rowSource": {
+    "s": "kraehe-walk.png Zeile 1",
+    "w": "kraehe-walk.png Zeile 2",
+    "e": "kraehe-walk.png Zeile 3",
+    "n": "kraehe-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     96,
+     93,
+     96,
+     94,
+     96,
+     94,
+     96,
+     95,
+     96,
+     95,
+     96,
+     92,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/kraehe-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/kraehe-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6734fe83c6bdbc83",
+    "out": "game/public/assets/portraits/kraehe.webp",
+    "bytes": 56246
+   }
+  }
+ },
+ "kurt": {
+  "walk": {
+   "raws": {
+    "kurt-walk.png": {
+     "path": "output/imagegen/raw/characters/kurt-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "a616dc9ef05815f6",
+     "rowBands": [
+      [
+       0,
+       323
+      ],
+      [
+       323,
+       628
+      ],
+      [
+       628,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 88,
+   "rowScales": [
+    0.3548,
+    0.3563,
+    0.3577,
+    0.3492
+   ],
+   "rowScalesUnclamped": [
+    0.3548,
+    0.3563,
+    0.3577,
+    0.3492
+   ],
+   "rowSource": {
+    "s": "kurt-walk.png Zeile 1",
+    "w": "kurt-walk.png Zeile 2",
+    "e": "kurt-walk.png Zeile 3",
+    "n": "kurt-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     88,
+     86,
+     88,
+     86,
+     87,
+     88,
+     88,
+     87,
+     88,
+     88,
+     87,
+     88,
+     88,
+     86,
+     88,
+     86
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 160,
+    "problems": [
+     "Frame 0: 10 magentastichige Pixel",
+     "Frame 1: 15 magentastichige Pixel",
+     "Frame 2: 17 magentastichige Pixel",
+     "Frame 3: 9 magentastichige Pixel",
+     "Frame 4: 11 magentastichige Pixel",
+     "Frame 5: 11 magentastichige Pixel",
+     "Frame 6: 11 magentastichige Pixel",
+     "Frame 8: 7 magentastichige Pixel",
+     "Frame 10: 11 magentastichige Pixel",
+     "Frame 12: 12 magentastichige Pixel",
+     "Frame 13: 15 magentastichige Pixel",
+     "Frame 14: 8 magentastichige Pixel",
+     "Frame 15: 12 magentastichige Pixel"
+    ]
+   },
+   "note": "art-fig-b: Zielhöhe (kurt)",
+   "out": "game/public/assets/sprites/kurt-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/kurt-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "60ca4f0060a9ee97",
+    "out": "game/public/assets/portraits/kurt.webp",
+    "bytes": 49320
+   }
+  }
+ },
+ "leutnant-nadel": {
+  "walk": {
+   "raws": {
+    "leutnant-nadel-walk.png": {
+     "path": "output/imagegen/raw/characters/leutnant-nadel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "1c7add9c04d40e9e",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       627
+      ],
+      [
+       627,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3636,
+    0.3735,
+    0.3735,
+    0.3623
+   ],
+   "rowScalesUnclamped": [
+    0.3636,
+    0.3735,
+    0.3735,
+    0.3623
+   ],
+   "rowSource": {
+    "s": "leutnant-nadel-walk.png Zeile 1",
+    "w": "leutnant-nadel-walk.png Zeile 2",
+    "e": "leutnant-nadel-walk.png Zeile 3",
+    "n": "leutnant-nadel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     94,
+     93,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/leutnant-nadel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/leutnant-nadel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "d3810b5d4deb030c",
+    "out": "game/public/assets/portraits/leutnant-nadel.webp",
+    "bytes": 25198
+   }
+  }
+ },
  "lio-funkel": {
   "walk": {
    "raws": {
@@ -2015,6 +4526,96 @@
     "sha256": "2d79731d9bab1706",
     "out": "game/public/assets/portraits/lio-funkel.webp",
     "bytes": 51420
+   }
+  }
+ },
+ "madame-satin": {
+  "walk": {
+   "raws": {
+    "madame-satin-walk.png": {
+     "path": "output/imagegen/raw/characters/madame-satin-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "01d0e3702cdc5d44",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3232,
+    0.3276,
+    0.3288,
+    0.3254
+   ],
+   "rowScalesUnclamped": [
+    0.3232,
+    0.3276,
+    0.3288,
+    0.3254
+   ],
+   "rowSource": {
+    "s": "madame-satin-walk.png Zeile 1",
+    "w": "madame-satin-walk.png Zeile 2",
+    "e": "madame-satin-walk.png Zeile 3",
+    "n": "madame-satin-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     95,
+     95,
+     96,
+     96,
+     95,
+     95,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 3,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/madame-satin-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/madame-satin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "79757c1f4d40dbe6",
+    "out": "game/public/assets/portraits/madame-satin.webp",
+    "bytes": 37974
    }
   }
  },
@@ -2108,6 +4709,367 @@
    }
   }
  },
+ "meister-watt": {
+  "walk": {
+   "raws": {
+    "meister-watt-walk.png": {
+     "path": "output/imagegen/raw/characters/meister-watt-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "59ce6f204659bd5a",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       626
+      ],
+      [
+       626,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3466,
+    0.3623,
+    0.3623,
+    0.3491
+   ],
+   "rowScalesUnclamped": [
+    0.3466,
+    0.3623,
+    0.3623,
+    0.3491
+   ],
+   "rowSource": {
+    "s": "meister-watt-walk.png Zeile 1",
+    "w": "meister-watt-walk.png Zeile 2",
+    "e": "meister-watt-walk.png Zeile 3",
+    "n": "meister-watt-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     95,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/meister-watt-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/meister-watt-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "3e61514e6020994f",
+    "out": "game/public/assets/portraits/meister-watt.webp",
+    "bytes": 28186
+   }
+  }
+ },
+ "mila": {
+  "walk": {
+   "raws": {
+    "mila-walk.png": {
+     "path": "output/imagegen/raw/characters/mila-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "4d171638836986b4",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       618
+      ],
+      [
+       618,
+       932
+      ],
+      [
+       932,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 68,
+   "rowScales": [
+    0.2576,
+    0.2709,
+    0.2698,
+    0.2547
+   ],
+   "rowScalesUnclamped": [
+    0.2576,
+    0.2709,
+    0.2698,
+    0.2547
+   ],
+   "rowSource": {
+    "s": "mila-walk.png Zeile 1",
+    "w": "mila-walk.png Zeile 2",
+    "e": "mila-walk.png Zeile 3",
+    "n": "mila-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     68,
+     66,
+     67,
+     66,
+     68,
+     67,
+     68,
+     68,
+     68,
+     68,
+     67,
+     67,
+     68,
+     66,
+     68,
+     66
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "art-fig-b: Zielhöhe (mila)",
+   "out": "game/public/assets/sprites/mila-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/mila-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "5008767a29c31f92",
+    "out": "game/public/assets/portraits/mila.webp",
+    "bytes": 38638
+   }
+  }
+ },
+ "mira-loetzinn": {
+  "walk": {
+   "raws": {
+    "mira-loetzinn-walk.png": {
+     "path": "output/imagegen/raw/characters/mira-loetzinn-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "dd4ec96f4574594b",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3404,
+    0.3529,
+    0.3529,
+    0.3429
+   ],
+   "rowScalesUnclamped": [
+    0.3404,
+    0.3529,
+    0.3529,
+    0.3429
+   ],
+   "rowSource": {
+    "s": "mira-loetzinn-walk.png Zeile 1",
+    "w": "mira-loetzinn-walk.png Zeile 2",
+    "e": "mira-loetzinn-walk.png Zeile 3",
+    "n": "mira-loetzinn-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     96,
+     92,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/mira-loetzinn-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/mira-loetzinn-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "457fec9c351e3d97",
+    "out": "game/public/assets/portraits/mira-loetzinn.webp",
+    "bytes": 35556
+   }
+  }
+ },
+ "mutter-bruehe": {
+  "walk": {
+   "raws": {
+    "mutter-bruehe-walk.png": {
+     "path": "output/imagegen/raw/characters/mutter-bruehe-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "e6cac72509fd433a",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       626
+      ],
+      [
+       626,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3596,
+    0.3678,
+    0.3664,
+    0.3542
+   ],
+   "rowScalesUnclamped": [
+    0.3596,
+    0.3678,
+    0.3664,
+    0.3542
+   ],
+   "rowSource": {
+    "s": "mutter-bruehe-walk.png Zeile 1",
+    "w": "mutter-bruehe-walk.png Zeile 2",
+    "e": "mutter-bruehe-walk.png Zeile 3",
+    "n": "mutter-bruehe-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     95,
+     94,
+     96,
+     94,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     94,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/mutter-bruehe-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/mutter-bruehe-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "92e37ccaaaf6c8ee",
+    "out": "game/public/assets/portraits/mutter-bruehe.webp",
+    "bytes": 48994
+   }
+  }
+ },
  "nyra": {
   "walk": {
    "raws": {
@@ -2195,6 +5157,96 @@
     "sha256": "6f39ac20abdd5aff",
     "out": "game/public/assets/portraits/nyra.webp",
     "bytes": 41052
+   }
+  }
+ },
+ "ole-gaehn": {
+  "walk": {
+   "raws": {
+    "ole-gaehn-walk.png": {
+     "path": "output/imagegen/raw/characters/ole-gaehn-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "5b008b6bc72bba6f",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       623
+      ],
+      [
+       623,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3299,
+    0.331,
+    0.3288,
+    0.3276
+   ],
+   "rowScalesUnclamped": [
+    0.3299,
+    0.331,
+    0.3288,
+    0.3276
+   ],
+   "rowSource": {
+    "s": "ole-gaehn-walk.png Zeile 1",
+    "w": "ole-gaehn-walk.png Zeile 2",
+    "e": "ole-gaehn-walk.png Zeile 3",
+    "n": "ole-gaehn-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     94,
+     96,
+     96,
+     92,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/ole-gaehn-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/ole-gaehn-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "89bd5aa9b20f5697",
+    "out": "game/public/assets/portraits/ole-gaehn.webp",
+    "bytes": 41726
    }
   }
  },
@@ -2302,6 +5354,288 @@
     "sha256": "e41bb4d2d50ea136",
     "out": "game/public/assets/portraits/oma-volt.webp",
     "bytes": 54548
+   }
+  }
+ },
+ "opa-blech": {
+  "walk": {
+   "raws": {
+    "opa-blech-walk.png": {
+     "path": "output/imagegen/raw/characters/opa-blech-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "d4adfe9e7c239cb2",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       624
+      ],
+      [
+       624,
+       937
+      ],
+      [
+       937,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3504,
+    0.3609,
+    0.3596,
+    0.3596
+   ],
+   "rowScalesUnclamped": [
+    0.3504,
+    0.3609,
+    0.3596,
+    0.3596
+   ],
+   "rowSource": {
+    "s": "opa-blech-walk.png Zeile 1",
+    "w": "opa-blech-walk.png Zeile 2",
+    "e": "opa-blech-walk.png Zeile 3",
+    "n": "opa-blech-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     96,
+     94,
+     96,
+     95,
+     96,
+     95,
+     95,
+     95,
+     96,
+     95,
+     96,
+     93,
+     95,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 162,
+    "problems": [
+     "Frame 0: 8 magentastichige Pixel",
+     "Frame 1: 10 magentastichige Pixel",
+     "Frame 2: 8 magentastichige Pixel",
+     "Frame 3: 9 magentastichige Pixel",
+     "Frame 7: 9 magentastichige Pixel",
+     "Frame 8: 11 magentastichige Pixel",
+     "Frame 10: 9 magentastichige Pixel",
+     "Frame 12: 16 magentastichige Pixel",
+     "Frame 13: 28 magentastichige Pixel",
+     "Frame 14: 9 magentastichige Pixel",
+     "Frame 15: 21 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/opa-blech-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/opa-blech-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "ed3cf913e02ed6fb",
+    "out": "game/public/assets/portraits/opa-blech.webp",
+    "bytes": 46246
+   }
+  }
+ },
+ "opa-funk": {
+  "walk": {
+   "raws": {
+    "opa-funk-walk.png": {
+     "path": "output/imagegen/raw/characters/opa-funk-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "f31db4c3ae7f0936",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       626
+      ],
+      [
+       626,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3322,
+    0.3453,
+    0.3404,
+    0.3345
+   ],
+   "rowScalesUnclamped": [
+    0.3322,
+    0.3453,
+    0.3404,
+    0.3345
+   ],
+   "rowSource": {
+    "s": "opa-funk-walk.png Zeile 1",
+    "w": "opa-funk-walk.png Zeile 2",
+    "e": "opa-funk-walk.png Zeile 3",
+    "n": "opa-funk-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     95,
+     94,
+     96,
+     95,
+     96,
+     93,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 3,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/opa-funk-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/opa-funk-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "78cb56bf720a8bd0",
+    "out": "game/public/assets/portraits/opa-funk.webp",
+    "bytes": 56810
+   }
+  }
+ },
+ "opa-gurrmann": {
+  "walk": {
+   "raws": {
+    "opa-gurrmann-walk.png": {
+     "path": "output/imagegen/raw/characters/opa-gurrmann-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "11670b2487ece2e3",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       625
+      ],
+      [
+       625,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3636,
+    0.375,
+    0.3735,
+    0.3707
+   ],
+   "rowScalesUnclamped": [
+    0.3636,
+    0.375,
+    0.3735,
+    0.3707
+   ],
+   "rowSource": {
+    "s": "opa-gurrmann-walk.png Zeile 1",
+    "w": "opa-gurrmann-walk.png Zeile 2",
+    "e": "opa-gurrmann-walk.png Zeile 3",
+    "n": "opa-gurrmann-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     94,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/opa-gurrmann-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/opa-gurrmann-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "e93ad492debfbf1d",
+    "out": "game/public/assets/portraits/opa-gurrmann.webp",
+    "bytes": 61328
    }
   }
  },
@@ -3220,6 +6554,186 @@
   },
   "portraits": {}
  },
+ "paul": {
+  "walk": {
+   "raws": {
+    "paul-walk.png": {
+     "path": "output/imagegen/raw/characters/paul-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "b0cf81f9b241543c",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       626
+      ],
+      [
+       626,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3596,
+    0.3735,
+    0.3735,
+    0.3664
+   ],
+   "rowScalesUnclamped": [
+    0.3596,
+    0.3735,
+    0.3735,
+    0.3664
+   ],
+   "rowSource": {
+    "s": "paul-walk.png Zeile 1",
+    "w": "paul-walk.png Zeile 2",
+    "e": "paul-walk.png Zeile 3",
+    "n": "paul-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/paul-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/paul-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "ff0262d60950f9ae",
+    "out": "game/public/assets/portraits/paul.webp",
+    "bytes": 32138
+   }
+  }
+ },
+ "pfeffer": {
+  "walk": {
+   "raws": {
+    "pfeffer-walk.png": {
+     "path": "output/imagegen/raw/characters/pfeffer-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "2984b54b17653fec",
+     "rowBands": [
+      [
+       0,
+       311
+      ],
+      [
+       311,
+       618
+      ],
+      [
+       618,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3609,
+    0.3569,
+    0.3556
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3609,
+    0.3569,
+    0.3556
+   ],
+   "rowSource": {
+    "s": "pfeffer-walk.png Zeile 1",
+    "w": "pfeffer-walk.png Zeile 2",
+    "e": "pfeffer-walk.png Zeile 3",
+    "n": "pfeffer-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     93,
+     96,
+     96,
+     96,
+     96,
+     95,
+     95,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 35,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/pfeffer-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/pfeffer-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "27aea69c640a2321",
+    "out": "game/public/assets/portraits/pfeffer.webp",
+    "bytes": 39868
+   }
+  }
+ },
  "pim-pinzette": {
   "walk": {
    "raws": {
@@ -3399,6 +6913,110 @@
     "sha256": "96d7182659228ac0",
     "out": "game/public/assets/portraits/pixie.webp",
     "bytes": 42838
+   }
+  }
+ },
+ "portier-albert": {
+  "walk": {
+   "raws": {
+    "portier-albert-walk.png": {
+     "path": "output/imagegen/raw/characters/portier-albert-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "a272462c560a7278",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       619
+      ],
+      [
+       619,
+       932
+      ],
+      [
+       932,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3441,
+    0.3596,
+    0.3569,
+    0.3466
+   ],
+   "rowScalesUnclamped": [
+    0.3441,
+    0.3596,
+    0.3569,
+    0.3466
+   ],
+   "rowSource": {
+    "s": "portier-albert-walk.png Zeile 1",
+    "w": "portier-albert-walk.png Zeile 2",
+    "e": "portier-albert-walk.png Zeile 3",
+    "n": "portier-albert-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/portier-albert-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/portier-albert-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "66b262a5839afd78",
+    "out": "game/public/assets/portraits/portier-albert.webp",
+    "bytes": 30178
+   }
+  }
+ },
+ "quantum-fahrer": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/quantum-fahrer-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "d3667afabebd506e",
+    "out": "game/public/assets/portraits/quantum-fahrer.webp",
+    "bytes": 20998
    }
   }
  },
@@ -3917,6 +7535,186 @@
   },
   "portraits": {}
  },
+ "rudi": {
+  "walk": {
+   "raws": {
+    "rudi-walk.png": {
+     "path": "output/imagegen/raw/characters/rudi-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "78c19bbb69270e00",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       630
+      ],
+      [
+       630,
+       943
+      ],
+      [
+       943,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3504,
+    0.3596,
+    0.3609,
+    0.3582
+   ],
+   "rowScalesUnclamped": [
+    0.3504,
+    0.3596,
+    0.3609,
+    0.3582
+   ],
+   "rowSource": {
+    "s": "rudi-walk.png Zeile 1",
+    "w": "rudi-walk.png Zeile 2",
+    "e": "rudi-walk.png Zeile 3",
+    "n": "rudi-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     94,
+     96,
+     96,
+     94,
+     94,
+     96,
+     95,
+     95,
+     95,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/rudi-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/rudi-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "92630ad5b5dd7c81",
+    "out": "game/public/assets/portraits/rudi.webp",
+    "bytes": 46722
+   }
+  }
+ },
+ "salzige-grete": {
+  "walk": {
+   "raws": {
+    "salzige-grete-walk.png": {
+     "path": "output/imagegen/raw/characters/salzige-grete-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "0974decab0671742",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       628
+      ],
+      [
+       628,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3504,
+    0.3478,
+    0.3516,
+    0.3453
+   ],
+   "rowScalesUnclamped": [
+    0.3504,
+    0.3478,
+    0.3516,
+    0.3453
+   ],
+   "rowSource": {
+    "s": "salzige-grete-walk.png Zeile 1",
+    "w": "salzige-grete-walk.png Zeile 2",
+    "e": "salzige-grete-walk.png Zeile 3",
+    "n": "salzige-grete-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     93,
+     95,
+     96,
+     93,
+     95,
+     96,
+     96,
+     96,
+     95,
+     96,
+     94,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/salzige-grete-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/salzige-grete-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "9cd4d09cf85429a7",
+    "out": "game/public/assets/portraits/salzige-grete.webp",
+    "bytes": 49802
+   }
+  }
+ },
  "seraphina": {
   "walk": {
    "raws": {
@@ -4098,6 +7896,105 @@
    }
   }
  },
+ "sina-spray": {
+  "walk": {
+   "raws": {
+    "sina-spray-walk.png": {
+     "path": "output/imagegen/raw/characters/sina-spray-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "36d49f1534b51ae6",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       627
+      ],
+      [
+       627,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3664,
+    0.365,
+    0.3529
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3664,
+    0.365,
+    0.3529
+   ],
+   "rowSource": {
+    "s": "sina-spray-walk.png Zeile 1",
+    "w": "sina-spray-walk.png Zeile 2",
+    "e": "sina-spray-walk.png Zeile 3",
+    "n": "sina-spray-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     95,
+     90,
+     95,
+     96,
+     95,
+     95,
+     95,
+     95,
+     94,
+     96,
+     96,
+     93,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 118,
+    "problems": [
+     "Frame 2: 13 magentastichige Pixel",
+     "Frame 6: 15 magentastichige Pixel",
+     "Frame 8: 9 magentastichige Pixel",
+     "Frame 9: 11 magentastichige Pixel",
+     "Frame 10: 8 magentastichige Pixel",
+     "Frame 12: 9 magentastichige Pixel",
+     "Frame 14: 12 magentastichige Pixel",
+     "Frame 15: 13 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/sina-spray-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/sina-spray-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "835bbf111ecac853",
+    "out": "game/public/assets/portraits/sina-spray.webp",
+    "bytes": 49706
+   }
+  }
+ },
  "spaeherdrohne": {
   "walk": {
    "raws": {
@@ -4177,6 +8074,102 @@
    "out": "game/public/assets/sprites/spaeherdrohne-walk.png"
   },
   "portraits": {}
+ },
+ "stylistin-gina": {
+  "walk": {
+   "raws": {
+    "stylistin-gina-walk.png": {
+     "path": "output/imagegen/raw/characters/stylistin-gina-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "696ad62dc0f94069",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       626
+      ],
+      [
+       626,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3333,
+    0.338,
+    0.3368,
+    0.3368
+   ],
+   "rowScalesUnclamped": [
+    0.3333,
+    0.338,
+    0.3368,
+    0.3368
+   ],
+   "rowSource": {
+    "s": "stylistin-gina-walk.png Zeile 1",
+    "w": "stylistin-gina-walk.png Zeile 2",
+    "e": "stylistin-gina-walk.png Zeile 3",
+    "n": "stylistin-gina-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 85,
+    "problems": [
+     "Frame 0: 7 magentastichige Pixel",
+     "Frame 8: 10 magentastichige Pixel",
+     "Frame 12: 8 magentastichige Pixel",
+     "Frame 13: 11 magentastichige Pixel",
+     "Frame 15: 10 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/stylistin-gina-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/stylistin-gina-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "0475ec10aac63957",
+    "out": "game/public/assets/portraits/stylistin-gina.webp",
+    "bytes": 51332
+   }
+  }
  },
  "sybella": {
   "walk": {
@@ -4266,6 +8259,96 @@
     "sha256": "6638dadad04445d1",
     "out": "game/public/assets/portraits/sybella.webp",
     "bytes": 41794
+   }
+  }
+ },
+ "turbo-tilda": {
+  "walk": {
+   "raws": {
+    "turbo-tilda-walk.png": {
+     "path": "output/imagegen/raw/characters/turbo-tilda-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "73e87b52e9d62c25",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       627
+      ],
+      [
+       627,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3529,
+    0.3529,
+    0.3478
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3529,
+    0.3529,
+    0.3478
+   ],
+   "rowSource": {
+    "s": "turbo-tilda-walk.png Zeile 1",
+    "w": "turbo-tilda-walk.png Zeile 2",
+    "e": "turbo-tilda-walk.png Zeile 3",
+    "n": "turbo-tilda-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     94,
+     95,
+     96,
+     95,
+     95,
+     95,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/turbo-tilda-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/turbo-tilda-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "c4cc39539ce353bf",
+    "out": "game/public/assets/portraits/turbo-tilda.webp",
+    "bytes": 46546
    }
   }
  },
@@ -4451,6 +8534,96 @@
    }
   }
  },
+ "vinyl-vincent": {
+  "walk": {
+   "raws": {
+    "vinyl-vincent-walk.png": {
+     "path": "output/imagegen/raw/characters/vinyl-vincent-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "0c106a7f07f978a9",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       622
+      ],
+      [
+       622,
+       933
+      ],
+      [
+       933,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3404,
+    0.3582,
+    0.3582,
+    0.3404
+   ],
+   "rowScalesUnclamped": [
+    0.3404,
+    0.3582,
+    0.3582,
+    0.3404
+   ],
+   "rowSource": {
+    "s": "vinyl-vincent-walk.png Zeile 1",
+    "w": "vinyl-vincent-walk.png Zeile 2",
+    "e": "vinyl-vincent-walk.png Zeile 3",
+    "n": "vinyl-vincent-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     95,
+     93,
+     95,
+     96,
+     95,
+     95,
+     95,
+     96,
+     95,
+     95,
+     96,
+     94,
+     94,
+     91
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/vinyl-vincent-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/vinyl-vincent-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "a4e8ec5947dc6d1a",
+    "out": "game/public/assets/portraits/vinyl-vincent.webp",
+    "bytes": 34350
+   }
+  }
+ },
  "wache": {
   "walk": {
    "raws": {
@@ -4541,6 +8714,124 @@
    }
   }
  },
+ "wachmann-brezel": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/wachmann-brezel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6d9a288a31b9d5b6",
+    "out": "game/public/assets/portraits/wachmann-brezel.webp",
+    "bytes": 42072
+   }
+  }
+ },
+ "werbung": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/werbung-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "8f329cf8e43b3645",
+    "out": "game/public/assets/portraits/werbung.webp",
+    "bytes": 51122
+   }
+  }
+ },
+ "wett-willi": {
+  "walk": {
+   "raws": {
+    "wett-willi-walk.png": {
+     "path": "output/imagegen/raw/characters/wett-willi-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "763eab90f400dc87",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       626
+      ],
+      [
+       626,
+       941
+      ],
+      [
+       941,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3453,
+    0.3491,
+    0.3478,
+    0.3453
+   ],
+   "rowScalesUnclamped": [
+    0.3453,
+    0.3491,
+    0.3478,
+    0.3453
+   ],
+   "rowSource": {
+    "s": "wett-willi-walk.png Zeile 1",
+    "w": "wett-willi-walk.png Zeile 2",
+    "e": "wett-willi-walk.png Zeile 3",
+    "n": "wett-willi-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/wett-willi-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/wett-willi-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "629a80710771871f",
+    "out": "game/public/assets/portraits/wett-willi.webp",
+    "bytes": 39476
+   }
+  }
+ },
  "xion": {
   "walk": {
    "raws": {
@@ -4628,6 +8919,96 @@
     "sha256": "d87a485dcc6ed232",
     "out": "game/public/assets/portraits/xion.webp",
     "bytes": 28588
+   }
+  }
+ },
+ "zellennachbarin": {
+  "walk": {
+   "raws": {
+    "zellennachbarin-walk.png": {
+     "path": "output/imagegen/raw/characters/zellennachbarin-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "f959195b9844f059",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       622
+      ],
+      [
+       622,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3441,
+    0.3542,
+    0.3516,
+    0.3429
+   ],
+   "rowScalesUnclamped": [
+    0.3441,
+    0.3542,
+    0.3516,
+    0.3429
+   ],
+   "rowSource": {
+    "s": "zellennachbarin-walk.png Zeile 1",
+    "w": "zellennachbarin-walk.png Zeile 2",
+    "e": "zellennachbarin-walk.png Zeile 3",
+    "n": "zellennachbarin-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     93,
+     95,
+     95,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/zellennachbarin-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/zellennachbarin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "cd4a3cbd56631dad",
+    "out": "game/public/assets/portraits/zellennachbarin.webp",
+    "bytes": 36778
    }
   }
  },

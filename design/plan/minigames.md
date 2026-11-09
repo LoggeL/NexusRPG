@@ -1,4 +1,4 @@
-# Minispiele – Stand Teil 2
+# Minispiele – Stand Teil 3
 
 Code: `game/src/presentation/minigames/` (Registry `index.ts`, Host `host.ts`, je Spiel eine Datei, Stil `minigames.css`).
 Ablauf: Effekt `minigame` → Anfrage `{ minigame: MinigameRequest }` → `Director.minigame()` → `playMinigame()` →
@@ -60,6 +60,39 @@ Zusatzeffekte (`extra`) → `campaign.finishMinigame(request, won)`.
 (Vegas Fotofinish-Zeile). Mit `{ playerIs: 'vex' }` endet es mit dem Wäscheleinen-Gag aus world.md.
 Empfohlene Stufe: Station 2, Wiederholungen 3.
 
+### Teil 3 (Akt 2/3, Ödnis, Küste, Sonderspiele)
+
+| ID | Spiel | Dauer | Stufe wirkt auf | Attribute / Gegenstände | Zusatzeffekte |
+| --- | --- | --- | --- | --- | --- |
+| `akt-gaertnern` | Beete im Raster: Werkzeug wählen (1 Samen, 2 Kanne, 3 Hände), gießen (Kanne leert sich → Regentonne), reif ernten bevor es fault, Blechkäfer verscheuchen | 75–95 s | 3×2 … 4×3 Beete, 5–12 Ernten, schneller trocken, kürzeres Reifefenster, mehr Käfer, kleinere Kanne | – (world.md); `label` mit „Hof/Feld/Marla“ → Marla am `aussiedlerhof`, sonst Dante im Dachgarten | `{ give: 'frisches-gemuese', qty }` (je 2 Gemüse 1, max. 3), `{ give: 'blumensamen', qty }` (je Blume, max. 2), immer |
+| `akt-hochstapeln` | Gesprächskette auf dem Boulevard (Albert, Juwelier, Herr Glanz, Madame Pompadura, Streife, Taschendiebin …): Antwort unter Zeitdruck, „Tarnung“-Leiste mit Zielmarke; Fallen (Yachtclub Sektor 4, Anrempel-Masche) | ~60–90 s | 5–7 Begegnungen, Ziel-Tarnung 40–70, 10–6 s je Antwort; ab 2 mind. eine Falle | Ausstrahlung: +0–3 s, Tarnung bis +50 %, Trinkgeld bis +100 %; Straße 5+: Fallen markiert, 7+: Trinkgeld-Antworten markiert | `{ credits: <Trinkgeld> }` immer; `{ setFlag: 'klatsch-chrome-einladung' }` (Hinweis auf `chrome-einladung`), wenn die Klatschbase ausgequetscht wurde |
+| `akt-radio-rost` | Sendung aus Abschnitten: Ansage, Pegel halten (halten = lauter), Hörertelefon, Plattenwunsch, Sender nachstimmen (←/→, Einrasten); Hörer-Leiste mit Ziel | 60–110 s | 5–8 Abschnitte, Ziel 300–620 Hörer, schmalere Pegelzone, Frequenz driftet | Ausstrahlung: +0–3 s je Antwort, Pegelzone +40 %, Hörer +30 %; 7+: der schlimmste Satz fällt weg | – |
+| `akt-schrottbot-rennen` | Fahrerlager: 1 von 4 Bots (Tempo/Grip/Panzer, Macken Montagsbot/Doppelturbo/Klebereifen); dann 3-Spur-Rennen gegen 3 Bots: Öl, Schrott, Schubfelder, Turbo | ~40 s + Wahl | Gegnertempo, Hindernisdichte, Doppelhindernisse ab 3, Rempler kosten ab 3 Panzer; Platz nötig 3/2/2/1/1 | Technik: <5 nur Gerüchte (ab 3 teils irreführend), 5–6 Werte ±1, 7+ genau mit Macke | – |
+| `akt-strandlauf` | „Wer zuerst am Wasser ist!“: ←/→ im Wechsel (gleiche Seite = Sand), über Sandburgen, Krabbe Karl, Quallen hüpfen; gegen Aria | ~30 s | Arias Tempo, 3–7 Hindernisse; bis 3 stolpert Aria einmal über Karl | Körper: Schub +35 %; Reflexe: Sprung +40 %, schneller hoch; `{ romance: 'aria' }` flirtige Zeilen; `{ playerIs: 'vex' }` eigene Zeilen | – |
+| `akt-wrackrennen` | Draufsicht mit der Rostlaube gegen Krähe: lenken, Wracks/Fässer/Staubfalken meiden, Sand bremst; Sprungschanze bei ⅔ (mittig + „JETZT!“ Gas = 70 m Abkürzung) | ~40 s | Krähes Tempo, Hindernisdichte, mehr Falken | Reflexe: Lenkung +50 %, Trefferzone kleiner; **`gc-134` bestanden: Schanze automatisch perfekt**; `reparaturset` im Gepäck: +1 Karosserie | – |
+| `akt-etikette` | Teekränzchen bei den Chrome-Schwestern: abwechselnd Besteck-Runde (Gang → richtiges Besteck) und Smalltalk (Seraphina/Sybella/Serenity), Zeitleiste je Frage; „Haltung“ | 50–80 s | 6–9 Runden, 7–4,5 s, 3–4 Optionen, 3–1 Fauxpas erlaubt | Ausstrahlung: +0–3 s; 7+: eine falsche Option weniger; `origin-oberstadt`: richtige Besteck-Wahl leuchtet (world.md: Herkunft überspringt das Spiel – das entscheidet der Inhalt) | – |
+| `akt-overwatch` | Draufsicht Quantum-Campus von der Brücke: Aria + Nyra laufen auf „Los!“ von Deckung zu Deckung; Kameras per Störimpuls aus, Lampen ausschießen (laut, Wachen sehen nach), Funk-Ablenkung; Alarm-Leiste | 60–120 s (Limit 120–95 s) | +1 Wache ab 3, +Kameras ab 2/4, längere Kegel, schnellerer Alarm, langsameres Abklingen, weniger Impulse/Schüsse/Funk | Technik: Störimpuls 5–10 s, 7+: +1 Impuls; Reflexe 7+: +1 Schuss | – |
+| `akt-schleichen` | Draufsicht: Sichtkegel (Wachen, Drohnen, Kameras; Wände verdecken) meiden, kriechen, Dosen werfen, zum Ausgang; Entdeckung füllt sich langsam, Erwischtwerden = zurück auf Anfang | 30–90 s (Limit 90–70 s) | mehr Wachen/Kameras, längere/breitere Kegel, schneller; Versuche 3/3/2/2/1, Dosen 3/3/2/2/1 | Reflexe: Entdeckung bis −35 %; `perk-ausweichrolle`: +0,5 s Gnade; `haut-tarnlack`: Kegel −20 % (nachts −40 %); Tag +2, Nacht −2; nachts Kegel nur mit `augen-restlicht` deutlich | – |
+| `akt-countdown` | „Zehn, neun, acht …“: verknotete Leitungen, die zum ZÜNDER durchknipsen | **10 s** (+3 s mit `dante_notfall`, Technik bis +2 s) | 3–7 Leitungen, ab 3 gleiche Farben, Fehlschnitte erlaubt 2/1/1/0/0 (sonst −2 s) | Technik 5+: gewählte Leitung leuchtet ganz | – |
+
+**Grundriss von `akt-schleichen` nach `label`:** „Lüftung/Schacht/Rohr/Kanal“ → Lüftungsschacht (Drohnen), „Büro/Labor/Flur/Turm/Campus/Penthouse/Praxis“ → Büroflur,
+„Lager/Halle/Depot/Container/Hof/Garage/Markt“ → Lagerhalle, sonst zufällig. Beispiel:
+`{ minigame: 'akt-schleichen', level: 3, key: 'campus-lueftung', label: 'Durch die Lüftung', win: [...], lose: [...] }`.
+
+**Empfohlene Aufrufe (Teil 3):**
+- `main-2-bruch` „auf der Brücke“: `{ minigame: 'akt-overwatch', level: 3, key: 'bruch-overwatch', label: 'Overwatch auf der Brücke' }` (Stufe 4 ohne Vorbereitungen);
+  „drinnen“: `akt-schleichen` (Label mit „Labor“) + `akt-hacken`.
+- `main-2-countdown`: `{ minigame: 'akt-countdown', level: 3, key: 'countdown-chip' }`, `win` → `nexus-chip-defekt`, `lose` → Wurf in die Gasse. `gc-34` bleibt der Check-Weg.
+- `side-teekraenzchen`: `{ minigame: 'akt-etikette', level: 3, key: 'teekraenzchen-etikette' }` (für `[Oberstadt]` überspringen).
+- `side-kraehes-ehre`: `{ minigame: 'akt-wrackrennen', level: 3, key: 'kraehe-wrackrennen' }` (der Check `gc-134` wirkt im Spiel, kein eigener Dialog-Check nötig).
+- `main-3-einlass` Lüftung (`gc-40` Ersatz) / Einbrüche / `kopfgeld-*` „schleichen“: `akt-schleichen` Stufe 3–4.
+- Rennhalle 9 Mi/Sa N: `akt-schrottbot-rennen` Stufe 2 (Pokal ab Sieg auf Stufe 4: eigener `key`), `das-meer`: `akt-strandlauf` Stufe 2 (Aria ♥ über `win`),
+  `funkturm-ruine`: `akt-radio-rost` Stufe 2–3, `chrome-boulevard`: `akt-hochstapeln` Stufe 2–3, Dachgarten/Feld: `akt-gaertnern` Stufe 2 (Label „Feld am Hof“ für Marla).
+
+Gemeinsame Bausteine Teil 3: `kit3.ts` (`chooseTimed()` Auswahl mit eigener Zeitleiste, −1 bei Zeitablauf; `alternateInput()` Zweitasten-Sprint),
+`sicht.ts` (SVG-Draufsicht: Wände, Sichtlinie, an Wänden abgeschnittene Kegel, Streifen mit Geräusch-Untersuchung, schwenkende Kameras),
+Stil `minigames3.css`.
+
 Empfohlene Stufen (alle): Erstkontakt 1–2, normale Stellen 2–3, Turniere/Hauptweg-Hürden 4, Bosse/Finale 5.
 
 ## Steuerung (überall)
@@ -81,5 +114,4 @@ oder direkt in `MINIGAMES` (`index.ts`) eintragen. `host` liefert `stage`, `fram
 Gemeinsame Bausteine für neue Spiele: `kit.ts` (`speaker()` Sprechblase, `relPoint()`, `ending()`, `meter()`, `choose()` Auswahl mit
 Maus/Touch/Ziffern/Pfeilen, `holdInput()` Gedrückthalten), Stil in `minigames2.css` (Präfix je Spiel, gemeinsame Klassen `m2-*`).
 
-Noch offen: `akt-schrottbot-rennen`, `akt-gaertnern`, `akt-hochstapeln`, `akt-wrackrennen`, `akt-radio-rost`, `akt-strandlauf`
-(alle „A1 nein“) – laufen als Platzhalter (gewonnen). Lücken: `design/plan/gaps/minigames.md`.
+Alle 36 IDs sind spielbar (keine Platzhalter mehr). Lücken: `design/plan/gaps/minigames.md`.

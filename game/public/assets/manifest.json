@@ -2,6 +2,11 @@
   "schemaVersion": 1,
   "images": {
     "arena-club": "assets/arena/club.webp",
+    "arena-dach": "assets/arena/dach.webp",
+    "arena-dach-terrasse": "assets/arena/dach-terrasse.webp",
+    "arena-duenen": "assets/arena/duenen.webp",
+    "arena-duenen-strand": "assets/arena/duenen-strand.webp",
+    "arena-duenen-wrackburg": "assets/arena/duenen-wrackburg.webp",
     "arena-gleise": "assets/arena/gleise.webp",
     "arena-hafen": "assets/arena/hafen.webp",
     "arena-hafen-kran": "assets/arena/hafen-kran.webp",
@@ -14,7 +19,11 @@
     "arena-labor-penthouse": "assets/arena/labor-penthouse.webp",
     "arena-labor-quantum": "assets/arena/labor-quantum.webp",
     "arena-labor-ruine": "assets/arena/labor-ruine.webp",
+    "arena-partysaal": "assets/arena/partysaal.webp",
+    "arena-rohre": "assets/arena/rohre.webp",
+    "arena-rohre-datentunnel": "assets/arena/rohre-datentunnel.webp",
     "arena-schrottplatz": "assets/arena/schrottplatz.webp",
+    "arena-serverkern": "assets/arena/serverkern.webp",
     "arena-strasse": "assets/arena/strasse.webp",
     "bg-bahnhof-mitte": "assets/bg/bahnhof-mitte.webp",
     "bg-cafe-sahnehaube": "assets/bg/cafe-sahnehaube.webp",
@@ -301,6 +310,7 @@
     "portrait-hunter": "assets/portraits/hunter.webp",
     "portrait-jakko": "assets/portraits/jakko.webp",
     "portrait-jimmy": "assets/portraits/jimmy.webp",
+    "portrait-kabelbrand-roadie": "assets/portraits/kabelbrand-roadie.webp",
     "portrait-kaeptn-nebelhorn": "assets/portraits/kaeptn-nebelhorn.webp",
     "portrait-kameramann": "assets/portraits/kameramann.webp",
     "portrait-ki-nexus": "assets/portraits/ki-nexus.webp",
@@ -312,16 +322,27 @@
     "portrait-oma-volt": "assets/portraits/oma-volt.webp",
     "portrait-opa-gustav": "assets/portraits/opa-gustav.webp",
     "portrait-pim-pinzette": "assets/portraits/pim-pinzette.webp",
+    "portrait-quantum-fahrer": "assets/portraits/quantum-fahrer.webp",
     "portrait-raven": "assets/portraits/raven.webp",
     "portrait-richter": "assets/portraits/richter.webp",
     "portrait-ripper": "assets/portraits/ripper.webp",
+    "portrait-rudi": "assets/portraits/rudi.webp",
+    "portrait-salzige-grete": "assets/portraits/salzige-grete.webp",
     "portrait-seraphina": "assets/portraits/seraphina.webp",
     "portrait-serenity": "assets/portraits/serenity.webp",
+    "portrait-sina-spray": "assets/portraits/sina-spray.webp",
+    "portrait-stylistin-gina": "assets/portraits/stylistin-gina.webp",
     "portrait-sybella": "assets/portraits/sybella.webp",
+    "portrait-turbo-tilda": "assets/portraits/turbo-tilda.webp",
     "portrait-vega": "assets/portraits/vega.webp",
     "portrait-vex": "assets/portraits/vex.webp",
+    "portrait-vinyl-vincent": "assets/portraits/vinyl-vincent.webp",
     "portrait-wache": "assets/portraits/wache.webp",
+    "portrait-wachmann-brezel": "assets/portraits/wachmann-brezel.webp",
+    "portrait-werbung": "assets/portraits/werbung.webp",
+    "portrait-wett-willi": "assets/portraits/wett-willi.webp",
     "portrait-xion": "assets/portraits/xion.webp",
+    "portrait-zellennachbarin": "assets/portraits/zellennachbarin.webp",
     "prop-captain-kuschel": "assets/props/captain-kuschel.png",
     "ui-city-map": "assets/ui/city-map.webp",
     "ui-title": "assets/ui/title.webp"
@@ -3466,6 +3487,152 @@
         }
       }
     },
+    "rudi-walk": {
+      "file": "assets/sprites/rudi-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "salzige-grete-walk": {
+      "file": "assets/sprites/salzige-grete-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "seraphina-walk": {
       "file": "assets/sprites/seraphina-walk.png",
       "frameW": 128,
@@ -3612,6 +3779,79 @@
         }
       }
     },
+    "sina-spray-walk": {
+      "file": "assets/sprites/sina-spray-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "spaeherdrohne-walk": {
       "file": "assets/sprites/spaeherdrohne-walk.png",
       "frameW": 128,
@@ -3685,8 +3925,154 @@
         }
       }
     },
+    "stylistin-gina-walk": {
+      "file": "assets/sprites/stylistin-gina-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "sybella-walk": {
       "file": "assets/sprites/sybella-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "turbo-tilda-walk": {
+      "file": "assets/sprites/turbo-tilda-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -3904,6 +4290,79 @@
         }
       }
     },
+    "vinyl-vincent-walk": {
+      "file": "assets/sprites/vinyl-vincent-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "wache-walk": {
       "file": "assets/sprites/wache-walk.png",
       "frameW": 128,
@@ -3977,8 +4436,154 @@
         }
       }
     },
+    "wett-willi-walk": {
+      "file": "assets/sprites/wett-willi-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "xion-walk": {
       "file": "assets/sprites/xion-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "zellennachbarin-walk": {
+      "file": "assets/sprites/zellennachbarin-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -4125,9 +4730,342 @@
     }
   },
   "items": {
-    "atlas": "",
+    "atlas": "assets/ui/items.png",
     "cell": 64,
-    "icons": {}
+    "icons": {
+      "akkordeon-balg": 92,
+      "algen-chips": 93,
+      "alte-dienstmarke": 293,
+      "alte-euromuenze": 94,
+      "alte-zugangskarte": 292,
+      "alter-neurochip": 95,
+      "angel-einfach": 45,
+      "angel-profi": 46,
+      "aria-kronkorken": 87,
+      "arias-ersatzschlaeger": 86,
+      "arme-datenbuchse": 218,
+      "arme-greifhaken": 219,
+      "arme-venomkralle": 222,
+      "arme-zerberster-3000": 220,
+      "arme-zerberster-attrappe": 221,
+      "arme-zuendholz-kern": 223,
+      "aufzieh-roboter": 96,
+      "augen-adlerblick": 217,
+      "augen-preisscanner": 215,
+      "augen-restlicht": 216,
+      "augenimplantat-lio": 278,
+      "ausweis-oberstadt": 310,
+      "autogrammkarte-collin": 97,
+      "babettes-kochloeffel": 75,
+      "bandenabzeichen": 69,
+      "bandshirt": 98,
+      "bao-dampfnudel": 23,
+      "barkeeper-maske": 68,
+      "baseballschlaeger": 1,
+      "beglichener-schuldschein": 99,
+      "behoerdenkarte": 301,
+      "beine-laeuferservos": 224,
+      "beine-sprungfedern": 225,
+      "blades-mantel": 244,
+      "blades-visitenkarte": 308,
+      "blumensamen": 100,
+      "bolzen-bein": 261,
+      "bolzen-beinteil": 260,
+      "bolzens-marke": 82,
+      "bolzer": 9,
+      "boxbandagen": 101,
+      "brezel": 102,
+      "bruehes-suppe": 25,
+      "captain-kuschel": 285,
+      "chip-blocker": 35,
+      "chip-fragment": 324,
+      "chips-tuete": 103,
+      "chrome-10-gutschein": 104,
+      "chrome-einladung": 311,
+      "chrome-mitgliedskarte": 61,
+      "comic-heft": 105,
+      "dachpappe-paket": 252,
+      "dantes-altes-deck": 130,
+      "dantes-kekse": 20,
+      "dantes-playlist": 274,
+      "datenkristall": 106,
+      "datenlanze": 16,
+      "datenwuerfel": 319,
+      "defekter-neurochip": 107,
+      "dexters-glaeubigerbuch": 253,
+      "dexters-schraubschluessel": 2,
+      "dexters-schuldbuch": 74,
+      "dienstplan-2079": 302,
+      "dietrich-chip": 36,
+      "dietrich-set": 108,
+      "drei-sekunden-keks": 21,
+      "drohnen-propeller": 109,
+      "echter-chrome-10-code": 303,
+      "echtobst-apfel": 90,
+      "edelbrause": 110,
+      "entlassungsschein": 294,
+      "enzyklopaedie-chip": 111,
+      "ersatz-rotor": 112,
+      "erstpressung-samstagnacht": 247,
+      "exklusiv-tipp": 113,
+      "fairness-stempel": 70,
+      "fake-implantat": 263,
+      "faxpapier": 114,
+      "feuerloescher-mini": 115,
+      "flaschenpost": 323,
+      "fossile-muschel": 116,
+      "frisches-gemuese": 91,
+      "funk-kanal-neun": 89,
+      "funkenschleuder": 11,
+      "gedichtbuch-bemalt": 254,
+      "generic-cyberware": 328,
+      "generic-geschenk": 327,
+      "generic-kleidung": 329,
+      "generic-quest": 330,
+      "generic-sammeln": 331,
+      "generic-verbrauch": 326,
+      "generic-waffe": 325,
+      "geruecht-master": 280,
+      "gesetzbuch": 117,
+      "glasherz": 118,
+      "gleitbrett": 245,
+      "glitzerschrott": 119,
+      "glueckstern": 320,
+      "goldene-kundenkarte": 62,
+      "goldene-plus-vier": 305,
+      "goldenes-mikro": 64,
+      "goldknauf-replik": 120,
+      "goldknauf-stock": 6,
+      "greifarm-hannes": 275,
+      "griffband-schlaeger": 121,
+      "gruene-augenlinse": 122,
+      "grundriss-labor": 282,
+      "haarspray-deluxe": 123,
+      "hackmodul-basis": 14,
+      "haiku-buechlein": 124,
+      "handschellen": 125,
+      "haut-filtermembran": 230,
+      "haut-neonnaehte": 232,
+      "haut-panzerplatten": 229,
+      "haut-spiegelhaut": 233,
+      "haut-tarnlack": 231,
+      "hoerimplantat-klingel": 276,
+      "hofhonig": 27,
+      "hunters-sonnenbrille": 53,
+      "impulsgewehr": 12,
+      "jakkos-eintopf": 26,
+      "jakkos-rezept": 71,
+      "jimmy-spur": 322,
+      "jimmys-glueckschip": 58,
+      "jimmys-jacke": 243,
+      "kabelbrand-pass": 85,
+      "kabelbrand-shirt": 242,
+      "kabelpeitsche": 3,
+      "kaeseecke": 40,
+      "kaktusfrucht": 126,
+      "kamera-kameramann": 258,
+      "kamera-objektiv": 127,
+      "kameradrohne-mini": 66,
+      "kanal-sirup": 271,
+      "kanalminze": 270,
+      "kanalschlamm": 128,
+      "kapuzenpulli": 129,
+      "karte-lieferzone": 289,
+      "kartendeck": 131,
+      "kas-armband": 88,
+      "kassenbuch": 132,
+      "katzenvideo-archiv": 133,
+      "keks-katapult": 13,
+      "kekse-rezept": 55,
+      "kikis-taxikarte": 77,
+      "kinderbild": 290,
+      "klauen-schleifstein": 134,
+      "klebegranate": 34,
+      "klingenpolitur": 135,
+      "knast-loeffel": 295,
+      "koeder": 42,
+      "kopf-fx-60": 212,
+      "kopf-merkchip-alt": 209,
+      "kopf-neuro-uplink": 213,
+      "kopf-nexus-splitter": 214,
+      "kopf-ruhepol": 211,
+      "kopf-strassenfunk": 210,
+      "kraehenfeder": 5,
+      "kraeuter-gebaeck": 137,
+      "kronkorkenkrone": 138,
+      "kuehlmittel-mocktail": 31,
+      "kuestenkarte-fragment": 291,
+      "kurier-funk": 136,
+      "kurierpaket": 262,
+      "kurierweste": 234,
+      "laborkittel-neu": 139,
+      "leckerli-schraube": 49,
+      "leuchtalge": 269,
+      "leuchtfeuer-lampe": 259,
+      "leuchtfinger": 277,
+      "leuchtpilz": 208,
+      "liebesroman": 140,
+      "lio-album": 78,
+      "lio-demo-chip": 141,
+      "lios-aufnahmegeraet": 256,
+      "loetkolben-alt": 297,
+      "loetkolben-gold": 142,
+      "logik-raetsel-modul": 143,
+      "magnet-stoerer": 144,
+      "magnetangel": 47,
+      "marlas-wasserstab": 79,
+      "medipflaster": 17,
+      "meer-foto": 145,
+      "metalldetektor": 48,
+      "mikrofon-puschel": 146,
+      "monatskarte": 44,
+      "murmelbeutel": 147,
+      "muschel-frisch": 148,
+      "muschel-glas": 149,
+      "nadel-und-faden": 150,
+      "nagelpistole": 8,
+      "nanogel": 18,
+      "nebelhorn-mini": 81,
+      "neon-limo": 30,
+      "neon-tag": 321,
+      "neonkreide": 151,
+      "nerven-reflexbooster": 226,
+      "nerven-ueberspannungsschutz": 227,
+      "nerven-zeitlupe": 228,
+      "netzwerfer": 10,
+      "nexi-pluesch": 152,
+      "nexus-chip-defekt": 315,
+      "nexus-forschungsdaten": 316,
+      "nougatbombe": 19,
+      "nyra-wellenchip": 57,
+      "oberstadt-eis": 272,
+      "oelkaennchen": 153,
+      "opa-blech-fernbedienung": 284,
+      "orchidee": 154,
+      "outfit-gasse": 235,
+      "outfit-kanal": 239,
+      "outfit-laborkittel": 238,
+      "outfit-oednis": 240,
+      "outfit-ordentlich": 236,
+      "outfit-party": 237,
+      "outfit-strand": 241,
+      "parfuem-ozon": 155,
+      "party-ausweis": 312,
+      "partyfoto-raven": 279,
+      "peilsender": 156,
+      "perlenkette": 157,
+      "pilzsuppe": 24,
+      "pims-mikrokaefer": 80,
+      "pinzetten-set": 158,
+      "planungsbrett-glas": 159,
+      "plastikpflanze": 160,
+      "plattenspieler-tragbar": 306,
+      "pluesch-pixelpalast": 161,
+      "plueschmoehre": 162,
+      "poster-hv": 163,
+      "postkarte-meer": 164,
+      "preistafel-entwurf": 248,
+      "presseausweis": 283,
+      "presseausweis-gold": 65,
+      "profi-mikro-kameramann": 257,
+      "quantum-chip-schrott": 317,
+      "quest-nexus-chip": 314,
+      "quietsche-mutter": 165,
+      "raubkopie-stick": 166,
+      "rauchtopf": 33,
+      "ravens-alte-jacke": 167,
+      "ravens-klinge": 54,
+      "rechenfibel": 168,
+      "renndrohne": 268,
+      "renndrohne-motor": 265,
+      "renndrohne-rahmen": 264,
+      "renndrohne-steuerchip": 267,
+      "renndrohne-turbomotor": 266,
+      "reparaturset": 37,
+      "reporter-notizbuch": 169,
+      "retro-tastatur": 170,
+      "rezept-blitzbrause": 246,
+      "rezept-dantes-kekse": 52,
+      "rezept-notfallriegel": 51,
+      "rezeptkarte-neon-limo": 273,
+      "rezeptzettel-babette": 249,
+      "rezeptzettel-bruehe": 250,
+      "rezeptzettel-rudi": 251,
+      "richterhammer-mini": 72,
+      "richters-gefallen": 304,
+      "rippers-lupe": 67,
+      "roestzwiebeln": 41,
+      "rohrzange": 0,
+      "rosa-seidenhemd": 171,
+      "rostige-dose": 172,
+      "rostige-schraube": 173,
+      "rostlaube-batterie": 288,
+      "rostlaube-kuehlerpumpe": 287,
+      "rostlaube-zuendkerze": 286,
+      "sahnetorte-stueck": 174,
+      "samenbombe": 175,
+      "samtfliege": 176,
+      "sandflasche": 177,
+      "schach-modul": 178,
+      "schallplatte": 318,
+      "schockpistole": 7,
+      "schockstab": 4,
+      "schottschluessel": 309,
+      "schrapnell-abzeichen": 83,
+      "schrott-ersatzteil": 50,
+      "schrottkrone": 76,
+      "schwarzer-lippenstift": 179,
+      "schweissbrille-gelb": 180,
+      "seidentuch-blau": 181,
+      "seidentuch-gruen": 182,
+      "seidentuch-rot": 183,
+      "seltenes-implantat": 184,
+      "serenitys-ring": 63,
+      "sonnenbrille-gold": 185,
+      "sonnencreme": 186,
+      "staubmaske": 38,
+      "stempelkissen": 187,
+      "sternkarte": 188,
+      "stick-hunter": 313,
+      "stickerbogen": 189,
+      "stirnlampe": 39,
+      "stoergranate": 32,
+      "stoersender": 15,
+      "stoppuhr-takt": 190,
+      "strandclub-prospekt": 191,
+      "synth-kaffee": 28,
+      "synth-nudeln": 22,
+      "tai-chi-tee": 192,
+      "taschenspiegel-gold": 193,
+      "taxi-akkuzelle": 255,
+      "taxi-duftbaum": 194,
+      "teddyfell-buerste": 195,
+      "teleprompter-chip": 196,
+      "treibholz": 197,
+      "u-bahn-ticket": 43,
+      "vegas-zielfernrohr": 56,
+      "vhs-kassette": 198,
+      "vinyl-platte": 199,
+      "virus-implantat": 200,
+      "volt-limo": 29,
+      "wachen-strichliste": 73,
+      "wachplan-campus": 300,
+      "waschpulver": 202,
+      "wasserfilter": 201,
+      "wasserkanister": 298,
+      "werkzeuggurt-rostig": 296,
+      "wissen-zentrator": 281,
+      "wuestenrose": 203,
+      "wurfmesser-poliert": 204,
+      "xion-passierschein": 307,
+      "xion-vip-band": 60,
+      "zeitung-papier": 205,
+      "zerberster-gravur": 84,
+      "zerberster-oel": 206,
+      "zero-prototyp": 59,
+      "zielfernrohr-linse": 207,
+      "zugangskarte-quantum": 299
+    }
   },
   "blurhash": {
     "cut-rom-aria-albtraum": "L46j|PGuTg-W}_KObxad=h9?e.of",

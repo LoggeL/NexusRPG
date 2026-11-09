@@ -1,4 +1,144 @@
 {
+  "ende-doch-noch-ans-meer": {
+    "file": "assets/cut/ende-doch-noch-ans-meer.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 131252,
+    "blurhash": "L88p4iRhACss}x9?W-^7}vNYI:sF"
+  },
+  "ende-master": {
+    "file": "assets/cut/ende-master.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 124280,
+    "blurhash": "L55z%yR$Zx$nwKsp$QayM^W-ohsq"
+  },
+  "ende-neue-nexus": {
+    "file": "assets/cut/ende-neue-nexus.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 136792,
+    "blurhash": "LIASPija5RW:}@s.9[WB$%oeS3WB"
+  },
+  "epilog-sendung": {
+    "file": "assets/cut/epilog-sendung.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 231460,
+    "blurhash": "L79GONE2w~-X?dR.SixcNi%3n-NH"
+  },
+  "he-dante-6": {
+    "file": "assets/cut/he-dante-6.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 148806,
+    "blurhash": "L56tB;1O%3Elt8t9OZxb5S-oJC-U"
+  },
+  "he-hunter-6": {
+    "file": "assets/cut/he-hunter-6.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 184614,
+    "blurhash": "LUB3Q:RNIoR$^-RhNFWA%NWARioL"
+  },
+  "he-jimmy-6": {
+    "file": "assets/cut/he-jimmy-6.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 183420,
+    "blurhash": "L98MwfEbx1?1=*EcoNj^V=oibEe,"
+  },
+  "he-kaeptn-nebelhorn-10": {
+    "file": "assets/cut/he-kaeptn-nebelhorn-10.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 194832,
+    "blurhash": "LOCrTX0z-TWV^kEgsRa{xbNaWBay"
+  },
+  "he-lio-funkel-6": {
+    "file": "assets/cut/he-lio-funkel-6.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 182008,
+    "blurhash": "L56tUqZ_=#$+tWIlI[I=I=WUS1X9"
+  },
+  "he-nyra-4": {
+    "file": "assets/cut/he-nyra-4.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 122486,
+    "blurhash": "L77AGb5j=gOH}wEg$jSP$-NyslS2"
+  },
+  "he-raven-6": {
+    "file": "assets/cut/he-raven-6.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 82244,
+    "blurhash": "L55}aRS8#Zss?d-qrzVy%P-Ws?i$"
+  },
+  "main-2-bruch": {
+    "file": "assets/cut/main-2-bruch.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 174842,
+    "blurhash": "L75OmdzTtTO=yDz?i^X-k9r^snkW"
+  },
+  "main-2-countdown": {
+    "file": "assets/cut/main-2-countdown.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 233602,
+    "blurhash": "L58{wk0^,^K4WtSa=zJ7Rg=z9@$k"
+  },
+  "main-2-kanal": {
+    "file": "assets/cut/main-2-kanal.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 152350,
+    "blurhash": "L45XcdWY9pND$SoLbZS0V?oKspSL"
+  },
+  "main-2-krisensitzung": {
+    "file": "assets/cut/main-2-krisensitzung.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 207174,
+    "blurhash": "LA9PsXaMROslIURn%2X3}^njNGfO"
+  },
+  "main-3-blade": {
+    "file": "assets/cut/main-3-blade.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 230388,
+    "blurhash": "L58pWX}kM]o%?0si=fS5NOInayS1"
+  },
+  "main-3-einlass": {
+    "file": "assets/cut/main-3-einlass.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 262334,
+    "blurhash": "L696nIm$tT-Yn.-WI-NbAEn$azSe"
+  },
+  "main-3-gedankenkontrolle": {
+    "file": "assets/cut/main-3-gedankenkontrolle.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 262364,
+    "blurhash": "L88NO*[BrYY5%%+wi{KiJ5nn$j%2"
+  },
+  "main-3-labor": {
+    "file": "assets/cut/main-3-labor.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 179302,
+    "blurhash": "L57^}eH;9^9ENhn4xZS1JWxvVq%2"
+  },
+  "main-3-nexus": {
+    "file": "assets/cut/main-3-nexus.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 172602,
+    "blurhash": "L455U.GFDN@[bAX8MxwIibjEtmS}"
+  },
   "rom-aria-albtraum": {
     "file": "assets/cut/rom-aria-albtraum.webp",
     "width": 1536,
@@ -146,6 +286,13 @@
     "bytes": 150408,
     "blurhash": "L36jz,AU,:1D=#Ex#;S0srJ5wfJP"
   },
+  "rom-vexaria-meer": {
+    "file": "assets/cut/rom-vexaria-meer.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 262118,
+    "blurhash": "LRGjT.0~-TWX}tEhoKa#=yNdR*s:"
+  },
   "rom-vexaria-morgen": {
     "file": "assets/cut/rom-vexaria-morgen.webp",
     "width": 1536,
@@ -159,6 +306,13 @@
     "height": 1024,
     "bytes": 126478,
     "blurhash": "LG7UMVnMjGt9%jadRibcx_axadjs"
+  },
+  "rom-vexaria-rettung": {
+    "file": "assets/cut/rom-vexaria-rettung.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 150448,
+    "blurhash": "L25zwV=%r|^T}b$l$,xcM{wI$fW-"
   },
   "rom-vexaria-sprung": {
     "file": "assets/cut/rom-vexaria-sprung.webp",

@@ -430,6 +430,528 @@ CHARACTERS.update({
     },
 })
 
+# Fehlende Figurenbilder r–z (art-fig-c): Stilreferenz ist eine Kostümfigur mit ähnlichem Körperbau
+# (work/char_refs.json "unique:<id>"), nur Stil. wachmann-brezel: Kostüm aus dem generischen quantum-wachmann-Laufblatt,
+# eigenes Laufblatt entfällt (NpcDef nutzt quantum-wachmann-walk). werbung: Hologramm, nur Porträt.
+CHARACTERS.update({
+    "rudi": {  # Diner-Wirt an der Staubstraße (Ödnis), Questgeber Akt 2
+        "desc": "burly, broad-bellied man in his late fifties, sun-leathered tanned skin, shaved head with a sunburnt "
+                "scalp, a thick grey horseshoe moustache, bushy grey eyebrows, friendly squinting eyes with deep "
+                "crow's feet, a faded rust-red bandana knotted around his neck; a short-sleeved cream diner shirt with "
+                "a turquoise collar and turquoise piping (no name tag, no text), a grease-stained white apron tied "
+                "over it with a metal spatula tucked into the apron string, sand-colored work trousers, worn brown "
+                "boots dusted with desert sand; holds a dented chrome coffee pot" + _STYLE_ONLY,
+        "mood": "gruff but warm diner host, wry welcoming half smile",
+        "rim": "pink",
+    },
+    "wachmann-brezel": {  # Quantum-Wachmann am Stufenplatz mit heiliger Brezelpause
+        "desc": "chubby adult Quantum corporate security guard in his thirties, exactly the uniform of the attached "
+                "guard sprite: sleek glossy white armored uniform with violet light seams, a small abstract violet "
+                "geometric emblem on the chest (no text), black gloves; his white helmet with the dark violet visor "
+                "is tucked under one arm, head uncovered: round friendly face, rosy cheeks, short ginger hair, a few "
+                "crumbs on his chin; holds a big golden soft pretzel in the other hand" + _STYLE_ONLY,
+        "mood": "on his sacred lunch break, mouth half full, mildly annoyed at being disturbed",
+        "rim": "cyan",
+        "walk": False,
+    },
+    "zellennachbarin": {  # Gitter-Gerda, Ravens alte Zellennachbarin (Zellentrakt)
+        "desc": "tough, wiry woman in her mid fifties, grey buzz cut, weathered face with a crooked once-broken nose, "
+                "a loud grin with one gold tooth, faded blue-black prison tattoos (stars, swallows, a spider web, no "
+                "letters) covering both forearms and creeping up her neck to the jaw; a faded orange prison jumpsuit "
+                "(no text, no numbers) with the top half tied around her waist, a plain grey t-shirt that fully "
+                "covers her torso, white canvas prison slip-on shoes" + _STYLE_ONLY,
+        "mood": "loud, cackling, delighted grin",
+        "rim": "pink",
+    },
+    "salzige-grete": {  # Fischstand an der Hafenkante, Stimme wie ein Nebelhorn
+        "desc": "big, broad-shouldered woman in her late forties, forearms as thick as ship ropes, ruddy wind-burnt "
+                "cheeks, curly salt-and-pepper hair under a knitted navy watch cap, a small gold hoop in one ear; a "
+                "long mustard-yellow rubber fisherman's apron over a navy-and-white striped long-sleeve shirt with the "
+                "sleeves pushed up, thick orange rubber gloves, dark-green rubber boots; holds a big silver fish by "
+                "the tail" + _STYLE_ONLY,
+        "mood": "booming, cheerful foghorn laugh, mouth wide open",
+        "rim": "cyan",
+    },
+    "sina-spray": {  # Graffiti-Künstlerin an der Wand der Freiheit (Flutmauer)
+        "desc": "slim young woman in her early twenties, shoulder-length messy black hair with neon-pink and teal "
+                "paint streaks, a black respirator half mask hanging around her neck, paint splatter up to the "
+                "elbows on both forearms, a smudge of pink paint on one cheek; an oversized light-blue denim jacket "
+                "covered in paint splatters and pin badges (no text) over a black hoodie, baggy olive cargo pants "
+                "with paint stains, a tool belt full of spray cans, chunky black high-top sneakers with paint drips; "
+                "a spray can in each hand" + _STYLE_ONLY,
+        "mood": "fiery, rebellious, proud grin",
+        "rim": "pink",
+    },
+    "stylistin-gina": {  # Salon am Stufenplatz, Silbermähne, lange Nägel, längere Wimpern
+        "desc": "glamorous woman in her late fifties, a huge teased-up silver-white bouffant wig, very long false "
+                "eyelashes, bold magenta eyeshadow, glossy pink lipstick, a beauty mark, long glittering gold "
+                "acrylic nails; a pink-and-gold satin salon kimono jacket with a sequined collar over a black "
+                "turtleneck, black slim trousers, gold heeled ankle boots; a comb and scissors in a small leather hip "
+                "holster, a can of hairspray in one hand" + _STYLE_ONLY,
+        "mood": "dramatic, appraising, one eye squinted, head tilted",
+        "rim": "pink",
+    },
+    "turbo-tilda": {  # Drohnenrenn-Champion der Hafenkante
+        "desc": "wiry, compact woman around forty, short spiky platinum hair with one shaved side, a freckled "
+                "sun-tanned face, a cheeky gap-toothed grin, vintage brown leather aviator goggles pushed up on her "
+                "forehead, a streak of soot on one cheek; a faded orange racing coverall zipped up to the collarbone "
+                "with a black t-shirt underneath and sleeves rolled to the elbows, forearms covered in small tattoos "
+                "of trophy cups (no text), black fingerless gloves, a chunky drone remote controller with two "
+                "joysticks hanging from a strap around her neck, heavy black boots" + _STYLE_ONLY,
+        "mood": "cocky racing champion grin",
+        "rim": "cyan",
+    },
+    "vinyl-vincent": {  # Plattenhehler am Schrottmarkt
+        "desc": "skinny, lanky man in his forties, long dark sideburns down to the chin, a slicked-back black "
+                "pompadour with a grey streak, round dark sunglasses, a thin moustache; a worn brown corduroy jacket "
+                "with elbow patches over a faded maroon turtleneck, dark flared trousers, pointed brown boots; holds "
+                "a black vinyl record in a plain cardboard sleeve (no text) tenderly against his chest" + _STYLE_ONLY,
+        "mood": "laid-back, melancholic music lover, faint knowing smile",
+        "rim": "cyan",
+    },
+    "wett-willi": {  # Hütchenspieler am Schrottmarkt
+        "desc": "wiry man in his fifties, slick dark comb-over under a grey flat cap, a thin pencil moustache, shifty "
+                "twinkling eyes, a gold tooth in a too-charming smile; a white shirt with rolled-up sleeves and red "
+                "suspenders, a loose black tie, grey pinstripe trousers, scuffed two-tone shoes; holds three "
+                "stacked steel cups in one hand and a small red ball between two fingers of the other" + _STYLE_ONLY,
+        "mood": "slick, too-charming hustler smile",
+        "rim": "pink",
+    },
+    "werbung": {  # Absender der Werbe-SMS am Telefon: aufdringliches Werbe-Hologramm, kein Mensch, kein Laufblatt
+        "desc": "an obnoxiously cheerful holographic advertising mascot of 2086: a glossy, plastic-looking smiling "
+                "presenter with perfect white teeth, a slicked-back neon-pink pompadour, a shiny teal suit with "
+                "a glowing star pin, giving a thumbs up next to his face" + _STYLE_ONLY,
+        "mood": "aggressively cheerful sales grin, way too many teeth",
+        "rim": "pink",
+        "special": "hologram",
+        "walk": False,
+    },
+    "staubbaron-broesel": {  # Akt 2, Ödnis: Wasser-Wucherer (kopfgeld-staubbaron-broesel, side-glasherz)
+        "desc": "scrawny, weaselly man in his fifties with a self-made baron look: sunken cheeks, sly small eyes, a "
+                "long thin waxed moustache, crooked yellowish teeth, a battered dusty top hat with brass goggles on "
+                "the band, a sand-colored dust scarf; an oversized faded military greatcoat covered in desert dust, "
+                "decorated with medals made of bottle caps and brass faucet handles, a wide belt with water pouches, "
+                "dusty patched trousers, cracked leather boots; a dented jerrycan with a brass tap strapped to his "
+                "back, holds a brass water ladle like a scepter" + _STYLE_ONLY,
+        "mood": "greedy, smug, scheming grin",
+        "rim": "pink",
+    },
+    "schlafwandler-ede": {  # Akt 2, Kanal-Schlafwandler (pers-delya-quelle), Beta-Chip-Opfer
+        "desc": "stocky man in his sixties, bald with grey stubble, droopy eyelids, a small chip implant at his "
+                "temple glowing faint violet; a patched yellow rain poncho over a faded striped pyjama shirt, striped "
+                "pyjama trousers rolled up and wet at the hem, one green rubber boot and one brown house slipper"
+                + _STYLE_ONLY,
+        "mood": "sleepwalking, eyes glazed and half closed, blank vacant expression, faint dreamy smile",
+        "rim": "cyan",
+    },
+    "schlafwandlerin-rosi": {  # Akt 2, Kanal-Schlafwandlerin (pers-delya-quelle), Beta-Chip-Opfer
+        "desc": "plump woman in her forties, frizzy copper-red hair half in pink plastic curlers, a small chip implant "
+                "at her temple glowing faint violet; a quilted pink dressing gown tied over a grey knitted sweater and "
+                "grey leggings, fluffy slippers soaked with sewer water, holds a soup ladle" + _STYLE_ONLY,
+        "mood": "sleepwalking, eyes glazed and half closed, blank vacant expression, mouth slightly open",
+        "rim": "pink",
+    },
+    "schlafwandler-bert": {  # Akt 2, Kanal-Schlafwandler (pers-delya-quelle), Beta-Chip-Opfer
+        "desc": "thin young office worker in his late twenties, messy brown hair, crooked glasses askew on his nose, "
+                "a wireless headset still on one ear, a small chip implant at his temple glowing faint violet; a "
+                "wrinkled white shirt half untucked, a loose blue tie, grey suit trousers with muddy knees, one black "
+                "office shoe and one bare sock" + _STYLE_ONLY,
+        "mood": "sleepwalking, eyes glazed and half closed, blank vacant expression, head tilted",
+        "rim": "cyan",
+    },
+})
+
+# Akt-2/3- und Weltfiguren h–q ohne Kostümreferenz (art-fig-b): Stilreferenz ist eine Kostümfigur mit ähnlichem
+# Körperbau (Kopie als work/refs/character-unique-<id>[-portrait].png, danach eigenes Porträt). Nur Stil.
+# walk False: Figur nutzt ein generisches Laufblatt (NpcDef.sprite), nur Porträt und Fotos.
+_MACHINE_ONLY = (". It is a machine, not a person and not an animal; NO human face, NO dog")
+CHARACTERS.update({
+    "leutnant-nadel": {  # Xions Stellvertreterin, Quantum-Elite (Kopfgeld Stufe 3)
+        "desc": "lean, wiry woman in her early thirties, pale skin, sharp angular face with high cheekbones, cold "
+                "pale-grey eyes, a thin vertical scar through her left eyebrow, platinum-white hair in a severe short "
+                "undercut slicked back; a fitted black high-collar Quantum tactical uniform with glossy white armor "
+                "plates on shoulders and forearms and thin toxic-green light seams, a black strap harness, black "
+                "cargo trousers, black boots; her right hand is a black cybernetic gauntlet ending in five long thin "
+                "needle-like claws with glowing toxic-green tips" + _STYLE_ONLY,
+        "mood": "cold, precise, contemptuous thin smile",
+        "rim": "cyan",
+    },
+    "kraehe": {  # Anführerin der Staubfalken, Ehrenkodex, sammelt Geschichten
+        "desc": "tall, rangy wasteland raider chieftain in her mid forties, sun-dark weathered skin, intense black "
+                "eyes with black war-paint smeared across the eyes like a mask, long black hair in many thin braids "
+                "threaded with crow feathers and small metal beads; a ragged mantle of black crow feathers over her "
+                "shoulders, layered rust-brown leather armor with scavenged car-hood plates, a sand-colored dust scarf, "
+                "brass driving goggles pushed up on her forehead, fingerless leather gloves, patched dark trousers, "
+                "tall dusty boots; carries a long spear with a chain wrapped around the shaft" + _STYLE_ONLY,
+        "mood": "proud, fierce, measuring the viewer, a faint challenging smile",
+        "rim": "pink",
+    },
+    "opa-funk": {  # sendet Radio Rost aus der Funkturm-Ruine
+        "desc": "wiry old man in his late seventies, deeply tanned wrinkled skin, a long scraggly grey beard and "
+                "wild grey hair, small round green-tinted sunglasses, big old over-ear headphones around his neck "
+                "with a coiled cable; a patched brown poncho with a small telescopic antenna sticking up from a "
+                "pocket, a faded red Hawaiian-pattern shirt underneath, a belt with radio tubes and a handheld "
+                "microphone on a cord, baggy khaki trousers, worn sandals over thick wool socks" + _STYLE_ONLY,
+        "mood": "warm, crackly old radio-host grin, a little mischievous",
+        "rim": "pink",
+    },
+    "paul": {  # Oma Volts Neffe, ab Akt 2 Beta-Chip-Träger
+        "desc": "slim young man of twenty-three, light skin, short neat ginger hair parted on the side, freckles, a "
+                "polite eager smile, a small silver chip implant behind his right ear; a beige zip jacket with a "
+                "blank white sewn-on name tag on the chest (no text), a green knitted sweater vest over a white "
+                "collared shirt, dark-blue chinos, clean brown sneakers, a cheap phone in one hand" + _STYLE_ONLY,
+        "mood": "polite, eager to please, slightly awkward smile",
+        "rim": "cyan",
+    },
+    "pfeffer": {  # Quantum-Wachmann, Vater von Mila
+        "desc": "big, broad-shouldered man in his early forties with a soft belly, light-olive skin, short dark hair "
+                "greying at the temples, a thick dark moustache, kind tired brown eyes; a white Quantum security "
+                "uniform with violet light seams and white shoulder armor, the helmet carried under one arm, a "
+                "small abstract violet geometric emblem on the chest (no text), a black utility belt, white boots; a "
+                "tiny pink hair clip of his daughter clipped to his breast pocket" + _STYLE_ONLY,
+        "mood": "good-natured, tired dad smile",
+        "rim": "cyan",
+    },
+    "quantum-fahrer": {  # Mann im Quantum-Anzug (Lückenfigur, generisches Laufblatt)
+        "desc": "tall, stiff man in his forties, light skin, square jaw, clean-shaven, black hair cut very short, "
+                "dark mirrored sunglasses, a thin earpiece cable; a dark-violet chauffeur suit with a high collar and "
+                "silver piping, a peaked chauffeur cap with a small abstract silver emblem (no text), white gloves"
+                + _STYLE_ONLY,
+        "mood": "expressionless, professional, slightly arrogant",
+        "rim": "cyan",
+        "walk": False,
+    },
+    "krabbe-karl": {  # Strandreinigungsroboter in Krabbenform (das-meer)
+        "desc": "a small beach-cleaning robot shaped like a crab, about knee high: a rounded orange-red enamel shell "
+                "body with scuffs and a few barnacles, six thin jointed metal legs, two big friendly pincer claws (one "
+                "holding a pearly seashell), two round camera eyes on short stalks glowing friendly cyan, a small "
+                "mesh sand-sieve basket on its back with collected shells, a tiny blinking antenna" + _MACHINE_ONLY
+                + _STYLE_ONLY,
+        "mood": "cheerful, curious, eye stalks tilted",
+        "rim": "cyan",
+    },
+    "herr-glanz": {  # Verkäufer im Quantum-Schauraum
+        "desc": "slick salesman in his early thirties, light skin with a fake tan, impossibly white perfect teeth in "
+                "a huge grin, platinum-blond hair sculpted into a glossy wave, a thin violet AR monocle over one eye, "
+                "a tiny headset microphone; a pearl-white tailored suit with violet satin lapels and thin violet "
+                "light seams, a glowing violet abstract pin on the lapel (no text), a lilac shirt, white loafers; "
+                "holds a slim glowing tablet" + _STYLE_ONLY,
+        "mood": "dazzling, overly friendly sales grin",
+        "rim": "pink",
+    },
+    "portier-albert": {  # Portier am Chrome Tower
+        "desc": "tall, very upright elderly doorman in his late sixties, light skin, long dignified face, neatly "
+                "trimmed white mutton-chop sideburns, a stern raised chin; a long burgundy livery coat with gold "
+                "braiding, gold buttons and epaulettes, a matching burgundy top hat with a gold band, spotless white "
+                "gloves, black trousers with a gold stripe, shiny black shoes" + _STYLE_ONLY,
+        "mood": "impeccably polite, faintly disapproving",
+        "rim": "pink",
+    },
+    "mila": {  # Pfeffers Tochter (8), nur Freundschaft
+        "desc": "small girl about 8 years old, light-olive skin, big brown eyes, dark-brown hair in two bushy "
+                "pigtails with pink hair clips, a gap-toothed smile; an oversized yellow raincoat with the sleeves "
+                "rolled up, a striped pink-and-white t-shirt, denim overall shorts over black leggings, red rubber "
+                "boots, a small backpack with a sewn-on bunny face" + _STYLE_ONLY,
+        "mood": "curious, cheerful, gap-toothed grin",
+        "rim": "pink",
+        "child": True,
+    },
+    "madame-satin": {  # Boutique „Satin & Chrom“
+        "desc": "elegant, flamboyant woman in her late fifties, light skin, a sharp platinum-silver bob haircut, "
+                "dramatic cat-eye glasses with chrome frames, dark-red lipstick; a long emerald-green satin coat with "
+                "polished chrome shoulder pieces and a high collar, a black silk blouse buttoned up, many chrome "
+                "bangles, black wide trousers, black heeled boots; holds a long thin chrome e-cigarette holder"
+                + _STYLE_ONLY,
+        "mood": "grand, theatrical, sharply amused",
+        "rim": "pink",
+    },
+    "kabelbrand-roadie": {  # „Schrammel“, Roadie mit Kabelbrand-Tattoo (Lückenfigur, generisches Laufblatt)
+        "desc": "burly roadie in his thirties, light skin, shaved head, a thick ginger beard, a tattoo of a burning "
+                "cable coiling up his neck and forearm, a lip ring; a faded black band t-shirt with a lightning skull "
+                "graphic (no text) under a black work vest full of cable ties, a roll of silver gaffer tape on his "
+                "belt, black cargo shorts, black boots, a coil of cable over one shoulder" + _STYLE_ONLY,
+        "mood": "gruff, sweaty, crooked grin",
+        "rim": "pink",
+        "walk": False,
+    },
+    "hafen-hannes": {  # Hafenarbeiter mit Greifarm
+        "desc": "huge, barrel-chested dock worker in his fifties, ruddy light skin, a grey stubble beard, a broken "
+                "nose, small kind eyes; a scuffed yellow hard hat, an orange high-visibility vest over a navy "
+                "thermal shirt, dark work trousers, steel-toe boots; his LEFT arm is a big heavy industrial "
+                "hydraulic grab-arm prosthesis with a yellow-black striped claw and exposed pistons, his right arm is "
+                "human and tattooed with an anchor" + _STYLE_ONLY,
+        "mood": "gentle giant, shy friendly smile",
+        "rim": "cyan",
+    },
+    "henk-angler": {  # Leuchtturmwärter und Angler an der Flutmauer
+        "desc": "lean, weathered old man in his late sixties, light skin tanned by wind, a short white beard, "
+                "bright pale-blue eyes with deep crow's feet; a dark-blue knitted fisherman's beanie, a yellow "
+                "oilskin raincoat worn open over a thick grey roll-neck sweater, dark wading trousers with suspenders, "
+                "tall green rubber boots; carries a long fishing rod with a small glowing lure and a tin bait box"
+                + _STYLE_ONLY,
+        "mood": "calm, laconic, a quiet salty smile",
+        "rim": "cyan",
+    },
+    "herr-blitz": {  # Besitzer „Schwebetaxi Blitz“, Halunke im Hintergrund
+        "desc": "wiry man in his fifties, light skin, slicked-back jet-black hair, a thin pencil moustache, shifty "
+                "narrow eyes, a gold tooth; a shiny electric-blue suit a size too tight, a yellow shirt, a gold "
+                "lightning-bolt tie pin on a black tie, a chunky gold watch and rings, pointy black shoes, a car key "
+                "fob spinning on one finger" + _STYLE_ONLY,
+        "mood": "smarmy, shifty salesman smile",
+        "rim": "pink",
+    },
+    "knuspi": {  # Nougatbomben-Schmuggler an der Hafenkante
+        "desc": "chubby young man in his mid twenties, warm brown skin, round cheerful face, chocolate smudge on the "
+                "chin, a red knitted beanie; a long, far too big brown trench coat with dozens of bulging inner "
+                "pockets stuffed with glossy candy bars, a mustard hoodie underneath, baggy grey trousers, worn "
+                "sneakers" + _STYLE_ONLY,
+        "mood": "conspiratorial, sweet-toothed grin",
+        "rim": "pink",
+    },
+    "knut": {  # älterer Abzieher-Bruder
+        "desc": "tall, lanky young man around twenty-five, light skin, a blond buzz cut, a long thin face with a "
+                "big nose, one gold tooth; a shiny purple tracksuit with white side stripes zipped up, a fake gold "
+                "chain, white sneakers, a backwards black cap; looks like the older brother of a shorter guy in the "
+                "same tracksuit" + _STYLE_ONLY,
+        "mood": "cocky, small-time tough-guy smirk",
+        "rim": "cyan",
+    },
+    "kurt": {  # jüngerer Abzieher-Bruder („Das sag ich meiner Mama!“)
+        "desc": "short, pudgy young man around twenty, light skin, blond hair in a bowl cut, a round baby face with "
+                "a big nose, pouting lips; a shiny purple tracksuit with white side stripes several sizes too big, "
+                "sleeves covering half the hands, a fake gold chain, white sneakers; looks like the younger brother "
+                "of a tall lanky guy in the same tracksuit" + _STYLE_ONLY,
+        "mood": "whiny, offended pout",
+        "rim": "cyan",
+    },
+    "meister-watt": {  # Tai-Chi-Lehrer, hält seit 30 Jahren dieselbe Pose
+        "desc": "small, wiry old man in his late seventies, light-brown skin, completely bald, a very long thin white "
+                "beard tied with a copper wire, long white eyebrows, serene half-closed eyes; a faded grey silk "
+                "tai-chi suit with frog buttons, a thin layer of dust and a little cobweb on one shoulder, black "
+                "cloth shoes, an old copper power cable worn like a belt" + _STYLE_ONLY,
+        "mood": "serene, utterly calm, eyes half closed",
+        "rim": "cyan",
+    },
+    "mira-loetzinn": {  # Händlerin für Neu-Cyberware, Schrauberin
+        "desc": "athletic woman in her early thirties, medium-brown skin, copper-red hair shaved on one side and "
+                "long on the other, a welding visor flipped up on her head, small soldering burns on her cheeks; a "
+                "brown leather work apron over a black high-neck top that fully covers her torso, rolled sleeves, a "
+                "tool belt with tiny screwdrivers and spools of solder wire, olive work trousers, heavy boots; her "
+                "left forearm is a chrome cybernetic arm with an open panel showing neat wiring, the index finger "
+                "is a glowing soldering tip" + _STYLE_ONLY,
+        "mood": "focused, wry, competent half smile",
+        "rim": "cyan",
+    },
+    "mixi": {  # Mixroboter der HV-Bar
+        "desc": "a squat chrome bar-tender robot about chest high: a barrel-shaped polished chrome body with a "
+                "few dents, rolling on a single rubber ball wheel, a round screen face showing two simple glowing "
+                "cyan pixel eyes and a pixel smile, two slim jointed arms (one holding a cocktail shaker, one a "
+                "glass with a glowing pink drink), a painted black bow tie on the chest, a small orange warning "
+                "light on top" + _MACHINE_ONLY + _STYLE_ONLY,
+        "mood": "chirpy, eager pixel smile",
+        "rim": "pink",
+    },
+    "mutter-bruehe": {  # Suppenküche der Rohrsiedlung
+        "desc": "big, tall, heavy-set woman in her sixties, warm dark-brown skin, round kind face, short grey "
+                "curls under a knitted red beanie, round glasses fogged at the edges; several layered patched "
+                "cardigans in brown and mustard, a long apron sewn from blue tarp, rubber gloves, rubber boots; "
+                "holds a huge dented soup ladle, a little steam around her" + _STYLE_ONLY,
+        "mood": "warm, motherly, firm but caring smile",
+        "rim": "pink",
+    },
+    "ole-gaehn": {  # Hausmeister im Digitech-Areal, schläft immer
+        "desc": "lanky old caretaker in his late sixties, light skin, droopy heavy eyelids half closed, a grey "
+                "stubble, messy thin grey hair, a sleepy yawn; a faded grey janitor coverall with a blank name patch "
+                "(no text), a cardigan over it, a huge ring of keys on the belt, a thermos flask in one hand, worn "
+                "slippers instead of shoes" + _STYLE_ONLY,
+        "mood": "sleepy, half-asleep mid-yawn",
+        "rim": "cyan",
+    },
+    "opa-blech": {  # Oma Volts eingemotteter Sicherheitsroboter, später Kioskwächter
+        "desc": "a tall, boxy retro security robot from the 2050s, humanoid on two stubby legs: dented cream and "
+                "olive-green painted metal body with rust spots and old rivets, a round bucket-like head with two "
+                "round yellow lamp eyes and a speaker grille as mouth, thick accordion-hose arms with clamp hands, "
+                "a hand-knitted lilac scarf wrapped around its neck, a sewn patch with a lightning bolt on its chest, "
+                "a little dust" + _MACHINE_ONLY + _STYLE_ONLY,
+        "mood": "loyal, stoic, gentle lamp-eyed look",
+        "rim": "cyan",
+    },
+    "opa-gurrmann": {  # Taubendrohnen-Post in den Lötgassen
+        "desc": "short, round old man in his seventies, light skin, rosy cheeks, a white goatee, a tweed flat cap; "
+                "a patched brown corduroy jacket with many pockets full of birdseed and tiny batteries, a postman's "
+                "leather satchel across the chest, grey trousers, brown boots; two small grey pigeon drones with "
+                "glowing cyan eyes and tiny rotor wings perch on his shoulders" + _STYLE_ONLY,
+        "mood": "kindly, chatty grandfather smile",
+        "rim": "cyan",
+    },
+})
+
+# Weltfiguren und Akt-2/3-Figuren a–g ohne Kostümreferenz (art-fig-a): Stilreferenz ist eine vorhandene Figur mit
+# ähnlichem Körperbau (Kopie als work/refs/character-unique-<id>[-portrait].png, danach eigenes Porträt). Nur Stil.
+CHARACTERS.update({
+    "falke": {  # Quantum-Scharfschütze an der Hafenkante, Vegas ewiger Zweiter
+        "desc": "lean, wiry man in his early thirties, pale skin, sharp hawk-like nose, hollow cheeks, close-cropped "
+                "ash-blond hair, narrow squinting grey eyes, a small round cyan-glowing cyber scope lens implanted "
+                "over his right eye; a sleek white armored Quantum sniper suit with violet light seams and a small "
+                "abstract violet geometric emblem on the chest (no text), a dark grey hooded camouflage scarf around "
+                "neck and shoulders, black fingerless gloves, white boots; a long slim white sniper rifle with a "
+                "violet glow slung diagonally across his back" + _STYLE_ONLY,
+        "mood": "deadpan, laconic, faintly melancholic squint of the eternal second-best",
+        "rim": "cyan",
+    },
+    "elsa": {  # Gustavs Frau, Bastlerin im Aussiedlerhof (Ödnis)
+        "desc": "wiry old woman in her early seventies, sun-tanned weathered skin with deep laugh lines, sharp clear "
+                "blue eyes, long silver-white hair in a loose braid under a faded red headscarf, brass magnifier "
+                "goggles pushed up on her forehead, a grease smudge on one cheek; a patched khaki work shirt with "
+                "rolled-up sleeves, a heavy brown leather apron full of tool pockets (pliers, screwdrivers, wire), a "
+                "dusty turquoise neck scarf, olive trousers, scuffed desert boots; holds a small soldering iron"
+                + _STYLE_ONLY,
+        "mood": "dry, sharp, a crooked tinkerer's grin",
+        "rim": "pink",
+    },
+    "glasblaeserin": {  # Die Glasbläserin in den Glasdünen
+        "desc": "strong woman in her mid forties, olive-brown skin with a few small burn scars on her forearms, dark "
+                "curly hair tied up under a rust-orange bandana, calm dark eyes, dark tinted protective goggles "
+                "pushed up on her head, a necklace of glass beads glittering in many colors; a heavy scorched brown "
+                "leather glassblower's apron over loose sand-colored layered desert clothes, a long cream scarf, "
+                "thick heat-proof gloves tucked into her belt, sturdy boots; holds a long metal glassblowing pipe "
+                "with a glowing orange molten glass bulb at its end" + _STYLE_ONLY,
+        "mood": "calm, quiet, proud craftswoman, faint warm smile",
+        "rim": "pink",
+    },
+    "fraeulein-pixel": {  # Fälscherin im Fotoautomaten am Bahnhof Mitte
+        "desc": "slim woman around forty, pale skin, a sleek pink bob with a blunt straight pink fringe, a jeweler's "
+                "loupe monocle in front of her left eye, precise red lipstick, a beauty mark; a mint-green vintage "
+                "blouse with a big floppy bow at the collar under a cropped black cardigan, black fingerless lace "
+                "gloves with ink stains on the fingertips, an old instant camera on a strap around her neck, slim "
+                "black trousers, black ankle boots" + _STYLE_ONLY,
+        "mood": "professional, cool, a practiced passport-photo smile that does not reach the eyes",
+        "rim": "pink",
+    },
+    "chrome-haushaelterin": {  # Frau Wischmann, Haushälterin der Chrome-Schwestern
+        "desc": "prim woman in her mid sixties, upright posture, silver hair in a perfect French twist, sharp curious "
+                "eyes, thin knowing smile; a classic black housekeeper's dress to below the knee with a starched "
+                "white collar and cuffs, a crisp white apron, a small gold-and-white brooch, black stockings, "
+                "polished black low-heeled shoes; holds a small silver comb and a feather duster" + _STYLE_ONLY,
+        "mood": "discreet on the surface, gossip glittering in the eyes",
+        "rim": "cyan",
+    },
+    "bijou": {  # Roboterpudel der Chrome-Schwestern
+        "desc": "a small luxury robot poodle (the size of a real toy poodle), a body of polished mirror chrome, the "
+                "typical poodle grooming shape: fluffy pompom 'curls' made of fine curled chrome feather-springs on "
+                "the head, the long ears, the chest, the ankles and a pompom tail tip, slender chrome legs, big glossy "
+                "round blue LED eyes, a small black nose, a pink velvet collar with a bow and a pink heart-shaped "
+                "tag; cute, pampered and a bit snooty, NOT menacing. It is an animal-like robot, not a person"
+                + _STYLE_ONLY,
+        "mood": "pampered, snooty, nose in the air, about to run off",
+        "rim": "pink",
+    },
+    "fx-60": {  # alter Digitech-Assistent, spricht nur per Fax
+        "desc": "an old retro-futuristic Digitech office assistant machine from 2061: a boxy beige-and-grey fax "
+                "machine body with a paper tray on top, a long curling strip of fax paper hanging out of the front "
+                "slot, a small round green-glowing camera eye on a short bendy metal stalk, a cracked little green "
+                "LCD display strip, a curly-cord telephone handset clipped to its side, scratches, dust and a few "
+                "blank stickers, moving on small stubby black rubber tank treads underneath. It is a machine, no "
+                "face, not a person and not an animal" + _STYLE_ONLY,
+        "mood": "patient, calm green eye glow, printing slowly",
+        "rim": "cyan",
+    },
+    "direktorin-hartlauf": {  # Digitech-Restbelegschaft, Pförtnerhaus
+        "desc": "stern woman in her early sixties, upright, short-cropped steel-grey hair, a firm mouth, tired but "
+                "unbroken grey eyes, reading glasses on a beaded chain around her neck; a faded teal-grey company "
+                "blazer with a small blank round emblem pin (no text), a white blouse buttoned to the collar, a "
+                "lanyard with an old blank key card, dark grey trousers, sensible black shoes; holds a clipboard "
+                "with forms" + _STYLE_ONLY,
+        "mood": "dignified, bitter, patiently waiting for justice",
+        "rim": "cyan",
+    },
+    "bruder-kabellos": {  # Prediger der Funkstille, früher Nexus-Projektgruppe
+        "desc": "gaunt man in his late fifties, intense pale-blue eyes, a wild grey beard and long unkempt grey hair, "
+                "hollow cheeks; a monk-like hooded robe roughly sewn from blue and grey plastic tarps with a lining "
+                "of crinkled tin foil in the hood, a long black charging cable looped around his neck like a rosary "
+                "with a dangling plug as pendant, a rope belt, bare feet in worn sandals; holds a battered wooden "
+                "fruit crate under one arm" + _STYLE_ONLY,
+        "mood": "intense, fervent preacher, slightly paranoid glance",
+        "rim": "cyan",
+    },
+    "dj-lumo": {  # DJ des High Voltage
+        "desc": "lanky young man in his mid twenties, dark-brown skin, a high-top fade with neon-blue tips, a thin "
+                "moustache, relaxed half-closed eyes, big chunky over-ear headphones worn half on (one ear "
+                "uncovered); a jacket patched together from colorful old record sleeves (square patches, abstract "
+                "graphics, no text) over a black t-shirt, a glowing cyan LED wristband, baggy dark cargo pants, "
+                "chunky white sneakers; holds a black vinyl record" + _STYLE_ONLY,
+        "mood": "laid-back, grooving to a beat only he hears, easy grin",
+        "rim": "pink",
+    },
+    "bruno-brecher": {  # Türsteher des High Voltage
+        "desc": "huge, broad-chested bouncer in his forties, built like a wardrobe, thick neck, shaved head, heavy "
+                "brow, short black beard, light-brown skin, a small earpiece in one ear, simple dot tattoos on the "
+                "knuckles (no letters); a deep burgundy velvet blazer straining at the shoulders over a black "
+                "turtleneck, a thin gold chain, black trousers, polished black shoes; stands with arms crossed"
+                + _STYLE_ONLY,
+        "mood": "stern, unimpressed, judging your style",
+        "rim": "pink",
+    },
+    "dr-winkel": {  # Winkeladvokat im Eisenhof
+        "desc": "wiry man in his fifties, slicked-back dark hair with grey temples, a thin pencil moustache, big black "
+                "horn-rimmed glasses, a polka-dot red bow tie; a slightly shiny, worn brown three-piece suit, a gold "
+                "pocket-watch chain, two-tone black-and-white dance shoes; carries a stack of empty office file "
+                "folders under one arm" + _STYLE_ONLY,
+        "mood": "oily, eager salesman's smile, eyebrows raised",
+        "rim": "cyan",
+    },
+    "frau-takt": {  # Stationsvorsteherin mit 14 Stoppuhren
+        "desc": "lean, strict woman in her fifties, sharp angular face, thin lips, dark hair in a severe low bun, "
+                "piercing eyes; a dark navy station-master uniform jacket with brass buttons and red piping, a red "
+                "station-master cap with a black visor, a whole bundle of fourteen silver stopwatches on chains "
+                "hanging around her neck, a silver whistle, navy trousers with a red stripe, polished black shoes; "
+                "holds a round red-and-green signal paddle" + _STYLE_ONLY,
+        "mood": "strict, impatient, checking the time",
+        "rim": "cyan",
+    },
+    "gerda-gleis": {  # Fundbüro Bahnhof Mitte
+        "desc": "small, round old woman around seventy, short white curly hair, kind tired eyes behind reading "
+                "glasses perched on her nose, rosy cheeks; a long cosy grey-blue knitted cardigan over a cream "
+                "blouse, a railway-red neckerchief, a lanyard full of little blank paper luggage tags, a brown skirt "
+                "to below the knee, thick stockings, comfortable shoes; holds a wooden rubber stamp" + _STYLE_ONLY,
+        "mood": "endlessly patient, gentle smile",
+        "rim": "pink",
+    },
+    "barista-perle": {  # Café Sahnehaube in den Glasarkaden
+        "desc": "woman around thirty, warm light-brown skin, expressive dark eyes, dark hair in a messy top knot with "
+                "a silver coffee spoon stuck through it, big round pearl earrings, a tiny pearl necklace; a cream "
+                "barista apron over a black shirt with rolled-up sleeves, a small milk-foam stain on the apron, slim "
+                "black trousers, white sneakers; holds a steaming coffee cup with latte art" + _STYLE_ONLY,
+        "mood": "warm, theatrical, knows your order before you speak",
+        "rim": "pink",
+    },
+    "fluss-frieda": {  # Kanal-Händlerin auf dem Floß
+        "desc": "sturdy woman in her late forties, weathered freckled face, red-brown hair in two thick braids, a "
+                "headlamp strapped around her head, cheerful squint; olive-green rubber chest waders with suspenders "
+                "over a navy-and-white striped sailor shirt, a patched yellow oilskin jacket worn open, a net bag of "
+                "salvaged trinkets on her hip; holds a long wooden punting pole" + _STYLE_ONLY,
+        "mood": "cheerful, salty, a trader's wink",
+        "rim": "cyan",
+    },
+    "frau-klingel": {  # Glockenverkäuferin am Schrottmarkt, Hörimplantat empfängt Radio Rost
+        "desc": "tiny old lady around eighty, slightly hunched, white hair in a bun tied with a black ribbon, bright "
+                "lively eyes, a big old brass hearing implant behind her right ear with a small antenna glowing "
+                "orange; a black lace widow's shawl over a long dark-green coat with many little brass bells sewn "
+                "onto the hem and sleeves, a string of bells across her chest, black boots; holds a polished brass "
+                "hand bell" + _STYLE_ONLY,
+        "mood": "cheerful, a little deaf, humming along to a radio only she hears",
+        "rim": "pink",
+    },
+    "gutschein-gerd": {  # Betrüger mit „Chrome 10“-Gutscheinen
+        "desc": "thin man in his forties, a too-wide toothy grin with one gold tooth, gelled dark-blond hair with a "
+                "sharp side parting, clean-shaven, shifty eyes; a shiny lilac suit several sizes too big (drooping "
+                "shoulders, rolled-up sleeves), a loud zigzag-pattern tie, a cheap gold watch, pointed brown shoes; "
+                "fans out a handful of glossy blank coupons in one hand" + _STYLE_ONLY,
+        "mood": "sleazy, over-friendly salesman grin",
+        "rim": "pink",
+    },
+})
+
 # Ausdrucksvarianten für Porträts (--variants=happy,angry …). ki-nexus-angry hat einen eigenen Text.
 VARIANT_MOODS = {
     "happy": "laughing happily, eyes bright",

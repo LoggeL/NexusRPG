@@ -26,3 +26,24 @@
   Kennung nicht festgelegt ist.
 - **Umsätze/Funde als Zusatzeffekte:** `akt-flohmarkt` (`credits` = Umsatz, immer), `akt-angeln` (Schrott), `akt-floss` (Treibgut, außer bei
   zerlegtem Floß), `akt-taubenpost` (Herzpunkte). Gleiche Lösung wie Teil 1 (`Director.minigame` wendet `extra` einzeln an).
+
+# Lücken – Minispiel-Darstellung (Teil 3)
+
+- **Kein Ort/keine Variante im Minispiel-Effekt (weiterhin):** `akt-schleichen` wählt den Grundriss (Lagerhalle, Lüftungsschacht, Büroflur)
+  über Schlüsselwörter im `label`, `akt-gaertnern` die Kommentatorin (Marla am Hof vs. Dante im Dachgarten) ebenso. Sauberer: optionales
+  Feld `variant` im Effekt `minigame` (z. B. `variant: 'schacht'`), durchgereicht in `MinigameContext`.
+- **Vorbereitungen in `akt-overwatch`:** Das Spiel kennt die erledigten `prep-*`/Bruch-Vorbereitungen nicht. Vorschlag für den Inhalt:
+  Stufe 2 mit `prep-turm-plan` oder Nyra-Abschirmung (`gc-29`), sonst 3, ohne jede Vorbereitung 4. Engine-Vorschlag: `variant`/`bonus` (s. o.).
+- **`gc-134` im Wrackrennen:** `akt-wrackrennen` prüft `checkOk('gc-134')` (reine Auswertung) und nimmt dann die Schanze perfekt – die
+  einmaligen Check-XP gibt es dadurch nicht. Wer sie will, setzt im `win` zusätzlich einen `passCheck`-Weg bzw. vergibt XP im Inhalt.
+- **Neue Flag-ID:** `akt-hochstapeln` setzt als Zusatzeffekt `klatsch-chrome-einladung`, wenn die Klatschbase verrät, dass die
+  `chrome-einladung`en in Alberts Portierloge liegen (world.md §3.9 „`chrome-einladung`-Hinweis“). Inhalt (Party-Vorbereitung / Albert)
+  kann darauf reagieren.
+- **Schrottbot-Pokal ohne ID:** world.md nennt „Credits, Pokal“, aber keinen Gegenstand. Vorschlag `pokal-schrottbot` (Andenken, Regal im
+  Crew-Quartier); bis dahin Lohn nur über `win` (Credits), Pokal als Flag.
+- **`akt-countdown` ist kürzer als 30 s:** bewusst (world.md: Zehn-Sekunden-Druck). Gewinnt man, gibt der Inhalt `nexus-chip-defekt`;
+  der `gc-34`-Weg ersetzt das Spiel. `dante_notfall` wirkt im Spiel (+3 s) und wird in der Einleitung angezeigt.
+- **`akt-etikette` und `[Oberstadt]`:** world.md lässt Oberstädter das Spiel überspringen. Das Spiel selbst läuft trotzdem, wenn es
+  aufgerufen wird (mit Leucht-Hilfe beim Besteck); den Sprung muss der Dialog mit `{ origin: 'origin-oberstadt' }` bauen.
+- **Ernte-/Trinkgeld-Zusatzeffekte** (`akt-gaertnern`: Gemüse/Samen, `akt-hochstapeln`: Credits) gelten immer, auch bei Niederlage – wie
+  Flohmarkt. Tagessperre für den Lohn baut der Inhalt (`heute_*`-Flags, gaps-done.md §1).

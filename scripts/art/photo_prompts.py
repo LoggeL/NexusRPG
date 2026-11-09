@@ -406,6 +406,568 @@ PHOTO.update({
         "special": "robot",
     },
 })
+# Fehlende Figuren r–z (art-fig-c): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
+PHOTO.update({
+    "rudi": {
+        "look": "a burly, broad-bellied man in his late fifties with an invented face (not a real person), "
+                "sun-leathered tanned skin, shaved head with a sunburnt scalp, a thick grey horseshoe moustache, bushy "
+                "grey eyebrows, friendly squinting eyes with deep crow's feet, a faded rust-red bandana around his "
+                "neck; a short-sleeved cream diner shirt with a turquoise collar (no name tag, no text), a "
+                "grease-stained white apron over it with a metal spatula tucked into the apron string, a dented "
+                "chrome coffee pot in one hand, warm dusty desert-diner light in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "wachmann-brezel": {
+        "look": "a chubby man in his thirties with an invented face (not a real person), round friendly face, rosy "
+                "cheeks, short ginger hair, a few pretzel crumbs on his chin; a sleek glossy white armored corporate "
+                "security uniform with thin violet light seams and a small abstract violet geometric emblem on the "
+                "chest (no text), black gloves, his white helmet with a dark violet visor tucked under one arm, a big "
+                "golden soft pretzel in the other hand",
+        "rim": "cyan",
+        "exprs": ["neutral", "wut", "ueberrascht"],
+    },
+    "zellennachbarin": {
+        "look": "a tough, wiry woman in her mid fifties with an invented face (not a real person), grey buzz cut, "
+                "weathered face with a crooked once-broken nose, one gold tooth, faded blue-black prison tattoos "
+                "(stars, swallows, a spider web, no letters) on both forearms and creeping up her neck to the jaw; a "
+                "plain grey t-shirt fully covering the torso, a faded orange prison jumpsuit (no text, no numbers) "
+                "with the top half tied around her waist, cold prison-visiting-room light in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "salzige-grete": {
+        "look": "a big, broad-shouldered woman in her late forties with an invented face (not a real person), "
+                "forearms as thick as ship ropes, ruddy wind-burnt cheeks, curly salt-and-pepper hair under a knitted "
+                "navy watch cap, a small gold hoop in one ear; a long mustard-yellow rubber fisherman's apron over a "
+                "navy-and-white striped long-sleeve shirt with sleeves pushed up, thick orange rubber gloves, holding "
+                "a big silver fish by the tail, harbor lights in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "wut"],
+    },
+    "sina-spray": {
+        "look": "a slim young woman in her early twenties with an invented face (not a real person), shoulder-length "
+                "messy black hair with neon-pink and teal paint streaks, a black respirator half mask hanging around "
+                "her neck, a smudge of pink paint on one cheek, paint splatter on her hands; an oversized light-blue "
+                "denim jacket covered in paint splatters and blank pin badges over a black hoodie, a spray can in one "
+                "hand, a colorful graffiti wall blurred in the background",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "wut"],
+    },
+    "stylistin-gina": {
+        "look": "a glamorous woman in her late fifties with an invented face (not a real person), a huge teased-up "
+                "silver-white bouffant wig, very long false eyelashes, bold magenta eyeshadow, glossy pink lipstick, "
+                "a beauty mark, long glittering gold nails; a pink-and-gold satin salon kimono jacket with a sequined "
+                "collar over a black turtleneck, a can of hairspray in one hand, salon mirror lights in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "turbo-tilda": {
+        "look": "a wiry, compact woman around forty with an invented face (not a real person), short spiky platinum "
+                "hair with one shaved side, freckled sun-tanned face, a slight gap between her front teeth, vintage "
+                "brown leather aviator goggles pushed up on her forehead, a streak of soot on one cheek; a faded "
+                "orange racing coverall zipped up to the collarbone over a black t-shirt, sleeves rolled to the "
+                "elbows, forearms with small tattoos of trophy cups (no text), a chunky drone remote controller "
+                "hanging from a strap around her neck",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "wut"],
+    },
+    "vinyl-vincent": {
+        "look": "a skinny, lanky man in his forties with an invented face (not a real person), long dark sideburns "
+                "down to the chin, a slicked-back black pompadour with a grey streak, round dark sunglasses, a thin "
+                "moustache; a worn brown corduroy jacket over a faded maroon turtleneck, holding a black vinyl record "
+                "in a plain cardboard sleeve (no text) against his chest",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "wett-willi": {
+        "look": "a wiry man in his fifties with an invented face (not a real person), slick dark comb-over under a "
+                "grey flat cap, a thin pencil moustache, shifty twinkling eyes, one gold tooth; a white shirt with "
+                "rolled-up sleeves and red suspenders, a loose black tie, three stacked steel cups in one hand and a "
+                "small red ball between two fingers of the other",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "staubbaron-broesel": {
+        "look": "a scrawny, weaselly man in his fifties with an invented face (not a real person), sunken cheeks, sly "
+                "small eyes, a long thin waxed moustache, crooked yellowish teeth, a battered dusty top hat with brass "
+                "goggles on the band, a sand-colored dust scarf; an oversized faded military greatcoat covered in "
+                "desert dust, decorated with medals made of bottle caps and brass faucet handles, a dented jerrycan "
+                "strap over one shoulder, a brass water ladle held like a scepter, hazy desert dusk in the bokeh",
+        "rim": "pink",
+        "sig": "greedy offer: leaning toward the camera, holding up a small cloudy water bottle between two fingers, "
+               "a sly crooked grin, one eyebrow raised as if naming an outrageous price",
+        "exprs": ["neutral", "wut", "signatur"],
+    },
+    # Kanal-Schlafwandler: neutral = Trance (Text über photo_config extra), danach aufgewacht.
+    "schlafwandler-ede": {
+        "look": "a stocky man in his sixties with an invented face (not a real person), bald with grey stubble, a "
+                "small chip implant at his temple glowing faint violet; a patched yellow rain poncho over a faded "
+                "striped pyjama shirt, damp sewer-tunnel darkness with dripping light in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "besorgt", "ueberrascht"],
+    },
+    "schlafwandlerin-rosi": {
+        "look": "a plump woman in her forties with an invented face (not a real person), frizzy copper-red hair half "
+                "in pink plastic curlers, a small chip implant at her temple glowing faint violet; a quilted pink "
+                "dressing gown tied closed over a grey knitted sweater, holding a soup ladle, dim pump-station "
+                "industrial light in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "besorgt", "ueberrascht"],
+    },
+    "schlafwandler-bert": {
+        "look": "a thin young office worker in his late twenties with an invented face (not a real person), messy "
+                "brown hair, crooked glasses askew, a wireless headset on one ear, a small chip implant at his temple "
+                "glowing faint violet; a wrinkled white shirt with a loose blue tie, dark data-tunnel with cyan "
+                "cable lights in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "besorgt", "ueberrascht"],
+    },
+})
+# Fehlende Figuren h–q (art-fig-b): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
+# Maschinen (mixi, opa-blech, krabbe-karl): special "machine" mit eigenen Ausdruckstexten ("texts").
+_INV = "with an invented face (not a real person)"
+PHOTO.update({
+    "leutnant-nadel": {
+        "look": f"a lean, wiry woman in her early thirties {_INV}, pale skin, sharp angular face with high "
+                "cheekbones, cold pale-grey eyes, a thin vertical scar through her left eyebrow, platinum-white hair "
+                "in a severe short undercut slicked back; a fitted black high-collar tactical uniform with glossy "
+                "white armor plates on the shoulders and thin toxic-green light seams, a black strap harness, her "
+                "right hand a black cybernetic gauntlet with five long thin needle claws with glowing green tips",
+        "rim": "cyan",
+        "sig": "cold predatory smile, raising the cybernetic needle-claw hand slowly beside her face, green tips "
+               "glinting, eyes fixed on the viewer",
+        "exprs": ["neutral", "wut", "ueberrascht", "signatur"],
+    },
+    "kraehe": {
+        "look": f"a tall, rangy wasteland raider chieftain in her mid forties {_INV}, sun-dark weathered skin, "
+                "intense black eyes with black war paint smeared across the eyes like a mask, long black hair in many "
+                "thin braids threaded with crow feathers and small metal beads; a ragged mantle of black crow "
+                "feathers over her shoulders, layered rust-brown leather armor with scavenged metal plates, a "
+                "sand-colored dust scarf, brass goggles on her forehead, dusty desert dusk in the bokeh",
+        "rim": "pink",
+        "sig": "listening to a story: leaning slightly forward, chin resting on her fist, one braid with a crow "
+               "feather between her fingers, a rare intrigued half smile",
+        "exprs": ["neutral", "wut", "freude", "signatur"],
+    },
+    "opa-funk": {
+        "look": f"a wiry old man in his late seventies {_INV}, deeply tanned wrinkled skin, long scraggly grey "
+                "beard and wild grey hair, small round green-tinted sunglasses, big old over-ear headphones around "
+                "his neck with a coiled cable; a patched brown poncho over a faded red Hawaiian-pattern shirt, a "
+                "small telescopic antenna sticking up from a pocket, warm glow of old radio tubes in the bokeh",
+        "rim": "pink",
+        "sig": "on air: headphones on, leaning toward an old handheld microphone, mouth open mid-sentence, eyes "
+               "twinkling, one finger raised",
+        "exprs": ["neutral", "freude", "trauer", "signatur"],
+    },
+    "paul": {
+        "look": f"a slim young man of twenty-three {_INV}, light skin, short neat ginger hair parted on the side, "
+                "freckles, a small silver chip implant behind his right ear; a beige zip jacket with a blank white "
+                "sewn-on name tag on the chest (no text), a green knitted sweater vest over a white collared shirt",
+        "rim": "cyan",
+        "sig": "chipped: an unnaturally even, polite smile, eyes glassy and slightly unfocused, the chip behind his "
+               "ear glowing soft violet, perfectly still posture, hands folded",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "pfeffer": {
+        "look": f"a big, broad-shouldered man in his early forties {_INV}, soft belly, light-olive skin, short dark "
+                "hair greying at the temples, a thick dark moustache, kind tired brown eyes; a white corporate "
+                "security uniform with violet light seams and white shoulder armor, a small abstract violet emblem on "
+                "the chest (no text), his white helmet under one arm, a tiny pink child's hair clip on the breast "
+                "pocket",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+    },
+    "quantum-fahrer": {
+        "look": f"a tall, stiff man in his forties {_INV}, light skin, square jaw, clean-shaven, black hair cut "
+                "very short, dark mirrored sunglasses, a thin earpiece cable; a dark-violet chauffeur suit with a high "
+                "collar and silver piping, a peaked chauffeur cap with a small abstract silver emblem (no text), "
+                "white gloves",
+        "rim": "cyan",
+        "exprs": ["neutral", "wut", "ueberrascht"],
+    },
+    "krabbe-karl": {
+        "look": "a small beach-cleaning robot shaped like a crab: a rounded orange-red enamel shell body with scuffs "
+                "and a few barnacles, six thin jointed metal legs, two big friendly pincer claws (one holding a pearly "
+                "seashell), two round camera eyes on short stalks glowing friendly cyan, a mesh sand-sieve basket on "
+                "its back with shells, a tiny blinking antenna, standing on wet sand at the beach at night",
+        "rim": "cyan",
+        "special": "machine",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+        "texts": {
+            "neutral": "standing calmly, eye stalks upright and glowing a steady soft cyan, claws lowered",
+            "freude": "happy: both claws raised high, offering the seashell toward the viewer, eye stalks bent "
+                      "forward and glowing bright warm yellow",
+            "ueberrascht": "startled: eye stalks shot up straight and wide apart, claws pulled in front of the "
+                           "shell, the antenna blinking fast, a little sand flying",
+        },
+    },
+    "herr-glanz": {
+        "look": f"a slick salesman in his early thirties {_INV}, light skin with a fake tan, impossibly white perfect "
+                "teeth, platinum-blond hair sculpted into a glossy wave, a thin violet AR monocle over one eye, a tiny "
+                "headset microphone; a pearl-white tailored suit with violet satin lapels and thin violet light "
+                "seams, a lilac shirt, a glowing violet abstract lapel pin (no text), bright showroom lights in the "
+                "bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "portier-albert": {
+        "look": f"a tall, very upright elderly doorman in his late sixties {_INV}, light skin, long dignified face, "
+                "neatly trimmed white mutton-chop sideburns; a burgundy livery coat with gold braiding, gold buttons "
+                "and epaulettes, a burgundy top hat with a gold band, spotless white gloves, a grand lobby with "
+                "golden lights in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "wut", "ueberrascht"],
+    },
+    "mila": {
+        "look": f"a small girl of about 8 {_INV}, light-olive skin, big brown eyes, dark-brown hair in two bushy "
+                "pigtails with pink hair clips, a gap-toothed smile; an oversized yellow raincoat with rolled-up "
+                "sleeves over a pink-and-white striped t-shirt, denim overalls, a small backpack with a sewn-on bunny "
+                "face",
+        "rim": "pink",
+        "child": True,
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "madame-satin": {
+        "look": f"an elegant, flamboyant woman in her late fifties {_INV}, light skin, a sharp platinum-silver bob, "
+                "dramatic chrome cat-eye glasses, dark-red lipstick; a long emerald-green satin coat with polished "
+                "chrome shoulder pieces and a high collar over a black silk blouse buttoned to the neck, many chrome "
+                "bangles, a long thin chrome e-cigarette holder in one hand, boutique lights in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "kabelbrand-roadie": {
+        "look": f"a burly roadie in his thirties {_INV}, light skin, shaved head, thick ginger beard, a tattoo of a "
+                "burning cable coiling up his neck, a lip ring; a faded black band t-shirt with a lightning skull "
+                "graphic (no text) under a black work vest full of cable ties, a coil of black cable over one "
+                "shoulder, sweaty, concert stage lights in the bokeh",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+    },
+    "hafen-hannes": {
+        "look": f"a huge, barrel-chested dock worker in his fifties {_INV}, ruddy light skin, grey stubble beard, a "
+                "broken nose, small kind eyes; a scuffed yellow hard hat, an orange high-visibility vest over a navy "
+                "thermal shirt, his left arm a heavy industrial hydraulic grab-arm prosthesis with a yellow-black "
+                "striped claw and exposed pistons, harbor cranes and lights in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "henk-angler": {
+        "look": f"a lean, weathered old man in his late sixties {_INV}, wind-tanned light skin, a short white beard, "
+                "bright pale-blue eyes with deep crow's feet; a dark-blue knitted fisherman's beanie, a yellow "
+                "oilskin raincoat open over a thick grey roll-neck sweater, a fishing rod over his shoulder, a "
+                "lighthouse beam and sea spray in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+    },
+    "herr-blitz": {
+        "look": f"a wiry man in his fifties {_INV}, light skin, slicked-back jet-black hair, a thin pencil "
+                "moustache, shifty narrow eyes, a gold tooth; a shiny electric-blue suit a size too tight, a yellow "
+                "shirt, a black tie with a gold lightning-bolt tie pin, a chunky gold watch",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "knuspi": {
+        "look": f"a chubby young man in his mid twenties {_INV}, warm brown skin, round cheerful face, a chocolate "
+                "smudge on the chin, a red knitted beanie; a far too big brown trench coat held open to show dozens "
+                "of inner pockets stuffed with glossy candy bars (no text), a mustard hoodie underneath",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "knut": {
+        "look": f"a tall, lanky young man around twenty-five {_INV}, light skin, blond buzz cut, long thin face with "
+                "a big nose, one gold tooth; a shiny purple tracksuit with white side stripes zipped up, a fake gold "
+                "chain, a backwards black cap",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+    },
+    "kurt": {
+        "look": f"a short, pudgy young man around twenty {_INV}, light skin, blond bowl cut, round baby face with a "
+                "big nose, pouting lips; a shiny purple tracksuit with white side stripes several sizes too big, "
+                "sleeves over half the hands, a fake gold chain",
+        "rim": "cyan",
+        "exprs": ["neutral", "wut", "ueberrascht"],
+    },
+    "meister-watt": {
+        "look": f"a small, wiry old man in his late seventies {_INV}, light-brown skin, completely bald, a very long "
+                "thin white beard tied with a copper wire, long white eyebrows, serene half-closed eyes; a faded grey "
+                "silk tai-chi suit with frog buttons, a thin layer of dust and a little cobweb on one shoulder",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+    },
+    "mira-loetzinn": {
+        "look": f"an athletic woman in her early thirties {_INV}, medium-brown skin, copper-red hair shaved on one "
+                "side and long on the other, a welding visor flipped up on her head, small soldering burns on her "
+                "cheeks; a brown leather work apron over a black high-neck top fully covering her torso, her left "
+                "forearm a chrome cybernetic arm with an open panel showing neat wiring, a glowing soldering tip "
+                "index finger, workshop sparks in the bokeh",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+    "mixi": {
+        "look": "a squat chrome bartender robot: a barrel-shaped polished chrome body with a few dents on a single "
+                "rubber ball wheel, a round screen face showing two simple glowing cyan pixel eyes and a pixel mouth, "
+                "two slim jointed arms (one holding a cocktail shaker, one a glass with a glowing pink drink), a "
+                "painted black bow tie on the chest, a small orange warning light on top, a neon bar counter in the "
+                "bokeh",
+        "rim": "pink",
+        "special": "machine",
+        "exprs": ["neutral", "freude", "ueberrascht"],
+        "texts": {
+            "neutral": "idle: the screen face shows two calm round pixel eyes and a straight pixel line mouth, arms "
+                       "lowered, shaker held still",
+            "freude": "delighted: the screen face shows happy curved pixel eyes and a big pixel grin, shaking the "
+                      "cocktail shaker high above its head, the orange top light blinking",
+            "ueberrascht": "startled: the screen face shows huge round pixel eyes and a small round pixel 'o' "
+                           "mouth, both arms jerked up, a little drink splashing from the glass",
+        },
+    },
+    "mutter-bruehe": {
+        "look": f"a big, tall, heavy-set woman in her sixties {_INV}, warm dark-brown skin, round kind face, short "
+                "grey curls under a knitted red beanie, round glasses fogged at the edges; several layered patched "
+                "cardigans in brown and mustard, a long apron sewn from blue tarp, a huge dented soup ladle, steam "
+                "drifting through the light",
+        "rim": "pink",
+        "exprs": ["neutral", "freude", "trauer"],
+    },
+    "ole-gaehn": {
+        "look": f"a lanky old caretaker in his late sixties {_INV}, light skin, droopy heavy eyelids, grey stubble, "
+                "messy thin grey hair; a faded grey janitor coverall with a blank name patch (no text), a cardigan "
+                "over it, a huge ring of keys on the belt, a thermos flask in one hand",
+        "rim": "cyan",
+        "sig": "fast asleep standing up: head tilted to one side, eyes closed, mouth slightly open mid-snore, the "
+               "thermos about to slip from his hand",
+        "exprs": ["neutral", "ueberrascht", "signatur"],
+    },
+    "opa-blech": {
+        "look": "a tall, boxy retro security robot from the 2050s: dented cream and olive-green painted metal body "
+                "with rust spots and old rivets, a round bucket-like head with two round yellow lamp eyes and a "
+                "speaker grille as mouth, thick accordion-hose arms with clamp hands, a hand-knitted lilac scarf "
+                "around its neck, a sewn lightning-bolt patch on its chest",
+        "rim": "cyan",
+        "special": "machine",
+        "exprs": ["neutral", "freude", "besorgt"],
+        "texts": {
+            "neutral": "standing guard, both lamp eyes glowing a steady warm yellow, head straight, arms at its sides",
+            "freude": "pleased: lamp eyes glowing bright and slightly squinted like a smile, head tilted, one clamp "
+                      "hand patting the knitted scarf",
+            "besorgt": "worried: lamp eyes flickering dim orange, head tilted down and to the side, clamp hands "
+                       "pressed together in front of its chest",
+        },
+    },
+    "opa-gurrmann": {
+        "look": f"a short, round old man in his seventies {_INV}, light skin, rosy cheeks, a white goatee, a tweed "
+                "flat cap; a patched brown corduroy jacket with many pockets, a postman's leather satchel across the "
+                "chest, two small grey pigeon drones with glowing cyan eyes and tiny rotor wings perched on his "
+                "shoulders",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "besorgt"],
+    },
+})
+# Fehlende Figuren a–g (art-fig-a): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
+# bijou: special "robot" (Roboterpudel) mit eigenen Texten, fx-60: special "machine" (Faxgerät auf Ketten).
+PHOTO.update({
+    "falke": {
+        "look": "a lean, wiry man in his early thirties with an invented face (not a real person), pale skin, sharp "
+                "hawk-like nose, hollow cheeks, close-cropped ash-blond hair, narrow squinting grey eyes, a small round "
+                "cyan-glowing cyber scope lens implanted over his right eye; a sleek white armored sniper suit with "
+                "violet light seams and a small abstract violet geometric emblem (no text), a dark grey hooded "
+                "camouflage scarf around neck and shoulders, the strap of a slung white rifle across the chest",
+        "rim": "cyan",
+        "sig": "deadpan, squinting past the camera into the distance through his glowing scope eye, lips moving "
+               "slightly as if silently counting seagulls",
+        "exprs": ["neutral", "besorgt", "signatur"],
+    },
+    "elsa": {
+        "look": "a wiry old woman in her early seventies with an invented face (not a real person), sun-tanned "
+                "weathered skin with deep laugh lines, sharp clear blue eyes, long silver-white hair in a loose braid "
+                "under a faded red headscarf, brass magnifier goggles pushed up on her forehead, a grease smudge on "
+                "one cheek; a patched khaki work shirt with rolled-up sleeves, a heavy brown leather apron full of "
+                "tool pockets, a dusty turquoise neck scarf, a little desert dust in the warm night air",
+        "rim": "pink",
+        "sig": "tinkerer's triumph: goggles pulled down over one eye, holding up a small repaired gadget with sparks "
+               "fading, a crooked satisfied grin",
+        "exprs": ["neutral", "freude", "trauer", "signatur"],
+    },
+    "glasblaeserin": {
+        "look": "a strong woman in her mid forties with an invented face (not a real person), olive-brown skin, a few "
+                "small burn scars on her forearms, dark curly hair tied up under a rust-orange bandana, calm dark "
+                "eyes, dark tinted protective goggles pushed up on her head, a necklace of glass beads glittering in "
+                "many colors; a heavy scorched brown leather glassblower's apron over sand-colored layered desert "
+                "clothes, a long cream scarf, warm orange furnace glow mixing into the neon light",
+        "rim": "pink",
+        "sig": "holding a long glassblowing pipe up beside her face, a glowing orange molten glass bulb at its end "
+               "lighting her calm, proud face from below",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "fraeulein-pixel": {
+        "look": "a slim woman around forty with an invented face (not a real person), pale skin, a sleek pink bob "
+                "with a blunt straight pink fringe, a jeweler's loupe monocle in front of her left eye, precise red "
+                "lipstick, a beauty mark; a mint-green vintage blouse with a big floppy bow at the collar under a "
+                "cropped black cardigan, black fingerless lace gloves with inky fingertips, an old instant camera on a "
+                "strap around her neck",
+        "rim": "pink",
+        "sig": "raising the instant camera to her eye and aiming it at the viewer, the other eye behind the loupe "
+               "monocle, a cool practiced 'smile please' smirk",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "chrome-haushaelterin": {
+        "look": "a prim woman in her mid sixties with an invented face (not a real person), upright posture, silver "
+                "hair in a perfect French twist, sharp curious eyes, thin lips; a classic black housekeeper's dress "
+                "with a starched white collar and cuffs, a crisp white apron, a small gold-and-white brooch, an "
+                "elegant penthouse at night behind her as soft white-gold bokeh",
+        "rim": "cyan",
+        "sig": "whispering gossip: leaning in, one hand raised beside her mouth, eyebrows high, eyes glittering "
+               "with a juicy secret",
+        "exprs": ["neutral", "freude", "signatur"],
+    },
+    "bijou": {
+        "look": "a real-looking small luxury robot poodle (a machine, not a living animal), the size of a toy "
+                "poodle: polished mirror-chrome body in the classic poodle grooming shape, pompom 'curls' of fine "
+                "curled chrome feather-springs on the head, the long ears, the chest and the tail tip, slender chrome "
+                "legs, big glossy round blue LED eyes, a small black nose, a pink velvet collar with a bow and a pink "
+                "heart-shaped tag, neon reflections running over the chrome",
+        "rim": "pink",
+        "special": "robot",
+        "exprs": ["neutral", "freude", "wut"],
+        "texts": {
+            "neutral": "sitting primly upright, nose slightly raised, blue LED eyes glowing calmly, ears hanging "
+                       "neatly, pampered and a bit snooty",
+            "freude": "happy: front paws lifted in a little hop, ears flying, tail pompom wagging, blue LED eyes "
+                      "curved into happy arcs",
+            "wut": "offended: yapping with its little chrome jaw open, chrome curls bristling, LED eyes glowing an "
+                   "indignant pink-red, small but furious, not attacking the viewer",
+        },
+    },
+    "fx-60": {
+        "look": "a real-looking old retro-futuristic office assistant machine from 2061: a boxy beige-and-grey fax "
+                "machine body with a paper tray, a long curling strip of fax paper with blurred unreadable printed "
+                "lines hanging out of the front slot, a small round green-glowing camera eye on a short bendy metal "
+                "stalk, a cracked little green LCD strip, a curly-cord telephone handset clipped to its side, "
+                "scratches and dust, standing on small stubby black rubber tank treads in a dim vault with rusty "
+                "pipes in the background bokeh",
+        "rim": "cyan",
+        "special": "machine",
+        "exprs": ["neutral", "freude", "wut"],
+        "texts": {
+            "neutral": "idle: the green camera eye glows calm and steady, a short strip of paper slowly feeding out",
+            "freude": "happy: the camera eye stalk leans toward the viewer glowing bright warm green, a long joyful "
+                      "ribbon of paper curling out of the slot, the LCD strip blinking",
+            "wut": "error mode: the camera eye glows hard red, the LCD strip flashing red, a crumpled paper jam "
+                   "bulging from the slot, a small puff of smoke",
+        },
+    },
+    "direktorin-hartlauf": {
+        "look": "a stern woman in her early sixties with an invented face (not a real person), short-cropped "
+                "steel-grey hair, a firm mouth, tired but unbroken grey eyes, reading glasses on a beaded chain "
+                "around her neck; a faded teal-grey company blazer with a small blank round emblem pin (no text), a "
+                "white blouse buttoned to the collar, a lanyard with an old blank key card",
+        "rim": "cyan",
+        "sig": "holding up a framed formal rejection letter (text blurred and unreadable) beside her face with bitter "
+               "irony, one eyebrow raised over the reading glasses",
+        "exprs": ["neutral", "wut", "trauer", "signatur"],
+    },
+    "bruder-kabellos": {
+        "look": "a gaunt man in his late fifties with an invented face (not a real person), intense pale-blue eyes, "
+                "a wild grey beard and long unkempt grey hair, hollow cheeks; a monk-like hooded robe roughly sewn "
+                "from blue and grey plastic tarps, crinkled tin foil lining the hood, a long black charging cable "
+                "looped around his neck like a rosary with a dangling plug as pendant",
+        "rim": "cyan",
+        "sig": "preaching radio silence: one finger raised to the sky, mouth open mid-sermon, eyes burning with "
+               "conviction, the charging-cable rosary clutched in the other hand",
+        "exprs": ["neutral", "wut", "besorgt", "signatur"],
+    },
+    "dj-lumo": {
+        "look": "a lanky young man in his mid twenties with an invented face (not a real person), dark-brown skin, a "
+                "high-top fade with neon-blue tips, a thin moustache, relaxed half-closed eyes, big chunky over-ear "
+                "headphones worn half on (one ear uncovered); a jacket patched together from colorful old record "
+                "sleeves (abstract graphics, no text) over a black t-shirt, a glowing cyan LED wristband",
+        "rim": "pink",
+        "sig": "lost in the music: eyes closed, one hand pressing the headphone to his ear, head nodding, a black "
+               "vinyl record held up in the other hand",
+        "exprs": ["neutral", "freude", "ueberrascht", "signatur"],
+    },
+    "bruno-brecher": {
+        "look": "a huge, broad-chested bouncer in his forties with an invented face (not a real person), built like a "
+                "wardrobe, thick neck, shaved head, heavy brow, short black beard, light-brown skin, a small earpiece "
+                "in one ear, simple dot tattoos on the knuckles (no letters); a deep burgundy velvet blazer straining "
+                "at the shoulders over a black turtleneck, a thin gold chain, arms crossed over the chest",
+        "rim": "pink",
+        "sig": "panic: a rat has appeared, the giant bouncer flinches back with wide terrified eyes, both hands "
+               "raised, mouth open in a silent yelp",
+        "exprs": ["neutral", "wut", "signatur"],
+    },
+    "dr-winkel": {
+        "look": "a wiry man in his fifties with an invented face (not a real person), slicked-back dark hair with grey "
+                "temples, a thin pencil moustache, big black horn-rimmed glasses, a polka-dot red bow tie; a "
+                "slightly shiny worn brown three-piece suit, a gold pocket-watch chain, a stack of empty office file "
+                "folders under one arm",
+        "rim": "cyan",
+        "sig": "oily lawyer's pitch: leaning in with a too-eager smile, one finger raised as if quoting a paragraph, "
+               "eyebrows wiggling above the horn-rimmed glasses",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "frau-takt": {
+        "look": "a lean, strict woman in her fifties with an invented face (not a real person), sharp angular face, "
+                "thin lips, dark hair in a severe low bun, piercing eyes; a dark navy station-master uniform jacket "
+                "with brass buttons and red piping, a red station-master cap with a black visor, a bundle of many "
+                "silver stopwatches on chains around her neck, a silver whistle",
+        "rim": "cyan",
+        "sig": "holding up one silver stopwatch at eye level and clicking it, glaring over it at the viewer, lips "
+               "pressed: 'you are late'",
+        "exprs": ["neutral", "wut", "freude", "signatur"],
+    },
+    "gerda-gleis": {
+        "look": "a small, round old woman around seventy with an invented face (not a real person), short white "
+                "curly hair, kind tired eyes behind reading glasses perched on her nose, rosy cheeks; a long cosy "
+                "grey-blue knitted cardigan over a cream blouse, a railway-red neckerchief, a lanyard full of little "
+                "blank paper luggage tags",
+        "rim": "pink",
+        "sig": "pressing a wooden rubber stamp onto a lost-property tag with gentle ceremony, smiling warmly over her "
+               "glasses at the viewer",
+        "exprs": ["neutral", "freude", "trauer", "signatur"],
+    },
+    "barista-perle": {
+        "look": "a woman around thirty with an invented face (not a real person), warm light-brown skin, expressive "
+                "dark eyes, dark hair in a messy top knot with a silver coffee spoon stuck through it, big round "
+                "pearl earrings, a tiny pearl necklace; a cream barista apron over a black shirt with rolled-up "
+                "sleeves, a little milk-foam stain, warm café steam in the light",
+        "rim": "pink",
+        "sig": "presenting a steaming cup with perfect latte art at chest height with a theatrical singer's flourish, "
+               "eyes half closed, a knowing smile",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "fluss-frieda": {
+        "look": "a sturdy woman in her late forties with an invented face (not a real person), weathered freckled "
+                "face, red-brown hair in two thick braids, a headlamp strapped around her head, cheerful squint; "
+                "olive-green rubber chest waders with suspenders over a navy-and-white striped sailor shirt, a patched "
+                "yellow oilskin jacket worn open, damp sewer tunnel with blue-green glowing mushrooms in the bokeh",
+        "rim": "cyan",
+        "sig": "smelling the sea: eyes closed, face tilted up, nostrils wide, a dreamy longing smile, one hand on a "
+               "long wooden punting pole",
+        "exprs": ["neutral", "freude", "signatur"],
+    },
+    "frau-klingel": {
+        "look": "a tiny old lady around eighty with an invented face (not a real person), slightly hunched, white hair "
+                "in a bun tied with a black ribbon, bright lively eyes, a big old brass hearing implant behind her "
+                "right ear with a small antenna glowing orange; a black lace widow's shawl over a long dark-green coat "
+                "with many little brass bells sewn on, a string of bells across her chest",
+        "rim": "pink",
+        "sig": "humming along to the radio in her ear implant: eyes closed, head swaying, one finger tapping the "
+               "glowing brass implant, a little brass hand bell raised in the other hand",
+        "exprs": ["neutral", "freude", "trauer", "signatur"],
+    },
+    "gutschein-gerd": {
+        "look": "a thin man in his forties with an invented face (not a real person), a too-wide toothy grin with one "
+                "gold tooth, gelled dark-blond hair with a sharp side parting, clean-shaven, shifty eyes; a shiny "
+                "lilac suit several sizes too big with drooping shoulders, a loud zigzag-pattern tie, a cheap gold "
+                "watch",
+        "rim": "pink",
+        "sig": "fanning out a handful of glossy blank coupons toward the viewer like a winning poker hand, winking, "
+               "the gold tooth flashing",
+        "exprs": ["neutral", "freude", "ueberrascht", "signatur"],
+    },
+})
 ROBOT_TEXT = {
     "neutral": "sitting upright, head tilted slightly, visor glowing a calm steady amber, ears up, attentive and "
                "loyal",
@@ -473,6 +1035,8 @@ def config(cid: str) -> dict:
 
 def expr_text(cid: str, expr: str) -> str:
     c = defaults(cid)
+    if expr in c.get("texts", {}):  # eigene Ausdruckstexte je Figur (art-fig-b: Maschinen)
+        return c["texts"][expr]
     if c.get("special") == "hologram":
         return HOLO_TEXT[expr]
     if c.get("special") == "plush":
@@ -529,6 +1093,11 @@ def base_prompt(cid: str, expr: str) -> str:
                "dog (metal, scratched paint, rubber hoses, real reflections), not a living animal, not a drawing and "
                "not a person; the head fills the upper third of the frame, the body down to the front paws below "
                "it, camera at the dog's eye level")
+    elif special == "machine":  # art-fig-b: Roboter ohne Tiergestalt (mixi, opa-blech, krabbe-karl)
+        who = (f"Subject: {subject(cid)}. A real photograph of a real, physical robot (metal, scratched paint, "
+               "rubber hoses, real reflections), not a person, not an animal and not a drawing; match the shape, "
+               "colors and details of the painted references exactly; the robot's head or eyes sit in the upper "
+               "third of the frame, camera at the robot's eye level")
     else:
         who = (f"Subject: a real human being (not a drawing), {subject(cid)}. Match the hair, face, clothing and "
                "colors of the painted character references exactly, translated into a real person with natural "
