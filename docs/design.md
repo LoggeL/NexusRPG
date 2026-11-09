@@ -19,6 +19,7 @@ Open-World-Rollenspiel im Browser: Die selbst erstellte Spielfigur kommt neu in 
 - Sprache: Deutsch mit korrekten Umlauten.
 - Steuerung: WASD/Pfeile bewegen, Klick/Tippen setzt Laufziel (Pfadsuche), E/Leertaste/Enter interagiert bzw. setzt Dialoge fort, I Inventar, C Charakter (Attribute, Perks, Cyberware), Q Questlog, R Beziehungen, M Stadtkarte (Schnellreise über U-Bahn-Stationen), P Telefon/Nachrichten, Esc Menü/Schließen, F1 Kollisionsansicht, F2 Debug-Menü. Touch: virtueller Stick, Aktionsknopf, Menüknöpfe.
 - Speicherung: Autosave in `localStorage` nach jeder Zustandsänderung (gedrosselt), drei Speicherplätze, Export/Import als JSON mit Versions- und Strukturprüfung. Ungültige Importe verändern die laufende Partie nicht. Spielstandversion 2 (Charakter-Baukasten, §3.1a); Version-1-Stände werden beim Laden und Importieren migriert statt wegen der Version abgelehnt.
+- Versteckter Galerie-Shortcut: Fünf Klicks oder Taps auf „Nexus“ im Titelbildschirm schalten alle Galerie-Szenen spielstandübergreifend frei. Der Galeriezähler aktualisiert sich sofort. Die Klicks zählen pro Aufruf des Titelbildschirms.
 - URL-Einstiege für Tests: `?scene=title`, `?map=<mapId>`, `?act=<1..3>`, `?battle=<encounterId>`, `?time=<morgen|tag|abend|nacht>`, `?newchar` (Charaktererstellung), `&debug`, `&seed=<n>`.
 - Test-Hook: `window.__nexus` (lesend plus Debug-Befehle: warp, giveItem, setAttr, addHearts, setTime, startBattle, winBattle) für Playwright.
 

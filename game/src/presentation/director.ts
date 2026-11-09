@@ -42,7 +42,7 @@ import { PlayerTextureBaker } from './phaser/playerTexture';
 import type { ExploreScene, Interactable } from './phaser/scenes/ExploreScene';
 import { isDebugOverlay } from './phaser/scenes/ExploreScene';
 import { canvasToDataUrl, drawCutscene } from './placeholders';
-import { createSaveSlots, summarizeSave } from '../platform/storage';
+import { createGalleryStore, createSaveSlots, summarizeSave } from '../platform/storage';
 import { galleryCutscenes, slotLine } from './dom/viewModels';
 
 export { hasOwn, isEndedSave } from './guards';
@@ -100,6 +100,7 @@ export class Director {
   private cutSkip = false;
   private inEnding = false;
   private placeholderCuts = new Map<string, string>();
+  private readonly galleryStore = createGalleryStore();
   private battleResolver: ((outcome: BattleOutcome) => void) | null = null;
   /** Karte, Tag und Tageszeit beim letzten Lauf der onEnter-Auslöser (Wechsel → Auslöser und Herz-Ereignis erneut). */
   private triggerSlot: string | null = null;
@@ -135,7 +136,7 @@ export class Director {
     };
     ctx.settings.subscribe(applySettings);
     applySettings();
-    installGallerySync(ctx.campaign);
+    installGallerySync(ctx.campaign, this.galleryStore);
     const stopUnlock = ctx.input.onUserGesture(() => {
       this.unlockAudio();
       if (this.audioRunning()) stopUnlock();
@@ -256,9 +257,12 @@ export class Director {
       },
       gallery: () => this.openGallery(),
       galleryCount: () => {
-        const seen = seenGallery(this.campaign);
+        const seen = seenGallery(this.campaign, this.galleryStore);
         const all = galleryCutscenes(this.content);
         return { seen: all.filter((cut) => seen.has(cut.id)).length, total: all.length };
+      },
+      unlockGallery: () => {
+        this.galleryStore.add(galleryCutscenes(this.content).map((cut) => cut.id));
       },
     });
   }
@@ -877,7 +881,7 @@ export class Director {
 
   openGallery() {
     if (this.shell.modalOpen('gallery')) return;
-    openGallery(this.shell, this.catalog, this.campaign, { reducedMotion: this.settings.get().reducedMotion });
+    openGallery(this.shell, this.catalog, this.campaign, { reducedMotion: this.settings.get().reducedMotion, store: this.galleryStore });
   }
 
   openSettings() {

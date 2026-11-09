@@ -22,6 +22,8 @@ export interface TitleActions {
   gallery?(): void;
   /** Anzahl gesehener / aller Schlüsselszenen für die Galerie-Schaltfläche. */
   galleryCount?(): { seen: number; total: number };
+  /** Versteckter Fünfklick-Shortcut auf dem Titel. */
+  unlockGallery?(): void;
 }
 
 /** Vollbild-Bildschirme über dem Canvas: Boot, Titel, Abspann. */
@@ -93,6 +95,18 @@ export class Screens {
       h('button', { class: 'btn', type: 'button', role: 'menuitem', 'data-testid': testid, onclick: action, ...extra },
         h('span', { class: 'label' }, label), sub ? h('span', { class: 'sub' }, sub) : null);
     const gallery = actions.galleryCount?.();
+    const galleryButton = actions.gallery
+      ? button('Galerie', 'title-gallery', () => actions.gallery?.(), {}, gallery ? `${gallery.seen} / ${gallery.total} Szenen` : null)
+      : null;
+    let titleClicks = 0;
+    const onTitleClick = () => {
+      if (!actions.unlockGallery || ++titleClicks !== 5) return;
+      actions.unlockGallery();
+      const count = actions.galleryCount?.();
+      const subtitle = galleryButton?.querySelector('.sub');
+      if (count && subtitle) subtitle.textContent = `${count.seen} / ${count.total} Szenen`;
+      say({ ok: true, message: 'Alle Galerie-Szenen freigeschaltet.' });
+    };
     const newGame = async () => {
       if (resumable && !(await this.shell.confirm('Neue Partie', 'Die laufende Partie wird ersetzt. Gesicherte Speicherplätze bleiben erhalten.', 'Neu beginnen', 'Abbrechen'))) return;
       actions.newGame();
@@ -107,12 +121,12 @@ export class Screens {
       actions.exportFile
         ? button('Exportieren', 'title-export', () => { actions.exportFile?.(); say({ ok: true, message: 'Spielstand als Datei gespeichert.' }); }, hasSave ? {} : { disabled: true, 'aria-disabled': 'true' }, 'Spielstand als Datei')
         : null,
-      actions.gallery ? button('Galerie', 'title-gallery', () => actions.gallery?.(), {}, gallery ? `${gallery.seen} / ${gallery.total} Szenen` : null) : null,
+      galleryButton,
       button('Einstellungen', 'title-settings', () => actions.settings()),
     ]);
     this.el.append(
       h('div', { class: 'title-bg', 'aria-hidden': 'true' }),
-      h('h1', { class: 'title-logo', 'data-testid': 'title-logo', 'data-text': 'Nexus' }, 'Nexus'),
+      h('h1', { class: 'title-logo', 'data-testid': 'title-logo', 'data-text': 'Nexus', onclick: onTitleClick }, 'Nexus'),
       h('p', { class: 'title-sub' }, 'Das RPG · Noxius 2086'),
       menu, status,
       h('div', { class: 'title-foot' }, 'WASD/Pfeile · E · I · C · Q · R · M · P · Esc'));

@@ -171,6 +171,7 @@ kbd { font-family: var(--font-text); font-weight: 700; font-size: 0.8em; padding
 .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: safe center; gap: var(--gap); z-index: 15; padding: var(--gap); }
 .screen[hidden] { display: none; }
 .title-logo { font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, calc(var(--ch) * 0.16), 112px); line-height: 1; color: var(--sand); text-shadow: 3px 3px 0 #5c1240, 6px 6px 0 #05030b, 0 0 24px rgba(0,0,0,0.6); margin: 0; letter-spacing: 0.02em; }
+.screen[data-screen="title"] .title-logo { user-select: none; touch-action: manipulation; }
 .title-sub { font-family: var(--font-display); font-size: clamp(18px, calc(var(--ch) * 0.055), 34px); color: var(--sea); margin: 0 0 calc(var(--gap) * 1.4); padding: 0 0.6em; background: rgba(4,14,14,0.66); box-shadow: 0 0 12px 4px rgba(4,14,14,0.45);
   /* Dunkle Platte + Umriss: lesbar auf dem orangen Abendhimmel des Titelbilds. */
   text-shadow: 2px 2px 0 #05030b, -1px -1px 0 #05030b, 1px -1px 0 #05030b, -1px 1px 0 #05030b; }
