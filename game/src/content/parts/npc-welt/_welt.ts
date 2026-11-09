@@ -121,3 +121,14 @@ export function geschenke(p: GiftPrefs): GiftPrefs {
 export function weltfigur(def: Omit<NpcDef, 'portrait'> & { portrait?: string }): NpcDef {
   return { portrait: def.id, sprite: `${def.id}-walk`, maxHearts: 5, ...def } as NpcDef;
 }
+
+/**
+ * Antagonist als Hintergrundfigur in Akt 1 (world.md §11.2): Tagesablauf plus ein Satz, kein Herzsystem
+ * (keine Herz-Ereignisse, `maxHearts: 1`, damit Geschenke in Akt 1 nicht hochzählen; ab `act2` erweitert der Akt-2-Teil).
+ */
+export function hintergrundfigur(def: NpcDef): NpcDef {
+  return { maxHearts: 1, ...def };
+}
+
+/** Ein-Satz-Dialog ohne Wahl (Hintergrundfiguren). */
+export const einSatz = (id: string, lines: DialogueLine[]): DialogueDef => dialog(id, [knoten('start', lines)]);

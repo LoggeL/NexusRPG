@@ -1,0 +1,28 @@
+# Lücken: npc-crew-a (Hunter, Raven, Dante, Gitter-Gerda)
+
+Dateien: `game/src/content/parts/npc-crew-a/{_helfer,hunter,raven,dante}.ts`.
+
+## Engine
+
+1. **Flirtzeilen ab ♥6.** `{ romance: npc }` ist laut contracts erst ab ♥8 wahr. Eine Bedingung „Romanze freigeschaltet, egal wie viele Herzen“ fehlt. Darum erscheinen die Flirt-Wahlen von Hunter und Dante (und Raven, falls sie je freigeschaltet wird) erst ab ♥8. In Akt 1 ist das genau die Obergrenze. **Vorschlag:** Bedingung `{ romanceEnabled: npc }` (Schalter + `romanceable` + kein Kind), dann die Flirt-`when` auf `{ all: [{ romanceEnabled }, { hearts: min 6 }] }` umstellen.
+2. **Begleiter-Fähigkeit hängt an einer Quest.** Hunters **Innere Mitte** gibt es erst nach `side-thai-chi`, Ravens **Handschellen-Trick** dauert nach `pers-raven-handschellen` 2 Runden (`raven-handschellen-trick-plus`). `CompanionDef.heartAbilities` kennt nur Herzen. **Vorschlag:** `CompanionDef.abilityUpgrades?: { when: Condition; add?: AbilityId; replace?: [AbilityId, AbilityId] }[]`. Im Moment hat Hunter nur die ♥6-Fähigkeit `hunter-schmiere-stehen`, und Raven behält den Grund-Trick.
+3. **Eigene Geschenkreaktion.** `ravens-alte-jacke` bringt laut world.md +150 und einen eigenen Dialog. Das Geschenk-UI kennt nur loves = +80. Notbehelf: Gesprächswahl „Ravens alte Lederjacke hinhalten“ in Ravens Menü (nimmt die Jacke, +150, eigene Zeilen). Über das Geschenk-UI gibt es weiter +80. **Vorschlag:** `GiftPrefs.special?: Record<ItemId, { delta: number; dialogue?: DialogueId }>`.
+4. **Herz-Ereignisse lösen nur beim Betreten einer Karte aus.** `he-hunter-2` (high-voltage, 00:00–02:00) startet nicht, wenn man um Mitternacht schon im Club steht. Man muss die Karte erst verlassen und wieder betreten. Die Telefon-Nachricht `tel-hunter-kasse` weist darauf hin. **Vorschlag:** `pendingHeartEvent` zusätzlich beim Wechsel der Tageszeit prüfen.
+5. **Puffer „Beschwingt“ bis Mitternacht.** `CheckBuff.untilDay` braucht einen absoluten Tag. Darum gilt der Puffer bei `he-hunter-10` und `he-dante-10` nur für den nächsten Ausstrahlung-Check (`consumes`). **Vorschlag:** relative Angabe `forDays: 0` (bis Tagesende).
+6. **Tagesgespräche abwechseln.** `TalkDef` kann nicht nach Tag oder zufällig wechseln. Die Varianten wechseln nach Tageszeit, Wochentag, Herzen, Quests und Flags. Die Flirtzeilen wechseln nach Wochentag. **Vorschlag:** Bedingung `{ dayMod: [n, rest] }`.
+
+## Andere Agenten
+
+- **Zone Eisenhof (`pkg-eisenhof`):** Der Ausgang `eisenhof → zellentrakt` muss für `he-raven-6` offen sein: `{ all: [{ hearts: 'raven', min: 6 }, { not: { seen: 'he-raven-6' } }, { weekday: ['di','do','sa'] }, { time: 'tag' }] }` oder Flag `raven_besuch_geplant`. Dieses Flag setzt Ravens Menü bzw. die Nachricht `tel-raven-besuch`. Die Zellennachbarin steht als `zellennachbarin` (Gitter-Gerda) am Spot `zellennachbarin` und ist in `raven.ts` definiert.
+- **Zone Lötgassen (`dantes-werkstatt`):** Notschlafplatz-Sofa ab Dante ♥4. `he-dante-4` setzt zusätzlich das Flag `dante_sofa`.
+- **Checks-Agent:** Ravens Entfesselungsgriff (`he-raven-4`) ist ein dauerhafter `checkBuff` mit +1 für Checks mit den Stichwörtern `fessel` oder `entfesseln`. Fessel-Situationen bitte so taggen. Ravens `partyCheckBonus` gilt für `schloss`, `fessel`, `einbruch` und `schleichen`, Hunters für `verhandeln` und `einschuechtern` (Ausstrahlung), Dantes für `hacken` und `reparieren` (Technik).
+- **Quest-Agent:** Aus den Gesprächen gestartet: `side-thai-chi` (Hunter, morgens, ab ♥3, nach `main-1-dante`, nur wenn `inactive`), `pers-raven-handschellen` (ab ♥3, nach `main-1-auf-raven`), `pers-dante-erstpressung` (in `he-dante-4`) und `pers-hunter-reiner-tisch` (Rivalität mit Hunter). Wenn die Quests eigene Auslöser haben, schadet das nicht: Der Start ist an `state: 'inactive'` gebunden. Die Versöhnungen mit Raven (Handschellen versenken) und Dante (beim Eins! absichtlich verlieren) laufen direkt mit `reconcile` im Rivalen-Gespräch, ohne Quest-ID.
+- **Hauptquest-Agent:** Raven wird nach `main-1-auf-raven` rekrutierbar (`recruit`-Bedingung). Wer die Szene baut, setzt `{ recruit: 'raven' }`. Danach gibt es zusätzlich die Wahl „Kommst du mit auf Tour?“. `dante_vertraut` setzt `he-dante-6` (Versprechen oder Mut). `main-1-dante` darf es ebenfalls setzen.
+- **Aria / Vex × Aria:** Die **Arm-Wartung bei Dante** ist in `dante.ts` gebaut (`dante-tag-armwartung`, Flag `vexaria_armwartung`, Aria ♥ +20, Dante ♥ +20, danach die Kurzoption „Kannst du nochmal nach dem Arm sehen, Doc?“). Bitte nicht doppelt anlegen. Crew-Kommentare von Hunter und Dante zu Vex × Aria hängen an `vexaria_eifersucht`, `vexaria_knutsch` und `aria_kuss`, für die Spielfigur ohne Vex an `aria_romanze_zusammen`.
+- **Art:** Für die ♥6-Szenen fehlen die Tafeln `cut-he-hunter-6` (Angelsteg im Morgennebel, Hunter im Seidenhemd mit Sonnenbrille, Käpt'n Nebelhorn mit Pfeife), `cut-he-raven-6` (Besucherraum, Panzerglas, Raven und Gerda mit den Händen an der Scheibe) und `cut-he-dante-6` (Dante kniet vor dem offenen Schrank, Polaroids fallen heraus, keine Romanze). Für `zellennachbarin` fehlen Porträt, Fotos und `zellennachbarin-walk`. Bis dahin zeigt das Spiel Platzhalter.
+
+## Flags (Paar-Strang Dante/Raven, boolesch)
+
+- Akt 1, Tendenz: `paar_dante_raven_ermutigt` (aus `he-raven-6` oder `he-dante-6`) oder `paar_dante_raven_entmutigt`. Ohne Flag gilt `offen`.
+- Ab act2, endgültig: `paar_dante_raven_geholfen` oder `paar_dante_raven_gestoert`, gesetzt in `he-raven-10` oder `he-dante-10`. Bei `geholfen` ist die Romanze mit Dante gesperrt.
+- Geheimnis: `dante_geheimnis_versprochen` → `dante_geheimnis_gebrochen` (in `he-raven-6` verraten, Dante ♥ −40, einmalige Reaktion `dante-tag-verpetzt`).

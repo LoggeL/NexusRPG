@@ -4,7 +4,7 @@
 import type { ContentPart } from '../../part';
 import type { DialogueDef, HeartEventDef } from '../../../modules/contracts';
 import {
-  a, all, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, s, seen, set, station, STATION_START, V, v,
+  a, all, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, s, seen, set, station, STATION_START, V, v,
 } from './_util';
 
 // ---------------------------------------------------------------------------
@@ -326,34 +326,7 @@ const armdrueckenVerloren: DialogueDef = dlg('rom-vexaria-armdruecken-verloren',
   ...armdrueckenNach('l'),
 ]);
 
-// ---------------------------------------------------------------------------
-// Kurzszene Arm-Wartung bei Dante (beide Fassungen, einmal nach Station 3)
-
-const armwartung: DialogueDef = dlg('vex-armwartung', [
-  node('start', [
-    n('Dantes Werkstatt. Dein Ratenarm liegt aufgeklappt auf der Werkbank wie ein Patient, der zu viel Geld schuldet. Aria sitzt daneben auf der Kante, die Beine baumeln.'),
-    s('dante', 'Wer hat das zusammengeklebt? Ripper? Natürlich Ripper. Das ist kein Arm, das ist ein Ratenvertrag mit Fingern.', 'wut'),
-    a('Mach ihn heil. Ich hab ihn verbogen. … Ein bisschen.', 'ueberrascht'),
-    s('dante', 'EIN BISSCHEN? Der Ellbogen ist oval! Ellbogen sind nicht oval! Heiliges Kanonenrohr!', 'ueberrascht'),
-    a('Ich hab bei meinem nie zugeguckt. Ist ekliger als gedacht. Mach weiter.', 'freude'),
-    s('dante', 'Ich bau dir was Gescheites. Umsonst. Dafür verlier ich halt zweimal im Monat gegen Ripper.', 'signatur'),
-    v('Nee. Ich zahl, was ich schulde.'),
-    n('Aria hört auf zu baumeln.'),
-    a('Ich hab damals nein gesagt zu dem Ding. Du konntest nicht.', 'trauer'),
-    v('Ich hab nicht mal gefragt.'),
-    n('Dante schraubt sehr konzentriert an einer Schraube, die schon fest ist.'),
-  ], {
-    choices: [
-      ch('„Mach einfach. Und red nicht drüber.“', 'ende'),
-      ch('Ihr den Schraubenzieher reichen, bevor Dante danach fragt.', 'ende', { effects: [herz(10)] }),
-    ],
-  }),
-  node('ende', [
-    s('dante', 'Läuft jetzt leiser. Sag\'s Ripper nicht. Und sag ihr nicht, dass ich weich bin.', 'neutral'),
-    a('Zu spät. Ich hab\'s gesehen. Du hast „armes Ding“ zu einem Kolben gesagt.', 'freude'),
-    n('Du beugst den Arm. Kein Zischen mehr. Nur ein leises Summen, fast zufrieden.'),
-  ], { effects: [herz(20), { relation: 'dante', delta: 20 }, set('vexaria_arm_summt')] }),
-]);
+// Arm-Wartung bei Dante: gebaut in npc-crew-a/dante.ts (`dante-tag-armwartung`, Flag `vexaria_armwartung`).
 
 // ---------------------------------------------------------------------------
 // Ripper-Tag (beide Fassungen, ab Spielstart): Montagabend am Ecktisch, 25 Cr Rate.
@@ -464,12 +437,6 @@ export const RIVALINNEN_EVENTS: HeartEventDef[] = [
     when: all(V, HEUTE_FREI, seen('rom-vexaria-luecke'), seen('rom-aria-training')),
     cutscene: 'rom-vexaria-armdruecken',
   }),
-  {
-    id: 'vex-armwartung', hearts: 6, map: 'dantes-werkstatt', time: ['tag', 'abend'],
-    when: all(V, seen('rom-vexaria-armdruecken'), not(seen('vex-armwartung'))),
-    dialogue: 'vex-armwartung',
-    effects: [{ xp: 15 }],
-  },
 ];
 
 // Ripper-Tag als Kartenauslöser (wiederholbar, einmal pro Montag).
@@ -483,7 +450,7 @@ const ripperTrigger = ripperVarianten.map((r) => ({
 
 export const part: ContentPart = {
   dialogues: byId([
-    schutzgeld, luecke1, luecke2, armdruecken, armdrueckenSieg, armdrueckenVerloren, armwartung,
+    schutzgeld, luecke1, luecke2, armdruecken, armdrueckenSieg, armdrueckenVerloren,
     ...ripperVarianten.map((r) => ripperTag(r.id, r.line)),
   ]),
   cutscenes: byId(cutscenes),

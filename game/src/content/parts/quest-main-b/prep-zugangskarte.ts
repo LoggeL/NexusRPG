@@ -153,7 +153,7 @@ export const part: ContentPart = {
           id: 'prep-zugangskarte-heimweg',
           encounter: 'enc-gasse-pfeffer',
           at: 'pfeffer-gasse',
-          sprite: 'pfeffer-walk',
+          sprite: 'quantum-wachmann-walk',
           when: all(OFFEN, { weekday: ['fr', 'sa'] }, { time: 'nacht' }),
           once: true,
         },

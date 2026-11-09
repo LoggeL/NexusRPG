@@ -110,6 +110,7 @@ const werkstatt: DialogueDef = {
         nar('Einen Moment lang stehen die beiden da, zwei Meter auseinander, und keiner weiß, wohin mit den Händen. Captain Kuschel klappt ein Ohr nach unten.'),
         l('dante', 'Und du bist der Neuling. Hunter hat erzählt. Du riechst nach Club und Ehrgeiz. Fass nichts an, was blinkt. Und nichts, was nicht blinkt, das ist meistens schlimmer.', 'signatur'),
       ],
+      effects: [{ setFlag: 'dante_tuer' }],
       choices: [
         { text: '(Zum Faxgerät gehen.) „Ist das ein Fernkopierer von 2060? Mit echtem Thermopapier?“', check: 'gc-18', next: 'fax' },
         { text: '„Dein Zentrator da drüben. Du hast die Kühlung umgedreht, oder? Damit er nicht überschwingt.“', tag: '[Schrott]', when: { origin: 'origin-schrott' }, next: 'zentrator' },
@@ -372,7 +373,8 @@ export const part: ContentPart = {
     },
     'dantes-werkstatt': {
       onEnter: [
-        { id: 'main-1-dante-besuch', when: all(active(Q), flag('dante_tuer'), noFlag('dante_abgelehnt')), dialogue: werkstatt.id },
+        // Auch wer ohne Türgespräch hereinkommt, landet im Gespräch (dante_tuer setzt dann der Startknoten).
+        { id: 'main-1-dante-besuch', when: all(active(Q), noFlag('dante_abgelehnt'), WACH), dialogue: werkstatt.id },
       ],
       hotspots: [
         {
@@ -381,7 +383,7 @@ export const part: ContentPart = {
           label: 'Mit Dante reden (Hunters Plan)',
           kind: 'talk',
           dialogue: werkstatt.id,
-          when: all(active(Q), flag('dante_tuer'), noFlag('dante_abgelehnt')),
+          when: all(active(Q), noFlag('dante_abgelehnt'), WACH),
         },
       ],
     },

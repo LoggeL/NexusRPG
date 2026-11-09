@@ -1,5 +1,5 @@
 // Hilfen für den Strang Vex × Aria „Nicht anhalten“ und Arias Akt-1-Stationen (world.md §4.7).
-// Keine eigene Inhaltsdatei (kein `export const part`), nur Bausteine für die Dateien in diesem Ordner.
+// Keine eigene Inhaltsdatei (kein Inhaltsteil), nur Bausteine für die Dateien in diesem Ordner.
 import type {
   CheckDef, Condition, CutsceneBeat, CutsceneDef, DialogueChoice, DialogueDef, DialogueLine, DialogueNode, Effect,
   Expression, HeartEventDef, MapId, TimeSlot,
@@ -15,7 +15,7 @@ export const NOT_V: Condition = { not: V };
 export const R: Condition = { romance: 'aria' };
 /** Höchstens eine Station pro Tag, beide Stränge zusammen (world.md §4.7). */
 export const HEUTE_FREI: Condition = { notFlag: 'aria_heute' };
-/** „Zwei Tage nach …“ ist um (siehe vexaria-system.ts, Tageswechsel). */
+/** „Zwei Tage nach …“ ist um (siehe system.ts, Tageswechsel). */
 export const WARTEN_VORBEI: Condition = { all: [{ notFlag: 'aria_warte1' }, { notFlag: 'aria_warte2' }] };
 /** Noch kein Akt 2 (Akt-1-Weg des Strangs, gaps/vexaria.md). */
 export const AKT1: Condition = { not: { act: 2 } };
@@ -43,8 +43,8 @@ export const set = (f: string, value = true): Effect => (value ? { setFlag: f } 
 export const herz = (delta: number): Effect => ({ relation: 'aria', delta });
 export const xp = (amount: number): Effect => ({ xp: amount });
 export const msg = (text: string): Effect => ({ message: text });
-/** Station beginnt: Tagessperre sofort setzen (vor Reisen am Ende des Dialogs). */
-export const STATION_START: Effect[] = [{ setFlag: 'aria_heute' }, { setFlag: 'aria_abend' }];
+/** Station beginnt: Tagessperre sofort setzen (vor Reisen am Ende des Dialogs). Tageswechsel siehe system.ts. */
+export const STATION_START: Effect[] = [{ setFlag: 'aria_heute' }];
 /** Abschluss jeder Station: Herz-Ereignis 25 XP (world.md §4.7). */
 export const STATION_ENDE: Effect[] = [{ setFlag: 'aria_heute' }, { xp: 25 }];
 /** „Frühestens zwei Tage nach …“ starten. */

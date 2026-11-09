@@ -75,3 +75,20 @@ function kombinationen<T>(liste: readonly T[], k: number): T[][] {
 export function mindestens(items: readonly string[], k: number): Condition {
   return { any: kombinationen(items, k).map((c) => ({ all: c.map((item) => ({ item })) })) };
 }
+
+/**
+ * `once` gilt je Dialog-ID; geteilte Menüs stecken aber in vielen Tagesgespräch-Varianten. Damit Herz-Boni aus
+ * einmaligen Wahlen nicht pro Variante neu zu holen sind, bekommt jede `once`-Wahl ein globales Flag `einmal_<prefix>_<id>`.
+ */
+export function einmalig(prefix: string, list: DialogueChoice[]): DialogueChoice[] {
+  return list.map((choice) => {
+    if (!choice.once) return choice;
+    const key = `einmal_${prefix}_${(choice.id ?? choice.next ?? 'wahl').replace(/-/g, '_')}`;
+    const guard: Condition = { notFlag: key };
+    return {
+      ...choice,
+      when: choice.when ? { all: [choice.when, guard] } : guard,
+      effects: [...(choice.effects ?? []), { setFlag: key }],
+    };
+  });
+}

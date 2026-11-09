@@ -296,7 +296,9 @@
     "portrait-vex": "assets/portraits/vex.webp",
     "portrait-wache": "assets/portraits/wache.webp",
     "portrait-xion": "assets/portraits/xion.webp",
-    "prop-captain-kuschel": "assets/props/captain-kuschel.png"
+    "prop-captain-kuschel": "assets/props/captain-kuschel.png",
+    "ui-city-map": "assets/ui/city-map.webp",
+    "ui-title": "assets/ui/title.webp"
   },
   "sprites": {
     "abzieher-walk": {

@@ -362,7 +362,8 @@ export const part: ContentPart = {
         {
           id: 'main-1-raven-am-tor',
           npc: 'raven',
-          at: 'entlassungstor',
+          // Neben dem Tor (Spot entlassungstor ist Kessels Platz): leicht links davon.
+          at: [1235, 505],
           facing: 's',
           dialogue: tor.id,
           when: all(active(Q), { time: 'morgen' }),

@@ -10,7 +10,7 @@
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueDef, HeartEventDef, PhoneMessageDef } from '../../../modules/contracts';
 import {
-  a, AKT1, all, ANGEBAHNT, any, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, R, ROM_AN, s, seen,
+  a, AKT1, all, any, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, R, ROM_AN, s, seen,
   set, STATION_START, STREIT, twin, V, v,
 } from './_util';
 
@@ -530,7 +530,3 @@ export const part: ContentPart = {
     },
   },
 };
-
-// Für spätere Akt-2-Anbindung (rom-aria-streit setzt dieselben Flags).
-export const _ANGEBAHNT = ANGEBAHNT;
-export const _ROM_AN = ROM_AN;
