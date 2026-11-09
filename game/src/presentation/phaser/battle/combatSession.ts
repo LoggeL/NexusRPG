@@ -3,8 +3,8 @@
 //
 //   installBattleRunner(director, createCombatSessionFactory(director.content, () => director.campaign.state()));
 import {
-  abilityOptions, act, actionOptions, areaPreview, attackTargets, bagFromInventory, battleResult, battleSeed, createBattle,
-  findUnit, itemAbility, itemOptions, moveOptions, partyFromCampaign, planAiAction, startStatusFromCampaign,
+  abilityDef, abilityOptions, act, actionOptions, areaPreview, attackTargets, bagFromInventory, battleResult, battleSeed, carryCandidate,
+  createBattle, findUnit, itemAbility, itemOptions, moveOptions, partyFromCampaign, planAiAction, startStatusFromCampaign,
   type ActionOptions, type AttackPreview, type BattleSetup, type CombatState, type HitPart,
 } from '../../../modules/combat';
 import type { AbilityDef, Cell, EncounterDef, GameContent, GameState } from '../../../modules/contracts';
@@ -105,12 +105,13 @@ export class CombatSession implements BattleSessionPort {
   apCost(unitId: string, action: SessionAction): number {
     const unit = findUnit(this.s, unitId);
     switch (action.type) {
-      case 'ability': return this.content.abilities[action.ability]?.ap ?? 1;
+      case 'ability': return abilityDef(this.content, action.ability)?.ap ?? 1;
       case 'item': {
         const item = this.content.items[action.item];
         return item ? itemAbility(this.content, item)?.ap ?? 1 : 1;
       }
       case 'flee': case 'end': case 'weapon': return 0;
+      case 'carry': return unit?.carrying ? 0 : 1;
       case 'overwatch': return Math.max(1, unit?.ap ?? 1);
       default: return 1;
     }
@@ -151,6 +152,19 @@ export class CombatSession implements BattleSessionPort {
         action: { type: 'interact' },
       });
     }
+    // Bewusstlose Schutzperson (Missionsziel `rescue.immobile`): schultern bzw. absetzen.
+    if (this.s.objective.kind === 'rescue' && this.s.objective.immobile && !unit.vip) {
+      const carried = unit.carrying ? findUnit(this.s, unit.carrying) : undefined;
+      const candidate = carried ? undefined : carryCandidate(this.s, unit);
+      extras.push(carried ? {
+        key: 'carry', label: 'Absetzen', hint: `${carried.name} ablegen (0 AP).`, ap: 0, enabled: true, action: { type: 'carry' },
+      } : {
+        key: 'carry', label: 'Tragen', hint: 'Die bewusstlose Person auf dem Nachbarfeld schultern (1 AP). Sie folgt jedem Schritt.', ap: 1,
+        enabled: !!candidate && unit.ap >= 1,
+        reason: candidate ? (unit.ap >= 1 ? undefined : 'Keine Aktionspunkte mehr.') : 'Niemand Bewusstloses auf dem Nachbarfeld.',
+        action: { type: 'carry' },
+      });
+    }
     if (unit.weapons.length > 1) {
       const next = (unit.weaponIndex + 1) % unit.weapons.length;
       const kind = unit.weapons[next].kind;
@@ -169,7 +183,7 @@ export class CombatSession implements BattleSessionPort {
   }
 
   private defOf(action: TargetedAction): AbilityDef | null | undefined {
-    if (action.type === 'ability') return this.content.abilities[action.ability] ?? null;
+    if (action.type === 'ability') return abilityDef(this.content, action.ability) ?? null;
     if (action.type === 'item') {
       const item = this.content.items[action.item];
       return item ? itemAbility(this.content, item) : null;
@@ -186,7 +200,7 @@ export function createCombatSessionFactory(content: GameContent, state: () => Re
     return new CombatSession(content, encounter, {
       encounter: encounter.id,
       seed: battleSeed(current, encounter.id),
-      party: partyFromCampaign(content, current),
+      party: partyFromCampaign(content, current, encounter),
       bag: bagFromInventory(content, current.inventory),
       start: options.start,
       difficulty: options.difficulty,

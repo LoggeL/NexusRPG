@@ -10,9 +10,9 @@
 import type { AbilityDef, AttributeId, Cell } from '../contracts';
 import { ATTRIBUTE_LABELS, clamp } from '../campaign/ids';
 import { coverAgainst, distance, lineOfSight, relationTo } from './grid';
-import { attributeOf, hasStatus, isBeneficial, isInvulnerable, needsSight } from './queries';
+import { attributeOf, chipBoost, hasStatus, isBeneficial, isChipped, isInvulnerable, needsSight, positiveStatuses } from './queries';
 import {
-  ABILITY_REVIVE, ABILITY_WEAPON, COVER_FULL, CRIT_MULTIPLIER, EASY_HIT_BONUS, FLANK_BONUS, HIT_BASE, HIT_MAX,
+  ABILITY_REVIVE, ABILITY_WEAPON, CHIP_FREE_BELOW, COVER_FULL, CRIT_MULTIPLIER, EASY_HIT_BONUS, FLANK_BONUS, HIT_BASE, HIT_MAX,
   HIT_MIN, HIT_PER_REFLEX, MARKED_BONUS, MIN_DAMAGE, OVERWATCH_PENALTY, PROTECTED_PENALTY, REVIVE_FRACTION,
   SOCIAL_ATTRIBUTE_FACTOR, SURPRISE_BONUS, WEAPON_ATTRIBUTE,
 } from './rules';
@@ -76,6 +76,7 @@ export function hitChance(state: CombatState, attacker: CombatUnit, target: Comb
   add('Waffe', usesWeapon(attacker, def) ? attacker.weapon.hit ?? 0 : 0);
   add('Fähigkeit', def?.hit ?? 0);
   add('Kampfbonus', attacker.bonus.hit);
+  add('Nexus-Knoten', chipBoost(state, attacker));
   add('Überwachungsfeuer', options.reaction ? -OVERWATCH_PENALTY : 0);
   add('Überrumpelt', state.surprise && attacker.team === 'party' ? SURPRISE_BONUS : 0);
   add('Leicht', state.difficulty === 'leicht' && attacker.team === 'party' ? EASY_HIT_BONUS : 0);
@@ -135,6 +136,10 @@ export function strikePreview(state: CombatState, attacker: CombatUnit, target: 
     lethal: false, cover: 0, flank: false,
   };
   if (def?.status) base.status = { id: def.status.id, turns: def.status.turns, chance: Math.round(100 * clamp(def.status.chance ?? 1, 0, 1)) };
+  const blocked = def ? targetBlocker(state, target, def) : null;
+  if (blocked) { base.valid = false; base.reason = base.reason ?? blocked; }
+  // Sonderwirkungen ohne Wurf und Schaden (Aufgabe, Chip ziehen, Zustände stehlen).
+  if (def?.special) return base;
 
   if (def && isBeneficial(def)) {
     base.heal = healOf(attacker, target, def);
@@ -169,4 +174,17 @@ export function strikePreview(state: CombatState, attacker: CombatUnit, target: 
     base.lethal = dmg.damage >= target.hp;
   }
   return base;
+}
+
+/** Zielbeschränkungen einer Fähigkeit (nur bestimmte Gegner, nur Gechippte, Sonderwirkungen) – null = erlaubt. */
+export function targetBlocker(state: CombatState, target: CombatUnit, def: AbilityDef): string | null {
+  if (def.onlyVs?.length && !(target.source.kind === 'enemy' && def.onlyVs.includes(target.source.enemy))) return 'Wirkt nur gegen ein bestimmtes Ziel.';
+  if ((def.chippedOnly || def.special === 'free') && !isChipped(target)) return 'Nur gegen Gechippte.';
+  if (def.special === 'free') {
+    const still = hasStatus(target, 'betaeubt') || hasStatus(target, 'gehackt') || target.hp <= target.maxHp * CHIP_FREE_BELOW;
+    if (!still) return 'Hält nicht still – erst betäuben, hacken (Chip-Ruhe) oder auf halbe LP bringen.';
+  }
+  if (def.special === 'yield' && isInvulnerable(state, target)) return 'Hört erst zu, wenn der Schutz gefallen ist.';
+  if (def.special === 'steal' && !positiveStatuses(target).length) return 'Da gibt es nichts zu holen.';
+  return null;
 }

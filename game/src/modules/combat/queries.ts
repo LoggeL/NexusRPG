@@ -2,7 +2,7 @@
 import type { AbilityDef, AbilityId, AttributeId, Cell, EnemyRule, StatusId, Team } from '../contracts';
 import { has } from '../campaign/ids';
 import { sameCell } from './grid';
-import { BUILTIN_ABILITIES, POSITIVE_STATUS } from './rules';
+import { builtinAbility, CHIPPED_HIT_BONUS, POSITIVE_STATUS } from './rules';
 import type { CombatData, CombatState, CombatUnit } from './types';
 
 export const isActive = (unit: CombatUnit): boolean => unit.state === 'active';
@@ -71,8 +71,26 @@ export function livingOf(state: CombatState, team: CombatUnit['team']): CombatUn
 /** Fähigkeitsdefinition aus dem Inhalt oder den eingebauten Kampfaktionen. */
 export function abilityDef(data: CombatData, id: AbilityId): AbilityDef | undefined {
   if (has(data.abilities, id)) return data.abilities[id];
-  return has(BUILTIN_ABILITIES, id) ? BUILTIN_ABILITIES[id] : undefined;
+  return builtinAbility(id);
 }
+
+/** Gechippt (EnemyRule `chipped`): befreien statt besiegen. */
+export const isChipped = (unit: CombatUnit): boolean => !!unit.rules?.some(rule => rule.kind === 'chipped');
+
+/** Trefferbonus eines Gechippten, solange einer seiner Nexus-Knoten (`boostWhile`) kämpft. */
+export function chipBoost(state: CombatState, unit: CombatUnit): number {
+  let bonus = 0;
+  for (const { rule } of rulesOf(unit, 'chipped')) {
+    if (!rule.boostWhile?.length) continue;
+    const node = state.units.some(other => other.id !== unit.id && isActive(other) && other.source.kind === 'enemy' && rule.boostWhile!.includes(other.source.enemy));
+    if (node) bonus = Math.max(bonus, rule.hit ?? CHIPPED_HIT_BONUS);
+  }
+  return bonus;
+}
+
+/** Positive Zustände einer Einheit (für „Ich teile nicht gerne“). */
+export const positiveStatuses = (unit: CombatUnit): StatusId[] =>
+  (Object.keys(unit.status) as StatusId[]).filter(status => POSITIVE_STATUS.has(status) && (unit.status[status] ?? 0) > 0);
 
 /** Ist die Fähigkeit für Verbündete gedacht (Heilung, Unterstützung, positiver Zustand)? */
 export function isBeneficial(def: AbilityDef): boolean {

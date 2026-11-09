@@ -1,6 +1,6 @@
 // Kampfregeln: Brücke zur Kampagne – Party aus dem Spielstand, Kampfgepäck, Seed und BattleResult.
 import { PLAYER_SPRITE } from '../appearance';
-import type { AbilityId, AttributeId, BattleResult, CompanionDef, EncounterDef, EncounterId, GameContent, GameState, ItemId, UnitStats, WeaponStats } from '../contracts';
+import type { AbilityId, AttributeId, BattleResult, CompanionDef, Effect, EncounterDef, EncounterId, GameContent, GameState, ItemId, UnitStats, WeaponStats } from '../contracts';
 import { combatBonus, effectiveAttribute, maxHpOf } from '../campaign/domains/character';
 import { heartsOf, relationOf } from '../campaign/domains/relations';
 import { ATTRIBUTE_IDS, CYBER_SLOTS, has, hashText } from '../campaign/ids';
@@ -62,8 +62,11 @@ export function companionStatsAt(companion: CompanionDef, level: number): UnitSt
   return out;
 }
 
-/** Spielfigur und aktive Begleiter als Kampfeinheiten (effektive Attribute, Kampfboni, Ausrüstung, Herzen, Duos). */
-export function partyFromCampaign(content: GameContent, state: Readonly<GameState>): PartyMemberSpec[] {
+/**
+ * Spielfigur und aktive Begleiter als Kampfeinheiten (effektive Attribute, Kampfboni, Ausrüstung, Herzen, Duos).
+ * Mit `encounter` kommen deren `partyAbilities` dazu, deren Bedingung im Spielstand gilt (Konter, Gegenstand, Gespräch).
+ */
+export function partyFromCampaign(content: GameContent, state: Readonly<GameState>, encounter?: EncounterDef): PartyMemberSpec[] {
   const test = (condition: CompanionDef['recruit']) => evaluateCondition(content, state, condition);
   const player = state.player;
   const attributes = {} as PartyMemberSpec['attributes'];
@@ -84,6 +87,10 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
     const ability = id ? content.cyberware[id]?.ability : undefined;
     if (ability) abilities.push(ability);
   }
+  // Fähigkeiten der Begegnung (EncounterDef.partyAbilities): Spielfigur bzw. alle Kämpfer, wenn die Bedingung gilt.
+  const encounterAbilities = (encounter?.partyAbilities ?? []).filter(entry => test(entry.when));
+  for (const entry of encounterAbilities) abilities.push(entry.ability);
+  const forCrew = encounterAbilities.filter(entry => entry.holder === 'party').map(entry => entry.ability);
   // Duo-Aktionen „Spielfigur + Begleiter“: Fähigkeit für die Spielfigur, solange der Partner in der Party ist.
   for (const npcId of state.party) {
     for (const duo of content.npcs[npcId]?.companion?.duo ?? []) {
@@ -93,15 +100,21 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
   const look = has(content.looks, player.look) ? content.looks[player.look] : undefined;
   const preset = player.preset ? content.presets?.[player.preset] : undefined;
   const maxHp = maxHpOf(content, player);
+  // Vertretung (Effekt `standIn`): Die Spielfigur kämpft im Körper der vertretenen Figur – deren Laufblatt und Porträt.
+  const standIn = player.standIn && has(content.npcs, player.standIn.npc) ? content.npcs[player.standIn.npc] : undefined;
+  const sprite = standIn && player.standIn ? standIn.sprite ?? `${player.standIn.npc}-walk` : preset?.sprite ?? look?.sprite ?? PLAYER_SPRITE;
+  const portrait = standIn ? standIn.portrait : preset?.portrait ?? (look?.portrait || undefined);
   const party: PartyMemberSpec[] = [{
     id: PLAYER_UNIT_ID, name: player.name, source: { kind: 'player' },
-    sprite: preset?.sprite ?? look?.sprite ?? PLAYER_SPRITE, portrait: preset?.portrait ?? (look?.portrait || undefined), level: player.level,
+    sprite, portrait, level: player.level,
     hp: Math.max(1, Math.min(maxHp, player.hp)), maxHp, armor: bonus.armor, attributes, weapons,
     abilities: [...new Set(abilities.filter(id => has(content.abilities, id)))], bonus: { ...bonus, armor: 0, hp: 0 },
   }];
   for (const npcId of state.party) {
     const npc = has(content.npcs, npcId) ? content.npcs[npcId] : undefined;
     if (!npc?.companion?.stats) continue;
+    // Haustier (Bolzen): keine eigene Einheit – seine Duo-Fähigkeiten hängen oben schon an der Spielfigur.
+    if (npc.companion.pet) continue;
     // Gerade nicht verfügbar (gefangen, gechippt): kämpft nicht mit, auch wenn die Party noch nicht bereinigt ist.
     if (npc.companion.unavailableWhen && test(npc.companion.unavailableWhen)) continue;
     const stats = companionStatsAt(npc.companion, player.level);
@@ -109,6 +122,7 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
     const companion = npc.companion as CompanionDef;
     const extra = (companion.heartAbilities ?? []).filter(entry => hearts >= entry.hearts).map(entry => entry.ability);
     for (const duo of companion.duo ?? []) if (duo.holder !== 'player' && test(duo.when)) extra.push(duo.ability);
+    extra.push(...forCrew);
     const own = applyAbilityRules([...stats.abilities, ...extra], companion, test);
     party.push({
       id: companionUnitId(npcId), name: npc.name, source: { kind: 'companion', npc: npcId },
@@ -156,10 +170,25 @@ export function battleResult(state: CombatState, outcome = state.outcome ?? 'fle
   const player = findUnit(state, PLAYER_UNIT_ID) ?? state.units.find(unit => unit.source.kind === 'player');
   const result: BattleResult = { encounter: state.encounter, outcome, playerHp: player ? player.hp : 1 };
   if (Object.keys(state.used).length) result.used = { ...state.used };
+  const effects = chippedDownEffects(state);
+  if (effects.length) result.effects = effects;
   if (outcome === 'win' && state.rewards) {
     if (Object.keys(state.rewards.loot).length) result.loot = { ...state.rewards.loot };
     if (state.rewards.xp) result.xp = state.rewards.xp;
     if (state.rewards.credits) result.credits = state.rewards.credits;
   }
   return result;
+}
+
+/** Rufverlust für Gechippte, die K.O. gingen statt befreit zu werden (EnemyRule `chipped.downRep`), je Fraktion summiert. */
+export function chippedDownEffects(state: CombatState): Effect[] {
+  const totals = new Map<string, number>();
+  for (const unit of state.units) {
+    if (unit.team !== 'enemy' || unit.state !== 'down') continue;
+    for (const rule of unit.rules ?? []) {
+      if (rule.kind !== 'chipped' || !rule.downRep) continue;
+      totals.set(rule.downRep.faction, (totals.get(rule.downRep.faction) ?? 0) + rule.downRep.delta);
+    }
+  }
+  return [...totals].filter(([, delta]) => delta !== 0).map(([rep, delta]): Effect => ({ rep, delta }));
 }

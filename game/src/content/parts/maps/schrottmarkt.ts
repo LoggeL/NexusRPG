@@ -346,7 +346,9 @@ const schrottmarkt: MapDef = {
   ],
   encounters: [
     {
-      id: 'rostzaehne-streife', encounter: 'enc-schrott-rostzahn-streife', at: [780, 880], sprite: 'rostzahn-schlaeger-walk', when: NACHTS,
+      id: 'rostzaehne-streife', encounter: 'enc-schrott-rostzahn-streife', at: [780, 880], sprite: 'rostzahn-schlaeger-walk',
+      // Nach side-rostzaehne-ende gibt es keine Streife mehr (Bande aufgelöst).
+      when: { all: [NACHTS, { notFlag: 'rostzaehne_aufgeloest' }] },
       patrol: [[780, 920], [780, 800], [700, 760], [860, 760], [780, 800]],
       avoid: { id: 'sm-streife-abwimmeln', attribute: 'strasse', threshold: 5, tags: ['einschuechtern', 'geruecht'], label: '[Straße 5]' },
     },

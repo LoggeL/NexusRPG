@@ -1,4 +1,25 @@
 {
+  "akt1-aufbruch": {
+    "file": "assets/cut/akt1-aufbruch.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 217106,
+    "blurhash": "L67TbDZ~NFOD}_#lniO9kGw]wJoz"
+  },
+  "akt1-labor-null": {
+    "file": "assets/cut/akt1-labor-null.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 130536,
+    "blurhash": "L81XBWaxmQkDb]f6eTfkVBj]bvad"
+  },
+  "ankunft-bahnhof": {
+    "file": "assets/cut/ankunft-bahnhof.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 185056,
+    "blurhash": "L47mXKfxm]=^}_A8Idos}]NGE3-W"
+  },
   "ende-doch-noch-ans-meer": {
     "file": "assets/cut/ende-doch-noch-ans-meer.webp",
     "width": 1536,
@@ -160,12 +181,47 @@
     "bytes": 172602,
     "blurhash": "L455U.GFDN@[bAX8MxwIibjEtmS}"
   },
+  "marla-brunnen": {
+    "file": "assets/cut/marla-brunnen.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 416932,
+    "blurhash": "LBE2Of9FD$%N^,e.RO9u.AjWD$xu"
+  },
   "peruecke-sendung": {
     "file": "assets/cut/peruecke-sendung.webp",
     "width": 1536,
     "height": 1024,
     "bytes": 147282,
     "blurhash": "LGB3BI9GNHog~WD*ayxv?IM{WAt7"
+  },
+  "probezeit-ecktisch": {
+    "file": "assets/cut/probezeit-ecktisch.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 194648,
+    "blurhash": "L570+6}a=gsDo%I-R.I.xKwv$lxF"
+  },
+  "prolog-gericht": {
+    "file": "assets/cut/prolog-gericht.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 156116,
+    "blurhash": "L15;zO=~E0$*~EM|x]RiXBMw%2V@"
+  },
+  "prolog-rohr": {
+    "file": "assets/cut/prolog-rohr.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 154848,
+    "blurhash": "L66k0b?K%jvy-YS#K5WArWW=NZxb"
+  },
+  "raven-freeze": {
+    "file": "assets/cut/raven-freeze.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 237502,
+    "blurhash": "LFA9Nj0|xH-W^PEQocn$R-R%xWI:"
   },
   "rom-aria-albtraum": {
     "file": "assets/cut/rom-aria-albtraum.webp",
@@ -251,6 +307,13 @@
     "bytes": 73070,
     "blurhash": "L67wEt[]9WEeo%f5V@i_EHS2o#aw"
   },
+  "rom-dante-date": {
+    "file": "assets/cut/rom-dante-date.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 114252,
+    "blurhash": "LQ7,}~oJWUj^-toLf5j]xxoMWUj]"
+  },
   "rom-dante-werkstatt": {
     "file": "assets/cut/rom-dante-werkstatt.webp",
     "width": 1536,
@@ -264,6 +327,13 @@
     "height": 1024,
     "bytes": 76132,
     "blurhash": "L76HQR+b9rB:,^sBJPJQDzOro#v#"
+  },
+  "rom-hunter-date": {
+    "file": "assets/cut/rom-hunter-date.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 102036,
+    "blurhash": "L48{qG=rxVs:%49[^6Nd}Zk7}r-B"
   },
   "rom-lio-dach": {
     "file": "assets/cut/rom-lio-dach.webp",
@@ -460,5 +530,19 @@
     "height": 1024,
     "bytes": 285664,
     "blurhash": "L49F~PEU5*$d}]9^NZe?EfNGadxG"
+  },
+  "wand-der-freiheit": {
+    "file": "assets/cut/wand-der-freiheit.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 445564,
+    "blurhash": "LEDH:I57$~NH}tIp-VNHJ5I:-UNa"
+  },
+  "wingman-sonnenuntergang": {
+    "file": "assets/cut/wingman-sonnenuntergang.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 85734,
+    "blurhash": "LQE,TY,=j[S4]-o1s.xF1LS4xExE"
   }
 }

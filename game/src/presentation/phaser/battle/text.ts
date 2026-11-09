@@ -3,6 +3,7 @@
 import type {
   AbilityDef, BattleOutcome, BattleState, BattleUnit, GameContent, StatusId,
 } from '../../../modules/contracts';
+import { builtinAbility } from '../../../modules/combat';
 import type { CoverLevel, SessionEvent, TargetPreview } from './rulesPort';
 
 type Lookup = Pick<GameContent, 'abilities'> & Partial<Pick<GameContent, 'items'>>;
@@ -45,7 +46,7 @@ export function damageText(damage: TargetPreview['damage']): string {
 
 /** Ist das ein Hack-Angriff (Glitch-Animation, Hack-Sound)? */
 export function isHack(content: Lookup, attacker: BattleUnit | undefined, ability?: string): boolean {
-  const def: AbilityDef | undefined = ability ? content.abilities[ability] : undefined;
+  const def: AbilityDef | undefined = ability ? content.abilities[ability] ?? builtinAbility(ability) : undefined;
   if (def) return def.kind === 'hack';
   return attacker?.weapon.kind === 'smart';
 }
@@ -54,7 +55,7 @@ export type AttackStyle = 'melee' | 'ranged' | 'hack';
 
 /** Darstellungsart eines Angriffs aus Fähigkeit bzw. Waffe. */
 export function attackStyle(content: Lookup, attacker: BattleUnit | undefined, ability?: string): AttackStyle {
-  const def = ability ? content.abilities[ability] : undefined;
+  const def = ability ? content.abilities[ability] ?? builtinAbility(ability) : undefined;
   if (def) {
     if (def.kind === 'hack') return 'hack';
     if (def.kind === 'nahkampf') return 'melee';
@@ -79,14 +80,14 @@ export function eventLine(content: Lookup, state: Pick<BattleState, 'units'>, ev
     case 'turn': return `Runde ${event.round}: ${who(event.unit)} ist am Zug.`;
     case 'move': return event.path.length ? `${who(event.unit)} bewegt sich ${event.path.length} ${event.path.length === 1 ? 'Feld' : 'Felder'}.` : null;
     case 'attack': {
-      const how = event.ability ? ` (${content.abilities[event.ability]?.name ?? event.ability})` : '';
+      const how = event.ability ? ` (${(content.abilities[event.ability] ?? builtinAbility(event.ability))?.name ?? event.ability})` : '';
       const chance = Number.isFinite(event.chance) ? ` – ${Math.round(event.chance)} %` : '';
       const prefix = event.reaction ? 'Überwachungsfeuer: ' : '';
       return event.hit
         ? `${prefix}${who(event.unit)} trifft ${who(event.target)}${how}: ${event.damage} Schaden${event.crit ? ' (Volltreffer!)' : ''}${chance}.`
         : `${prefix}${who(event.unit)} verfehlt ${who(event.target)}${how}${chance}.`;
     }
-    case 'ability': return `${who(event.unit)} setzt ${content.abilities[event.ability]?.name ?? event.ability} ein.`;
+    case 'ability': return `${who(event.unit)} setzt ${(content.abilities[event.ability] ?? builtinAbility(event.ability))?.name ?? event.ability} ein.`;
     case 'item': return `${who(event.unit)} benutzt ${content.items?.[event.item]?.name ?? event.item}.`;
     case 'heal': return `${who(event.target)} erhält ${event.amount} LP.`;
     case 'damage': return `${who(event.unit)} nimmt ${event.amount} Schaden (${DOT_LABEL[event.source]}).`;
@@ -129,7 +130,7 @@ export function eventFloats(event: SessionEvent, content?: Lookup): FloatText[] 
     case 'overwatch': return [{ unit: event.unit, text: 'Überwachung', tone: 'info' }];
     case 'cover': return [{ unit: event.unit, text: 'Deckung', tone: 'info' }];
     case 'weapon': return [{ unit: event.unit, text: 'Waffenwechsel', tone: 'info' }];
-    case 'ability': return [{ unit: event.unit, text: content?.abilities[event.ability]?.name ?? event.ability, tone: 'info' }];
+    case 'ability': return [{ unit: event.unit, text: (content?.abilities[event.ability] ?? builtinAbility(event.ability))?.name ?? event.ability, tone: 'info' }];
     case 'item': return [{ unit: event.unit, text: content?.items?.[event.item]?.name ?? event.item, tone: 'info' }];
     case 'objective': return [{ unit: event.unit, text: `Terminal ${event.progress}/${event.needed}`, tone: 'status' }];
     case 'phase': return [{ unit: event.unit, text: 'Neue Phase!', tone: 'info' }];

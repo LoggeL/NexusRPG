@@ -43,6 +43,13 @@ function menue(): Menue {
     { text: '„RichtigLauteMusik79“, hm?', when: { quest: STREAMING, state: 'done' }, once: true, id: 'r-rlm79', next: 'rlm79' },
     { text: 'Ich hab gehört, Sie spielen donnerstags Karten.', when: { seen: 'richter-karten-gesehen' }, once: true, id: 'r-karten', next: 'karten-frage' },
     { text: 'Kessel will kündigen. Wussten Sie das?', when: { quest: 'side-feierabend-fuer-kessel', state: 'active' }, once: true, id: 'r-kessel', next: 'kessel' },
+    {
+      // Richters Gefallen (side-streaming-suenden) direkt beim Aussteller einlösen; Dr. Winkel nimmt ihn genauso an.
+      text: 'Ihren Gefallen einlösen. (Fahndung auf 0)', tag: '[Fahndung]',
+      when: { all: [{ item: 'richters-gefallen' }, { any: [{ flag: 'fahndung_1' }, { flag: 'fahndung_2' }, { flag: 'fahndung_3' }] }] },
+      effects: [{ take: 'richters-gefallen' }, { wanted: -3 }, { advanceTime: 10 }],
+      next: 'gefallen',
+    },
     { text: 'Ich empfehle mich.' },
   ];
 
@@ -87,6 +94,12 @@ function menue(): Menue {
       R('Karten? Ich? Donnerstags? Im HIGH VOLTAGE?', 'ueberrascht'),
       R('Unbewiesen. Haltlos. Und wenn doch: Ich ermittle verdeckt. Gegen das Glücksspiel. Indem ich gewinne.'),
     ], { choices: zurueck }),
+    knoten('gefallen', [
+      erz('Du legst den Zettel auf den Richtertisch. Der Richter erkennt seine eigene Handschrift und verzieht das Gesicht, als hätte er in eine unreife Tomate gebissen.'),
+      R('„Ein Gefallen. Einer. Nicht übertreiben.“ Und Sie verbrauchen ihn für … eine Fahndung. Natürlich. Was auch sonst.', 'neutral'),
+      erz('Er tippt etwas in ein Terminal, das älter ist als Kessel. Ein Stempel. Noch ein Stempel. Ein dritter, aus Prinzip.'),
+      R('Akte geschlossen. Sie sind ein unbeschriebenes Blatt. Fangen Sie gar nicht erst an, es vollzukritzeln. Und jetzt raus, bevor ich mich an Ihr Gesicht erinnere.'),
+    ], { choices: zurueck, effects: [herz('richter', 5)] }),
     knoten('kessel', [
       R('Kessel. Natürlich wusste ich das. Sie hat mir drei Kündigungen in den Dienstbriefkasten gelegt. Alle ohne Stempel.', 'neutral'),
       R('Ohne Stempel ist eine Kündigung ein Brief. Und Briefe beantworte ich nicht. Ich bin kein Brieffreund, ich bin ein Gericht.'),

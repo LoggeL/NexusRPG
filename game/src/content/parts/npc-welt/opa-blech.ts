@@ -50,6 +50,19 @@ const T = {
     B('GUTEN TAG. ICH BIN OPA BLECH. SICHERHEITSEINHEIT DES KIOSKS VOLT-ECK. BITTE BEZAHLEN SIE IHRE NOUGATBOMBEN.'),
   ], M),
   standard: gespraech('opa-blech-tag-standard', [B('BÜRGER ERKANNT. FREUNDLICHKEITSPROTOKOLL AKTIV. HALLO.')], M),
+  // Kiosk-Gruß aus he-oma-volt-4 (Flags opa_blech_gruss_hoeflich/_ruppig/_collin, npc-kinder-alte/oma-volt.ts).
+  hoeflich: gespraech('opa-blech-tag-hoeflich', [
+    B('HERZLICH WILLKOMMEN IM VOLT-ECK. BITTE NICHTS KLAUEN.'),
+    B('OH. SIE SIND ES. DANN GILT: BITTE NUR WENIG KLAUEN. FREUNDLICHKEITSPROTOKOLL AKTIV.'),
+  ], M),
+  ruppig: gespraech('opa-blech-tag-ruppig', [
+    B('KAUF WAS ODER VERPISS DICH, BÜRGER.'),
+    B('KORREKTUR: SIE SIND BEKANNT. KAUF WAS UND VERPISS DICH DANACH. DAS IST HERZLICHKEIT. FRAU VOLT HAT ES SO EINGESTELLT.'),
+  ], M),
+  collin: gespraech('opa-blech-tag-collin', [
+    erz('Opa Blech senkt die Stimme um eine Oktave und hebt einen imaginären Hut.'),
+    B('GUTEN ABEND, NOXIUS! HIER IST COLLIN CHARLESTON. UNSER STUDIOGAST HEUTE: SIE. FRAGE AN DEN GAST: WOLLEN SIE NOUGATBOMBEN?'),
+  ], M),
 };
 
 /** ♥2: Gelenke ölen. */
@@ -124,11 +137,14 @@ const blech = weltfigur({
     rede('opa-blech-tag-lager', { not: WAECHTER }),
     rede('opa-blech-tag-erstes', nichtGetroffen(ID)),
     ...A23.talk,
+    rede('opa-blech-tag-collin', { all: [WAECHTER, { flag: 'opa_blech_gruss_collin' }] }),
+    rede('opa-blech-tag-ruppig', { all: [WAECHTER, { flag: 'opa_blech_gruss_ruppig' }] }),
+    rede('opa-blech-tag-hoeflich', { all: [WAECHTER, { flag: 'opa_blech_gruss_hoeflich' }] }),
     rede('opa-blech-tag-standard'),
   ],
 });
 
 export const part: ContentPart = {
   npcs: { [ID]: blech },
-  dialogues: sammle(T.rivale, T.lager, T.erstes, T.standard, he2, he4, ...A23.dialogues),
+  dialogues: sammle(T.rivale, T.lager, T.erstes, T.standard, T.hoeflich, T.ruppig, T.collin, he2, he4, ...A23.dialogues),
 };

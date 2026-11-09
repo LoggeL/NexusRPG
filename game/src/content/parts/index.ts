@@ -326,43 +326,44 @@ import { part as p322 } from './quest-side-c/side-wand-der-freiheit';
 import { part as p323 } from './system/abilities-items';
 import { part as p324 } from './system/checks';
 import { part as p325 } from './system/cyberware';
-import { part as p326 } from './system/items-andenken';
-import { part as p327 } from './system/items-cyberware';
-import { part as p328 } from './system/items-geschenke';
-import { part as p329 } from './system/items-kleidung';
-import { part as p330 } from './system/items-quest';
-import { part as p331 } from './system/items-sammeln';
-import { part as p332 } from './system/items-verbrauch';
-import { part as p333 } from './system/items-waffen';
-import { part as p334 } from './system/shops';
-import { part as p335 } from './vexaria/akt2';
-import { part as p336 } from './vexaria/akt3';
-import { part as p337 } from './vexaria/aria';
-import { part as p338 } from './vexaria/aria-akt1';
-import { part as p339 } from './vexaria/baukasten-naechte';
-import { part as p340 } from './vexaria/bruch';
-import { part as p341 } from './vexaria/danach';
-import { part as p342 } from './vexaria/enden';
-import { part as p343 } from './vexaria/funken';
-import { part as p344 } from './vexaria/hoehepunkt';
-import { part as p345 } from './vexaria/krise';
-import { part as p346 } from './vexaria/nachspiel';
-import { part as p347 } from './vexaria/rivalinnen';
-import { part as p348 } from './vexaria/system';
-import { part as p349 } from './vexaria/versoehnung';
-import { part as p350 } from './vexaria/zerberster';
-import { part as p351 } from './world-23/barks-23';
-import { part as p352 } from './world-23/drohnen-23';
-import { part as p353 } from './world-23/nachrichten-23';
-import { part as p354 } from './world-23/passanten-23';
-import { part as p355 } from './world-23/quartier-23';
-import { part as p356 } from './world-23/stadtereignisse-23';
-import { part as p357 } from './world-23/telefon-23';
-import { part as p358 } from './world/bezirke-fraktionen';
-import { part as p359 } from './world/nachrichten';
-import { part as p360 } from './world/quartier';
-import { part as p361 } from './world/stadtereignisse';
-import { part as p362 } from './world/telefon';
+import { part as p326 } from './system/festnahme';
+import { part as p327 } from './system/items-andenken';
+import { part as p328 } from './system/items-cyberware';
+import { part as p329 } from './system/items-geschenke';
+import { part as p330 } from './system/items-kleidung';
+import { part as p331 } from './system/items-quest';
+import { part as p332 } from './system/items-sammeln';
+import { part as p333 } from './system/items-verbrauch';
+import { part as p334 } from './system/items-waffen';
+import { part as p335 } from './system/shops';
+import { part as p336 } from './vexaria/akt2';
+import { part as p337 } from './vexaria/akt3';
+import { part as p338 } from './vexaria/aria';
+import { part as p339 } from './vexaria/aria-akt1';
+import { part as p340 } from './vexaria/baukasten-naechte';
+import { part as p341 } from './vexaria/bruch';
+import { part as p342 } from './vexaria/danach';
+import { part as p343 } from './vexaria/enden';
+import { part as p344 } from './vexaria/funken';
+import { part as p345 } from './vexaria/hoehepunkt';
+import { part as p346 } from './vexaria/krise';
+import { part as p347 } from './vexaria/nachspiel';
+import { part as p348 } from './vexaria/rivalinnen';
+import { part as p349 } from './vexaria/system';
+import { part as p350 } from './vexaria/versoehnung';
+import { part as p351 } from './vexaria/zerberster';
+import { part as p352 } from './world-23/barks-23';
+import { part as p353 } from './world-23/drohnen-23';
+import { part as p354 } from './world-23/nachrichten-23';
+import { part as p355 } from './world-23/passanten-23';
+import { part as p356 } from './world-23/quartier-23';
+import { part as p357 } from './world-23/stadtereignisse-23';
+import { part as p358 } from './world-23/telefon-23';
+import { part as p359 } from './world/bezirke-fraktionen';
+import { part as p360 } from './world/nachrichten';
+import { part as p361 } from './world/quartier';
+import { part as p362 } from './world/stadtereignisse';
+import { part as p363 } from './world/telefon';
 
 export const PARTS: readonly (readonly [string, ContentPart])[] = [
   ['combat-23/encounters-akt2-main', p0],
@@ -691,41 +692,42 @@ export const PARTS: readonly (readonly [string, ContentPart])[] = [
   ['system/abilities-items', p323],
   ['system/checks', p324],
   ['system/cyberware', p325],
-  ['system/items-andenken', p326],
-  ['system/items-cyberware', p327],
-  ['system/items-geschenke', p328],
-  ['system/items-kleidung', p329],
-  ['system/items-quest', p330],
-  ['system/items-sammeln', p331],
-  ['system/items-verbrauch', p332],
-  ['system/items-waffen', p333],
-  ['system/shops', p334],
-  ['vexaria/akt2', p335],
-  ['vexaria/akt3', p336],
-  ['vexaria/aria', p337],
-  ['vexaria/aria-akt1', p338],
-  ['vexaria/baukasten-naechte', p339],
-  ['vexaria/bruch', p340],
-  ['vexaria/danach', p341],
-  ['vexaria/enden', p342],
-  ['vexaria/funken', p343],
-  ['vexaria/hoehepunkt', p344],
-  ['vexaria/krise', p345],
-  ['vexaria/nachspiel', p346],
-  ['vexaria/rivalinnen', p347],
-  ['vexaria/system', p348],
-  ['vexaria/versoehnung', p349],
-  ['vexaria/zerberster', p350],
-  ['world-23/barks-23', p351],
-  ['world-23/drohnen-23', p352],
-  ['world-23/nachrichten-23', p353],
-  ['world-23/passanten-23', p354],
-  ['world-23/quartier-23', p355],
-  ['world-23/stadtereignisse-23', p356],
-  ['world-23/telefon-23', p357],
-  ['world/bezirke-fraktionen', p358],
-  ['world/nachrichten', p359],
-  ['world/quartier', p360],
-  ['world/stadtereignisse', p361],
-  ['world/telefon', p362],
+  ['system/festnahme', p326],
+  ['system/items-andenken', p327],
+  ['system/items-cyberware', p328],
+  ['system/items-geschenke', p329],
+  ['system/items-kleidung', p330],
+  ['system/items-quest', p331],
+  ['system/items-sammeln', p332],
+  ['system/items-verbrauch', p333],
+  ['system/items-waffen', p334],
+  ['system/shops', p335],
+  ['vexaria/akt2', p336],
+  ['vexaria/akt3', p337],
+  ['vexaria/aria', p338],
+  ['vexaria/aria-akt1', p339],
+  ['vexaria/baukasten-naechte', p340],
+  ['vexaria/bruch', p341],
+  ['vexaria/danach', p342],
+  ['vexaria/enden', p343],
+  ['vexaria/funken', p344],
+  ['vexaria/hoehepunkt', p345],
+  ['vexaria/krise', p346],
+  ['vexaria/nachspiel', p347],
+  ['vexaria/rivalinnen', p348],
+  ['vexaria/system', p349],
+  ['vexaria/versoehnung', p350],
+  ['vexaria/zerberster', p351],
+  ['world-23/barks-23', p352],
+  ['world-23/drohnen-23', p353],
+  ['world-23/nachrichten-23', p354],
+  ['world-23/passanten-23', p355],
+  ['world-23/quartier-23', p356],
+  ['world-23/stadtereignisse-23', p357],
+  ['world-23/telefon-23', p358],
+  ['world/bezirke-fraktionen', p359],
+  ['world/nachrichten', p360],
+  ['world/quartier', p361],
+  ['world/stadtereignisse', p362],
+  ['world/telefon', p363],
 ];

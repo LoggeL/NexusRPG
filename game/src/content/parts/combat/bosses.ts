@@ -1,6 +1,6 @@
 // Bosse aller Akte (world.md §8.5). Phasen über `phases` (Anteil der LP), Sonderregeln über `rules`
 // (modules/combat/bossRules.ts): Funkruf-Verstärkung, Unverwundbarkeit hinter Knoten, Firewall-Welle, Terminal halten,
-// Gleiter-Countdown, Charmeur, „Raven zögert“, Aufgeben statt K.O. Diebstähle kann die Engine noch nicht.
+// Gleiter-Countdown, Charmeur, „Raven zögert“, Aufgeben statt K.O. Blades „Ich teile nicht gerne“ stiehlt positive Zustände.
 import type { EnemyDef, EnemyRule } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import { byId, foe, scrap } from './_foe';

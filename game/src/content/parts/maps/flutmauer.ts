@@ -135,6 +135,8 @@ const flutmauer: MapDef = {
     // --- Mauerkrone ------------------------------------------------------------------------------------------------
     {
       id: 'wand-der-freiheit-ansehen', at: [1040, 225], radius: 70, label: 'Wand der Freiheit', kind: 'look', when: nichtNacht,
+      // Akt 2: Quantum hat übermalt, bis side-wand-der-freiheit-grau erledigt ist (Ersatz 'wand2-grau-ansehen', quest-side-c).
+      hideWhen: { all: [{ flag: 'wand_uebermalt' }, { not: { quest: 'side-wand-der-freiheit-grau', state: 'done' } }] },
       lines: [
         { speaker: N, text: 'Die Wand der Freiheit: zwanzig Meter Beton, vollgesprüht mit Gesichtern, Sternen, einer Welle so groß wie ein Mietshaus und einem Herz, über das jemand „Quantum lutscht“ gekritzelt und jemand anderes wieder übersprüht hat.' },
         { speaker: N, text: 'Hier unten malt man, was man oben nicht sagen darf. Unten links ist noch Platz. Sina hält ihn frei, für Leute mit Geschichten.' },

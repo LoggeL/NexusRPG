@@ -149,18 +149,44 @@ export const he10 = dialog('he-jimmy-10', [
 ]);
 
 /** Nachspiel: Der gechippte Jimmy ist wach (Variante B ohne Rettung). */
+const ERWACHT_WAHL: DialogueChoice[] = [
+  { text: '„Lötkolben-Soße, Jimmy. Thermoskannen. Heißgetränk.“', tag: '[Gosse]', when: { origin: 'origin-gossenkind' }, next: 'gosse', effects: [herz('jimmy', 40)] },
+  { text: '„Vega hat nie aufgehört, an dich zu glauben. Keinen Tag.“', next: 'vega', effects: [herz('jimmy', 30), herz('vega', 20)] },
+  { text: '„Willkommen zurück.“', next: 'willkommen', effects: [herz('jimmy', 30)] },
+];
+/** Wer ihn in main-3-labor aus dem Turm gebracht hat (jimmy_aus_labor): Pim durch die Schleuse, Kiki am Frachtschacht, sonst Vega. */
+const VON_PIM: Condition = { flag: 'jimmy_von_pim_gerettet' };
+const VON_KIKI: Condition = { all: [{ flag: 'jimmy_von_kiki_gerettet' }, { notFlag: 'jimmy_von_pim_gerettet' }] };
+const VON_VEGA: Condition = { all: [{ flag: 'jimmy_aus_labor' }, { notFlag: 'jimmy_von_pim_gerettet' }, { notFlag: 'jimmy_von_kiki_gerettet' }] };
+
 const erwacht = dialog('jimmy-erwacht', [
   knoten('start', [
     erz('Dantes Werkstatt. Auf dem Hocker sitzt Jimmy, in eine Decke gewickelt, beide Hände um eine Tasse Kakao. Hinter seinem Ohr eine frische Naht, wo der Chip war. Er sieht verloren aus. Aber er ist da.'),
-    D('Als Nexus rebelliert hat, sind die Chips ausgegangen. Alle. Seiner auch. Er sitzt seit drei Tagen hier. Er redet. Normal. Meistens.', 'besorgt'),
-    J('Hi. Ich bin Jimmy. Glaub ich. Die letzten Wochen sind wie ein Werbeblock, den man nicht überspringen kann.', 'trauer'),
   ], {
     choices: [
-      { text: '„Lötkolben-Soße, Jimmy. Thermoskannen. Heißgetränk.“', tag: '[Gosse]', when: { origin: 'origin-gossenkind' }, next: 'gosse', effects: [herz('jimmy', 40)] },
-      { text: '„Vega hat nie aufgehört, an dich zu glauben. Keinen Tag.“', next: 'vega', effects: [herz('jimmy', 30), herz('vega', 20)] },
-      { text: '„Willkommen zurück.“', next: 'willkommen', effects: [herz('jimmy', 30)] },
+      { text: '(Weiter.)', id: 'erwacht-pim', when: VON_PIM, next: 'pim' },
+      { text: '(Weiter.)', id: 'erwacht-kiki', when: VON_KIKI, next: 'kiki' },
+      { text: '(Weiter.)', id: 'erwacht-vega', when: VON_VEGA, next: 'aus-labor' },
+      { text: '(Weiter.)', id: 'erwacht-turm', when: { notFlag: 'jimmy_aus_labor' }, next: 'turm' },
     ],
   }),
+  knoten('pim', [
+    erz('Die Decke ist nicht Dantes. Kariert, mit Brandlöchern und einem Namensschild aus Klebeband: „PIM – NICHT KLAUEN“. Auf der Werkbank liegt eine leere Pommestüte, ordentlich gefaltet.'),
+    D('Pim hat ihn durch die Werkstattschleuse gebracht. Zugedeckt, ihm kalte Pommes in die Hand gedrückt und ist ohne ein Wort zurück in die Spätschicht. Als Nexus rebelliert hat, ist sein Chip ausgegangen. Ich hab ihn gezogen. Er sitzt seit drei Tagen hier.', 'besorgt'),
+    J('Hi. Ich bin Jimmy. Glaub ich. Das Erste nach dem Werbeblock waren kalte Pommes unter einer fremden Decke. Bestes Essen meines Lebens. Ich will die Decke behalten. Darf ich die Decke behalten?', 'trauer'),
+  ], { choices: ERWACHT_WAHL }),
+  knoten('kiki', [
+    D('Kiki hat ihn unten am Frachtschacht gefangen. Taxi drunter, Kofferraum auf, wie einen Kühlschrank. Hat ihn hier abgeladen, zweimal gehupt und ist weg. Als Nexus rebelliert hat, ist sein Chip ausgegangen. Ich hab ihn gezogen.', 'besorgt'),
+    J('Hi. Ich bin Jimmy. Glaub ich. Ich hab geträumt, ich fall durch einen langen dunklen Schacht und lande auf einer Rückbank, die nach Duftbaum und Zigaretten riecht. Dante sagt, das war kein Traum. Ich hab eine Beule, die das bestätigt.', 'trauer'),
+  ], { choices: ERWACHT_WAHL }),
+  knoten('aus-labor', [
+    D('Vega hat ihn aus dem Wartungsschacht geholt. Unter drei Laborkitteln, mit dem Schild auf der Brust. Das Schild hat sie behalten. Als Nexus rebelliert hat, ist sein Chip ausgegangen. Ich hab ihn gezogen.', 'besorgt'),
+    J('Hi. Ich bin Jimmy. Glaub ich. Auf meiner Brust stand „GEHÖRT DER CREW“. Das ist das Netteste, was je auf mir stand.', 'trauer'),
+  ], { choices: ERWACHT_WAHL }),
+  knoten('turm', [
+    D('Als Nexus rebelliert hat, sind die Chips ausgegangen. Alle. Seiner auch. Er sitzt seit drei Tagen hier. Er redet. Normal. Meistens.', 'besorgt'),
+    J('Hi. Ich bin Jimmy. Glaub ich. Die letzten Wochen sind wie ein Werbeblock, den man nicht überspringen kann.', 'trauer'),
+  ], { choices: ERWACHT_WAHL }),
   knoten('gosse', [
     J('Soße. Die Soße! Ich hab sie in Thermoskannen verkauft. Mit Pfand! Du hast die Kannen zurückgebracht!', 'freude'),
     J('Ich weiß wieder was. Etwas, das mir keiner einprogrammiert hat. Das ist … das ist das beste Gefühl der Welt.'),

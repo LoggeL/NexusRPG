@@ -1,9 +1,18 @@
 // Gegnertypen aller Akte (world.md §8.4) und benannte Akt-1-Gegner aus den Begegnungen (§8.7, §5.2, §6.2, §6.7).
 // Werte exakt nach der Tabelle; Schaden über `foe` auf Waffenschaden + Attribut umgerechnet (siehe _foe.ts).
 // Laufblätter: ohne `sprite` nimmt der Kampf `<id>-walk` (generische Blätter: design/plan/sprites-generic.md).
-import type { EnemyDef } from '../../../modules/contracts';
+import type { EnemyDef, EnemyRule } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import { byId, foe, pocket, scrap } from './_foe';
+import { NEXUS_KNOTEN } from './bosses';
+
+/**
+ * Gechippte (world.md §8.4): befreien statt besiegen. Die Party bekommt in solchen Kämpfen Chip-Ruhe und „Chip ziehen“;
+ * solange ein Nexus-Knoten steht, treffen Gechippte mit +10. `downRep`: Ruf für jeden, der K.O. geht statt befreit zu werden.
+ */
+const chipped = (def: EnemyDef, freeLine: string, downRep?: { faction: string; delta: number }): EnemyDef => ({
+  ...def, rules: [{ kind: 'chipped', boostWhile: NEXUS_KNOTEN, freeLine, ...(downRep ? { downRep } : {}) } satisfies EnemyRule],
+});
 
 const types: EnemyDef[] = [
   // --- Straße -------------------------------------------------------------
@@ -163,21 +172,21 @@ const types: EnemyDef[] = [
     dmg: [8, 10], kind: 'smart', range: 4, ai: 'aggressiv', abilities: ['sicherheitsprogramm-datenstich'],
     faction: 'quantum',
   }),
-  foe({
+  chipped(foe({
     id: 'gechippter-bewohner', name: 'Gechippter Bewohner', level: 4, hp: 30, armor: 0, ref: 3, fw: 4,
     dmg: [4, 6], kind: 'nahkampf', range: 1, ai: 'aggressiv', abilities: ['gechippter-bewohner-festhalten'],
     sprite: 'passant-arbeiterin-walk', xp: 20,
-  }),
-  foe({
+  }), 'Wo … bin ich? Ich wollte nur Brötchen holen. Wer zum Teufel ist dieser „Master“?', { faction: 'unterstadt', delta: -3 }),
+  chipped(foe({
     id: 'gechippter-partygast', name: 'Gechippter Partygast', level: 12, hp: 34, armor: 1, ref: 4, fw: 6,
     dmg: [6, 8], kind: 'nahkampf', range: 1, ai: 'aggressiv', abilities: ['gechippter-partygast-choreografie'],
     sprite: 'passant-anzug-walk', attrs: { koerper: 4 }, xp: 60,
-  }),
-  foe({
+  }), 'Hab ich gerade … mit einem Sektglas zugeschlagen? Ich bin Steuerberater. Ich hab Kinder. Glaub ich.'),
+  chipped(foe({
     id: 'gechippte-wache', name: 'Gechippte Wache', level: 13, hp: 48, armor: 3, ref: 5, fw: 7,
     dmg: [10, 12], kind: 'fernkampf', range: 6, ai: 'aggressiv', abilities: ['gechippte-wache-schockschuss'],
     sprite: 'quantum-wachmann-walk', faction: 'quantum',
-  }),
+  }), 'Schicht vorbei? … Warum hab ich Lippenstift am Schockgewehr? Und warum ist es nicht meiner?'),
   foe({
     id: 'nexus-splitter', name: 'Nexus-Splitter', level: 15, hp: 50, armor: 0, ref: 8, fw: 9,
     dmg: [10, 12], kind: 'smart', range: 6, ai: 'aggressiv', abilities: ['nexus-splitter-logikschleife'],

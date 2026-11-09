@@ -1,5 +1,5 @@
 // Ole Gähn in Akt 2, Akt 3 und im Nachspiel. Kein eigener Inhaltsteil: ole-gaehn.ts holt die Phasen von hier.
-// Ohne den Brief an Gerda zeigt npc-oednis/folgen.ts in Akt 2 und 3 tagsüber eine feste Platzierung mit eigenem
+// Ohne den Brief an Gerda zeigt npc-oednis/folgen.ts in Akt 2 (nicht Akt 3) tagsüber eine feste Platzierung mit eigenem
 // Gespräch (ole-akt2, „die Kabel singen“); diese Phasen greifen sonst (mit Brief, nachts, im Nachspiel).
 import type { Condition } from '../../../modules/contracts';
 import { type Menue, erz, knoten, sprecher } from './_welt';

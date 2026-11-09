@@ -16,6 +16,7 @@
 //   weather.ts     engine-welt (Wetter, angelegte Ausrüstung, Ladungen, eintägige Kartenhinweise)
 import type { Condition, Effect, GameContent, GameState, Request } from '../contracts';
 import { evaluateCondition } from './conditions';
+import { arrestEffects } from './domains/arrest';
 import { characterEffects } from './domains/character';
 import { clockEffects } from './domains/clock';
 import { combatEffects } from './domains/combat';
@@ -41,6 +42,7 @@ export const EFFECT_SPECS: EffectSpecs = {
   ...minigameEffects,
   ...weatherEffects,
   ...playerEffects,
+  ...arrestEffects,
 };
 
 /** Nachlauf in dieser Reihenfolge; jeder Haken meldet, ob er etwas geändert hat. */

@@ -68,7 +68,7 @@ const chat: PhoneMessageDef[] = [
       { text: 'Ich kann es versuchen.', effects: [herz('vega', 5)] },
     ]),
 
-  // Wetter (fester Zyklus, bis die Engine Wetter kennt)
+  // Wetter (Stadtwetter des Tages, world/_w.ts)
   sms('tel-chat-smog', CHAT,
     'Raven: Smog. – Nyra: man sieht nix!!!! ich hab mich in der eigenen gasse verlaufen – Vega: Du stehst vor dem Club, Nyra. Ich seh dich vom Ausguck. – Nyra: STALKERIN',
     all(PROBEZEIT, WETTER_SMOG, { time: 'morgen' })),

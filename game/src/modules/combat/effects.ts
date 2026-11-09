@@ -4,6 +4,7 @@ import type { BattleOutcome, Cell, StatusId } from '../contracts';
 import { clamp, has } from '../campaign/ids';
 import { distance, facingToward, isHazard, sameCell } from './grid';
 import { findUnit, homeTeam, isActive, isInvulnerable, livingOf, opponents, ruleOpen, rulesOf } from './queries';
+import { REP_LABELS } from './rules';
 import { nextRandom, randomInt } from './rng';
 import {
   FLED_XP_FACTOR, MORALE_ALLY_DOWN, MORALE_FLEE_BELOW, MORALE_SURRENDER_BELOW, STATUS_LABELS,
@@ -81,7 +82,14 @@ function knockOut(ctx: Ctx, unit: CombatUnit): void {
   unit.status = {};
   unit.overwatch = false;
   unit.ap = 0;
+  delete unit.carrying;
   emit(ctx, { type: 'down', unit: unit.id });
+  // Gechippte umhauen statt befreien kostet Ruf (abgerechnet in battleResult).
+  for (const { rule } of rulesOf(unit, 'chipped')) {
+    if (!rule.downRep) continue;
+    const faction = REP_LABELS[rule.downRep.faction] ?? rule.downRep.faction;
+    emit(ctx, { type: 'notice', unit: unit.id, tone: 'warn', text: `${unit.name} geht K.O. statt befreit zu werden – Ruf ${faction} ${rule.downRep.delta}.` });
+  }
   for (const ally of livingOf(ctx.s, unit.team)) changeMorale(ctx, ally, -MORALE_ALLY_DOWN);
 }
 
@@ -140,6 +148,7 @@ export function leaveField(ctx: Ctx, unit: CombatUnit, state: 'fled' | 'surrende
   unit.state = state;
   unit.overwatch = false;
   unit.ap = 0;
+  delete unit.carrying;
   emit(ctx, state === 'fled' ? { type: 'flee', unit: unit.id } : { type: 'surrender', unit: unit.id });
 }
 
@@ -181,10 +190,11 @@ export function checkOutcome(ctx: Ctx): boolean {
   if (!s.units.some(unit => homeTeam(unit) === 'enemy' && isActive(unit))) return finish(ctx, 'win');
   const objective = s.objective;
   if (objective.kind === 'hack' && s.progress >= objective.ap) return finish(ctx, 'win');
-  if (objective.kind === 'reach') {
+  if (objective.kind === 'reach' || (objective.kind === 'survive' && objective.exit?.length)) {
+    const cells = objective.kind === 'reach' ? objective.cells : objective.exit ?? [];
     const runners = s.units.filter(unit => unit.team === 'party' && isActive(unit) && unit.source.kind === 'player');
     const candidates = runners.length ? runners : partyFighters(s).filter(isActive);
-    if (candidates.some(unit => objective.cells.some(cell => sameCell(cell as Cell, unit.cell)))) return finish(ctx, 'win');
+    if (candidates.some(unit => cells.some(cell => sameCell(cell as Cell, unit.cell)))) return finish(ctx, 'win');
   }
   return false;
 }
@@ -227,6 +237,7 @@ export function takeControl(ctx: Ctx, unit: CombatUnit): void {
   unit.team = unit.team === 'party' ? 'enemy' : 'party';
   unit.controller = 'ai';
   unit.overwatch = false;
+  delete unit.carrying;
   emit(ctx, {
     type: 'notice', unit: unit.id, tone: 'warn',
     text: unit.home === 'party' ? `${unit.name} ist gesteuert und kämpft diesen Zug gegen euch!` : `${unit.name} kämpft diesen Zug auf eurer Seite.`,

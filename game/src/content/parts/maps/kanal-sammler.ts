@@ -529,7 +529,8 @@ const kanalSammler: MapDef = {
       lines: [{ speaker: N, text: 'Die Pilze leuchten so satt, dass du deinen eigenen Schatten siehst. Das Kanalvolk nennt das „Sommer“.' }],
     },
     // --- Laufsteg Süd ----------------------------------------------------------------------------------------------
-    { id: 'fluss-frieda', at: [452, 606], radius: 60, label: 'Fluss-Friedas Floßladen', kind: 'shop', shop: 'fluss-frieda' },
+    { id: 'fluss-frieda', at: [452, 606], radius: 60, label: 'Fluss-Friedas Floßladen', kind: 'shop', shop: 'fluss-frieda',
+      hideWhen: { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] } },
     {
       id: 'floss', at: [605, 742], radius: 44, label: 'Floßfahrt', kind: 'use',
       lines: [{ speaker: N, text: 'Ein Floß aus Ölkanistern und Türblättern. Die Stange hat jemand mit „Kapitän“ beschriftet. Die Stange lügt.' }],

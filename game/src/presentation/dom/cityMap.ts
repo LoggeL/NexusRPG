@@ -1,7 +1,8 @@
 // Stadtkarte (M, Bereich dom-ui): Stationen als Pins, Bezirkslegende, Stationsliste für Tastatur und Touch,
-// aktueller Ort und Zielmarker. Schnellreise per U-Bahn (+30 min) führt der Director über die Kampagne aus.
+// aktueller Ort und Zielmarker. Schnellreise per U-Bahn (30 bzw. 15 Minuten, `subwayMinutes`) führt der Director über die Kampagne aus.
 import type { CampaignPort, DistrictId, StationDef, StationId } from '../../modules/contracts';
 import type { AssetCatalog } from '../../platform/assets/manifest';
+import { subwayMinutes } from '../../modules/navigation/subway';
 import { canvasToDataUrl, drawCityMap } from '../placeholders';
 import { h } from './dom';
 import { drawMapHints } from './mapHints';
@@ -51,6 +52,7 @@ export function openCityMap(shell: UiShell, catalog: AssetCatalog, campaign: Cam
   const objective = campaign.objective();
   if (!fallback) fallback = canvasToDataUrl(drawCityMap(768, 512));
   const models = stationModels(campaign);
+  const rideMinutes = subwayMinutes(state);
 
   const go = (model: StationModel) => {
     if (!model.unlocked) { shell.toast('Diese Station hast du noch nicht entdeckt.', 'bad'); return; }
@@ -64,7 +66,7 @@ export function openCityMap(shell: UiShell, catalog: AssetCatalog, campaign: Cam
     model.district ? content.districts[model.district]?.name : '',
     model.here ? 'du bist hier' : '',
     model.objective ? 'Ziel' : '',
-    model.unlocked && !model.here ? 'U-Bahn, +30 Minuten' : '',
+    model.unlocked && !model.here ? `U-Bahn, +${rideMinutes} Minuten` : '',
   ].filter(Boolean).join(', ');
 
   const board = h('div', { class: 'city-map', 'data-testid': 'city-map' },
@@ -112,6 +114,7 @@ export function openCityMap(shell: UiShell, catalog: AssetCatalog, campaign: Cam
 
   modal.body.append(
     h('p', { class: 'meta', 'data-testid': 'city-here' }, `Du bist hier: ${here?.name ?? state.map}${here?.district ? ` (${content.districts[here.district]?.name ?? here.district})` : ''}`,
+      ` · U-Bahn: ${rideMinutes} Minuten je Fahrt`,
       objective ? ` · Ziel: ${objective.title}${objective.marker ? ` – ${content.maps[objective.marker.map]?.name ?? objective.marker.map}` : ''}` : ''),
     h('div', { class: 'city-layout' }, board, h('div', { class: 'city-side' }, h('h3', null, 'Stationen'), list, h('h3', null, 'Bezirke'), legend, hints)));
   return modal;

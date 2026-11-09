@@ -100,3 +100,42 @@ export const BUILTIN_ABILITIES: Readonly<Record<string, AbilityDef>> = {
 
 /** Fähigkeiten, die jede Party-Einheit zusätzlich zu ihren eigenen bekommt. */
 export const PARTY_BUILTINS: readonly string[] = [ABILITY_INTIMIDATE, ABILITY_REVIVE];
+
+/**
+ * Gechippte (EnemyRule `chipped`): Chip ruhigstellen bzw. ziehen. Nur in Kämpfen mit Gechippten (auch per Funkruf).
+ * Chip-Ruhe ist der Fernzugriff `hack-chip-ruhe` aus dem Inhalt; die Fassung hier gilt nur, wenn der Inhalt sie nicht kennt.
+ */
+export const ABILITY_CHIP_CALM = 'hack-chip-ruhe';
+export const ABILITY_CHIP_FREE = 'kampf-chip-ziehen';
+export const CHIP_BUILTINS: readonly string[] = [ABILITY_CHIP_CALM, ABILITY_CHIP_FREE];
+/** Anzeigenamen der Fraktionen für Kampfhinweise (Rufverlust); sonst die ID. */
+export const REP_LABELS: Readonly<Record<string, string>> = {
+  unterstadt: 'Unterstadt', 'chrome-haus': 'Chrome-Haus', quantum: 'Quantum', kanalvolk: 'Kanalvolk', staubfalken: 'Staubfalken',
+};
+/** Befreien geht ohne Betäubung/Hack ab diesem LP-Anteil abwärts. */
+export const CHIP_FREE_BELOW = 0.5;
+/** Trefferbonus Gechippter, solange ein Nexus-Knoten steht (Standard der Regel `chipped`). */
+export const CHIPPED_HIT_BONUS = 10;
+
+export const CHIP_ABILITIES: Readonly<Record<string, AbilityDef>> = {
+  [ABILITY_CHIP_CALM]: {
+    id: ABILITY_CHIP_CALM, name: 'Chip-Ruhe',
+    description: 'Störsignal auf die Chip-Frequenz: Der Chip hält zwei Runden die Klappe (Gehackt). Danach lässt er sich ziehen.',
+    kind: 'hack', ap: 1, target: 'enemy', range: 6, status: { id: 'gehackt', turns: 2, chance: 0.8 }, cooldown: 3, chippedOnly: true,
+  },
+  [ABILITY_CHIP_FREE]: {
+    id: ABILITY_CHIP_FREE, name: 'Chip ziehen',
+    description: 'Den Chip hinterm Ohr rausziehen – befreien statt umhauen, ohne Rufverlust. Geht nur, wenn die Person stillhält: betäubt, gehackt oder angeschlagen (höchstens halbe LP).',
+    kind: 'trick', ap: 1, target: 'enemy', range: 1, special: 'free', chippedOnly: true,
+  },
+};
+
+/** Chip-Fähigkeit (Chip-Ruhe, Chip ziehen) oder undefined – die Aktionsleiste listet sie neben den Inhaltsfähigkeiten. */
+export const chipAbility = (id: string): AbilityDef | undefined =>
+  Object.prototype.hasOwnProperty.call(CHIP_ABILITIES, id) ? CHIP_ABILITIES[id] : undefined;
+
+/** Eingebaute Kampffähigkeit (Einschüchtern, Aufrichten, Chip-Ruhe, Chip ziehen) oder undefined. */
+export function builtinAbility(id: string): AbilityDef | undefined {
+  if (Object.prototype.hasOwnProperty.call(BUILTIN_ABILITIES, id)) return BUILTIN_ABILITIES[id];
+  return Object.prototype.hasOwnProperty.call(CHIP_ABILITIES, id) ? CHIP_ABILITIES[id] : undefined;
+}

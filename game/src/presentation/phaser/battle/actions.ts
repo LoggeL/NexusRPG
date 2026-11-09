@@ -3,11 +3,12 @@
 import type {
   AbilityDef, AbilityTarget, BattleUnit, GameContent, ItemId,
 } from '../../../modules/contracts';
+import { chipAbility } from '../../../modules/combat';
 import { DEFAULT_AP_COST, type BattleItemStock, type BattleSessionPort, type ExtraAction, type SessionAction, type TargetedAction } from './rulesPort';
 
 type BattleAction = SessionAction;
 
-export type ActionKey = 'move' | 'attack' | 'abilities' | 'items' | 'overwatch' | 'cover' | 'end' | 'flee' | 'interact' | 'weapon';
+export type ActionKey = 'move' | 'attack' | 'abilities' | 'items' | 'overwatch' | 'cover' | 'end' | 'flee' | 'interact' | 'weapon' | 'carry';
 
 export interface ActionEntry {
   key: ActionKey;
@@ -50,6 +51,7 @@ export const ACTION_LABELS: Record<ActionKey, { label: string; hotkey: number; h
   flee: { label: 'Fliehen', hotkey: 8, hint: 'Den Kampf abbrechen und entkommen.' },
   interact: { label: 'Terminal', hotkey: 9, hint: 'Am Terminal arbeiten (Missionsziel).' },
   weapon: { label: 'Waffe', hotkey: 0, hint: 'Waffe wechseln (0 AP, einmal je Zug).' },
+  carry: { label: 'Tragen', hotkey: 0, hint: 'Bewusstlose Person auf dem Nachbarfeld schultern (1 AP) oder absetzen (0 AP).' },
 };
 
 export function apCost(port: Pick<BattleSessionPort, 'apCost'>, content: Pick<GameContent, 'abilities' | 'items'>, unit: BattleUnit, action: BattleAction): number {
@@ -82,7 +84,7 @@ export function unitBlockReason(unit: BattleUnit): string | null {
 export function abilityEntries(port: Pick<BattleSessionPort, 'apCost' | 'blocked'>, content: Pick<GameContent, 'abilities' | 'items'>, unit: BattleUnit): SubEntry[] {
   const entries: SubEntry[] = [];
   for (const id of unit.abilities) {
-    const def = content.abilities[id];
+    const def = content.abilities[id] ?? chipAbility(id);
     if (!def) continue;
     const action: BattleAction = { type: 'ability', ability: id };
     const ap = apCost(port, content, unit, action);

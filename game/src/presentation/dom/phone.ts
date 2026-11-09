@@ -1,6 +1,6 @@
 // Telefon (P, Bereich dom-ui): Reiter Nachrichten (lesen, antworten), Crew (Begleiter rufen, heimschicken) und
 // Sendung (aktuelle Nachrichtensendung ansehen). Zustellung und Effekte regelt die Kampagne.
-import { MAX_PARTY } from '../../modules/relationships';
+import { MAX_PARTY, partyFullFor, partySlotsUsed } from '../../modules/relationships';
 import type { CampaignPort, EffectOutcome, PhoneEntry } from '../../modules/contracts';
 import type { AssetCatalog } from '../../platform/assets/manifest';
 import { clear, h, portraitImg } from './dom';
@@ -57,7 +57,7 @@ export function openPhone(
     for (const npc of state.recruited) {
       const name = campaign.displayName(npc);
       const inParty = state.party.includes(npc);
-      const full = !inParty && state.party.length >= MAX_PARTY;
+      const full = partyFullFor(campaign.content, state.party, npc);
       list.append(h('li', { 'data-npc': npc },
         h('span', { class: 'row-main' }, avatar(npc), h('strong', null, name), inParty ? h('span', { class: 'badge good' }, 'dabei') : null),
         inParty
@@ -93,7 +93,7 @@ export function openPhone(
     const unread = state.phone.filter((entry) => !entry.read).length;
     root.append(tabBar<Tab>('Telefon', [
       { id: 'nachrichten', label: 'Nachrichten', badge: unread || undefined },
-      { id: 'crew', label: 'Crew', badge: state.recruited.length ? `${state.party.length}/${MAX_PARTY}` : undefined },
+      { id: 'crew', label: 'Crew', badge: state.recruited.length ? `${partySlotsUsed(campaign.content, state.party)}/${MAX_PARTY}` : undefined },
       { id: 'sendung', label: 'Sendung', badge: campaign.currentNews() ? '!' : undefined },
     ], tab, (next) => { tab = next; render(); (root.querySelector(`[data-tab="${next}"]`) as HTMLElement | null)?.focus(); }));
     const panel = h('div', { class: 'tab-panel', role: 'tabpanel', 'data-panel': tab });

@@ -2,7 +2,8 @@
 // Bewegen 1 AP je `move` Felder · Angriff 1 AP (höchstens ein Angriff je Zug) · Fähigkeit `ap` · Gegenstand ·
 // Überwachung 1 AP (beendet den Zug, schießt mit −10 auf die erste gegnerische Bewegung in Reichweite) ·
 // Deckung suchen 1 AP („Geschützt“, entfernt „Markiert“) · Terminal hacken 1 AP · Waffe wechseln 0 AP ·
-// Flucht (Party, wenn erlaubt) · Zug beenden.
+// Flucht (Party, wenn erlaubt) · Tragen (bewusstlose Schutzperson schultern 1 AP, absetzen 0 AP) · Zug beenden.
+// Sonderwirkungen von Fähigkeiten (AbilityDef.special/lock): Aufgabe, Chip ziehen, Zustände stehlen, Fähigkeiten sperren.
 // `act` arbeitet auf einer Kopie: Bei einem Fehler bleibt der übergebene Zustand gültig und unverändert.
 import type { AbilityDef, Cell, ItemDef } from '../contracts';
 import { clamp, has } from '../campaign/ids';
@@ -13,7 +14,8 @@ import {
 import { cellsInRadius, distance, facingToward, isHazard, lineOfSight, sameCell } from './grid';
 import { canEndOn, findPath } from './movement';
 import {
-  abilityDef, activeUnit, findUnit, isActive, isAttackAbility, isBeneficial, isInvulnerable, isOnField, opponents,
+  abilityDef, activeUnit, findUnit, homeTeam, isActive, isAttackAbility, isBeneficial, isInvulnerable, isOnField, opponents,
+  positiveStatuses, rulesOf,
 } from './queries';
 import { healOf, moraleDamage, rollsToHit, strikePreview } from './resolve';
 import { ABILITY_REVIVE, MORALE_CRIT } from './rules';
@@ -52,6 +54,7 @@ function perform(ctx: Ctx, unit: CombatUnit, action: CombatAction): string | nul
     case 'interact': return interact(ctx, unit);
     case 'weapon': return swapWeapon(ctx, unit, action.index);
     case 'flee': return flee(ctx, unit);
+    case 'carry': return carry(ctx, unit);
     case 'end': finishTurn(ctx); return null;
     default: return 'Unbekannte Aktion.';
   }
@@ -74,11 +77,25 @@ function move(ctx: Ctx, unit: CombatUnit, to: Cell): string | null {
 /** Läuft einen Weg Feld für Feld ab; Gefahrenfelder und Überwachungsfeuer unterbrechen die Animation. */
 export function walk(ctx: Ctx, unit: CombatUnit, path: readonly Cell[]): void {
   let segment: Cell[] = [];
-  const flush = () => { if (segment.length) emit(ctx, { type: 'move', unit: unit.id, path: segment }); segment = []; };
+  // Getragene Schutzperson folgt Schritt für Schritt auf das Feld, das die Trägerin gerade verlässt.
+  const carried = unit.carrying ? findUnit(ctx.s, unit.carrying) : undefined;
+  let trail: Cell[] = [];
+  const flush = () => {
+    if (segment.length) emit(ctx, { type: 'move', unit: unit.id, path: segment });
+    if (carried && trail.length) emit(ctx, { type: 'move', unit: carried.id, path: trail });
+    segment = [];
+    trail = [];
+  };
   for (const step of path) {
+    const left: Cell = [unit.cell[0], unit.cell[1]];
     unit.facing = facingToward(unit.cell, step, unit.facing);
     unit.cell = [step[0], step[1]];
     segment.push(unit.cell);
+    if (carried && isActive(carried) && unit.carrying === carried.id && !sameCell(carried.cell, left)) {
+      carried.facing = facingToward(carried.cell, left, carried.facing);
+      carried.cell = left;
+      trail.push(left);
+    }
     const watchers = ctx.s.units.filter(w => isActive(w) && w.overwatch && opponents(w, unit) && canReact(ctx, w, unit));
     if (watchers.length || isHazard(ctx.s.layout, step)) {
       flush();
@@ -164,6 +181,55 @@ function strike(ctx: Ctx, attacker: CombatUnit, target: CombatUnit, def: Ability
   }
   if (preview.crit && preview.damage > 0 && isActive(target)) changeMorale(ctx, target, -MORALE_CRIT);
   if (def?.status && isActive(target)) tryStatus(ctx, target, def);
+  if (def?.lock && isActive(target)) lockAbilities(ctx, target, def);
+}
+
+/** Sperrt Fähigkeiten des Ziels für ein paar eigene Züge (AbilityDef.lock, z. B. Konter: Kralle weg). */
+function lockAbilities(ctx: Ctx, target: CombatUnit, def: AbilityDef): void {
+  const lock = def.lock!;
+  const turns = Math.max(1, Math.floor(lock.turns));
+  const ids = (lock.abilities ?? target.abilities).filter(id => target.abilities.includes(id));
+  if (!ids.length) return;
+  for (const id of ids) target.cooldowns[id] = Math.max(target.cooldowns[id] ?? 0, turns);
+  const names = ids.map(id => abilityDef(ctx.data, id)?.name ?? id).join(', ');
+  emit(ctx, { type: 'notice', unit: target.id, tone: 'good', text: `${target.name}: ${names} für ${turns} ${turns === 1 ? 'Zug' : 'Züge'} weg.` });
+}
+
+/**
+ * Sonderwirkung ohne Schadenswurf (AbilityDef.special): Aufgabe (mit allen Mitstreitern), Chip ziehen, Zustände
+ * stehlen. Gültigkeit (Schutz, Gechippt, Zustände vorhanden) prüft schon `strikePreview`.
+ */
+function special(ctx: Ctx, unit: CombatUnit, target: CombatUnit, def: AbilityDef): void {
+  if (!isActive(target)) return;
+  unit.facing = facingToward(unit.cell, target.cell, unit.facing);
+  if (unit.team === 'party' && ctx.s.surprise) ctx.s.surprise = false;
+  switch (def.special) {
+    case 'yield': {
+      if (def.reply) emit(ctx, { type: 'bark', unit: target.id, text: def.reply });
+      emit(ctx, { type: 'notice', unit: target.id, tone: 'good', text: `${target.name} gibt auf.` });
+      const team = homeTeam(target);
+      leaveField(ctx, target, 'surrendered');
+      for (const other of ctx.s.units) if (isActive(other) && homeTeam(other) === team && !other.vip) leaveField(ctx, other, 'surrendered');
+      return;
+    }
+    case 'free': {
+      const rule = rulesOf(target, 'chipped')[0]?.rule;
+      emit(ctx, { type: 'bark', unit: target.id, text: rule?.freeLine ?? 'Wo … bin ich? Warum hab ich Sekt im Ohr? Und wer ist dieser „Master“?' });
+      emit(ctx, { type: 'notice', unit: target.id, tone: 'good', text: `${target.name} ist befreit und taumelt aus dem Kampf.` });
+      leaveField(ctx, target, 'surrendered');
+      return;
+    }
+    case 'steal': {
+      const taken = positiveStatuses(target);
+      for (const status of taken) {
+        const turns = target.status[status] ?? 1;
+        removeStatus(ctx, target, status);
+        applyStatus(ctx, unit, status, turns);
+      }
+      if (taken.length) emit(ctx, { type: 'notice', unit: unit.id, tone: 'warn', text: `${unit.name} nimmt ${target.name} alles Gute weg.` });
+      return;
+    }
+  }
 }
 
 function tryStatus(ctx: Ctx, target: CombatUnit, def: AbilityDef): void {
@@ -217,6 +283,7 @@ export function abilityTargets(state: CombatState, unit: CombatUnit, def: Abilit
 
 function applyAbility(ctx: Ctx, unit: CombatUnit, def: AbilityDef, targets: CombatUnit[], center: Cell, targetId?: string): void {
   emit(ctx, { type: 'ability', unit: unit.id, ability: def.id, target: targetId, cell: def.target === 'cell' || def.target === 'area' ? center : undefined });
+  if (def.line) emit(ctx, { type: 'bark', unit: unit.id, text: def.line });
   if (!sameCell(center, unit.cell)) unit.facing = facingToward(unit.cell, center, unit.facing);
   const area = def.target === 'cell' || def.target === 'area';
   for (const target of targets) {
@@ -232,6 +299,7 @@ function applyAbility(ctx: Ctx, unit: CombatUnit, def: AbilityDef, targets: Comb
       if (def.status) tryStatus(ctx, target, def);
       continue;
     }
+    if (def.special) { special(ctx, unit, target, def); continue; }
     strike(ctx, unit, target, def, false, area);
   }
 }
@@ -335,6 +403,34 @@ function flee(ctx: Ctx, unit: CombatUnit): string | null {
   }
   if (unit.morale === undefined) return 'Diese Einheit flieht nicht.';
   leaveField(ctx, unit, 'fled');
+  return null;
+}
+
+// ---------------------------------------------------------------------------
+// Tragen (Missionsziel `rescue.immobile`)
+
+/** Bewusstlose Schutzperson, die diese Einheit gerade schultern könnte (Nachbarfeld, noch nicht getragen). */
+export function carryCandidate(state: CombatState, unit: CombatUnit): CombatUnit | undefined {
+  const objective = state.objective;
+  if (objective.kind !== 'rescue' || !objective.immobile || unit.team !== 'party' || unit.vip || unit.carrying) return undefined;
+  return state.units.find(other => other.vip && isActive(other) && distance(other.cell, unit.cell) <= 1
+    && !state.units.some(carrier => carrier.carrying === other.id));
+}
+
+function carry(ctx: Ctx, unit: CombatUnit): string | null {
+  if (unit.carrying) {
+    const carried = findUnit(ctx.s, unit.carrying);
+    delete unit.carrying;
+    if (carried) emit(ctx, { type: 'notice', unit: carried.id, tone: 'info', text: `${unit.name} legt ${carried.name} ab.` });
+    return null;
+  }
+  if (unit.team !== 'party' || unit.vip) return 'Nur die Party trägt.';
+  const target = carryCandidate(ctx.s, unit);
+  if (!target) return 'Niemand Bewusstloses auf dem Nachbarfeld.';
+  if (unit.ap < 1) return 'Keine Aktionspunkte mehr.';
+  unit.ap -= 1;
+  unit.carrying = target.id;
+  emit(ctx, { type: 'notice', unit: unit.id, tone: 'good', text: `${unit.name} schultert ${target.name} – jeder Schritt nimmt die Last mit.` });
   return null;
 }
 

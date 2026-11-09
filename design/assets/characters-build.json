@@ -259,6 +259,20 @@
    }
   }
  },
+ "aussiedlerin-juna": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/aussiedlerin-juna-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "0debccdc5c430de5",
+    "out": "game/public/assets/portraits/aussiedlerin-juna.webp",
+    "bytes": 64780
+   }
+  }
+ },
  "babette-bao": {
   "walk": {
    "raws": {
@@ -1072,6 +1086,83 @@
   }
  },
  "captain-kuschel": {
+  "walk": {
+   "raws": {
+    "captain-kuschel-walk.png": {
+     "path": "output/imagegen/raw/characters/captain-kuschel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "e101dac5964ba848",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       624
+      ],
+      [
+       624,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 50,
+   "rowScales": [
+    0.2008,
+    0.211,
+    0.2101,
+    0.1984
+   ],
+   "rowScalesUnclamped": [
+    0.2008,
+    0.211,
+    0.2101,
+    0.1984
+   ],
+   "rowSource": {
+    "s": "captain-kuschel-walk.png Zeile 1",
+    "w": "captain-kuschel-walk.png Zeile 2",
+    "e": "captain-kuschel-walk.png Zeile 3",
+    "n": "captain-kuschel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     50,
+     49,
+     50,
+     49,
+     50,
+     50,
+     50,
+     50,
+     49,
+     50,
+     49,
+     50,
+     50,
+     48,
+     50,
+     49
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "Plüschhase, watschelt auf kurzen Beinen; klein neben Nyra (Kind 76 px).",
+   "out": "game/public/assets/sprites/captain-kuschel-walk.png"
+  },
   "portraits": {
    "base": {
     "raw": "output/imagegen/raw/characters/captain-kuschel-portrait.png",
@@ -2092,6 +2183,7 @@
      "Frame 14: 7 magentastichige Pixel"
     ]
    },
+   "note": "„Magentastichige Pixel“ im Build sind die violetten Leuchtnähte des Quantum-Anzugs, keine Freistellreste (Abnahme art-fig-a).",
    "out": "game/public/assets/sprites/falke-walk.png"
   },
   "portraits": {
@@ -2557,6 +2649,20 @@
    }
   }
  },
+ "funzel": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/funzel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "77ab16a04caf564b",
+    "out": "game/public/assets/portraits/funzel.webp",
+    "bytes": 51066
+   }
+  }
+ },
  "fx-60": {
   "walk": {
    "raws": {
@@ -2920,6 +3026,7 @@
      "Frame 15: 488 magentastichige Pixel"
     ]
    },
+   "note": "„Magentastichige Pixel“ im Build sind der echte lila Anzug, keine Freistellreste (Abnahme art-fig-a).",
    "out": "game/public/assets/sprites/gutschein-gerd-walk.png"
   },
   "portraits": {
@@ -3378,6 +3485,7 @@
      "Frame 15: 7 magentastichige Pixel"
     ]
    },
+   "note": "magentastichige Pixel = echte violette Revers und Lichtnähte (art-fig-b).",
    "out": "game/public/assets/sprites/herr-glanz-walk.png"
   },
   "portraits": {
@@ -4229,6 +4337,7 @@
      "Frame 15: 31 magentastichige Pixel"
     ]
    },
+   "note": "magentastichige Pixel = echter lila Trainingsanzug, keine Freistellreste (art-fig-b).",
    "out": "game/public/assets/sprites/knut-walk.png"
   },
   "portraits": {
@@ -4241,6 +4350,20 @@
     "sha256": "587b9a3b85681477",
     "out": "game/public/assets/portraits/knut.webp",
     "bytes": 26056
+   }
+  }
+ },
+ "konvoi-doro": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/konvoi-doro-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "960b31d815f91b02",
+    "out": "game/public/assets/portraits/konvoi-doro.webp",
+    "bytes": 39078
    }
   }
  },
@@ -4514,7 +4637,7 @@
      "Frame 15: 12 magentastichige Pixel"
     ]
    },
-   "note": "art-fig-b: Zielhöhe (kurt)",
+   "note": "magentastichige Pixel = echter lila Trainingsanzug, keine Freistellreste (art-fig-b).",
    "out": "game/public/assets/sprites/kurt-walk.png"
   },
   "portraits": {
@@ -5625,6 +5748,7 @@
      "Frame 15: 667 magentastichige Pixel"
     ]
    },
+   "note": "Neue Figur ohne Kostümreferenz (Stilreferenz nur für den Zeichenstil). Die Build-Warnung 'magentastichige Pixel' kommt von der echten lila Strickjacke und den lavendelfarbenen Locken, nicht von Freistellresten (auf hellem und dunklem Grund geprüft).",
    "out": "game/public/assets/sprites/oma-volt-walk.png"
   },
   "portraits": {
@@ -5727,6 +5851,7 @@
      "Frame 15: 21 magentastichige Pixel"
     ]
    },
+   "note": "magentastichige Pixel = echter lila Strickschal, keine Freistellreste (art-fig-b).",
    "out": "game/public/assets/sprites/opa-blech-walk.png"
   },
   "portraits": {
@@ -7002,6 +7127,7 @@
     "magentaPixels": 35,
     "problems": []
    },
+   "note": "magentastichige Pixel = echte violette Lichtnähte der Quantum-Uniform (art-fig-b).",
    "out": "game/public/assets/sprites/pfeffer-walk.png"
   },
   "portraits": {
@@ -7738,6 +7864,20 @@
    "out": "game/public/assets/sprites/robohund-walk.png"
   },
   "portraits": {}
+ },
+ "rohrwartin-muffe": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/rohrwartin-muffe-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "7c7a89f73175d4f6",
+    "out": "game/public/assets/portraits/rohrwartin-muffe.webp",
+    "bytes": 61070
+   }
+  }
  },
  "rostzahn-schlaeger": {
   "walk": {
@@ -8718,6 +8858,20 @@
    }
   }
  },
+ "staubfalke-bolle": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/staubfalke-bolle-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "42181df1af5809c7",
+    "out": "game/public/assets/portraits/staubfalke-bolle.webp",
+    "bytes": 55852
+   }
+  }
+ },
  "stylistin-gina": {
   "walk": {
    "raws": {
@@ -8902,6 +9056,20 @@
     "sha256": "6638dadad04445d1",
     "out": "game/public/assets/portraits/sybella.webp",
     "bytes": 41794
+   }
+  }
+ },
+ "technikerin-kalibri": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/technikerin-kalibri-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "a71b3c3a3d208497",
+    "out": "game/public/assets/portraits/technikerin-kalibri.webp",
+    "bytes": 47996
    }
   }
  },
@@ -9368,6 +9536,104 @@
     "sha256": "6d9a288a31b9d5b6",
     "out": "game/public/assets/portraits/wachmann-brezel.webp",
     "bytes": 42072
+   }
+  }
+ },
+ "welt23-gechippte-pendlerin": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-gechippte-pendlerin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "d538bbb0c9e2237a",
+    "out": "game/public/assets/portraits/welt23-gechippte-pendlerin.webp",
+    "bytes": 38008
+   }
+  }
+ },
+ "welt23-gechippter-nachbar": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-gechippter-nachbar-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "4af396b0902e28a4",
+    "out": "game/public/assets/portraits/welt23-gechippter-nachbar.webp",
+    "bytes": 46932
+   }
+  }
+ },
+ "welt23-kanalvolk": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-kanalvolk-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "85d19adb5d200715",
+    "out": "game/public/assets/portraits/welt23-kanalvolk.webp",
+    "bytes": 57506
+   }
+  }
+ },
+ "welt23-nachbarin": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-nachbarin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "1bdc878bf9d68825",
+    "out": "game/public/assets/portraits/welt23-nachbarin.webp",
+    "bytes": 50836
+   }
+  }
+ },
+ "welt23-pendler": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-pendler-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "12908ff90c130fff",
+    "out": "game/public/assets/portraits/welt23-pendler.webp",
+    "bytes": 44862
+   }
+  }
+ },
+ "welt23-promoterin": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-promoterin-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "42de791e3268cedf",
+    "out": "game/public/assets/portraits/welt23-promoterin.webp",
+    "bytes": 47048
+   }
+  }
+ },
+ "welt23-spaziergaenger": {
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/welt23-spaziergaenger-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "b49b38b7b775e3ea",
+    "out": "game/public/assets/portraits/welt23-spaziergaenger.webp",
+    "bytes": 56456
    }
   }
  },

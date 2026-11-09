@@ -1,12 +1,12 @@
 // Kampfregeln: Aufbau eines Kampfs aus EncounterDef, ArenaDef, EnemyDefs und der Party.
-import type { AttributeId, BattleObjective, Cell, CombatBonus, EnemyDef, UnitStats } from '../contracts';
+import type { AttributeId, BattleObjective, Cell, CombatBonus, EncounterDef, EnemyDef, UnitStats } from '../contracts';
 import { ATTRIBUTE_IDS, has } from '../campaign/ids';
 import { cellsWith, distance, inBounds, isWalkable, parseLayout, sameCell } from './grid';
 import { startBattle, initiativeOrder } from './turns';
 import { initialRng } from './rng';
 import {
   DEFAULT_HAZARD_DAMAGE, DEFAULT_MAX_ROUNDS, DIFFICULTY_HP, GRID_COLS, GRID_ROWS, INITIATIVE_REFLEX_FACTOR,
-  MOVE_BASE, MOVE_REFLEX_DIVISOR, PARTY_BUILTINS, UNARMED,
+  CHIP_BUILTINS, MOVE_BASE, MOVE_REFLEX_DIVISOR, PARTY_BUILTINS, UNARMED,
 } from './rules';
 import type { BattleSetup, BossRuntime, CombatData, CombatState, CombatUnit, Difficulty, PartyMemberSpec } from './types';
 import type { Ctx } from './effects';
@@ -139,6 +139,22 @@ export function enemyUnit(def: EnemyDef, id: string, name: string, cell: Cell, s
   return unit;
 }
 
+/** Kommen in diesem Kampf Gechippte vor (aufgestellt oder per Funkruf)? Dann kann die Party sie befreien. */
+export function chippedInPlay(data: CombatData, encounter: EncounterDef): boolean {
+  const seen = new Set<string>();
+  const queue = encounter.enemies.map(entry => entry.enemy);
+  while (queue.length) {
+    const id = queue.shift()!;
+    if (seen.has(id) || !has(data.enemies, id)) continue;
+    seen.add(id);
+    for (const rule of data.enemies[id].rules ?? []) {
+      if (rule.kind === 'chipped') return true;
+      if (rule.kind === 'reinforce') queue.push(rule.enemy);
+    }
+  }
+  return false;
+}
+
 export const emptyBossRuntime = (): BossRuntime => ({ countdown: {}, wave: {}, since: {}, called: {}, hold: {}, said: [] });
 
 /**
@@ -168,6 +184,9 @@ export function createBattle(data: CombatData, setup: BattleSetup): CombatState 
     if (ids.has(spec.id)) throw new Error(`Doppelte Einheit: ${spec.id}`);
     ids.add(spec.id);
     units.push(partyUnit(spec, placer.place(undefined, partyStarts, 'left'), units.length));
+  }
+  if (chippedInPlay(data, encounter)) {
+    for (const unit of units) unit.abilities = [...new Set([...unit.abilities, ...CHIP_BUILTINS])];
   }
   if (objective.kind === 'rescue') units.push(vipUnit(data, objective, placer.place(objective.cell, partyStarts, 'left'), units.length));
 

@@ -10,10 +10,10 @@
 // Party-Einheiten im Autopiloten verfolgen zusätzlich das Missionsziel (Terminal hacken, Ausgang erreichen).
 import type { AbilityDef, Cell, StatusId } from '../contracts';
 import { has } from '../campaign/ids';
-import { abilityBlocker, abilityTargets, act, canInteract, itemAbility, usableInBattle } from './actions';
+import { abilityBlocker, abilityTargets, act, canInteract, carryCandidate, itemAbility, usableInBattle } from './actions';
 import { cellKey, coverAgainst, distance, inBounds, isHazard, isWalkable, lineOfSight, sameCell } from './grid';
 import { distanceField, reachableCells } from './movement';
-import { abilityDef, activeUnit, findUnit, isActive, isBeneficial, opponents } from './queries';
+import { abilityDef, activeUnit, findUnit, isActive, isBeneficial, isChipped, opponents, positiveStatuses } from './queries';
 import { moraleDamage, strikePreview } from './resolve';
 import { ABILITY_INTIMIDATE, ABILITY_REVIVE, MORALE_FLEE_BELOW } from './rules';
 import type { ActResult, AiRole, AttackPreview, CombatAction, CombatData, CombatEvent, CombatState, CombatUnit } from './types';
@@ -29,6 +29,8 @@ const STATUS_VALUE: Readonly<Record<StatusId, number>> = {
 
 export function roleOf(unit: CombatUnit): AiRole {
   if (unit.vip) return 'schutz';
+  // Wer eine Bewusstlose trägt, kämpft aus der Deckung und rückt nicht vor.
+  if (unit.carrying) return 'vorsichtig';
   return unit.ai ?? 'aggressiv';
 }
 
@@ -37,6 +39,13 @@ export function roleOf(unit: CombatUnit): AiRole {
 
 function strikeValue(state: CombatState, unit: CombatUnit, target: CombatUnit, preview: AttackPreview, def: AbilityDef | undefined): number {
   const p = preview.chance / 100;
+  if (def?.special) {
+    if (!preview.valid) return 0;
+    // Aufgabe beendet den Kampf (fast) sofort, Befreien schlägt Umhauen (kein Rufverlust), Stehlen lohnt nach Beute.
+    if (def.special === 'yield') return 40;
+    if (def.special === 'free') return 9 + target.hp / Math.max(1, target.maxHp) * 3;
+    return positiveStatuses(target).reduce((sum, status) => sum + STATUS_VALUE[status] * Math.min(2, target.status[status] ?? 1), 0);
+  }
   if (def && isBeneficial(def)) {
     if (def.id === ABILITY_REVIVE) return 12;
     const missing = target.maxHp - target.hp;
@@ -61,6 +70,13 @@ function strikeValue(state: CombatState, unit: CombatUnit, target: CombatUnit, p
   if (def?.status && !(target.status[def.status.id] ?? 0)) value += STATUS_VALUE[def.status.id] * (preview.status!.chance / 100) * (preview.autoHit ? 1 : p);
   if (target.vip) value += 4 * p;
   if (preview.crit) value += 0.5;
+  // Konter (AbilityDef.lock): lohnt, solange das Ziel die Fähigkeit noch einsetzen könnte.
+  if (def?.lock) {
+    const open = (def.lock.abilities ?? target.abilities).filter(id => target.abilities.includes(id) && !(target.cooldowns[id] ?? 0)).length;
+    value += open * 4 * p;
+  }
+  // Gechippte lieber ruhigstellen und befreien als umhauen.
+  if (unit.team === 'party' && !def?.chippedOnly && preview.lethal && isChipped(target) && target.rules?.some(rule => rule.kind === 'chipped' && rule.downRep)) value -= 5 * p;
   return value;
 }
 
@@ -194,6 +210,8 @@ export function planAi(data: CombatData, state: CombatState, unitId: string | nu
   if (unit.team === 'party') {
     const objective = planObjective(state, unit);
     if (objective) return objective;
+    const lift = planCarry(state, unit);
+    if (lift) return lift;
   }
 
   const here = best(strikeOptions(data, state, unit, unit.cell, unit.ap));
@@ -291,7 +309,7 @@ function planShelter(state: CombatState, unit: CombatUnit): AiPlan | null {
   return null;
 }
 
-/** Autopilot der Party: Terminal hacken bzw. Ausgang erreichen. */
+/** Autopilot der Party: Terminal hacken bzw. Ausgang erreichen (auch beim Ziel „überleben oder Ausgang“). */
 function planObjective(state: CombatState, unit: CombatUnit): AiPlan | null {
   const objective = state.objective;
   if (objective.kind === 'hack') {
@@ -304,7 +322,20 @@ function planObjective(state: CombatState, unit: CombatUnit): AiPlan | null {
   if (objective.kind === 'reach' && unit.source.kind === 'player') {
     return moveToward(state, unit, objective.cells as Cell[], 'läuft zum Ausgang', true);
   }
+  // „Überleben oder Ausgang“: Die Spielfigur sucht den Ausgang, die anderen halten die Stellung.
+  if (objective.kind === 'survive' && objective.exit?.length && unit.source.kind === 'player') {
+    return moveToward(state, unit, objective.exit as Cell[], 'läuft zum Ausgang', true);
+  }
   return null;
+}
+
+/** Autopilot: bedrohte bewusstlose Schutzperson schultern (nur Begleiter, die Spielfigur kämpft weiter). */
+function planCarry(state: CombatState, unit: CombatUnit): AiPlan | null {
+  if (unit.source.kind === 'player' || unit.ap < 2) return null;
+  const vip = carryCandidate(state, unit);
+  if (!vip) return null;
+  const threatened = state.units.some(o => isActive(o) && opponents(o, vip) && distance(o.cell, vip.cell) <= o.move + o.weapon.range);
+  return threatened ? { action: { type: 'carry' }, reason: `schultert ${vip.name}`, value: 6 } : null;
 }
 
 function moveToward(state: CombatState, unit: CombatUnit, goals: Cell[], reason: string, onGoal = false): AiPlan | null {

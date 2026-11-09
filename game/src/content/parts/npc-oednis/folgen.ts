@@ -19,6 +19,10 @@ const nicht = (c: Condition): Condition => ({ not: c });
 const alle = (...c: Condition[]): Condition => ({ all: c });
 const AKT2: Condition = { act: 2 };
 const EPILOG: Condition = { flag: 'epilog' };
+/** Master-Modus (Ende 3), solange „Doch noch ans Meer“ nicht erreicht ist. */
+const MASTER: Condition = { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] };
+/** Freies Nachspiel: Epilog ohne Master-Modus. */
+const NACHSPIEL: Condition = { all: [EPILOG, { not: MASTER }] };
 const quest = (id: string, state: 'active' | 'done'): Condition => ({ quest: id, state });
 
 type Platz = NonNullable<MapAddition['npcs']>[number];
@@ -85,6 +89,15 @@ const hannesEpilog = folge('hannes-epilog', [
   ] },
 ], 'hannes-tag-standard', 'Mast- und Schotbruch.');
 
+/** Master-Modus: kein Menü, kein Laden. Hannes zahlt wieder, diesmal an dich. */
+const hannesMaster = dialog('hannes-master', [
+  knoten('start', [
+    erz('Am Kai hängt wieder eine Blechdose. Auf der steht nicht mehr „SCHUTZ“, sondern dein Name. Jemand hat ihn durchgestrichen. Jemand anders hat ihn wieder drübergeschrieben.'),
+    H('Na, Master. Kommst du kassieren? Funzel hat wenigstens noch selbst die Hand aufgehalten. Du schickst dafür Bildschirme.', 'wut'),
+    H('Verpiss dich von meinem Kai. Ich hab dich mal einen Helden genannt. Das Wort spül ich mir gerade mit Hafenblut aus dem Maul.'),
+  ]),
+]);
+
 // ------------------------------------------------------------------------------------------- Fluss-Frieda
 
 const F = sprecher('fluss-frieda');
@@ -116,6 +129,15 @@ const friedaEpilog = folge('frieda-epilog', [
   ] },
 ], 'frieda-tag-standard', 'Gute Strömung.');
 
+/** Master-Modus: Frieda verkauft dir nichts mehr. */
+const friedaMaster = dialog('frieda-master', [
+  knoten('start', [
+    erz('Frieda stößt das Floß mit der Stange vom Anleger ab, kaum dass sie dich sieht. Zwei Meter Brühe zwischen euch. Mehr Abstand gibt der Kanal nicht her.'),
+    F('Für dich ist geschlossen. Die Chips kommen wieder runter, weißt du das? Jetzt mit deinem Gesicht drauf. Die Ratten fressen sie immer noch nicht.', 'wut'),
+    F('Ich fisch hier unten seit dreißig Jahren den Dreck raus, den die da oben wegwerfen. Dich hätt ich nie für Dreck gehalten. Hau ab, bevor ich die Stange benutze.'),
+  ]),
+]);
+
 // ------------------------------------------------------------------------------------------- Ole Gähn (digitech-areal)
 
 const O = sprecher('ole-gaehn');
@@ -144,14 +166,17 @@ const NICHT_SA = nicht(tag('sa'));
 const mapAdditions: Record<string, MapAddition> = {
   hafenkante: {
     npcs: [
-      platz('oednis-hannes-epilog', 'hafen-hannes', 'kai-mitte', alle(EPILOG, MTA, KEIN_RIVALE('hafen-hannes')), 'hannes-epilog'),
+      // Vorn: Die erste aktive Platzierung gewinnt (modules/time/schedule.ts).
+      platz('oednis-hannes-master', 'hafen-hannes', 'kai-mitte', alle(MASTER, MTA, KEIN_RIVALE('hafen-hannes')), 'hannes-master'),
+      platz('oednis-hannes-epilog', 'hafen-hannes', 'kai-mitte', alle(NACHSPIEL, MTA, KEIN_RIVALE('hafen-hannes')), 'hannes-epilog'),
       platz('oednis-hannes-frei', 'hafen-hannes', 'kai-mitte', alle(quest(ROSTZAEHNE, 'done'), MTA, KEIN_RIVALE('hafen-hannes')), 'hannes-hafen-frei'),
       platz('oednis-hannes-akt2', 'hafen-hannes', 'kai-mitte', alle(AKT2, MTA, KEIN_RIVALE('hafen-hannes')), 'hannes-akt2'),
     ],
   },
   'kanal-sammler': {
     npcs: [
-      platz('oednis-frieda-epilog', 'fluss-frieda', 'friedas-stand', alle(EPILOG, MTA, KEIN_RIVALE('fluss-frieda')), 'frieda-epilog'),
+      platz('oednis-frieda-master', 'fluss-frieda', 'friedas-stand', alle(MASTER, MTA, KEIN_RIVALE('fluss-frieda')), 'frieda-master'),
+      platz('oednis-frieda-epilog', 'fluss-frieda', 'friedas-stand', alle(NACHSPIEL, MTA, KEIN_RIVALE('fluss-frieda')), 'frieda-epilog'),
       platz('oednis-frieda-akt2', 'fluss-frieda', 'friedas-stand', alle(AKT2, MTA, KEIN_RIVALE('fluss-frieda')), 'frieda-akt2'),
     ],
   },
@@ -160,7 +185,8 @@ const mapAdditions: Record<string, MapAddition> = {
       // act23: Hartlauf T im Archiv, solange side-hartlaufs-rache läuft (vorangestellt).
       platz('oednis-hartlauf-archiv', 'direktorin-hartlauf', 'archiv', alle(quest('side-hartlaufs-rache', 'active'), zeit('tag'))),
       platz('oednis-ole-akt2', 'ole-gaehn', 'pfoertnerhaus-bank',
-        alle(AKT2, nicht(EPILOG), MTA, KEIN_RIVALE('ole-gaehn'), nicht({ flag: 'gerda_brief_ole' })), 'ole-akt2'),
+        // Nur Akt 2: In Akt 3 (Partynacht) und im Nachspiel greifen Oles Phasen aus npc-welt/ole-gaehn-akt23.ts.
+        alle(AKT2, nicht({ act: 3 }), nicht(EPILOG), MTA, KEIN_RIVALE('ole-gaehn'), nicht({ flag: 'gerda_brief_ole' })), 'ole-akt2'),
     ],
   },
   // act23 marla-sand „ersetzt“: Sa bleibt in der Stadt (eigener Tagesablauf), sonst ab act2 in der Ödnis.
@@ -204,6 +230,6 @@ const mapAdditions: Record<string, MapAddition> = {
 hannesFrei.nodes[0].effects = [flag('hannes_hafen_frei_gesehen')];
 
 export const part: ContentPart = {
-  dialogues: sammle(hannesAkt2, hannesFrei, hannesEpilog, friedaAkt2, friedaEpilog, oleAkt2),
+  dialogues: sammle(hannesAkt2, hannesFrei, hannesEpilog, hannesMaster, friedaAkt2, friedaEpilog, friedaMaster, oleAkt2),
   mapAdditions,
 };

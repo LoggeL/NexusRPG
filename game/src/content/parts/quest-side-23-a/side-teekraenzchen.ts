@@ -29,6 +29,8 @@ const GEWARNT = 'schwestern_gewarnt';
 const OHNE_CHIP = 'schwestern_ohne_chip';
 const GELOEST: Condition = any(flag(GEWARNT), flag(OHNE_CHIP));
 const ABSCHIED = 'tee_abschied';
+/** Sybella hat in der Blumenlieferung (main-2-bruch) die Spielfigur erkannt (npc-quantum/sybella-chrome.ts). */
+const TEPPICH = 'sybella_blumenlieferung_erkannt';
 const BOULEVARD_OFFEN: Condition = any(item('ausweis-oberstadt'), { rep: 'chrome-haus', min: 20 }, flag('liftboy_ueberredet'));
 const LADEN: Condition = zeit('tag');
 const TEEZEIT: Condition = zeit('tag', 'abend');
@@ -332,10 +334,24 @@ const abschied: DialogueDef = dlg('tee-abschied', [
   node('ohne', [
     l(SY, 'Keine von uns hat einen Termin. Seraphina tobt. Sie glaubt, Alesa hat sie vergessen. Sie hat Alesa einen Strauß Rosen mit einer Drohung geschickt.', 'freude'),
     l(SY, 'Ich habe ihr nicht gesagt, wer es war. Ich habe auch nicht gelogen. Ich habe nur geschwiegen. Schweigen ist steuerfrei.', 'signatur'),
-  ], { next: 'einladung' }),
+  ], {
+    choices: [
+      ch('Weiter.', 'teppich', { when: flag(TEPPICH), id: 'tee-ab-ohne-teppich' }),
+      ch('Weiter.', 'einladung', { when: noFlag(TEPPICH), id: 'tee-ab-ohne-einladung' }),
+    ],
+  }),
   node('mit', [
     l(SY, 'Seraphina nimmt trotzdem einen. Sie sagt, eine Chrome kneift nicht. Ich habe ihr gesagt, eine Chrome rechnet.', 'besorgt'),
     l(SY, 'Wenn es bei der Party ernst wird, kappe ich den Strom. Eine Runde. Mehr nicht. Ich will die Rechnung für den Rest nicht sehen.', 'signatur'),
+  ], {
+    choices: [
+      ch('Weiter.', 'teppich', { when: flag(TEPPICH), id: 'tee-ab-mit-teppich' }),
+      ch('Weiter.', 'einladung', { when: noFlag(TEPPICH), id: 'tee-ab-mit-einladung' }),
+    ],
+  }),
+  node('teppich', [
+    l(SY, 'Und, Blumenlieferung: Im Umschlag liegt noch etwas. Die Teppichrechnung. Reinigung, Fußspuren bis zum Tresor, Dienstag, dreiundzwanzig Uhr zwölf. Ich habe sie auf null gesetzt.', 'signatur'),
+    l(SY, 'Nicht aus Güte. Ich wollte nur, dass Sie sehen, wie viel Sie mich gekostet hätten. Rahmen Sie sie ein. Ich habe meine auch eingerahmt.', 'freude'),
   ], { next: 'einladung' }),
   node('einladung', [
     n('Sie legt dir einen Umschlag auf die Hand. Büttenpapier, Chrome-Siegel. Unverschämt schwer für ein Stück Papier.'),

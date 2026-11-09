@@ -135,7 +135,7 @@ const kurz: NewsDef[] = [
   ], { dayAtLeast: 2 }),
 ];
 
-// --------------------------------------------------------------------------------------------- Wetter (fester Zyklus)
+// --------------------------------------------------------------------------------------------- Wetter (Stadtwetter des Tages)
 
 const wetter: NewsDef[] = [
   sendung('news-wetter-smog', 'Wetter: Smog', [

@@ -67,7 +67,7 @@ const ausbau: DialogueDef = {
       id: 'pinnwand-fertig',
       lines: [
         n('Kork, vier Reißzwecken, ein schiefes Lineal. Die Pinnwand hängt. Leicht schräg, aber mit Haltung.'),
-        { speaker: 'captain-kuschel', text: 'Hält. Wenn du nichts dranhängst.' },
+        n('In der Ecke steckt schon der erste Zettel: „Hält. Wenn du nichts dranhängst. – C. K.“'),
       ],
     },
     {
@@ -81,21 +81,21 @@ const ausbau: DialogueDef = {
       id: 'werkbank-fertig',
       lines: [
         n('Schraubstock, Lötkolben, eine Lampe, die nur flackert, wenn man sie ansieht. Die Werkbank steht.'),
-        { speaker: 'captain-kuschel', text: 'Wenn du dir einen Finger absägst: Der linke ist billiger.' },
+        n('Unter den Schraubstock geklemmt: „Wenn du dir einen Finger absägst: Der linke ist billiger. – C. K.“'),
       ],
     },
     {
       id: 'ende-voll',
       lines: [
         n('Der Container ist voll. Noch eine Verbesserung, und du musst im Flur schlafen.'),
-        { speaker: 'captain-kuschel', text: 'Für mehr brauchen wir mehr Stadt. Und mehr Geld. Warte, bis es draußen ungemütlich wird. Dann wird es hier drin gemütlich. – C. K.' },
+        n('Auf der Matratze liegt ein Zettel: „Für mehr brauchen wir mehr Stadt. Und mehr Geld. Warte, bis es draußen ungemütlich wird. Dann wird es hier drin gemütlich. – C. K.“'),
       ],
     },
     {
       id: 'phase-zwei',
       lines: [
         n('Neben dem ersten Zettel klebt ein zweiter, größer und ungeduldiger: „PHASE ZWEI. Couch. Garten. Aussicht. Geld her. – C. K.“ Ein Pfeil zeigt auf die Ecke mit dem Werkzeugkasten.'),
-        { speaker: 'captain-kuschel', text: 'Der große Ausbau. Da drüben. Ich hab schon Maß genommen. Mit den Ohren.' },
+        n('Darunter, kleiner und mit Ohren-Kritzelei: „Maß genommen. Mit den Ohren. Beide hoch heißt: passt. – C. K.“'),
       ],
     },
   ],
@@ -200,13 +200,19 @@ const quartier: MapDef = {
     {
       id: 'ausbau', at: [400, 290], radius: 70, label: 'Quartier ausbauen', kind: 'use', dialogue: 'cq-ausbau',
     },
+    // Klickbar an der Pinnwand sind nur die Ergänzungen 'planungstafel-quartier' (quest-main-b, ab plan_gefasst bis Akt 2)
+    // und 'm2p-pinnwand' (quest-main-2, Akt 2 mit releaseparty_geplant). Diese beiden Blicke füllen nur die Lücken dazwischen.
     {
-      id: 'pinnwand', at: [545, 278], radius: 70, label: 'Pinnwand (Planungstafel)', kind: 'board', board: 'planungstafel',
-      when: { all: [STUFE_1, { quest: 'main-1-der-plan', state: ['active', 'done'] }] },
+      id: 'pinnwand', at: [545, 278], radius: 70, label: 'Pinnwand ansehen', kind: 'look',
+      when: { all: [{ flag: 'plan_gefasst' }, { act: 2 }, { not: { all: [{ flag: 'releaseparty_geplant' }, { not: { act: 3 } }] } }] },
+      lines: [
+        n('Die alten Fotos hängen noch, die roten Fäden sind ausgeleiert. Halb Plan, halb Tatortfoto. Für das, was jetzt kommt, steht noch nichts drauf.'),
+        n('Unten rechts ein Zettel mit zwei gezeichneten Hasenohren, eines geknickt: „Neuer Plan? Ich warte. – C. K.“'),
+      ],
     },
     {
       id: 'pinnwand-leer', at: [545, 278], radius: 70, label: 'Pinnwand ansehen', kind: 'look',
-      when: { not: { all: [STUFE_1, { quest: 'main-1-der-plan', state: ['active', 'done'] }] } },
+      when: { notFlag: 'plan_gefasst' },
       lines: [
         n('Leerer Kork. Noch. Sobald es Pläne gibt, hängen hier Fotos mit roten Fäden, wie bei richtigen Verschwörern.'),
       ],

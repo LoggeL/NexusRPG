@@ -32,11 +32,15 @@ export const KARTEN_TURNIER = cycle(14);
 export const GRUENDERTAG = cycle(21);
 export const SCHROTTPARADE = cycle(28);
 
-/** „Wetterlage“ als fester Zyklus, solange die Engine kein Wetter kennt (design/plan/gaps/world.md). */
-export const WETTER_SMOG = cycle(2, 9, 16, 23);
-export const WETTER_NEONSCHAUER = cycle(3, 10, 17, 24);
-export const WETTER_ROSTREGEN = cycle(5, 12, 19, 26);
-export const WETTER_KLAR = cycle(1, 8, 15, 22);
+/**
+ * Stadtwetter des Tages (modules/time/weather.ts). Ausdrücklich mit Stadtbezirk, damit Nachrichten und Chat auch in der
+ * Ödnis vom Himmel über der Stadt reden. Feste Tage wie früher (Zyklustag 1/2/3/5 je Woche), die übrigen würfelt der
+ * Startwert der Partie, deshalb kommen die Meldungen jetzt auch an freien Tagen.
+ */
+export const WETTER_SMOG: Condition = { weather: 'smog', district: 'unterstadt' };
+export const WETTER_NEONSCHAUER: Condition = { weather: 'neonnebel', district: 'unterstadt' };
+export const WETTER_ROSTREGEN: Condition = { weather: 'rostregen', district: 'unterstadt' };
+export const WETTER_KLAR: Condition = { weather: 'klar', district: 'unterstadt' };
 
 // ---------------------------------------------------------------------------
 // Zeilen und Effekte

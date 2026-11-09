@@ -1,7 +1,7 @@
 // Rasterkampf als reine Regeln (design.md §3.7, world.md §8). Öffentliche API für Darstellung und App.
 //
 // Ablauf:
-//   const setup = { encounter, seed: battleSeed(state, encounter), party: partyFromCampaign(content, state),
+//   const setup = { encounter, seed: battleSeed(state, encounter), party: partyFromCampaign(content, state, def),
 //                   bag: bagFromInventory(content, state.inventory) };
 //   let battle = createBattle(content, setup);              // erste Einheit ist am Zug
 //   battle = runAiUntilPlayer(content, battle).state;       // Gegner-Züge bis die Party dran ist
@@ -11,7 +11,7 @@
 // Jede Aktion liefert einen neuen Zustand und die Ereignisse zum Animieren; Fehler ändern nichts.
 export type * from './types';
 export * from './rules';
-export { act, validateAction, abilityTargets, abilityBlocker, canInteract, itemAbility, usableInBattle } from './actions';
+export { act, validateAction, abilityTargets, abilityBlocker, canInteract, carryCandidate, itemAbility, usableInBattle } from './actions';
 export { createBattle } from './setup';
 export { initiativeOrder, upcomingTurns } from './turns';
 export { planAi, planAiAction, positionScore, roleOf, runAiTurn, runAiUntilPlayer, type AiPlan } from './ai';
@@ -23,7 +23,7 @@ export {
   parseLayout, relationTo, sameCell,
 } from './grid';
 export { activeUnit, findUnit, hasStatus, isActive, livingOf, abilityDef } from './queries';
-export { PLAYER_UNIT_ID, battleResult, battleSeed, bagFromInventory, companionStatsAt, companionUnitId, partyFromCampaign, startStatusFromCampaign } from './campaign';
+export { PLAYER_UNIT_ID, battleResult, battleSeed, bagFromInventory, chippedDownEffects, companionStatsAt, companionUnitId, partyFromCampaign, startStatusFromCampaign } from './campaign';
 export { simulateBattle, withAutopilot, type SimulationResult } from './simulate';
 export { validateCombatContent } from './validate';
 export { ruleMarks } from './bossRules';

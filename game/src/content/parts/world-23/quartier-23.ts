@@ -47,7 +47,7 @@ const ausbau: DialogueDef = dlg('welt23-cq-ausbau', [
   }),
   node('couch-fertig', [
     nar('Die Couch kommt vom Flohmarkt, riecht nach Zigarren und Abenteuer und passt nur durch die Luke, weil Captain Kuschel sie „überzeugt“ hat. Mit einem Hammer.'),
-    say('captain-kuschel', '(Die Ohren stehen stolz. Ein Zettel unter dem Kissen: „Gäste ja. Schuhe nein. Krümel NIE. – C. K.“)'),
+    nar('Ein Zettel unter dem Kissen, daneben zwei gezeichnete Hasenohren, stolz aufgestellt: „Gäste ja. Schuhe nein. Krümel NIE. – C. K.“'),
   ], { effects: [msg('Gästecouch: Abends kannst du einen Begleiter aus deiner Party zum Übernachten einladen.')] }),
   node('garten-fertig', [
     nar('Über der Luke geht jetzt eine Leiter aufs Containerdach. Oben: vier Kisten Erde, eine Regentonne, ein Schild „BETRETEN NUR MIT GUTER ABSICHT“. Die Samen sind drin. Die Tauben wissen es schon.'),
@@ -60,7 +60,7 @@ const ausbau: DialogueDef = dlg('welt23-cq-ausbau', [
   ], { effects: [herz('hunter', 30), msg('Aussicht: Das Quartier hat jetzt ein Meer. Captain Kuschel kommt sonntags zu Besuch.')] }),
   node('aussicht-gekauft', [
     nar('Zwei Handwerker, drei Flüche, ein neues Bullauge mit Panoramaglas. Davor ein Poster vom Meer, das sich bei Neonlicht anfühlt, als würde es rauschen.'),
-    say('captain-kuschel', '(Ein Zettel am Rahmen: „Endlich. Ich komm sonntags gucken. Bring Kekse. – C. K.“)'),
+    nar('Ein Zettel am Rahmen: „Endlich. Ich komm sonntags gucken. Bring Kekse. – C. K.“'),
   ], { effects: [msg('Aussicht: Das Quartier hat jetzt ein Meer. Captain Kuschel kommt sonntags zu Besuch.')] }),
   node('voll', [
     nar('Couch, Garten, Meer. Der Container ist ausgebaut. Wer jetzt noch etwas will, muss einen zweiten Container stapeln. Captain Kuschel hat schon einen im Auge.'),
@@ -181,21 +181,21 @@ export const part: ContentPart = {
           id: 'welt23-couch', at: [150, 452], radius: 56, label: 'Gästecouch', kind: 'use', dialogue: couch.id, when: S4,
         },
         {
-          id: 'welt23-dachgarten', at: [580, 390], radius: 50, label: 'Leiter zum Dachgarten', kind: 'use', dialogue: garten.id, when: S5,
+          id: 'welt23-dachgarten', at: [655, 300], radius: 50, label: 'Leiter zum Dachgarten', kind: 'use', dialogue: garten.id, when: S5,
         },
         {
-          id: 'welt23-meerposter', at: [740, 370], radius: 46, label: 'Meer am Bullauge', kind: 'look', when: all(S6, not(EPILOG)),
+          id: 'welt23-meerposter', at: [860, 290], radius: 46, label: 'Meer am Bullauge', kind: 'look', when: all(S6, not(EPILOG)),
           lines: [nar('Blau, so weit das Poster reicht. Wenn man lange genug hinsieht, hört man es fast rauschen. Oder das ist die Lüftung. Egal.')],
         },
         {
-          id: 'welt23-meerposter-epilog', at: [740, 370], radius: 46, label: 'Meer am Bullauge', kind: 'look', when: all(S6, EPILOG),
+          id: 'welt23-meerposter-epilog', at: [860, 290], radius: 46, label: 'Meer am Bullauge', kind: 'look', when: all(S6, EPILOG),
           lines: [
             nar('Neben dem Poster klebt jetzt ein echtes Foto: die Crew am Strand, alle nass, alle schief, alle da. Jemand hat mit Kuli darunter geschrieben: „Echt.“'),
             ich('Ja. Echt.'),
           ],
         },
         {
-          id: 'welt23-kuschel-besuch', at: [660, 300], radius: 44, label: 'Captain Kuschel war da', kind: 'loot', daily: true,
+          id: 'welt23-kuschel-besuch', at: [705, 300], radius: 40, label: 'Captain Kuschel war da', kind: 'loot', daily: true,
           when: all(S6, day('so')),
           effects: [
             give('dantes-kekse'), herz('captain-kuschel', 10),

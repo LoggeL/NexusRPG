@@ -19,6 +19,7 @@ import type { ConditionSpecs, EffectContext, EffectSpecs } from '../registry';
 import { SAVE_LIMITS, fail, int, isKey, obj, uniqueList } from '../validate';
 import { addItem, count, itemName, removeItem } from './core';
 import { addCredits } from './economy';
+import { installRefusal } from '../../economy';
 
 // ---------------------------------------------------------------------------
 // Regeln (Weiterleitungen auf modules/character, Namen bleiben für andere Domänen stabil)
@@ -274,6 +275,9 @@ export function installCyberwareIn(ctx: EffectContext, id: string, shop?: ShopId
   const shopDef = shop !== undefined ? (has(content.shops, shop) ? content.shops[shop] : null) : undefined;
   if (shopDef === null) return 'Unbekannter Händler.';
   if (shopDef && !ctx.evaluate(shopDef.open)) return `${shopDef.name} hat gerade geschlossen.`;
+  // Werkstatt verweigert den Einbau (`ripperdoc.refuseWhen`, z. B. Rivalität mit Dante).
+  const refused = shopDef ? installRefusal(shopDef, ctx.evaluate) : null;
+  if (refused) return refused;
   const freeWhen = shopDef ? asShop(shopDef).ripperdoc?.freeWhen : undefined;
   const plan = planInstall(content, draft.player, id, {
     inventory: draft.inventory,

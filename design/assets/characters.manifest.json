@@ -78,6 +78,7 @@
     "portrait-ole-gaehn": "assets/portraits/ole-gaehn.webp",
     "portrait-opa-blech": "assets/portraits/opa-blech.webp",
     "portrait-opa-gurrmann": "assets/portraits/opa-gurrmann.webp",
+    "portrait-hecki": "assets/portraits/hecki.webp",
     "portrait-falke": "assets/portraits/falke.webp",
     "portrait-elsa": "assets/portraits/elsa.webp",
     "portrait-glasblaeserin": "assets/portraits/glasblaeserin.webp",
@@ -95,7 +96,20 @@
     "portrait-barista-perle": "assets/portraits/barista-perle.webp",
     "portrait-fluss-frieda": "assets/portraits/fluss-frieda.webp",
     "portrait-frau-klingel": "assets/portraits/frau-klingel.webp",
-    "portrait-gutschein-gerd": "assets/portraits/gutschein-gerd.webp"
+    "portrait-gutschein-gerd": "assets/portraits/gutschein-gerd.webp",
+    "portrait-staubfalke-bolle": "assets/portraits/staubfalke-bolle.webp",
+    "portrait-aussiedlerin-juna": "assets/portraits/aussiedlerin-juna.webp",
+    "portrait-konvoi-doro": "assets/portraits/konvoi-doro.webp",
+    "portrait-rohrwartin-muffe": "assets/portraits/rohrwartin-muffe.webp",
+    "portrait-technikerin-kalibri": "assets/portraits/technikerin-kalibri.webp",
+    "portrait-funzel": "assets/portraits/funzel.webp",
+    "portrait-welt23-gechippter-nachbar": "assets/portraits/welt23-gechippter-nachbar.webp",
+    "portrait-welt23-gechippte-pendlerin": "assets/portraits/welt23-gechippte-pendlerin.webp",
+    "portrait-welt23-kanalvolk": "assets/portraits/welt23-kanalvolk.webp",
+    "portrait-welt23-spaziergaenger": "assets/portraits/welt23-spaziergaenger.webp",
+    "portrait-welt23-nachbarin": "assets/portraits/welt23-nachbarin.webp",
+    "portrait-welt23-pendler": "assets/portraits/welt23-pendler.webp",
+    "portrait-welt23-promoterin": "assets/portraits/welt23-promoterin.webp"
   },
   "sprites": {
     "blade-walk": {
@@ -1706,6 +1720,79 @@
     },
     "kameramann-walk": {
       "file": "assets/sprites/kameramann-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "captain-kuschel-walk": {
+      "file": "assets/sprites/captain-kuschel-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -6378,6 +6465,79 @@
     },
     "opa-gurrmann-walk": {
       "file": "assets/sprites/opa-gurrmann-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "hecki-walk": {
+      "file": "assets/sprites/hecki-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,

@@ -58,9 +58,9 @@ export type PerformResult =
   | { ok: true; events: SessionEvent[] }
   | { ok: false; error: string };
 
-/** Zusatzaktion der Regeln (Terminal hacken, Waffe wechseln) für die Aktionsleiste. */
+/** Zusatzaktion der Regeln (Terminal hacken, Waffe wechseln, Bewusstlose tragen) für die Aktionsleiste. */
 export interface ExtraAction {
-  key: 'interact' | 'weapon';
+  key: 'interact' | 'weapon' | 'carry';
   label: string;
   hint: string;
   enabled: boolean;
@@ -133,4 +133,5 @@ export const DEFAULT_AP_COST = {
   flee: 0,
   interact: 1,
   weapon: 0,
+  carry: 1,
 } as const;

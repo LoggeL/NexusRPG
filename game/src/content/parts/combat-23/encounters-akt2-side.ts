@@ -176,6 +176,12 @@ const list: EncounterDef[] = [
     solo: true,
     canFlee: false,
     when: act2,
+    // Lösungen aus side-xions-kralle mitten im Duell: gc-96 [Reflexe 8] Konter (Kralle 2 Züge weg), dienstplan-2079 vor
+    // Publikum (Xion verlässt den Ring = Sieg).
+    partyAbilities: [
+      { ability: 'ring-konter', when: { attr: 'reflexe', min: 8 } },
+      { ability: 'ring-dienstplan', when: { item: 'dienstplan-2079' } },
+    ],
     intro: [
       { speaker: 'narrator', text: 'Samstagnacht am Pier. Stromseile knistern um den Ring, die halbe Hafenkante brüllt. Wetten laufen. Auf dich eher nicht.' },
       { speaker: 'xion-venom', text: 'Eins gegen eins. Schockhandschuhe. Keine Freunde, keine Tricks, kein Funk. Ich bin nicht dumm, ich hab die Regeln selbst geschrieben.' },

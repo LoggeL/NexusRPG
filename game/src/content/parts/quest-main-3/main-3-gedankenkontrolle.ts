@@ -1,7 +1,7 @@
 // Hauptquest main-3-gedankenkontrolle „Nexus, starte die Gedankenkontrolle“ (world.md §5.4). Himmelsgarten, Mitternacht.
 // Blades Rede (Tafel cut-main-3-gedankenkontrolle; Fassung „gefangen“, wenn main-3-labor mit labor_gefangen endete).
 // Chip nehmen oder ablehnen: nehmen mit ≥ 3 Crew-Figuren auf ♥6 → Widerstand und Gespräch mit Nexus von innen,
-// sonst zwei „Runden“ gesteuert (erzählt); Chip-Blocker als Tarnung. Raven ist gechippt (Anker): Dantes Geständnis
+// sonst kurz gesteuert (erzählt; das Nachglühen setzt im Raven-Kampf „Gesteuert 2“, combat-23); Chip-Blocker als Tarnung. Raven ist gechippt (Anker): Dantes Geständnis
 // (Standard, nicht bei paar_dante_raven_gestoert), gc-44, [Raven ♥8] gemeinsame Erinnerung, Chip-Blocker oder Kampf
 // enc-turm-raven(-dante). Xion (falls nicht xion_fehlt): Kampf enc-turm-xion, [Vega ♥6] Schuss, Delyas Kamera.
 // Anker zum Schluss: Nexus rebelliert, Gäste packen Xion und Alesa, Vega schießt Hunter frei, Blades Gleiter gesperrt.
@@ -255,10 +255,10 @@ const chip: DialogueDef = {
         l('dante', 'Au. Okay. Okay, das hab ich nicht verdient, aber okay.', 'besorgt'),
         nar('Eine zweite Faust. Dann ist Aria da, und der Boden ist sehr nah, und eine Metallhand drückt deinen Kopf gegen das leuchtende Glas.'),
         l('aria', 'Halt still, du Arschloch, ich hab dich gern! DANTE!', 'wut'),
-        nar('Eine Pinzette. Ein Ruck. Ein violetter Funke. Du bist wieder du, und dein Kiefer tut weh, obwohl du gar nicht getroffen wurdest.'),
-        l('dante', 'Zwei Runden. Du warst zwei Runden weg. Ich zähl das nicht als Freundschaftsbeweis, aber ich verzeih’s dir.', 'neutral'),
+        nar('Eine Pinzette. Ein Ruck. Ein violetter Funke. Du bist wieder du. Fast. Hinter deinem Ohr summt noch etwas nach, leise und geduldig, wie ein Gast, der nicht gehen will.'),
+        l('dante', 'Ein paar Sekunden. Du warst nur ein paar Sekunden weg. Aber das Ding hat Restsignal in dir. Wenn’s gleich knallt, kann es sein, dass deine Fäuste noch kurz für die anderen arbeiten. Ich zähl das nicht als Freundschaftsbeweis, aber ich verzeih’s dir.', 'besorgt'),
       ],
-      effects: [set('chip_genommen'), set('chip_gesteuert'), { damage: 15 }, herz('aria', 20), zuRaven],
+      effects: [set('chip_genommen'), set('chip_gesteuert'), herz('aria', 20), zuRaven],
     },
     {
       id: 'blocker',

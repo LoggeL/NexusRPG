@@ -412,7 +412,7 @@ const nachKampf: DialogueDef = {
     {
       id: 'niederlage',
       lines: [
-        nar('Du liegst auf den Glasplatten und siehst den Rotoren zu. Dann ein Schuss vom Antennenmast. Funken an der Gleiternase.'),
+        nar('Du liegst auf den Glasplatten und siehst den Rotoren zu. Blade hängt schon mit einem Bein in der Gleiterluke und winkt dir mit dem Seidentuch. Dann ein Schuss vom Antennenmast. Funken an der Gleiternase.'),
         l('vega', 'Rotor angekratzt. Der kommt fünf Minuten nicht hoch. Steh auf. Ich treff ihn kein zweites Mal, ohne dass er auf die Gäste fällt.', 'besorgt'),
       ],
       effects: [{ heal: 'full' }, { travel: 'himmelsgarten', entry: 'landeplatz', minutes: 0 }],

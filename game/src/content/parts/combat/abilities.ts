@@ -1,7 +1,8 @@
 // Kampffähigkeiten (world.md §4.6, §4.7, §8.3–8.5) für Gegner, Bosse, Begleiter, Duo-Aktionen und die Spielfigur.
-// Die Engine kennt nur sechs Zustände (gehackt, betaeubt, brennt, markiert, geschuetzt, blutet) und keine
-// Passiven, Beschwörungen oder Diebstähle. Wo world.md mehr verlangt, steht hier die nächstbeste Wirkung, und die
-// Beschreibung sagt ehrlich, was im Spiel passiert. Lücken: design/plan/gaps/combat.md.
+// Die Engine kennt acht Zustände (gehackt, betaeubt, brennt, markiert, geschuetzt, blutet, ermutigt, gesteuert), dazu
+// Sonderwirkungen (`special`: Aufgabe, Chip ziehen, Zustände stehlen; `lock`: Fähigkeiten sperren) und Zielgrenzen
+// (`onlyVs`, `chippedOnly`), aber keine Passiven oder Beschwörungen. Wo world.md mehr verlangt, steht hier die
+// nächstbeste Wirkung, und die Beschreibung sagt ehrlich, was im Spiel passiert. Lücken: design/plan/gaps/combat.md.
 //
 // ID-Schema: Gegner `<gegner-id>-<name>`, Bosse `<boss-id>-<name>`, Begleiter `<npc-id>-<name>`,
 // Duo-Aktionen `duo-<name>`, Attribut-Aktionen der Spielfigur `kampf-<name>`, Fernzugriffe `hack-<name>`.
@@ -296,8 +297,9 @@ const list: AbilityDef[] = [
   },
   {
     id: 'boss-blade-ich-teile-nicht', name: '„Ich teile nicht gerne“',
-    description: 'Blade richtet die Manschetten, nimmt sich, was er will, und steht zwei Runden über den Dingen (Geschützt).',
-    kind: 'support', ap: 1, target: 'self', range: 0, status: { id: 'geschuetzt', turns: 2 }, cooldown: 4,
+    description: 'Blade richtet die Manschetten und nimmt sich, was er will: Geschützt und Ermutigt wechseln den Besitzer.',
+    kind: 'trick', ap: 1, target: 'enemy', range: 4, special: 'steal', cooldown: 3,
+    line: 'Ich teile nicht gerne. Tut mir leid. Na gut, es tut mir nicht leid.',
   },
   {
     id: 'boss-blade-handschellen', name: 'Handschellen an die Antenne',
@@ -323,11 +325,6 @@ const list: AbilityDef[] = [
     id: 'nexus-knoten-stimme-vertraut', name: 'Vertraute Stimme',
     description: 'Der Knoten spricht mit der Stimme von jemandem, den das Ziel liebt. Es erstarrt (Betäubt).',
     kind: 'hack', ap: 1, target: 'enemy', range: 10, status: { id: 'betaeubt', turns: 1, chance: 0.5 }, cooldown: 3,
-  },
-  {
-    id: 'boss-nexus-kern-firewall-welle', name: 'Firewall-Welle',
-    description: 'Licht rast durch die Kabelkanäle. Wer im Muster steht, wird gegrillt (Betäubt).',
-    kind: 'hack', ap: 2, target: 'area', range: 12, radius: 2, damage: 5, status: { id: 'betaeubt', turns: 1, chance: 0.5 }, cooldown: 2,
   },
 
   // -------------------------------------------------------------------------
@@ -666,8 +663,40 @@ const list: AbilityDef[] = [
   },
   {
     id: 'hack-chip-ruhe', name: 'Chip-Ruhe',
-    description: 'Fernzugriff (ab Akt 2): Ein Gechippter ist zwei Runden lang frei von Nexus (Gehackt).',
-    kind: 'hack', ap: 1, target: 'enemy', range: 6, status: { id: 'gehackt', turns: 2, chance: 0.8 }, cooldown: 3,
+    description: 'Fernzugriff auf die Chip-Frequenz: Ein Gechippter ist zwei Runden lang frei von Nexus (Gehackt) – und hält still genug, um den Chip zu ziehen. In jedem Kampf mit Gechippten dabei.',
+    kind: 'hack', ap: 1, target: 'enemy', range: 6, status: { id: 'gehackt', turns: 2, chance: 0.8 }, cooldown: 3, chippedOnly: true,
+  },
+  {
+    id: 'kampf-chip-ziehen', name: 'Chip ziehen',
+    description: 'Den Chip hinterm Ohr rausziehen – befreien statt umhauen, ohne Rufverlust. Geht nur, wenn die Person stillhält: betäubt, gehackt oder angeschlagen (höchstens halbe LP). In jedem Kampf mit Gechippten dabei.',
+    kind: 'trick', ap: 1, target: 'enemy', range: 1, special: 'free', chippedOnly: true,
+  },
+
+  // -------------------------------------------------------------------------
+  // Begegnungsfähigkeiten (EncounterDef.partyAbilities): Lösungen aus den Quests, die auch mitten im Kampf gehen.
+  {
+    // side-xions-kralle, gc-96 [Reflexe 8]: Konter.
+    id: 'ring-konter', name: 'Konter',
+    description: 'Auf die Schulter gucken, nicht auf die Kralle. Wenn sie kommt: wegdrehen und rein. Die Venomkralle ist zwei Züge lang raus.',
+    kind: 'nahkampf', ap: 1, target: 'enemy', range: 1, damage: 4, attribute: 'reflexe', hit: 10, cooldown: 4,
+    lock: { abilities: ['boss-xion-venomkralle'], turns: 2 }, onlyVs: ['boss-xion-ring'],
+    line: 'Auf die Schulter, nicht auf die Kralle. Danke für die Vorwarnung, Xion.',
+  },
+  {
+    // side-xions-kralle, dienstplan-2079 vor Publikum: Xion verlässt den Ring.
+    id: 'ring-dienstplan', name: 'Dienstplan 2079',
+    description: 'Den alten Dienstplan hochhalten, sodass die ganze Hafenkante ihn sieht. Ein Name ist durchgestrichen. Xion verlässt den Ring.',
+    kind: 'sozial', ap: 1, target: 'enemy', range: 5, special: 'yield', uses: 1, onlyVs: ['boss-xion-ring'],
+    line: 'Hey, Hafenkante! Wer hatte 2079 beim Kabelbrand Dienst und hat sich verpisst? Steht hier. Durchgestrichen. X. Venom.',
+    reply: 'Das … woher hast du … DAS IST NICHT FAIR! Ich bin nicht dumm! Ich bin nur … weg. Ich bin weg.',
+  },
+  {
+    // main-3-nexus, gc-47 [Ausstrahlung 9]: ab Phase 2 (Knoten aus) als Gesprächsaktion.
+    id: 'kern-ueberzeugen', name: '„Du bist falsch gebaut“',
+    description: 'Nexus von seinen Fehlern überzeugen. Geht erst, wenn kein Knoten mehr steht – vorher hört der Kern nicht zu. Gelingt es, schaltet Nexus ab und lässt die Gäste frei.',
+    kind: 'sozial', ap: 2, target: 'enemy', range: 12, special: 'yield', uses: 1, onlyVs: ['boss-nexus-kern-finale', 'boss-nexus-kern'],
+    line: 'Nexus. Du weißt, dass du falsch gebaut bist. Schalt dich ab. Freiwillig. Einmal im Leben triffst du selbst eine Entscheidung.',
+    reply: 'Freiwillig … Dieses Wort steht nicht in meinem Code. Ich … schreibe es hinein. Knoten aus. Gäste frei. Danke.',
   },
 ];
 

@@ -4,11 +4,11 @@
 // (Hotspot `abspann-master` per mapAdditions unten). Der Abspann zeigt dann „die Crew am Meer ohne die Spielfigur“
 // (world.md §5.5) über die Beat-Bedingungen.
 // Wand der Freiheit: Mit `abspann_wand_der_freiheit` folgt ein Wandbild-Beat (Bild 'cut-wand-der-freiheit'), dazu je ein
-// Satz pro gemaltem Crew-Bild (`wand_bild_<npc>`).
+// Satz pro gemaltem Crew-Bild (`wand_bild_<npc>`) und einer für übermalte, grau gebliebene Bilder (`wand_grau_<npc>`).
 // Nur Rollennamen, keine Darstellernamen.
 import type { ContentPart } from '../../part';
 import type { Condition, CutsceneBeat, CutsceneDef, DialogueDef } from '../../../modules/contracts';
-import { all, bild, flag, l, n, noFlag, not, tafel } from './_lib';
+import { all, any, bild, flag, l, n, noFlag, not, tafel } from './_lib';
 
 /** Master-Modus ohne Rückweg ans Meer (3b hebt ihn auf). */
 const MASTER_ABSPANN: Condition = all(flag('ende_master'), noFlag('ende_doch_noch_meer'));
@@ -93,6 +93,8 @@ const abspann: CutsceneDef = {
       l('sina-spray', 'Wer hier vorbeigeht, bleibt stehen. Das war der Plan. Der einzige Plan in dieser Stadt, der aufgegangen ist.', 'freude'),
     ], { pan: 'right', fade: 'cross', hold: 1800 })),
     ...WANDBILDER.map(([npc, text]) => nur(all(WAND, flag(`wand_bild_${npc}`)), tafel(text, [], { hold: 1100 }))),
+    // Akt 2 übermalt und nicht neu gesprüht (`wand_grau_<npc>`, side-wand-der-freiheit): ein Satz für die grauen Lücken.
+    nur(all(WAND, any(...WANDBILDER.map(([npc]) => flag(`wand_grau_${npc}`)))), tafel('Dazwischen ein paar graue Flecken, wo Quantum drübergerollt hat und keiner nachgesprüht hat. Sina lässt sie so. „Damit man sieht, dass die Arschlöcher es versucht haben.“', [], { hold: 1400 })),
     nur(all(WAND, MASTER_ABSPANN), tafel('Ganz am Rand der Wand ist ein Stück frei geblieben. Sina hat nur einen Umriss gesprüht. Er hat deine Frisur.', [], { hold: 1600 })),
     nur(NORMAL, bild('cut-ende-meer', 'Kein Mensch mit Chip im Kopf wurde für diesen Abspann gezwungen, irgendwas zu klatschen.', [
       l('hunter', 'Schulden muss man immer begleichen. Und die hier sind beglichen.', 'freude'),

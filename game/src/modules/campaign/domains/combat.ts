@@ -48,6 +48,7 @@ export function battleBuffsFor(state: Readonly<GameState>, encounter: EncounterI
  * - Sieg: Belohnung (Begegnung + Gegnerbeute), Begleiter +5 Punkte, `sieg:<id>` gesehen, onWin.
  * - Niederlage: keine Sackgasse – zurück in den Unterschlupf mit halben LP, onLose; die Begegnung bleibt wiederholbar.
  * - Flucht: LP übernehmen, sonst nichts.
+ * - Immer: `result.effects` (Folgen aus dem Kampfverlauf, z. B. Ruf für umgehauene Gechippte).
  * Danach der Nachlauf aus dem Effekt (`after.win/lose/flee`); `stay` bzw. `stayOnLose` spart den Heimweg.
  */
 export function finishBattleIn(ctx: EffectContext, result: BattleResult, after?: BattleFollowUp): string | null {
@@ -61,6 +62,11 @@ export function finishBattleIn(ctx: EffectContext, result: BattleResult, after?:
   for (const { key } of battleBuffsFor(draft, def.id)) delete draft.flags[key];
   const max = maxHpOf(content, draft.player);
   draft.player.hp = Math.max(1, Math.min(max, Math.round(Number.isFinite(result.playerHp) ? result.playerHp : max)));
+  // Folgen aus dem Kampfverlauf (z. B. Ruf für umgehauene Gechippte) gelten bei jedem Ausgang.
+  if (result.effects?.length) {
+    const problem = ctx.run(result.effects);
+    if (problem) return problem;
+  }
   if (result.outcome === 'win') {
     draft.stats.battlesWon += 1;
     markSeenIn(draft, winKey(def.id));

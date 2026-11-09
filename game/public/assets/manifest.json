@@ -37,6 +37,13 @@
     "bg-chrome-boulevard-stiftung": "assets/bg/chrome-boulevard-stiftung.webp",
     "bg-chrome-penthouse": "assets/bg/chrome-penthouse.webp",
     "bg-crew-quartier": "assets/bg/crew-quartier.webp",
+    "bg-crew-quartier-s4": "assets/bg/crew-quartier-s4.webp",
+    "bg-crew-quartier-s45": "assets/bg/crew-quartier-s45.webp",
+    "bg-crew-quartier-s456": "assets/bg/crew-quartier-s456.webp",
+    "bg-crew-quartier-s46": "assets/bg/crew-quartier-s46.webp",
+    "bg-crew-quartier-s5": "assets/bg/crew-quartier-s5.webp",
+    "bg-crew-quartier-s56": "assets/bg/crew-quartier-s56.webp",
+    "bg-crew-quartier-s6": "assets/bg/crew-quartier-s6.webp",
     "bg-dantes-werkstatt": "assets/bg/dantes-werkstatt.webp",
     "bg-das-meer": "assets/bg/das-meer.webp",
     "bg-das-meer-strandclub": "assets/bg/das-meer-strandclub.webp",
@@ -98,6 +105,9 @@
     "bg-suppenkueche": "assets/bg/suppenkueche.webp",
     "bg-ubahn-wagen": "assets/bg/ubahn-wagen.webp",
     "bg-zellentrakt": "assets/bg/zellentrakt.webp",
+    "cut-akt1-aufbruch": "assets/cut/akt1-aufbruch.webp",
+    "cut-akt1-labor-null": "assets/cut/akt1-labor-null.webp",
+    "cut-ankunft-bahnhof": "assets/cut/ankunft-bahnhof.webp",
     "cut-ende-doch-noch-ans-meer": "assets/cut/ende-doch-noch-ans-meer.webp",
     "cut-ende-master": "assets/cut/ende-master.webp",
     "cut-ende-meer": "assets/cut/ende-meer.webp",
@@ -121,7 +131,12 @@
     "cut-main-3-gedankenkontrolle": "assets/cut/main-3-gedankenkontrolle.webp",
     "cut-main-3-labor": "assets/cut/main-3-labor.webp",
     "cut-main-3-nexus": "assets/cut/main-3-nexus.webp",
+    "cut-marla-brunnen": "assets/cut/marla-brunnen.webp",
     "cut-peruecke-sendung": "assets/cut/peruecke-sendung.webp",
+    "cut-probezeit-ecktisch": "assets/cut/probezeit-ecktisch.webp",
+    "cut-prolog-gericht": "assets/cut/prolog-gericht.webp",
+    "cut-prolog-rohr": "assets/cut/prolog-rohr.webp",
+    "cut-raven-freeze": "assets/cut/raven-freeze.webp",
     "cut-rom-aria-albtraum": "assets/cut/rom-aria-albtraum.webp",
     "cut-rom-aria-ausfall": "assets/cut/rom-aria-ausfall.webp",
     "cut-rom-aria-dach": "assets/cut/rom-aria-dach.webp",
@@ -134,8 +149,10 @@
     "cut-rom-aria-vega": "assets/cut/rom-aria-vega.webp",
     "cut-rom-aria-werkstatt": "assets/cut/rom-aria-werkstatt.webp",
     "cut-rom-collin-testbild": "assets/cut/rom-collin-testbild.webp",
+    "cut-rom-dante-date": "assets/cut/rom-dante-date.webp",
     "cut-rom-dante-werkstatt": "assets/cut/rom-dante-werkstatt.webp",
     "cut-rom-hunter-bar": "assets/cut/rom-hunter-bar.webp",
+    "cut-rom-hunter-date": "assets/cut/rom-hunter-date.webp",
     "cut-rom-lio-dach": "assets/cut/rom-lio-dach.webp",
     "cut-rom-vexaria-am-kragen": "assets/cut/rom-vexaria-am-kragen.webp",
     "cut-rom-vexaria-armdruecken": "assets/cut/rom-vexaria-armdruecken.webp",
@@ -164,6 +181,8 @@
     "cut-side-live-dabei-sendung": "assets/cut/side-live-dabei-sendung.webp",
     "cut-side-zehn-credits-abend": "assets/cut/side-zehn-credits-abend.webp",
     "cut-strom-licht-im-kanal": "assets/cut/strom-licht-im-kanal.webp",
+    "cut-wand-der-freiheit": "assets/cut/wand-der-freiheit.webp",
+    "cut-wingman-sonnenuntergang": "assets/cut/wingman-sonnenuntergang.webp",
     "photo-alesa-besorgt": "assets/photos/alesa/besorgt.webp",
     "photo-alesa-freude": "assets/photos/alesa/freude.webp",
     "photo-alesa-neutral": "assets/photos/alesa/neutral.webp",
@@ -562,6 +581,7 @@
     "photo-zellennachbarin-trauer": "assets/photos/zellennachbarin/trauer.webp",
     "portrait-alesa": "assets/portraits/alesa.webp",
     "portrait-aria": "assets/portraits/aria.webp",
+    "portrait-aussiedlerin-juna": "assets/portraits/aussiedlerin-juna.webp",
     "portrait-babette-bao": "assets/portraits/babette-bao.webp",
     "portrait-barista-perle": "assets/portraits/barista-perle.webp",
     "portrait-barkeeper": "assets/portraits/barkeeper.webp",
@@ -588,6 +608,7 @@
     "portrait-frau-klingel": "assets/portraits/frau-klingel.webp",
     "portrait-frau-takt": "assets/portraits/frau-takt.webp",
     "portrait-freya": "assets/portraits/freya.webp",
+    "portrait-funzel": "assets/portraits/funzel.webp",
     "portrait-fx-60": "assets/portraits/fx-60.webp",
     "portrait-gerda-gleis": "assets/portraits/gerda-gleis.webp",
     "portrait-glasblaeserin": "assets/portraits/glasblaeserin.webp",
@@ -608,6 +629,7 @@
     "portrait-kiki-karbon": "assets/portraits/kiki-karbon.webp",
     "portrait-knuspi": "assets/portraits/knuspi.webp",
     "portrait-knut": "assets/portraits/knut.webp",
+    "portrait-konvoi-doro": "assets/portraits/konvoi-doro.webp",
     "portrait-krabbe-karl": "assets/portraits/krabbe-karl.webp",
     "portrait-kraehe": "assets/portraits/kraehe.webp",
     "portrait-kurt": "assets/portraits/kurt.webp",
@@ -635,6 +657,7 @@
     "portrait-raven": "assets/portraits/raven.webp",
     "portrait-richter": "assets/portraits/richter.webp",
     "portrait-ripper": "assets/portraits/ripper.webp",
+    "portrait-rohrwartin-muffe": "assets/portraits/rohrwartin-muffe.webp",
     "portrait-rudi": "assets/portraits/rudi.webp",
     "portrait-salzige-grete": "assets/portraits/salzige-grete.webp",
     "portrait-schlafwandler-bert": "assets/portraits/schlafwandler-bert.webp",
@@ -644,14 +667,23 @@
     "portrait-serenity": "assets/portraits/serenity.webp",
     "portrait-sina-spray": "assets/portraits/sina-spray.webp",
     "portrait-staubbaron-broesel": "assets/portraits/staubbaron-broesel.webp",
+    "portrait-staubfalke-bolle": "assets/portraits/staubfalke-bolle.webp",
     "portrait-stylistin-gina": "assets/portraits/stylistin-gina.webp",
     "portrait-sybella": "assets/portraits/sybella.webp",
+    "portrait-technikerin-kalibri": "assets/portraits/technikerin-kalibri.webp",
     "portrait-turbo-tilda": "assets/portraits/turbo-tilda.webp",
     "portrait-vega": "assets/portraits/vega.webp",
     "portrait-vex": "assets/portraits/vex.webp",
     "portrait-vinyl-vincent": "assets/portraits/vinyl-vincent.webp",
     "portrait-wache": "assets/portraits/wache.webp",
     "portrait-wachmann-brezel": "assets/portraits/wachmann-brezel.webp",
+    "portrait-welt23-gechippte-pendlerin": "assets/portraits/welt23-gechippte-pendlerin.webp",
+    "portrait-welt23-gechippter-nachbar": "assets/portraits/welt23-gechippter-nachbar.webp",
+    "portrait-welt23-kanalvolk": "assets/portraits/welt23-kanalvolk.webp",
+    "portrait-welt23-nachbarin": "assets/portraits/welt23-nachbarin.webp",
+    "portrait-welt23-pendler": "assets/portraits/welt23-pendler.webp",
+    "portrait-welt23-promoterin": "assets/portraits/welt23-promoterin.webp",
+    "portrait-welt23-spaziergaenger": "assets/portraits/welt23-spaziergaenger.webp",
     "portrait-werbung": "assets/portraits/werbung.webp",
     "portrait-wett-willi": "assets/portraits/wett-willi.webp",
     "portrait-xion": "assets/portraits/xion.webp",
@@ -1466,6 +1498,79 @@
     },
     "buergermeister-gully-walk": {
       "file": "assets/sprites/buergermeister-gully-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "captain-kuschel-walk": {
+      "file": "assets/sprites/captain-kuschel-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -8483,6 +8588,7 @@
       "fake-implantat": 263,
       "faxpapier": 114,
       "feuerloescher-mini": 115,
+      "fisch-vom-grill": 332,
       "flaschenpost": 323,
       "fossile-muschel": 116,
       "frisches-gemuese": 91,
@@ -8499,6 +8605,7 @@
       "geruecht-master": 280,
       "gesetzbuch": 117,
       "glasherz": 118,
+      "glasperlen": 333,
       "gleitbrett": 245,
       "glitzerschrott": 119,
       "glueckstern": 320,
@@ -8707,7 +8814,9 @@
       "synth-kaffee": 28,
       "synth-nudeln": 22,
       "tai-chi-tee": 192,
+      "talisman-grosse-ohren": 334,
       "taschenspiegel-gold": 193,
+      "taschenuhr-ripper": 335,
       "taxi-akkuzelle": 255,
       "taxi-duftbaum": 194,
       "teddyfell-buerste": 195,
@@ -8739,6 +8848,9 @@
     }
   },
   "blurhash": {
+    "cut-akt1-aufbruch": "L67TbDZ~NFOD}_#lniO9kGw]wJoz",
+    "cut-akt1-labor-null": "L81XBWaxmQkDb]f6eTfkVBj]bvad",
+    "cut-ankunft-bahnhof": "L47mXKfxm]=^}_A8Idos}]NGE3-W",
     "cut-ende-doch-noch-ans-meer": "L88p4iRhACss}x9?W-^7}vNYI:sF",
     "cut-ende-master": "L55z%yR$Zx$nwKsp$QayM^W-ohsq",
     "cut-ende-meer": "LTIDEl0#WAWB={Nde-R*^PNcNGWB",
@@ -8762,7 +8874,12 @@
     "cut-main-3-gedankenkontrolle": "L88NO*[BrYY5%%+wi{KiJ5nn$j%2",
     "cut-main-3-labor": "L57^}eH;9^9ENhn4xZS1JWxvVq%2",
     "cut-main-3-nexus": "L455U.GFDN@[bAX8MxwIibjEtmS}",
+    "cut-marla-brunnen": "LBE2Of9FD$%N^,e.RO9u.AjWD$xu",
     "cut-peruecke-sendung": "LGB3BI9GNHog~WD*ayxv?IM{WAt7",
+    "cut-probezeit-ecktisch": "L570+6}a=gsDo%I-R.I.xKwv$lxF",
+    "cut-prolog-gericht": "L15;zO=~E0$*~EM|x]RiXBMw%2V@",
+    "cut-prolog-rohr": "L66k0b?K%jvy-YS#K5WArWW=NZxb",
+    "cut-raven-freeze": "LFA9Nj0|xH-W^PEQocn$R-R%xWI:",
     "cut-rom-aria-albtraum": "L46j|PGuTg-W}_KObxad=h9?e.of",
     "cut-rom-aria-ausfall": "L35Xia{^={tR-=#%xbtQb{M_R.b^",
     "cut-rom-aria-dach": "L87,fpNDNhOW-t$is;Ez-DohbJNY",
@@ -8775,8 +8892,10 @@
     "cut-rom-aria-vega": "LN7UVyR2WYtT%jR3a~t9kXV?ogj?",
     "cut-rom-aria-werkstatt": "L47Af1|;t,=w-qv}K%VqO@ITF1M{",
     "cut-rom-collin-testbild": "L67wEt[]9WEeo%f5V@i_EHS2o#aw",
+    "cut-rom-dante-date": "LQ7,}~oJWUj^-toLf5j]xxoMWUj]",
     "cut-rom-dante-werkstatt": "L35NP.xFI=$hs:S2R+sm1KWWoKNv",
     "cut-rom-hunter-bar": "L76HQR+b9rB:,^sBJPJQDzOro#v#",
+    "cut-rom-hunter-date": "L48{qG=rxVs:%49[^6Nd}Zk7}r-B",
     "cut-rom-lio-dach": "L45}RJ+JISGCxxr=jYI.9WJ~t8#W",
     "cut-rom-vexaria-am-kragen": "L379-E]{nqR}}a$v,^sjS6j;xHxB",
     "cut-rom-vexaria-armdruecken": "L57TFZxb1HRkojn,$*t5=hw{I.Na",
@@ -8804,6 +8923,8 @@
     "cut-side-kessel-feierabend": "LA8|h+9p^nTK-q$+j]t8W9xIWAog",
     "cut-side-live-dabei-sendung": "L45|{J^6sSJ8-tw[jZaxxejXslWU",
     "cut-side-zehn-credits-abend": "L58{?^}lOZ-V#[IUIvEQ={-Ot5%2",
-    "cut-strom-licht-im-kanal": "L49F~PEU5*$d}]9^NZe?EfNGadxG"
+    "cut-strom-licht-im-kanal": "L49F~PEU5*$d}]9^NZe?EfNGadxG",
+    "cut-wand-der-freiheit": "LEDH:I57$~NH}tIp-VNHJ5I:-UNa",
+    "cut-wingman-sonnenuntergang": "LQE,TY,=j[S4]-o1s.xF1LS4xExE"
   }
 }

@@ -29,8 +29,8 @@ export const NACH_BRUCH: Condition = all(NUR_AKT2, { quest: 'main-2-bruch', stat
 export const ABEND_NACHT: Condition = { time: ['abend', 'nacht'] };
 export const TAGSUEBER: Condition = { time: ['morgen', 'tag', 'abend'] };
 
-/** Ödnis-Wetter „Sandsturm“ als fester Zyklus (die Engine kennt noch kein Wetter, gaps-done.md). */
-export const SANDSTURM: Condition = { cycleDay: [4, 11, 18, 25] };
+/** Ödnis-Wetter „Sandsturm“ (modules/time/weather.ts: Zyklustag 4/11/18/25), auch abgefragt, wenn man in der Stadt ist. */
+export const SANDSTURM: Condition = { weather: 'sandsturm', district: 'oednis' };
 /** Stromausfall in der Unterstadt: einmal pro Woche (Freitag), ab Akt 2 (world.md §10.6). */
 export const STROMAUSFALL_TAG: Condition = { cycleDay: [5, 12, 19, 26] };
 /** Meerestag (Fest, nur Nachspiel): ersetzt den Gründertag, Quantum feiert nichts mehr. */

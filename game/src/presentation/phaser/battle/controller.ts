@@ -146,16 +146,17 @@ export function objectiveText(objective: BattleObjective | undefined): string {
   switch (objective?.kind) {
     case undefined:
     case 'defeat': return 'Besiege alle Gegner.';
-    case 'survive': return `Halte ${objective.rounds} ${objective.rounds === 1 ? 'Runde' : 'Runden'} durch.`;
+    case 'survive': return `Halte ${objective.rounds} ${objective.rounds === 1 ? 'Runde' : 'Runden'} durch${objective.exit?.length ? ' – oder erreiche den Ausgang' : ''}.`;
     case 'reach': return 'Erreiche die markierten Felder.';
     case 'hack': return `Hacke das Terminal (${objective.ap} AP).`;
-    case 'rescue': return 'Rette die markierte Person.';
+    case 'rescue': return objective.immobile ? 'Rette die markierte Person – sie ist bewusstlos (Tragen: 1 AP).' : 'Rette die markierte Person.';
   }
 }
 
 export function objectiveCells(objective: BattleObjective | undefined): Cell[] {
   switch (objective?.kind) {
     case 'reach': return [...objective.cells];
+    case 'survive': return [...(objective.exit ?? [])];
     case 'hack': return [objective.cell];
     case 'rescue': return [objective.cell];
     default: return [];
@@ -336,7 +337,8 @@ export class BattleController {
       case 'end': this.submit({ type: 'end' }); return;
       case 'flee': this.submit({ type: 'flee' }); return;
       case 'interact':
-      case 'weapon': {
+      case 'weapon':
+      case 'carry': {
         const extra = this.deps.port.extraActions?.(active.id).find((candidate) => candidate.key === key);
         if (extra) this.submit(extra.action);
         return;

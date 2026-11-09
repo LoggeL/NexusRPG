@@ -45,7 +45,11 @@ export function validateCombatContent(data: CombatData): string[] {
     }
     if (ability.cooldown !== undefined && !(ability.cooldown >= 0)) report(at, 'cooldown darf nicht negativ sein');
     if (ability.uses !== undefined && !(ability.uses >= 1)) report(at, 'uses braucht ≥ 1');
-    if (!ability.damage && !ability.heal && !ability.status && ability.kind !== 'sozial') report(at, 'wirkt nicht (kein Schaden, keine Heilung, kein Zustand)');
+    if (!ability.damage && !ability.heal && !ability.status && !ability.special && !ability.lock && ability.kind !== 'sozial') report(at, 'wirkt nicht (kein Schaden, keine Heilung, kein Zustand)');
+    for (const id of ability.onlyVs ?? []) if (!has(data.enemies, id)) report(at, `onlyVs: unbekannter Gegner „${id}“`);
+    for (const id of ability.lock?.abilities ?? []) if (!has(data.abilities, id)) report(at, `lock: unbekannte Fähigkeit „${id}“`);
+    if (ability.lock && !(ability.lock.turns >= 1)) report(at, 'lock braucht turns ≥ 1');
+    if (ability.special && ability.target !== 'enemy') report(at, `special „${ability.special}“ braucht ein Gegnerziel`);
   }
 
   for (const enemy of Object.values(data.enemies)) {
@@ -58,7 +62,10 @@ export function validateCombatContent(data: CombatData): string[] {
     const phases = enemy.phases?.length ?? 0;
     for (const rule of enemy.rules ?? []) {
       const where = `${at} Regel ${rule.kind}`;
-      const refs = [...(rule.afterDown ?? []), ...(rule.kind === 'invulnerable' ? rule.while : []), ...(rule.kind === 'reinforce' ? [rule.enemy] : [])];
+      const refs = [
+        ...(rule.afterDown ?? []), ...(rule.kind === 'invulnerable' ? rule.while : []), ...(rule.kind === 'reinforce' ? [rule.enemy] : []),
+        ...(rule.kind === 'chipped' ? rule.boostWhile ?? [] : []),
+      ];
       for (const id of refs) if (!has(data.enemies, id)) report(where, `unbekannter Gegner „${id}“`);
       if (rule.phase !== undefined && !(rule.phase >= -1 && rule.phase < phases)) report(where, `Phase ${rule.phase} gibt es nicht`);
       if (rule.untilPhase !== undefined && !(rule.untilPhase >= 0 && rule.untilPhase < phases)) report(where, `untilPhase ${rule.untilPhase} gibt es nicht`);
@@ -106,9 +113,11 @@ export function validateCombatContent(data: CombatData): string[] {
     }
     const objective = encounter.objective;
     if (objective?.kind === 'survive' && !(objective.rounds >= 1)) report(at, 'Überleben braucht rounds ≥ 1');
-    if (objective?.kind === 'reach') {
-      if (!objective.cells.length) report(at, 'Ausgang ohne Felder');
-      for (const cell of objective.cells) {
+    for (const entry of encounter.partyAbilities ?? []) if (!has(data.abilities, entry.ability)) report(at, `partyAbilities: unbekannte Fähigkeit „${entry.ability}“`);
+    const exits = objective?.kind === 'reach' ? objective.cells : objective?.kind === 'survive' ? objective.exit : undefined;
+    if (exits) {
+      if (!exits.length) report(at, 'Ausgang ohne Felder');
+      for (const cell of exits) {
         if (!walkable(cell)) report(at, `Ausgangsfeld ${cellText(cell)} nicht begehbar`);
         else if (!reachable(cell)) report(at, `Ausgangsfeld ${cellText(cell)} vom Party-Start aus unerreichbar`);
       }

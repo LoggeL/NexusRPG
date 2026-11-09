@@ -16,7 +16,10 @@ const PROMOTERIN = 'welt23-promoterin';
 const VERTEILUNG = all(NUR_AKT2, day(['di', 'do']), { time: ['morgen', 'tag', 'abend'] });
 const STROMAUSFALL = all(QUANTUM_LAGE, STROMAUSFALL_TAG, ABEND_NACHT);
 const RAZZIA = all(NACH_BRUCH, flag('fahndung_1'));
-const OEDNIS_SCHUTZ = any({ item: 'outfit-oednis' }, { item: 'staubmaske' }, { cyberware: 'haut-filtermembran' });
+/** Dauerhafter Staubschutz: Staubmantel getragen oder Filtermembran unter der Haut. */
+const MANTEL_FILTER = any({ equipped: 'outfit-oednis' }, { cyberware: 'haut-filtermembran' });
+/** Irgendein Schutz: Mantel/Filter oder eine Staubmaske im Gepäck (die kostet je Sturmtag eine Ladung). */
+const OEDNIS_SCHUTZ = any(MANTEL_FILTER, { item: 'staubmaske' });
 
 // --------------------------------------------------------------------------------------------- Chrome-10-Verteilung
 
@@ -262,16 +265,29 @@ const npcs: NpcDef[] = [
 
 // --------------------------------------------------------------------------------------------- Platzierung
 
-const SANDSTURM_ON_ENTER = (map: string) => [
-  {
-    id: `welt23-sandsturm-${map}`, when: all(SANDSTURM, OEDNIS_SCHUTZ),
-    effects: [msg('Sandsturm! Die Sicht reicht bis zur eigenen Nase. Dein Staubschutz hält, der Rest der Welt knirscht.')],
-  },
-  {
-    id: `welt23-sandsturm-${map}-ohne`, when: all(SANDSTURM, not(OEDNIS_SCHUTZ)),
-    effects: [{ damage: 5 }, msg('Sandsturm! Ohne Staubmantel oder Maske schmirgelt dir der Wind die Haut ab (−5 LP). Rudi verkauft Masken. Marla auch.')],
-  },
-];
+// Sandsturm je Ödnis-Karte einmal pro Tag (Tagessperre heute_sandsturm_<karte>, fällt am Morgen):
+// Mantel/Filter halten, sonst frisst die Staubmaske eine Ladung, sonst schmirgelt der Wind 5 LP weg.
+const SANDSTURM_ON_ENTER = (map: string) => {
+  const heute = `heute_sandsturm_${map}`;
+  const sturm = all(SANDSTURM, { notFlag: heute });
+  return [
+    {
+      id: `welt23-sandsturm-${map}`, once: false, when: all(sturm, MANTEL_FILTER),
+      effects: [setFlag(heute), msg('Sandsturm! Die Sicht reicht bis zur eigenen Nase. Dein Staubschutz hält, der Rest der Welt knirscht.')],
+    },
+    {
+      id: `welt23-sandsturm-${map}-maske`, once: false, when: all(sturm, not(MANTEL_FILTER), { item: 'staubmaske' }),
+      effects: [
+        setFlag(heute), { useCharge: 'staubmaske' },
+        msg('Sandsturm! Du ziehst die Staubmaske hoch. Der Filter röchelt, hält aber. Eine Ladung weniger, dafür noch alle Hautschichten.'),
+      ],
+    },
+    {
+      id: `welt23-sandsturm-${map}-ohne`, once: false, when: all(sturm, not(OEDNIS_SCHUTZ)),
+      effects: [setFlag(heute), { damage: 5 }, msg('Sandsturm! Ohne Staubmantel oder Maske schmirgelt dir der Wind die Haut ab (−5 LP). Rudi verkauft Masken. Marla auch.')],
+    },
+  ];
+};
 
 export const part: ContentPart = {
   dialogues: byId([chrome10Arkaden, chrome10Stufen, stromausfall, neonnacht23, sonnenfest]),

@@ -55,6 +55,8 @@ export interface CombatUnit extends BattleUnit {
   homeController?: 'player' | 'ai';
   /** Herzen der Spielfigur bei diesem Begleiter (Charmeur). */
   hearts?: number;
+  /** Trägt diese bewusstlose Schutzperson (Missionsziel `rescue.immobile`): Sie folgt jedem Schritt. */
+  carrying?: string;
 }
 
 /** Laufzeitstand der Bossregeln (bossRules.ts), Schlüssel `<Einheit>#<Regelindex>`. */
@@ -118,7 +120,9 @@ export type CombatAction =
   /** Terminal hacken (Missionsziel `hack`): 1 AP Fortschritt, angrenzend oder auf dem Feld. */
   | { type: 'interact' }
   /** Waffe wechseln (0 AP, einmal je Zug). */
-  | { type: 'weapon'; index: number };
+  | { type: 'weapon'; index: number }
+  /** Bewusstlose Schutzperson auf dem Nachbarfeld schultern (1 AP) bzw. wieder absetzen (0 AP). */
+  | { type: 'carry' };
 
 /** Kampfereignisse für Animation und Protokoll. Obermenge von `BattleEvent`. */
 export type CombatEvent =

@@ -193,6 +193,12 @@ export interface EffectMap {
    * (`{ flag: 'fahndung_2' }` heißt „Fahndung ≥ 2“).
    */
   wanted: { wanted: number };
+  /**
+   * Festnahme (world.md §10.3): Flag `in_haft`, −10 % Credits (Richter-Rivalität −20 %), Fahndung 0 und Reise zum
+   * Zellentrakt-Einstieg `haft`. Wer schon in Haft sitzt, bleibt unberührt. Wann es auslöst, regelt der Inhalt
+   * (parts/system/festnahme.ts); raus kommt man über die Pritsche oder morgens an der Zellentür.
+   */
+  arrest: { arrest: true };
   // Spielfigur
   xp: { xp: number };
   /** Heilt die Spielfigur (Zahl oder voll). */
@@ -1257,6 +1263,12 @@ export type EnemyRule = EnemyRuleGate & (
   | { kind: 'hesitate'; near: NpcId; every?: number; ap?: number; line?: string }
   /** Terminal halten: Runden mit Party am Feld (Abstand ≤ 1) und ohne Gegner daneben zählen; nach `rounds` gewonnen. */
   | { kind: 'hold'; name: string; cell: Cell; rounds: number; line?: string; winLine?: string }
+  /**
+   * Gechippt (Nexus steuert): befreien statt besiegen. Die Party bekommt „Chip-Ruhe“ und „Chip ziehen“; Befreite verlassen
+   * den Kampf (zählen als besiegt). Wer K.O. geht, kostet `downRep` (Effekt im BattleResult). Solange einer der
+   * `boostWhile`-Gegner kämpft, trifft die Einheit mit +`hit` (Standard 10).
+   */
+  | { kind: 'chipped'; downRep?: { faction: FactionId; delta: number }; boostWhile?: EnemyId[]; hit?: number; freeLine?: string }
 );
 
 export type AiProfile = 'aggressiv' | 'vorsichtig' | 'support' | 'boss';
@@ -1284,6 +1296,22 @@ export interface AbilityDef {
   cooldown?: number;
   /** Einsätze je Kampf. */
   uses?: number;
+  /** Nur gegen diese Gegner (Konter, Gegenstand vorzeigen, Gesprächsaktion gegen einen Boss). */
+  onlyVs?: EnemyId[];
+  /** Nur gegen Gechippte (EnemyRule `chipped`), z. B. Chip-Ruhe. */
+  chippedOnly?: boolean;
+  /**
+   * Sonderwirkung auf das Ziel (modules/combat): `yield` – das Ziel gibt sofort auf (zählt als besiegt; nicht, solange
+   * es unverwundbar ist); `free` – befreit Gechippte, wenn sie betäubt, gehackt oder angeschlagen (≤ 50 % LP) sind;
+   * `steal` – nimmt dem Ziel seine positiven Zustände (Geschützt, Ermutigt) und legt sie sich selbst an.
+   */
+  special?: 'yield' | 'free' | 'steal';
+  /** Sperrt Fähigkeiten des Ziels für `turns` eigene Züge (Konter: Kralle weg); ohne `abilities` alle. */
+  lock?: { abilities?: AbilityId[]; turns: number };
+  /** Zeile der Einheit beim Einsatz (Sprechblase). */
+  line?: string;
+  /** Antwort des Ziels, wenn die Sonderwirkung greift (z. B. Aufgabe nach einer Gesprächsaktion). */
+  reply?: string;
 }
 
 export interface EnemyDef {
@@ -1319,7 +1347,8 @@ export interface ArenaDef {
 
 export type BattleObjective =
   | { kind: 'defeat' }
-  | { kind: 'survive'; rounds: number }
+  /** `exit`: Erreicht die Spielfigur eines dieser Felder, ist der Kampf ebenfalls gewonnen („überleben oder Ausgang“). */
+  | { kind: 'survive'; rounds: number; exit?: Cell[] }
   | { kind: 'reach'; cells: Cell[] }
   | { kind: 'hack'; cell: Cell; ap: number }
   /** Schutzperson: NPC- oder Gegner-ID (Werte, Bild); `name`/`sprite` überschreiben die Anzeige (z. B. „Proband 47“). */
@@ -1354,6 +1383,11 @@ export interface EncounterDef {
   startStatus?: { when?: Condition; target: 'party' | 'enemies' | 'player' | EnemyId | NpcId; status: StatusId; rounds: number }[];
   /** Nach so vielen Runden endet der Kampf als Flucht (Standard 60). */
   maxRounds?: number;
+  /**
+   * Zusätzliche Fähigkeiten in diesem Kampf, wenn `when` gilt (Konter nach Check, Gegenstand vorzeigen, Gesprächsaktion):
+   * `holder` 'player' (Standard) oder 'party' (alle Kämpfer der Party).
+   */
+  partyAbilities?: { ability: AbilityId; when?: Condition; holder?: 'player' | 'party' }[];
 }
 
 // ---------------------------------------------------------------------------
@@ -1463,6 +1497,8 @@ export interface BattleResult {
   /** XP/Credits aus besiegten Gegnern (zusätzlich zu EncounterDef.reward). */
   xp?: number;
   credits?: number;
+  /** Folgen aus dem Kampfverlauf selbst, bei jedem Ausgang (z. B. Ruf für umgehauene Gechippte). */
+  effects?: Effect[];
 }
 
 // ---------------------------------------------------------------------------

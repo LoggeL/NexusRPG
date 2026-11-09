@@ -1,6 +1,6 @@
 // Beziehungen (R, Bereich dom-ui): bekannte Figuren als Liste, Details mit Porträt, Herzen und Fortschritt,
 // Rivalität, entdecktem Geschenkwissen, Crew/Party und Romanzehinweis. Zahlen liefert modules/relationships.
-import { MAX_PARTY, knownRelations, ROMANCE_BLOCK_TEXT, type RelationView } from '../../modules/relationships';
+import { MAX_PARTY, knownRelations, partyFullFor, ROMANCE_BLOCK_TEXT, type RelationView } from '../../modules/relationships';
 import type { CampaignPort, NpcId } from '../../modules/contracts';
 import type { AssetCatalog } from '../../platform/assets/manifest';
 import { clear, h, itemIcon, portraitImg } from './dom';
@@ -82,7 +82,7 @@ export function openRelations(shell: UiShell, catalog: AssetCatalog, campaign: C
     }
 
     if (view.recruited) {
-      const full = !view.inParty && state.party.length >= MAX_PARTY;
+      const full = partyFullFor(campaign.content, state.party, view.npc);
       detail.append(h('div', { class: 'actions' },
         h('button', {
           class: `btn${view.inParty ? '' : ' primary'}`, type: 'button', 'data-testid': 'rel-party', 'aria-disabled': String(full),

@@ -462,6 +462,26 @@ const datentunnel: MapDef = {
     { at: [1335, 790], radius: 90, color: '#9fd8ff' }, // Antenne
     { at: [1430, 820], radius: 70, color: '#ffb347' },
   ],
+  // Kanalvolk und Rohrputzer auf dem Weg zwischen Sammler und Leitern (Passanten für Sprüche und die Stimmen der Zone).
+  ambient: {
+    count: 2,
+    sprites: ['passant-kanalvolk-walk', 'passant-arbeiterin-walk', 'passant-schrotti-walk'],
+    routes: [
+      [[200, 670], [1250, 670]],
+      [[260, 240], [1300, 240]],
+      [[240, 300], [240, 680], [600, 680]],
+      [[1330, 300], [1330, 700], [1000, 700]],
+    ],
+    bySlot: { morgen: 2, tag: 3, abend: 2, nacht: 1 },
+    barks: [
+      { text: 'Fass die Glasfasern nicht an. Die summen. Und wenn’s summt, hört einer zu.', when: NICHT_EPILOG },
+      { text: 'Hier unten ist es warm. Server heizen besser als jede Wohnung in der Rohrsiedlung. Und meckern nicht.' },
+      { text: 'Der Lautsprecher da oben hat mich gestern beim Namen genannt. Ich hab keinem meinen Namen gesagt. Nie.', when: { all: [NEXUS_WACH, NICHT_EPILOG] } },
+      { text: 'Seit oben alle durchdrehen, schlafen hier unten mehr Leute als im Obdachlosenheim. Kein WLAN-Kopfweh, sagen sie.', when: { act: 2 } },
+      { text: 'Die Kabel sind still geworden. Vorher war das wie ein Bienenstock. Jetzt ist es nur noch ein Keller.', when: { all: [EPILOG, { not: { flag: 'master_modus' } }] } },
+      { text: 'Pssst. Die Kabel hören wieder zu. Für wen auch immer jetzt oben im Turm sitzt. Also halt die Fresse und lauf.', when: { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] } },
+    ],
+  },
   ambience: 'kanal',
   music: 'ki-nexus',
   onEnter: [

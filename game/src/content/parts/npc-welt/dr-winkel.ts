@@ -2,7 +2,7 @@
 // Fahndung läuft über die Flags fahndung_1…3 (siehe combat/random.ts, maps/zellentrakt.ts): Winkel nimmt für 150 Cr die
 // höchste Stufe weg. Die Karte eisenhof hat einen Shop-Hotspot `dr-winkel`: Der Laden (Medizin, Ausweise) steht hier.
 import type { ContentPart } from '../../part';
-import type { DialogueChoice, DialogueNode, ShopDef } from '../../../modules/contracts';
+import type { Condition, DialogueChoice, DialogueNode, ShopDef } from '../../../modules/contracts';
 import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
   sprecher, weg, weltfigur, zurueck,
@@ -12,19 +12,40 @@ import { TALK_23 } from './dr-winkel-akt23';
 const ID = 'dr-winkel';
 const W = sprecher(ID);
 const PREIS = 150;
+/** Halber Preis, solange der Richter erpresst ist (side-streaming-suenden, Flag richter_fahndung_halb). */
+const HALB: Condition = { flag: 'richter_fahndung_halb' };
+const GEFALLEN = 'richters-gefallen';
+const GESUCHT: Condition = { any: [{ flag: 'fahndung_1' }, { flag: 'fahndung_2' }, { flag: 'fahndung_3' }] };
 const Z = zurueck('Noch eine Rechtsfrage.', 'Ich hab nichts gesagt.');
 
-const senken = (stufe: 1 | 2 | 3): DialogueChoice => ({
-  text: `Fahndung senken lassen (Stufe ${stufe} → ${stufe - 1}, ${PREIS} Cr).`,
-  tag: '[Fahndung]',
-  requires: { credits: PREIS },
-  when: stufe === 3 ? { flag: 'fahndung_3' } : stufe === 2 ? { all: [{ flag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] } : { all: [{ flag: 'fahndung_1' }, { notFlag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] },
-  effects: [{ credits: -PREIS }, { wanted: -1 }, herz(ID, 5), { advanceTime: 60 }],
-  next: 'gesenkt',
-});
+const senken = (stufe: 1 | 2 | 3, halb: boolean): DialogueChoice => {
+  const preis = halb ? PREIS / 2 : PREIS;
+  const stand: Condition = stufe === 3 ? { flag: 'fahndung_3' } : stufe === 2 ? { all: [{ flag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] } : { all: [{ flag: 'fahndung_1' }, { notFlag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] };
+  return {
+    text: `Fahndung senken lassen (Stufe ${stufe} → ${stufe - 1}, ${preis} Cr${halb ? ', Richterrabatt' : ''}).`,
+    tag: '[Fahndung]',
+    requires: { credits: preis },
+    when: { all: [stand, halb ? HALB : { not: HALB }] },
+    effects: [{ credits: -preis }, { wanted: -1 }, herz(ID, 5), { advanceTime: halb ? 30 : 60 }],
+    next: halb ? 'gesenkt-halb' : 'gesenkt',
+  };
+};
 
 const choices: DialogueChoice[] = [
-  senken(3), senken(2), senken(1),
+  senken(3, false), senken(2, false), senken(1, false),
+  senken(3, true), senken(2, true), senken(1, true),
+  {
+    text: 'Richters Gefallen vorlegen (Fahndung auf 0).', tag: '[Fahndung]',
+    when: { all: [GESUCHT, { item: GEFALLEN }] },
+    effects: [{ take: GEFALLEN }, { wanted: -3 }, herz(ID, 10), { advanceTime: 30 }],
+    next: 'gefallen',
+  },
+  {
+    text: '„Sie haben was gut bei mir“ – Sie erinnern sich? (eine Stufe Fahndung)', tag: '[Fahndung]',
+    when: { all: [GESUCHT, { flag: 'winkel_gefallen' }, { notFlag: 'winkel_gefallen_eingeloest' }] },
+    effects: [{ wanted: -1 }, { setFlag: 'winkel_gefallen_eingeloest' }, { advanceTime: 30 }],
+    next: 'gefallen-winkel',
+  },
   { text: 'Was haben Sie im Angebot?', next: 'laden', effects: [{ shop: 'dr-winkel' }] },
   { text: 'Wie senkt man eine Fahndung?', once: true, id: 'wi-wie', next: 'wie' },
   { text: '„Sie sind doch gar kein Anwalt, oder?“', tag: '[Straße 4]', check: pruefung('winkel-anwalt', 'strasse', 4, ['bluff']), once: true, id: 'wi-anwalt', next: 'anwalt' },
@@ -35,6 +56,19 @@ const nodes: DialogueNode[] = [
   knoten('gesenkt', [
     erz('Dr. Winkel tippt, telefoniert, flüstert, stempelt. Eine Stunde später schiebt er dir ein Formular hin: „Personenverwechslung – bestätigt“.'),
     W('Sie sind jetzt jemand anderes. Für die Wache. Für mich sind Sie immer noch eine Einnahmequelle.'),
+  ], { choices: Z }),
+  knoten('gesenkt-halb', [
+    erz('Dr. Winkel ruft genau eine Nummer an. Er sagt nur: „Winkel hier. Sie wissen schon, weswegen.“ Am anderen Ende hört man jemanden schwer schlucken.'),
+    W('Halber Preis, halbe Stunde. Wer den Richter an den Eiern hat, muss nicht lange telefonieren. Ich will gar nicht wissen, womit Sie ihn haben. Doch, will ich. Aber nicht schriftlich.'),
+  ], { choices: Z }),
+  knoten('gefallen-winkel', [
+    erz('Dr. Winkel zieht ein Notizbuch aus der Schublade, das es angeblich nicht gibt, und streicht mit spitzen Fingern eine Zeile durch.'),
+    W('Eine Stufe. Wie versprochen. Ich halte mein Wort, das ist das Einzige an mir, das nicht abrechnet. Wir sind quitt. Kommen Sie mir nicht wieder sentimental.'),
+  ], { choices: Z }),
+  knoten('gefallen', [
+    erz('Du legst den Zettel auf den Tisch. Dr. Winkel liest ihn zweimal, hält ihn gegen das Licht, riecht daran.'),
+    W('Die Handschrift des Richters. „Ein Gefallen. Einer. Nicht übertreiben.“ Wissen Sie, wie selten so etwas ist? Das ist ein Freispruch mit Briefmarke.'),
+    W('Ich lese ihm seinen eigenen Zettel am Telefon vor, und Sie sind unbescholten. Gratis. Es tut mir körperlich weh, das zu sagen.', 'verlegen'),
   ], { choices: Z }),
   knoten('laden', [W('Pflaster, Gel, Staubmasken. Für Leute, die Ärger hatten und nicht zum Arzt können. Ich bin kein Arzt. Ich bin Doktor. Der Unterschied ist juristisch.')]),
   knoten('wie', [
@@ -123,7 +157,7 @@ const winkel = weltfigur({
     rede('winkel-tag-rivale', { rival: ID }),
     rede('winkel-tag-erstes', nichtGetroffen(ID)),
     ...TALK_23,
-    rede('winkel-tag-gesucht', { any: [{ flag: 'fahndung_1' }, { flag: 'fahndung_2' }, { flag: 'fahndung_3' }] }),
+    rede('winkel-tag-gesucht', GESUCHT),
     rede('winkel-tag-standard'),
   ],
 });
@@ -141,6 +175,9 @@ const laden: ShopDef = {
     { item: 'staubmaske', qty: 2 },
     { item: 'u-bahn-ticket', qty: 5 },
   ],
+  // Fahndungsdienst im Laden (dieselben Preise wie im Gespräch): −1 Stufe für 150 Cr, 75 Cr bei erpresstem Richter,
+  // Richters Gefallen setzt auf 0.
+  wantedService: { fee: PREIS, halfWhen: HALB, pardonItem: GEFALLEN },
 };
 
 export const part: ContentPart = {

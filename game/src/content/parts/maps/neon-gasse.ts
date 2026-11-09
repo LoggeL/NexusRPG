@@ -192,7 +192,16 @@ const gasse: MapDef = {
   },
   hotspots: [
     // ------------------------------------------------------------------ Gasse
-    { id: 'volt-eck', at: [206, 482], radius: 60, label: 'Volt-Eck (Kiosk)', kind: 'shop', shop: 'volt-eck' },
+    {
+      id: 'volt-eck', at: [206, 482], radius: 60, label: 'Volt-Eck (Kiosk)', kind: 'shop', shop: 'volt-eck',
+      // Master-Modus: Oma Volt hat dichtgemacht (außer im freien Nachspiel nach „Doch noch Meer“).
+      hideWhen: { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] },
+    },
+    {
+      id: 'volt-eck-zu', at: [206, 482], radius: 60, label: 'Volt-Eck (Kiosk)', kind: 'look',
+      when: { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] },
+      lines: [n('Fliegengitter zu, Kasse abgedeckt. Mit Nadel und Faden aufs Gitter gestickt: „FÜR MASTER GESCHLOSSEN“. Die Stiche sind sauber. Die Wut dahinter auch.')],
+    },
     { id: 'stadt-tv', at: [192, 330], radius: 72, label: 'Stadt-TV (Nachrichten)', kind: 'screen' },
     {
       id: 'samtkordel', at: [465, 330], radius: 60, label: 'Samtkordel', kind: 'talk', dialogue: 'ng-samtkordel',
@@ -283,13 +292,21 @@ const gasse: MapDef = {
     },
     {
       id: 'sternegucken', at: [1376, 100], radius: 50, label: 'Sterne gucken (mit Vega)', kind: 'use',
-      when: { all: [{ time: 'nacht' }, { met: 'vega' }] },
+      when: { all: [{ time: 'nacht' }, { met: 'vega' }, { weather: 'klar' }] },
       lines: [{ speaker: 'vega', text: 'Smog ist heute dünn. Komm her. Und fass das Fernrohr nicht mit Fettfingern an.' }],
       effects: [{
         minigame: 'akt-sternegucken', level: 1, key: 'akt-sternegucken', label: 'Sternbilder verbinden',
         win: [{ relation: 'vega', delta: 10 }, { xp: 15 }, { message: 'Ein Sternbild, das aussieht wie ein Schraubenschlüssel. Vega nennt es „Dexters Gürtel“ und lächelt fast.' }],
         lose: [{ message: 'Du hast drei Satelliten und ein Flugtaxi verbunden. Vega seufzt in Sternbildform.' }],
       }],
+    },
+    {
+      id: 'vegas-ausguck-trueb', at: [1376, 100], radius: 50, label: 'Vegas Ausguck', kind: 'look',
+      when: { all: [{ time: 'nacht' }, { not: { all: [{ met: 'vega' }, { weather: 'klar' }] } }] },
+      lines: [
+        n('Das Fernrohr zeigt nach oben. Oben ist heute nur Suppe: Smog, Neon, irgendwas Gelbes. Kein einziger Stern, nur das Blinken eines Werbeluftschiffs.'),
+        n('Auf dem Notizbuch klebt ein Zettel: „Nur bei klarem Himmel. Wer bei Smog durchguckt, putzt die Linse. – V.“'),
+      ],
     },
     {
       id: 'vegas-ausguck', at: [1376, 100], radius: 50, label: 'Vegas Ausguck', kind: 'look',

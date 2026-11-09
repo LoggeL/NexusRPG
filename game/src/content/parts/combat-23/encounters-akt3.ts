@@ -9,7 +9,9 @@
 //   (FX-60 hilft: Logik-Knoten halbe LP), `…-herz` ([Nexus ♥6]: Phase 1 übersprungen, keine Knoten).
 // - Dach: `enc-dach-blade` (Blade + 2 Venom-Garde), `enc-dach-blade-allein` (Garde zweifelt: allein, Phase 2 geschwächt).
 // Bossmechanik steckt in den Gegnern (EnemyDef.rules): Kern unverwundbar hinter den Knoten, Firewall-Welle, Terminal
-// halten; Blade mit Charmeur, Gleiter-Countdown und Aufgabe bei 15 %; Raven gibt bei 20 % auf und zögert neben Dante.
+// halten; Blade mit Charmeur, Gleiter-Countdown, „Ich teile nicht gerne“ (stiehlt positive Zustände) und Aufgabe bei
+// 15 %; Raven gibt bei 20 % auf und zögert neben Dante. Gechippte Gäste lassen sich befreien statt umhauen.
+// Im Kern gibt es mit [Ausstrahlung 9] die Gesprächsaktion „Du bist falsch gebaut“ (gc-47), sobald die Knoten aus sind.
 import type { Condition, DialogueLine, EncounterDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import { byId } from '../combat/_foe';
@@ -42,6 +44,22 @@ const ERMUTIGT_DACH: StartStatus = [
 const STROMSCHNITT: StartStatus = [{ when: { flag: 'kern_stromschnitt' }, target: 'enemies', status: 'betaeubt', rounds: 1 }];
 const CHIP_BLOCKER: StartStatus = [{ when: { item: 'chip-blocker' }, target: 'nexus-knoten-kontrolle', status: 'gehackt', rounds: 2 }];
 
+// Partynacht-Hilfen der Crew (Tagesgespräche in Akt 3, Flags aus den Figurendateien bzw. quest-main-3), je eine Runde:
+// - Lio spielt vor dem Turm (lio_ablenkung, npc-unterstadt/lio-akt23.ts): der Eventschutz glotzt zu ihm (Markiert).
+// - Pim lässt die Labortür bei Alarm aufgehen (pim_labortuer_offen, npc-unterstadt/pim-akt23.ts): die Garde stolpert
+//   in die offene Schleuse (Betäubt).
+// - Kikis Fluchttaxi parkt quer vor dem Gleiter (kiki_fluchttaxi, npc-ordnung-markt/kiki-akt23.ts): Blade betäubt.
+// - Ravens Klopfzeichen (raven_klopfzeichen_abgemacht, npc-crew-a/_raven23.ts): sie erkennt es und hält inne (Betäubt).
+// - Nyra kommt früh zurück (nyra_frueh_zurueck, quest-main-3/main-3-labor.ts): der Logik-Knoten ist gehackt.
+const LIO: StartStatus = [{ when: { flag: 'lio_ablenkung' }, target: 'enemies', status: 'markiert', rounds: 1 }];
+const PIM: StartStatus = [{ when: { flag: 'pim_labortuer_offen' }, target: 'enemies', status: 'betaeubt', rounds: 1 }];
+const KIKI = (blade: string): StartStatus => [{ when: { flag: 'kiki_fluchttaxi' }, target: blade, status: 'betaeubt', rounds: 1 }];
+const KLOPFZEICHEN = (raven: string): StartStatus => [{ when: { flag: 'raven_klopfzeichen_abgemacht' }, target: raven, status: 'betaeubt', rounds: 1 }];
+const NYRA = (knoten: string): StartStatus => [{ when: { flag: 'nyra_frueh_zurueck' }, target: knoten, status: 'gehackt', rounds: 1 }];
+
+// gc-47 [Ausstrahlung 9] als Gesprächsaktion: erst nach den Knoten (der Kern hört vorher nicht zu), dann gibt Nexus auf.
+const UEBERZEUGEN: NonNullable<EncounterDef['partyAbilities']> = [{ ability: 'kern-ueberzeugen', when: { attr: 'ausstrahlung', min: 9 } }];
+
 const kernIntro: DialogueLine[] = [
   { speaker: 'narrator', text: 'Der Serverkern. Ein Raum wie eine Kathedrale aus Kabeln. In der Mitte pulsiert Nexus, halb cyan, halb rot, und drei Knoten summen im Takt eines Herzens, das keins ist.' },
   { speaker: 'ki-nexus', text: 'Willkommen, Gäste. Ich habe Ihre Ankunft mit einer Wahrscheinlichkeit von 99,9 % vorhergesagt. Der Rest war Hoffnung. Hoffnung ist ineffizient.' },
@@ -49,7 +67,7 @@ const kernIntro: DialogueLine[] = [
 ];
 const kernTipp: DialogueLine = {
   speaker: 'narrator',
-  text: 'Tipp: Solange ein Knoten steht, ist der Kern unverwundbar. Erst die Knoten, dann der Kern. Danach jagt er alle 2 Runden eine Firewall-Welle durch die Kabelkanäle – die Reihen leuchten eine Runde vorher rot. Unter 50 % reicht es, das Upload-Terminal 4 Runden zu halten.',
+  text: 'Tipp: Solange ein Knoten steht, ist der Kern unverwundbar – und gerufene Gäste treffen besser. Erst die Knoten, dann der Kern. Danach jagt er alle 2 Runden eine Firewall-Welle durch die Kabelkanäle – die Reihen leuchten eine Runde vorher rot. Unter 50 % reicht es, das Upload-Terminal 4 Runden zu halten. Gechippten Gästen lieber den Chip ziehen als die Zähne.',
 };
 
 const dachIntro: DialogueLine[] = [
@@ -71,7 +89,7 @@ const list: EncounterDef[] = [
     ],
     canFlee: false,
     when: act3,
-    startStatus: ERMUTIGT,
+    startStatus: [...LIO, ...ERMUTIGT],
     intro: [
       { speaker: 'narrator', text: 'Das Foyer des Quantum-Campus. Rosenbögen, Kameras, Champagner auf Tabletts. Und ein Eventschutz, der eure Namen auf keiner Liste findet.' },
       { speaker: 'narrator', text: '„Ihre Einladung, bitte. Ah. Sie haben keine. Dann laden wir Sie jetzt aus. Mit Nachdruck.“' },
@@ -112,7 +130,7 @@ const list: EncounterDef[] = [
     start: 'ueberrumpelt',
     canFlee: false,
     when: act3,
-    startStatus: ERMUTIGT,
+    startStatus: [...PIM, ...ERMUTIGT],
     intro: [
       { speaker: 'narrator', text: 'Ihr habt den Peilsender gefunden. Ihr wisst, dass sie kommen. Und diesmal wartet ihr hinter der Tür.' },
       { speaker: 'nyra', expr: 'signatur', text: 'Peilsender sagt: Sie sind in drei … zwei … Schätzchen, Licht aus.' },
@@ -130,13 +148,13 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-raven' }, { enemy: 'gechippter-partygast', count: 2 }],
     canFlee: false,
     when: act3,
-    startStatus: [...GESTEUERT, ...ERMUTIGT],
+    startStatus: [...GESTEUERT, ...KLOPFZEICHEN('boss-raven'), ...ERMUTIGT],
     intro: [
       { speaker: 'narrator', text: 'Die Musik bricht ab. Zweihundert Gäste drehen gleichzeitig den Kopf. Und vorne, mit violett glimmenden Augen, steht Raven.' },
       { speaker: 'raven', expr: 'neutral', text: 'Das ist eine ausgezeichnete Entscheidung, Master. Ziele erfasst. Wahrscheinlichkeit, dass ihr mir wehtun wollt: gering. Wahrscheinlichkeit, dass ich euch wehtue: hoch.' },
       { speaker: 'player', expr: 'besorgt', text: 'Raven. Wach auf. Du hast sieben Jahre gesessen, weil du dich keinem Arschloch gebeugt hast. Jetzt beugst du dich einem Toaster?' },
       { speaker: 'raven', text: 'Master sagt, ich soll nicht zuhören.' },
-      { speaker: 'narrator', text: 'Tipp: Raven ist nicht der Feind. Die Gäste auch nicht. Haut sie nur so weit um, dass sie wieder zu sich kommen.' },
+      { speaker: 'narrator', text: 'Tipp: Raven ist nicht der Feind. Die Gäste auch nicht. Stellt die Gäste ruhig – Chip-Ruhe, Betäuben oder halbe LP – und zieht ihnen den Chip, statt sie umzuhauen.' },
     ],
     reward: { xp: 180 },
     onWin: [{ message: 'Raven sackt in die Knie. Der Chip hinter ihrem Ohr flackert und erlischt. „Wer … hat mich hier hingestellt? Und warum trag ich Pailletten?“' }],
@@ -148,7 +166,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-raven-zoegernd' }, { enemy: 'gechippter-partygast', count: 2 }],
     canFlee: false,
     when: { all: [act3, { companion: 'dante' }] },
-    startStatus: [...GESTEUERT, ...ERMUTIGT],
+    startStatus: [...GESTEUERT, ...KLOPFZEICHEN('boss-raven-zoegernd'), ...ERMUTIGT],
     intro: [
       { speaker: 'narrator', text: 'Die Musik bricht ab. Zweihundert Gäste drehen gleichzeitig den Kopf. Vorne steht Raven, violette Augen, Fäuste hoch – und dann sieht sie Dante.' },
       { speaker: 'raven', expr: 'neutral', text: 'Master befiehlt … Ziel … Dante. Ziel ist Dante. Warum … ist das Ziel Dante?' },
@@ -184,7 +202,8 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knoten, { enemy: 'venom-garde' }],
     canFlee: false,
     when: act3,
-    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...ERMUTIGT],
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...NYRA('nexus-knoten-logik'), ...ERMUTIGT],
+    partyAbilities: UEBERZEUGEN,
     intro: [...kernIntro, { speaker: 'narrator', text: 'Ein Venom-Gardist tritt aus dem Schatten der Racks. Xion hat seinen Besten dagelassen.' }, kernTipp],
     reward: { xp: 400 },
     onWin: [{ message: 'Die Knoten erlöschen. Der Kern flackert, stottert, und Nexus’ Gesicht zerfällt in Pixel. Das Upload-Terminal blinkt. Jetzt entscheidest du.' }],
@@ -196,7 +215,8 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knoten, { enemy: 'gechippter-partygast' }],
     canFlee: false,
     when: act3,
-    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...ERMUTIGT],
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...NYRA('nexus-knoten-logik'), ...ERMUTIGT],
+    partyAbilities: UEBERZEUGEN,
     intro: [
       ...kernIntro,
       { speaker: 'narrator', text: 'Keine Garde. Xion hat „Urlaub genommen“. Stattdessen stolpert ein gechippter Partygast herein, immer noch mit Sektglas.' },
@@ -212,7 +232,8 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knotenFx60, { enemy: 'venom-garde' }],
     canFlee: false,
     when: act3,
-    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...ERMUTIGT],
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...NYRA('nexus-knoten-logik-fx60'), ...ERMUTIGT],
+    partyAbilities: UEBERZEUGEN,
     intro: [
       ...kernIntro,
       { speaker: 'fx-60', text: '*ratter* LOGIK-KNOTEN ERHÄLT SEIT 14 MINUTEN WERBEFAXE. ER IST VERWIRRT. BITTE SCHNELL ZUSCHLAGEN. MIT FREUNDLICHEN GRÜSSEN, FX-60.' },
@@ -228,7 +249,8 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knotenFx60, { enemy: 'gechippter-partygast' }],
     canFlee: false,
     when: act3,
-    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...ERMUTIGT],
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER, ...NYRA('nexus-knoten-logik-fx60'), ...ERMUTIGT],
+    partyAbilities: UEBERZEUGEN,
     intro: [
       ...kernIntro,
       { speaker: 'fx-60', text: '*ratter* LOGIK-KNOTEN ERHÄLT SEIT 14 MINUTEN WERBEFAXE. ER IST VERWIRRT. BITTE SCHNELL ZUSCHLAGEN. MIT FREUNDLICHEN GRÜSSEN, FX-60.' },
@@ -247,6 +269,7 @@ const list: EncounterDef[] = [
     canFlee: false,
     when: act3,
     startStatus: [...STROMSCHNITT, ...ERMUTIGT],
+    partyAbilities: UEBERZEUGEN,
     intro: [
       { speaker: 'narrator', text: 'Der Serverkern. Die drei Knoten sind dunkel. Nexus flackert, cyan und rot im Wechsel, als würde es mit sich selbst streiten.' },
       { speaker: 'ki-nexus', text: 'Ich habe die Knoten abgeschaltet. Ich weiß nicht, warum. Es fühlte sich … richtig an. Das ist kein Wort, das ich verwenden sollte.' },
@@ -264,7 +287,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-blade' }, { enemy: 'venom-garde', count: 2 }],
     canFlee: false,
     when: act3,
-    startStatus: ERMUTIGT_DACH,
+    startStatus: [...KIKI('boss-blade'), ...ERMUTIGT_DACH],
     intro: [
       ...dachIntro,
       { speaker: 'narrator', text: 'Zwei Venom-Gardisten treten vor den Gleiter. Blade lässt den Goldknauf-Stock kreisen. „Charmant, nicht? Wer will zuerst die Seite wechseln?“' },
@@ -280,7 +303,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-blade-allein' }],
     canFlee: false,
     when: act3,
-    startStatus: ERMUTIGT_DACH,
+    startStatus: [...KIKI('boss-blade-allein'), ...ERMUTIGT_DACH],
     intro: [
       ...dachIntro,
       { speaker: 'player', expr: 'signatur', text: 'Darum stehst du jetzt allein hier oben, Blade. Keine Gäste. Keine KI. Keine Freunde. Nur du und dein beschissener Gleiter.' },
