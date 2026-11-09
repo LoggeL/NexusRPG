@@ -47,9 +47,11 @@
     "cut-rom-vexaria-morgen": "assets/cut/rom-vexaria-morgen.webp",
     "cut-rom-vexaria-oberlicht": "assets/cut/rom-vexaria-oberlicht.webp",
     "cut-rom-vexaria-rettung": "assets/cut/rom-vexaria-rettung.webp",
+    "cut-rom-vexaria-rolltor": "assets/cut/rom-vexaria-rolltor.webp",
     "cut-rom-vexaria-sprung": "assets/cut/rom-vexaria-sprung.webp",
     "cut-rom-vexaria-tanz": "assets/cut/rom-vexaria-tanz.webp",
-    "cut-rom-vexaria-umdrehen": "assets/cut/rom-vexaria-umdrehen.webp"
+    "cut-rom-vexaria-umdrehen": "assets/cut/rom-vexaria-umdrehen.webp",
+    "cut-rom-vexaria-zehn-schnallen": "assets/cut/rom-vexaria-zehn-schnallen.webp"
   },
   "blurhash": {
     "cut-ende-doch-noch-ans-meer": "L88p4iRhACss}x9?W-^7}vNYI:sF",
@@ -99,8 +101,10 @@
     "cut-rom-vexaria-morgen": "L99sYl=?=|57^j~BxWWB%2=|s,ae",
     "cut-rom-vexaria-oberlicht": "LG7UMVnMjGt9%jadRibcx_axadjs",
     "cut-rom-vexaria-rettung": "L25zwV=%r|^T}b$l$,xcM{wI$fW-",
+    "cut-rom-vexaria-rolltor": "L367.rJYt:p1-VIpR%R%oNbJsosp",
     "cut-rom-vexaria-sprung": "LSDa.Gs:I@oL}rs.EioL=wj[NcoL",
     "cut-rom-vexaria-tanz": "L66@ESBoSlf,}xFwtAo#x1Fw$-o#",
-    "cut-rom-vexaria-umdrehen": "L36aYq}v$l#8$8RiJQkXXBRiImNE"
+    "cut-rom-vexaria-umdrehen": "L36aYq}v$l#8$8RiJQkXXBRiImNE",
+    "cut-rom-vexaria-zehn-schnallen": "L570}fMt-YImInt8n$ayI.xbW9s;"
   }
 }

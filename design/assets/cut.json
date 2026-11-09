@@ -482,5 +482,59 @@
       "output/imagegen/raw/photos/lio-funkel-neutral.png",
       "work/refs/style-keyscene-photoreal.webp"
     ]
+  },
+  "rom-vexaria-rolltor": {
+    "npc": "aria",
+    "romance": true,
+    "romanceOnly": true,
+    "player": "vex",
+    "prompt": "Photorealistic 35mm cinematic film still for the cyberpunk RPG Nexus, 3:2 landscape, restrained film grain. Outside a closed battered corrugated metal roller door in a quiet wet industrial alley late at night. Two adult women in their early twenties pause together on the narrow doorstep. Observational camera from directly behind them at shoulder height; faces turned away from camera. Frame both from the head to the hip with space for the door and their linked hands. On the LEFT Aria with two dark Dutch braids with curly ends, black long sleeved band top with red accents, fully opaque clothing, outer LEFT arm a brushed silver coil-spring cybernetic prosthesis. On the RIGHT Vex with loose long dark curls, fully clothed in a black sleeveless opaque shirt, worn black leather courier harness with silver buckles and black cargo pants; outer RIGHT arm a graphite-black cybernetic prosthesis trying the key in the door. Between them their inner unmodified hands are gently clasped, Vex's human left hand wears a black fingerless glove. Their shoulders touch; both have stopped walking, neither hurries to let go. Warm light leaks through the shutter, subdued violet and blue light reflects on wet cobblestones. The existing still of the courier hut is a location and color reference only. Convey mutual affection through that single small gesture. No kiss, no undressing, no suggestive pose, no bed, no text, no logos, no watermark.",
+    "refs": [
+      "game/public/assets/cut/rom-vexaria-bude.webp"
+    ]
+  },
+  "rom-vexaria-zehn-schnallen": {
+    "npc": "aria",
+    "romance": true,
+    "romanceOnly": true,
+    "player": "vex",
+    "prompt": "Photorealistic 35mm film still, landscape 3:2. An intimate, object-only insert in the courier shack at first blue dawn, camera just above the scarred concrete floor. A very thin diagonal of copper-coloured morning light slips under the corrugated roller door and lands on a single broken silver clasp torn from a work harness. The clasp lies just beneath the edge of a rough low wooden packing crate, one black braided hair elastic snagged around its pin, a second elastic loose nearby. A courier's fingerless leather glove lies carelessly palm up beyond it and a well-used silver baseball bat lies fallen in the soft violet shadows behind the crate. A few details in a small accidental arrangement, with enough room around them to sense the quiet of this private workshop. Tangible scuffs, lightly damp concrete, selective focus with the clasp and two ties in the same plane; a tender domestic film frame, not an inventory or a staged product shot. Use the supplied courier shack still as a location reference only, change composition and lighting. No packaging, no cups, no writing, no bed, no humans or body parts, no lettering, logos or watermark.",
+    "refs": [
+      "game/public/assets/cut/rom-vexaria-morgen.webp"
+    ]
+  },
+  "rom-vexaria-fuenfzig-meter": {
+    "npc": "aria",
+    "romance": true,
+    "romanceOnly": true,
+    "player": "vex",
+    "prompt": "Use case: photorealistic-natural. A new 3:2 horizontal cinema still from NexusRPG, adult women Aria and Vex taking off at a run together through the Lötgassen at night, laughing breathlessly at a shout from an upstairs window. Only the two runners. Reference 1 is Aria's face and costume, reference 2 is Vex's face and costume, reference 3 is material and color continuity for the alley, NOT its composition. Eye-level wide street two-shot, camera looking across a receding alley from its mouth, the runners at three-quarter front angles cutting diagonally across the frame toward the glow of a workshop. Freeze their faces sharply; slight motion blur in wet boot reflections. Aria looks sideways at Vex in delight; Vex breaks into a rare broad grin. Both clearly adult women in their early twenties in opaque, complete street clothes. Aria's twin dark Dutch braids with loose ends fly out behind her, black shirt with red accents and red chest star, silver spring prosthesis on her LEFT. Vex: long loose dark curls, black sleeveless opaque top, black utilitarian courier harness with silver buckles, graphite prosthesis on her RIGHT. Both wear black cargo pants and boots. Correct asymmetric arms, preserve faces, no mirroring. Industrial alley, bank of battered unmarked metal mailboxes in shadow, an open window high above, amber workshop glow, midnight violet reflections, believable cinematic 35mm grain and spatial depth. Genuine candid fun. No embrace, no kiss, no text, no signature, no watermark.",
+    "refs": [
+      "output/imagegen/raw/photos/aria-neutral-v2.png",
+      "output/imagegen/raw/photos/vex-neutral.png",
+      "game/public/assets/cut/rom-vexaria-rolltor.webp"
+    ]
+  },
+  "rom-vexaria-auf-drei": {
+    "npc": "aria",
+    "romance": true,
+    "romanceOnly": true,
+    "player": "vex",
+    "prompt": "Use case: photorealistic-natural. One new wide 3:2 cinematic insert during a private, playful count to three, told only through the courier shack itself. Entirely object-only. Reference 1 establishes the shack's worn industrial materials and the corrugated shutter; it is a dawn shot, whereas this new frame is at night. Composition: a glowing bare warm tungsten lightbulb on a cord in the left third, its small beaded pull-chain hanging below, clear of the bulb. The hanging bulb and beads cast elongated overlapping shadows across aged corrugated steel to the RIGHT, where color falls off into dark indigo and a faint violet line of neon. Intimate and suspended, a quiet held breath before the light goes out. Framed from just below the bulb, close enough to see a few dust grains on its glowing glass, real practical lighting, scuffed metal, 35mm film still, precise focus on the chain, soft background texture, subtle grain and halation. Simple, legible composition on a phone screen. No people or body parts, no figures or human shadows, no bedding, no clock, no lettering, numbers, logos or watermark. Do not show the floor or recreate the reference composition.",
+    "refs": [
+      "game/public/assets/cut/rom-vexaria-zehn-schnallen.webp"
+    ]
+  },
+  "rom-vexaria-pullitausch": {
+    "npc": "aria",
+    "romance": true,
+    "romanceOnly": true,
+    "player": "vex",
+    "prompt": "Use case: photorealistic-natural. New horizontal 3:2 35mm cinematic still for the breakfast at the High Voltage, a shuttered punk club that serves eggs to its crew. First reference is Aria's identity, second reference Vex's identity; the two adult women have SWAPPED tops as described below. Third reference is light and grading ONLY. Eye-level medium two-shot across the worn bar counter. Aria (left of image, early twenties, recognizable face and dark brown hair now in LOOSE curly waves from her undone braids) smiles into the collar of a very oversized grey sweatshirt, sleeves swallowing her hands; the fingertips of her SILVER LEFT prosthesis just show past one cuff holding a warm mug. Vex (right of image, early twenties, recognizable face, long dark wavy hair, nose ring) wears Aria's loose opaque black band shirt with a red star WITHOUT words, under her own slightly crooked black leather courier harness; her graphite RIGHT prosthesis rests on the edge of the bar. They lean comfortably on the counter, exchanging an unmistakably affectionate, amused look because they know whose sweatshirt it is. Candid, everyday body language. People are fully dressed, focus on their eyes and the funny difference in sleeve fit. Soft early daylight stripes from a high window, faint purple light left behind the bar, stools upside down on tables, steaming breakfast coffee and a plate of scrambled eggs. Natural skin tones, gentle film grain, moody but readable, no glamour posing, no other people, no kissing, no text, no letters, no logos, no watermarks.",
+    "refs": [
+      "output/imagegen/raw/photos/aria-neutral-v2.png",
+      "output/imagegen/raw/photos/vex-neutral.png",
+      "work/refs/style-keyscene-photoreal.webp"
+    ]
   }
 }

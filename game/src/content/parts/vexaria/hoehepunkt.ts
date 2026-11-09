@@ -187,7 +187,7 @@ const kussMauerFs: DialogueDef = dlg('rom-vexaria-kuss-mauer-fs', [
 ]);
 
 // ---------------------------------------------------------------------------
-// Station 10 · rom-vexaria-licht · „Elf Schnallen“ (ohne Tafel, Abblende)
+// Station 10 · rom-vexaria-licht · „Elf Schnallen“
 
 const licht: DialogueDef = dlg('rom-vexaria-licht', [
   node('start', [
@@ -214,7 +214,7 @@ const licht: DialogueDef = dlg('rom-vexaria-licht', [
  * Die Nacht in der Kurierbude; auch Wiederholung über das Tagesgespräch, solange Station 11 fehlt.
  * Ablauf: Gasse (Hand / zuhören / Hauseingang) → Rolltor (Kronkorken) → Handschuh → wer führt (Vex am Rolltor / Aria am
  * Rolltor / langsam auf der Matratze) → elf Schnallen (eine reißt) → Haut → was gesagt wird → Schluss mit „Klick“.
- * Alle Wege münden in `schluss` (Flags `aria_nacht`, `vexaria_nacht`, `vexaria_nacht_woche`, Abblende `rom-vexaria-licht`).
+ * Alle Wege münden in `rom-vexaria-licht-aus` (Nacht-Flags und Abblende).
  */
 const lichtBude: DialogueDef = dlg('rom-vexaria-licht-bude', [
   node('start', [
@@ -253,15 +253,12 @@ const lichtBude: DialogueDef = dlg('rom-vexaria-licht-bude', [
     a('Postbotin. Wir sind. Fünfzig Meter. Von deiner Tür.', 'verlegen'),
     v('Weiß ich.', 'signatur'),
     a('Dann lauf, du Arschloch. Lauf, bevor ich\'s mir hier gemütlich mach.', 'verlegen'),
-    n('Über euch geht ein Fenster auf. Jemand brüllt was von Polizei. Aria brüllt was zurück, das man nicht auf eine Klingelleiste schreiben würde. Ihr rennt die letzten fünfzig Meter. Lachend.'),
-  ], { next: 'tor' }),
-  node('tor', [
-    n('Das Rolltor. Die Glühbirne an der Kette, die durch den Spalt oben ins Wellblech hängt. Du suchst den Schlüssel. Deine Finger sind auf einmal eine Spur zu langsam, und diesmal liegt es nicht am Ratenarm.'),
-    a('Zitterst du?', 'signatur'),
-    v('Kalt.', 'verlegen'),
-    a('Es sind vierzehn Grad, Rennsemmel.', 'freude'),
-    n('Das Schloss klickt. Du schließt auf.'),
-  ], {
+  ], { effects: [{ cutscene: 'rom-vexaria-fuenfzig-meter' }] }),
+  node('tor', [], { effects: [{ cutscene: 'rom-vexaria-rolltor' }] }),
+]);
+
+const lichtDrinnen: DialogueDef = dlg('rom-vexaria-licht-drinnen', [
+  node('start', [n('Das Schloss klickt. Du schließt auf.')], {
     choices: [
       ch('Rein.', 'kronkorken', { when: noFlag('vexaria_kronkorken') }),
       ch('Rein.', 'handschuh', { when: flag('vexaria_kronkorken') }),
@@ -428,22 +425,52 @@ const lichtBude: DialogueDef = dlg('rom-vexaria-licht-bude', [
     n('Aria erstarrt. Eine Sekunde. Zwei. Du siehst, wie sie überlegt, einen Witz zu machen. Sie macht keinen.'),
     a('Die ist hässlich. Die geht ziemlich weit. Dante hat gesagt, die wird nie schön.', 'trauer'),
     v('Ich hab elf Schnallen aufgemacht. Zehn. Für dich. Zeig sie mir.', 'zaertlich'),
-    n('Sie zieht das Bandshirt über den Kopf. Der rote Stern landet auf dem Schläger. Sie dreht dir die linke Schulter zu, wo das Silber anfängt, und sieht weg, an die Wand, an den Rostfleck, der aussieht wie die Stadt.'),
+    n('Sie schiebt den Kragen ihres Bandshirts über die linke Schulter, bis die Naht frei liegt. Sie dreht dir die Schulter zu und sieht weg, an die Wand, an den Rostfleck, der aussieht wie die Stadt.'),
     n('Die Naht läuft vom Schlüsselbein über die Schulter nach hinten, gezackt und wulstig, drei Nächte Dante. Du fährst sie mit den Fingern nach. Dann mit dem Mund, bis zum Schulterblatt, wo sie aufhört. Aria atmet aus, lang und zitternd, als hätte sie die Luft seit drei Jahren angehalten.'),
     a('Du bist die Erste, die da hinguckt, ohne wegzugucken.', 'zaertlich'),
     v('Ich guck nirgends mehr weg.', 'zaertlich'),
   ], { next: 'schluss' }),
   node('schluss', [
-    n('Irgendwann landet ihr auf der Matratze, falls ihr da nicht schon seid. Die Stiefel sind das Problem. Deine Kampfstiefel haben achtzehn Ösen pro Seite, und Aria flucht über jede einzelne, bis du ihr hilfst, und dann fliegen sie, einer gegen das Rolltor, einer in die Kiste.'),
-    n('Dein Top landet auf dem Gurtzeug. Ihr Shirt auf dem Schläger, falls es da nicht schon liegt. Keine von euch guckt, wo was landet.'),
-    n('Ihr Atem. Deiner. Ihr Herz unter deiner Hand, deins unter ihrer. Die Metallhand liegt still neben deinem Kopf, die Finger halb offen, und du verschränkst deine schwarzen mit ihren silbernen. Metall in Metall. Wie über der Lücke.'),
-    a('Okay?', 'zaertlich'),
-    v('Okay. Du?', 'zaertlich'),
-    a('So okay war ich noch nie. Mach das Licht aus, bevor ich was Kitschiges sag.', 'verlegen'),
+    n('Du streifst die Stiefel ab. Einer kippt gegen das Rolltor. Aria sitzt neben dir auf der Matratze, die Haare offen. Du nimmst ihre silberne Hand.'),
+    v('Ich will mit dir schlafen, Aria.', 'zaertlich'),
+    a('Ja. Ich will das auch.', 'zaertlich'),
+    n('Sie rückt ein Stück zur Wand und zieht dich zu sich.'),
+    a('Und ich will hören, wie du bitte sagst.', 'signatur'),
+  ], {
+    choices: [
+      ch('„Komm näher. Bitte.“', 'bitte'),
+      ch('„Sag mir, wo du meine Hände haben willst.“', 'kommando'),
+    ],
+  }),
+  node('bitte', [
+    v('Komm näher. Bitte.', 'verlegen'),
+  ], { effects: [{ dialogue: 'rom-vexaria-licht-aus' }] }),
+  node('kommando', [
+    v('Sag mir, wo du meine Hände haben willst.', 'signatur'),
+    a('Aufs Kissen. Beide. Und küssen darfst du mich erst bei drei.', 'signatur'),
+    n('Du legst die Hände neben deinen Kopf. Aria sieht erst auf deine Finger, dann auf deinen Mund.'),
+    a('Eins.', 'verlegen'),
+    v('Beim Rennen bist du da schon weg.', 'freude'),
+    a('Da hast du mich auch noch nie so angeguckt.', 'zaertlich'),
+  ], {
+    choices: [
+      ch('Die Hände liegen lassen.', 'bis-drei'),
+      ch('„Lass das Zählen. Komm einfach her.“', 'ohne-zaehlen'),
+    ],
+  }),
+  node('bis-drei', [
+    a('Zwei.', 'signatur'),
+  ], { effects: [{ cutscene: 'rom-vexaria-auf-drei' }] }),
+  node('ohne-zaehlen', [
+    v('Lass das Zählen. Komm einfach her.', 'neutral'),
+    a('Schon da.', 'zaertlich'),
+    n('Sie rutscht zu dir. Du nimmst sie in den Arm, und ihr bleibt einen Moment so liegen.'),
+  ], { effects: [{ dialogue: 'rom-vexaria-licht-aus' }] }),
+]);
+
+const lichtAus = dlg('rom-vexaria-licht-aus', [
+  node('start', [
     n('Du greifst nach der Kette der Glühbirne.'),
-    v('Wenn du erzählst, dass ich „bitte“ gesagt hab, bist du tot.', 'signatur'),
-    a('Du hast noch gar nicht – oh.', 'verlegen'),
-    a('Und wenn du erzählst, dass ich gekichert hab …', 'verlegen'),
     n('Klick.'),
   ], { effects: [set('aria_nacht'), set('vexaria_nacht'), set('vexaria_nacht_woche'), { cutscene: 'rom-vexaria-licht' }] }),
 ]);
@@ -462,6 +489,7 @@ const morgen: DialogueDef = dlg('rom-vexaria-morgen', [
     n('Aria schläft noch. Quer über die Matratze, die Decke halb auf dem Boden. Ihre Metallhand hängt über die Mattenkante, die Zöpfe sind beide offen, ein einziges Chaos aus Locken auf deinem Kissen. Sie trägt dein Top. Du weißt nicht mehr genau, wann das passiert ist. Irgendwann gegen drei. Glaubst du.'),
     n('An ihrem Hals, knapp unter dem Ohr, da, wo sonst der Zopf drüberhängt: ein dunkler Fleck. Ziemlich groß. Ziemlich eindeutig. Vega wird ihn sehen. Vega sieht alles.'),
     n('Auf ihrem echten Unterarm ein feiner roter Kratzer, vom Handgelenk bis fast zum Ellbogen. Die gerissene Schnalle, irgendwann in der Nacht. Die Schnalle selbst liegt immer noch unter der Kiste. Du siehst sie glänzen.'),
+    n('Ich hab mit Aria geschlafen. Jetzt hab ich Schiss, sie zu fragen, ob wir zusammen frühstücken. Was ist denn los mit mir?'),
     n('Paketausgabe ist um sieben. Ich bin immer um sieben da. Ich war immer weg, bevor einer aufwacht.'),
     n('Sie atmet wie ein Kompressor. Ich will nicht, dass das aufhört.'),
     n('Ihr Arm liegt auf meinem. Klackt, wenn sie atmet. Zwei Kühlschränke auf einer Matte.'),
@@ -493,8 +521,19 @@ const morgen: DialogueDef = dlg('rom-vexaria-morgen', [
     s('oma-volt', 'Ich hab dir die letzten drei Jahre jeden Morgen einen verkauft. Einen. Ich dachte schon, du hättest nur einen Mund.', 'freude'),
     s('oma-volt', 'Und den Fleck da, den deckst du ab. Oder nicht. Steht dir.', 'freude'),
     v('Zwei. Und halt die Klappe.', 'verlegen'),
+  ], {
+    choices: [
+      ch('Vier Credits auf den Tresen legen.', 'kaffee-bezahlt', { when: { credits: 4 }, effects: [{ credits: -4 }] }),
+      ch('Ihr zeigen, was noch im Portemonnaie ist.', 'kaffee-knapp', { when: not({ credits: 4 }) }),
+    ],
+  }),
+  node('kaffee-bezahlt', [
     s('oma-volt', 'Geht aufs Haus. Den zweiten. Den ersten zahlst du, ich bin ja nicht verrückt.', 'freude'),
-  ], { effects: [{ credits: -4 }, { cutscene: 'rom-vexaria-morgen' }] }),
+  ], { effects: [{ cutscene: 'rom-vexaria-morgen' }] }),
+  node('kaffee-knapp', [
+    s('oma-volt', 'Ach, steck das Ding weg. Ich will lieber die Frau kennenlernen, für die du hier morgens zwei Kaffee holst.', 'freude'),
+    v('Dann musst du noch einen kochen. Den hier kriegt sie im Bett.', 'signatur'),
+  ], { effects: [{ cutscene: 'rom-vexaria-morgen' }] }),
   node('liegen', [
     n('Du bleibst an der Tür stehen. Die Hand am Rolltor. Der Funk rauscht. Kas sagt seinen Satz.'),
     n('Du drehst am Funk. Leiser. Aus, glaubst du. Dann legst du dich wieder hin, mit Gurtzeug, mit Stiefeln, und schaust an die Decke. Wellblech. Ein Rostfleck, der aussieht wie die Stadt.'),
@@ -600,8 +639,6 @@ const morgenZurueck: DialogueDef = dlg('rom-vexaria-morgen-zurueck', [
 
 const fruehstueck: DialogueDef = dlg('rom-vexaria-fruehstueck', [
   node('start', [
-    n('Das High Voltage am Morgen. Stühle auf den Tischen, Kaffeemaschine röchelt. Aria sitzt am Tresen in deinem viel zu großen Pulli, dem grauen aus der Kiste, für kalte Nächte auf dem Dach. Die Ärmel über den Händen, nur die Silberfinger schauen raus. Den Kragen hat sie bis zum Kinn hochgezogen. Hilft nichts.'),
-    n('Du trägst das Gurtzeug über ihrem schwarzen Bandshirt. Mit dem roten Stern. Es ist dir zu weit an den Schultern. Es riecht nach ihr. Zehn Schnallen. Der Brustriemen hängt schief, und jeder, der hinguckt, weiß, warum.'),
     a('Was? Der ist warm. Und er riecht nach dir. Das Zweite ist Zufall.', 'verlegen'),
     v('Gib den zurück.', 'signatur'),
     a('Hol ihn dir.', 'signatur'),
@@ -813,16 +850,56 @@ const cutscenes: CutsceneDef[] = [
   cut('rom-vexaria-kuss', 'Wind', [
     { image: 'cut-rom-vexaria-kuss', pan: 'out', fade: 'cross', hold: 3200, caption: 'Kein Ton. Nur Wind und Möwen.' },
   ], [{ dialogue: 'rom-vexaria-kuss-nachher' }]),
+  cut('rom-vexaria-fuenfzig-meter', 'Die letzten fünfzig Meter', [
+    {
+      image: 'cut-rom-vexaria-fuenfzig-meter', pan: 'right', fade: 'in',
+      lines: [n('Über euch geht ein Fenster auf. Jemand brüllt was von Polizei. Aria brüllt was zurück, das man nicht auf eine Klingelleiste schreiben würde. Ihr rennt die letzten fünfzig Meter. Lachend.')],
+    },
+  ], [{ cutscene: 'rom-vexaria-rolltor' }]),
+  cut('rom-vexaria-rolltor', 'Vor der Tür', [
+    {
+      image: 'cut-rom-vexaria-rolltor', pan: 'in', fade: 'in',
+      lines: [
+        n('Vor dem Rolltor greift Aria nach deiner Hand. Mit der anderen suchst du den Schlüssel. Deine Finger sind auf einmal eine Spur zu langsam, und diesmal liegt es nicht am Ratenarm.'),
+        a('Zitterst du?', 'signatur'),
+        v('Kalt.', 'verlegen'),
+        a('Es sind vierzehn Grad, Rennsemmel.', 'freude'),
+      ],
+    },
+  ], [{ dialogue: 'rom-vexaria-licht-drinnen' }]),
+  cut('rom-vexaria-auf-drei', 'Bei drei', [
+    {
+      image: 'cut-rom-vexaria-auf-drei', pan: 'none', fade: 'in',
+      lines: [
+        n('Aria lässt sich Zeit. Du krallst die Finger ins Kissen. Sie merkt es und grinst.'),
+        v('Drei, Großmaul. Bitte.', 'verlegen'),
+        a('Scheiße, Vex. Sag das später noch mal. Drei.', 'zaertlich'),
+        n('Du ziehst sie am Kragen zu dir. Sie kommt dir so schnell entgegen, dass eure Zähne zusammenstoßen. Ihr küsst euch trotzdem.'),
+      ],
+    },
+  ], [{ dialogue: 'rom-vexaria-licht-aus' }]),
   // Abblende Station 10 → Schlafen → Station 11.
   cut('rom-vexaria-licht', 'Elf Schnallen', [
     { image: 'black', fade: 'out', hold: 1800, caption: 'Regen auf dem Wellblech.' },
     { image: 'black', lines: [n('Irgendwo im Dunkeln fällt ein Schläger um. Dumpf. Keine von euch hebt ihn auf.')], hold: 1600 },
     { image: 'black', lines: [n('Viel später. Jemand kichert. Jemand flüstert: „Psst. Die Lötgassen.“ Jemand flüstert zurück: „Scheiß auf die Lötgassen.“')], hold: 1600 },
     { image: 'black', caption: 'Die Glühbirne bleibt aus bis zum Morgen.', hold: 1400 },
-  ], [{ sleep: true }, { dialogue: 'rom-vexaria-morgen' }], false),
+  ], [{ sleep: true }, { cutscene: 'rom-vexaria-zehn-schnallen' }], false),
+  cut('rom-vexaria-zehn-schnallen', 'Zehn Schnallen', [
+    { image: 'cut-rom-vexaria-zehn-schnallen', fade: 'in', hold: 2400, caption: '05:40 · Lötgassen' },
+  ], [{ dialogue: 'rom-vexaria-morgen' }]),
   cut('rom-vexaria-morgen', 'Bin gleich zurück', [
     { image: 'cut-rom-vexaria-morgen', pan: 'in', fade: 'in', hold: 2600, caption: 'Zwei Becher. Ein Zettel. Echt jetzt.' },
   ], [{ dialogue: 'rom-vexaria-morgen-zurueck' }]),
+  cut('rom-vexaria-pullitausch', 'Hol ihn dir', [
+    {
+      image: 'cut-rom-vexaria-pullitausch', pan: 'in', fade: 'in',
+      lines: [
+        n('Das High Voltage am Morgen. Stühle auf den Tischen, Kaffeemaschine röchelt. Aria sitzt am Tresen in deinem viel zu großen Pulli, dem grauen aus der Kiste, für kalte Nächte auf dem Dach. Die Ärmel über den Händen, nur die Silberfinger schauen raus. Den Kragen hat sie bis zum Kinn hochgezogen. Hilft nichts.'),
+        n('Du trägst das Gurtzeug über ihrem schwarzen Bandshirt. Mit dem roten Stern. Es ist dir zu weit an den Schultern. Es riecht nach ihr. Zehn Schnallen. Der Brustriemen hängt schief, und jeder, der hinguckt, weiß, warum.'),
+      ],
+    },
+  ], [{ dialogue: 'rom-vexaria-fruehstueck' }]),
   // Kurze Abblende (Akt 2, Dachgespräch „Bude“): Fassung nach Kalendertag – wild, zärtlich, albern.
   cut('vexaria-nacht-kurz', 'Bude', [
     { when: { cycleDay: poolDays(0, 3) }, image: 'black', fade: 'out', hold: 1600, caption: 'Feuerleiter runter. Rolltor runter. Keine Geduld.' },
@@ -880,7 +957,7 @@ export const HOEHEPUNKT_EVENTS: HeartEventDef[] = [
 export const part: ContentPart = {
   dialogues: byId([
     kussStart('rom-vexaria-kuss', true), kussStart('rom-vexaria-kuss-fs', false), kussMauer, kussNachher, kussMauerFs,
-    licht, lichtBude, morgen, morgenZurueck, fruehstueck, nachtWieder, morgenKurz, morgenWild, morgenZart, morgenAlbern,
+    licht, lichtBude, lichtDrinnen, lichtAus, morgen, morgenZurueck, fruehstueck, nachtWieder, morgenKurz, morgenWild, morgenZart, morgenAlbern,
   ]),
   cutscenes: byId(cutscenes),
   phone: byId(phone),
@@ -888,7 +965,7 @@ export const part: ContentPart = {
     'high-voltage': {
       onEnter: [{
         id: 'vexaria-fruehstueck', once: false, when: all(V, flag('vexaria_fruehstueck')),
-        dialogue: 'rom-vexaria-fruehstueck',
+        cutscene: 'rom-vexaria-pullitausch',
       }],
     },
   },

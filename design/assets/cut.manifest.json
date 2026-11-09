@@ -328,6 +328,13 @@
     "bytes": 150448,
     "blurhash": "L25zwV=%r|^T}b$l$,xcM{wI$fW-"
   },
+  "rom-vexaria-rolltor": {
+    "file": "assets/cut/rom-vexaria-rolltor.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 193246,
+    "blurhash": "L367.rJYt:p1-VIpR%R%oNbJsosp"
+  },
   "rom-vexaria-sprung": {
     "file": "assets/cut/rom-vexaria-sprung.webp",
     "width": 1536,
@@ -348,5 +355,12 @@
     "height": 1024,
     "bytes": 197442,
     "blurhash": "L36aYq}v$l#8$8RiJQkXXBRiImNE"
+  },
+  "rom-vexaria-zehn-schnallen": {
+    "file": "assets/cut/rom-vexaria-zehn-schnallen.webp",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 131436,
+    "blurhash": "L570}fMt-YImInt8n$ayI.xbW9s;"
   }
 }
