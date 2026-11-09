@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "meister-watt-neutral.png",
+  "sha": "f84f3579b035bf30",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45852
+ },
+ "freude": {
+  "src": "meister-watt-freude.png",
+  "sha": "27c2f0626ae34c05",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46436
+ },
+ "ueberrascht": {
+  "src": "meister-watt-ueberrascht.png",
+  "sha": "e88085023da893f9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44556
+ }
+}

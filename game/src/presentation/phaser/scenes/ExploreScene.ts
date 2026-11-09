@@ -89,7 +89,7 @@ export class ExploreScene extends Phaser.Scene {
   private voiceRun = 0;
   private voiceActive: { stop(): void } | null = null;
   private voiceLast: string | null = null;
-  private ambientSlot: TimeSlot | null = null;
+  private ambientSlot: string | null = null;
   private lastBark: string | null = null;
   private presenceKey = '';
   private npcSynced = false;
@@ -181,6 +181,15 @@ export class ExploreScene extends Phaser.Scene {
     this.spentGroups = new Set();
     const ambush = rollRandomEncounter(this.rt.content, state, this.map.id, (condition) => this.rt.campaign.evaluate(condition));
     if (ambush) this.map = { ...this.map, encounters: [...(this.map.encounters ?? []), ambush] };
+    // Begehbarkeit nach Zustand (MapDef.blockVariants), gilt für diesen Besuch.
+    const variants = (this.map.blockVariants ?? []).filter((variant) => this.rt.campaign.evaluate(variant.when));
+    if (variants.length) {
+      this.map = {
+        ...this.map,
+        walk: [...this.map.walk, ...variants.flatMap((variant) => variant.walk ?? [])],
+        block: [...(this.map.block ?? []), ...variants.flatMap((variant) => variant.block ?? [])],
+      };
+    }
     this.lastMinute = absoluteMinute(state.clock);
     this.resolvePresence = presenceOverride ?? ((map) => this.rt.campaign.presentNpcs(map));
   }
@@ -329,7 +338,7 @@ export class ExploreScene extends Phaser.Scene {
     rt.audio.setAmbience(this.map.ambience);
     this.voiceNext = this.time.now + 3000 + Math.random() * 4000;
     void loadVoiceBank().then((voices) => { this.voiceBank = voices; });
-    const music = musicForMap(rt.content, this.map, rt.campaign.state().clock.minutes);
+    const music = musicForMap(rt.content, this.map, rt.campaign.state().clock.minutes, (c) => rt.campaign.evaluate(c));
     rt.audio.setMusic(music.id, { muffled: music.muffled });
     rt.setMode('explore');
     camera.fadeIn(rt.settings.get().reducedMotion ? 0 : 350, 0, 0, 0);
@@ -496,10 +505,13 @@ export class ExploreScene extends Phaser.Scene {
 
   /** Passanten für die aktuelle Tageszeit: vorhandene laufen weiter, zusätzliche blenden ein, überzählige gehen. */
   private syncPassersby(slot: TimeSlot) {
-    if (slot === this.ambientSlot) return;
-    this.ambientSlot = slot;
+    // Neu planen bei neuer Tageszeit oder wenn `ambient.when` umschlägt (Rennnacht, Bruch).
+    const ambient = this.map.ambient && this.rt.campaign.evaluate(this.map.ambient.when) ? this.map.ambient : undefined;
+    const key = `${slot}:${ambient ? 1 : 0}`;
+    if (key === this.ambientSlot) return;
+    this.ambientSlot = key;
     const state = this.rt.campaign.state();
-    const plans = planPassersby(this.map.ambient, slot, {
+    const plans = planPassersby(ambient, slot, {
       seed: `${this.map.id}:${state.clock.day}:${slot}`,
       size: this.map.size,
       walkable: (x, y) => this.nav.walkable(x, y),
@@ -730,7 +742,8 @@ export class ExploreScene extends Phaser.Scene {
     }
     const lights = this.map.lights ?? [];
     this.lightImages.forEach((entry, index) => {
-      entry.base = lights[index] ? lightAlpha(lights[index], this.map.lighting, slot) : 0;
+      const light = lights[index];
+      entry.base = light && this.rt.campaign.evaluate(light.when) ? lightAlpha(light, this.map.lighting, slot) : 0;
       entry.image.setVisible(entry.base > 0).setAlpha(entry.base);
     });
   }
@@ -753,7 +766,7 @@ export class ExploreScene extends Phaser.Scene {
     };
     erase(this.player.x, this.player.y - 50, 2.2 * flicker);
     for (const follower of this.followers) erase(follower.actor.x, follower.actor.y - 50, 0.9);
-    for (const light of this.map.lights ?? []) erase(light.at[0], light.at[1], (light.radius * 2) / 256);
+    (this.map.lights ?? []).forEach((light, index) => { if ((this.lightImages[index]?.base ?? 0) > 0) erase(light.at[0], light.at[1], (light.radius * 2) / 256); });
   }
 
   /** Vordergrund-Verdecker werden halb durchsichtig, solange die Spielfigur dahinter steht. */

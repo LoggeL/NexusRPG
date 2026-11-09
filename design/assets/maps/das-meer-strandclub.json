@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-das-meer-strandclub": "assets/bg/das-meer-strandclub.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/das-meer-strandclub.png",
+ "prompt": "Edit the attached beach map (first image) and return the SAME image with the SAME camera, composition, layout, beach, dunes, jetty, fire pit, boulder, deck chair, water and lighting - everything stays in exactly the same place and size. Only change the beach-club area at the top left and the stage next to it: the construction site is now FINISHED and open - a cosy finished beach bar hut of bleached driftwood with a complete patched roof of corrugated sheets and palm-leaf thatch, a polished surfboard counter with colourful bottles and glasses, a little chalk menu board with only drawn pictograms (fish, glass, no letters), lanterns, more warm string lights, potted beach plants, two small round tables with stools on wooden decking in front of it, a sun sail; the stage is finished with a painted backdrop of an abstract wave and lightning symbol (no letters), proper stage lights and speakers, and a small dance floor of wooden planks in the sand in front of it. Remove the saw, the ladder, the loose planks and paint cans. Keep the hand-painted cartoon style with dark ink outlines, warm golden late-afternoon light. STRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no watermark, no frame, no UI."
+}

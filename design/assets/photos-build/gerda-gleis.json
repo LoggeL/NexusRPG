@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "gerda-gleis-neutral.png",
+  "sha": "a4513056a9033428",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62070
+ },
+ "freude": {
+  "src": "gerda-gleis-freude.png",
+  "sha": "b9d339b5c5e05326",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 72572
+ },
+ "trauer": {
+  "src": "gerda-gleis-trauer.png",
+  "sha": "724016c2f7f95ab4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61218
+ },
+ "signatur": {
+  "src": "gerda-gleis-signatur.png",
+  "sha": "5f801c781a13ef53",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 70286
+ }
+}

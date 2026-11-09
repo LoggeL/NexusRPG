@@ -10,7 +10,7 @@
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueDef, HeartEventDef, PhoneMessageDef } from '../../../modules/contracts';
 import {
-  a, AKT1, all, any, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, R, ROM_AN, s, seen,
+  a, AKT1, all, any, BRUECKE, byId, ch, chk, cut, dlg, flag, herz, HEUTE_FREI, msg, n, node, noFlag, not, R, ROM_AN, s, seen,
   set, STATION_START, STREIT, twin, V, v,
 } from './_util';
 
@@ -372,9 +372,9 @@ const umdrehen2 = (id: string, rom: boolean): DialogueDef => dlg(id, [
     n('Irgendwann wird der Regen stärker. Richtig stark. Ihr sitzt da wie zwei nasse Katzen.'),
   ], {
     choices: [
-      ch('Runter. Unter das Vordach.', 'vordach-rom', { when: all(AKT1, R, STREIT) }),
-      ch('Runter. Unter das Vordach.', 'vordach-fs', { when: all(AKT1, not(all(R, STREIT))) }),
-      ch('Aufstehen.', 'ende', { when: { act: 2 } }),
+      ch('Runter. Unter das Vordach.', 'vordach-rom', { when: all(BRUECKE, R, STREIT) }),
+      ch('Runter. Unter das Vordach.', 'vordach-fs', { when: all(BRUECKE, not(all(R, STREIT))) }),
+      ch('Aufstehen.', 'ende', { when: not(BRUECKE) }),
     ],
   }),
   // Akt-1-Weg: Vex-Fassung von rom-aria-regen (Versöhnung) direkt im Anschluss.
@@ -461,7 +461,7 @@ const phone: PhoneMessageDef[] = [
   },
   {
     id: 'vega-vex-anruf', from: 'vega', text: 'Vega hier. Geh ran. Jetzt.',
-    auto: all(V, AKT1, seen('rom-vexaria-funkstille'), not(seen('rom-vexaria-umdrehen')), HEUTE_FREI, { time: 'abend' }),
+    auto: all(V, BRUECKE, seen('rom-vexaria-funkstille'), not(seen('rom-vexaria-umdrehen')), HEUTE_FREI, { time: 'abend' }),
     replies: [
       { text: 'Rangehen.', effects: [{ dialogue: 'vexaria-vega-rat' }] },
       { text: 'Wegdrücken.', effects: [set('vexaria_vega_abgewimmelt')] },
@@ -496,17 +496,17 @@ export const BRUCH_EVENTS: HeartEventDef[] = [
   },
   ...twin({
     id: 'rom-vexaria-streit', hearts: 8, map: 'neon-gasse', time: 'abend',
-    when: all(V, AKT1, HEUTE_FREI, seen('rom-vexaria-ripperdeal')),
+    when: all(V, HEUTE_FREI, seen('rom-vexaria-ripperdeal')),
   }, ROM_AN, { dialogue: 'rom-vexaria-streit' }, { dialogue: 'rom-vexaria-streit-fs' }),
   // Station 7: dieselbe Nacht wie der Streit (keine Tagessperre).
   ...twin({
     id: 'rom-vexaria-funkstille', hearts: 8, map: 'loetgassen', time: 'nacht',
-    when: all(V, STREIT_GESEHEN, { clockBetween: [1380, 1560] }, any(flag('aria_romanze_streit'), flag('aria_krach'), AKT1)),
+    when: all(V, STREIT_GESEHEN, { clockBetween: [1380, 1560] }, any(flag('aria_romanze_streit'), flag('aria_krach'), BRUECKE)),
     effects: [set('vexaria_kanal4')],
   }, ROM_STREIT_NOW, { dialogue: 'rom-vexaria-funkstille' }, { dialogue: 'rom-vexaria-funkstille-fs' }),
   ...twin({
     id: 'rom-vexaria-umdrehen', hearts: 8, map: 'neon-gasse', time: 'nacht',
-    when: all(V, HEUTE_FREI, seen('rom-vexaria-funkstille'), any(AKT1, seen('rom-aria-vega'))),
+    when: all(V, HEUTE_FREI, seen('rom-vexaria-funkstille'), any(BRUECKE, seen('rom-aria-vega'))),
   }, ROM_STREIT_NOW, { dialogue: 'rom-vexaria-umdrehen' }, { dialogue: 'rom-vexaria-umdrehen-fs' }),
 ];
 

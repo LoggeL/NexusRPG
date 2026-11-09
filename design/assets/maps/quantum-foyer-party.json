@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-foyer-party": "assets/bg/quantum-foyer-party.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-foyer-party.png",
+ "prompt": "Edit the attached interior game map background (first image) into a party-night variant. Keep EXACTLY the same layout, camera, walls, doors, elevators, staircase, reception desk, hologram platform, security glass box, counters, bench, stand, vending machine and revolving door at the same positions; same painting style, same 1536x1024 framing. Only add festive decoration: hanging garlands of tiny lights along the top wall, violet and gold balloons in clusters at the edges, a red carpet from the revolving door to the glass elevator on the right, a press corner with camera tripods and softbox lights in the open floor right of center near the right wall, champagne towers on small tables at the edges, a long banner as a plain glowing stripe without any writing over the emblem wall. Keep the walkable floor free and readable. STRICT: no people, no figures, no text, no letters, no logos, no UI."
+}

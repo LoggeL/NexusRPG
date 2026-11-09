@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-server-kern-stadtnetz": "assets/bg/server-kern-stadtnetz.webp"
+ },
+ "size": [
+  1024,
+  768
+ ],
+ "raw": "output/imagegen/raw/maps/server-kern-stadtnetz.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, objects, positions, outlines and painting style - every object stays where it is, same size. Only change the colours and state:\nCITY NETWORK state, friendly and hopeful: the giant core sphere in the center now glows in a warm, friendly green and soft gold instead of cyan and red, calm gentle swirls inside. All cables and floor lines glow green. The three crystal nodes on the right glow soft green. The server racks around the edges show green and warm yellow LEDs. A few colourful paper bunting garlands hang between the server racks at the top edge, and a small potted plant stands next to the upload console. The upload console screen shows a green wave (no text). Overall warm green and gold, welcoming, like a community workshop.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

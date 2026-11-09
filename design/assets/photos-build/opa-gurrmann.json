@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "opa-gurrmann-neutral.png",
+  "sha": "b458260f0a1e8f61",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 65574
+ },
+ "freude": {
+  "src": "opa-gurrmann-freude.png",
+  "sha": "f44ca1216d434ef9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 78726
+ },
+ "besorgt": {
+  "src": "opa-gurrmann-besorgt.png",
+  "sha": "5cfbacd8b694ef32",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 70610
+ }
+}

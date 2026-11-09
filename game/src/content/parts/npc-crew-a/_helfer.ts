@@ -66,3 +66,47 @@ export const flag = (name: string, value = true): Effect => (value ? { setFlag: 
 
 /** Hinweis für Herz-Ereignisse 8/10 in Akt 1 (world.md §11.2). */
 export const ZEIT_HINWEIS = 'Diese Freundschaft braucht noch Zeit. (Weiter mit Akt 2.)';
+
+// ---------------------------------------------------------------------------------------------- Akt 2, Akt 3, Nachspiel
+// Flags nach design/plan/act23.json (flags, endings). ActId kennt nur 1|2|3; das Nachspiel läuft über das Flag `epilog`.
+
+export const AKT2: Condition = { act: 2 };
+export const AKT3: Condition = { act: 3 };
+export const EPILOG: Condition = { flag: 'epilog' };
+export const MASTER: Condition = { flag: 'master_modus' };
+export const NICHT_MASTER: Condition = { notFlag: 'master_modus' };
+/** Akt 2 bis vor der Party (freie Phase). */
+export const NUR_AKT2: Condition = { all: [AKT2, { not: AKT3 }] };
+/** Die Nacht der Releaseparty (Akt 3 vor dem Nachspiel). */
+export const PARTYNACHT: Condition = { all: [AKT3, { notFlag: 'epilog' }] };
+/** Ruhige Zeit für Herz-Ereignisse: nach dem Countdown in Akt 2 oder im Nachspiel, nie in der Partynacht, nie im Master-Modus. */
+export const RUHIG: Condition = {
+  all: [AKT2, { not: PARTYNACHT }, NICHT_MASTER, { any: [{ quest: 'main-2-countdown', state: 'done' }, EPILOG] }],
+};
+export const COUNTDOWN_DONE: Condition = { quest: 'main-2-countdown', state: 'done' };
+export const KRISE_DONE: Condition = { quest: 'main-2-krisensitzung', state: 'done' };
+/** Releaseparty beschlossen bzw. vorbereitet (Party-Vorbereitungen laufen). */
+export const PARTY_GEPLANT: Condition = { any: [{ flag: 'releaseparty_geplant' }, KRISE_DONE] };
+export const NYRA_WEG: Condition = { all: [{ flag: 'nyra_zurueckgelassen' }, { notFlag: 'nyra_befreit' }] };
+export const ENDE_MEER: Condition = { flag: 'ende_meer' };
+export const ENDE_NEXUS: Condition = { flag: 'ende_neue_nexus' };
+/** Nachspiel ohne Master-Modus (Ende 1, 2 oder 3b). */
+export const EPILOG_FREI: Condition = { all: [EPILOG, NICHT_MASTER] };
+
+/** Bedingung „Flag noch nicht gesetzt“ – für einmalige Themen-Gespräche. */
+export const ohne = (name: string): Condition => ({ notFlag: name });
+/** Alle Bedingungen. */
+export const und = (...list: Condition[]): Condition => ({ all: list });
+
+/** Romanze-Flags der freigegebenen Figuren (eine aktive Romanze gleichzeitig, world.md §4.7). */
+export const ZUSAMMEN_FLAGS: Record<string, string[]> = {
+  hunter: ['hunter_romanze_zusammen'],
+  dante: ['dante_romanze_zusammen'],
+  aria: ['aria_romanze_zusammen', 'aria_kuss'],
+  'collin-charleston': ['collin_kuss'],
+  'lio-funkel': ['lio-funkel_romanze_zusammen'],
+};
+/** Keine andere Romanze als mit `npc` ist „zusammen“. */
+export const frei = (npc: string): Condition => ({
+  all: Object.entries(ZUSAMMEN_FLAGS).filter(([id]) => id !== npc).flatMap(([, flags]) => flags.map((f): Condition => ({ notFlag: f }))),
+});

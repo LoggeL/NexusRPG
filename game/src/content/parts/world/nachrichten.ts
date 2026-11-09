@@ -5,7 +5,7 @@
 //   6 Aktwechsel · 4 Hauptquest-Meldungen · 3 Nebenquest-Meldungen · 2 Fest/Wochentag · 1 Blade-Spots · 0 Kurzmeldungen
 // Schon belegt: news-main-1-raven (quest-main-b, 3), news-main-1-der-plan (quest-main-b, 5).
 // Enden (Ende 1–3) und main-2-countdown fehlen noch: Akt-2/3-Quests und End-Flags existieren nicht (gaps/world.md).
-import type { NewsDef, NpcDef } from '../../../modules/contracts';
+import type { NewsDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import {
   AKT1, AKT2, AKT3, GRUENDERTAG, KARTEN_TURNIER, NEONNACHT, SCHROTTPARADE, WETTER_KLAR, WETTER_NEONSCHAUER,
@@ -264,15 +264,7 @@ const neben: NewsDef[] = [
   ], done('side-oma-volts-lager'), 3),
 ];
 
-// --------------------------------------------------------------------------------------------- Sprecher ohne Figur in Akt 1
-
-/** Opa Funk sendet Radio Rost (world.md §4.5, Sitz funkturm-ruine, Akt 2). Bis dahin nur als Stimme im Radio. */
-const opaFunk: NpcDef = {
-  id: FUNK, name: 'Opa Funk', portrait: 'opa-funk', maxHearts: 5,
-  bio: 'Sendet Radio Rost aus einer Funkturm-Ruine in der Ödnis. Röhren, Polka und Verschwörungen, in dieser Reihenfolge.',
-};
 
 export const part: ContentPart = {
   news: byId([...nx1, ...radio, ...blade, ...kurz, ...wetter, ...woche, ...neben]),
-  npcs: { [opaFunk.id]: opaFunk },
 };

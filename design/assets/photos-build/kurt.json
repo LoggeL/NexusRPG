@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "kurt-neutral.png",
+  "sha": "b198b1b9a0c62fb0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 64100
+ },
+ "wut": {
+  "src": "kurt-wut.png",
+  "sha": "a97190d3aaab3699",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66464
+ },
+ "ueberrascht": {
+  "src": "kurt-ueberrascht.png",
+  "sha": "fb67418237ac5b42",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 65434
+ }
+}

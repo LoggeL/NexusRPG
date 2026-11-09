@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "barista-perle-neutral.png",
+  "sha": "9addbe2a7ee24643",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36966
+ },
+ "freude": {
+  "src": "barista-perle-freude.png",
+  "sha": "753cb80b95f102ce",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40972
+ },
+ "besorgt": {
+  "src": "barista-perle-besorgt.png",
+  "sha": "8aaa9ac8aefa55c9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41110
+ },
+ "signatur": {
+  "src": "barista-perle-signatur.png",
+  "sha": "e154e109a3a3ae6d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44018
+ }
+}

@@ -1,13 +1,14 @@
 // Delya Delloraine – Nachrichtensprecherin und Reporterin bei NX-1 (world.md §4.4, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.delya-delloraine), Herz-Ereignisse he-delya-delloraine-2/4/6
-// (plan events), -8/-10 angelegt und an act2 gebunden. Kein Begleiter. Romanze: nur Kennzeichen (nicht freigegeben),
-// daher ausschließlich Freundschaftsfassung.
+// (plan events). Akt 2/3 und Nachspiel (he-8/-10, Tagesgespräche, Telefon, Party, Enden) in delya-delloraine-23.ts.
+// Kein Begleiter. Romanze: nur Kennzeichen (nicht freigegeben), daher ausschließlich Freundschaftsfassung.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menu, AKT1, AKT2, VEX, VEXARIA, ZEIT_HINWEIS, all, byId, chk, daily, dlg, erz, flag, hearts, ich, noFlag, node,
   not, rel, rep, seen, set, sp, talk, xp,
 } from './_util';
+import { DELYA_PHONE, DELYA_SCHEDULE_23, DELYA_TALK_23, DELYA_TALK_MASTER, delya23 } from './delya-delloraine-23';
 
 const D = sp('delya-delloraine');
 const C = sp('collin-charleston');
@@ -65,7 +66,7 @@ function menu(): Menu {
       D('Aber er hat einmal um vier Uhr morgens einem Fremden sein Sakko gegeben und mich gebeten, es nicht zu erwähnen. Das erwähne ich jetzt auch nicht.', 'freude'),
     ], { choices: zurueck }),
     node('quelle', [
-      D('Drei Kanal-Schlafwandler. Einer am Rechen, eine in der Rohrsiedlung, einer, den keiner vermisst, weil keiner ihn kannte.', 'besorgt'),
+      D('Drei Kanal-Schlafwandler. Einer am Floß-Anleger im Kanal-Sammler, eine an der alten Pumpe im Pumpwerk Sieben, einer tief im Datentunnel, den keiner vermisst, weil keiner ihn kannte. Nur nachts.', 'besorgt'),
       D('Bring sie zu Dante. Er ist der Einzige, der so einen Chip anfasst, ohne ihn zu verkaufen.'),
     ], { choices: zurueck }),
     node('quelle-akt1', [
@@ -313,34 +314,6 @@ const he6 = dlg('he-delya-delloraine-6', [
   ], { effects: [xp(70), rep('unterstadt', 5), rep('nx1-medien', -3), set('delya_bericht_gesendet')] }),
 ]);
 
-// ------------------------------------------------------------------------------------------- he-delya-delloraine-8/10 (act2)
-
-const he8 = dlg('he-delya-delloraine-8', [
-  node('start', [
-    erz('Die Feuertreppe des Studios, nachts. Delya hat zwei Becher Synth-Kaffee mitgebracht und ein altes Foto: ein kleines Mädchen mit einem Kassettenrekorder, der größer ist als sein Kopf.'),
-    D('Ich war acht. Unser Block in der Rohrsiedlung sollte abgerissen werden. Im Fernsehen hieß es: „Freiwillige Umsiedlung, alle Bewohner einverstanden“. Keiner war einverstanden.', 'trauer'),
-    D('Ich bin mit dem Rekorder durch alle Wohnungen und hab gefragt. Dreiundvierzig Leute. Dreiundvierzig Mal „Nein“. Die Kassette hab ich zum Sender gebracht. Sie haben sie nie gespielt.', 'wut'),
-    D('Deshalb mach ich das. Nicht für die Wahrheit. Für die dreiundvierzig.', 'besorgt'),
-  ], {
-    choices: [
-      { text: '„Hast du die Kassette noch?“', next: 'kassette' },
-      { text: 'Ihr den Becher nachfüllen und schweigen.', next: 'ende', effects: [rel(ID, 20)] },
-    ],
-  }),
-  node('kassette', [D('Natürlich. Unter meinem Kopfkissen. Ich nenne keine Namen. Aber ich habe dreiundvierzig Stimmen.', 'freude')], { next: 'ende' }),
-  node('ende', [erz('Ihr sitzt, bis der Kaffee kalt ist. Unten blinkt die Stadt. Irgendwo darin dreiundvierzig Leute, die nie gesendet wurden.')], { effects: [xp(80), rel(ID, 40)] }),
-]);
-
-const he10 = dlg('he-delya-delloraine-10', [
-  node('start', [
-    erz('Ein neues Studio, eine Etage unter Collins. Kahle Wände, ein Tisch, zwei Stühle, eine Kamera. Über der Tür ein Schild: „DELLORAINE – UNGEFRAGT“.'),
-    D('Meine eigene Sendung. Fünfzehn Minuten. Mittwochs, 23:40. Keine Werbung. Kein Glattstrich. Kein Collin, außer er bringt Croissants.', 'freude'),
-    D('Erster Gast: du. Und vorher das hier.', 'signatur'),
-    erz('Sie reicht dir einen Presseausweis in Gold, schwer wie ein Versprechen. Darauf, wo der Name stehen müsste: nichts.'),
-    D('Ich nenne keine Namen. Den musst du selbst eintragen.', 'freude'),
-  ], { effects: [{ give: 'presseausweis-gold' }, xp(120), rel(ID, 50), rep('nx1-medien', 10)] }),
-]);
-
 // ------------------------------------------------------------------------------------------- Figur
 
 const delya: NpcDef = {
@@ -359,6 +332,7 @@ const delya: NpcDef = {
     hates: ['peilsender', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...DELYA_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'nx1-studio', at: 'redaktion' } },
     { slot: 'tag', days: ['di', 'do'], place: { map: 'gerichtssaal', at: 'zuschauerbaenke' }, pose: 'sitzen' },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'stadt-tv' } },
@@ -377,10 +351,12 @@ const delya: NpcDef = {
     { id: 'he-delya-delloraine-10', hearts: 10, map: 'nx1-studio', time: 'abend', when: all(AKT2, seen('he-delya-delloraine-8')), dialogue: 'he-delya-delloraine-10' },
   ],
   talk: [
+    DELYA_TALK_MASTER,
     talk('delya-tag-rivale', { rival: ID }),
     talk('delya-tag-vexaria', all(VEXARIA, noFlag('delya_kommentar_vexaria'))),
     talk('delya-tag-collin-paar', all(flag('collin_kuss'), noFlag('delya_kommentar_collin'))),
     talk('delya-tag-zeit', AKT1, 8),
+    ...DELYA_TALK_23,
     talk('delya-tag-fremd', not({ met: ID })),
     talk('delya-tag-redaktion', { time: 'morgen' }),
     talk('delya-tag-gericht', all({ weekday: ['di', 'do'] }, { time: 'tag' })),
@@ -396,6 +372,7 @@ export const part: ContentPart = {
   npcs: { [ID]: delya },
   dialogues: byId([
     T.rivale, T.vexaria, T.collinPaar, T.zeit, T.redaktion, T.gericht, T.markt, T.abend, T.quellen, T.vertraut, T.fremd,
-    T.standard, he2, he4, he6, he8, he10,
+    T.standard, he2, he4, he6, ...delya23(M),
   ]),
+  phone: Object.fromEntries(DELYA_PHONE.map((m) => [m.id, m])),
 };

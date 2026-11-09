@@ -1,12 +1,17 @@
 // Der Barkeeper – High Voltage, spricht ausschließlich in Dreizeilern (world.md §4.4, §4.6, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.barkeeper), Herz-Ereignisse he-barkeeper-2/4/6 (plan events),
-// he-barkeeper-8/10 angelegt und an act2 gebunden. Begleiter ab ♥8 (Akt 1 erreichbar, Einsatzgrenzen siehe gaps).
+// Akt 2/3 und Nachspiel (he-barkeeper-8/10, Tagesgespräche, Strandclub, Fähigkeit) in barkeeper-23.ts.
+// Begleiter ab ♥8 (Akt 1 erreichbar, Einsatzgrenzen siehe gaps), im Master-Modus nicht.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menu, AKT1, AKT2, NOT_VEX, VEX, VEXARIA, ZEIT_HINWEIS, all, byId, chk, daily, dlg, erz, hearts, ich, noFlag,
   node, not, rel, rep, seen, set, sp, talk, xp,
 } from './_util';
+import { MASTER } from './_util';
+import {
+  BARKEEPER_ABILITIES, BARKEEPER_ABILITY_RULES, BARKEEPER_SCHEDULE_23, BARKEEPER_TALK_23, BARKEEPER_TALK_MASTER, barkeeper23,
+} from './barkeeper-23';
 
 const B = sp('barkeeper');
 const H = sp('hunter');
@@ -41,7 +46,7 @@ function menu(): Menu {
     { text: 'Die Arena. Erzählst du mir mehr?', when: seen('he-barkeeper-6'), once: true, id: 'b-arena', next: 'arena' },
     {
       text: 'Kämpf mit mir. Wenn’s drauf ankommt.', tag: '[Barkeeper ♥8]', id: 'b-rekrut', next: 'rekrut',
-      requires: hearts('barkeeper', 8), when: all(PROBEZEIT, not(IM_TEAM)), effects: [{ recruit: 'barkeeper' }],
+      requires: hearts('barkeeper', 8), when: all(PROBEZEIT, not(IM_TEAM), not(MASTER)), effects: [{ recruit: 'barkeeper' }],
     },
     { text: 'Geh zurück hinter deine Bar.', when: IM_TEAM, next: 'entlassen', effects: [{ dismiss: 'barkeeper' }] },
     { text: 'Danke. Bis später.' },
@@ -330,25 +335,6 @@ const he6 = dlg('he-barkeeper-6', [
   ], { effects: [xp(60), set('barkeeper_arena_erzaehlt'), rep('crew-hunter', 3)] }),
 ]);
 
-// ------------------------------------------------------------------------------------------- he-barkeeper-8/10 (act2)
-
-const he8 = dlg('he-barkeeper-8', [
-  node('start', [
-    erz('Freitagabend, Gedränge. Zwei Rostzähne gehen am Tanzboden aufeinander los, Gläser fliegen, jemand schreit nach Bruno. Der Barkeeper stellt das Glas ab, das er gerade poliert. Sieht hin. Das ist alles.'),
-    erz('Die Rostzähne erstarren mitten im Schlag, lassen die Fäuste sinken und setzen sich. Nebeneinander. Einer entschuldigt sich beim anderen.'),
-    B(vers('Für dich, Gast, heut Nacht', 'ein Glas, das es nirgends gibt', 'ich nenn es „Stiller Vers“.')),
-    erz('Es ist dunkelblau, schmeckt nach Tee, Salz und etwas, das du nicht kennst, und es leuchtet erst, wenn man es ansieht.'),
-  ], { effects: [xp(80), rel('barkeeper', 40), set('stiller_vers_bekannt')] }),
-]);
-
-const he10 = dlg('he-barkeeper-10', [
-  node('start', [
-    erz('Nach Ladenschluss. Er stellt eine Kiste auf den Tresen, hinter Hunters schlechtem Rum hervorgezogen. Darin: eine schwarze Maske, glatt, ohne Mund. Das Plakatgesicht des Stillen.'),
-    B(vers('Ich trug sie vierzig Mal', 'nun trägst du sie einmal nicht', 'und denkst dabei an mich.')),
-    erz('Er legt sie dir in die Hände. Zum ersten Mal sagt er etwas ohne Versmaß, ganz leise: „Danke.“ Dann tut er so, als wäre das nie passiert.'),
-  ], { effects: [{ give: 'barkeeper-maske' }, xp(120), rel('barkeeper', 50)] }),
-]);
-
 // ------------------------------------------------------------------------------------------- Figur
 
 const barkeeper: NpcDef = {
@@ -365,6 +351,7 @@ const barkeeper: NpcDef = {
     hates: ['haarspray-deluxe', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...BARKEEPER_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'high-voltage', at: 'tresen' }, pose: 'polieren' },
     { slot: 'tag', days: ['mo'], place: { map: 'schrottmarkt', at: 'marktplatz-mitte' } },
     { slot: 'tag', place: { map: 'neon-gasse', at: 'klingen-ecke' }, pose: 'klinge' },
@@ -388,12 +375,15 @@ const barkeeper: NpcDef = {
       abilities: ['barkeeper-mondschnitt', 'barkeeper-stille-wacht'],
     },
     heartAbilities: [{ hearts: 10, ability: 'barkeeper-letzter-vers' }],
+    abilityRules: BARKEEPER_ABILITY_RULES,
   },
   talk: [
+    BARKEEPER_TALK_MASTER,
     talk('barkeeper-tag-rivale', { rival: 'barkeeper' }),
     talk('barkeeper-tag-vexaria', all(VEXARIA, noFlag('barkeeper_kommentar_vexaria'), { time: ['morgen', 'abend', 'nacht'] })),
     talk('barkeeper-tag-aria', all(NOT_VEX, { flag: 'aria_romanze_zusammen' }, noFlag('barkeeper_kommentar_aria'))),
     talk('barkeeper-tag-zeit', AKT1, 8),
+    ...BARKEEPER_TALK_23,
     talk('barkeeper-tag-fremd', { not: PROBEZEIT }),
     talk('barkeeper-tag-montag', all({ weekday: 'mo' }, { time: ['abend', 'nacht'] })),
     talk('barkeeper-tag-markt', all({ weekday: 'mo' }, { time: 'tag' })),
@@ -409,6 +399,7 @@ export const part: ContentPart = {
   npcs: { barkeeper },
   dialogues: byId([
     T.rivale, T.vexaria, T.aria, T.zeit, T.montag, T.morgen, T.klinge, T.markt, T.wochenende, T.vertraut, T.fremd, T.bar,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...barkeeper23(M),
   ]),
+  abilities: Object.fromEntries(BARKEEPER_ABILITIES.map((a) => [a.id, a])),
 };

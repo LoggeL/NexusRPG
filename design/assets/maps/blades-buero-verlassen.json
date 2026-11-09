@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-blades-buero-verlassen": "assets/bg/blades-buero-verlassen.webp"
+ },
+ "size": [
+  1024,
+  768
+ ],
+ "raw": "output/imagegen/raw/maps/blades-buero-verlassen.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, objects, positions, outlines and painting style - every piece of furniture stays where it is, same size. Only change the state:\nSEALED CRIME SCENE in calm early daylight: the city outside the panoramic window is in soft grey-blue morning light, the advertising screens of the city are switched off. Yellow-and-black police barrier tape is stretched diagonally across the glass desk and across the champagne bar. Small round red wax seals stick on the bar, the display cabinet and the desk. The black executive chair is pushed back. The holographic ring above the black AI pillar is off, the pillar is dark. The flipchart is wrapped in a big transparent plastic evidence bag. The golden desk lamp is off. Muted colours, dusty light beams, quiet and abandoned.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

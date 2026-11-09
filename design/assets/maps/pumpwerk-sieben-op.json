@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-pumpwerk-sieben-op": "assets/bg/pumpwerk-sieben-op.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/pumpwerk-sieben-op.png",
+ "prompt": "Edit the attached game map background (first image) and keep EVERYTHING identical: same camera, same layout, same pump wheels, catwalks, shaft, containers, pipes, colours and painting style. Same size 1536x1024. Only change the bottom-left alcove (the back-alley surgery niche with the operating table behind plastic curtains): the round surgical lamp is now switched ON and casts a bright cold white-green light cone onto the operating table and the floor in front of the niche, a heart monitor screen glows green (no text, only a wave line), the plastic curtains glow from the inside, a few extra medical cool boxes and a tray of shiny instruments stand next to the table, the floor in front of the niche reflects the white-green light. The operating table is EMPTY. STRICT: no people, no figures, no animals, no silhouettes, no readable text, no letters, no numbers, no logos, no frame, no UI."
+}

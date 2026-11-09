@@ -2,8 +2,9 @@
 // Nur Freundschaft (child: true). he-jakko-6 startet pers-jakko-kochbuch (baut der Quest-Agent).
 import type { NpcDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
+import { JAKKO_HE_23, JAKKO_SCHEDULE_23, JAKKO_TALK_FRUEH, JAKKO_TALK_POOL } from './jakko-akt23';
 import {
-  AKT2, KINDERZEIT, L, N, OEDNIS, SCHROTT, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
+  KINDERZEIT, L, N, OEDNIS, SCHROTT, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
 } from './_dsl';
 
 const J = 'jakko';
@@ -25,6 +26,7 @@ const npc: NpcDef = {
     hates: ['algen-chips', 'virus-implantat', 'rostige-dose'],
   },
   schedule: [
+    ...JAKKO_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'schrottmarkt', at: 'garkueche-hocker' } },
     { slot: 'tag', days: KRANTAGE, place: { map: 'schrottmarkt', at: 'kran' } },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'garkueche-hocker' } },
@@ -45,25 +47,20 @@ const npc: NpcDef = {
       id: 'he-jakko-6', hearts: 6, map: 'schrottmarkt', time: 'abend', when: { all: [KINDERZEIT, { not: { weekday: ['mo', 'do'] } }] },
       dialogue: 'dlg-he-jakko-6', effects: [{ xp: 45 }],
     },
-    {
-      id: 'he-jakko-8', hearts: 8, map: 'schrottmarkt', time: 'tag', when: { all: [AKT2, { not: { weekday: 'mo' } }] },
-      dialogue: 'dlg-he-jakko-8', effects: [{ xp: 60 }],
-    },
-    {
-      id: 'he-jakko-10', hearts: 10, map: 'das-nest', time: 'morgen', when: AKT2,
-      dialogue: 'dlg-he-jakko-10', effects: [{ xp: 80 }, { give: 'jakkos-rezept' }],
-    },
+    ...JAKKO_HE_23,
     { id: 're-jakko-2', hearts: -2, map: 'schrottmarkt', time: ['morgen', 'tag'], dialogue: 'dlg-re-jakko-2' },
   ],
   talk: [
     { dialogue: 'jakko-schmollen', when: { rival: J } },
     { dialogue: 'jakko-zeit', minHearts: 8, when: zeitHinweisWann('jakko-zeit') },
+    ...JAKKO_TALK_FRUEH,
     { dialogue: 'jakko-kochbuch', when: { quest: 'pers-jakko-kochbuch', state: 'active' } },
     { dialogue: 'jakko-montag', when: { all: [{ weekday: 'mo' }, { time: ['morgen', 'abend'] }] } },
     { dialogue: 'jakko-morgen', when: { time: 'morgen' } },
     { dialogue: 'jakko-kran', when: { all: [{ time: 'tag' }, { weekday: KRANTAGE }] } },
     { dialogue: 'jakko-dante', when: { all: [{ time: 'abend' }, { weekday: 'do' }] } },
     { dialogue: 'jakko-abend', when: { time: 'abend' } },
+    ...JAKKO_TALK_POOL,
     { dialogue: 'jakko-tag-4', minHearts: 4 },
     { dialogue: 'jakko-tag-0' },
   ],
@@ -396,41 +393,7 @@ const dialogues = dialogs(
     }),
   ]),
 
-  dlg('dlg-he-jakko-8', [
-    node('a', [
-      N('Auf dem Markt steht ein langer Tisch aus Türen und Ölfässern. Darauf: Töpfe, Pfannen, Schüsseln, alles, was Jakko leihen, betteln oder Babette abschwatzen konnte. Und davor eine Schlange, die bis zum Kran reicht.'),
-      L(J, 'Heute koche ich für den ganzen Markt! Jeder kriegt was! Wer Geld hat, zahlt, wer keins hat, erzählt eine Geschichte!', 'freude'),
-      L('babette-bao', 'Er macht seit fünf Uhr früh. Ich hab nur den großen Topf getragen. Und geweint. Ein bisschen. Zwiebeln.'),
-    ], {
-      choices: [
-        { text: '(Eine Schürze nehmen und Teller austeilen.)', effects: [herz(J, 40), { rep: 'unterstadt', delta: 5 }, { advanceTime: 60 }], next: 'helfen' },
-        { text: '(Anstellen und eine Geschichte erzählen.)', effects: [herz(J, 30), { heal: 30 }], next: 'geschichte' },
-      ],
-    }),
-    node('helfen', [
-      N('Eine Stunde lang gibst du Eintopf aus. Ripper stellt sich an und zahlt doppelt, ohne dass ihn jemand dazu zwingt. Wett-Willi erzählt eine Geschichte, die sogar stimmt.'),
-      L(J, 'Hast du das gesehen? Alle sind satt. ALLE. Das ist das Beste, was ich je gekocht hab. Das ist so gut wie … das ist besser als alles.', 'freude'),
-    ]),
-    node('geschichte', [
-      N('Du erzählst Jakko, wie du das erste Mal in Noxius angekommen bist. Er hört zu, mit offenem Mund und einer Kelle in der Hand, und vergisst darüber fast die Schlange.'),
-      L(J, 'Die war gut. Die kriegt eine doppelte Portion. Das ist die Regel. Die Regel hab ich gerade gemacht.', 'signatur'),
-    ]),
-  ]),
-
-  dlg('dlg-he-jakko-10', [
-    node('a', [
-      N('Im Nest riecht es nach Eintopf. Auf Jakkos Herd blubbert ein Topf, und Jakko steht davor mit einem Heft in der Hand, in dem Buntstiftschrift auf Fettflecken tanzt.'),
-      L(J, 'Mein Kochbuch ist fertig. Also, fast. Es fehlt nur noch eine Seite. Und die ist für dich.', 'freude'),
-      N('Er reißt eine Seite heraus und gibt sie dir. Oben steht: „Eintopf für Leute, die man mag“. Darunter eine Zeichnung von dir. Mit Kochmütze. Die Mütze ist größer als du.'),
-      L(J, 'Das ist das wichtigste Rezept. Das kann man nur kochen, wenn man jemanden mag. Sonst schmeckt’s nach Algen-Chips.', 'signatur'),
-    ], {
-      choices: [
-        { text: '„Ich koch es für dich. Als Erstes.“', next: 'danke' },
-        { text: '„Das ist das schönste Rezept der Welt, Jakko.“', next: 'danke' },
-      ],
-    }),
-    node('danke', [L(J, 'Ich weiß. Ich hab’s ja geschrieben. Jetzt essen! Ich hab drei Stunden nur gerochen, ich bin am Ende!', 'freude')]),
-  ]),
+  // he-jakko-8 und he-jakko-10: jakko-akt23.ts
 
   dlg('dlg-re-jakko-2', [
     node('a', [

@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-campus-party": "assets/bg/quantum-campus-party.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-campus-party.png",
+ "prompt": "Edit the attached game map background (first image) into a party-night variant. Keep EXACTLY the same layout, camera, buildings, fence, fountain, lawns, paths, stairs, gates and every object position; same painting style, same 1536x1024 framing. Only add festive decoration: glowing arches of string lights over the main plaza path from the bottom gate to the revolving glass door, a long red carpet from the fountain up to the revolving door with golden rope posts, a few press tripods with cameras and softbox lights on the edges of the plaza near the foyer, floating violet and gold light orbs, small champagne-cooler stands along the edges, festive spotlight beams in the sky. Keep the walkable floor free and readable. STRICT: no people, no figures, no text, no letters, no logos, no UI."
+}

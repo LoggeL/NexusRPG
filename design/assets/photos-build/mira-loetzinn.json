@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "mira-loetzinn-neutral.png",
+  "sha": "6bd239b8388d418c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63470
+ },
+ "freude": {
+  "src": "mira-loetzinn-freude.png",
+  "sha": "c3b844160ffb357c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 60844
+ },
+ "besorgt": {
+  "src": "mira-loetzinn-besorgt.png",
+  "sha": "900150e04fa16412",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59390
+ }
+}

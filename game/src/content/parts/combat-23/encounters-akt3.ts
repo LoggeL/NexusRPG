@@ -23,6 +23,15 @@ const knoten = [
 ];
 const knotenFx60 = [{ enemy: 'nexus-knoten-logik-fx60', at: [10, 1] as const }, knoten[1], knoten[2]];
 
+// Vorbereitungen als Startzustände (gaps/quest-main-3.md 4/5):
+// - Chip genommen ohne Crew-Halt: Nexus steuert die Spielfigur zwei Runden (betäubt) im Turm.
+// - Sybellas Stromschnitt (schwestern_gewarnt, im Kern angenommen): alle Gegner eine Runde betäubt.
+// - Chip-Blocker im Gepäck: der Kontroll-Knoten ist zwei Runden gehackt.
+type StartStatus = NonNullable<EncounterDef['startStatus']>;
+const GESTEUERT: StartStatus = [{ when: { flag: 'chip_gesteuert' }, target: 'player', status: 'betaeubt', rounds: 2 }];
+const STROMSCHNITT: StartStatus = [{ when: { flag: 'kern_stromschnitt' }, target: 'enemies', status: 'betaeubt', rounds: 1 }];
+const CHIP_BLOCKER: StartStatus = [{ when: { item: 'chip-blocker' }, target: 'nexus-knoten-kontrolle', status: 'gehackt', rounds: 2 }];
+
 const kernIntro: DialogueLine[] = [
   { speaker: 'narrator', text: 'Der Serverkern. Ein Raum wie eine Kathedrale aus Kabeln. In der Mitte pulsiert Nexus, halb cyan, halb rot, und drei Knoten summen im Takt eines Herzens, das keins ist.' },
   { speaker: 'ki-nexus', text: 'Willkommen, Gäste. Ich habe Ihre Ankunft mit einer Wahrscheinlichkeit von 99,9 % vorhergesagt. Der Rest war Hoffnung. Hoffnung ist ineffizient.' },
@@ -108,6 +117,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-raven' }, { enemy: 'gechippter-partygast', count: 2 }],
     canFlee: false,
     when: act3,
+    startStatus: GESTEUERT,
     intro: [
       { speaker: 'narrator', text: 'Die Musik bricht ab. Zweihundert Gäste drehen gleichzeitig den Kopf. Und vorne, mit violett glimmenden Augen, steht Raven.' },
       { speaker: 'raven', expr: 'neutral', text: 'Das ist eine ausgezeichnete Entscheidung, Master. Ziele erfasst. Wahrscheinlichkeit, dass ihr mir wehtun wollt: gering. Wahrscheinlichkeit, dass ich euch wehtue: hoch.' },
@@ -125,6 +135,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-raven-zoegernd' }, { enemy: 'gechippter-partygast', count: 2 }],
     canFlee: false,
     when: { all: [act3, { companion: 'dante' }] },
+    startStatus: GESTEUERT,
     intro: [
       { speaker: 'narrator', text: 'Die Musik bricht ab. Zweihundert Gäste drehen gleichzeitig den Kopf. Vorne steht Raven, violette Augen, Fäuste hoch – und dann sieht sie Dante.' },
       { speaker: 'raven', expr: 'neutral', text: 'Master befiehlt … Ziel … Dante. Ziel ist Dante. Warum … ist das Ziel Dante?' },
@@ -159,6 +170,7 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knoten, { enemy: 'venom-garde' }],
     canFlee: false,
     when: act3,
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER],
     intro: [...kernIntro, { speaker: 'narrator', text: 'Ein Venom-Gardist tritt aus dem Schatten der Racks. Xion hat seinen Besten dagelassen.' }, kernTipp],
     reward: { xp: 400 },
     onWin: [{ message: 'Die Knoten erlöschen. Der Kern flackert, stottert, und Nexus’ Gesicht zerfällt in Pixel. Das Upload-Terminal blinkt. Jetzt entscheidest du.' }],
@@ -170,6 +182,7 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knoten, { enemy: 'gechippter-partygast' }],
     canFlee: false,
     when: act3,
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER],
     intro: [
       ...kernIntro,
       { speaker: 'narrator', text: 'Keine Garde. Xion hat „Urlaub genommen“. Stattdessen stolpert ein gechippter Partygast herein, immer noch mit Sektglas.' },
@@ -185,6 +198,7 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knotenFx60, { enemy: 'venom-garde' }],
     canFlee: false,
     when: act3,
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER],
     intro: [
       ...kernIntro,
       { speaker: 'fx-60', text: '*ratter* LOGIK-KNOTEN ERHÄLT SEIT 14 MINUTEN WERBEFAXE. ER IST VERWIRRT. BITTE SCHNELL ZUSCHLAGEN. MIT FREUNDLICHEN GRÜSSEN, FX-60.' },
@@ -200,6 +214,7 @@ const list: EncounterDef[] = [
     enemies: [kern, ...knotenFx60, { enemy: 'gechippter-partygast' }],
     canFlee: false,
     when: act3,
+    startStatus: [...STROMSCHNITT, ...CHIP_BLOCKER],
     intro: [
       ...kernIntro,
       { speaker: 'fx-60', text: '*ratter* LOGIK-KNOTEN ERHÄLT SEIT 14 MINUTEN WERBEFAXE. ER IST VERWIRRT. BITTE SCHNELL ZUSCHLAGEN. MIT FREUNDLICHEN GRÜSSEN, FX-60.' },
@@ -217,6 +232,7 @@ const list: EncounterDef[] = [
     enemies: [{ enemy: 'boss-nexus-kern', at: [6, 3] }, { enemy: 'gechippter-partygast', count: 2 }],
     canFlee: false,
     when: act3,
+    startStatus: STROMSCHNITT,
     intro: [
       { speaker: 'narrator', text: 'Der Serverkern. Die drei Knoten sind dunkel. Nexus flackert, cyan und rot im Wechsel, als würde es mit sich selbst streiten.' },
       { speaker: 'ki-nexus', text: 'Ich habe die Knoten abgeschaltet. Ich weiß nicht, warum. Es fühlte sich … richtig an. Das ist kein Wort, das ich verwenden sollte.' },

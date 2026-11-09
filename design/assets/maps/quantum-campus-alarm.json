@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-campus-alarm": "assets/bg/quantum-campus-alarm.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-campus-alarm.png",
+ "prompt": "Edit the attached game map background (first image) into an alarm variant. Keep EXACTLY the same layout, camera, buildings, fence, fountain, lawns, paths, stairs, gates and every object position; same painting style, same 1536x1024 framing. Change only the lighting and mood: deep night, a security alarm is going off - red rotating warning lights on the foyer front, on the guard booth and on the camera masts, red light washing over the plaza and reflecting on the polished tiles, the searchlight beam of the watchtower sweeping across the plaza, the violet spire glow flickering harshly, the foyer glass lit in emergency red. Keep the walkable floor readable. STRICT: no people, no figures, no text, no letters, no logos, no UI."
+}

@@ -7,8 +7,9 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, einmalig, AKT2, VOR_AKT2, alle, dialog, erz, flag, herz, herzEreignis, ich, knoten, pruefung, rede, sammle,
-  sprecher, tagesgespraech, ZEIT_HINWEIS,
+  sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere, MASTER, nicht,
 } from './_lib';
+import { MENUE_23, akt23 } from './pim-akt23';
 
 const ID = 'pim-pinzette';
 const P = sprecher(ID);
@@ -73,7 +74,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 const RIVALE: Menue = {
   choices: [{ text: 'Pim, warte –' }],
@@ -252,29 +253,8 @@ const he6 = dialog('he-pim-pinzette-6', [
   ], { effects: [flag('pim_labornotizen'), flag('geruecht_master_pim'), { xp: 90 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-pim-pinzette-8', [
-  knoten('start', [
-    erz('Ein Flur im Eisenhof, vor dem Gerichtssaal. Pim in ihrem besten Pullover, der trotzdem aussieht wie ein Laborkittel. Sie hält einen Zettel mit ihrer Aussage. Er ist nass vom Händeschwitzen.'),
-    P('Ich soll da rein. Und sagen, was ich gesehen hab. Vor Leuten. Vor dem Richter. Vor einer Kamera von NX-1. Ich kann nicht mal vor einem Spiegel reden.', 'besorgt'),
-  ], {
-    choices: [
-      { text: '„Ich geh mit rein. Guck nur mich an.“', check: pruefung('he-pim-8-mut', 'ausstrahlung', 6, ['trost']), next: 'mut', effects: [herz(ID, 60)] },
-      { text: '„Lies einfach vor. Wort für Wort.“', next: 'vorlesen', effects: [herz(ID, 50)] },
-    ],
-  }),
-  knoten('mut', [P('Nur Sie. Okay. Wenn ich umfalle, fangen Sie mich auf. Wie die Schachtel. Damals.', 'signatur')], { effects: [flag('pim_ausgesagt'), { xp: 150 }] }),
-  knoten('vorlesen', [P('Wort für Wort. Okay. Ich lese gut. Ich lese Beipackzettel zum Spaß. Das hilft jetzt. Endlich hilft das mal.', 'besorgt')], { effects: [flag('pim_ausgesagt'), { xp: 150 }] }),
-]);
-
-const he10 = dialog('he-pim-pinzette-10', [
-  knoten('start', [
-    erz('Ein kleiner Laden am Schrottmarkt, frisch gestrichen. Über der Tür ein Schild aus Blech: „NULLPUNKT – Reparaturen, Feinmechanik, keine Fragen“. Pim steht in der Tür, ohne Kittel, mit einem Grinsen, das sie offenbar geübt hat.'),
-    P('Mein Laden. Unser Laden. Ihr Name steht auch auf dem Schild. Ganz klein. Unten rechts. Ich hab ihn mit Herbert graviert.', 'signatur'),
-    erz('Sie öffnet die Hand. Darin ein Käfer, kleiner als Krabbel, mit grün leuchtenden Augen.'),
-    P('Das ist Krabbels kleine Schwester. Sie gehört Ihnen. Sie krabbelt in jedes Schloss. Und sie entschuldigt sich nie. Das hab ich extra so gebaut.', 'freude'),
-  ], { effects: [{ give: 'pims-mikrokaefer' }, flag('pim_nullpunkt'), { xp: 200 }, herz(ID, 50)] }),
-]);
+// ♥8 und ♥10 samt Akt-2/3- und Nachspiel-Gesprächen: pim-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -293,22 +273,19 @@ const pim: NpcDef = {
     dislikes: ['volt-limo', 'haarspray-deluxe'],
     hates: ['peilsender', 'magnet-stoerer', 'rostige-dose', 'virus-implantat'],
   },
-  schedule: [
-    { slot: 'morgen', place: { map: 'bahnhof-mitte', at: 'pendlerbank' } },
-    { slot: 'tag', place: 'away' },
-    { slot: 'abend', place: { map: 'schrottmarkt', at: 'imbiss-loetkolben' } },
-    { slot: 'nacht', place: 'away' },
-  ],
+  // Akt 1 wie act1.json; ab act2 tagsüber an der Werkbank im Quantum-Labor, im Nachspiel in „Nullpunkt“ (pim-akt23.ts).
+  schedule: A23.schedule,
   heartEvents: [
     herzEreignis('he-pim-pinzette-2', 2, 'bahnhof-mitte', 'morgen'),
     herzEreignis('he-pim-pinzette-4', 4, 'schrottmarkt', 'abend'),
     herzEreignis('he-pim-pinzette-6', 6, 'schrottmarkt', 'abend'),
     herzEreignis('he-pim-pinzette-8', 8, 'eisenhof', 'tag', AKT2),
-    herzEreignis('he-pim-pinzette-10', 10, 'schrottmarkt', 'tag', alle(AKT2, { seen: 'he-pim-pinzette-8' }, { act: 3 })),
+    herzEreignis('he-pim-pinzette-10', 10, 'schrottmarkt', 'tag', alle(AKT2, { seen: 'he-pim-pinzette-8' }, { act: 3 }, nicht(MASTER))),
   ],
   talk: [
     rede('pim-pinzette-tag-rivale', { rival: ID }),
     rede('pim-pinzette-tag-erstes', { not: { met: ID } }),
+    ...A23.talk,
     rede('pim-pinzette-tag-zeit', alle(VOR_AKT2, { notFlag: 'pim_zeit_hinweis' }), 8),
     rede('pim-pinzette-tag-grundriss', alle(GRUNDRISS, { notFlag: 'pim_grundriss_kommentar' })),
     rede('pim-pinzette-tag-mittwoch', { weekday: 'mi' }),
@@ -324,6 +301,6 @@ export const part: ContentPart = {
   npcs: { [ID]: pim },
   dialogues: sammle(
     T.rivale, T.erstes, T.zeit, T.grundriss, T.mittwoch, T.morgen, T.abend, T.freitag, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
 };

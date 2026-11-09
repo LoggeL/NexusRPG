@@ -5,9 +5,10 @@
 import type { ContentPart } from '../../part';
 import type { DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
-  type Menue, AB_AKT2, NICHT_AKT2, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle,
-  sprecher, tagesgespraech,
+  type Menue, AB_AKT2, NICHT_AKT2, ZEIT_HINWEIS, dialog, erweitere, erz, flag, herz, ich, knoten, neu, pruefung, rede,
+  sammle, sprecher, tagesgespraech,
 } from './_helfer';
+import { MENUE_23, akt23 } from './richter-akt23';
 
 const R = sprecher('richter');
 const D = sprecher('dexter');
@@ -95,7 +96,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: Sozialstunden oder Plädoyer setzen auf null (world.md §4.1 Versöhnung). */
 const RIVALE: Menue = {
@@ -371,50 +372,8 @@ const he6 = dialog('he-richter-6', [
   ], { effects: [{ xp: 80 }, herz('richter', 20), flag('richter_dante_platte')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-richter-8', [
-  knoten('start', [
-    erz('Großer Keks-Wettbewerb in Dantes Werkstatt. Auf einem umgedrehten Eimer thront der Richter, Robe frisch gebügelt, eine Serviette im Kragen. Vor ihm: sieben Teller. Hinter ihm: sieben nervöse Bäcker.'),
-    R('Ich bin unbestechlich. Ich bin unparteiisch. Ich bin hungrig. In dieser Reihenfolge.', 'neutral'),
-    DA('Euer Ehren, Nummer drei sind meine! Also, äh, Nummer drei ist anonym! Anonym und mit Schokostückchen!'),
-  ], {
-    choices: [
-      { text: 'Ihm heimlich verraten, welcher Keks von Babette ist.', next: 'tipp', effects: [herz('richter', -10)] },
-      { text: '„Euer Ehren, urteilen Sie mit dem Bauch.“', next: 'bauch', effects: [herz('richter', 40)] },
-    ],
-  }),
-  knoten('tipp', [
-    R('Bestechung eines Jurors. Mit Informationen. Das ist sogar schlimmer als mit Geld. Geld ist wenigstens ehrlich.', 'wut'),
-    R('Ich ignoriere das. Und Ihre Kekse bekommen einen Punkt Abzug. Sie haben keine Kekse? Dann eben Ihre Zukunft.'),
-  ], { next: 'urteil' }),
-  knoten('bauch', [R('Der Bauch. Das ehrlichste Organ der Justiz.', 'ueberrascht')], { next: 'urteil' }),
-  knoten('urteil', [
-    erz('Er probiert. Er kaut. Er schließt die Augen. Bei Nummer drei hält er inne.'),
-    R('Nummer drei. Schuldig. Schuldig der vorsätzlichen Köstlichkeit.', 'neutral'),
-    DA('JAAAAA! Captain Kuschel, wir sind SCHULDIG!'),
-  ], { effects: [{ xp: 120 }, herz('richter', 30), herz('dante', 30), flag('richter_keks_juror')] }),
-]);
-
-const he10 = dialog('he-richter-10', [
-  knoten('start', [
-    erz('Gerichtsgarten, Abendlicht. Der Richter steht zwischen seinen Beeten, in der Hand ein Kästchen aus Nussholz.'),
-    R('{name}. Ich habe einen Antrag gestellt. Bei mir. Und ihn bewilligt.', 'neutral'),
-    R('Sie sind ab heute ehrenamtliches Mitglied des Bagatellgerichts. Streitschlichtung. Nachbarn, Ziegen, Toaster. Sie gehen hin, Sie hören zu, Sie sagen, was gerecht ist.'),
-    erz('Im Kästchen: ein Richterhammer in Miniatur, mit Messingring. Auf dem Griff eingraviert: „RLM79“.'),
-    R('Wenn jemand fragt, wofür die Gravur steht: „Recht, Lauterkeit, Mäßigung“. Neunundsiebzig ist die Seriennummer.', 'ueberrascht'),
-  ], {
-    effects: [{ give: 'richterhammer-mini' }, flag('richter_schlichter'), { xp: 200 }],
-    choices: [
-      { text: '„Ich nehme an, Euer Ehren.“', next: 'an', effects: [herz('richter', 50)] },
-      { text: '„Schuldig. Der Bewilligung schuldig.“', next: 'schuldig', effects: [herz('richter', 50)] },
-    ],
-  }),
-  knoten('an', [R('Gut. Dann ist die Sitzung geschlossen. Und Sie gießen die Tomaten. Ehrenamt fängt unten an.', 'neutral')]),
-  knoten('schuldig', [
-    erz('Der Richter lacht. Kurz, laut, überrascht. Im Gefängnishof antwortet jemand mit einem Gitarrenriff.'),
-    R('Das, {name}, ist das erste Mal, dass mich jemand mit meinem eigenen Wort erwischt. Ich lege Berufung ein. Bei mir. Abgelehnt.'),
-  ]),
-]);
+// ♥8 und ♥10 (Akt 2) sowie Akt-2/3- und Nachspiel-Gespräche: richter-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -432,6 +391,7 @@ const richter: NpcDef = {
     hates: ['raubkopie-stick', 'plastikpflanze', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     // Sonntag tagsüber Flohmarkt (privat).
     { slot: 'tag', days: ['so'], place: { map: 'schrottmarkt', at: 'flohmarkt' } },
     { slot: 'morgen', place: { map: 'gerichtssaal', at: 'richterbank' } },
@@ -452,6 +412,7 @@ const richter: NpcDef = {
     rede('richter-tag-rivale', { rival: 'richter' }),
     rede('richter-tag-knast', { all: [{ origin: 'origin-knastvogel' }, { notFlag: 'richter_herkunft' }] }),
     rede('richter-tag-ex-wache', { all: [{ origin: 'origin-ex-wache' }, { notFlag: 'richter_herkunft' }] }),
+    ...A23.talk,
     rede('richter-tag-zeit', NICHT_AKT2, 8),
     rede('richter-tag-streaming', { quest: STREAMING, state: 'active' }),
     rede('richter-tag-gurke', { quest: GURKE, state: 'active' }),
@@ -468,10 +429,12 @@ const richter: NpcDef = {
 
 export const part: ContentPart = {
   npcs: { richter },
+  ...A23.teil,
   dialogues: sammle(
+    ...A23.dialogues,
     T.rivale, T.knast, T.exWache, T.zeit, T.streaming, T.gurke, T.karten, T.garkueche, T.flohmarkt, T.morgen, T.garten,
     T.vertraut, T.abend, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6,
   ),
   phone: {
     'tel-richter-schoeffe': {

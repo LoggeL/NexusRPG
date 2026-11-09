@@ -1,11 +1,11 @@
-// Planungstafel „Heute Nacht losschlagen“ und Cliffhanger von Akt 1 (world.md §5.2 Übergang, §11, §11.8).
+// Planungstafel „Heute Nacht losschlagen“ und Übergang von Akt 1 nach Akt 2 (world.md §5.2 Übergang, §11, §11.8).
 // Die Tafel hängt im Hinterzimmer (Spot planungstisch), öffnet sich mit plan_gefasst und bietet nach zwei prep-* den
-// Bruch an (Warnung „Danach ist die Stadt eine andere.“). Bestätigen setzt act1_done und spielt die Cliffhanger-Sequenz
-// mit Tafel „Fortsetzung folgt“. Akt 2 folgt in einem späteren Lauf: Es wird bewusst KEIN setAct/act2 gesetzt, damit die
-// offene Welt von Akt 1 frei spielbar bleibt (statt Rückfall auf den Speicherpunkt, siehe design/plan/gaps/quest-main-b.md).
+// Bruch an (Warnung „Danach ist die Stadt eine andere.“). Bestätigen stellt die Uhr auf 22:00 (falls früher), setzt
+// act1_done und spielt die Cliffhanger-Sequenz; die setzt act2, startet main-2-bruch und bringt die Crew an den Zaun
+// des Quantum-Campus (Einstieg bruch-treffpunkt). Ab Akt 2 übernimmt die Party-Planungstafel aus parts/quest-main-2.
 import type { ContentPart } from '../../part';
 import type { CutsceneDef, DialogueChoice, DialogueDef, PhoneMessageDef } from '../../../modules/contracts';
-import { ARIA_ROM_GENERIC, PREPS, TWO_PREPS, VEXARIA, flag, l, nar, noFlag, prepFlag } from './_lib';
+import { ARIA_ROM_GENERIC, PREPS, TWO_PREPS, VEXARIA, all, flag, l, nar, noFlag, prepFlag } from './_lib';
 import type { PrepKey } from './_lib';
 
 const LABEL: Record<PrepKey, { name: string; offen: string; fertig: string }> = {
@@ -41,6 +41,22 @@ const statusChoices: DialogueChoice[] = PREPS.flatMap((key): DialogueChoice[] =>
   { text: `[ ] ${LABEL[key].name}`, when: noFlag(prepFlag(key)), next: `offen-${key}` },
 ]);
 
+/** Wartetreppe 06:00 → 22:00 vor dem Aufbruch. */
+function losWarten(): DialogueChoice[] {
+  const out: DialogueChoice[] = [];
+  for (let t = 360; t < 1320; t += 15) {
+    out.push({
+      id: `los-warten-${t}`,
+      text: '„Wir warten, bis es dunkel ist.“ (bis 22:00)',
+      when: { clockBetween: [t, Math.min(t + 15, 1320)] },
+      effects: [{ advanceTime: 1320 - t }],
+      next: 'los-jetzt',
+    });
+  }
+  return out;
+}
+const LOS_WARTEN = losWarten();
+
 const tafel: DialogueDef = {
   id: 'planungstafel',
   start: 'start',
@@ -51,7 +67,7 @@ const tafel: DialogueDef = {
       choices: [
         ...statusChoices,
         { text: '„Heute Nacht losschlagen.“', tag: '[2 Vorbereitungen]', when: noFlag('act1_done'), requires: TWO_PREPS, next: 'warnung' },
-        { text: 'Die Crew wartet auf das Signal. (Fortsetzung folgt)', when: flag('act1_done'), next: 'spaeter' },
+        { text: 'Die Crew wartet auf das Signal.', when: all(flag('act1_done'), { not: { act: 2 } }), next: 'spaeter' },
         { text: 'Zurücktreten.' },
       ],
     },
@@ -146,6 +162,23 @@ const tafel: DialogueDef = {
       lines: [
         l('hunter', 'Dann los. Alle Mann, Treffpunkt vor dem Club. Wer zu spät kommt, bleibt hier und spült.', 'signatur'),
       ],
+      choices: [
+        // Die Bruch-Nacht beginnt um 22:00 (Engine kennt kein „Uhr stellen“, darum die Wartetreppe).
+        ...LOS_WARTEN,
+        { text: '„Jetzt. Bevor einer kalte Füße kriegt.“', when: { clockBetween: [1320, 1410] }, next: 'los-jetzt' },
+        { text: '„Heute noch?“', when: { clockBetween: [1410, 1600] }, next: 'zu-spaet' },
+      ],
+    },
+    {
+      id: 'zu-spaet',
+      lines: [
+        l('vega', 'Schichtwechsel ist um eins. Bis wir am Zaun sind, ist der vorbei und die Frühschicht hat Kaffee getrunken.', 'neutral'),
+        l('hunter', 'Morgen Nacht. Zweiundzwanzig Uhr. Schlaft euch aus, ihr seht aus wie aufgewärmte Leichen.', 'neutral'),
+      ],
+    },
+    {
+      id: 'los-jetzt',
+      lines: [nar('Hunter klatscht einmal in die Hände. Draußen fängt es an zu nieseln. Natürlich.')],
       effects: [
         { setFlag: 'act1_done' },
         { setFlag: 'losschlagen_bestaetigt' },
@@ -153,13 +186,13 @@ const tafel: DialogueDef = {
       ],
     },
     {
+      // Nur für Spielstände, die act1_done ohne Akt 2 haben (Stand „Fortsetzung folgt“): Aufbruch nachholen.
       id: 'spaeter',
       lines: [
-        l('hunter', 'Wir sind bereit. Die Stadt ist es noch nicht. Bis dahin: Lebt euer Leben. Zahlt eure Schulden.', 'neutral'),
-        nar('(Akt 2 „Der Chip“ folgt. Die offene Welt von Akt 1 bleibt frei spielbar.)'),
+        l('hunter', 'Wir sind bereit. Die Stadt ist es nie. Sag Bescheid, und wir gehen heute Nacht.', 'neutral'),
       ],
       choices: [
-        { text: 'Die Nacht noch einmal ansehen.', effects: [{ cutscene: 'akt1-cliffhanger' }] },
+        { text: '„Heute Nacht. Diesmal wirklich.“', next: 'los' },
         { text: 'Zurücktreten.' },
       ],
     },
@@ -204,12 +237,27 @@ const cliffhanger: CutsceneDef = {
       ],
       hold: 1500,
     },
-    { image: 'black', caption: 'FORTSETZUNG FOLGT', fade: 'in', hold: 3000 },
-    { image: 'black', caption: 'Akt 2 „Der Chip“ kommt bald. Bis dahin gehört die Stadt dir: Noxius ist weiter frei spielbar.', hold: 1500 },
+    {
+      image: 'black',
+      fade: 'in',
+      caption: 'AKT 2 · DER CHIP',
+      hold: 2500,
+    },
+    {
+      image: 'black',
+      caption: '22:00 · Quantum-Campus · Hecke am Zaun Ost',
+      lines: [
+        nar('Eine Stunde später. Der Zaun summt. Hinter der Hecke riecht es nach nassem Kunstrasen und nach Leuten, die viel zu viel Geld für Kunstrasen ausgeben.'),
+        l('hunter', 'Alle da? Dann hört zu. Ich sag das nur einmal, weil ich es mir nur einmal merken konnte.', 'signatur'),
+      ],
+    },
   ],
   effects: [
+    { setAct: 2 },
+    { startQuest: 'main-2-bruch' },
     { phone: 'tel-nx1-chrome10-gratis' },
-    { message: 'Akt 1 abgeschlossen. Die offene Welt bleibt frei spielbar.' },
+    { message: 'Akt 2 „Der Chip“ beginnt.' },
+    { travel: 'quantum-campus', entry: 'bruch-treffpunkt', minutes: 0 },
   ],
 };
 
@@ -237,6 +285,8 @@ export const part: ContentPart = {
           kind: 'use',
           dialogue: tafel.id,
           when: flag('plan_gefasst'),
+          // Ab Akt 2 hängt dort die Party-Planungstafel (parts/quest-main-2/planungstafel-party.ts).
+          hideWhen: { act: 2 },
         },
       ],
     },
@@ -249,6 +299,7 @@ export const part: ContentPart = {
           kind: 'use',
           dialogue: tafel.id,
           when: flag('plan_gefasst'),
+          hideWhen: { act: 2 },
         },
       ],
     },

@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "elsa-neutral.png",
+  "sha": "d4909946ca4cec3f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62024
+ },
+ "freude": {
+  "src": "elsa-freude.png",
+  "sha": "f883adbc7fff035e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66618
+ },
+ "trauer": {
+  "src": "elsa-trauer.png",
+  "sha": "c1b7a0290fd6e0db",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 64038
+ },
+ "signatur": {
+  "src": "elsa-signatur.png",
+  "sha": "3b9316ac73837e4e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 70584
+ }
+}

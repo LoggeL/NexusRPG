@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "fx-60-neutral.png",
+  "sha": "0f30a2b9504dd3ed",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 58658
+ },
+ "freude": {
+  "src": "fx-60-freude.png",
+  "sha": "036260c5d228415e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63764
+ },
+ "wut": {
+  "src": "fx-60-wut.png",
+  "sha": "a11b8274ca179ae9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63922
+ }
+}

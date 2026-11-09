@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "vinyl-vincent-neutral.png",
+  "sha": "5fc263f9f01569f9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51300
+ },
+ "freude": {
+  "src": "vinyl-vincent-freude.png",
+  "sha": "358e38677eab66cd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50322
+ },
+ "besorgt": {
+  "src": "vinyl-vincent-besorgt.png",
+  "sha": "044f5056ddcc2a68",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47422
+ }
+}

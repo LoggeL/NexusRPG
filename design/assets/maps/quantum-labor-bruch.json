@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-labor-bruch": "assets/bg/quantum-labor-bruch.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-labor-bruch.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, objects, positions, outlines and painting style - every piece of furniture stays where it is, same size. Only change the lighting and mood:\nALARM state at night: the cold white ceiling light is off; the whole room is lit by pulsing red emergency light - red rotating alarm beacons glow on the walls and above the doors, red light pools and reflections on the glossy floor, deep dark red-violet shadows. The big central screen on the mainframe now shows the abstract face pattern glowing angry red instead of cyan. The security door on the right has its red warning lamp blazing. Screens show red warning waves (no text). Cyan accents only very faint.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

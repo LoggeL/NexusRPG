@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "opa-funk-neutral.png",
+  "sha": "30d96f3414ca0992",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 79864
+ },
+ "freude": {
+  "src": "opa-funk-freude.png",
+  "sha": "d3ddce8d547f54c7",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 81546
+ },
+ "trauer": {
+  "src": "opa-funk-trauer.png",
+  "sha": "110695a0c4454f54",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 79304
+ },
+ "signatur": {
+  "src": "opa-funk-signatur.png",
+  "sha": "08e8f1eb44b18d5a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 91038
+ }
+}

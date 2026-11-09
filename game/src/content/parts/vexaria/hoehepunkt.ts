@@ -16,10 +16,12 @@ const KAS_FUNK = 'KANAL 9 · Kas, knisternd: „Schrapnell eins an alle: Nicht a
 // ---------------------------------------------------------------------------
 // Station 9 · rom-vexaria-kuss · „Über die Lücke“
 
-// Kanon zusätzlich ♥10 und `{ quest: 'pers-aria-zerberster', state: 'done' }` (Akt 2); die Quest gibt es noch nicht,
-// deshalb gilt vorerst der Akt-1-Weg für alle Akte (gaps/vexaria.md).
+// Kanon zusätzlich ♥10 und `pers-aria-zerberster` erledigt (Akt 2). Mit Akt-1-Brücke darf der Kuss schon in Akt 1 kommen
+// (gaps/vexaria.md); im Kanonweg (versoehnung.ts) liegt die Quest ohnehin vor `rom-aria-regen`. Zweiter Weg: `spaet` im
+// Nachspiel nach `rom-aria-stirn` b) (akt3.ts).
 const KUSS_BASIS: Condition = all(
-  V, HEUTE_FREI, seen('rom-vexaria-umdrehen'), flag('aria_versoehnung_verdient'), { hearts: 'aria', min: 8 },
+  V, HEUTE_FREI, seen('rom-vexaria-umdrehen'),
+  any(flag('aria_versoehnung_verdient'), all({ flag: 'epilog' }, flag('aria_versoehnung_spaet'))), { hearts: 'aria', min: 8 },
 );
 const KUSS_ROM: Condition = all(R, any(ANGEBAHNT, ZUSAMMEN));
 

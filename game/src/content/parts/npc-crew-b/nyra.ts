@@ -1,6 +1,6 @@
 // Nyra – junge Hackerin „Silent-Angel“, Dantes größter Fan, träumt vom Meer (world.md §4.2, §4.6, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.nyra). Herz-Ereignisse he-nyra-2/4/6 in Akt 1,
-// he-nyra-8/10 angelegt und an act3 gebunden („nach Akt 3“). Rivalität re-nyra-5 (Hack-Duell), Versöhnung: Postkarte vom Meer.
+// he-nyra-8/10 im Nachspiel als volle Szenen in nyra-akt23.ts (dort auch Akt 2 im Turm, Telefon, Nachspiel). Rivalität re-nyra-5 (Hack-Duell), Versöhnung: Postkarte vom Meer.
 // Begleiterin in Akt 1 nur eingeschränkt (Hack-Aufträge, Hack-Nebenquests). Romanze: nein (Freundschaft).
 // Persönliche Quests (pers-nyra-silent-angel, side-weg-zum-meer) baut der Quest-Agent; hier nur Verweise.
 import type { ContentPart } from '../../part';
@@ -9,6 +9,7 @@ import {
   type Menue, VEX, einmalig, dialog, done, erz, flag, herz, knoten, neu, pruefung, rede, sammle, sammleSzenen, sprecher,
   tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
+import { NYRA_DA, NYRA_VOLL, akt23, he10, he8, menue23 } from './nyra-akt23';
 
 const N = sprecher('nyra');
 const K = sprecher('captain-kuschel');
@@ -21,6 +22,7 @@ const KUSCHEL: Condition = { flag: 'nyra_hat_kuschel' };
 
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Nyra.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
+  const M23 = menue23(zurueck);
 
   const choices: DialogueChoice[] = einmalig('nyra', [
     { text: '„Ich komm aus der Ödnis. Hinter den Glasdünen riecht der Wind nach Salz.“', tag: '[Ödnis]', when: { origin: 'origin-oednis' }, once: true, id: 'n-oednis', next: 'n-oednis', effects: [herz('nyra', 40)] },
@@ -41,10 +43,11 @@ function menue(): Menue {
       next: 'muschel', effects: [{ take: 'fossile-muschel' }, { give: 'kuestenkarte-fragment' }, flag('nyra_kuestenkarte'), herz('nyra', 60)],
     },
     {
-      text: 'Ich brauch eine Hackerin.', when: { all: [PROBEZEIT, { not: { recruited: 'nyra' } }] }, next: 'rekrut',
+      text: 'Ich brauch eine Hackerin.', when: { all: [PROBEZEIT, { not: { recruited: 'nyra' } }, { not: NYRA_VOLL }] }, next: 'rekrut',
       effects: [{ recruit: 'nyra' }],
     },
-    { text: '„Wenn ich zurückkomme …“ – Was meinst du damit immer?', requires: { hearts: 'nyra', min: 4 }, tag: '[Nyra ♥4]', once: true, id: 'n-zurueck', next: 'zurueckkommen' },
+    { text: '„Wenn ich zurückkomme …“ – Was meinst du damit immer?', requires: { hearts: 'nyra', min: 4 }, tag: '[Nyra ♥4]', once: true, id: 'n-zurueck', next: 'zurueckkommen', when: { not: { flag: 'nyra_zurueckgelassen' } } },
+    ...M23.choices,
     { text: 'Bis später.' },
   ]);
 
@@ -102,11 +105,13 @@ function menue(): Menue {
     knoten('z-hocker', [N('Du würdest … okay. Ich mach ein Selfie. Mit dir auf meinem Hocker. Als Beweis. Falls ich’s vergesse.', 'freude')], { choices: zurueck }),
     knoten('z-nirgends', [N('Stimmt. Ich hab ja nicht mal einen Eimer. Ohne Eimer geh ich nirgends hin.', 'signatur')], { choices: zurueck }),
     knoten('z-kalt', [N('… Ja. Klar. Logisch. Ich hab nur gefragt. War ein Witz. Haha. Ich lach später.', 'trauer')], { choices: zurueck }),
+    ...M23.nodes,
   ];
   return { choices, nodes };
 }
 
 const M = menue();
+const A23 = akt23(M);
 
 /** Rivalität: Versöhnung mit einer Postkarte vom Meer (world.md §4.2). */
 const RIVALE: Menue = {
@@ -316,29 +321,7 @@ const he6 = dialog('he-nyra-6', [
   }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst nach Akt 3 (world.md §4.2).
-const he8 = dialog('he-nyra-8', [
-  knoten('start', [
-    erz('High Voltage. Die ganze Crew sitzt da. Nyra steht vor ihnen, die Hände in den Ärmeln, die Kapuze ausnahmsweise unten.'),
-    N('Ich hab im Labor gesagt, was die hören wollten. „Master“. Ich hab das gesagt. Zu Blade. Ich weiß nicht, wie viel davon gespielt war.', 'trauer'),
-    N('Es tut mir leid. Allen. Auch dir, Hunter. Vor allem dir. Du hast mir einen Schlüssel für den Müll gegeben.'),
-  ], {
-    choices: [
-      { text: 'Neben sie treten. „Sie hat uns nicht verraten. Sie hat überlebt. Das ist was anderes.“', check: pruefung('he-nyra-8-beistand', 'ausstrahlung', 7, ['trost', 'ueberreden']), next: 'ende', effects: [herz('nyra', 60)] },
-      { text: 'Einfach neben sie stellen. Nichts sagen.', next: 'ende', effects: [herz('nyra', 40)] },
-    ],
-  }),
-  knoten('ende', [N('Ihr wollt mich noch. Ihr wollt mich wirklich noch.', 'freude')], { effects: [flag('nyra_entschuldigt'), { xp: 150 }] }),
-]);
-
-const he10 = dialog('he-nyra-10', [
-  knoten('start', [
-    erz('Flutmauer, Abend. Nyra hat Kopfhörer auf und lächelt mit geschlossenen Augen. Sie reicht dir einen.'),
-    N('Hör mal. Wellenrauschen. Ich hab’s nicht aufgenommen. Ich hab’s gebaut. Aus allem, was du mir erzählt hast. Jedes Wort ist eine Welle.', 'freude'),
-    N('Für dich. Damit du’s immer dabeihast. Auch wenn wir mal nicht am Meer sind.'),
-  ], { choices: [{ text: 'Den Chip nehmen. „Wir fahren hin. Zusammen.“', next: 'ende' }, { text: 'Zuhören. Lange.', next: 'ende' }] }),
-  knoten('ende', [N('Mit Eimer.', 'signatur')], { effects: [{ give: 'nyra-wellenchip' }, herz('nyra', 40), { xp: 150 }] }),
-]);
+// ♥8 und ♥10: volle Szenen in nyra-akt23.ts.
 
 // Rivalität −5: Hack-Duell im Netzcafé.
 const re5 = dialog('re-nyra-5', [
@@ -377,6 +360,8 @@ const nyra: NpcDef = {
     hates: ['peilsender', 'defekter-neurochip', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    // Akt 2 im Turm, Partynacht, Master-Modus, Nachspiel am Meer (nyra-akt23.ts).
+    ...A23.schedule,
     { slot: 'morgen', place: { map: 'netzcafe-datenkruemel', at: 'nyras-platz' } },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'elektronikstand' } },
     { slot: 'abend', days: ['sa', 'so'], place: { map: 'high-voltage', at: 'laptop-ecke' } },
@@ -384,17 +369,22 @@ const nyra: NpcDef = {
     { slot: 'nacht', place: { map: 'neon-gasse', at: 'dachterrasse' } },
   ],
   heartEvents: [
-    { id: 'he-nyra-2', hearts: 2, map: 'neon-gasse', time: 'nacht', when: PROBEZEIT, dialogue: 'he-nyra-2' },
-    { id: 'he-nyra-4', hearts: 4, map: 'flutmauer', time: 'abend', when: { weekday: ['mo', 'di', 'mi', 'do', 'fr'] }, cutscene: 'szene-he-nyra-4', dialogue: 'he-nyra-4' },
-    { id: 'he-nyra-6', hearts: 6, map: 'flutmauer', time: 'abend', when: { all: [{ weekday: ['mo', 'di', 'mi', 'do', 'fr'] }, DANTE_DONE] }, dialogue: 'he-nyra-6' },
-    { id: 'he-nyra-8', hearts: 8, map: 'high-voltage', time: 'abend', when: { act: 3 }, dialogue: 'he-nyra-8' },
-    { id: 'he-nyra-10', hearts: 10, map: 'flutmauer', time: 'abend', when: { all: [{ act: 3 }, { seen: 'he-nyra-8' }] }, dialogue: 'he-nyra-10' },
-    { id: 're-nyra-5', hearts: -5, map: 'netzcafe-datenkruemel', dialogue: 're-nyra-5' },
+    { id: 'he-nyra-2', hearts: 2, map: 'neon-gasse', time: 'nacht', when: { all: [PROBEZEIT, NYRA_DA] }, dialogue: 'he-nyra-2' },
+    { id: 'he-nyra-4', hearts: 4, map: 'flutmauer', time: 'abend', when: { all: [{ weekday: ['mo', 'di', 'mi', 'do', 'fr'] }, NYRA_DA] }, cutscene: 'szene-he-nyra-4', dialogue: 'he-nyra-4' },
+    { id: 'he-nyra-6', hearts: 6, map: 'flutmauer', time: 'abend', when: { all: [{ weekday: ['mo', 'di', 'mi', 'do', 'fr'] }, DANTE_DONE, NYRA_DA] }, dialogue: 'he-nyra-6' },
+    // Nach Akt 3 (world.md §4.2): Akt 3 ist die Partynacht, also im Nachspiel.
+    { id: 'he-nyra-8', hearts: 8, map: 'high-voltage', time: 'abend', when: { all: [{ act: 3 }, { flag: 'epilog' }, NYRA_DA] }, dialogue: 'he-nyra-8' },
+    { id: 'he-nyra-10', hearts: 10, map: 'flutmauer', time: 'abend', when: { all: [{ act: 3 }, { seen: 'he-nyra-8' }, NYRA_DA] }, dialogue: 'he-nyra-10' },
+    { id: 're-nyra-5', hearts: -5, map: 'netzcafe-datenkruemel', when: NYRA_DA, dialogue: 're-nyra-5' },
   ],
   companion: {
     // world.md §4.6/§11.2: Akt 1 eingeschränkt (Hack-Aufträge, Hack-Nebenquests), ab Akt 3 voll. Die Einschränkung
     // kennt die Engine nicht (Lücke notiert); Nyra stellt sie im Dialog klar.
-    recruit: PROBEZEIT,
+    // Nicht, solange sie im Turm sitzt (main-2-bruch bis main-3-labor).
+    recruit: { all: [PROBEZEIT, { any: [{ notFlag: 'nyra_zurueckgelassen' }, NYRA_VOLL] }] },
+    // Im Turm zurückgelassen: raus aus der Party, bis main-3-labor sie befreit.
+    unavailableWhen: { all: [{ flag: 'nyra_zurueckgelassen' }, { not: NYRA_VOLL }] },
+    unavailableText: 'Nyra sitzt im Quantum-Turm fest. Erst rausholen, dann mitnehmen.',
     stats: {
       hp: 36, armor: 0, morale: 65,
       attributes: { technik: 8, koerper: 2, reflexe: 6, ausstrahlung: 4, strasse: 4 },
@@ -402,12 +392,16 @@ const nyra: NpcDef = {
       abilities: ['nyra-silent-angel', 'nyra-zentrator-umkehr'],
     },
     heartAbilities: [{ hearts: 6, ability: 'nyra-meeresrauschen' }],
+    // Nach dem Turm kennt sie Quantums Steuerlogik von innen (Akt 3 voll, world.md §4.6).
+    abilityRules: [{ when: NYRA_VOLL, replace: ['nyra-zentrator-umkehr', 'nyra-zentrator-umkehr-plus'] }],
   },
   partyCheckBonus: [
     { attribute: 'technik', tags: ['hacken', 'terminal', 'drohne'], value: 1, label: 'Nyra flüstert dir Befehle zu' },
   ],
   talk: [
     rede('nyra-tag-rivale', { rival: 'nyra' }),
+    // Akt 2 im Turm, Master-Modus, Nachspiel (nyra-akt23.ts).
+    ...A23.talk,
     rede('nyra-tag-kuschel-neu', { all: [KUSCHEL, { notFlag: 'nyra_kommentar_kuschel' }] }),
     rede('nyra-tag-vexaria', { all: [VEX, { flag: 'vexaria_knutsch' }, { notFlag: 'nyra_kommentar_vexaria' }] }),
     rede('nyra-tag-team', { all: [{ any: [{ flag: 'nyra_team_2' }, { flag: 'nyra_team_3' }] }, { notFlag: 'nyra_kommentar_team' }] }),
@@ -428,7 +422,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.zeit, T.kuschelNeu, T.team, T.zweifel, T.vexaria, T.flutmauer, T.netzcafe, T.markt, T.club, T.dach,
     T.vertraut, T.standard,
-    he2, he4, he6, he8, he10, re5,
+    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-nyra-4', title: 'Die rote Boje',
@@ -437,6 +431,7 @@ export const part: ContentPart = {
     ],
   }),
   phone: {
+    ...A23.phone,
     'tel-nyra-selfie': {
       id: 'tel-nyra-selfie', from: 'nyra',
       text: 'DU BIST IN MEINEM FEED!!! 4 Likes!!! Einer ist von Dante!!! (Ich glaub, einer ist von Vega. Sie hat nur „Smog.“ kommentiert. Ich werte das als Herz.)',
@@ -445,12 +440,12 @@ export const part: ContentPart = {
     'tel-nyra-meer': {
       id: 'tel-nyra-meer', from: 'nyra',
       text: 'Flutmauer heute Abend? Ich hab fünf Credits fürs Fernrohr. Du bringst Fantasie mit. (Unter der Woche, am WE hab ich Club-Dienst.)',
-      auto: { all: [{ hearts: 'nyra', min: 4 }, neu('he-nyra-4')] },
+      auto: { all: [{ hearts: 'nyra', min: 4 }, neu('he-nyra-4'), NYRA_DA] },
     },
     'tel-nyra-dante': {
       id: 'tel-nyra-dante', from: 'nyra',
       text: 'Kann ich dir was erzählen? Nicht am Telefon. Flutmauer, auf der Bank. Abends. Bitte bring keine Witze mit. Doch. Einen.',
-      auto: { all: [{ hearts: 'nyra', min: 6 }, DANTE_DONE, neu('he-nyra-6')] },
+      auto: { all: [{ hearts: 'nyra', min: 6 }, DANTE_DONE, neu('he-nyra-6'), NYRA_DA] },
     },
   },
 };

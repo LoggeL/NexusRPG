@@ -1,10 +1,8 @@
 // Integration Akt 1: Ziele, auf die Akt-1-Inhalte verweisen, die aber kein Bereichsagent angelegt hat.
 // - Nebenfiguren, die nur sprechen (oder kurz auf einer Karte stehen),
 // - zwei Händler am Schrottmarkt (world.md §3.5: Elektronikstand, Marlas Karawanenstand am Samstag),
-// - Platzhalter für persönliche Quests und Nebenquests, die laut world.md erst in Akt 2 spielen.
-//   Sie werden in Akt 1 höchstens gestartet; ihr einziger Schritt verweist auf Akt 2. Wer Akt 2 baut, ersetzt
-//   den Eintrag (gleiche ID) durch die echte Quest und löscht ihn hier.
-import type { NpcDef, QuestDef, ShopDef } from '../../../modules/contracts';
+// (Die sechs Akt-2-Platzhalterquests sind entfernt; die echten Quests liegen in quest-pers-23 und quest-side-23-a.)
+import type { NpcDef, ShopDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 
 const npc = (def: NpcDef): NpcDef => ({ maxHearts: 5, ...def });
@@ -63,24 +61,7 @@ const shops: ShopDef[] = [
   },
 ];
 
-/** Akt-2-Platzhalter: Titel und Kurztext aus world.md §5/§6, ein Schritt mit Verweis auf Akt 2. */
-const later = (id: string, kind: QuestDef['kind'], title: string, summary: string, giver?: string): QuestDef => ({
-  id, kind, title, summary, act: 2, ...(giver ? { giver } : {}),
-  steps: [{ id: 'akt-2', text: `${summary} (Geht in Akt 2 weiter.)`, done: { flag: `${id}-akt2-gebaut` } }],
-  autoComplete: true,
-});
-
-const quests: QuestDef[] = [
-  later('pers-delya-quelle', 'personal', 'Delyas Quelle', 'Drei „Kanal-Schlafwandler“ finden und zu Dante bringen.', 'delya-delloraine'),
-  later('pers-collin-pixel', 'personal', 'Pixel-Pete', 'Den KI-Moderator „Pixel-Pete“ entlarven – live und vor allen.', 'collin-charleston'),
-  later('pers-ripper-taschenuhr', 'personal', 'Die Taschenuhr', 'Die Taschenuhr von Rippers Vater aus Sybellas Boutique holen.', 'ripper'),
-  later('pers-gustav-alte-liebe', 'personal', 'Alte Liebe', 'Elsa im Aussiedlerhof finden und Gustavs Brief überbringen.', 'opa-gustav'),
-  later('side-ki-fluestern', 'side', 'KI-Flüstern', 'Herausfinden, warum Oma Volts Neffe Paul so komisch höflich ist.', 'oma-volt'),
-  later('side-captain-kuschel', 'side', 'Captain Kuschel', 'Wem gehört Captain Kuschel wirklich? Ein Sorgerechtsstreit um einen Teddy.', 'dante'),
-];
-
 export const part: ContentPart = {
   npcs: Object.fromEntries(npcs.map((n) => [n.id, n])),
   shops: Object.fromEntries(shops.map((s) => [s.id, s])),
-  quests: Object.fromEntries(quests.map((q) => [q.id, q])),
 };

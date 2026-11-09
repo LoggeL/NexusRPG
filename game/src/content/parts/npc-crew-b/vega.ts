@@ -1,14 +1,15 @@
 // Vega – Scharfschützin der Crew, Ausguck auf dem Dach, beste Freundin von Aria (world.md §4.2, §4.6, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.vega). Herz-Ereignisse he-vega-2/4/6 in Akt 1,
-// he-vega-8/10 angelegt und an act2 gebunden. Rivalität re-vega-5 (Wettschießen), Versöhnung: Kaffee um 06:00 auf dem Dach.
+// he-vega-8/10 ab Akt 2 als volle Szenen in vega-akt23.ts (dort auch Tagesgespräche, Abläufe, Telefon für Akt 2/3/Nachspiel). Rivalität re-vega-5 (Wettschießen), Versöhnung: Kaffee um 06:00 auf dem Dach.
 // Auftraggeberin von side-jimmys-chip und pers-vega-adlerauge (Quests baut der Quest-Agent; hier nur Start und Verweise).
 // Romanze: nein (Freundschaft). Für den Strang Vex × Aria kommentiert Vega trocken vom Ausguck aus.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
-  type Menue, VEX, einmalig, aktiv, dialog, done, erz, flag, herz, knoten, mindestens, neu, offen, pruefung, rede, sammle,
-  sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS,
+  type Menue, ARIA_WEG, MASTER, PARTYNACHT, VEX, einmalig, aktiv, dialog, done, erz, flag, herz, knoten, mindestens, neu, offen,
+  pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
+import { akt23, he10, he8, menue23 } from './vega-akt23';
 
 const V = sprecher('vega');
 const A = sprecher('aria');
@@ -32,6 +33,7 @@ const JIMMY_GERETTET: Condition = { any: [done(JIMMY_QUEST), { flag: 'jimmy_gere
 
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Vega.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
+  const M23 = menue23(zurueck);
 
   const choices: DialogueChoice[] = einmalig('vega', [
     { text: '„Schießstand Eisenhof, Bahn drei. Du warst die mit dem Rekord, oder?“', tag: '[Ex-Wache]', when: { origin: 'origin-ex-wache' }, once: true, id: 'v-exwache', next: 'v-exwache', effects: [herz('vega', 50)] },
@@ -52,6 +54,7 @@ function menue(): Menue {
     { text: 'Wie liest man noch mal Wind?', when: { seen: 'he-vega-2' }, next: 'wind' },
     { text: 'Hast du mal danebengeschossen?', requires: { hearts: 'vega', min: 4 }, tag: '[Vega ♥4]', once: true, id: 'v-daneben', next: 'daneben' },
     { text: 'Die Planungstafel. Was meinst du?', when: { quest: 'main-1-der-plan', state: ['active', 'done'] }, once: true, id: 'v-plan', next: 'plan' },
+    ...M23.choices,
     { text: 'Bis später.' },
   ]);
 
@@ -118,11 +121,13 @@ function menue(): Menue {
       V('Der Plan ist gut. Pläne sind immer gut. Bis jemand anfängt zu improvisieren.', 'besorgt'),
       V('Ich bin auf dem Dach gegenüber. Siebenhundertzwölf Meter. Wenn’s schiefgeht, hörst du mich nicht. Du merkst nur, dass der Typ vor dir plötzlich liegt.'),
     ], { choices: zurueck }),
+    ...M23.nodes,
   ];
   return { choices, nodes };
 }
 
 const M = menue();
+const A23 = akt23(M);
 
 /** Rivalität: Versöhnung mit Kaffee auf dem Dach um 06:00 (world.md §4.2). */
 const RIVALE: Menue = {
@@ -410,42 +415,7 @@ const he6 = dialog('he-vega-6', [
   ], { effects: [flag('vega_aria_versoehnt'), { xp: 90 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-vega-8', [
-  knoten('start', [
-    erz('Glasarkaden. Vernissage. Champagner in Gläsern, die mehr kosten als eine Monatsmiete. Vega steht in einer Ecke und hält ihr Glas wie eine Granate.'),
-    V('Ich hasse feine Leute. Die gucken dich an, als wärst du ein Fleck. Und dann kaufen sie ein Bild von einem Fleck.', 'wut'),
-    erz('Eine Galeristin mit Silberhaar steuert auf euch zu. „Und Sie sind …?“'),
-  ], {
-    choices: [
-      { text: '„Kunstkritikerin. Unterstadt-Szene. Sehr gefürchtet.“', check: pruefung('he-vega-8-ausrede', 'ausstrahlung', 6, ['luegen']), next: 'kritik', effects: [herz('vega', 40)] },
-      { text: '„Security. Sie hat Ihr Bild seit zwei Stunden im Visier.“', check: pruefung('he-vega-8-security', 'strasse', 6, ['luegen', 'einschuechtern']), next: 'security', effects: [herz('vega', 40)] },
-      { text: '„Wir sind wegen des Buffets hier.“', next: 'buffet', effects: [herz('vega', 30)] },
-    ],
-  }),
-  knoten('kritik', [V('Gefürchtet. Ja. Ich hab gerade beschlossen, dass ich das Bild da hasse. Mit Leidenschaft.', 'signatur')], { next: 'ende' }),
-  knoten('security', [V('Zwei Stunden, ja. Es hat sich nicht bewegt. Verdächtig.', 'signatur')], { next: 'ende' }),
-  knoten('buffet', [V('Ehrlich. Gut. Die Häppchen sind winzig. Wir nehmen alle.', 'freude')], { next: 'ende' }),
-  knoten('ende', [
-    V('Danke, dass du mit mir hier bist. Allein hätte ich das Glas geworfen. Ziemlich präzise.'),
-  ], { effects: [{ xp: 120 }, flag('vega_vernissage')] }),
-]);
-
-const he10 = dialog('he-vega-10', [
-  knoten('start', [
-    erz('Morgengrauen auf dem Dach. Zwischen Fernrohr und Windmesser steht ein Blumentopf. Darin: eine einzige Pflanze, grün, trotzig, kaum höher als ein Daumen.'),
-    V('Mein Garten. Eine Pflanze. Mehr hält die Luft hier oben nicht aus. Ich hab sie Jimmy genannt. Sie hat sich auch berappelt.', 'freude'),
-    V('Und das hier ist für dich. Mein altes Zielfernrohr. Ich brauch es nicht mehr. Ich hab ja dich, die aufpasst.'),
-  ], {
-    choices: [
-      { text: '„Ich pass drauf auf. Und auf dich.“', next: 'ende', effects: [herz('vega', 40)] },
-      { text: '„Die Pflanze kriegt einen Namen. Einen zweiten. Jimmy Zwei.“', next: 'ende', effects: [herz('vega', 30)] },
-    ],
-  }),
-  knoten('ende', [V('Wachhunde. Für immer. Auf jede Entfernung.', 'signatur')], {
-    effects: [{ give: 'vegas-zielfernrohr' }, flag('vega_wachhunde_verstaerkt'), { xp: 150 }],
-  }),
-]);
+// ♥8 und ♥10: volle Szenen in vega-akt23.ts.
 
 // Rivalität −5: Wettschießen am Rostkai.
 const re5 = dialog('re-vega-5', [
@@ -484,11 +454,13 @@ const vega: NpcDef = {
     hates: ['defekter-neurochip', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    // Akt 2, Partynacht, Nachspiel (vega-akt23.ts).
+    ...A23.schedule,
     // Vorbereitung Wachplan: abends auf der Fußgängerbrücke am Stufenplatz.
     { slot: 'abend', when: aktiv('prep-wachplan'), place: { map: 'stufenplatz', at: 'fussgaengerbruecke' } },
     { slot: 'morgen', place: { map: 'neon-gasse', at: 'vegas-ausguck' } },
     // Mo/Mi/Fr bringt sie Jimmy Essen – bis er gerettet ist.
-    { slot: 'tag', days: ['mo', 'mi', 'fr'], when: { not: JIMMY_GERETTET }, place: { map: 'bahnhof-mitte', at: 'bahnsteig-ende' }, dialogue: 'vega-tag-bahnhof' },
+    { slot: 'tag', days: ['mo', 'mi', 'fr'], when: { all: [{ not: JIMMY_GERETTET }, { notFlag: 'jimmy_gechippt' }] }, place: { map: 'bahnhof-mitte', at: 'bahnsteig-ende' }, dialogue: 'vega-tag-bahnhof' },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'garkueche-bank' } },
     { slot: 'abend', place: { map: 'high-voltage', at: 'vega-aria-tisch' } },
     { slot: 'nacht', place: { map: 'neon-gasse', at: 'vegas-ausguck' } },
@@ -496,10 +468,10 @@ const vega: NpcDef = {
   heartEvents: [
     { id: 'he-vega-2', hearts: 2, map: 'neon-gasse', time: ['morgen', 'nacht'], when: PROBEZEIT, dialogue: 'he-vega-2' },
     { id: 'he-vega-4', hearts: 4, map: 'neon-gasse', time: 'nacht', when: done(ADLERAUGE), dialogue: 'he-vega-4' },
-    { id: 'he-vega-6', hearts: 6, map: 'high-voltage', time: 'abend', when: PROBEZEIT, cutscene: 'szene-he-vega-6', dialogue: 'he-vega-6' },
-    { id: 'he-vega-8', hearts: 8, map: 'glasarkaden', time: 'abend', when: { act: 2 }, dialogue: 'he-vega-8' },
-    { id: 'he-vega-10', hearts: 10, map: 'neon-gasse', time: 'morgen', when: { all: [{ act: 2 }, { seen: 'he-vega-8' }] }, dialogue: 'he-vega-10' },
-    { id: 're-vega-5', hearts: -5, map: 'hafenkante', time: 'tag', dialogue: 're-vega-5' },
+    { id: 'he-vega-6', hearts: 6, map: 'high-voltage', time: 'abend', when: { all: [PROBEZEIT, { not: ARIA_WEG }, { notFlag: 'aria_weg' }, { not: PARTYNACHT }] }, cutscene: 'szene-he-vega-6', dialogue: 'he-vega-6' },
+    { id: 'he-vega-8', hearts: 8, map: 'glasarkaden', time: 'abend', when: { all: [{ act: 2 }, { not: PARTYNACHT }, { not: MASTER }] }, dialogue: 'he-vega-8' },
+    { id: 'he-vega-10', hearts: 10, map: 'neon-gasse', time: 'morgen', when: { all: [{ act: 2 }, { seen: 'he-vega-8' }, { not: PARTYNACHT }, { not: MASTER }] }, dialogue: 'he-vega-10' },
+    { id: 're-vega-5', hearts: -5, map: 'hafenkante', time: 'tag', when: { not: PARTYNACHT }, dialogue: 're-vega-5' },
   ],
   companion: {
     // world.md §4.6: ab main-1-dexter. Fernkampf.
@@ -514,7 +486,11 @@ const vega: NpcDef = {
     // Nach pers-vega-adlerauge: verstärkter Kobra-Schuss.
     abilityRules: [{ when: { quest: 'pers-vega-adlerauge', state: 'done' }, replace: ['vega-kobra-schuss', 'vega-kobra-schuss-plus'] }],
     // Vega + Nyra: Funkstille (beide in der Party, Spielfigur mit beiden ♥6).
-    duo: [{ ability: 'duo-funkstille', when: { all: [{ companion: 'nyra' }, { hearts: 'vega', min: 6 }, { hearts: 'nyra', min: 6 }] } }],
+    // Nach he-vega-10: „Die Wachhunde“ mit Doppelschuss (Vega hält die verstärkte Fassung, Aria behält ihre).
+    duo: [
+      { ability: 'duo-funkstille', when: { all: [{ companion: 'nyra' }, { hearts: 'vega', min: 6 }, { hearts: 'nyra', min: 6 }] } },
+      { ability: 'duo-die-wachhunde-plus', when: { all: [{ companion: 'aria' }, { flag: 'vega_wachhunde_verstaerkt' }, { hearts: 'vega', min: 6 }, { hearts: 'aria', min: 6 }] } },
+    ],
   },
   partyCheckBonus: [
     { attribute: 'reflexe', tags: ['fernkampf', 'beobachten'], value: 1, label: 'Vega gibt dir Wind und Meter' },
@@ -522,6 +498,8 @@ const vega: NpcDef = {
   ],
   talk: [
     rede('vega-tag-rivale', { rival: 'vega' }),
+    // Akt 2, Partynacht, Nachspiel (vega-akt23.ts).
+    ...A23.talk,
     rede('vega-tag-vor-probezeit', { not: PROBEZEIT }),
     rede('vega-tag-jimmy-danke', { all: [JIMMY_GERETTET, { notFlag: 'vega_kommentar_jimmy' }] }),
     rede('vega-tag-vexaria-knutsch', { all: [VEX, { flag: 'vexaria_knutsch' }, { notFlag: 'vega_kommentar_vexaria_knutsch' }] }),
@@ -530,7 +508,7 @@ const vega: NpcDef = {
     rede('vega-tag-aria-romanze', { all: [{ not: VEX }, { flag: 'aria_romanze_angebahnt' }, { notFlag: 'vega_kommentar_aria_romanze' }] }),
     rede('vega-tag-zeit', { not: { act: 2 } }, 8),
     rede('vega-tag-wachplan', { all: [aktiv('prep-wachplan'), { time: 'abend' }] }),
-    rede('vega-tag-bahnhof', { all: [{ not: JIMMY_GERETTET }, { weekday: ['mo', 'mi', 'fr'] }, { time: 'tag' }] }),
+    rede('vega-tag-bahnhof', { all: [{ not: JIMMY_GERETTET }, { notFlag: 'jimmy_gechippt' }, { weekday: ['mo', 'mi', 'fr'] }, { time: 'tag' }] }),
     rede('vega-tag-vertraut', { time: ['morgen', 'nacht'] }, 6),
     rede('vega-tag-morgen', { time: 'morgen' }),
     rede('vega-tag-nacht', { time: 'nacht' }),
@@ -545,7 +523,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.vorProbezeit, T.zeit, T.vexariaKnutsch, T.vexariaOberlicht, T.vexariaWette, T.ariaRomanze, T.jimmyDanke,
     T.bahnhof, T.wachplan, T.morgen, T.nacht, T.club, T.markt, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10, re5,
+    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-vega-6', title: 'Fünfzehn Meter',
@@ -554,6 +532,7 @@ export const part: ContentPart = {
     ],
   }),
   phone: {
+    ...A23.phone,
     'tel-vega-dach': {
       id: 'tel-vega-dach', from: 'vega',
       text: 'Dach. Morgens oder nachts. Bring nichts mit, was raschelt. – V.',

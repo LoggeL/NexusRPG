@@ -25,12 +25,24 @@
     "arena-schrottplatz": "assets/arena/schrottplatz.webp",
     "arena-serverkern": "assets/arena/serverkern.webp",
     "arena-strasse": "assets/arena/strasse.webp",
+    "bg-aussiedlerhof": "assets/bg/aussiedlerhof.webp",
+    "bg-aussiedlerhof-feld": "assets/bg/aussiedlerhof-feld.webp",
     "bg-bahnhof-mitte": "assets/bg/bahnhof-mitte.webp",
+    "bg-blades-buero": "assets/bg/blades-buero.webp",
+    "bg-blades-buero-master": "assets/bg/blades-buero-master.webp",
+    "bg-blades-buero-verlassen": "assets/bg/blades-buero-verlassen.webp",
     "bg-cafe-sahnehaube": "assets/bg/cafe-sahnehaube.webp",
+    "bg-chrome-boulevard": "assets/bg/chrome-boulevard.webp",
+    "bg-chrome-boulevard-master": "assets/bg/chrome-boulevard-master.webp",
+    "bg-chrome-boulevard-stiftung": "assets/bg/chrome-boulevard-stiftung.webp",
     "bg-chrome-penthouse": "assets/bg/chrome-penthouse.webp",
     "bg-crew-quartier": "assets/bg/crew-quartier.webp",
     "bg-dantes-werkstatt": "assets/bg/dantes-werkstatt.webp",
+    "bg-das-meer": "assets/bg/das-meer.webp",
+    "bg-das-meer-strandclub": "assets/bg/das-meer-strandclub.webp",
     "bg-das-nest": "assets/bg/das-nest.webp",
+    "bg-datentunnel": "assets/bg/datentunnel.webp",
+    "bg-datentunnel-splitter": "assets/bg/datentunnel-splitter.webp",
     "bg-digitech-areal": "assets/bg/digitech-areal.webp",
     "bg-digitech-areal-damals": "assets/bg/digitech-areal-damals.webp",
     "bg-digitech-tresor": "assets/bg/digitech-tresor.webp",
@@ -38,11 +50,19 @@
     "bg-eisenhof": "assets/bg/eisenhof.webp",
     "bg-flutmauer": "assets/bg/flutmauer.webp",
     "bg-fundbuero": "assets/bg/fundbuero.webp",
+    "bg-funkturm-ruine": "assets/bg/funkturm-ruine.webp",
+    "bg-funkturm-ruine-sendet": "assets/bg/funkturm-ruine-sendet.webp",
     "bg-gerichtssaal": "assets/bg/gerichtssaal.webp",
     "bg-glasarkaden": "assets/bg/glasarkaden.webp",
+    "bg-glasduenen": "assets/bg/glasduenen.webp",
+    "bg-glasduenen-abend": "assets/bg/glasduenen-abend.webp",
     "bg-hafenkante": "assets/bg/hafenkante.webp",
     "bg-hausboot-nebelhorn": "assets/bg/hausboot-nebelhorn.webp",
     "bg-high-voltage": "assets/bg/high-voltage.webp",
+    "bg-himmelsgarten": "assets/bg/himmelsgarten.webp",
+    "bg-himmelsgarten-gekippt": "assets/bg/himmelsgarten-gekippt.webp",
+    "bg-himmelsgarten-park": "assets/bg/himmelsgarten-park.webp",
+    "bg-himmelsgarten-party": "assets/bg/himmelsgarten-party.webp",
     "bg-hv-hinterzimmer": "assets/bg/hv-hinterzimmer.webp",
     "bg-kanal-sammler": "assets/bg/kanal-sammler.webp",
     "bg-loetgassen": "assets/bg/loetgassen.webp",
@@ -50,14 +70,56 @@
     "bg-neon-gasse": "assets/bg/neon-gasse.webp",
     "bg-netzcafe-datenkruemel": "assets/bg/netzcafe-datenkruemel.webp",
     "bg-nx1-studio": "assets/bg/nx1-studio.webp",
+    "bg-pumpwerk-sieben": "assets/bg/pumpwerk-sieben.webp",
+    "bg-pumpwerk-sieben-op": "assets/bg/pumpwerk-sieben-op.webp",
+    "bg-quantum-campus": "assets/bg/quantum-campus.webp",
+    "bg-quantum-campus-alarm": "assets/bg/quantum-campus-alarm.webp",
+    "bg-quantum-campus-party": "assets/bg/quantum-campus-party.webp",
+    "bg-quantum-campus-werkstatt": "assets/bg/quantum-campus-werkstatt.webp",
+    "bg-quantum-foyer": "assets/bg/quantum-foyer.webp",
+    "bg-quantum-foyer-alarm": "assets/bg/quantum-foyer-alarm.webp",
+    "bg-quantum-foyer-party": "assets/bg/quantum-foyer-party.webp",
+    "bg-quantum-labor": "assets/bg/quantum-labor.webp",
+    "bg-quantum-labor-bruch": "assets/bg/quantum-labor-bruch.webp",
+    "bg-quantum-labor-leer": "assets/bg/quantum-labor-leer.webp",
     "bg-quantum-schauraum": "assets/bg/quantum-schauraum.webp",
+    "bg-rennhalle-9": "assets/bg/rennhalle-9.webp",
+    "bg-rennhalle-9-rennnacht": "assets/bg/rennhalle-9-rennnacht.webp",
     "bg-ripper-praxis": "assets/bg/ripper-praxis.webp",
     "bg-rohrsiedlung": "assets/bg/rohrsiedlung.webp",
+    "bg-rudis-diner": "assets/bg/rudis-diner.webp",
     "bg-schrottmarkt": "assets/bg/schrottmarkt.webp",
+    "bg-server-kern": "assets/bg/server-kern.webp",
+    "bg-server-kern-ruhig": "assets/bg/server-kern-ruhig.webp",
+    "bg-server-kern-stadtnetz": "assets/bg/server-kern-stadtnetz.webp",
+    "bg-staubstrasse": "assets/bg/staubstrasse.webp",
+    "bg-staubstrasse-frieden": "assets/bg/staubstrasse-frieden.webp",
     "bg-stufenplatz": "assets/bg/stufenplatz.webp",
     "bg-suppenkueche": "assets/bg/suppenkueche.webp",
     "bg-ubahn-wagen": "assets/bg/ubahn-wagen.webp",
     "bg-zellentrakt": "assets/bg/zellentrakt.webp",
+    "cut-ende-doch-noch-ans-meer": "assets/cut/ende-doch-noch-ans-meer.webp",
+    "cut-ende-master": "assets/cut/ende-master.webp",
+    "cut-ende-meer": "assets/cut/ende-meer.webp",
+    "cut-ende-neue-nexus": "assets/cut/ende-neue-nexus.webp",
+    "cut-epilog-sendung": "assets/cut/epilog-sendung.webp",
+    "cut-he-dante-6": "assets/cut/he-dante-6.webp",
+    "cut-he-hunter-6": "assets/cut/he-hunter-6.webp",
+    "cut-he-jimmy-6": "assets/cut/he-jimmy-6.webp",
+    "cut-he-kaeptn-nebelhorn-10": "assets/cut/he-kaeptn-nebelhorn-10.webp",
+    "cut-he-lio-funkel-6": "assets/cut/he-lio-funkel-6.webp",
+    "cut-he-nyra-4": "assets/cut/he-nyra-4.webp",
+    "cut-he-raven-6": "assets/cut/he-raven-6.webp",
+    "cut-he-vega-6": "assets/cut/he-vega-6.webp",
+    "cut-main-2-bruch": "assets/cut/main-2-bruch.webp",
+    "cut-main-2-countdown": "assets/cut/main-2-countdown.webp",
+    "cut-main-2-kanal": "assets/cut/main-2-kanal.webp",
+    "cut-main-2-krisensitzung": "assets/cut/main-2-krisensitzung.webp",
+    "cut-main-3-blade": "assets/cut/main-3-blade.webp",
+    "cut-main-3-einlass": "assets/cut/main-3-einlass.webp",
+    "cut-main-3-gedankenkontrolle": "assets/cut/main-3-gedankenkontrolle.webp",
+    "cut-main-3-labor": "assets/cut/main-3-labor.webp",
+    "cut-main-3-nexus": "assets/cut/main-3-nexus.webp",
     "cut-rom-aria-albtraum": "assets/cut/rom-aria-albtraum.webp",
     "cut-rom-aria-ausfall": "assets/cut/rom-aria-ausfall.webp",
     "cut-rom-aria-dach": "assets/cut/rom-aria-dach.webp",
@@ -79,8 +141,10 @@
     "cut-rom-vexaria-konzert": "assets/cut/rom-vexaria-konzert.webp",
     "cut-rom-vexaria-kuss": "assets/cut/rom-vexaria-kuss.webp",
     "cut-rom-vexaria-luecke": "assets/cut/rom-vexaria-luecke.webp",
+    "cut-rom-vexaria-meer": "assets/cut/rom-vexaria-meer.webp",
     "cut-rom-vexaria-morgen": "assets/cut/rom-vexaria-morgen.webp",
     "cut-rom-vexaria-oberlicht": "assets/cut/rom-vexaria-oberlicht.webp",
+    "cut-rom-vexaria-rettung": "assets/cut/rom-vexaria-rettung.webp",
     "cut-rom-vexaria-sprung": "assets/cut/rom-vexaria-sprung.webp",
     "cut-rom-vexaria-tanz": "assets/cut/rom-vexaria-tanz.webp",
     "cut-rom-vexaria-umdrehen": "assets/cut/rom-vexaria-umdrehen.webp",
@@ -105,9 +169,16 @@
     "photo-babette-bao-signatur": "assets/photos/babette-bao/signatur.webp",
     "photo-babette-bao-trauer": "assets/photos/babette-bao/trauer.webp",
     "photo-babette-bao-wut": "assets/photos/babette-bao/wut.webp",
+    "photo-barista-perle-besorgt": "assets/photos/barista-perle/besorgt.webp",
+    "photo-barista-perle-freude": "assets/photos/barista-perle/freude.webp",
+    "photo-barista-perle-neutral": "assets/photos/barista-perle/neutral.webp",
+    "photo-barista-perle-signatur": "assets/photos/barista-perle/signatur.webp",
     "photo-barkeeper-neutral": "assets/photos/barkeeper/neutral.webp",
     "photo-barkeeper-ueberrascht": "assets/photos/barkeeper/ueberrascht.webp",
     "photo-barkeeper-wut": "assets/photos/barkeeper/wut.webp",
+    "photo-bijou-freude": "assets/photos/bijou/freude.webp",
+    "photo-bijou-neutral": "assets/photos/bijou/neutral.webp",
+    "photo-bijou-wut": "assets/photos/bijou/wut.webp",
     "photo-blade-besorgt": "assets/photos/blade/besorgt.webp",
     "photo-blade-freude": "assets/photos/blade/freude.webp",
     "photo-blade-neutral": "assets/photos/blade/neutral.webp",
@@ -118,6 +189,13 @@
     "photo-bolzen-freude": "assets/photos/bolzen/freude.webp",
     "photo-bolzen-neutral": "assets/photos/bolzen/neutral.webp",
     "photo-bolzen-wut": "assets/photos/bolzen/wut.webp",
+    "photo-bruder-kabellos-besorgt": "assets/photos/bruder-kabellos/besorgt.webp",
+    "photo-bruder-kabellos-neutral": "assets/photos/bruder-kabellos/neutral.webp",
+    "photo-bruder-kabellos-signatur": "assets/photos/bruder-kabellos/signatur.webp",
+    "photo-bruder-kabellos-wut": "assets/photos/bruder-kabellos/wut.webp",
+    "photo-bruno-brecher-neutral": "assets/photos/bruno-brecher/neutral.webp",
+    "photo-bruno-brecher-signatur": "assets/photos/bruno-brecher/signatur.webp",
+    "photo-bruno-brecher-wut": "assets/photos/bruno-brecher/wut.webp",
     "photo-buergermeister-gully-freude": "assets/photos/buergermeister-gully/freude.webp",
     "photo-buergermeister-gully-neutral": "assets/photos/buergermeister-gully/neutral.webp",
     "photo-buergermeister-gully-signatur": "assets/photos/buergermeister-gully/signatur.webp",
@@ -125,6 +203,9 @@
     "photo-captain-kuschel-freude": "assets/photos/captain-kuschel/freude.webp",
     "photo-captain-kuschel-neutral": "assets/photos/captain-kuschel/neutral.webp",
     "photo-captain-kuschel-trauer": "assets/photos/captain-kuschel/trauer.webp",
+    "photo-chrome-haushaelterin-freude": "assets/photos/chrome-haushaelterin/freude.webp",
+    "photo-chrome-haushaelterin-neutral": "assets/photos/chrome-haushaelterin/neutral.webp",
+    "photo-chrome-haushaelterin-signatur": "assets/photos/chrome-haushaelterin/signatur.webp",
     "photo-collin-besorgt": "assets/photos/collin/besorgt.webp",
     "photo-collin-freude": "assets/photos/collin/freude.webp",
     "photo-collin-neutral": "assets/photos/collin/neutral.webp",
@@ -158,6 +239,40 @@
     "photo-dexter-neutral": "assets/photos/dexter/neutral.webp",
     "photo-dexter-signatur": "assets/photos/dexter/signatur.webp",
     "photo-dexter-ueberrascht": "assets/photos/dexter/ueberrascht.webp",
+    "photo-direktorin-hartlauf-neutral": "assets/photos/direktorin-hartlauf/neutral.webp",
+    "photo-direktorin-hartlauf-signatur": "assets/photos/direktorin-hartlauf/signatur.webp",
+    "photo-direktorin-hartlauf-trauer": "assets/photos/direktorin-hartlauf/trauer.webp",
+    "photo-direktorin-hartlauf-wut": "assets/photos/direktorin-hartlauf/wut.webp",
+    "photo-dj-lumo-freude": "assets/photos/dj-lumo/freude.webp",
+    "photo-dj-lumo-neutral": "assets/photos/dj-lumo/neutral.webp",
+    "photo-dj-lumo-signatur": "assets/photos/dj-lumo/signatur.webp",
+    "photo-dj-lumo-ueberrascht": "assets/photos/dj-lumo/ueberrascht.webp",
+    "photo-dr-winkel-besorgt": "assets/photos/dr-winkel/besorgt.webp",
+    "photo-dr-winkel-freude": "assets/photos/dr-winkel/freude.webp",
+    "photo-dr-winkel-neutral": "assets/photos/dr-winkel/neutral.webp",
+    "photo-dr-winkel-signatur": "assets/photos/dr-winkel/signatur.webp",
+    "photo-elsa-freude": "assets/photos/elsa/freude.webp",
+    "photo-elsa-neutral": "assets/photos/elsa/neutral.webp",
+    "photo-elsa-signatur": "assets/photos/elsa/signatur.webp",
+    "photo-elsa-trauer": "assets/photos/elsa/trauer.webp",
+    "photo-falke-besorgt": "assets/photos/falke/besorgt.webp",
+    "photo-falke-neutral": "assets/photos/falke/neutral.webp",
+    "photo-falke-signatur": "assets/photos/falke/signatur.webp",
+    "photo-fluss-frieda-freude": "assets/photos/fluss-frieda/freude.webp",
+    "photo-fluss-frieda-neutral": "assets/photos/fluss-frieda/neutral.webp",
+    "photo-fluss-frieda-signatur": "assets/photos/fluss-frieda/signatur.webp",
+    "photo-fraeulein-pixel-besorgt": "assets/photos/fraeulein-pixel/besorgt.webp",
+    "photo-fraeulein-pixel-freude": "assets/photos/fraeulein-pixel/freude.webp",
+    "photo-fraeulein-pixel-neutral": "assets/photos/fraeulein-pixel/neutral.webp",
+    "photo-fraeulein-pixel-signatur": "assets/photos/fraeulein-pixel/signatur.webp",
+    "photo-frau-klingel-freude": "assets/photos/frau-klingel/freude.webp",
+    "photo-frau-klingel-neutral": "assets/photos/frau-klingel/neutral.webp",
+    "photo-frau-klingel-signatur": "assets/photos/frau-klingel/signatur.webp",
+    "photo-frau-klingel-trauer": "assets/photos/frau-klingel/trauer.webp",
+    "photo-frau-takt-freude": "assets/photos/frau-takt/freude.webp",
+    "photo-frau-takt-neutral": "assets/photos/frau-takt/neutral.webp",
+    "photo-frau-takt-signatur": "assets/photos/frau-takt/signatur.webp",
+    "photo-frau-takt-wut": "assets/photos/frau-takt/wut.webp",
     "photo-freya-besorgt": "assets/photos/freya/besorgt.webp",
     "photo-freya-freude": "assets/photos/freya/freude.webp",
     "photo-freya-neutral": "assets/photos/freya/neutral.webp",
@@ -165,6 +280,36 @@
     "photo-freya-trauer": "assets/photos/freya/trauer.webp",
     "photo-freya-ueberrascht": "assets/photos/freya/ueberrascht.webp",
     "photo-freya-wut": "assets/photos/freya/wut.webp",
+    "photo-fx-60-freude": "assets/photos/fx-60/freude.webp",
+    "photo-fx-60-neutral": "assets/photos/fx-60/neutral.webp",
+    "photo-fx-60-wut": "assets/photos/fx-60/wut.webp",
+    "photo-gerda-gleis-freude": "assets/photos/gerda-gleis/freude.webp",
+    "photo-gerda-gleis-neutral": "assets/photos/gerda-gleis/neutral.webp",
+    "photo-gerda-gleis-signatur": "assets/photos/gerda-gleis/signatur.webp",
+    "photo-gerda-gleis-trauer": "assets/photos/gerda-gleis/trauer.webp",
+    "photo-glasblaeserin-besorgt": "assets/photos/glasblaeserin/besorgt.webp",
+    "photo-glasblaeserin-freude": "assets/photos/glasblaeserin/freude.webp",
+    "photo-glasblaeserin-neutral": "assets/photos/glasblaeserin/neutral.webp",
+    "photo-glasblaeserin-signatur": "assets/photos/glasblaeserin/signatur.webp",
+    "photo-gutschein-gerd-freude": "assets/photos/gutschein-gerd/freude.webp",
+    "photo-gutschein-gerd-neutral": "assets/photos/gutschein-gerd/neutral.webp",
+    "photo-gutschein-gerd-signatur": "assets/photos/gutschein-gerd/signatur.webp",
+    "photo-gutschein-gerd-ueberrascht": "assets/photos/gutschein-gerd/ueberrascht.webp",
+    "photo-hafen-hannes-freude": "assets/photos/hafen-hannes/freude.webp",
+    "photo-hafen-hannes-neutral": "assets/photos/hafen-hannes/neutral.webp",
+    "photo-hafen-hannes-trauer": "assets/photos/hafen-hannes/trauer.webp",
+    "photo-hecki-besorgt": "assets/photos/hecki/besorgt.webp",
+    "photo-hecki-freude": "assets/photos/hecki/freude.webp",
+    "photo-hecki-neutral": "assets/photos/hecki/neutral.webp",
+    "photo-henk-angler-freude": "assets/photos/henk-angler/freude.webp",
+    "photo-henk-angler-neutral": "assets/photos/henk-angler/neutral.webp",
+    "photo-henk-angler-ueberrascht": "assets/photos/henk-angler/ueberrascht.webp",
+    "photo-herr-blitz-freude": "assets/photos/herr-blitz/freude.webp",
+    "photo-herr-blitz-neutral": "assets/photos/herr-blitz/neutral.webp",
+    "photo-herr-blitz-trauer": "assets/photos/herr-blitz/trauer.webp",
+    "photo-herr-glanz-besorgt": "assets/photos/herr-glanz/besorgt.webp",
+    "photo-herr-glanz-freude": "assets/photos/herr-glanz/freude.webp",
+    "photo-herr-glanz-neutral": "assets/photos/herr-glanz/neutral.webp",
     "photo-hunter-besorgt": "assets/photos/hunter/besorgt.webp",
     "photo-hunter-freude": "assets/photos/hunter/freude.webp",
     "photo-hunter-neutral": "assets/photos/hunter/neutral.webp",
@@ -183,6 +328,9 @@
     "photo-jimmy-neutral": "assets/photos/jimmy/neutral.webp",
     "photo-jimmy-signatur": "assets/photos/jimmy/signatur.webp",
     "photo-jimmy-trauer": "assets/photos/jimmy/trauer.webp",
+    "photo-kabelbrand-roadie-freude": "assets/photos/kabelbrand-roadie/freude.webp",
+    "photo-kabelbrand-roadie-neutral": "assets/photos/kabelbrand-roadie/neutral.webp",
+    "photo-kabelbrand-roadie-ueberrascht": "assets/photos/kabelbrand-roadie/ueberrascht.webp",
     "photo-kaeptn-nebelhorn-besorgt": "assets/photos/kaeptn-nebelhorn/besorgt.webp",
     "photo-kaeptn-nebelhorn-freude": "assets/photos/kaeptn-nebelhorn/freude.webp",
     "photo-kaeptn-nebelhorn-neutral": "assets/photos/kaeptn-nebelhorn/neutral.webp",
@@ -199,6 +347,26 @@
     "photo-kiki-karbon-signatur": "assets/photos/kiki-karbon/signatur.webp",
     "photo-kiki-karbon-ueberrascht": "assets/photos/kiki-karbon/ueberrascht.webp",
     "photo-kiki-karbon-wut": "assets/photos/kiki-karbon/wut.webp",
+    "photo-knuspi-besorgt": "assets/photos/knuspi/besorgt.webp",
+    "photo-knuspi-freude": "assets/photos/knuspi/freude.webp",
+    "photo-knuspi-neutral": "assets/photos/knuspi/neutral.webp",
+    "photo-knut-freude": "assets/photos/knut/freude.webp",
+    "photo-knut-neutral": "assets/photos/knut/neutral.webp",
+    "photo-knut-ueberrascht": "assets/photos/knut/ueberrascht.webp",
+    "photo-krabbe-karl-freude": "assets/photos/krabbe-karl/freude.webp",
+    "photo-krabbe-karl-neutral": "assets/photos/krabbe-karl/neutral.webp",
+    "photo-krabbe-karl-ueberrascht": "assets/photos/krabbe-karl/ueberrascht.webp",
+    "photo-kraehe-freude": "assets/photos/kraehe/freude.webp",
+    "photo-kraehe-neutral": "assets/photos/kraehe/neutral.webp",
+    "photo-kraehe-signatur": "assets/photos/kraehe/signatur.webp",
+    "photo-kraehe-wut": "assets/photos/kraehe/wut.webp",
+    "photo-kurt-neutral": "assets/photos/kurt/neutral.webp",
+    "photo-kurt-ueberrascht": "assets/photos/kurt/ueberrascht.webp",
+    "photo-kurt-wut": "assets/photos/kurt/wut.webp",
+    "photo-leutnant-nadel-neutral": "assets/photos/leutnant-nadel/neutral.webp",
+    "photo-leutnant-nadel-signatur": "assets/photos/leutnant-nadel/signatur.webp",
+    "photo-leutnant-nadel-ueberrascht": "assets/photos/leutnant-nadel/ueberrascht.webp",
+    "photo-leutnant-nadel-wut": "assets/photos/leutnant-nadel/wut.webp",
     "photo-lio-funkel-freude": "assets/photos/lio-funkel/freude.webp",
     "photo-lio-funkel-neutral": "assets/photos/lio-funkel/neutral.webp",
     "photo-lio-funkel-signatur": "assets/photos/lio-funkel/signatur.webp",
@@ -206,10 +374,28 @@
     "photo-lio-funkel-ueberrascht": "assets/photos/lio-funkel/ueberrascht.webp",
     "photo-lio-funkel-verlegen": "assets/photos/lio-funkel/verlegen.webp",
     "photo-lio-funkel-zaertlich": "assets/photos/lio-funkel/zaertlich.webp",
+    "photo-madame-satin-freude": "assets/photos/madame-satin/freude.webp",
+    "photo-madame-satin-neutral": "assets/photos/madame-satin/neutral.webp",
+    "photo-madame-satin-trauer": "assets/photos/madame-satin/trauer.webp",
     "photo-marla-sand-besorgt": "assets/photos/marla-sand/besorgt.webp",
     "photo-marla-sand-freude": "assets/photos/marla-sand/freude.webp",
     "photo-marla-sand-neutral": "assets/photos/marla-sand/neutral.webp",
     "photo-marla-sand-signatur": "assets/photos/marla-sand/signatur.webp",
+    "photo-meister-watt-freude": "assets/photos/meister-watt/freude.webp",
+    "photo-meister-watt-neutral": "assets/photos/meister-watt/neutral.webp",
+    "photo-meister-watt-ueberrascht": "assets/photos/meister-watt/ueberrascht.webp",
+    "photo-mila-freude": "assets/photos/mila/freude.webp",
+    "photo-mila-neutral": "assets/photos/mila/neutral.webp",
+    "photo-mila-trauer": "assets/photos/mila/trauer.webp",
+    "photo-mira-loetzinn-besorgt": "assets/photos/mira-loetzinn/besorgt.webp",
+    "photo-mira-loetzinn-freude": "assets/photos/mira-loetzinn/freude.webp",
+    "photo-mira-loetzinn-neutral": "assets/photos/mira-loetzinn/neutral.webp",
+    "photo-mixi-freude": "assets/photos/mixi/freude.webp",
+    "photo-mixi-neutral": "assets/photos/mixi/neutral.webp",
+    "photo-mixi-ueberrascht": "assets/photos/mixi/ueberrascht.webp",
+    "photo-mutter-bruehe-freude": "assets/photos/mutter-bruehe/freude.webp",
+    "photo-mutter-bruehe-neutral": "assets/photos/mutter-bruehe/neutral.webp",
+    "photo-mutter-bruehe-trauer": "assets/photos/mutter-bruehe/trauer.webp",
     "photo-nyra-besorgt": "assets/photos/nyra/besorgt.webp",
     "photo-nyra-freude": "assets/photos/nyra/freude.webp",
     "photo-nyra-neutral": "assets/photos/nyra/neutral.webp",
@@ -217,20 +403,46 @@
     "photo-nyra-trauer": "assets/photos/nyra/trauer.webp",
     "photo-nyra-ueberrascht": "assets/photos/nyra/ueberrascht.webp",
     "photo-nyra-wut": "assets/photos/nyra/wut.webp",
+    "photo-ole-gaehn-neutral": "assets/photos/ole-gaehn/neutral.webp",
+    "photo-ole-gaehn-signatur": "assets/photos/ole-gaehn/signatur.webp",
+    "photo-ole-gaehn-ueberrascht": "assets/photos/ole-gaehn/ueberrascht.webp",
     "photo-oma-volt-besorgt": "assets/photos/oma-volt/besorgt.webp",
     "photo-oma-volt-freude": "assets/photos/oma-volt/freude.webp",
     "photo-oma-volt-neutral": "assets/photos/oma-volt/neutral.webp",
     "photo-oma-volt-signatur": "assets/photos/oma-volt/signatur.webp",
     "photo-oma-volt-wut": "assets/photos/oma-volt/wut.webp",
+    "photo-opa-blech-besorgt": "assets/photos/opa-blech/besorgt.webp",
+    "photo-opa-blech-freude": "assets/photos/opa-blech/freude.webp",
+    "photo-opa-blech-neutral": "assets/photos/opa-blech/neutral.webp",
+    "photo-opa-funk-freude": "assets/photos/opa-funk/freude.webp",
+    "photo-opa-funk-neutral": "assets/photos/opa-funk/neutral.webp",
+    "photo-opa-funk-signatur": "assets/photos/opa-funk/signatur.webp",
+    "photo-opa-funk-trauer": "assets/photos/opa-funk/trauer.webp",
+    "photo-opa-gurrmann-besorgt": "assets/photos/opa-gurrmann/besorgt.webp",
+    "photo-opa-gurrmann-freude": "assets/photos/opa-gurrmann/freude.webp",
+    "photo-opa-gurrmann-neutral": "assets/photos/opa-gurrmann/neutral.webp",
     "photo-opa-gustav-freude": "assets/photos/opa-gustav/freude.webp",
     "photo-opa-gustav-neutral": "assets/photos/opa-gustav/neutral.webp",
     "photo-opa-gustav-signatur": "assets/photos/opa-gustav/signatur.webp",
     "photo-opa-gustav-trauer": "assets/photos/opa-gustav/trauer.webp",
     "photo-opa-gustav-ueberrascht": "assets/photos/opa-gustav/ueberrascht.webp",
+    "photo-paul-besorgt": "assets/photos/paul/besorgt.webp",
+    "photo-paul-freude": "assets/photos/paul/freude.webp",
+    "photo-paul-neutral": "assets/photos/paul/neutral.webp",
+    "photo-paul-signatur": "assets/photos/paul/signatur.webp",
+    "photo-pfeffer-freude": "assets/photos/pfeffer/freude.webp",
+    "photo-pfeffer-neutral": "assets/photos/pfeffer/neutral.webp",
+    "photo-pfeffer-ueberrascht": "assets/photos/pfeffer/ueberrascht.webp",
     "photo-pim-pinzette-besorgt": "assets/photos/pim-pinzette/besorgt.webp",
     "photo-pim-pinzette-neutral": "assets/photos/pim-pinzette/neutral.webp",
     "photo-pim-pinzette-signatur": "assets/photos/pim-pinzette/signatur.webp",
     "photo-pim-pinzette-ueberrascht": "assets/photos/pim-pinzette/ueberrascht.webp",
+    "photo-portier-albert-neutral": "assets/photos/portier-albert/neutral.webp",
+    "photo-portier-albert-ueberrascht": "assets/photos/portier-albert/ueberrascht.webp",
+    "photo-portier-albert-wut": "assets/photos/portier-albert/wut.webp",
+    "photo-quantum-fahrer-neutral": "assets/photos/quantum-fahrer/neutral.webp",
+    "photo-quantum-fahrer-ueberrascht": "assets/photos/quantum-fahrer/ueberrascht.webp",
+    "photo-quantum-fahrer-wut": "assets/photos/quantum-fahrer/wut.webp",
     "photo-raven-besorgt": "assets/photos/raven/besorgt.webp",
     "photo-raven-freude": "assets/photos/raven/freude.webp",
     "photo-raven-neutral": "assets/photos/raven/neutral.webp",
@@ -248,6 +460,21 @@
     "photo-ripper-trauer": "assets/photos/ripper/trauer.webp",
     "photo-ripper-ueberrascht": "assets/photos/ripper/ueberrascht.webp",
     "photo-ripper-wut": "assets/photos/ripper/wut.webp",
+    "photo-rudi-besorgt": "assets/photos/rudi/besorgt.webp",
+    "photo-rudi-freude": "assets/photos/rudi/freude.webp",
+    "photo-rudi-neutral": "assets/photos/rudi/neutral.webp",
+    "photo-salzige-grete-freude": "assets/photos/salzige-grete/freude.webp",
+    "photo-salzige-grete-neutral": "assets/photos/salzige-grete/neutral.webp",
+    "photo-salzige-grete-wut": "assets/photos/salzige-grete/wut.webp",
+    "photo-schlafwandler-bert-besorgt": "assets/photos/schlafwandler-bert/besorgt.webp",
+    "photo-schlafwandler-bert-neutral": "assets/photos/schlafwandler-bert/neutral.webp",
+    "photo-schlafwandler-bert-ueberrascht": "assets/photos/schlafwandler-bert/ueberrascht.webp",
+    "photo-schlafwandler-ede-besorgt": "assets/photos/schlafwandler-ede/besorgt.webp",
+    "photo-schlafwandler-ede-neutral": "assets/photos/schlafwandler-ede/neutral.webp",
+    "photo-schlafwandler-ede-ueberrascht": "assets/photos/schlafwandler-ede/ueberrascht.webp",
+    "photo-schlafwandlerin-rosi-besorgt": "assets/photos/schlafwandlerin-rosi/besorgt.webp",
+    "photo-schlafwandlerin-rosi-neutral": "assets/photos/schlafwandlerin-rosi/neutral.webp",
+    "photo-schlafwandlerin-rosi-ueberrascht": "assets/photos/schlafwandlerin-rosi/ueberrascht.webp",
     "photo-seraphina-besorgt": "assets/photos/seraphina/besorgt.webp",
     "photo-seraphina-freude": "assets/photos/seraphina/freude.webp",
     "photo-seraphina-neutral": "assets/photos/seraphina/neutral.webp",
@@ -262,6 +489,15 @@
     "photo-serenity-trauer": "assets/photos/serenity/trauer.webp",
     "photo-serenity-ueberrascht": "assets/photos/serenity/ueberrascht.webp",
     "photo-serenity-wut": "assets/photos/serenity/wut.webp",
+    "photo-sina-spray-freude": "assets/photos/sina-spray/freude.webp",
+    "photo-sina-spray-neutral": "assets/photos/sina-spray/neutral.webp",
+    "photo-sina-spray-wut": "assets/photos/sina-spray/wut.webp",
+    "photo-staubbaron-broesel-neutral": "assets/photos/staubbaron-broesel/neutral.webp",
+    "photo-staubbaron-broesel-signatur": "assets/photos/staubbaron-broesel/signatur.webp",
+    "photo-staubbaron-broesel-wut": "assets/photos/staubbaron-broesel/wut.webp",
+    "photo-stylistin-gina-freude": "assets/photos/stylistin-gina/freude.webp",
+    "photo-stylistin-gina-neutral": "assets/photos/stylistin-gina/neutral.webp",
+    "photo-stylistin-gina-trauer": "assets/photos/stylistin-gina/trauer.webp",
     "photo-sybella-besorgt": "assets/photos/sybella/besorgt.webp",
     "photo-sybella-freude": "assets/photos/sybella/freude.webp",
     "photo-sybella-neutral": "assets/photos/sybella/neutral.webp",
@@ -269,6 +505,9 @@
     "photo-sybella-trauer": "assets/photos/sybella/trauer.webp",
     "photo-sybella-ueberrascht": "assets/photos/sybella/ueberrascht.webp",
     "photo-sybella-wut": "assets/photos/sybella/wut.webp",
+    "photo-turbo-tilda-freude": "assets/photos/turbo-tilda/freude.webp",
+    "photo-turbo-tilda-neutral": "assets/photos/turbo-tilda/neutral.webp",
+    "photo-turbo-tilda-wut": "assets/photos/turbo-tilda/wut.webp",
     "photo-vega-besorgt": "assets/photos/vega/besorgt.webp",
     "photo-vega-freude": "assets/photos/vega/freude.webp",
     "photo-vega-neutral": "assets/photos/vega/neutral.webp",
@@ -283,9 +522,18 @@
     "photo-vex-trauer": "assets/photos/vex/trauer.webp",
     "photo-vex-ueberrascht": "assets/photos/vex/ueberrascht.webp",
     "photo-vex-wut": "assets/photos/vex/wut.webp",
+    "photo-vinyl-vincent-besorgt": "assets/photos/vinyl-vincent/besorgt.webp",
+    "photo-vinyl-vincent-freude": "assets/photos/vinyl-vincent/freude.webp",
+    "photo-vinyl-vincent-neutral": "assets/photos/vinyl-vincent/neutral.webp",
     "photo-wache-neutral": "assets/photos/wache/neutral.webp",
     "photo-wache-ueberrascht": "assets/photos/wache/ueberrascht.webp",
     "photo-wache-wut": "assets/photos/wache/wut.webp",
+    "photo-wachmann-brezel-neutral": "assets/photos/wachmann-brezel/neutral.webp",
+    "photo-wachmann-brezel-ueberrascht": "assets/photos/wachmann-brezel/ueberrascht.webp",
+    "photo-wachmann-brezel-wut": "assets/photos/wachmann-brezel/wut.webp",
+    "photo-wett-willi-besorgt": "assets/photos/wett-willi/besorgt.webp",
+    "photo-wett-willi-freude": "assets/photos/wett-willi/freude.webp",
+    "photo-wett-willi-neutral": "assets/photos/wett-willi/neutral.webp",
     "photo-xion-besorgt": "assets/photos/xion/besorgt.webp",
     "photo-xion-freude": "assets/photos/xion/freude.webp",
     "photo-xion-neutral": "assets/photos/xion/neutral.webp",
@@ -293,20 +541,46 @@
     "photo-xion-trauer": "assets/photos/xion/trauer.webp",
     "photo-xion-ueberrascht": "assets/photos/xion/ueberrascht.webp",
     "photo-xion-wut": "assets/photos/xion/wut.webp",
+    "photo-zellennachbarin-freude": "assets/photos/zellennachbarin/freude.webp",
+    "photo-zellennachbarin-neutral": "assets/photos/zellennachbarin/neutral.webp",
+    "photo-zellennachbarin-trauer": "assets/photos/zellennachbarin/trauer.webp",
     "portrait-alesa": "assets/portraits/alesa.webp",
     "portrait-aria": "assets/portraits/aria.webp",
     "portrait-babette-bao": "assets/portraits/babette-bao.webp",
+    "portrait-barista-perle": "assets/portraits/barista-perle.webp",
     "portrait-barkeeper": "assets/portraits/barkeeper.webp",
+    "portrait-bijou": "assets/portraits/bijou.webp",
     "portrait-blade": "assets/portraits/blade.webp",
     "portrait-bolzen": "assets/portraits/bolzen.webp",
+    "portrait-bruder-kabellos": "assets/portraits/bruder-kabellos.webp",
+    "portrait-bruno-brecher": "assets/portraits/bruno-brecher.webp",
     "portrait-buergermeister-gully": "assets/portraits/buergermeister-gully.webp",
     "portrait-captain-kuschel": "assets/portraits/captain-kuschel.webp",
+    "portrait-chrome-haushaelterin": "assets/portraits/chrome-haushaelterin.webp",
     "portrait-collin": "assets/portraits/collin.webp",
     "portrait-dante": "assets/portraits/dante.webp",
     "portrait-daria": "assets/portraits/daria.webp",
     "portrait-delya": "assets/portraits/delya.webp",
     "portrait-dexter": "assets/portraits/dexter.webp",
+    "portrait-direktorin-hartlauf": "assets/portraits/direktorin-hartlauf.webp",
+    "portrait-dj-lumo": "assets/portraits/dj-lumo.webp",
+    "portrait-dr-winkel": "assets/portraits/dr-winkel.webp",
+    "portrait-elsa": "assets/portraits/elsa.webp",
+    "portrait-falke": "assets/portraits/falke.webp",
+    "portrait-fluss-frieda": "assets/portraits/fluss-frieda.webp",
+    "portrait-fraeulein-pixel": "assets/portraits/fraeulein-pixel.webp",
+    "portrait-frau-klingel": "assets/portraits/frau-klingel.webp",
+    "portrait-frau-takt": "assets/portraits/frau-takt.webp",
     "portrait-freya": "assets/portraits/freya.webp",
+    "portrait-fx-60": "assets/portraits/fx-60.webp",
+    "portrait-gerda-gleis": "assets/portraits/gerda-gleis.webp",
+    "portrait-glasblaeserin": "assets/portraits/glasblaeserin.webp",
+    "portrait-gutschein-gerd": "assets/portraits/gutschein-gerd.webp",
+    "portrait-hafen-hannes": "assets/portraits/hafen-hannes.webp",
+    "portrait-hecki": "assets/portraits/hecki.webp",
+    "portrait-henk-angler": "assets/portraits/henk-angler.webp",
+    "portrait-herr-blitz": "assets/portraits/herr-blitz.webp",
+    "portrait-herr-glanz": "assets/portraits/herr-glanz.webp",
     "portrait-hunter": "assets/portraits/hunter.webp",
     "portrait-jakko": "assets/portraits/jakko.webp",
     "portrait-jimmy": "assets/portraits/jimmy.webp",
@@ -316,21 +590,44 @@
     "portrait-ki-nexus": "assets/portraits/ki-nexus.webp",
     "portrait-ki-nexus-angry": "assets/portraits/ki-nexus-angry.webp",
     "portrait-kiki-karbon": "assets/portraits/kiki-karbon.webp",
+    "portrait-knuspi": "assets/portraits/knuspi.webp",
+    "portrait-knut": "assets/portraits/knut.webp",
+    "portrait-krabbe-karl": "assets/portraits/krabbe-karl.webp",
+    "portrait-kraehe": "assets/portraits/kraehe.webp",
+    "portrait-kurt": "assets/portraits/kurt.webp",
+    "portrait-leutnant-nadel": "assets/portraits/leutnant-nadel.webp",
     "portrait-lio-funkel": "assets/portraits/lio-funkel.webp",
+    "portrait-madame-satin": "assets/portraits/madame-satin.webp",
     "portrait-marla-sand": "assets/portraits/marla-sand.webp",
+    "portrait-meister-watt": "assets/portraits/meister-watt.webp",
+    "portrait-mila": "assets/portraits/mila.webp",
+    "portrait-mira-loetzinn": "assets/portraits/mira-loetzinn.webp",
+    "portrait-mixi": "assets/portraits/mixi.webp",
+    "portrait-mutter-bruehe": "assets/portraits/mutter-bruehe.webp",
     "portrait-nyra": "assets/portraits/nyra.webp",
+    "portrait-ole-gaehn": "assets/portraits/ole-gaehn.webp",
     "portrait-oma-volt": "assets/portraits/oma-volt.webp",
+    "portrait-opa-blech": "assets/portraits/opa-blech.webp",
+    "portrait-opa-funk": "assets/portraits/opa-funk.webp",
+    "portrait-opa-gurrmann": "assets/portraits/opa-gurrmann.webp",
     "portrait-opa-gustav": "assets/portraits/opa-gustav.webp",
+    "portrait-paul": "assets/portraits/paul.webp",
+    "portrait-pfeffer": "assets/portraits/pfeffer.webp",
     "portrait-pim-pinzette": "assets/portraits/pim-pinzette.webp",
+    "portrait-portier-albert": "assets/portraits/portier-albert.webp",
     "portrait-quantum-fahrer": "assets/portraits/quantum-fahrer.webp",
     "portrait-raven": "assets/portraits/raven.webp",
     "portrait-richter": "assets/portraits/richter.webp",
     "portrait-ripper": "assets/portraits/ripper.webp",
     "portrait-rudi": "assets/portraits/rudi.webp",
     "portrait-salzige-grete": "assets/portraits/salzige-grete.webp",
+    "portrait-schlafwandler-bert": "assets/portraits/schlafwandler-bert.webp",
+    "portrait-schlafwandler-ede": "assets/portraits/schlafwandler-ede.webp",
+    "portrait-schlafwandlerin-rosi": "assets/portraits/schlafwandlerin-rosi.webp",
     "portrait-seraphina": "assets/portraits/seraphina.webp",
     "portrait-serenity": "assets/portraits/serenity.webp",
     "portrait-sina-spray": "assets/portraits/sina-spray.webp",
+    "portrait-staubbaron-broesel": "assets/portraits/staubbaron-broesel.webp",
     "portrait-stylistin-gina": "assets/portraits/stylistin-gina.webp",
     "portrait-sybella": "assets/portraits/sybella.webp",
     "portrait-turbo-tilda": "assets/portraits/turbo-tilda.webp",
@@ -640,8 +937,154 @@
         }
       }
     },
+    "barista-perle-walk": {
+      "file": "assets/sprites/barista-perle-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "barkeeper-walk": {
       "file": "assets/sprites/barkeeper-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "bijou-walk": {
+      "file": "assets/sprites/bijou-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -859,8 +1302,227 @@
         }
       }
     },
+    "bruder-kabellos-walk": {
+      "file": "assets/sprites/bruder-kabellos-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "bruno-brecher-walk": {
+      "file": "assets/sprites/bruno-brecher-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "buergermeister-gully-walk": {
       "file": "assets/sprites/buergermeister-gully-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "chrome-haushaelterin-walk": {
+      "file": "assets/sprites/chrome-haushaelterin-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -1297,8 +1959,1322 @@
         }
       }
     },
+    "direktorin-hartlauf-walk": {
+      "file": "assets/sprites/direktorin-hartlauf-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "dj-lumo-walk": {
+      "file": "assets/sprites/dj-lumo-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "dr-winkel-walk": {
+      "file": "assets/sprites/dr-winkel-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "elsa-walk": {
+      "file": "assets/sprites/elsa-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "falke-walk": {
+      "file": "assets/sprites/falke-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "fluss-frieda-walk": {
+      "file": "assets/sprites/fluss-frieda-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "fraeulein-pixel-walk": {
+      "file": "assets/sprites/fraeulein-pixel-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "frau-klingel-walk": {
+      "file": "assets/sprites/frau-klingel-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "frau-takt-walk": {
+      "file": "assets/sprites/frau-takt-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "freya-walk": {
       "file": "assets/sprites/freya-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "fx-60-walk": {
+      "file": "assets/sprites/fx-60-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "gerda-gleis-walk": {
+      "file": "assets/sprites/gerda-gleis-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "glasblaeserin-walk": {
+      "file": "assets/sprites/glasblaeserin-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "gutschein-gerd-walk": {
+      "file": "assets/sprites/gutschein-gerd-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "hafen-hannes-walk": {
+      "file": "assets/sprites/hafen-hannes-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "hecki-walk": {
+      "file": "assets/sprites/hecki-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "henk-angler-walk": {
+      "file": "assets/sprites/henk-angler-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "herr-blitz-walk": {
+      "file": "assets/sprites/herr-blitz-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "herr-glanz-walk": {
+      "file": "assets/sprites/herr-glanz-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -1881,8 +3857,519 @@
         }
       }
     },
+    "knuspi-walk": {
+      "file": "assets/sprites/knuspi-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "knut-walk": {
+      "file": "assets/sprites/knut-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "krabbe-karl-walk": {
+      "file": "assets/sprites/krabbe-karl-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "kraehe-walk": {
+      "file": "assets/sprites/kraehe-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "kurt-walk": {
+      "file": "assets/sprites/kurt-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "leutnant-nadel-walk": {
+      "file": "assets/sprites/leutnant-nadel-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "lio-funkel-walk": {
       "file": "assets/sprites/lio-funkel-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "madame-satin-walk": {
+      "file": "assets/sprites/madame-satin-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -2027,6 +4514,371 @@
         }
       }
     },
+    "meister-watt-walk": {
+      "file": "assets/sprites/meister-watt-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "mila-walk": {
+      "file": "assets/sprites/mila-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "mira-loetzinn-walk": {
+      "file": "assets/sprites/mira-loetzinn-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "mixi-walk": {
+      "file": "assets/sprites/mixi-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "mutter-bruehe-walk": {
+      "file": "assets/sprites/mutter-bruehe-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "nyra-walk": {
       "file": "assets/sprites/nyra-walk.png",
       "frameW": 128,
@@ -2100,8 +4952,300 @@
         }
       }
     },
+    "ole-gaehn-walk": {
+      "file": "assets/sprites/ole-gaehn-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "oma-volt-walk": {
       "file": "assets/sprites/oma-volt-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "opa-blech-walk": {
+      "file": "assets/sprites/opa-blech-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "opa-funk-walk": {
+      "file": "assets/sprites/opa-funk-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "opa-gurrmann-walk": {
+      "file": "assets/sprites/opa-gurrmann-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -2976,8 +6120,227 @@
         }
       }
     },
+    "paul-walk": {
+      "file": "assets/sprites/paul-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "pfeffer-walk": {
+      "file": "assets/sprites/pfeffer-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "pim-pinzette-walk": {
       "file": "assets/sprites/pim-pinzette-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "portier-albert-walk": {
+      "file": "assets/sprites/portier-albert-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -3633,6 +6996,225 @@
         }
       }
     },
+    "schlafwandler-bert-walk": {
+      "file": "assets/sprites/schlafwandler-bert-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "schlafwandler-ede-walk": {
+      "file": "assets/sprites/schlafwandler-ede-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "schlafwandlerin-rosi-walk": {
+      "file": "assets/sprites/schlafwandlerin-rosi-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
     "seraphina-walk": {
       "file": "assets/sprites/seraphina-walk.png",
       "frameW": 128,
@@ -3854,6 +7436,79 @@
     },
     "spaeherdrohne-walk": {
       "file": "assets/sprites/spaeherdrohne-walk.png",
+      "frameW": 128,
+      "frameH": 128,
+      "cols": 4,
+      "rows": 4,
+      "foot": [
+        64,
+        120
+      ],
+      "anims": {
+        "walk-s": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8
+        },
+        "walk-w": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "fps": 8
+        },
+        "walk-e": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "fps": 8
+        },
+        "walk-n": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "fps": 8
+        },
+        "idle-s": {
+          "frames": [
+            1
+          ],
+          "fps": 1
+        },
+        "idle-w": {
+          "frames": [
+            5
+          ],
+          "fps": 1
+        },
+        "idle-e": {
+          "frames": [
+            9
+          ],
+          "fps": 1
+        },
+        "idle-n": {
+          "frames": [
+            13
+          ],
+          "fps": 1
+        }
+      }
+    },
+    "staubbaron-broesel-walk": {
+      "file": "assets/sprites/staubbaron-broesel-walk.png",
       "frameW": 128,
       "frameH": 128,
       "cols": 4,
@@ -5068,6 +8723,28 @@
     }
   },
   "blurhash": {
+    "cut-ende-doch-noch-ans-meer": "L88p4iRhACss}x9?W-^7}vNYI:sF",
+    "cut-ende-master": "L55z%yR$Zx$nwKsp$QayM^W-ohsq",
+    "cut-ende-meer": "LTIDEl0#WAWB={Nde-R*^PNcNGWB",
+    "cut-ende-neue-nexus": "LIASPija5RW:}@s.9[WB$%oeS3WB",
+    "cut-epilog-sendung": "L79GONE2w~-X?dR.SixcNi%3n-NH",
+    "cut-he-dante-6": "L56tB;1O%3Elt8t9OZxb5S-oJC-U",
+    "cut-he-hunter-6": "LUB3Q:RNIoR$^-RhNFWA%NWARioL",
+    "cut-he-jimmy-6": "L98MwfEbx1?1=*EcoNj^V=oibEe,",
+    "cut-he-kaeptn-nebelhorn-10": "LOCrTX0z-TWV^kEgsRa{xbNaWBay",
+    "cut-he-lio-funkel-6": "L56tUqZ_=#$+tWIlI[I=I=WUS1X9",
+    "cut-he-nyra-4": "L77AGb5j=gOH}wEg$jSP$-NyslS2",
+    "cut-he-raven-6": "L55}aRS8#Zss?d-qrzVy%P-Ws?i$",
+    "cut-he-vega-6": "L46G=Cp0o~%5s;J4,^aw-HFyK6o$",
+    "cut-main-2-bruch": "L75OmdzTtTO=yDz?i^X-k9r^snkW",
+    "cut-main-2-countdown": "L58{wk0^,^K4WtSa=zJ7Rg=z9@$k",
+    "cut-main-2-kanal": "L45XcdWY9pND$SoLbZS0V?oKspSL",
+    "cut-main-2-krisensitzung": "LA9PsXaMROslIURn%2X3}^njNGfO",
+    "cut-main-3-blade": "L58pWX}kM]o%?0si=fS5NOInayS1",
+    "cut-main-3-einlass": "L696nIm$tT-Yn.-WI-NbAEn$azSe",
+    "cut-main-3-gedankenkontrolle": "L88NO*[BrYY5%%+wi{KiJ5nn$j%2",
+    "cut-main-3-labor": "L57^}eH;9^9ENhn4xZS1JWxvVq%2",
+    "cut-main-3-nexus": "L455U.GFDN@[bAX8MxwIibjEtmS}",
     "cut-rom-aria-albtraum": "L46j|PGuTg-W}_KObxad=h9?e.of",
     "cut-rom-aria-ausfall": "L35Xia{^={tR-=#%xbtQb{M_R.b^",
     "cut-rom-aria-dach": "L87,fpNDNhOW-t$is;Ez-DohbJNY",
@@ -5089,8 +8766,10 @@
     "cut-rom-vexaria-konzert": "LA8pK35jbcoL}vEdS2sow|I:n$sm",
     "cut-rom-vexaria-kuss": "LhI2.v9_Ej$$}rNcR,s.Ndj@oeWD",
     "cut-rom-vexaria-luecke": "L36jz,AU,:1D=#Ex#;S0srJ5wfJP",
+    "cut-rom-vexaria-meer": "LRGjT.0~-TWX}tEhoKa#=yNdR*s:",
     "cut-rom-vexaria-morgen": "L99sYl=?=|57^j~BxWWB%2=|s,ae",
     "cut-rom-vexaria-oberlicht": "LG7UMVnMjGt9%jadRibcx_axadjs",
+    "cut-rom-vexaria-rettung": "L25zwV=%r|^T}b$l$,xcM{wI$fW-",
     "cut-rom-vexaria-sprung": "LSDa.Gs:I@oL}rs.EioL=wj[NcoL",
     "cut-rom-vexaria-tanz": "L66@ESBoSlf,}xFwtAo#x1Fw$-o#",
     "cut-rom-vexaria-umdrehen": "L36aYq}v$l#8$8RiJQkXXBRiImNE"

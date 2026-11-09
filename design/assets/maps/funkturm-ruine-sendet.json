@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-funkturm-ruine-sendet": "assets/bg/funkturm-ruine-sendet.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/funkturm-ruine-sendet.png",
+ "prompt": "Edit the attached game map image. Output exactly the same image, same size 1536x1024, same composition, same camera, same painting style, every building, object, rock and path in exactly the same place. Only these small changes: the wind turbine on the left is repaired and its blades spin (slight motion blur), its fabric ribbons flutter; the toppled transmission mast on the rock plateau top right is decorated with a string of small warm glowing light bulbs; a small new antenna with a blinking red light stands on the bunker roof. Nothing else changes. No people, no text, no letters."
+}

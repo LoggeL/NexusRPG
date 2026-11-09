@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "paul-neutral.png",
+  "sha": "dfdd80d0e096683f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 37230
+ },
+ "freude": {
+  "src": "paul-freude.png",
+  "sha": "8c8855042713b63d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39710
+ },
+ "besorgt": {
+  "src": "paul-besorgt.png",
+  "sha": "2e886037689b856b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35772
+ },
+ "signatur": {
+  "src": "paul-signatur.png",
+  "sha": "b240d0726e162932",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36382
+ }
+}

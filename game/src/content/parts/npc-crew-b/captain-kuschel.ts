@@ -2,13 +2,14 @@
 // Spricht nie: Seine Zeilen sind Ohrenstellungen (hoch = ja, schlapp = traurig, eines geknickt = skeptisch); Dante, Nyra
 // oder die Kinder übersetzen. Hinterlässt Zettel, unterschrieben „– C. K.“. Wechselt in main-1-dante zu Nyra
 // (Flag nyra_hat_kuschel). Mo/Mi tagsüber im das-nest „ausgeliehen“. Kein Begleiter (Kampfgegenstand captain-kuschel).
-// Herz-Ereignisse 2/4/6 in Akt 1, 8/10 angelegt und an act2 gebunden. Persönliche Quest pers-kuschel-ohrenflick (Quest-Agent).
+// Herz-Ereignisse 2/4/6 in Akt 1, 8/10 ab Akt 2 als volle Szenen in kuschel-akt23.ts (dort auch Akt 2/3, Nachspiel). Persönliche Quest pers-kuschel-ohrenflick (Quest-Agent).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, VEX, einmalig, aktiv, dialog, done, erz, flag, herz, ich, knoten, neu, offen, pruefung, rede, sammle, sprecher,
   tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
+import { KUSCHEL_FREI, akt23, he10, he8, menue23 } from './kuschel-akt23';
 
 const K = sprecher('captain-kuschel');
 const D = sprecher('dante');
@@ -26,6 +27,7 @@ const WOCHENTAG = ['mo', 'di', 'mi', 'do', 'fr'] as const;
 
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Captain.', next: 'menue', id: 'zurueck' }, { text: 'Tschüss, Captain.' }];
+  const M23 = menue23(zurueck);
 
   const choices: DialogueChoice[] = einmalig('kuschel', [
     { text: 'Ihm die Ohren kraulen.', next: 'kraulen' },
@@ -38,6 +40,7 @@ function menue(): Menue {
     { text: 'Was hältst du von Nyra?', when: BEI_NYRA, next: 'nyra', once: true, id: 'k-nyra' },
     { text: '„Was meinst du, Captain … mag sie mich?“', tag: '[Vex]', when: { all: [VEX, { any: [{ flag: 'vexaria_wette' }, { flag: 'vexaria_knutsch' }] }] }, next: 'vex-frage', once: true, id: 'k-vex' },
     { text: 'Hast du mir einen Zettel dagelassen?', requires: { hearts: 'captain-kuschel', min: 3 }, tag: '[Kuschel ♥3]', next: 'zettel', once: true, id: 'k-zettel' },
+    ...M23.choices,
     { text: 'Tschüss, Captain.' },
   ]);
 
@@ -77,11 +80,13 @@ function menue(): Menue {
       erz('„Du schläfst zu wenig. Du isst zu viel Mist. Du bist trotzdem okay. – C. K.“'),
       K('(Ein Ohr hoch.)'),
     ], { choices: zurueck }),
+    ...M23.nodes,
   ];
   return { choices, nodes };
 }
 
 const M = menue();
+const A23 = akt23(M);
 
 /** Rivalität: „Ich bin enttäuscht. – C. K.“ Versöhnung: Naht flicken (Nadel und Faden oder Ohrenflick erledigt). */
 const RIVALE: Menue = {
@@ -314,31 +319,7 @@ const he6 = dialog('he-captain-kuschel-6', [
   ], { effects: [flag('kuschel_gefunden'), herz('daria', 10), herz('freya', 10), herz('jakko', 20), { xp: 80 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-captain-kuschel-8', [
-  knoten('start', [
-    erz('Babette steht mit einem Eimer Lauge vor der Garküche und hält Captain Kuschel an einem Ohr. „Der Hase riecht nach Keksen, Hund und Werkstatt. Der kommt jetzt in die Wäsche.“'),
-    K('(Beide Ohren in blanker Panik nach hinten.)', 'trauer'),
-  ], {
-    choices: [
-      { text: '„Babette. Der Captain wird nicht gewaschen. Nie. Das ist Gesetz.“', check: pruefung('he-kuschel-8-babette', 'ausstrahlung', 6, ['ueberreden']), next: 'gerettet', effects: [herz('captain-kuschel', 60)] },
-      { text: 'Den Captain schnappen und rennen.', check: pruefung('he-kuschel-8-rennen', 'reflexe', 6, ['flucht']), next: 'gerettet', effects: [herz('captain-kuschel', 60)] },
-      { text: '„Nur Trockenreinigung. Mit der Bürste. Ich mach das.“', next: 'gerettet', effects: [herz('captain-kuschel', 40)] },
-    ],
-  }),
-  knoten('gerettet', [erz('Zettel, später, in deiner Tasche: „Du hast mir das Leben gerettet. Und meine Ohren. – C. K.“')], { effects: [{ xp: 120 }, flag('kuschel_nicht_gewaschen')] }),
-]);
-
-const he10 = dialog('he-captain-kuschel-10', [
-  knoten('start', [
-    erz('Captain Kuschel sitzt auf deinem Kopfkissen im Crew-Quartier. Neben ihm: ein winziges Stück Stoff, zu einem Anhänger geknotet, in Form zweier sehr großer Ohren. Und ein Zettel.'),
-    erz('„Für dich. Damit du siehst, was sich versteckt. Und merkst, wenn jemand traurig ist. Das ist alles, was ich kann. Jetzt kannst du es auch. – C. K.“'),
-    K('(Beide Ohren hoch. Für immer.)', 'freude'),
-  ], { choices: [{ text: 'Den Anhänger umbinden.', next: 'ende' }] }),
-  knoten('ende', [erz('Talisman „Große Ohren“: Du siehst versteckte Gegner und hast +1 Ausstrahlung, wenn jemand traurig ist.')], {
-    effects: [flag('kuschel_talisman'), { message: 'Talisman „Große Ohren“ erhalten.' }, { xp: 150 }],
-  }),
-]);
+// ♥8 und ♥10: volle Szenen in kuschel-akt23.ts.
 
 // Rivalität −5: Zettelkrieg.
 const re5 = dialog('re-captain-kuschel-5', [
@@ -368,8 +349,10 @@ const kuschel: NpcDef = {
     hates: ['waschpulver'],
   },
   schedule: [
+    // Akt 2 (Turm, Fundbüro, Mila), Master-Modus, Nachspiel (kuschel-akt23.ts).
+    ...A23.schedule,
     // Ab ♥6 einmal verschwunden, bis Bolzen ihn im Nest findet (he-captain-kuschel-6).
-    { when: { all: [{ hearts: 'captain-kuschel', min: 6 }, neu('he-captain-kuschel-6')] }, place: 'away' },
+    { when: { all: [{ hearts: 'captain-kuschel', min: 6 }, neu('he-captain-kuschel-6'), KUSCHEL_FREI] }, place: 'away' },
     // Mo/Mi tagsüber im Nest ausgeliehen – auch, wenn er schon bei Nyra wohnt.
     { slot: 'tag', days: ['mo', 'mi'], place: { map: 'das-nest', at: 'kuschel-platz' }, dialogue: 'kuschel-tag-nest' },
     // Bei Nyra: mit ihr unterwegs (in der Party trägt sie ihn in der Kapuze).
@@ -382,15 +365,17 @@ const kuschel: NpcDef = {
     { place: { map: 'dantes-werkstatt', at: 'kuschel-regal' } },
   ],
   heartEvents: [
-    { id: 'he-captain-kuschel-2', hearts: 2, map: 'dantes-werkstatt', time: ['morgen', 'tag', 'abend'], dialogue: 'he-captain-kuschel-2' },
-    { id: 'he-captain-kuschel-4', hearts: 4, map: 'das-nest', time: 'tag', when: { weekday: ['mo', 'mi'] }, dialogue: 'he-captain-kuschel-4' },
-    { id: 'he-captain-kuschel-6', hearts: 6, map: 'das-nest', time: 'tag', dialogue: 'he-captain-kuschel-6' },
-    { id: 'he-captain-kuschel-8', hearts: 8, map: 'schrottmarkt', time: 'tag', when: { act: 2 }, dialogue: 'he-captain-kuschel-8' },
-    { id: 'he-captain-kuschel-10', hearts: 10, map: 'crew-quartier', when: { all: [{ act: 2 }, { seen: 'he-captain-kuschel-8' }] }, dialogue: 'he-captain-kuschel-10' },
-    { id: 're-captain-kuschel-5', hearts: -5, map: 'dantes-werkstatt', dialogue: 're-captain-kuschel-5' },
+    { id: 'he-captain-kuschel-2', hearts: 2, map: 'dantes-werkstatt', time: ['morgen', 'tag', 'abend'], when: KUSCHEL_FREI, dialogue: 'he-captain-kuschel-2' },
+    { id: 'he-captain-kuschel-4', hearts: 4, map: 'das-nest', time: 'tag', when: { all: [{ weekday: ['mo', 'mi'] }, KUSCHEL_FREI] }, dialogue: 'he-captain-kuschel-4' },
+    { id: 'he-captain-kuschel-6', hearts: 6, map: 'das-nest', time: 'tag', when: KUSCHEL_FREI, dialogue: 'he-captain-kuschel-6' },
+    { id: 'he-captain-kuschel-8', hearts: 8, map: 'schrottmarkt', time: 'tag', when: { all: [{ act: 2 }, KUSCHEL_FREI] }, dialogue: 'he-captain-kuschel-8' },
+    { id: 'he-captain-kuschel-10', hearts: 10, map: 'crew-quartier', time: ['abend', 'nacht'], when: { all: [{ act: 2 }, { seen: 'he-captain-kuschel-8' }, KUSCHEL_FREI] }, dialogue: 'he-captain-kuschel-10' },
+    { id: 're-captain-kuschel-5', hearts: -5, map: 'dantes-werkstatt', when: KUSCHEL_FREI, dialogue: 're-captain-kuschel-5' },
   ],
   talk: [
     rede('kuschel-tag-rivale', { rival: 'captain-kuschel' }),
+    // Akt 2/3, Master-Modus, Nachspiel (kuschel-akt23.ts).
+    ...A23.talk,
     rede('kuschel-tag-zeit', { not: { act: 2 } }, 8),
     rede('kuschel-tag-nest', { all: [{ weekday: ['mo', 'mi'] }, { time: 'tag' }] }),
     rede('kuschel-tag-nacht', { time: 'nacht' }),
@@ -406,13 +391,14 @@ export const part: ContentPart = {
   npcs: { 'captain-kuschel': kuschel },
   dialogues: sammle(
     T.rivale, T.zeit, T.werkstattMorgen, T.werkstatt, T.nacht, T.nest, T.beiNyra, T.meer, T.vertraut,
-    he2, he4, he6, he8, he10, re5,
+    he2, he4, he6, he8, he10, re5, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   phone: {
+    ...A23.phone,
     'tel-kuschel-weg': {
       id: 'tel-kuschel-weg', from: 'dante',
       text: 'NOTFALL. Captain Kuschel ist WEG. Kein Zettel, nichts. Nyra heult, ich heule, der Plattenspieler eiert. Die Kinder haben ihn zuletzt gesehen. Geh ins Nest. BITTE.',
-      auto: { all: [{ hearts: 'captain-kuschel', min: 6 }, neu('he-captain-kuschel-6')] },
+      auto: { all: [{ hearts: 'captain-kuschel', min: 6 }, neu('he-captain-kuschel-6'), KUSCHEL_FREI] },
     },
   },
 };

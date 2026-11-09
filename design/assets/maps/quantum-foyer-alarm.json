@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-foyer-alarm": "assets/bg/quantum-foyer-alarm.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-foyer-alarm.png",
+ "prompt": "Edit the attached interior game map background (first image) into an alarm variant. Keep EXACTLY the same layout, camera, walls, doors, elevators, staircase, reception desk, hologram platform, security glass box, counters, bench, stand, vending machine and revolving door at the same positions; same painting style, same 1536x1024 framing. Change only the lighting: main lights off, red emergency lighting, rotating red warning beacons above the elevators and doors, monitors in the security glass box flashing red, the hologram flickering red and violet, red reflections on the marble floor. Keep the walkable floor readable. STRICT: no people, no figures, no text, no letters, no logos, no UI."
+}

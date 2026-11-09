@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-glasduenen-abend": "assets/bg/glasduenen-abend.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/glasduenen-abend.png",
+ "prompt": "Edit the attached game map background image (first attached image). Keep EVERYTHING identical: same camera, same composition, same glass dunes, canyon, bridge, winch, glassblower hut, furnace, scorpion nest, car wreck hideout, signs and fences, same painting style, same size 1536x1024. Change only the time of day to early evening sunset: the glass dunes and crystals sparkle in deep red, orange and magenta reflections, long violet shadows across the sand, the sea strip at the top horizon is dark navy blue with a thin golden line of sunset light, the glowing canyon shimmers turquoise, the furnace mouth and the hut windows glow warm orange, a small campfire glows at the hideout. No people, no animals, no text."
+}

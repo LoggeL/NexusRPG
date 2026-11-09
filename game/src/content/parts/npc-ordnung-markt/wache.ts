@@ -5,9 +5,10 @@
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
-  type Menue, AB_AKT2, NICHT_AKT2, VEX, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle,
+  type Menue, AB_AKT2, NICHT_AKT2, erweitere, VEX, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle,
   sprecher, tagesgespraech,
 } from './_helfer';
+import { MENUE_23, SONNENGRUSS, akt23 } from './wache-akt23';
 
 const K = sprecher('wache');
 const D = sprecher('dexter');
@@ -83,7 +84,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: Taschenkontrollen; Versöhnung über Formular, Gebühr oder Kaffee. */
 const RIVALE: Menue = {
@@ -346,42 +347,8 @@ const he6 = dialog('he-wache-6', [
   ], { effects: [{ xp: 80 }, flag('kessel_weggeschaut')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-wache-8', [
-  knoten('start', [
-    erz('Bahnhofskiosk. Kessel schiebt dir einen gefalteten Zettel über den Tresen, ohne dich anzusehen.'),
-    K('Dienstplan Einlass. Für eine gewisse Feier in einem gewissen Turm. Ich stehe am Seiteneingang. Zwischen 22:10 und 22:25 kontrolliere ich sehr gründlich meine Schnürsenkel.', 'neutral'),
-    K('Das habe ich nicht gesagt. Ich habe nur laut über Schnürsenkel nachgedacht.'),
-  ], {
-    effects: [flag('kessel_einlass_abkuerzung')],
-    choices: [
-      { text: '„Kessel. Sie riskieren Ihren Job.“', next: 'job' },
-      { text: '„Ihre Schnürsenkel sind mir heilig.“', next: 'heilig' },
-    ],
-  }),
-  knoten('job', [K('Welchen Job? Ich bin halb Yogalehrerin. Halb ist genug Risiko.', 'neutral')], { effects: [herz('wache', 40), { xp: 120 }] }),
-  knoten('heilig', [K('Gut. Doppelknoten. Dauert länger.', 'ueberrascht')], { effects: [herz('wache', 40), { xp: 120 }] }),
-]);
-
-const he10 = dialog('he-wache-10', [
-  knoten('start', [
-    erz('Neonnacht. Kessel hat zum ersten Mal in elf Jahren frei und zieht dich eine Feuerleiter am Bahnhof hinauf, bis aufs Dach des Stellwerks.'),
-    K('Stadtführung. Inoffiziell. Da: der Eisenhof, sieht von oben aus wie ein Kuchenblech. Da: Babettes Dampf. Da: der Stufenplatz, wo Collin immer winkt. Nicht mir. Aber in meine Richtung.', 'neutral'),
-    erz('Dann knallt es. Über der Unterstadt platzen Farben, Rot, Gold, Neongrün, und spiegeln sich in jeder Pfütze bis zur Flutmauer.'),
-    K('Kein Rauch. Diesmal kein Rauch. Nur Licht.', 'ueberrascht'),
-    erz('Sie zieht die Strichliste aus der Jacke, reißt die Seite mit deinem Namen heraus und drückt sie dir in die Hand.'),
-    K('Die gehört Ihnen. Die längste Spalte, die ich je geführt habe. Ich fang eine neue an. Mit einem Strich. Für heute.'),
-  ], {
-    effects: [{ give: 'wachen-strichliste' }, flag('kessel_feuerwerk'), { xp: 200 }, herz('wache', 50)],
-    choices: [
-      { text: '„Ich hoffe, wir sehen uns wieder, Kessel.“', next: 'wieder' },
-    ],
-  }),
-  knoten('wieder', [
-    K('Das ist der falsche Satz.', 'ueberrascht'),
-    K('… Es ist der richtige. Ich notiere ihn.'),
-  ]),
-]);
+// ♥8 und ♥10 (Akt 2) sowie Akt-2/3- und Nachspiel-Gespräche: wache-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -400,6 +367,7 @@ const wache: NpcDef = {
     hates: ['raubkopie-stick', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     // Nach der Kündigung: Yoga im Hinterhof-Studio (Lötgassen).
     { slot: ['morgen', 'tag'], when: GEKUENDIGT, place: { map: 'loetgassen', at: 'hinterhof-studio' } },
     { slot: 'morgen', days: ['mi'], place: { map: 'gerichtssaal', at: 'saalwache' } },
@@ -413,7 +381,7 @@ const wache: NpcDef = {
     { id: 'he-wache-4', hearts: 4, map: 'bahnhof-mitte', time: 'abend', dialogue: 'he-wache-4' },
     { id: 'he-wache-6', hearts: 6, map: 'eisenhof', time: 'morgen', when: { not: { weekday: 'mi' } }, dialogue: 'he-wache-6' },
     { id: 'he-wache-8', hearts: 8, map: 'bahnhof-mitte', time: 'abend', when: AB_AKT2, dialogue: 'he-wache-8' },
-    { id: 'he-wache-10', hearts: 10, map: 'bahnhof-mitte', time: 'nacht', when: { all: [AB_AKT2, { seen: 'he-wache-8' }, { cycleDay: 7 }] }, dialogue: 'he-wache-10' },
+    { id: 'he-wache-10', hearts: 10, map: 'bahnhof-mitte', time: 'nacht', when: { all: [AB_AKT2, { seen: 'he-wache-8' }, { cycleDay: [7, 21] }] }, dialogue: 'he-wache-10' },
   ],
   companion: {
     recruit: REKRUT,
@@ -424,6 +392,8 @@ const wache: NpcDef = {
       abilities: ['wache-schildwall', 'wache-vorschrift'],
     },
     heartAbilities: [{ hearts: 10, ability: 'wache-wir-sehen-uns-nicht-wieder' }],
+    // Nach der Kündigung (Yogalehrerin): Sonnengruß.
+    abilityRules: [{ when: GEKUENDIGT, add: SONNENGRUSS.id }],
   },
   partyCheckBonus: [
     { attribute: 'ausstrahlung', tags: ['formular', 'behoerde', 'ueberzeugen'], value: 1, label: 'Kessel kennt die Vorschrift' },
@@ -432,6 +402,7 @@ const wache: NpcDef = {
     rede('wache-tag-rivale', { rival: 'wache' }),
     rede('wache-tag-ex-wache', { all: [{ origin: 'origin-ex-wache' }, { notFlag: 'wache_herkunft' }] }),
     rede('wache-tag-knast', { all: [{ origin: 'origin-knastvogel' }, { notFlag: 'wache_herkunft' }] }),
+    ...A23.talk,
     rede('wache-tag-vexaria', { all: [VEX, { flag: 'aria_romanze_zusammen' }, { notFlag: 'wache_kommentar_vexaria' }] }),
     rede('wache-tag-gekuendigt', GEKUENDIGT),
     rede('wache-tag-zeit', NICHT_AKT2, 8),
@@ -447,10 +418,12 @@ const wache: NpcDef = {
 
 export const part: ContentPart = {
   npcs: { wache },
+  ...A23.teil,
   dialogues: sammle(
+    ...A23.dialogues,
     T.rivale, T.exWache, T.knast, T.vexaria, T.zeit, T.gekuendigt, T.quest, T.saal, T.besucher, T.kiosk, T.vertraut,
     T.morgen, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6,
   ),
   phone: {
     'tel-wache-kiosk': {

@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "opa-blech-neutral.png",
+  "sha": "74e9a1dddab91355",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 76188
+ },
+ "freude": {
+  "src": "opa-blech-freude.png",
+  "sha": "7d8a226659730547",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 75162
+ },
+ "besorgt": {
+  "src": "opa-blech-besorgt.png",
+  "sha": "839e57b688b57b04",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66950
+ }
+}

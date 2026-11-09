@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "bijou-neutral.png",
+  "sha": "5204b1b1718a527a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77328
+ },
+ "freude": {
+  "src": "bijou-freude.png",
+  "sha": "b82f6788aa698b01",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77138
+ },
+ "wut": {
+  "src": "bijou-wut.png",
+  "sha": "51d1fe4f6c7bbc34",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 76346
+ }
+}

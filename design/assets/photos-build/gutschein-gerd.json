@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "gutschein-gerd-neutral.png",
+  "sha": "cb1da096e95332d5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49370
+ },
+ "freude": {
+  "src": "gutschein-gerd-freude.png",
+  "sha": "a521d2020e8b5b11",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49468
+ },
+ "ueberrascht": {
+  "src": "gutschein-gerd-ueberrascht.png",
+  "sha": "8d09f0dedeb8c0b7",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49326
+ },
+ "signatur": {
+  "src": "gutschein-gerd-signatur.png",
+  "sha": "36754d70d205cef7",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56016
+ }
+}

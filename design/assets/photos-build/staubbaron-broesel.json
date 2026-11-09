@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "staubbaron-broesel-neutral.png",
+  "sha": "b15b5e6428525a5a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 73682
+ },
+ "wut": {
+  "src": "staubbaron-broesel-wut.png",
+  "sha": "5b075dec03c404f5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 83286
+ },
+ "signatur": {
+  "src": "staubbaron-broesel-signatur.png",
+  "sha": "1a1018bffa6ae933",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 82966
+ }
+}

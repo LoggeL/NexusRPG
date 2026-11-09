@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-rennhalle-9-rennnacht": "assets/bg/rennhalle-9-rennnacht.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/rennhalle-9-rennnacht.png",
+ "prompt": "Edit the attached race-hall map (first image) and return the SAME image with the SAME camera, composition, layout and objects - every wall, the tarp-covered stage, the fallen truss, the bleachers, the betting booth, the podium, the pit garages, the oval track, the infield, the ramp and the rolling door stay exactly in place and size. Only change the lighting and decoration to \"race night\": bright white floodlights now shine down onto the oval track from above (round pools of hard white light on the track surface, strong contrast), the chequered start line glows, rows of small coloured bulbs along the bleacher railings and the track kerbs are switched on, colourful pennant garlands are strung across the hall, the betting booth window is lit warm yellow, the pit garages glow brighter, confetti and crumpled betting slips (blank, no text) scattered on the floor near the bleachers, a little haze/smoke in the light beams. The tarp-covered old stage at the top left stays dark and untouched in shadow. Keep the hand-painted cartoon style with dark ink outlines and the hot pink / cyan neon palette. STRICT: no people, no spectators, no figures, no animals, no robots driving, no readable text, no letters, no numbers, no logos, no watermark, no frame, no UI."
+}

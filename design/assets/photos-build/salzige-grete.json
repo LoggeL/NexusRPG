@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "salzige-grete-neutral.png",
+  "sha": "d98aad4078ee88bc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77552
+ },
+ "freude": {
+  "src": "salzige-grete-freude.png",
+  "sha": "e3befb99c5199d50",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 75456
+ },
+ "wut": {
+  "src": "salzige-grete-wut.png",
+  "sha": "df961121eeb9a156",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77210
+ }
+}

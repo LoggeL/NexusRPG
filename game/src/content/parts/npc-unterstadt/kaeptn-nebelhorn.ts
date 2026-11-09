@@ -7,8 +7,9 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, einmalig, AKT2, VOR_AKT2, alle, dialog, erz, flag, herz, herzEreignis, ich, knoten, pruefung, rede, sammle,
-  sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS,
+  sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere,
 } from './_lib';
+import { MENUE_23, akt23 } from './nebelhorn-akt23';
 
 const ID = 'kaeptn-nebelhorn';
 const N = sprecher(ID);
@@ -91,7 +92,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 const RIVALE: Menue = {
   choices: [{ text: 'Ich will das klären, Käpt’n.', next: 'klaeren' }, { text: 'Dann eben nicht.' }],
@@ -301,36 +302,8 @@ const he6 = dialog('he-kaeptn-nebelhorn-6', [
   ], { effects: [flag('nebelhorn_pakt'), { xp: 90 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-kaeptn-nebelhorn-8', [
-  knoten('start', [
-    erz('Hausboot, nachts. Nebelhorn hat das Buch mit den Salzflecken aus dem Regal geholt. „Logbuch – M. Nebelhorn“ steht auf dem Einband. Er legt es zwischen euch auf den Tisch.'),
-    N('Das Logbuch meiner Großmutter. Ich hab es vierzig Jahre nicht aufgemacht. Heute machen wir es auf. Zusammen. Sonst trau ich mich nie.', 'besorgt'),
-  ], {
-    choices: [
-      { text: 'Die letzte Seite vorlesen.', next: 'lesen', effects: [herz(ID, 60)] },
-      { text: '„Lies du. Ich bin da.“', next: 'er-liest', effects: [herz(ID, 60)] },
-    ],
-  }),
-  knoten('lesen', [
-    ich('„Tag drei. Land in Sicht. Es ist schön hier. Ich bleibe eine Weile. Wenn mein Junge das liest: Komm nach. Es ist nicht weit. Es ist nur weiter, als man denkt.“'),
-    N('… Nur weiter, als man denkt.', 'besorgt'),
-  ], { effects: [flag('nebelhorn_logbuch'), { xp: 150 }] }),
-  knoten('er-liest', [
-    erz('Nebelhorn liest. Leise, mit dem Finger unter der Zeile. Bei der letzten Seite bricht seine Stimme. Er liest sie trotzdem zu Ende.'),
-    N('Sie ist angekommen. Sie ist nicht ertrunken. Sie ist ANGEKOMMEN. Und sie hat gewartet. Auf mich.', 'freude'),
-  ], { effects: [flag('nebelhorn_logbuch'), { xp: 150 }] }),
-]);
-
-const he10 = dialog('he-kaeptn-nebelhorn-10', [
-  knoten('start', [
-    erz('Die Fähre gleitet durch die Hafenausfahrt. Nicht im Kreis. Geradeaus. Hinter der Flutmauer öffnet sich das Wasser, grau, dann grün, dann silbern bis zum Horizont.'),
-    N('Da ist es. Da ist es, Kleines. Das Meer.', 'besorgt'),
-    erz('Er weint nicht. Er hat nur Salz im Auge. Sehr viel Salz.'),
-    N('Hier. Nimm. Ein kleines Horn. Hab ich selbst gegossen. Wenn du es bläst, hört man es an jedem Hafen. Und dann weiß ich, dass du heimkommst.', 'freude'),
-    N('TUUUUUUUUUUUUT! Klar Schiff! KLAR SCHIFF, VERDAMMT!'),
-  ], { effects: [{ give: 'nebelhorn-mini' }, flag('nebelhorn_meer'), { xp: 200 }, herz(ID, 50)] }),
-]);
+// ♥8 und ♥10 samt Akt-2/3- und Nachspiel-Gesprächen: nebelhorn-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -349,6 +322,7 @@ const nebelhorn: NpcDef = {
     hates: ['plastikpflanze', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     // Sonntags früh angelt er mit Hunter (world.md §3.4).
     { slot: 'morgen', days: ['so'], place: { map: 'hafenkante', at: 'angelsteg' } },
     { slot: 'morgen', place: { map: 'hafenkante', at: 'steg' } },
@@ -367,6 +341,7 @@ const nebelhorn: NpcDef = {
   talk: [
     rede('kaeptn-nebelhorn-tag-rivale', { rival: ID }),
     rede('kaeptn-nebelhorn-tag-erstes', { not: { met: ID } }),
+    ...A23.talk,
     rede('kaeptn-nebelhorn-tag-zeit', alle(VOR_AKT2, { notFlag: 'nebelhorn_zeit_hinweis' }), 8),
     rede('kaeptn-nebelhorn-tag-rostlaube', alle(ROSTLAUBE_DONE, { notFlag: 'nebelhorn_rostlaube_kommentar' })),
     rede('kaeptn-nebelhorn-tag-sonntag', alle({ weekday: 'so' }, { time: 'morgen' })),
@@ -385,7 +360,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.erstes, T.zeit, T.rostlaubeFertig, T.sonntag, T.morgen, T.tag, T.stammtisch, T.abend, T.nacht,
     T.freund, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-kaeptn-nebelhorn-10', title: 'Einmal nicht im Kreis',

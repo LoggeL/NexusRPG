@@ -1,15 +1,16 @@
 // Bolzen – ausgemusterter Quantum-Wachhund, Alpha der Brackbucht, danach Haustier (world.md §4.4, §6.2 #20, §11.2).
 // Erscheint erst nach side-hunde-der-brackbucht (Flag bolzen_umprogrammiert von maps/flutmauer oder Quest erledigt);
 // vorher ist der Alpha Teil der Begegnung an der Flutmauer, daher hier away. Danach Hundekorb im Crew-Quartier,
-// tagsüber auf den Dächern der Neon-Gasse. Herz-Ereignisse he-bolzen-2/4/6, 8/10 angelegt und an act2 gebunden.
+// tagsüber auf den Dächern der Neon-Gasse. Herz-Ereignisse he-bolzen-2/4/6, 8/10 ab act2 (bolzen-akt23.ts).
 // Morgenfunde: eine Woche lang je Wochentag ein Fund im Tagesgespräch (echter Tagesfund fehlt in der Engine, siehe Lücken).
 // Persönliche Quest pers-bolzen-bein baut der Quest-Agent; hier nur der Auftakt.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
   type Menue, einmalig, AKT2, VOR_AKT2, alle, dialog, eins, erz, flag, herz, herzEreignis, ich, knoten, nicht, pruefung, rede,
-  sammle, sprecher, tagesgespraech, ZEIT_HINWEIS,
+  sammle, sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere,
 } from './_lib';
+import { BELLEN, MENUE_23, SCHNUEFFELN, akt23 } from './bolzen-akt23';
 
 const ID = 'bolzen';
 const B = sprecher(ID);
@@ -73,7 +74,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 // ---------------------------------------------------------------------------------------------- Morgenfunde (Notbehelf)
 
@@ -280,28 +281,8 @@ const he6 = dialog('he-bolzen-6', [
   ], { effects: [flag('bolzen_kuschel_freunde'), herz('dante', 30), herz('captain-kuschel', 30), { xp: 80 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-bolzen-8', [
-  knoten('start', [
-    erz('Bolzen gräbt. Seit einer Stunde. Am Schrottmarkt, hinter Dexters Halde. Dann ein metallisches Klong – und er zieht eine Kiste aus dem Dreck. Rostig, versiegelt, mit einem Logo, das du kennst: DIGITECH.'),
-    B('WUFF! (Das heißt: Ich hab dir gesagt, ich grab was Großes aus! ICH HAB ES GESAGT!)', 'freude'),
-  ], {
-    choices: [
-      { text: 'Das Siegel knacken.', check: pruefung('he-bolzen-8-siegel', 'technik', 6, ['hacken']), next: 'auf', effects: [herz(ID, 50)] },
-      { text: 'Mit Bolzens Hilfe aufstemmen.', next: 'auf', effects: [herz(ID, 50), { advanceTime: 30 }] },
-    ],
-  }),
-  knoten('auf', [
-    erz('In der Kiste: Datenwürfel, ein Dienstausweis von vor sieben Jahren – und ein Zettel, der jemandem in der Crew sehr viel bedeuten wird.'),
-  ], { effects: [flag('bolzen_digitech_kiste'), { xp: 150 }] }),
-]);
-
-const he10 = dialog('he-bolzen-10', [
-  knoten('start', [
-    erz('Bolzen kommt mit etwas im Maul. Diesmal ist es kein Kabel, keine Schraube, kein Hase. Es ist eine Unterlegscheibe an einem Band, mit Zahnabdrücken. Er legt sie dir in die Hand und setzt sich. Ganz gerade.'),
-    B('Wuff. (Das heißt: Meine Marke. Hab ich selbst gemacht. Damit jeder weiß, dass ich zu dir gehöre. Und du zu mir.)', 'freude'),
-  ], { effects: [{ give: 'bolzens-marke' }, flag('bolzen_marke'), { xp: 200 }, herz(ID, 50)] }),
-]);
+// ♥8 und ♥10 samt Tagesfunden, Akt-2/3- und Nachspiel-Gesprächen: bolzen-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -320,6 +301,7 @@ const bolzen: NpcDef = {
   },
   schedule: [
     { when: nicht(DA), place: 'away' },
+    ...A23.schedule,
     { slot: 'tag', when: { not: { companion: ID } }, place: { map: 'neon-gasse', at: 'apportier-strecke' } },
     { place: { map: 'crew-quartier', at: 'hundekorb' } },
   ],
@@ -339,6 +321,8 @@ const bolzen: NpcDef = {
       weapon: { kind: 'nahkampf', damage: 3, range: 1, hit: 5 },
       abilities: [],
     },
+    heartAbilities: [{ hearts: 8, ability: SCHNUEFFELN.id }],
+    abilityRules: [{ when: AKT2, add: BELLEN.id }],
     callMinutes: 10,
   },
   partyCheckBonus: [
@@ -348,6 +332,7 @@ const bolzen: NpcDef = {
     rede('bolzen-tag-wild', nicht(DA)),
     rede('bolzen-tag-erstes', { not: { met: ID } }),
     rede('bolzen-tag-zeit', alle(VOR_AKT2, { notFlag: 'bolzen_zeit_hinweis' }), 8),
+    ...A23.talk,
     rede('bolzen-tag-party', { companion: ID }),
     ...FUNDE.map(f => rede(`bolzen-fund-${f.tag}`, alle(
       { seen: 'he-bolzen-2' }, { time: 'morgen' }, { weekday: f.tag }, { notFlag: `bolzen_fund_${f.tag}` },
@@ -366,6 +351,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.wild, T.erstes, T.zeit, T.party, T.kuschel, T.morgen, T.tag, T.nacht, T.freund, T.standard,
     ...FUND_DIALOGE,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
+  ...A23.teil,
 };

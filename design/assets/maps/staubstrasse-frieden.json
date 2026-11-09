@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-staubstrasse-frieden": "assets/bg/staubstrasse-frieden.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/staubstrasse-frieden.png",
+ "prompt": "Edit the attached game map image. Output exactly the same image, same size 1536x1024, same composition, same camera, same painting style, every building, object, rock and path in exactly the same place. Only these small changes: on the fortress walls of car wrecks (top left) and on the airplane diner (bottom center-left) hang additional colourful festive pennant garlands - black crow-feather pennants mixed with green and sky-blue cloth pennants of the farmers, strung together as a sign of peace; the toll barrier on the left road is raised and decorated with wire flowers. Nothing else changes. No people, no text, no letters."
+}

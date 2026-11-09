@@ -41,6 +41,13 @@ Andere Ausdrücke fallen laut design.md §6.2 auf `neutral` zurück – Dialog-A
 - frau-klingel: neutral, freude, trauer, signatur (summt zum Radio im Implantat)
 - gutschein-gerd: neutral, freude, ueberrascht, signatur (Gutscheine wie ein Pokerblatt)
 
+## Abnahme
+
+- Alle 18 Porträts, Laufblätter (512×512, 4×4, Fußlinie 120; Erwachsene 92–96 px, bijou 40–42 px, fx-60 45–50 px)
+  und Fotos angesehen. Neu erzeugt: `falke-signatur-v2` (v1 kaum von neutral zu unterscheiden, `photo_config/falke.json`).
+- Build-Warnung „magentastichige Pixel“ bei falke (violette Leuchtnähte) und gutschein-gerd (lila Anzug) sind echte
+  Farben (Notiz in `scripts/art/char_config/<id>.json`); dj-lumo 32 px und bijou 15 px sind vernachlässigbar.
+
 ## Lücken / offen
 
 - `chrome-haushaelterin` (parts/integration/luecken.ts) hat kein `sprite` im NpcDef; das Laufblatt

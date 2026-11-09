@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "portier-albert-neutral.png",
+  "sha": "0674d490b1dda34d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47662
+ },
+ "wut": {
+  "src": "portier-albert-wut.png",
+  "sha": "26f7fd7ebde231db",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46500
+ },
+ "ueberrascht": {
+  "src": "portier-albert-ueberrascht.png",
+  "sha": "5329bf08c7cf43d6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52728
+ }
+}

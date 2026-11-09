@@ -1,0 +1,8 @@
+{
+  "images": {
+    "photo-elsa-neutral": "assets/photos/elsa/neutral.webp",
+    "photo-elsa-freude": "assets/photos/elsa/freude.webp",
+    "photo-elsa-trauer": "assets/photos/elsa/trauer.webp",
+    "photo-elsa-signatur": "assets/photos/elsa/signatur.webp"
+  }
+}

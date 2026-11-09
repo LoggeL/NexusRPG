@@ -2,7 +2,7 @@
 // scripts/gen_content_parts.mjs sammelt sie in content/parts/index.ts (erzeugt, nicht von Hand ändern).
 // So arbeiten mehrere Autoren parallel an eigenen Dateien; doppelte IDs fallen beim Zusammenführen auf.
 import type {
-  GameContent, HotspotDef, LightDef, MapDef, MapEncounterDef, MapId, NpcPlacement, Point,
+  AmbientDef, GameContent, HotspotDef, LightDef, MapDef, MapEncounterDef, MapId, NpcPlacement, Point,
 } from '../modules/contracts';
 
 /** Ort auf einer fremden Karte: Kartenpixel oder Name eines Spots dieser Karte (`MapDef.spots`). */
@@ -18,6 +18,8 @@ export interface MapAddition {
   encounters?: (Omit<MapEncounterDef, 'at'> & { at: At })[];
   onEnter?: NonNullable<MapDef['onEnter']>;
   lights?: LightDef[];
+  /** Zusätzliche Passantensprüche (an `ambient.barks` angehängt; Karten ohne Passanten bleiben still). */
+  barks?: NonNullable<AmbientDef['barks']>;
 }
 
 type RecordKey =
@@ -93,6 +95,10 @@ function applyMapAdditions(content: GameContent, parts: readonly (readonly [stri
       if (add.encounters) next.encounters = append(map.encounters, add.encounters.map((e) => ({ ...e, at: resolve(e.at, e.id) })));
       if (add.onEnter) next.onEnter = append(map.onEnter, add.onEnter);
       if (add.lights) next.lights = [...(map.lights ?? []), ...add.lights];
+      if (add.barks?.length) {
+        if (map.ambient) next.ambient = { ...map.ambient, barks: [...(map.ambient.barks ?? []), ...add.barks] };
+        else PART_WARNINGS.push(`${file}: ${mapId} hat keine Passanten (barks übersprungen)`);
+      }
       maps[mapId] = next;
     }
   }

@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "krabbe-karl-neutral.png",
+  "sha": "d18d112dd87596c1",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 86028
+ },
+ "freude": {
+  "src": "krabbe-karl-freude.png",
+  "sha": "cf11d785c72344d0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 85412
+ },
+ "ueberrascht": {
+  "src": "krabbe-karl-ueberrascht.png",
+  "sha": "29badf565c4df584",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 88598
+ }
+}

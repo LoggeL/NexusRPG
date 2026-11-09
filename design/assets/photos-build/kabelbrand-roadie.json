@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "kabelbrand-roadie-neutral.png",
+  "sha": "3f0cb20f24c835b6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46316
+ },
+ "freude": {
+  "src": "kabelbrand-roadie-freude.png",
+  "sha": "042ce3b09c0302ed",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45862
+ },
+ "ueberrascht": {
+  "src": "kabelbrand-roadie-ueberrascht.png",
+  "sha": "756111ff04655f87",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47222
+ }
+}

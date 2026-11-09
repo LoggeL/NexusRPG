@@ -123,12 +123,16 @@ export function openShop(shell: UiShell, catalog: AssetCatalog, campaign: Campai
     if (!def) { root.append(h('p', { class: 'empty' }, 'Dieser Laden existiert nicht.')); return; }
     const state = campaign.state();
     const prices = campaign.prices(shopId);
-    const discount = discountPercent(campaign.content, state, def);
+    const discount = discountPercent(campaign.content, state, def, (c) => campaign.evaluate(c));
     root.append(h('div', { class: 'shop-head' },
       def.owner ? h('span', { class: 'meta' }, campaign.displayName(def.owner)) : null,
       h('span', { class: 'credits', 'data-testid': 'shop-credits' }, `Deine Credits: ${state.credits} ¢`),
       discount ? h('span', { class: `badge ${discount > 0 ? 'good' : 'bad'}` }, discount > 0 ? `${discount} % Rabatt` : `${-discount} % Aufschlag`) : null));
-    if (prices.length && !prices[0].open) { root.append(h('p', { class: 'empty' }, 'Geschlossen. Komm zu den Öffnungszeiten wieder.')); return; }
+    if (prices.length && !prices[0].open) {
+      const reason = campaign.shopView(shopId)?.terms.refused;
+      root.append(h('p', { class: 'empty' }, reason ?? 'Geschlossen. Komm zu den Öffnungszeiten wieder.'));
+      return;
+    }
     const tabs: { id: ShopTab; label: string }[] = [{ id: 'kaufen', label: 'Kaufen' }, { id: 'verkaufen', label: 'Verkaufen' }];
     if (def.ripperdoc) tabs.push({ id: 'einbau', label: 'Einbau' });
     root.append(tabBar<ShopTab>('Handel', tabs, tab, (next) => { tab = next; render(); (root.querySelector(`[data-tab="${next}"]`) as HTMLElement | null)?.focus(); }));

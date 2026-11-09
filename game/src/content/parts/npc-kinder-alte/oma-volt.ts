@@ -5,6 +5,7 @@
 import type { DialogueChoice, DialogueLine, ItemDef, NpcDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import { AKT2, L, N, VEX, NICHT_VEX, chk, dialogs, dlg, herz, node } from './_dsl';
+import { OMA_SCHEDULE_23, OMA_TALK_FRUEH, OMA_TALK_MASTER, OMA_TALK_POOL } from './oma-volt-akt23';
 
 const O = 'oma-volt';
 const LAGER_FERTIG = { quest: 'side-oma-volts-lager', state: 'done' } as const;
@@ -37,6 +38,7 @@ const npc: NpcDef = {
     hates: ['virus-implantat', 'rostige-dose'],
   },
   schedule: [
+    ...OMA_SCHEDULE_23,
     { slot: 'tag', days: ['so'], place: { map: 'schrottmarkt', at: 'flohmarkt' } },
     { slot: ['morgen', 'tag', 'abend'], place: { map: 'neon-gasse', at: 'kiosk' } },
     { place: 'away' },
@@ -57,13 +59,16 @@ const npc: NpcDef = {
   ],
   talk: [
     { dialogue: 'oma-volt-sauer', when: { rival: O } },
+    ...OMA_TALK_MASTER,
     {
       dialogue: 'oma-volt-paul',
       when: { all: [AKT2, { flag: 'paul_komisch' }, { quest: 'side-ki-fluestern', state: 'inactive' }] },
     },
+    ...OMA_TALK_FRUEH,
     { dialogue: 'oma-volt-lager', when: { quest: 'side-oma-volts-lager', state: 'active' } },
     { dialogue: 'oma-volt-flohmarkt', when: { all: [{ weekday: 'so' }, { time: 'tag' }] } },
     { dialogue: 'oma-volt-morgen', when: { time: 'morgen' } },
+    ...OMA_TALK_POOL,
     { dialogue: 'oma-volt-mo', when: { weekday: 'mo' } },
     { dialogue: 'oma-volt-di', when: { weekday: 'di' } },
     { dialogue: 'oma-volt-mi', when: { weekday: 'mi' } },

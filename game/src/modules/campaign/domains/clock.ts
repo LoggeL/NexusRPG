@@ -1,7 +1,7 @@
 // Domäne „Zeit“: verbindet die Spieluhr aus modules/time/ (Tageszeiten, Wochentage, Vorrücken mit Ereignissen,
 // Schlafen, Zusammenbruch um 02:00; design.md §3.4) mit Spielzustand, Bedingungen und Effekten.
 // Zuständig: Bereich relationships+time.
-import type { ClockState, GameContent } from '../../contracts';
+import type { ClockState, GameContent, GameState } from '../../contracts';
 import {
   DAY_END, DAY_START, DEFAULT_START_MINUTES, advanceClock, collapsePlan, cycleDayOf, formatClock, shelterOf, sleepClock,
   startClockAt, timeSlotOf, weekOf, weekdayOf, type ClockAdvance,
@@ -76,8 +76,20 @@ export function collapseIn(ctx: EffectContext, endedDay: number): void {
   startNewDayIn(ctx);
 }
 
-/** Uhr vorstellen; erreicht sie 02:00, folgt der Zusammenbruch (Rest verfällt). Liefert die Zeitereignisse. */
+/** Läuft eine Quest mit `noCollapse` (Heist, Finale)? Dann bleibt die Uhr vor 02:00 stehen. */
+export function clockHeld(content: GameContent, state: Readonly<GameState>): boolean {
+  for (const [id, quest] of Object.entries(state.quests)) {
+    if (quest.status === 'active' && has(content.quests, id) && content.quests[id].noCollapse) return true;
+  }
+  return false;
+}
+
+/**
+ * Uhr vorstellen; erreicht sie 02:00, folgt der Zusammenbruch (Rest verfällt). Liefert die Zeitereignisse.
+ * Während einer `noCollapse`-Quest hält die Uhr um 01:59 an.
+ */
 export function advanceClockIn(ctx: EffectContext, minutes: number): ClockAdvance {
+  if (clockHeld(ctx.content, ctx.draft)) minutes = Math.min(minutes, DAY_END - 1 - ctx.draft.clock.minutes);
   const step = advanceClock(ctx.draft.clock, minutes);
   if (step.minutes === 0) return step;
   const endedDay = ctx.draft.clock.day;

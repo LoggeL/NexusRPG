@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "henk-angler-neutral.png",
+  "sha": "138e9e7dc4fe8bee",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 70354
+ },
+ "freude": {
+  "src": "henk-angler-freude.png",
+  "sha": "753112ebb431a3bd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 68368
+ },
+ "ueberrascht": {
+  "src": "henk-angler-ueberrascht.png",
+  "sha": "f821e8e402446c7b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 71980
+ }
+}

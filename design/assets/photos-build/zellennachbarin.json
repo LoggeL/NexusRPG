@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "zellennachbarin-neutral.png",
+  "sha": "25d77c9e943f93d8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51924
+ },
+ "freude": {
+  "src": "zellennachbarin-freude.png",
+  "sha": "b1dc1b1bcfe4e3f8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50482
+ },
+ "trauer": {
+  "src": "zellennachbarin-trauer.png",
+  "sha": "3c334594230beaf0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44002
+ }
+}

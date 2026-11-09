@@ -1,6 +1,8 @@
 # Lücken: npc-crew-a (Hunter, Raven, Dante, Gitter-Gerda)
 
-Dateien: `game/src/content/parts/npc-crew-a/{_helfer,hunter,raven,dante}.ts`.
+Dateien: `game/src/content/parts/npc-crew-a/{_helfer,hunter,raven,dante,paar}.ts` und die Akt-2/3-Bausteine `_{hunter,raven,dante}23.ts`.
+
+Stand Akt 2/3/Nachspiel: Die Engine-Punkte 1 (`romanceEnabled`), 2 (`abilityRules`), 4 (Herz-Ereignis bei Zeitwechsel) und 5 (`forDays: 0`) sind erledigt und werden genutzt.
 
 ## Engine
 
@@ -26,3 +28,41 @@ Dateien: `game/src/content/parts/npc-crew-a/{_helfer,hunter,raven,dante}.ts`.
 - Akt 1, Tendenz: `paar_dante_raven_ermutigt` (aus `he-raven-6` oder `he-dante-6`) oder `paar_dante_raven_entmutigt`. Ohne Flag gilt `offen`.
 - Ab act2, endgültig: `paar_dante_raven_geholfen` oder `paar_dante_raven_gestoert`, gesetzt in `he-raven-10` oder `he-dante-10`. Bei `geholfen` ist die Romanze mit Dante gesperrt.
 - Geheimnis: `dante_geheimnis_versprochen` → `dante_geheimnis_gebrochen` (in `he-raven-6` verraten, Dante ♥ −40, einmalige Reaktion `dante-tag-verpetzt`).
+
+
+## Akt 2, Akt 3, Nachspiel (Ausbau)
+
+### Engine
+
+7. **Begleiterwerte wachsen nicht mit der Stufe.** `CompanionDef.stats` ist fest. In Akt 2 und 3 liegen die Gegner deutlich höher als die Werte aus Akt 1. **Vorschlag:** `CompanionDef.statsByLevel?: { minLevel: number; stats: Partial<UnitStats> }[]` (die letzte passende Stufe gewinnt, `attributes` werden zusammengeführt). Konkrete Werte:
+
+   | Figur | ab Stufe | hp | armor | morale | Attribute (geändert) | Waffe |
+   |---|---|---|---|---|---|---|
+   | Hunter | 6 | 68 | 3 | 95 | koerper 7, ausstrahlung 8, strasse 7 | fernkampf 6 / 5 / 6 |
+   | Hunter | 9 | 82 | 4 | 100 | koerper 8, reflexe 6, ausstrahlung 9 | fernkampf 8 / 6 / 6 |
+   | Raven | 6 | 64 | 3 | 90 | koerper 7, reflexe 8, strasse 6 | nahkampf 7 / 1 / 6 |
+   | Raven | 9 | 78 | 3 | 95 | koerper 8, reflexe 9, strasse 7 | nahkampf 9 / 1 / 7 |
+   | Dante | 6 | 52 | 2 | 75 | technik 9, reflexe 6, ausstrahlung 6 | smart 6 / 6 / 6 |
+   | Dante | 9 | 62 | 2 | 85 | technik 10, reflexe 7, koerper 4 | smart 8 / 7 / 7 |
+
+   Wenn `ravens-klinge` (he-raven-10) getragen wird: Raven-Waffe +1 Schaden (oder über `abilityRules`).
+8. **Eifersucht über Romanzen hinweg.** Es gibt keinen Zähler „heute mit X geflirtet“. **Notlösung (Konvention):** Jede Flirt-Wahl setzt das Tagesflag `heute_flirt_<npc>`, das morgens zurückgesetzt wird. Hunter und Dante prüfen die Flags der anderen freigegebenen Romanzen (`heute_flirt_{hunter,dante,aria,collin-charleston,lio-funkel}`): Beim ersten Mal kommt die Warnung (`hunter-eifersucht`, `dante-eifersucht`, Flag `<npc>_eifersucht_gewarnt`), beim zweiten Mal die Trennung (`hunter-trennung`, `dante-trennung`, −150, Flag `<npc>_getrennt`). **Bitte die anderen Romanze-Agenten (Aria, Collin, Lio):** `heute_flirt_<npc>` in die eigenen Flirt-Wahlen setzen.
+9. **„Frei“ für Romanzen.** `frei(npc)` in `_helfer.ts` sperrt Kuss und Nacht, solange eine andere Romanze „zusammen“ ist (`ZUSAMMEN_FLAGS`: hunter_romanze_zusammen, dante_romanze_zusammen, aria_romanze_zusammen/aria_kuss, collin_kuss, lio-funkel_romanze_zusammen). Bei anderen Flag-Namen bitte melden oder die Liste ergänzen.
+
+### Flags (neu)
+
+- Hunter: `hunter_feuerzeug`, `hunter_blade_foto_ab`, `hunter_hinterzimmer_schluessel` (Hausbar-Hotspot), `hunter_romanze_tanz`, `hunter_date_geplant`, `hunter_date`, `hunter_date_rosa`, `hunter_teilhaber`, `hunter_teilhaber_verhandelt` (montags Gewinnanteil über `daily`), `hunter_romanze_zusammen`, `hunter_nacht`, `woche_hunter_nacht`, `hunter_eifersucht_gewarnt`, `hunter_getrennt`.
+- Raven: `raven_handschelle_zurueckgelassen`, `raven_erinnerung_tresor`, `raven_klopfzeichen_abgemacht`, `raven_gechippt_geklopft`, `raven_eifersucht_ausgeloest` → `re-raven-eifersucht` → `raven_eifersucht_gesehen`, `wingman_raven`.
+- Dante: `dante_nexus_warm`, `dante_romanze_tanz`, `dante_date_geplant`, `dante_date`, `dante_kuschel_pate`, `dante_romanze_zusammen`, `paar_dante_raven_entschieden`, `dante_nacht`, `woche_dante_nacht`, `dante_eifersucht_gewarnt`, `dante_getrennt`, `dante_eifersucht_ausgeloest` → `re-dante-eifersucht` → `dante_eifersucht_gesehen`.
+- Paar (paar.ts, Quest `pers-wingman-sonnenuntergang`): `wingman_plan`, `wingman_picknick`, `wingman_musik` (`wingman_musik_lio`), `wingman_raven`, `wingman_date`, `dante_raven_paar_flutmauer`; Belohnung `dante_raven_paar`. Die Epilog-Karte `sonnenuntergang` (quest-enden) hängt an `pers-wingman-sonnenuntergang` done.
+- Einmal-Themen in den Tagesgesprächen: `hunter_a2_*`, `hunter_a3_*`, `hunter_ep_*`, `raven_a2_*` usw. (Schema `<npc>_<id ohne Präfix>`).
+
+### Andere Agenten
+
+- **side-zweite-chance (quest-enden):** Die Master-Modus-Gespräche `hunter-tag-master`, `raven-tag-master` und `dante-tag-master` haben während `side-zweite-chance` active je eine Wahl. Sie setzt `<npc>_zweite_chance_gehoert` (hunter, raven, dante). Die Quest kann darauf als Schritt prüfen.
+- **Sonder-Quests (Hunter Rang 5, `sonder-chrome-tresor` usw.)** sind hier nicht gebaut.
+- **main-3 (Partynacht):** Ravens Klopfzeichen ist abgesprochen (`raven_klopfzeichen_abgemacht` aus `raven-a3-nerven`). Gechippte Raven in der Partynacht: `raven-tag-gechippt` (Klopfen setzt `raven_gechippt_geklopft`). Wer die Befreiung baut, kann das Flag als leichteren Weg nutzen.
+- **Lio Funkel:** Die Nachricht `tel-wingman-lio` kommt von `lio-funkel` (Musik fürs Date). Nur Freundschaft, keine Romanzezeilen.
+- **Babette Bao:** Hotspot `wingman-korb` am Spot `garkueche-bank` (Schrottmarkt, nicht montags), Dialog `wingman-korb` mit Babettes Zeilen.
+- **Art (fehlende Tafeln):** `cut-rom-hunter-date` (Garküche, zwei Hände über Dampfnudeln), `cut-rom-dante-date` (Flutmauer, Koffer-Plattenspieler, Kekse, Feuerlöscher), `cut-rom-dante-werkstatt` (Röhrenglimmen bei Stromausfall, Kuss angedeutet, nicht sexualisiert), `cut-wingman-sonnenuntergang` (zwei Silhouetten an der Flutmauer, Picknickkorb, orange Sonne). Nachtszenen nutzen `black` und brauchen keine Tafel.
+- **Ersetzt Platzhalter:** keine (he-*-8/10 waren eigene Platzhalter in diesem Ordner).

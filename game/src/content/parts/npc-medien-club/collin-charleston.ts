@@ -1,13 +1,18 @@
 // Collin Charleston – Star-Moderator von NX-1 (world.md §4.4, §4.7 „Live und unzensiert“, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.collin-charleston), Herz-Ereignisse he-collin-charleston-2/4/6
-// (plan events), -8/-10 angelegt und an act2 gebunden (Freundschafts- und Romanzefassung). Kein Begleiter.
-// Romanze: freigegeben (ROMANCE_ENABLED). Flirts nur mit { romance } (Engine: ≥ ♥8), Akt 1 deckelt bei ♥8.
+// (plan events). Akt 2/3 und Nachspiel (he-8/-10 in beiden Fassungen, Date mit Geständnis auf der Flutmauer,
+// Tagesgespräche, Party, Enden) in collin-charleston-23.ts. Kein Begleiter.
+// Romanze: freigegeben (ROMANCE_ENABLED). Flirts ab ♥6 (romanceEnabled), Kuss/Nacht ab ♥8 ({ romance }).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
   type Menu, AKT1, AKT2, VEX, VEXARIA, ZEIT_HINWEIS, abblende, all, byId, chk, cut, daily, dlg, erz, flag, hearts, ich,
   noFlag, node, not, rel, rep, seen, set, sp, talk, xp,
 } from './_util';
+import { MASTER } from './_util';
+import {
+  COLLIN_EVENT_FLUTMAUER, COLLIN_PHONE, COLLIN_SCHEDULE_23, COLLIN_TALK_23, COLLIN_TALK_MASTER, ZUSAMMEN, collin23,
+} from './collin-charleston-23';
 
 const C = sp('collin-charleston');
 const K = sp('kameramann');
@@ -15,11 +20,9 @@ const D = sp('delya-delloraine');
 const H = sp('hunter');
 
 const ID = 'collin-charleston';
-const ROM: Condition = { romance: ID };
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const PROBEZEIT: Condition = { quest: 'main-1-probezeit', state: 'done' };
-const ZUSAMMEN: Condition = all(ROM, flag('collin_kuss'));
 const VOR_DER_SENDUNG: Condition = all({ weekday: ['mo', 'mi', 'fr'] }, { clockBetween: [600, 720] });
 
 // ------------------------------------------------------------------------------------------- Menü
@@ -29,7 +32,8 @@ function menu(): Menu {
 
   /** Flirtzeilen (world.md §4.7) nach Wochentag, nur Romanzefassung. */
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
-    text: 'Mit Collin flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: all(FLIRT, { weekday: tage }),
+    text: 'Mit Collin flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
+    when: all(FLIRT, noFlag('collin_romanze_abgelehnt'), { weekday: tage }), effects: [set('flirt_collin-charleston')],
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann geh off air. Mit mir.“', check: chk('collin-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a', effects: [rel(ID, 15)] },
@@ -377,54 +381,6 @@ const he6 = dlg('he-collin-charleston-6', [
   }),
 ]);
 
-// ------------------------------------------------------------------------------------------- he-collin-charleston-8/10 (act2)
-
-const he8 = dlg('he-collin-charleston-8', [
-  node('start', [
-    erz('Karaoke-Dienstag im High Voltage. Collin moderiert. Dann, mitten im Programm, hält er das Mikro in deine Richtung.'),
-    C('Meine Damen und Herren, heute eine Premiere! Ein Duett! Ich und … {name}! „Neonherz“! Applaus! Applaus, oder ich lass Hunter singen!', 'freude'),
-    erz('Die Musik setzt ein. Ihr singt. Collin singt erstaunlich gut, du erstaunlich laut. Beim zweiten Refrain steht der ganze Club.'),
-  ], {
-    choices: [
-      { text: 'Beim letzten Refrain seine Hand nehmen.', when: ROM, next: 'rom' },
-      { text: 'Ihm den Arm um die Schulter legen und den Refrain grölen.', next: 'freund' },
-    ],
-  }),
-  node('rom', [
-    erz('Du nimmst seine Hand. Er verpasst den Einsatz. Zum ersten Mal in seinem Leben verpasst Collin Charleston einen Einsatz.'),
-    erz('Beim letzten Refrain zieht er das Mikro weg, lehnt sich zu dir, so nah, dass du sein Haarspray riechst und darunter etwas Wärmeres.'),
-    C('Den Rest singen wir zu Hause. Oder bei dir. Ich bin flexibel.', 'zaertlich'),
-    H('Wenn ihr auf meiner Bühne knutscht, zahlt ihr Bühnenmiete!'),
-  ], { effects: [xp(80), rel(ID, 60), set('collin_duett_romanze')] }),
-  node('freund', [
-    C('Das war … das war der beste Auftritt meines Lebens! Und ich hatte schon viele! Die meisten allein!', 'freude'),
-    C('Du bist mein Duettpartner. Für immer. Das steht jetzt im Vertrag. Ich schreib ihn morgen.', 'signatur'),
-  ], { effects: [xp(80), rel(ID, 60), set('collin_duett')] }),
-]);
-
-const he10 = dlg('he-collin-charleston-10', [
-  node('start', [
-    erz('NX-1-Studio, Hauptsendezeit. Eine Sondersendung: „Unterstadt-Held: Die wahre Geschichte von {name}“. Collin sitzt am Nachrichtentisch, du auf dem Gaststuhl. Der Teleprompter läuft. Collin folgt ihm. Dann nicht mehr.'),
-    C('Meine Damen und Herren, ich verletze jetzt jede Regel des Senders.', 'signatur'),
-    erz('Er schiebt den Teleprompter mit dem Fuß weg.'),
-  ], {
-    choices: [
-      { text: 'Aufstehen. Ihm entgegenkommen.', when: ROM, next: 'rom' },
-      { text: 'Ihn reden lassen.', next: 'freund' },
-    ],
-  }),
-  node('rom', [
-    C('Ich hab dreihundert Leute interviewt. Und keiner hat mich je gefragt, wie es MIR geht. Außer dir. Jeden. Verdammten. Tag.', 'zaertlich'),
-    erz('Er steht auf. Du auch. Die Regie brüllt in seinen Ohrstöpsel. Er zieht ihn raus und wirft ihn über die Schulter.'),
-  ], { effects: [{ cutscene: 'collin-testbild' }] }),
-  node('freund', [
-    C('Diese Stadt hat mir zwölf Jahre lang zugehört. Heute hör ich zu. Erzähl. Alles. Ungeschnitten.', 'zaertlich'),
-    erz('Und du erzählst. Eine Stunde lang. Ohne Werbepause. Die Regie gibt irgendwann auf und schaltet nur noch die Kamera nach.'),
-    C('Das war meine beste Sendung. Weil ich fast nichts gesagt hab.', 'freude'),
-    erz('Hinterher drückt er dir sein altes Mikrofon in die Hand. Vergoldet, verbeult, mit seinem Namen eingraviert.'),
-  ], { effects: [{ give: 'goldenes-mikro' }, xp(120), rel(ID, 50)] }),
-]);
-
 const nachtDlg = dlg('collin-bleib-heute-nacht', [
   node('start', [
     erz('Das Zimmerchen über dem Studio. Ein Bett, das zu groß ist für den Raum, drei Spiegel, eine Flasche Edelbrause und ein Fenster, durch das das rote Licht der Sendeantenne fällt. An, aus. An, aus.'),
@@ -432,8 +388,8 @@ const nachtDlg = dlg('collin-bleib-heute-nacht', [
     C('Bleibst du?', 'zaertlich'),
   ], {
     choices: [
-      { text: 'Bleiben.', next: 'bleiben', effects: [set('collin-charleston_nacht'), set('collin_nacht')] },
-      { text: '„Ein andermal, Star.“', next: 'andermal' },
+      { text: 'Bleiben.', next: 'bleiben', effects: [set('collin-charleston_nacht'), set('collin_nacht'), set('woche_collin_nacht')] },
+      { text: '„Ein andermal, Star.“', next: 'andermal', effects: [set('heute_collin_gefragt')] },
     ],
   }),
   node('bleiben', [
@@ -468,7 +424,7 @@ const cutscenes = [
       ],
     },
     { image: 'black', fade: 'in', caption: 'Ticker, nächster Morgen: „NX-1-Star knutscht Unterstadt-Abschaum – Einschaltquote Rekord“' },
-  ], [set('collin_kuss'), { give: 'goldenes-mikro' }, xp(150), rel(ID, 60)]),
+  ], [set('collin_kuss'), set(`${ID}_romanze_zusammen`), { give: 'goldenes-mikro' }, xp(150), rel(ID, 60)]),
   cut('collin-nacht', 'Ohne Teleprompter', [
     { image: 'black', fade: 'in', lines: [erz('Das rote Licht der Antenne. An. Aus. Ein Lachen, sehr leise, gar nicht moderiert.'), C('Du bist live, weißt du das? Die ganze Zeit.', 'zaertlich')] },
     abblende('Sendepause.'),
@@ -492,6 +448,7 @@ const collin: NpcDef = {
     hates: ['magnet-stoerer', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...COLLIN_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'nx1-studio', at: 'radio-kabine' } },
     { slot: 'tag', days: ['mo', 'mi', 'fr'], place: { map: 'stufenplatz', at: 'buehne' }, pose: 'moderieren' },
     { slot: 'tag', place: { map: 'nx1-studio', at: 'schminkspiegel' } },
@@ -511,19 +468,22 @@ const collin: NpcDef = {
       id: 'he-collin-charleston-8', hearts: 8, map: 'high-voltage', time: ['abend', 'nacht'],
       when: all(AKT2, seen('he-collin-charleston-6'), { weekday: 'di' }), dialogue: 'he-collin-charleston-8',
     },
+    COLLIN_EVENT_FLUTMAUER,
     {
       id: 'he-collin-charleston-10', hearts: 10, map: 'nx1-studio', time: 'abend',
       when: all(AKT2, seen('he-collin-charleston-8')), dialogue: 'he-collin-charleston-10',
     },
   ],
   talk: [
+    COLLIN_TALK_MASTER,
     talk('collin-tag-rivale', { rival: ID }),
     talk('collin-tag-peruecke', all(PROBEZEIT, VOR_DER_SENDUNG, { dayAtLeast: 3 }, { quest: 'side-collins-peruecke', state: 'inactive' })),
     talk('collin-tag-morgen-danach', all(flag('collin_nacht'), noFlag('collin_morgen_danach'), { time: 'morgen' })),
-    talk('collin-bleib-heute-nacht', all(ZUSAMMEN, { weekday: 'fr' }, { time: 'abend' })),
+    // „Bleib heute Nacht“: höchstens einmal pro Woche (Flag woche_*), nach „Ein andermal“ erst morgen wieder.
+    talk('collin-bleib-heute-nacht', all(ZUSAMMEN, not(MASTER), { time: 'abend' }, noFlag('woche_collin_nacht'), noFlag('heute_collin_gefragt'))),
     talk('collin-tag-vexaria', all(VEXARIA, noFlag('collin_kommentar_vexaria'))),
-    talk('collin-tag-paar', ZUSAMMEN),
     talk('collin-tag-zeit', AKT1, 8),
+    ...COLLIN_TALK_23,
     talk('collin-tag-fremd', not({ met: ID })),
     talk('collin-tag-radio', { time: 'morgen' }),
     talk('collin-tag-live', all({ weekday: ['mo', 'mi', 'fr'] }, { time: 'tag' })),
@@ -539,7 +499,8 @@ export const part: ContentPart = {
   npcs: { [ID]: collin },
   dialogues: byId([
     T.rivale, T.peruecke, T.vexaria, T.nacht, T.paar, T.zeit, T.radio, T.live, T.spiegel, T.karaoke, T.cafe, T.vertraut,
-    T.fremd, T.standard, he2, he4, he6, he8, he10, nachtDlg, morgenDlg,
+    T.fremd, T.standard, he2, he4, he6, ...collin23(M), nachtDlg, morgenDlg,
   ]),
   cutscenes: byId(cutscenes),
+  phone: byId(COLLIN_PHONE),
 };

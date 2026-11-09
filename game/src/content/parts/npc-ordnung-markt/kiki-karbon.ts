@@ -8,12 +8,12 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
   type Menue, AB_AKT2, NICHT_AKT2, TAXI_ZIELE, VEX, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede,
-  sammle, sprecher, tagesgespraech,
+  sammle, sprecher, tagesgespraech, erweitere,
 } from './_helfer';
+import { MENUE_23, TAXI_WEIT, akt23 } from './kiki-akt23';
 
 const KI = sprecher('kiki-karbon');
 
-const ROM: Condition = { romance: 'kiki-karbon' };
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: 'kiki-karbon' }, { hearts: 'kiki-karbon', min: 6 }] };
 const TAXI_FREI: Condition = { seen: 'he-kiki-karbon-2' };
@@ -24,8 +24,9 @@ const REICHWEITE = 'pers-kiki-reichweite';
 /** Fahrpreise: 20 Cr (world.md §3.3); Rivalität doppelt und mit Umweg; Taxikarte und Freifahrt gratis. */
 function taxiChoices(): DialogueChoice[] {
   const out: DialogueChoice[] = [];
-  for (const [map, name] of TAXI_ZIELE) {
-    const ziel = { visited: map } as const;
+  const ziele: (readonly [string, string, Condition?])[] = [...TAXI_ZIELE, ...TAXI_WEIT];
+  for (const [map, name, frei] of ziele) {
+    const ziel: Condition = frei ? { all: [{ visited: map }, frei] } : { visited: map };
     out.push(
       {
         text: `${name} (gratis, Taxikarte)`, when: { all: [ziel, { item: 'kikis-taxikarte' }] },
@@ -130,7 +131,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: Umwege und doppelter Preis; Versöhnung über Duftbaum, Trinkgeld oder Funkjargon. */
 const RIVALE: Menue = {
@@ -402,38 +403,8 @@ const he6 = dialog('he-kiki-karbon-6', [
   ], { effects: [{ startQuest: REICHWEITE }, { xp: 80 }, herz('kiki-karbon', 20), flag('kiki_will_ans_meer')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-kiki-karbon-8', [
-  knoten('start', [
-    erz('Früh am Morgen. Das Taxi brummt mit neuem Akku, Kiki trägt die Pilotenbrille auf der Nase statt im Haar. Das heißt, es ist ernst.'),
-    KI('Testflug. Bis an den Rand der Ödnis und zurück. Wenn der Akku hält, ist das Meer nur noch eine Frage der Zeit. Und des Mutes. Mut hab ich. Zeit klau ich.', 'signatur'),
-    erz('Ihr fliegt über die Rohrsiedlung, über die Staubstraße, bis der Sand anfängt. Am Horizont flimmert die Hitze. Kiki lacht laut und lange.'),
-    KI('ER HÄLT! ER HÄLT! Sonnenschein, wir fliegen weiter als jemals irgendwer von Taxi Karbon!', 'freude'),
-  ], {
-    effects: [flag('kiki_testflug'), { xp: 120 }],
-    choices: [{ text: '„Und als Nächstes: das Meer.“', next: 'meer' }],
-  }),
-  knoten('meer', [KI('Als Nächstes das Meer. Funkvertrag. Du bist dabei.', 'freude')], { effects: [herz('kiki-karbon', 40)] }),
-]);
-
-const he10 = dialog('he-kiki-karbon-10', [
-  knoten('start', [
-    erz('Neon-Gasse, Nacht. Kiki drückt dir eine laminierte Karte in die Hand. Darauf: ein gezeichnetes Taxi, ein Herz, ein Stempel „TAXI KARBON – FAHRGAST EINS – LEBENSLANG GRATIS“.'),
-    KI('Meine Taxikarte. Die einzige, die es gibt. Wer die hat, fliegt umsonst. Überall hin. Für immer. Auch wenn ich sauer bin. Dann flieg ich nur schneller.', 'signatur'),
-  ], {
-    effects: [{ give: 'kikis-taxikarte' }, flag('kiki_taxikarte'), { xp: 200 }],
-    choices: [
-      { text: '„Danke, Kiki. Fahrgast Eins meldet sich ab. Over.“', next: 'over' },
-      { text: '„Und wenn ich vorne sitzen will? Ganz nah?“', tag: '[Romanze]', when: ROM, next: 'nah' },
-    ],
-  }),
-  knoten('over', [KI('Abmelden gibt’s nicht. Du bist auf Dauerempfang, Sonnenschein.', 'freude')], { effects: [herz('kiki-karbon', 50)] }),
-  knoten('nah', [
-    KI('Vorne. Ganz nah. Hm.', 'ueberrascht'),
-    erz('Sie zieht dich am Kragen auf den Beifahrersitz, lehnt sich herüber, bis ihre Pilotenbrille gegen deine Stirn stößt, und küsst dich. Schnell, laut, mit einem Lachen mittendrin, wie alles bei ihr.'),
-    KI('Funk aus. Diesmal wirklich. Das hier erzähl ich keinem. Zum ersten Mal in meinem Leben.', 'signatur'),
-  ], { effects: [herz('kiki-karbon', 60), flag('kiki_romanze_kuss')] }),
-]);
+// ♥8 und ♥10 samt Romanze, Akt-2/3- und Nachspiel-Gesprächen: kiki-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -453,6 +424,7 @@ const kiki: NpcDef = {
     hates: ['kanalschlamm', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     { slot: 'morgen', place: { map: 'bahnhof-mitte', at: 'taxistand' } },
     { slot: 'tag', days: ['mo', 'mi', 'fr'], place: { map: 'glasarkaden', at: 'kiki-landeplatz' } },
     { slot: 'tag', days: ['di', 'do'], place: { map: 'schrottmarkt', at: 'taxi-landeplatz' } },
@@ -469,6 +441,7 @@ const kiki: NpcDef = {
   talk: [
     rede('kiki-karbon-tag-rivale', { rival: 'kiki-karbon' }),
     rede('kiki-karbon-tag-oberstadt', { all: [{ origin: 'origin-oberstadt' }, { notFlag: 'kiki_herkunft' }] }),
+    ...A23.talk,
     // Klatschbase des Strangs Vex × Aria: jede Stufe einmal, die neueste zuerst.
     rede('kiki-karbon-tag-vexaria-zusammen', { all: [VEX, { flag: 'aria_romanze_zusammen' }, { notFlag: 'kiki_klatsch_zusammen' }] }),
     rede('kiki-karbon-tag-vexaria-knutsch', { all: [VEX, { flag: 'vexaria_knutsch' }, { notFlag: 'kiki_klatsch_knutsch' }, { notFlag: 'aria_romanze_zusammen' }] }),
@@ -493,17 +466,21 @@ export const part: ContentPart = {
     taxi,
     T.rivale, T.oberstadt, T.vexariaZusammen, T.vexariaKnutsch, T.vexariaHand, T.ariaRomanze, T.zeit, T.reichweite,
     T.morgen, T.glasarkaden, T.schrottmarkt, T.wochenende, T.abend, T.nacht, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
+  cutscenes: A23.teil.cutscenes,
   // Taxifunk an jedem Landepunkt (Einstieg `taxi`) der Außenzonen; am Bahnhof steht schon der Taxistand der Karte.
-  mapAdditions: Object.fromEntries(
-    TAXI_ZIELE.filter(([map]) => map !== 'bahnhof-mitte').map(([map]) => [map, {
-      hotspots: [{
-        id: 'kiki-taxifunk', at: 'taxi', radius: 48, label: 'Kiki per Taxifunk rufen', kind: 'use' as const,
-        when: TAXI_FREI, dialogue: 'kiki-karbon-taxi',
-      }],
-    }]),
-  ),
+  mapAdditions: {
+    ...Object.fromEntries(
+      TAXI_ZIELE.filter(([map]) => map !== 'bahnhof-mitte').map(([map]) => [map, {
+        hotspots: [{
+          id: 'kiki-taxifunk', at: 'taxi', radius: 48, label: 'Kiki per Taxifunk rufen', kind: 'use' as const,
+          when: TAXI_FREI, dialogue: 'kiki-karbon-taxi',
+        }],
+      }]),
+    ),
+    ...A23.teil.mapAdditions,
+  },
   phone: {
     'tel-kiki-rennen': {
       id: 'tel-kiki-rennen', from: 'kiki-karbon',

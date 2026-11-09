@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "fraeulein-pixel-neutral.png",
+  "sha": "a30a4ce20cd88b00",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39676
+ },
+ "freude": {
+  "src": "fraeulein-pixel-freude.png",
+  "sha": "9b1833b46b51391a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43640
+ },
+ "besorgt": {
+  "src": "fraeulein-pixel-besorgt.png",
+  "sha": "920b58f3fb83abac",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40114
+ },
+ "signatur": {
+  "src": "fraeulein-pixel-signatur.png",
+  "sha": "06aec39273279a2e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42364
+ }
+}

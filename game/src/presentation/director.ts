@@ -9,7 +9,7 @@ import Phaser from 'phaser';
 import { musicForBattle, musicForMap } from './music';
 import { dailyHotspotFlag, missingText, runEnterTriggers } from '../modules/campaign';
 import type {
-  ActId, BattleOutcome, BattleResult, CheckRef, CutsceneDef, EffectOutcome, Effect, EncounterId, ExitDef, HotspotDef, MapEncounterDef, MapId, NpcId,
+  ActId, BattleFollowUp, BattleOutcome, BattleResult, CheckRef, CutsceneDef, EffectOutcome, Effect, EncounterId, ExitDef, HotspotDef, MapEncounterDef, MapId, NpcId,
   MinigameRequest, Request, TimeSlot,
 } from '../modules/contracts';
 import { endingStats as computeEndingStats, epilogueLines } from '../modules/ending';
@@ -386,7 +386,10 @@ export class Director {
       else if ('dialogue' in request) await this.runDialogue(request.dialogue);
       else if ('cutscene' in request) await this.playCutscene(request.cutscene);
       else if ('travel' in request) await this.travel(request.travel, request.entry, request.minutes);
-      else if ('battle' in request) await this.battle(request.battle);
+      else if ('battle' in request) {
+        const { battle, ...after } = request;
+        await this.battle(battle, Object.keys(after).length ? after : undefined);
+      }
       else if ('minigame' in request) await this.minigame(request.minigame);
       else if ('shop' in request) await this.openShopFlow(request.shop);
       else if ('jobBoard' in request) await openJobBoard(this.shell, this.campaign, request.jobBoard).closed;
@@ -461,7 +464,7 @@ export class Director {
 
   get inBattle() { return this.battleResolver !== null; }
 
-  async battle(encounter: EncounterId) {
+  async battle(encounter: EncounterId, after?: BattleFollowUp) {
     if (!hasOwn(this.content.encounters, encounter)) { console.warn(`[director] Begegnung fehlt: ${encounter}`); return; }
     const scene = this.explore();
     const paused = !!scene && this.game.scene.isActive('explore');
@@ -488,7 +491,7 @@ export class Director {
       const map = this.content.maps[this.campaign.state().map];
       if (map) {
         this.audio.setAmbience(map.ambience);
-        const m = musicForMap(this.content, map, this.campaign.state().clock.minutes);
+        const m = musicForMap(this.content, map, this.campaign.state().clock.minutes, (c) => this.campaign.evaluate(c));
         this.audio.setMusic(m.id, { muffled: m.muffled });
       }
       if (outcome === 'win') this.audio.stinger('sieg-stinger');
@@ -496,7 +499,7 @@ export class Director {
     this.lastBattle = { encounter, outcome };
     const state = this.campaign.state();
     const hp = outcome === 'win' ? state.player.hp : outcome === 'fled' ? state.player.hp : 0;
-    await this.handleOutcome(this.campaign.finishBattle(full && full.encounter === encounter ? full : { encounter, outcome, playerHp: hp }));
+    await this.handleOutcome(this.campaign.finishBattle(full && full.encounter === encounter ? full : { encounter, outcome, playerHp: hp }, after));
   }
 
   // ------------------------------------------------------------------ Interaktion
@@ -572,6 +575,10 @@ export class Director {
     }
     if (exit.check && !(await this.worldCheck(exit.check, exit.lockedText))) return;
     if (exit.interact) this.audio.sfx('door');
+    if (exit.effects?.length) {
+      const outcome = this.campaign.apply(exit.effects);
+      for (const message of outcome.messages) this.shell.toast(message, toneOf(message));
+    }
     await this.travel(exit.to, exit.entry, exit.minutes);
   }
 
@@ -691,7 +698,9 @@ export class Director {
     this.hud.setHover(null);
     const skippable = def.skippable !== false;
     this.cutSkip = false;
-    this.cutState = { id, beat: 0, total: def.beats.length };
+    // Beats mit `when` gelten nach dem Zustand beim Start (ein Beat ohne Bedingung bleibt immer).
+    const beats = def.beats.filter((beat) => this.campaign.evaluate(beat.when));
+    this.cutState = { id, beat: 0, total: beats.length };
     this.game.scene.run('cutscene', {
       onUpdate: () => {
         if (!skippable || !this.cutState) return;
@@ -704,10 +713,10 @@ export class Director {
     this.cutsceneUi.open(def.title, skippable, () => this.skipCutscene());
     const reduced = this.settings.get().reducedMotion;
     try {
-      for (let index = 0; index < def.beats.length && !this.cutSkip; index++) {
-        const beat = def.beats[index];
+      for (let index = 0; index < beats.length && !this.cutSkip; index++) {
+        const beat = beats[index];
         this.cutState.beat = index;
-        const nextImage = def.beats.slice(index + 1).find((entry) => entry.image)?.image;
+        const nextImage = beats.slice(index + 1).find((entry) => entry.image)?.image;
         const nextUrl = this.cutsceneImageUrl(def, nextImage);
         if (nextUrl && !nextUrl.startsWith('data:')) { const preload = new Image(); preload.src = nextUrl; }
         const texts = (beat.caption ? 1 : 0) + (beat.lines?.length ?? 0);

@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "mutter-bruehe-neutral.png",
+  "sha": "e7aa5a70b405d390",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 74170
+ },
+ "freude": {
+  "src": "mutter-bruehe-freude.png",
+  "sha": "aab3550b2b83ec3f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 75744
+ },
+ "trauer": {
+  "src": "mutter-bruehe-trauer.png",
+  "sha": "cb6c89c6fd7ead6d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 75874
+ }
+}

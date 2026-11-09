@@ -167,7 +167,8 @@ const hotspots: HotspotDef[] = [
   },
   {
     id: 'gruendertag-buffet', at: [700, 560], radius: 64, label: 'Gründertag-Buffet', kind: 'use',
-    when: { cycleDay: 21 },
+    // Im Nachspiel ersetzt der Meerestag (world-23) den Gründertag.
+    when: { all: [{ cycleDay: 21 }, { notFlag: 'epilog' }] },
     once: true,
     lines: [
       { speaker: 'narrator', text: 'Quantum feiert sich selbst. Weiße Tischdecken, Häppchen in Firmenblau, ein Banner, auf dem Nexus lächelt wie ein Bildschirmschoner.' },

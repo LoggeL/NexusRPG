@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "hecki-neutral.png",
+  "sha": "78acf346d7b628bb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 74484
+ },
+ "freude": {
+  "src": "hecki-freude.png",
+  "sha": "777c90ad6837a6bd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 68326
+ },
+ "besorgt": {
+  "src": "hecki-besorgt.png",
+  "sha": "65a8a3cc55dfd39f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66036
+ }
+}

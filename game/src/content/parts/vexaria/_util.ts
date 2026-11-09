@@ -20,6 +20,17 @@ export const WARTEN_VORBEI: Condition = { all: [{ notFlag: 'aria_warte1' }, { no
 /** Noch kein Akt 2 (Akt-1-Weg des Strangs, gaps/vexaria.md). */
 export const AKT1: Condition = { not: { act: 2 } };
 
+/** Akt 2 oder später (ActId kennt kein Nachspiel; das Nachspiel ist das Flag `epilog`). */
+export const AKT2: Condition = { act: 2 };
+export const AKT3: Condition = { act: 3 };
+export const EPILOG: Condition = { flag: 'epilog' };
+/**
+ * Vex hat den Akt-1-Bruch gespielt (Rippers Paket → Streit → Funkstille → Umdrehen → Vordach). Dann ist der große Streit
+ * erledigt; in Akt 2 folgt nach `pers-aria-zerberster` statt `rom-aria-streit` die kurze Krise `rom-vexaria-krise`.
+ * Ohne die Brücke läuft der Kanonweg (`rom-aria-streit` → 7 → `rom-aria-vega` → 8 → `rom-aria-regen`).
+ */
+export const BRUECKE: Condition = { seen: 'rom-vexaria-ripperdeal' };
+
 export const ANGEBAHNT: Condition = { flag: 'aria_romanze_angebahnt' };
 export const ZUSAMMEN: Condition = { flag: 'aria_romanze_zusammen' };
 export const STREIT: Condition = { flag: 'aria_romanze_streit' };
@@ -142,3 +153,15 @@ export function twin(spec: StationSpec, romWhen: Condition, rom: { cutscene?: st
 }
 
 export const byId = <T extends { id: string }>(list: readonly T[]): Record<string, T> => Object.fromEntries(list.map((x) => [x.id, x]));
+
+/** Kalendertage (1..28) für Eintrag `i` von `count` (Pools: eine Zeile pro Tag, gleichmäßig verteilt). */
+export const poolDays = (i: number, count: number): number[] => {
+  const days: number[] = [];
+  for (let d = i + 1; d <= 28; d += count) days.push(d);
+  return days;
+};
+
+/** Beschwingt bis Mitternacht (+1 Ausstrahlung für jeden Check, world.md „Bleib heute Nacht“). */
+export const BESCHWINGT: Effect = {
+  checkBuff: { id: 'beschwingt-aria', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false },
+};

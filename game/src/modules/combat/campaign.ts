@@ -1,13 +1,13 @@
 // Kampfregeln: Brücke zur Kampagne – Party aus dem Spielstand, Kampfgepäck, Seed und BattleResult.
 import { PLAYER_SPRITE } from '../appearance';
-import type { AbilityId, BattleResult, CompanionDef, EncounterId, GameContent, GameState, ItemId, WeaponStats } from '../contracts';
+import type { AbilityId, AttributeId, BattleResult, CompanionDef, EncounterDef, EncounterId, GameContent, GameState, ItemId, UnitStats, WeaponStats } from '../contracts';
 import { combatBonus, effectiveAttribute, maxHpOf } from '../campaign/domains/character';
 import { heartsOf, relationOf } from '../campaign/domains/relations';
 import { ATTRIBUTE_IDS, CYBER_SLOTS, has, hashText } from '../campaign/ids';
 import { evaluateCondition } from '../campaign/conditions';
 import { itemAbility, usableInBattle } from './actions';
 import { findUnit } from './queries';
-import type { CombatData, CombatState, PartyMemberSpec } from './types';
+import type { BattleSetup, CombatData, CombatState, PartyMemberSpec } from './types';
 
 /** Reihenfolge der Waffen in der Hand: Fernkampf zuerst, dann Nahkampf, dann Smart. */
 const WEAPON_SLOTS = ['fernkampf', 'nahkampf', 'smart'] as const;
@@ -28,6 +28,35 @@ export function applyAbilityRules(
     }
     if (rule.add && !out.includes(rule.add)) out.push(rule.add);
     if (rule.remove) out = out.filter(id => id !== rule.remove);
+  }
+  return out;
+}
+
+/** Ab dieser Stufe wachsen Begleiter ohne `statsByLevel` von selbst mit (Akt 1 endet um Stufe 5). */
+export const COMPANION_SCALE_FROM = 5;
+
+/**
+ * Begleiterwerte für die Stufe der Spielfigur: `statsByLevel` (aufsteigend, alle Einträge bis zur Stufe gelten
+ * nacheinander) – ohne Einträge +6 % LP je Stufe über 5 und +1 Waffenschaden je 3 Stufen darüber.
+ */
+export function companionStatsAt(companion: CompanionDef, level: number): UnitStats {
+  const base = companion.stats;
+  const out: UnitStats = { ...base, attributes: { ...base.attributes }, weapon: { ...base.weapon }, abilities: [...base.abilities] };
+  const steps = (companion.statsByLevel ?? []).filter(entry => level >= entry.minLevel).sort((a, b) => a.minLevel - b.minLevel);
+  if (companion.statsByLevel?.length) {
+    for (const step of steps) {
+      if (step.hp !== undefined) out.hp = step.hp;
+      if (step.armor !== undefined) out.armor = step.armor;
+      if (step.morale !== undefined) out.morale = step.morale;
+      for (const [id, value] of Object.entries(step.attributes ?? {})) if (typeof value === 'number') out.attributes[id as AttributeId] = value;
+      if (step.weapon) Object.assign(out.weapon, step.weapon);
+    }
+    return out;
+  }
+  const over = Math.max(0, Math.floor(level) - COMPANION_SCALE_FROM);
+  if (over > 0) {
+    out.hp = Math.round(base.hp * (1 + 0.06 * over));
+    out.weapon.damage = base.weapon.damage + Math.floor(over / 3);
   }
   return out;
 }
@@ -71,8 +100,10 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
   }];
   for (const npcId of state.party) {
     const npc = has(content.npcs, npcId) ? content.npcs[npcId] : undefined;
-    const stats = npc?.companion?.stats;
-    if (!npc || !stats) continue;
+    if (!npc?.companion?.stats) continue;
+    // Gerade nicht verfügbar (gefangen, gechippt): kämpft nicht mit, auch wenn die Party noch nicht bereinigt ist.
+    if (npc.companion.unavailableWhen && test(npc.companion.unavailableWhen)) continue;
+    const stats = companionStatsAt(npc.companion, player.level);
     const hearts = heartsOf(relationOf(state, npcId).points);
     const companion = npc.companion as CompanionDef;
     const extra = (companion.heartAbilities ?? []).filter(entry => hearts >= entry.hearts).map(entry => entry.ability);
@@ -87,6 +118,13 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
     });
   }
   return party;
+}
+
+/** Zustände ab Kampfbeginn (`EncounterDef.startStatus`), deren Bedingung im Spielstand gilt. */
+export function startStatusFromCampaign(content: GameContent, state: Readonly<GameState>, encounter: EncounterDef): NonNullable<BattleSetup['startStatus']> {
+  return (encounter.startStatus ?? [])
+    .filter(entry => evaluateCondition(content, state, entry.when))
+    .map(({ target, status, rounds }) => ({ target, status, rounds }));
 }
 
 /** Gegenstände aus dem Inventar, die im Kampf nutzbar sind (Kampffähigkeit oder Heilung). */

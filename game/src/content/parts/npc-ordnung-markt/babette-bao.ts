@@ -7,15 +7,15 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, AB_AKT2, NICHT_AKT2, VEX, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle,
-  sprecher, tagesgespraech,
+  sprecher, tagesgespraech, erweitere,
 } from './_helfer';
+import { MENUE_23, akt23 } from './babette-akt23';
 
 const B = sprecher('babette-bao');
 const A = sprecher('aria');
 const DA = sprecher('daria');
 const FR = sprecher('freya');
 const JA = sprecher('jakko');
-const RI = sprecher('richter');
 
 const MARKTTAG = 'pers-babette-markttag';
 const GARKUECHE_OFFEN: Condition = { all: [{ time: ['morgen', 'tag'] }, { not: { weekday: 'mo' } }] };
@@ -81,7 +81,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: kleinere Portionen; Versöhnung über Abwasch, Kaktusfrucht oder eine ehrliche Entschuldigung. */
 const RIVALE: Menue = {
@@ -361,34 +361,8 @@ const he6 = dialog('he-babette-bao-6', [
   ], { effects: [{ xp: 80 }, { give: 'bao-dampfnudel', qty: 2 }, herz('babette-bao', 20), flag('babette_moewenhafen')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-babette-bao-8', [
-  knoten('start', [
-    erz('Vier Uhr morgens. Die Garküche ist dunkel bis auf eine Lampe. Babette hat dich herbestellt und reicht dir eine Schürze.'),
-    B('Heute lernst du es. Das ganze Rezept. Auch den Teil, den ich niemandem sage.', 'neutral'),
-    B('Teig dreimal falten. Ruhen lassen, bis er dich ansieht. Füllung mit den Händen, nicht mit dem Löffel. Und das Geheimnis …'),
-    erz('Sie beugt sich vor und flüstert dir etwas ins Ohr. Es ist absurd einfach. Es ist genial.'),
-    B('Wenn du das weitersagst, finde ich dich. Überall. Ich habe Kontakte bis in die Oberstadt. Über die Küchen.', 'signatur'),
-  ], {
-    effects: [flag('rezept_dampfnudel_babette'), { xp: 120 }],
-    choices: [{ text: '„Ich nehm’s mit ins Grab, Babette.“', next: 'grab' }],
-  }),
-  knoten('grab', [B('Ins Grab nicht. Ins Leben. Koch es für die, die du magst.', 'freude')], { effects: [herz('babette-bao', 40)] }),
-]);
-
-const he10 = dialog('he-babette-bao-10', [
-  knoten('start', [
-    erz('Ruhetag, aber die Garküche ist voll. Babette hat die Tische zusammengeschoben: Gustav, Oma Volt, der Richter, die Kinder aus dem Nest, Dexter, die Crew. Familienessen.'),
-    B('Jeder, der heute hier sitzt, hat mir irgendwann geholfen, nicht aufzugeben. Also esst. Das ist ein Befehl.', 'freude'),
-    RI('Schuldig. Der Völlerei schuldig. Ich beantrage Nachschlag.'),
-    erz('Am Ende des Abends nimmt Babette den alten schwarzen Holzlöffel vom Haken über dem Herd und drückt ihn dir in die Hand.'),
-    B('Der Löffel meiner Mutter. Er hat die Möwen verjagt und mich großgezogen. Jetzt passt er auf dich auf.', 'trauer'),
-  ], {
-    effects: [{ give: 'babettes-kochloeffel' }, flag('babette_familienessen'), { xp: 200 }],
-    choices: [{ text: '„Ich halt ihn in Ehren, Babette.“', next: 'ehren' }],
-  }),
-  knoten('ehren', [B('In Ehren? Du sollst damit kochen, Schätzchen! Und Leute verhauen, die schlecht über meine Nudeln reden.', 'signatur')], { effects: [herz('babette-bao', 50)] }),
-]);
+// ♥8 und ♥10 samt Akt-2/3-/Nachspiel-Gesprächen: babette-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Date: Abendessen bei Babette (Aria-Romanze)
 
@@ -502,6 +476,7 @@ const babette: NpcDef = {
     hates: ['plastikpflanze', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     // Montag: Ruhetag, abends Fischmarkt an der Hafenkante.
     { slot: 'abend', days: ['mo'], place: { map: 'hafenkante', at: 'fischmarkt' } },
     { days: ['mo'], place: 'away' },
@@ -523,6 +498,7 @@ const babette: NpcDef = {
     rede('babette-bao-tag-oednis', { all: [{ origin: 'origin-oednis' }, { notFlag: 'babette_herkunft' }] }),
     rede('babette-bao-tag-gosse', { all: [{ origin: 'origin-gossenkind' }, { notFlag: 'babette_herkunft' }] }),
     rede('babette-bao-tag-aria', { all: [{ flag: 'aria_romanze_zusammen' }, { notFlag: 'babette_kommentar_aria' }] }),
+    ...A23.talk,
     rede('babette-bao-tag-zeit', NICHT_AKT2, 8),
     rede('babette-bao-tag-fischmarkt', { weekday: 'mo' }),
     rede('babette-bao-tag-nest', { all: [{ time: 'abend' }, { clockBetween: [1020, 1080] }] }),
@@ -540,7 +516,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.oednis, T.gosse, T.ariaRomanze, T.zeit, T.markttag, T.fischmarkt, T.nest, T.vertraut, T.morgen, T.tag,
     T.abend, T.standard,
-    he2, he4, he6, he8, he10, date,
+    he2, he4, he6, ...A23.dialogues, date,
   ),
   phone: {
     'tel-babette-fruehstueck': {

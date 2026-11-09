@@ -168,6 +168,8 @@ export interface BattleSetup {
   start?: BattleStart;
   difficulty?: Difficulty;
   maxRounds?: number;
+  /** Zustände ab Kampfbeginn (aus `EncounterDef.startStatus`, Bedingungen schon geprüft). */
+  startStatus?: { target: string; status: StatusId; rounds: number }[];
 }
 
 // ---------------------------------------------------------------------------

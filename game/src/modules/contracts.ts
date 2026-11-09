@@ -225,7 +225,11 @@ export interface EffectMap {
   credits: { credits: number };
   rep: { rep: FactionId; delta: number };
   shop: { shop: ShopId };
-  battle: { battle: EncounterId };
+  /**
+   * Kampf starten. `win`/`lose`/`flee` laufen nach dem Kampf (nach onWin/onLose der Begegnung), z. B. ein
+   * Folgedialog. `stay`: Niederlage ohne Heimweg ins Unterschlupf (halbe LP, man bleibt auf der Karte).
+   */
+  battle: { battle: EncounterId } & BattleFollowUp;
   /**
    * Minispiel starten (Darstellung zeigt es, `CampaignPort.finishMinigame` rechnet ab).
    * `level` 1–5 (Standard 2), `key` für `wonMinigame` (Standard: Minispiel-ID), `win`/`lose` danach.
@@ -249,7 +253,7 @@ export interface RequestMap {
   travel: { travel: MapId; entry?: string; minutes?: number };
   sfx: { sfx: SfxId };
   ending: { ending: true };
-  battle: { battle: EncounterId };
+  battle: { battle: EncounterId } & BattleFollowUp;
   minigame: { minigame: MinigameRequest };
   shop: { shop: ShopId };
   jobBoard: { jobBoard: JobBoardId };
@@ -260,6 +264,8 @@ export interface RequestMap {
   /** Schlafen bzw. Zusammenbruch: Abblende, neuer Tag. */
   sleep: { sleep: 'bed' | 'collapse' };
 }
+/** Nachlauf eines Kampfes aus dem Effekt `battle` (die Darstellung gibt ihn an `finishBattle` weiter). */
+export interface BattleFollowUp { win?: Effect[]; lose?: Effect[]; flee?: Effect[]; stay?: boolean }
 /** Laufendes Minispiel: die Darstellung gibt es unverändert an `finishMinigame` zurück. */
 export interface MinigameRequest { id: MinigameId; level: number; key: string; label?: string; win: Effect[]; lose: Effect[] }
 export type RequestKey = keyof RequestMap;
@@ -451,7 +457,9 @@ export interface DialogueChoice {
   effects?: Effect[];
   /** Verschwindet, nachdem sie einmal genommen wurde. */
   once?: boolean;
-  /** Stabile Kennung für `once` (Standard: next, sonst text). */
+  /** Einmal pro Spieltag: verschwindet bis zum nächsten Morgen (Tagesflag `heute_wahl_…`). */
+  daily?: boolean;
+  /** Stabile Kennung für `once`/`daily` (Standard: next, sonst text). */
   id?: string;
 }
 
@@ -490,6 +498,8 @@ export interface CutsceneBeat {
   fade?: 'in' | 'out' | 'cross';
   /** Mindestdauer in ms vor „Weiter“ (bei reduzierter Bewegung ignoriert). */
   hold?: number;
+  /** Nur zeigen, wenn erfüllt (geprüft beim Start der Cutscene), z. B. Varianten nach Romanze oder Ausgang. */
+  when?: Condition;
 }
 
 export interface CutsceneDef {
@@ -526,6 +536,8 @@ export interface ExitDef {
   check?: CheckRef;
   /** Zusätzliche Spielminuten (Standard: Kartenwechsel +10). */
   minutes?: number;
+  /** Effekte beim Durchgehen (vor der Reise; nur Zustand und Meldungen, keine Dialoge/Reisen), z. B. ein Flag. */
+  effects?: Effect[];
 }
 
 export type HotspotKind = 'look' | 'talk' | 'loot' | 'use' | 'check' | 'shop' | 'board' | 'screen' | 'sleep' | 'phone';
@@ -599,6 +611,8 @@ export interface AmbientDef {
   barks?: { text: string; when?: Condition }[];
   /** Anzahl je Tageszeit (überschreibt count). */
   bySlot?: Partial<Record<TimeSlot, number>>;
+  /** Passanten nur, solange erfüllt (geprüft bei Betreten und Tageszeitwechsel), z. B. Publikum nur zur Rennnacht. */
+  when?: Condition;
 }
 
 /** Lichtpunkt für Abend/Nacht (additiv). */
@@ -609,6 +623,8 @@ export interface LightDef {
   color: string;
   intensity?: number;
   slots?: TimeSlot[];
+  /** Leuchtet nur, solange erfüllt (Alarm, Stromausfall, Lagerfeuer mit Leuten). */
+  when?: Condition;
 }
 
 /** Notschlafplatz einer Karte (world.md §3.8): Zusammenbruch hier ohne Credits-Verlust. Form siehe modules/time. */
@@ -628,6 +644,11 @@ export interface MapDef {
   bgVariants?: { when: Condition; bg: string }[];
   walk: Polygon[];
   block?: Polygon[];
+  /**
+   * Begehbarkeit nach Bedingung (geprüft beim Betreten der Karte): `walk` kommt als Lauffläche dazu (Brücke gespannt,
+   * Abkürzung offen), `block` als Hindernis (Partytische, Marktstände).
+   */
+  blockVariants?: { when: Condition; walk?: Polygon[]; block?: Polygon[] }[];
   exits: ExitDef[];
   entries: Record<string, { at: Point; facing: Facing }>;
   /** Benannte Punkte für Tagesabläufe ('bar', 'tresen'). */
@@ -648,6 +669,8 @@ export interface MapDef {
   ambience: AmbienceId;
   /** Lyria-Musik dieser Karte; fehlt = Bezirksstandard, `null` = keine Musik. */
   music?: MusicSpec | null;
+  /** Musik nach Bedingung (erste passende gewinnt, vor `music`), z. B. Schleichmusik beim Bruch; `null` = still. */
+  musicWhen?: { when: Condition; music: MusicSpec | null }[];
   /** Musik gedämpft (Tiefpass), etwa Club-Musik auf der Straße davor. */
   musicMuffled?: boolean;
   onEnter?: { id: string; when?: Condition; cutscene?: CutsceneId; dialogue?: DialogueId; effects?: Effect[]; once?: boolean }[];
@@ -930,6 +953,11 @@ export interface ShopDef {
   buys?: ItemCategory[];
   /** Ripperdoc: baut Cyberware ein; `fee` Standardgebühr der Werkstatt, frei ab `freeWhen`. */
   ripperdoc?: { freeWhen?: Condition; fee?: number };
+  /**
+   * Preisregeln nach Bedingung (alle passenden gelten): `discount` in Prozentpunkten (positiv = Rabatt, negativ =
+   * Aufschlag; zählt zu Perk- und Rufrabatt, Gesamtfaktor 0,5–2), `refuse` = der Händler verkauft nicht (Grund).
+   */
+  priceRules?: { when: Condition; discount?: number; refuse?: string }[];
 }
 
 export type JobKind = 'kurier' | 'schulden' | 'datenraub' | 'kopfgeld' | 'eskorte';
@@ -1025,6 +1053,27 @@ export interface CompanionDef {
    * Figur, 'player' = die Spielfigur) die Fähigkeit. Herzen, Spielfigur und Partner stehen in `when`.
    */
   duo?: { ability: AbilityId; when?: Condition; holder?: 'player' | 'companion' }[];
+  /**
+   * Gerade nicht verfügbar (gefangen, gechippt, im Turm): Solange erfüllt, verlässt die Figur die Party, lässt sich
+   * weder anrufen noch einteilen; sie bleibt in der Crew. `unavailableText` erklärt den Grund im Party-Menü.
+   */
+  unavailableWhen?: Condition;
+  unavailableText?: string;
+  /**
+   * Werte nach Stufe der Spielfigur (aufsteigend; alle Einträge bis zur Stufe gelten nacheinander, spätere
+   * überschreiben). Ohne Einträge wachsen LP und Waffenschaden ab Stufe 6 von selbst mit (siehe combat/campaign.ts).
+   */
+  statsByLevel?: CompanionLevelStats[];
+}
+
+/** Werte eines Begleiters ab einer Stufe der Spielfigur (nur die genannten Felder ändern sich). */
+export interface CompanionLevelStats {
+  minLevel: number;
+  hp?: number;
+  armor?: number;
+  morale?: number;
+  attributes?: Partial<Record<AttributeId, number>>;
+  weapon?: Partial<Pick<WeaponStats, 'damage' | 'range' | 'hit'>>;
 }
 
 export interface NpcDef {
@@ -1053,6 +1102,8 @@ export interface NpcDef {
   talk?: TalkDef[];
   /** Herz-Obergrenze (1–10, Standard 10; Weltfiguren mit Kurzeintrag 5 bzw. 6, world.md §4.1). */
   maxHearts?: number;
+  /** Solange erfüllt, gibt es keine Herzpunkte dazu (Figur gefangen/abwesend); Verluste zählen weiter. */
+  heartsFrozen?: Condition;
   /** Geburtstag: Geschenke zählen dreifach, solange erfüllt (z. B. `{ all: [{ cycleDay: 12 }] }`). */
   birthday?: Condition;
   /** Check-Boni, solange die Figur in der Party ist (z. B. Hunter bei Verhandlungen). */
@@ -1104,6 +1155,11 @@ export interface QuestDef {
   reward?: QuestReward;
   /** Abschluss automatisch, wenn alle Pflichtschritte erledigt sind (Standard true). */
   autoComplete?: boolean;
+  /**
+   * Heist/Finale: Solange die Quest aktiv ist, gibt es keinen Zusammenbruch um 02:00 – die Uhr bleibt um 01:59 stehen
+   * (Erkunden, Warten, Reisen). Schlafen geht weiter.
+   */
+  noCollapse?: boolean;
 }
 
 // ---------------------------------------------------------------------------
@@ -1171,7 +1227,8 @@ export type BattleObjective =
   | { kind: 'survive'; rounds: number }
   | { kind: 'reach'; cells: Cell[] }
   | { kind: 'hack'; cell: Cell; ap: number }
-  | { kind: 'rescue'; unit: string; cell: Cell };
+  /** Schutzperson: NPC- oder Gegner-ID (Werte, Bild); `name`/`sprite` überschreiben die Anzeige (z. B. „Proband 47“). */
+  | { kind: 'rescue'; unit: string; cell: Cell; name?: string; sprite?: string };
 
 export interface EncounterDef {
   id: EncounterId;
@@ -1186,6 +1243,8 @@ export interface EncounterDef {
   canFlee?: boolean;
   onWin?: Effect[];
   onLose?: Effect[];
+  /** Niederlage ohne Heimweg: halbe LP, man bleibt auf der Karte (Finale, Heist; die Begegnung bleibt wiederholbar). */
+  stayOnLose?: boolean;
   reward?: { xp?: number; credits?: number; items?: Record<ItemId, number> };
   /** Gesprochene Zeilen zu Beginn. */
   intro?: DialogueLine[];
@@ -1193,6 +1252,11 @@ export interface EncounterDef {
   start?: 'normal' | 'ueberrumpelt' | 'hinterhalt';
   /** Duell: nur die Spielfigur kämpft, Begleiter schauen zu. */
   solo?: boolean;
+  /**
+   * Zustände ab Kampfbeginn, wenn `when` gilt (Vorbereitung, Sabotage): `target` = 'party', 'enemies', 'player' oder
+   * eine Gegner-ID (alle Einheiten dieses Typs). Z. B. Stromschnitt: Boss eine Runde `betaeubt`.
+   */
+  startStatus?: { when?: Condition; target: 'party' | 'enemies' | 'player' | EnemyId; status: StatusId; rounds: number }[];
   /** Nach so vielen Runden endet der Kampf als Flucht (Standard 60). */
   maxRounds?: number;
 }
@@ -1511,6 +1575,8 @@ export interface ActStart {
   seen?: string[];
   visited?: MapId[];
   day?: number;
+  /** Uhrzeit beim Start in Minuten ab 0:00 (06:00–01:59, z. B. 1200 = 20:00 für die Partynacht). */
+  minutes?: number;
 }
 
 export interface GameContent {
@@ -1728,7 +1794,8 @@ export interface CampaignPort {
   factionStandings(): FactionStanding[];
 
   // Kampf
-  finishBattle(result: BattleResult): EffectOutcome;
+  /** `after`: Nachlauf aus dem Effekt `battle` (win/lose/flee, stay). */
+  finishBattle(result: BattleResult, after?: BattleFollowUp): EffectOutcome;
   /** Minispiel abrechnen: gewonnen → `spiel:<key>` gesehen und `win`, sonst `lose`. */
   finishMinigame(request: MinigameRequest, won: boolean): EffectOutcome;
 

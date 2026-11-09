@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-labor-leer": "assets/bg/quantum-labor-leer.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-labor-leer.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, positions, outlines and painting style - every object stays where it is, same size. Only change the state:\nABANDONED / AFTER THE PARTY state, quiet daytime: the lab is shut down. The big mainframe screen is dark and covered by a large white dust sheet. The operating table, the robotic arms and the patient chair are covered with white dust sheets. The hacker desk monitors are dark. The holographic panels at the right console are gone. Colourful confetti and a few streamers lie scattered across the white floor. Soft neutral daylight from the ceiling panels, calm muted colours, no neon glow, no red, gentle grey-blue shadows. A peaceful, empty, slightly melancholic mood.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

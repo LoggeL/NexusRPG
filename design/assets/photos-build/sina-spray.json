@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "sina-spray-neutral.png",
+  "sha": "aea02882001444cb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61308
+ },
+ "freude": {
+  "src": "sina-spray-freude.png",
+  "sha": "f5a292dab05b8dde",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 67452
+ },
+ "wut": {
+  "src": "sina-spray-wut.png",
+  "sha": "62ca0194b2e93ce3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 58022
+ }
+}

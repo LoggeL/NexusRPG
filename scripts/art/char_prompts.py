@@ -784,6 +784,16 @@ CHARACTERS.update({
         "mood": "kindly, chatty grandfather smile",
         "rim": "cyan",
     },
+    "hecki": {  # Gärtnerroboter im Himmelsgarten, schneidet Rosen in Herzform (act23.json)
+        "desc": "a slim, elegant gardener robot about human height, walking on two thin jointed legs: a glossy "
+                "white-and-sage-green enamel body like an upper-city luxury appliance, a small rounded head with one "
+                "wide soft-green visor eye and a tiny straw sun hat, a green gardener's apron with a pocket full of "
+                "seed packets (no text), one hand is a pair of polished silver pruning shears, the other a delicate "
+                "gripper holding a red rose trimmed into a heart shape, a little watering can clipped to its hip"
+                + _MACHINE_ONLY + _STYLE_ONLY,
+        "mood": "gentle, polite, head tilted",
+        "rim": "pink",
+    },
 })
 
 # Weltfiguren und Akt-2/3-Figuren a–g ohne Kostümreferenz (art-fig-a): Stilreferenz ist eine vorhandene Figur mit

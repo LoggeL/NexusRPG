@@ -18,6 +18,8 @@ const shops: Record<string, ShopDef> = {
   // --- Neon-Gasse ------------------------------------------------------------------------------------------
   'volt-eck': {
     id: 'volt-eck', name: 'Volt-Eck', owner: 'oma-volt', faction: 'unterstadt', open: TAGSUEBER,
+    // Dank aus side-ki-fluestern (Akt 2).
+    priceRules: [{ when: { flag: 'oma_volt_rabatt_5' }, discount: 5 }],
     stock: [
       { item: 'medipflaster', qty: 8 },
       { item: 'nougatbombe', qty: 12 },

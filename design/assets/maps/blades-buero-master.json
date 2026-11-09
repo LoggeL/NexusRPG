@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-blades-buero-master": "assets/bg/blades-buero-master.webp"
+ },
+ "size": [
+  1024,
+  768
+ ],
+ "raw": "output/imagegen/raw/maps/blades-buero-master.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, objects, positions, outlines and painting style - every piece of furniture stays where it is, same size. Only change the mood and a few details:\n\"MASTER\" state: the office has a new ruler. The whole room is lit in a cold, dominant violet-magenta glow; the city outside the panoramic window glows violet too, all screens in the city pulse in the same violet colour. The holographic ring above the black AI pillar (bottom right) is large, bright and violet. On the glass desk there are now many stacks of papers and three empty champagne glasses. The flipchart shows a new, bigger crown symbol drawn in violet over the old drawing (no letters). The coat stand at the bottom left is completely empty. A crumpled violet blanket lies over the black executive chair. Slightly darker, lonely, cold luxury.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

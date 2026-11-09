@@ -4,7 +4,7 @@
 //   installBattleRunner(director, createCombatSessionFactory(director.content, () => director.campaign.state()));
 import {
   abilityOptions, act, actionOptions, areaPreview, attackTargets, bagFromInventory, battleResult, battleSeed, createBattle,
-  findUnit, itemAbility, itemOptions, moveOptions, partyFromCampaign, planAiAction,
+  findUnit, itemAbility, itemOptions, moveOptions, partyFromCampaign, planAiAction, startStatusFromCampaign,
   type ActionOptions, type AttackPreview, type BattleSetup, type CombatState, type HitPart,
 } from '../../../modules/combat';
 import type { AbilityDef, Cell, EncounterDef, GameContent, GameState } from '../../../modules/contracts';
@@ -190,6 +190,7 @@ export function createCombatSessionFactory(content: GameContent, state: () => Re
       bag: bagFromInventory(content, current.inventory),
       start: options.start,
       difficulty: options.difficulty,
+      startStatus: startStatusFromCampaign(content, current, encounter),
     });
   };
 }

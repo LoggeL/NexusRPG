@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "herr-glanz-neutral.png",
+  "sha": "fdf7eddf8d20c708",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43036
+ },
+ "freude": {
+  "src": "herr-glanz-freude.png",
+  "sha": "2588ade31fe87b96",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42378
+ },
+ "besorgt": {
+  "src": "herr-glanz-besorgt.png",
+  "sha": "2f7d446b512bc4f3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40802
+ }
+}

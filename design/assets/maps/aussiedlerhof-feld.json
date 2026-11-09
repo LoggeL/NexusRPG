@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-aussiedlerhof-feld": "assets/bg/aussiedlerhof-feld.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/aussiedlerhof-feld.png",
+ "prompt": "Edit the attached game map background image (first attached image). Keep EVERYTHING identical: same camera, same composition, same buildings, props, colours, lighting, painting style, same size 1536x1024. Change only ONE thing: the empty rectangular plot of dark turned soil framed by planks at the bottom center is now a thriving little vegetable field - neat rows of young green lettuce, carrot tops, small bean plants and a few sunflowers, with damp soil between the rows; the watering can and the rake stay where they are. No people, no animals, no text."
+}

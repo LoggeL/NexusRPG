@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "direktorin-hartlauf-neutral.png",
+  "sha": "af50355b2bcde61f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35746
+ },
+ "wut": {
+  "src": "direktorin-hartlauf-wut.png",
+  "sha": "c9a2d323e8b7da0d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33646
+ },
+ "trauer": {
+  "src": "direktorin-hartlauf-trauer.png",
+  "sha": "517d91c5a564bdbd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 33410
+ },
+ "signatur": {
+  "src": "direktorin-hartlauf-signatur.png",
+  "sha": "1a8e9418458819f6",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43890
+ }
+}

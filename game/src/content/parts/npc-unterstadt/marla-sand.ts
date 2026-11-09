@@ -1,18 +1,19 @@
 // Marla Sand – Aussiedlerin und Karawanenhändlerin (world.md §4.4, §4.6, §11.2).
 // Akt 1: nur samstags als Besucherin am Schrottmarkt (Karawanenstand M/T, abends Oldie-Ecke im High Voltage),
 // Herz-Ereignis he-marla-sand-2 am Karawanenwagen (design/plan/act1.json notes: Wasserfilter statt Brunnen).
-// he-marla-sand-4…10 angelegt und an act2 gebunden (Hof und Ödnis folgen; Karten dann umhängen, siehe Lücken).
+// he-marla-sand-4…10 ab act2 am Aussiedlerhof und an der Staubstraße (act23.json „umhängen“); ♥8/♥10, Romanze und
+// Akt-2/3-/Nachspiel-Gespräche in marla-akt23.ts.
 // Begleiterin ab ♥6, laut §11.2 erst ab act2. Romanze nur mit { romance: 'marla-sand' } (derzeit nicht freigeschaltet).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, einmalig, AKT2, VOR_AKT2, alle, dialog, erz, flag, herz, herzEreignis, ich, knoten, nicht, pruefung, rede, sammle,
-  sprecher, tagesgespraech, ZEIT_HINWEIS,
+  sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere,
 } from './_lib';
+import { MENUE_23, WASSERADER, akt23 } from './marla-akt23';
 
 const ID = 'marla-sand';
 const M_ = sprecher(ID);
-const ROM: Condition = { romance: ID };
 /** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
 const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const ODNIS: Condition = { origin: 'origin-oednis' };
@@ -72,7 +73,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const MENUE = menue();
+const MENUE = erweitere(menue(), MENUE_23);
 
 // ---------------------------------------------------------------------------------------------- Tagesgespräche
 
@@ -176,10 +177,10 @@ const he2 = dialog('he-marla-sand-2', [
   ], { effects: [herz(ID, 10)] }),
 ]);
 
-// ♥4–♥10: angelegt, erst ab act2 (Hof, Ödnis; world.md §11.2). Orte vorläufig am Karawanenstand, siehe Lücken.
+// ♥4 (Veranda, abends) und ♥6 (Staubstraße, Pistenkreuz) ab act2; ♥8/♥10 in marla-akt23.ts.
 const he4 = dialog('he-marla-sand-4', [
   knoten('start', [
-    erz('Lagerfeuer aus Treibholz, die Flammen grün vom Salz. Marla sitzt im Schneidersitz und reicht dir einen Becher mit etwas, das nach Kaktus und Rauch schmeckt.'),
+    erz('Abend auf der Veranda des Aussiedlerhofs. Unten im Hof brennt ein Lagerfeuer aus Treibholz, die Flammen grün vom Salz. Marla sitzt im Schneidersitz und reicht dir einen Becher mit etwas, das nach Kaktus und Rauch schmeckt.'),
     M_('Ich hab dir vom Meer erzählt. Aber nicht alles. Nicht, warum ich nie wieder hingefahren bin.', 'besorgt'),
     M_('Mein Vater ist dort geblieben. Nicht gestorben. Geblieben. Er hat gesagt: „Hier ist es gut, Marla. Fahr du zurück, die Ziegen brauchen dich.“ Und ich bin gefahren.'),
     erz('Sie zieht ein gefaltetes, salzfleckiges Stück Karte aus dem Kopftuch.'),
@@ -216,39 +217,7 @@ const he6 = dialog('he-marla-sand-6', [
   ], { effects: [flag('marla_wind_gelesen'), { xp: 120 }] }),
 ]);
 
-const he8 = dialog('he-marla-sand-8', [
-  knoten('start', [
-    erz('Die Karawane steht. Über den Dünen kreisen Staubfalken – Plünderer mit Gleitschirmen und Rostklingen.'),
-    M_('Wenn wir umdrehen, kommen wir ohne Ware heim. Wenn wir weiterfahren, kommen wir vielleicht gar nicht heim. Ich mag beide Möglichkeiten nicht.', 'besorgt'),
-  ], {
-    choices: [
-      { text: '„Wir fahren. Ich halt sie dir vom Leib.“', next: 'fahren', effects: [herz(ID, 60)] },
-      { text: '„Verhandeln. Jeder hat Durst, auch Plünderer.“', check: pruefung('he-marla-8-verhandeln', 'ausstrahlung', 6, ['verhandeln']), next: 'verhandeln', effects: [herz(ID, 60)] },
-    ],
-  }),
-  knoten('fahren', [M_('Dann fahren wir. Und wenn wir ankommen, koch ich dir was, das nicht nach Konserve schmeckt. Versprochen.', 'signatur')], { effects: [flag('marla_eskorte'), { xp: 160 }] }),
-  knoten('verhandeln', [M_('Wasser gegen Durchfahrt. Du hast mit Staubfalken gefeilscht und sie haben sich bedankt. Draußen nennen sie dich jetzt „die Zunge“. Gewöhn dich dran.', 'freude')], { effects: [flag('marla_eskorte'), { xp: 160 }] }),
-]);
-
-const he10 = dialog('he-marla-sand-10', [
-  knoten('start', [
-    erz('Der Brunnen auf dem Hof gibt Wasser. Klares, kaltes, echtes Wasser. Marla hält einen Stab aus gebogenem Kupferdraht in der Hand.'),
-    M_('Mein Wasserstab. Mein Vater hat damit den ersten Brunnen gefunden. Ich den zweiten. Den dritten findest du.', 'zaertlich'),
-    M_('Nimm ihn. Und wenn du je am Meer stehst und einen alten Mann mit Ziegenbart siehst, sag ihm, Marla hat nicht vergessen, wie es atmet.'),
-  ], {
-    effects: [{ give: 'marlas-wasserstab' }, flag('marla_wasserstab'), { xp: 200 }],
-    choices: [
-      { text: '„Ich sag es ihm. Versprochen.“', next: 'ende', effects: [herz(ID, 50)] },
-      { text: '„Sag es ihm selbst. Komm mit.“', tag: '[Romanze]', when: ROM, next: 'romanze', effects: [herz(ID, 60)] },
-    ],
-  }),
-  knoten('ende', [M_('Gut. Dann weiß ich, dass es jemand hört.', 'freude')]),
-  knoten('romanze', [
-    M_('Mitkommen. Ans Meer. Mit dir.', 'zaertlich'),
-    erz('Sie lacht leise und lehnt die Stirn an deine Schulter. Der Wind dreht sich und bringt den Geruch von Regen, irgendwo weit weg.'),
-    M_('Frag mich nochmal, wenn die Sterne rauskommen. Dann sag ich ja. Bis dahin tun wir so, als müssten wir noch überlegen.'),
-  ], { effects: [flag('marla-sand_romanze_zusammen')] }),
-]);
+const A23 = akt23(MENUE);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -269,18 +238,14 @@ const marla: NpcDef = {
     dislikes: ['edelbrause', 'parfuem-ozon'],
     hates: ['plastikpflanze', 'rostige-dose', 'virus-implantat'],
   },
-  schedule: [
-    // Akt 2: Aussiedlerhof Mo–Fr/So, Sa wie hier, nachts Staubstraße (Karten folgen mit der Ödnis).
-    { slot: ['morgen', 'tag'], days: ['sa'], place: { map: 'schrottmarkt', at: 'karawanenstand' } },
-    { slot: 'abend', days: ['sa'], place: { map: 'high-voltage', at: 'oldie-ecke' } },
-    { place: 'away' },
-  ],
+  // Akt 1: nur samstags in der Stadt; ab act2 Aussiedlerhof und Staubstraße (marla-akt23.ts).
+  schedule: A23.schedule,
   heartEvents: [
     herzEreignis('he-marla-sand-2', 2, 'schrottmarkt', ['morgen', 'tag'], SAMSTAG),
-    herzEreignis('he-marla-sand-4', 4, 'schrottmarkt', ['morgen', 'tag'], alle(AKT2, SAMSTAG)),
-    herzEreignis('he-marla-sand-6', 6, 'schrottmarkt', ['morgen', 'tag'], alle(AKT2, SAMSTAG, { seen: 'he-marla-sand-4' })),
-    herzEreignis('he-marla-sand-8', 8, 'schrottmarkt', ['morgen', 'tag'], alle(AKT2, SAMSTAG, { seen: 'he-marla-sand-6' })),
-    herzEreignis('he-marla-sand-10', 10, 'schrottmarkt', ['morgen', 'tag'], alle(AKT2, SAMSTAG, { seen: 'he-marla-sand-8' })),
+    herzEreignis('he-marla-sand-4', 4, 'aussiedlerhof', 'abend', AKT2),
+    herzEreignis('he-marla-sand-6', 6, 'staubstrasse', 'tag', alle(AKT2, { seen: 'he-marla-sand-4' })),
+    herzEreignis('he-marla-sand-8', 8, 'staubstrasse', 'tag', alle(AKT2, { weekday: ['mo', 'do'] }, { seen: 'he-marla-sand-6' })),
+    herzEreignis('he-marla-sand-10', 10, 'aussiedlerhof', 'morgen', alle(AKT2, { seen: 'he-marla-sand-8' })),
   ],
   companion: {
     // world.md §4.6: ab ♥6; §11.2: Akt 1 nur Besucherin → erst ab act2.
@@ -292,12 +257,14 @@ const marla: NpcDef = {
       abilities: ['marla-sandschleier', 'marla-wasser-teilen'],
     },
     heartAbilities: [{ hearts: 8, ability: 'marla-windkundig' }],
+    abilityRules: [{ when: { flag: 'marla_wasserstab' }, add: WASSERADER.id }],
   },
   partyCheckBonus: [
     { tags: ['sandsturm', 'feilschen'], value: 1, label: 'Marla kennt den Wind' },
   ],
   talk: [
     rede('marla-sand-tag-erstes', { not: { met: ID } }),
+    ...A23.talk,
     rede('marla-sand-tag-zeit', alle(VOR_AKT2, { notFlag: 'marla_zeit_hinweis' }), 4),
     rede('marla-sand-tag-oednis', alle(ODNIS, { seen: 'he-marla-sand-2' })),
     rede('marla-sand-tag-abend', { time: 'abend' }),
@@ -312,6 +279,7 @@ export const part: ContentPart = {
   npcs: { [ID]: marla },
   dialogues: sammle(
     T.erstes, T.zeit, T.oednis, T.morgen, T.tag, T.abend, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
+  ...A23.teil,
 };

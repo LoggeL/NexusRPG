@@ -425,9 +425,12 @@ const kanalSammler: MapDef = {
       lockedText: 'Gitter: „Wartung bis auf Weiteres.“ Dahinter Dunkelheit und ein Geräusch, das nach sehr großen Rohren klingt.',
     },
     {
+      // world.md §3.2: act2 und (schottschluessel oder gc-110). Den Check macht der Hotspot „Drehrad“ (setzt schott_offen),
+      // damit der Ausgang selbst ohne Check bleibt.
       id: 'schott', rect: [1398, 110, 112, 120], to: 'datentunnel', entry: 'von-kanal-sammler',
-      label: 'Schott mit Drehrad', interact: true, when: { act: 2 }, check: 'gc-110',
-      lockedText: 'Ein Schott mit Drehrad. Mit genug Technik wüsstest du, wo man drehen müsste. Aber nicht vor Akt 2.',
+      label: 'Schott mit Drehrad', interact: true,
+      when: { any: [{ item: 'schottschluessel' }, { flag: 'schott_offen' }] },
+      lockedText: 'Ein Schott mit Drehrad, festgerostet. Mit genug Technik wüsstest du, wo man drehen müsste – oder mit dem passenden Schlüssel.',
     },
   ],
   entries: {
@@ -442,6 +445,12 @@ const kanalSammler: MapDef = {
   },
   spots: Object.fromEntries(Object.entries(S).map(([k, at]) => [k, { at, facing: 's' as const }])),
   hotspots: [
+    {
+      id: 'schott-drehrad', at: [1454, 236], radius: 56, label: 'Drehrad am Schott', kind: 'check', check: 'gc-110',
+      when: { act: 2 }, hideWhen: { any: [{ item: 'schottschluessel' }, { flag: 'schott_offen' }] },
+      altText: 'Ohne Technik bleibt nur der Schottschlüssel – oder der Kabelschacht im Digitech-Areal.',
+      effects: [{ setFlag: 'schott_offen' }, { travel: 'datentunnel', entry: 'von-kanal-sammler' }],
+    },
     // --- Trockendock ---------------------------------------------------------------------------------------------
     {
       id: 'gullys-rathaus', at: [700, 246], radius: 50, label: 'Gullys Rathaus ansehen', kind: 'look',

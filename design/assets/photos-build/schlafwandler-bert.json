@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "schlafwandler-bert-neutral.png",
+  "sha": "7f9110b2b057f3e3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 35802
+ },
+ "besorgt": {
+  "src": "schlafwandler-bert-besorgt.png",
+  "sha": "05df466183c8ae5a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 36072
+ },
+ "ueberrascht": {
+  "src": "schlafwandler-bert-ueberrascht.png",
+  "sha": "73514b9495e95c30",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38208
+ }
+}

@@ -100,10 +100,10 @@ function vipUnit(data: CombatData, objective: Extract<BattleObjective, { kind: '
   const enemy = has(data.enemies, objective.unit) ? data.enemies[objective.unit] : undefined;
   const unit = statsUnit({
     id: `schutz:${objective.unit}`,
-    name: npc?.name ?? enemy?.name ?? 'Zivilperson',
+    name: objective.name ?? npc?.name ?? enemy?.name ?? 'Zivilperson',
     team: 'party',
     source: npc ? { kind: 'companion', npc: npc.id } : enemy ? { kind: 'enemy', enemy: enemy.id } : { kind: 'companion', npc: objective.unit },
-    sprite: npc?.sprite ?? enemy?.sprite ?? `${objective.unit}-walk`,
+    sprite: objective.sprite ?? npc?.sprite ?? enemy?.sprite ?? `${objective.unit}-walk`,
     portrait: npc?.portrait ?? enemy?.portrait,
     stats: npc?.companion?.stats ?? enemy?.stats ?? CIVILIAN,
     level: enemy?.level ?? 1, hpFactor: 1, ai: 'vorsichtig',
@@ -184,6 +184,18 @@ export function createBattle(data: CombatData, setup: BattleSetup): CombatState 
     bag: Object.fromEntries(Object.entries(setup.bag ?? {}).filter(([item, qty]) => qty > 0 && has(data.items, item))),
     used: {}, rewards: null, maxRounds: Math.max(1, Math.floor(setup.maxRounds ?? encounter.maxRounds ?? DEFAULT_MAX_ROUNDS)),
   };
+  // Vorbereitungen (EncounterDef.startStatus): Zustände ab der ersten Runde.
+  for (const entry of setup.startStatus ?? []) {
+    const rounds = Math.max(0, Math.floor(entry.rounds));
+    if (!rounds) continue;
+    for (const unit of units) {
+      const hit = entry.target === 'party' ? unit.team === 'party'
+        : entry.target === 'enemies' ? unit.team === 'enemy'
+        : entry.target === 'player' ? unit.source.kind === 'player'
+        : unit.source.kind === 'enemy' && unit.source.enemy === entry.target;
+      if (hit && !unit.vip) unit.status[entry.status] = Math.max(unit.status[entry.status] ?? 0, rounds);
+    }
+  }
   const ctx: Ctx = { data, s: state, events: [] };
   startBattle(ctx);
   return state;

@@ -1,0 +1,521 @@
+// Epilog-Karten (world.md §5.5): Sondersendung von Collin und Delya, je abgeschlossener Quest eine Meldung.
+// Drei Ausspielungen derselben Tabelle:
+//   1. Dialog `epilog-sendung` (Telefon am Morgen nach dem Ende, Autoradio am Wagenplatz, Stadt-TV, Turm im Master-Modus):
+//      Tore ohne Zeilen springen über nicht erledigte Quests, jede Meldung hat ihre Schlagzeile als Wahl.
+//   2. `ENDING_EPILOGUE` für GameContent.ending.epilogue (Endbildschirm nach dem Abspann) – die Integration setzt ihn
+//      in content/world.ts (design/plan/ending.md).
+//   3. Kurzmeldungen fürs Stadt-TV übernimmt das nicht; dafür gibt es die Hauptmeldungen der Enden (enden.ts).
+import type { ContentPart } from '../../part';
+import type { Condition, CutsceneDef, DailyRuleDef, Effect, DialogueDef, DialogueNode, PhoneMessageDef } from '../../../modules/contracts';
+import {
+  BLADE_GEFASST, BLADE_WEG, ENDE_3B, ENDE_MASTER, ENDE_MEER, ENDE_NEXUS, EPILOG, MASTER, all, any, done, flag,
+  bild, l, n, noFlag, node, set, tor,
+} from './_lib';
+
+const C = 'collin-charleston';
+const D = 'delya-delloraine';
+
+interface Karte {
+  id: string;
+  when: Condition;
+  /** Schlagzeile (Wahl im Dialog). */
+  head: string;
+  /** Collin. */
+  c: string;
+  /** Delya. */
+  d: string;
+  /** Ein Satz für den Endbildschirm. */
+  text: string;
+}
+
+const q = (id: string): Condition => done(id);
+const k = (id: string, when: Condition, head: string, c: string, d: string, text: string): Karte => ({ id, when, head, c, d, text });
+
+// --------------------------------------------------------------------------------------------- Die Karten
+
+export const KARTEN: readonly Karte[] = [
+  // Hauptstrang und Enden
+  k('blade-haft', BLADE_GEFASST, 'Blade Nocturne in Untersuchungshaft',
+    'Blade Nocturne sitzt! Im Zellentrakt am Eisenhof! Er hat sich über das Licht beschwert, das Essen und über seine Nummer. Sie ist ihm „nicht exklusiv genug“.',
+    'Besuchszeiten sind dienstags, donnerstags und samstags. Die Schlange vor dem Besucherraum besteht bisher aus drei Chrome-Schwestern und einem Pudel.',
+    'Blade Nocturne sitzt im Zellentrakt am Eisenhof. Er beschwert sich über das Licht, das Essen und seine Häftlingsnummer.'),
+  k('blade-weg', BLADE_WEG, 'Goldener Gleiter über der Ödnis gesichtet',
+    'Ein goldener Gleiter wurde über den Glasdünen gesichtet! Augenzeugen berichten von einem Mann im Teddymantel, der „Ich komme wieder!“ rief.',
+    'Andere Augenzeugen berichten, er habe „Wo ist hier der Ausgang?“ gerufen. Wir bleiben dran. Er hoffentlich nicht.',
+    'Blade Nocturne ist mit dem goldenen Gleiter entkommen. Irgendwo da draußen plant er sein Comeback. Wahrscheinlich in einem sehr guten Mantel.'),
+  k('alesa-aussage', flag('alesa_aussage'), 'Alesa Zero sagt aus',
+    'Die Erfinderin von Nexus hat vor Gericht ausgesagt! Drei Stunden lang! Der Richter ist zweimal eingeschlafen, aber vor Rührung!',
+    'Sie hat nicht gesagt, dass sie von nichts gewusst hat. In dieser Stadt ist das eine Sensation.',
+    'Alesa Zero hat ausgesagt. Ehrlich. Seitdem leistet sie Sozialstunden in Dantes Werkstatt und fackelt dabei kaum etwas ab.'),
+  k('alesa-nichts', all(noFlag('alesa_aussage'), any(BLADE_GEFASST, BLADE_WEG)), 'Quantum-Forschung: „Wir haben ja von nichts gewusst“',
+    'Quantum-Forschungsleiterin Alesa Zero: „Wir haben ja von nichts gewusst!“',
+    'Wir haben die Laborprotokolle. Sie hat es gewusst. Sie hat es sogar mit Textmarker gewusst.',
+    'Alesa Zero bleibt dabei, sie habe von nichts gewusst. Die Laborprotokolle mit ihren Textmarker-Notizen sehen das anders.'),
+  k('nyra', flag('nyra_befreit'), 'Silent-Angel zurück in der Unterstadt',
+    'Die Hackerin Silent-Angel ist zurück! Ihr erstes Selfie: Meer, Sonnenbrand, ein Daumen hoch und Dante, der versehentlich mit drauf ist!',
+    'Sie hat dazu geschrieben: „Der Zentrator war falsch herum. Ich hab’s euch gesagt.“ Sechzigtausend Likes.',
+    'Nyra ist wieder bei der Crew. Sie wohnt jetzt praktisch am Meer und schickt Dante jeden Morgen ein Selfie mit einer anderen Muschel.'),
+  k('xion-fehlt', flag('xion_fehlt'), 'Xion Venom sucht einen Hubschrauber',
+    'Quantums Sicherheitschef Xion Venom wurde auf dem Dach des Bahnhofs gefunden. Er wartet dort seit vier Tagen auf einen Hubschrauber.',
+    'Es kommt kein Hubschrauber. Wir haben es ihm gesagt. Er hat gesagt: „Ich bin nicht dumm.“ Er wartet weiter.',
+    'Xion Venom wartet immer noch auf den Hubschrauber, den man ihm versprochen hat. Er hat sich ein Klappstühlchen gekauft.'),
+
+  // Akt-1-Nebenquests
+  k('verspaetung', q('side-uebliche-verspaetung'), 'U-Bahn pünktlich – Fahrgäste verstört',
+    'Zum ersten Mal seit 2071 war die Linie Drei pünktlich! Drei Fahrgäste mussten mit einem Schock behandelt werden!',
+    'Frau Takt kommentierte das nur mit zwei Worten: „Null Sekunden.“ Dann hat sie geweint. Vor Glück, glauben wir.',
+    'Die U-Bahn ist zum ersten Mal seit 2071 pünktlich. Die Fahrgäste reagieren verstört.'),
+  k('zehn-credits', q('side-zehn-credits'), 'Kinder eröffnen Fundbüro – erster Kunde: Ripper',
+    'Daria, Freya und Jakko haben am Schrottmarkt ein Fundbüro eröffnet! Erster Kunde: Ripper! Er suchte sein Gewissen!',
+    'Gefunden haben sie es nicht. Aber eine Taschenlampe. Ripper hat zehn Credits bezahlt und gemurmelt, das sei „ein fairer Preis“.',
+    'Die drei Kinder vom Schrottmarkt haben ein Fundbüro gegründet. Ripper war ihr erster Kunde.'),
+  k('riegel', q('side-riegel-krise'), 'Nougatbomben-Versorgung gesichert',
+    'Die Riegel-Krise ist vorbei! In den Lötgassen gibt es wieder Nougatbomben, und Dante hat angeblich nur zwölf auf einmal gegessen!',
+    'Es waren vierzehn. Wir haben die Verpackungen gezählt.',
+    'Die Unterstadt hat wieder Nougatbomben. Dante isst sie inzwischen nur noch in Maßen. Die Maße sind groß.'),
+  k('keksalarm', q('side-keksalarm'), 'Rauchmelder in den Lötgassen kapitulieren',
+    'In den Lötgassen wird wieder gebacken! Die Rauchmelder haben sich geschlossen ergeben!',
+    'Die Feuerwehr hat Dantes Werkstatt jetzt auf Kurzwahl. Nicht wegen der Brände. Wegen der Kekse.',
+    'Dante backt wieder jeden Morgen. Die Rauchmelder der Lötgassen haben aufgegeben, die Nachbarn nicht: Sie kommen zum Probieren.'),
+  k('eins-turnier', q('side-eins-turnier'), 'Eins!-Turnier: Daria ungeschlagen',
+    'Daria verteidigt ihren Titel im Eins!-Turnier! Zweiter wurde ein Mann mit Sonnenbrille, der „nicht Dante“ heißt!',
+    'Hinter einer verschlossenen Werkstatttür war danach zwanzig Minuten lang lautes Fluchen zu hören. Wir nennen keine Namen.',
+    'Daria ist ungeschlagene Eins!-Meisterin der Unterstadt. Dante übt heimlich. Er verliert auch heimlich.'),
+  k('jimmy', q('side-jimmys-chip'), 'Jimmy eröffnet Lieferdienst',
+    'Jimmy, früher bekannt als „Kundenservice von morgen“, liefert jetzt Nudeln durch die ganze Unterstadt!',
+    'Sein Werbespruch: „Ich drehe nur noch am Lenkrad durch.“ Wir haben nachgemessen. Er fährt Schrittgeschwindigkeit.',
+    'Jimmy hat einen Lieferdienst eröffnet: „Ich drehe nur noch am Lenkrad durch.“'),
+  k('chrome-10', q('side-chrome-10'), 'Gefälschte Chrome-10-Gutscheine: Dexter bestreitet alles',
+    'Die gefälschten Chrome-10-Gutscheine sind aus dem Verkehr! Dexter vom Schrottmarkt bestreitet jede Beteiligung!',
+    'Er bestreitet inzwischen auch seinen Namen, seinen Geburtstag und dass er Dexter heißt.',
+    'Die gefälschten Chrome-10-Gutscheine sind verschwunden. Dexter bestreitet alles, sogar seinen Namen.'),
+  k('fax', q('side-eingehendes-fax'), 'Digitech-Roboter FX-60 geht in Rente',
+    'Ein alter Digitech-Roboter namens FX-60 hat seinen ersten freien Tag seit neunzehn Jahren! Er hat ihn mit Faxen verbracht!',
+    'An wen, wollte er nicht sagen. Nur: „PROTOKOLL. Freundschaft. Ende.“',
+    'FX-60 hat seinen Frieden gefunden. Er faxt Dante jeden Sonntag ein Kreuzworträtsel. Es hat nur eine Lösung: „Danke“.'),
+  k('schallplatten', q('side-schallplatten'), 'Seele aus Vinyl: Dantes Sammlung ist komplett',
+    'Zwölf verschollene Platten, eine Sammlung, ein sehr glücklicher Mann! Dantes Werkstatt ist jetzt das lauteste Museum der Stadt!',
+    'Die Nachbarn haben eine Sammelbestellung für Ohrstöpsel aufgegeben. Einer hat trotzdem mitgetanzt.',
+    'Dantes Plattensammlung ist vollständig. Die Lötgassen hören jetzt jeden Abend dieselben zwölf Lieder und beschweren sich nur noch selten.'),
+  k('live-dabei', q('side-live-dabei'), 'Kameramann gewinnt Preis',
+    'Unser Kameramann hat den Preis für die ehrlichste Aufnahme des Jahres gewonnen! Seine Dankesrede: [ : ) ]',
+    'Es war die beste Rede des Abends.',
+    'Der Kameramann von NX-1 hat einen Preis gewonnen. Seine Dankesrede bestand aus einem Smiley auf dem Visier.'),
+  k('kessel', q('side-feierabend-fuer-kessel'), 'Ex-Wachtmeisterin eröffnet Yogastudio',
+    'Die frühere Wachtmeisterin Kessel hat am Eisenhof ein Yogastudio eröffnet! Erster Kurs: „Herabschauender Häftling“!',
+    'Unbestätigten Berichten zufolge wurde Hunter in der Kundschaft gesehen. Er trug eine Sonnenbrille. Beim Yoga.',
+    'Die Ex-Wachtmeisterin Kessel hat ein Yogastudio eröffnet. Hunter wurde dort gesehen.'),
+  k('streaming', q('side-streaming-suenden'), 'Richter beendet Serienmarathon',
+    'Nach zehntausend Stunden hat der Richter endlich die letzte Folge gesehen! Er hat danach sein erstes Urteil seit Wochen gefällt!',
+    'Er hat sich selbst zu zwei Wochen Fernsehverbot verurteilt. Er hat Berufung eingelegt. Bei sich.',
+    'Der Richter hat seinen Serienmarathon beendet und fällt wieder Urteile. Gerecht, schnell und mit Spoilerwarnung.'),
+  k('neon-limo', q('side-neon-limo'), 'Hunters Spezial ausverkauft',
+    'Die Neon-Limo im High Voltage ist ausverkauft! Wieder! Mixi mixt im Akkord, und seine Lampe leuchtet vor Stolz!',
+    'Der Barkeeper hat ein Gedicht darüber geschrieben. Es hat drei Zeilen und eine davon reimt sich auf „Zitrone“.',
+    'Hunters Spezial ist das beliebteste Getränk der Unterstadt. Mixi mixt es mit verdächtig viel Freude.'),
+  k('rattenkoenig', q('side-rattenkoenig'), 'Rattenparade im Kanal',
+    'Seine Majestät Nagbert, König der Rohre, hat zur Parade geladen! Zehntausend Ratten, eine Krone, null Verletzte!',
+    'Der Ordnungsdienst rät, freundlich zu winken. Bürgermeister Gully hat mitgewunken. Mit seiner eigenen Krone.',
+    'Im Kanal gibt es jetzt jedes Jahr eine Rattenparade. Der Ordnungsdienst rät, freundlich zu winken.'),
+  k('abzieher', q('side-abzieher'), 'Knut und Kurt arbeiten ehrlich',
+    'Die beiden Typen, die früher am Bahnhof Touristen ausgenommen haben, arbeiten jetzt ehrlich! Die Unterstadt ist fassungslos!',
+    'Kurt sagt, es sei „anstrengender als erwartet“. Knut sagt, Kurt solle aufhören zu jammern. Dann haben sie uns die Schuhe geklaut.',
+    'Knut und Kurt arbeiten jetzt ehrlich. Fast immer. Sie geben die Schuhe meistens zurück.'),
+  k('zweite-hand', q('side-zweite-hand'), 'Second-Hand-Seele: Lio spielt wieder',
+    'Lio Funkel spielt wieder auf seiner alten Gitarre! Geflickt, geklebt und angeblich mit einem Haar von Dante bespannt!',
+    'Das letzte Detail hat Dante dementiert. Dann hat er sich am Kopf gekratzt.',
+    'Lio Funkel spielt wieder auf seiner alten Gitarre. Sie klingt schief, und genau so soll sie klingen.'),
+  k('digitech-geist', q('side-digitech-geist'), 'Neue Akten zur Digitech-Nacht',
+    'Warum war damals niemand da? Neue Dokumente zur Digitech-Nacht sind aufgetaucht! Ich habe sie nicht gelesen, aber Delya!',
+    'Die Wachen wurden in jener Nacht abgezogen. Wer das angeordnet hat, steht drin. Er arbeitet jetzt als Türsteher. Mehr sage ich nicht.',
+    'Die Wahrheit über die Digitech-Nacht liegt auf dem Tisch. Raven hat die Akten gelesen und danach zum ersten Mal seit Jahren durchgeschlafen.'),
+  k('oma-volt', q('side-oma-volts-lager'), 'Opa Blech schimpft wieder',
+    'Im Lager hinter dem Schrottmarkt schimpft wieder ein Geschütz! Opa Blech ist zurück, und er findet alles „früher besser“!',
+    'Oma Volt verkauft ihn nicht. Sie sagt, er sei unverkäuflich. Er sagt, sie sei unverkäuflich. Es klingt sehr romantisch.',
+    'Opa Blech schimpft wieder im Lager von Oma Volt. Die beiden streiten jeden Abend, und keiner will, dass es aufhört.'),
+  k('thai-chi', q('side-thai-chi'), 'Gerücht: Hunter macht Tai-Chi',
+    'Ein Gerücht macht die Runde: Clubbesitzer Hunter macht heimlich Tai-Chi in den Lötgassen!',
+    'Wir haben bei Hunter nachgefragt. Er sagte nur: „Kein Kommentar. Atmen.“',
+    'Hunter macht jeden Morgen Tai-Chi. Wer ihn dabei beobachtet, bekommt Hausverbot. Sanft.'),
+  k('hunde', q('side-hunde-der-brackbucht'), 'Robohunde der Brackbucht apportieren Treibgut',
+    'Die Robohunde der Brackbucht sind gezähmt und apportieren jetzt Treibgut! Henk Angler hat schon drei Kühlschränke!',
+    'Er wollte nur einen.',
+    'Die Robohunde der Brackbucht apportieren Treibgut für Henk Angler. Er hat inzwischen zu viele Kühlschränke.'),
+  k('drohnenrennen', q('side-drohnenrennen'), 'Rostkai-Rallye: Rekordrunde',
+    'Neuer Rekord bei der Rostkai-Rallye! Die Siegerdrohne hat die Runde in einundvierzig Sekunden geschafft und ist dann im Fischmarkt gelandet!',
+    'Die Fische haben sich nicht beschwert.',
+    'Die Rostkai-Rallye hat einen neuen Rekord. Die Siegerdrohne liegt im Fischmarkt.'),
+  k('adlerauge', q('pers-vega-adlerauge'), 'Werbedrohne verliert Werbespruch',
+    'Eine Quantum-Werbedrohne wurde aus einem Kilometer Entfernung getroffen! Sie trägt jetzt nur noch den Spruch „QUA“!',
+    'Die Schützin ist unbekannt. Sie hat aber eine Postkarte geschickt: „1.204 Meter. Wind von links.“',
+    'Vega trifft auf zwölfhundert Meter. Die Werbedrohnen der Stadt fliegen seitdem auffällig tief.'),
+  k('lieblingsshirt', q('pers-aria-lieblingsshirt'), 'Kabelbrand-Shirt gesichtet: Fans hoffen auf Reunion',
+    'Ein originales Kabelbrand-Shirt wurde im High Voltage gesichtet! Getragen von einer Frau mit Baseballschläger!',
+    'Wir wollten ein Interview. Sie hat „Verpiss dich“ gesagt und dabei gelächelt. Das werten wir als Ja.',
+    'Aria trägt ihr altes Kabelbrand-Shirt wieder. Jeden Tag. Waschen muss man es heimlich.'),
+  k('handschellen', q('pers-raven-handschellen'), 'Handschellen im Hafenbecken',
+    'Taucher haben im Hafenbecken ein Paar Handschellen gefunden! Daran hing ein Zettel!',
+    'Auf dem Zettel stand: „Das war’s.“ Wir haben die Handschellen wieder versenkt. Manche Dinge gehören dahin.',
+    'Ravens alte Handschellen liegen auf dem Grund des Hafenbeckens. Sie schläft jetzt bei offenem Fenster.'),
+  k('rostlaube', q('side-rostlaube'), 'Käpt’n Nebelhorn fährt Auto',
+    'Käpt’n Nebelhorn, bekannt für seine Angst vor allem, was größer ist als das Hafenbecken, fährt jetzt Auto! Freiwillig!',
+    'Mit Schwimmweste. Und zwei Ankern im Kofferraum. Sicher ist sicher.',
+    'Käpt’n Nebelhorn fährt mit der Rostlaube bis ans Meer. Mit Schwimmweste und zwei Ankern.'),
+  k('container-77', q('side-container-77'), 'Container 77 geöffnet',
+    'Das Geheimnis von Container 77 ist gelüftet! Drinnen war … Hafen-Hannes, bitte, sag es selbst!',
+    'Er wollte nicht. Es waren Ersatzteile, gestohlene Chips und ein Liebesbrief an einen Gabelstapler.',
+    'Container 77 ist leer und sauber. Hafen-Hannes hat den Liebesbrief an den Gabelstapler nie abgeschickt.'),
+  k('strom', q('side-strom-fuer-die-rohre'), 'Licht in der Rohrsiedlung',
+    'Die Rohrsiedlung hat Strom! Die Kinder machen zum ersten Mal Hausaufgaben im Hellen!',
+    'Sie hassen es.',
+    'Die Rohrsiedlung hat Strom. Die Kinder machen ihre Hausaufgaben jetzt im Hellen und hassen es.'),
+  k('lumo', q('side-lumos-platte'), 'DJ Lumo legt wieder auf',
+    'DJ Lumo ist zurück an den Reglern! Mit seiner verschollenen Platte und einem Bass, der Fensterscheiben kündigt!',
+    'Drei Fensterscheiben haben tatsächlich gekündigt. Sie arbeiten jetzt in der Oberstadt.',
+    'DJ Lumo legt wieder auf. Die Fensterscheiben der Neon-Gasse zittern jeden Freitag.'),
+  k('peruecke', q('side-collins-peruecke'), 'Diese Meldung wird nicht verlesen',
+    'Die nächste Meldung wird nicht verlesen. Delya. Delya, nicht. Delya!',
+    'Collins Perücke ist wieder aufgetaucht. Collin sagt dazu: „Welche Perücke?“ Wir zeigen jetzt das Foto.',
+    'Collins Perücke ist zurück. Collin bestreitet, je eine besessen zu haben.'),
+  k('rechen', q('side-rettung-am-rechen'), 'Fluss-Frieda erhält Rettungsmedaille',
+    'Fluss-Frieda hat am Rechen im Kanal Leben gerettet und bekommt eine Medaille! Sie hat sie sofort gegen Pilze getauscht!',
+    'Sie sagt: „Medaillen kann man nicht essen.“ Dagegen gibt es wenig zu sagen.',
+    'Fluss-Frieda hat eine Rettungsmedaille bekommen und sie gegen drei Pfund Leuchtpilze getauscht.'),
+  k('wand', q('side-wand-der-freiheit'), 'Wand der Freiheit: Stau an der Flutmauer',
+    'Das neue Motiv an der Wand der Freiheit sorgt für Stau auf der Flutmauer! Leute bleiben stehen und gucken!',
+    'Sina Spray sagt, Kunst müsse wehtun. Der Stau tut weh. Also ist es Kunst.',
+    'Das Bild an der Wand der Freiheit ist das meistfotografierte der Stadt. Sina Spray malt schon das nächste.'),
+  k('alte-gewohnheiten', q('side-alte-gewohnheiten'), 'Rabe auf dem Penthouse-Spiegel ist jetzt Kunst',
+    'Der Rabe, den Unbekannte auf den Spiegel im Chrome-Penthouse gemalt haben, wurde von einem Gutachter geschätzt! Auf vierzigtausend Credits!',
+    'Die Familie Chrome lässt ihn hängen. Sybella hat ausgerechnet, dass er pro Jahr zwölf Prozent Rendite bringt.',
+    'Der gemalte Rabe im Chrome-Penthouse gilt jetzt als Kunstwerk. Wert: vierzigtausend Credits.'),
+
+  // Persönliche Quests Akt 1
+  k('erstpressung', q('pers-dante-erstpressung'), '„Samstagnacht im Neon“ in den Charts',
+    '„Samstagnacht im Neon“, eine Erstpressung aus den Lötgassen, steht auf Platz eins der Plattenkisten-Charts!',
+    'Es gibt nur eine Plattenkiste. Es gibt nur eine Platte. Dante sagt: „Analog! Alles analog!“',
+    '„Samstagnacht im Neon“ läuft in jedem Plattenspieler der Unterstadt. Es gibt genau einen, er gehört Dante.'),
+  k('ohrenflick', q('pers-kuschel-ohrenflick'), 'Plüschhase wird Maskottchen',
+    'Ein Plüschhase mit geflicktem Ohr ist das neue Maskottchen der Unterstadt! Er hat einen Zettel hinterlassen: „Danke. – C. K.“',
+    'Die Handschrift sieht verdächtig nach Dante aus. Dante sagt, das sei „Fanpost“.',
+    'Captain Kuschel trägt sein geflicktes Ohr mit Stolz. Er hinterlässt weiterhin Zettel, unterschrieben mit „– C. K.“.'),
+  k('botendienst', q('pers-daria-botendienst'), 'Kinderkurier GmbH expandiert',
+    'Die Kinderkurier GmbH in Gründung ist gegründet! Und liefert jetzt bis in die Glasarkaden!',
+    'Ihre Geschäftsführerin Daria lässt ausrichten, dass Trinkgeld „nicht optional“ ist.',
+    'Die Kinderkurier GmbH liefert Geschenke durch die ganze Stadt. Trinkgeld ist nicht optional.'),
+  k('fairer-lohn', q('pers-freya-fairer-lohn'), 'Faire Preise für Implantate',
+    'Am Schrottmarkt gibt es jetzt eine Preistafel für gebrauchte Implantate! Kinder bekommen faire Preise!',
+    'Ripper zahlt jetzt elf Credits statt zehn. Er nennt es „Sozialismus“. Freya nennt es „einen Anfang“.',
+    'Freyas Preistafel hängt am Schrottmarkt. Ripper zahlt den Kindern jetzt faire Preise und flucht dabei leise.'),
+  k('kochbuch', q('pers-jakko-kochbuch'), 'Jakkos Eintopf gewinnt Kochwettbewerb',
+    'Jakkos Eintopf hat den Kochwettbewerb der Suppenküche gewonnen! Die Jury hat überlebt!',
+    'Zwei Jurymitglieder haben einen Nachschlag verlangt. Das ist in der Geschichte der Suppenküche ein Rekord.',
+    'Jakkos Kochbuch hat fünf Rezepte und einen Fleck. Der Eintopf ist das beste davon.'),
+  k('wasserturm', q('pers-kinder-wasserturm'), 'Das Nest hat ein Dach',
+    'Das Nest in der Rohrsiedlung hat ein neues Dach! Es regnet nicht mehr rein! Es regnet nur noch drauf!',
+    'Die Kinder haben eine Einweihungsparty gefeiert. Uns haben sie nicht eingeladen. Zu Recht.',
+    'Das Nest hat ein dichtes Dach. Daria, Freya und Jakko schlafen trocken.'),
+  k('schuldenfrei', q('pers-dexter-schuldenfrei'), 'Dexter schuldenfrei',
+    'Dexter vom Schrottmarkt ist schuldenfrei! Sechs Gläubiger sind ausbezahlt oder vertröstet!',
+    'Drei Banken haben aus Trauer geschlossen. Dexter hat ein Leihhaus eröffnet. Ironie ist in der Unterstadt kostenlos.',
+    'Dexter ist schuldenfrei und betreibt jetzt ein Leihhaus. Er verleiht vor allem Ausreden.'),
+  k('markttag', q('pers-babette-markttag'), 'Marktfest schlägt Quantum-Imbisskette',
+    'Das Marktfest am Schrottmarkt hat die Quantum-Imbisskette in die Flucht geschlagen! Mit Dampfnudeln!',
+    'Babette Bao veranstaltet es jetzt jeden Monat. Die Imbisskette hat ihre Filiale in einen Blumenladen umgebaut.',
+    'Babettes Marktfest findet jeden Monat statt. Die Quantum-Imbisskette ist ein Blumenladen geworden.'),
+  k('letzter-vers', q('pers-barkeeper-letzter-vers'), 'Barkeeper veröffentlicht Gedichtband',
+    'Der Barkeeper des High Voltage veröffentlicht seine Dreizeiler! Mit Illustrationen von Jakko!',
+    'Die Illustrationen sind Kritzeleien. Der Barkeeper sagt, genau die hätten den Band gerettet.',
+    'Der Barkeeper hat seinen Gedichtband veröffentlicht. Jakkos Kritzeleien sind die besten Seiten.'),
+  k('goldene-gurke', q('pers-richter-goldene-gurke'), 'Gurkenprozess: Hund gesteht',
+    'Der Prozess um die angeknabberte Preisgurke ist entschieden! Der Täter: ein Roboterhund namens Bolzen!',
+    'Er hat gestanden. Mit dem Schwanz. Der Richter hat ihn freigesprochen, „aus Mangel an Bosheit“.',
+    'Bolzen hat die Preisgurke angeknabbert und wurde freigesprochen. Der Richter gibt ihm seitdem jeden Freitag eine Gurke.'),
+  k('reichweite', q('pers-kiki-reichweite'), 'Schwebetaxi fliegt bis in die Ödnis',
+    'Kiki Karbons Schwebetaxi fliegt jetzt bis in die Ödnis! Mit Klimaanlage! Die Klimaanlage ist ein offenes Fenster!',
+    'Kiki hat uns gebeten, ihre Telefonnummer nicht zu verlesen. Sie steht auf jedem Taxi. In Neon.',
+    'Kikis Schwebetaxi fliegt bis in die Ödnis und ans Meer. Das Fenster ist die Klimaanlage.'),
+  k('album', q('pers-lio-album'), '„Lied ohne Reim“ ausverkauft',
+    'Lio Funkels Album „Lied ohne Reim“ ist ausverkauft! Mit einem Nebelhorn, einem Kanalrechen und dem Applaus der ganzen Stadt!',
+    'Auf Titel sieben hört man Dante im Hintergrund „Drei-Sekunden-Regel!“ rufen. Es ist der beste Titel.',
+    'Lio Funkels Album ist ausverkauft. Im High Voltage läuft es jeden Donnerstag.'),
+  k('ungeschminkt', q('pers-kameramann-ungeschminkt'), 'Ausstellung „Ungeschminkt“ eröffnet',
+    'Unser Kameramann zeigt seine Fotos der echten Unterstadt! Acht Bilder, kein Filter, keine Frisur!',
+    'Bei der Eröffnung hat eine Besucherin mit Metallarm geweint. Sie bestreitet es. Wir haben ein Foto.',
+    'Die Ausstellung „Ungeschminkt“ hängt im Netzcafé. Aria hat bei der Eröffnung geweint und bestreitet es.'),
+  k('letzte-faehre', q('pers-nebelhorn-letzte-faehre'), 'Leuchtfeuer auf der Bojeninsel brennt wieder',
+    'Das Leuchtfeuer auf der Bojeninsel brennt wieder! Zum ersten Mal seit dreißig Jahren findet man nachts aus dem Hafen raus!',
+    'Und wieder rein. Das war Käpt’n Nebelhorn wichtig. Vor allem das Wiederrein.',
+    'Das Leuchtfeuer auf der Bojeninsel brennt jede Nacht. Käpt’n Nebelhorn zündet es selbst an.'),
+  k('bolzen-bein', q('pers-bolzen-bein'), 'Roboterhund läuft schneller als Ordnungsdienst',
+    'Ein Roboterhund mit neuem Bein läuft schneller als jede Streife des Ordnungsdienstes!',
+    'Der Ordnungsdienst hat ihn zur Fahndung ausgeschrieben. Wegen Angeberei.',
+    'Bolzen läuft auf seinem neuen Bein schneller als der Ordnungsdienst und findet doppelt so viel Krempel.'),
+  k('reiner-tisch', q('pers-hunter-reiner-tisch'), 'Hunter: „Alle Schulden beglichen“',
+    'Hunter vom High Voltage verkündet: „Alle Schulden beglichen!“ Auf allen Seiten! Mit allen!',
+    'Wir haben nachgefragt, welche Schulden er meint. Er hat uns einen Drink spendiert und gesagt: „Die wichtigen.“',
+    'Zwischen Hunter und dir ist der Tisch rein. Schulden muss man immer begleichen.'),
+
+  // Akt 2
+  k('teekraenzchen', q('side-teekraenzchen'), 'Teekränzchen bei Chrome',
+    'Die Chrome-Schwestern servieren Tee! An Gäste aus der Unterstadt! Mit echten Tassen!',
+    'Sybella hat die Tassen danach gezählt. Es fehlte keine. Sie war enttäuscht.',
+    'Die Chrome-Schwestern laden jetzt einmal im Monat zum Teekränzchen. Auch Leute ohne Gutschein.'),
+  k('zuendholz', q('side-alesas-zuendholz'), 'Alesa stellt Roboter vor, der nichts abfackelt',
+    'Alesa Zero präsentiert einen Roboter, der nichts abfackelt!',
+    'Fast nichts. Der Präsentationstisch war aus Pappe.',
+    'Alesa Zero stellt einen Roboter vor, der nichts abfackelt. Fast nichts.'),
+  k('ki-fluestern', q('side-ki-fluestern'), 'Beta-Chipträger sagen wieder „Hallo“',
+    'Die ersten Beta-Chipträger der Stadt sagen wieder „Hallo“ statt „Master“! Paul aus der Neon-Gasse hat sogar „Verpiss dich“ gesagt!',
+    'Oma Volt hat ihn dafür gelobt. Es war das erste Lob, das Paul je von Oma Volt bekommen hat.',
+    'Die Beta-Chipträger sind wieder sie selbst. Paul aus der Neon-Gasse flucht wieder wie früher.'),
+  k('weg-zum-meer', q('side-weg-zum-meer'), 'Weg zum Meer ausgeschildert',
+    'Marla Sand hat den Weg zum Meer ausgeschildert! Über die Staubstraße, durch die Glasdünen, dann geradeaus!',
+    'Das letzte Schild sagt nur: „Hier.“ Mehr braucht es auch nicht.',
+    'Marla Sands Schilder führen jeden, der will, ans Meer. Das letzte sagt nur: „Hier.“'),
+  k('captain-kuschel', q('side-captain-kuschel'), 'Captain Kuschel wieder aufgetaucht',
+    'Der berühmteste Plüschhase der Unterstadt ist wieder da! Er war im Quantum-Fundbüro! Ohne Kaution!',
+    'Er hat einen Zettel hinterlassen: „Ich war nie weg. – C. K.“',
+    'Captain Kuschel ist wieder zu Hause. Er behauptet per Zettel, nie weg gewesen zu sein.'),
+  k('xions-kralle', q('side-xions-kralle'), 'Venomkralle im Museum',
+    'Die berüchtigte Venomkralle hängt jetzt im Museum der Unterstadt! Das Museum ist Gustavs Wohnwagen!',
+    'Eintritt kostet einen Credit. Xion war schon dreimal da und hat jedes Mal bezahlt.',
+    'Xions Venomkralle hängt in Gustavs Wohnwagen. Xion besucht sie manchmal und bezahlt jedes Mal Eintritt.'),
+  k('silent-angel', q('pers-nyra-silent-angel'), 'Silent-Angel: Peilsender entfernt',
+    'Silent-Angel ist sauber! Kein Peilsender, kein Chip, kein Quantum! Nur noch Selfies!',
+    'Sie hat den Peilsender in eine Konservendose gelötet und an Blades Adresse geschickt. Mit Briefmarke.',
+    'Nyras Peilsender liegt in einer Konservendose bei Blade. Sie ist niemandem mehr Rechenschaft schuldig.'),
+  k('zerberster', q('pers-aria-zerberster'), 'Gericht: Der Arm gehört Aria',
+    'Das Gericht hat entschieden: Der Zerberster 3000 gehört seiner Trägerin! Ripper hat Einspruch eingelegt!',
+    'Der Einspruch wurde abgelehnt. Ripper hat gefragt, ob er dann wenigstens den Kassenbon behalten darf. Darf er.',
+    'Der Zerberster gehört Aria. Amtlich, gestempelt und mit Händeschütteln. Ripper hat die Hand danach gekühlt.'),
+  k('pudel', q('side-chrome-pudel'), 'Bijou gewinnt zum zwölften Mal',
+    'Pudel Bijou ist zurück und gewinnt den Schönheitswettbewerb der Oberstadt zum zwölften Mal!',
+    'Die Konkurrenz: weitere Pudel. Und einer davon war eine Perücke.',
+    'Bijou ist wieder zu Hause und gewinnt jeden Schönheitswettbewerb. Die Konkurrenz sind weitere Pudel.'),
+  k('hartlauf', q('side-hartlaufs-rache'), 'Wachkoloss verschrottet',
+    'Der alte Digitech-Wachkoloss ist verschrottet! Direktorin Hartlauf hat gelacht! Zum ersten Mal seit sieben Jahren!',
+    'Ole Gähn sagt, es habe geklungen wie ein rostiges Tor. Er meinte es als Kompliment.',
+    'Der Wachkoloss ist Schrott. Direktorin Hartlauf lacht wieder, und es klingt wie ein rostiges Tor.'),
+  k('rostzaehne', q('side-rostzaehne-ende'), 'Rostzähne gründen Malerbetrieb',
+    'Die Rostzähne haben sich aufgelöst und einen Malerbetrieb gegründet! Spezialität: Rost!',
+    'Sie haben angeboten, unser Studio neu zu streichen. Wir haben dankend abgelehnt und die Tür abgeschlossen.',
+    'Die Rostzähne sind Geschichte. Ihr Malerbetrieb streicht alles in Rostrot, auch wenn man Blau bestellt.'),
+  k('kraehe', q('side-kraehes-ehre'), 'Krähe: „Ehre wiederhergestellt“',
+    'Die Anführerin der Staubfalken, Krähe, verkündet: „Meine Ehre ist wiederhergestellt!“',
+    'Auf die Frage, was genau passiert sei, hat sie uns eine Feder geschenkt und gesagt: „Rennen.“ Wir sind gerannt.',
+    'Krähes Ehre ist wiederhergestellt. Die Staubfalken grüßen jetzt mit erhobener Feder statt mit erhobenem Bolzer.'),
+  k('oednis-frieden', q('side-oednis-frieden'), 'Frieden in der Ödnis',
+    'Staubfalken und Aussiedler teilen sich jetzt das Wasser! Und Rudis Diner hat am Sonntag Friedenspfannkuchen!',
+    'Die Pfannkuchen sind rund. Das ist neu bei Rudi.',
+    'In der Ödnis herrscht Frieden. Staubfalken und Aussiedler teilen das Wasser und Rudis Pfannkuchen.'),
+  k('glasherz', q('side-glasherz'), 'Skorpionkönigin bekommt ihr Ei zurück',
+    'Die Königin der Glasskorpione hat ihr Ei zurück! Die Glasdünen sind wieder sicher! Sicherer jedenfalls!',
+    'Die Glasbläserin hat aus einer Panzerscherbe ein Herz gegossen. Sie verkauft es nicht. Wir haben gefragt.',
+    'Die Glasskorpion-Königin hat ihr Ei zurück, und die Glasbläserin hat ein Herz aus Glas.'),
+  k('frequenz', q('side-verlorene-frequenz'), 'Radio Rost sendet auf allen Kanälen',
+    'Radio Rost ist wieder auf allen Kanälen zu hören! Polka! Überall! Von früh bis spät!',
+    'Wir haben eine Beschwerde eingereicht. Opa Funk hat sie vorgelesen. Live. Mit Polka drunter.',
+    'Radio Rost sendet wieder auf allen Kanälen. Polka, von früh bis spät.'),
+  k('delya-quelle', q('pers-delya-quelle'), 'Die Schlafwandler sind wach',
+    'Unsere Delya hat drei verschwundene Menschen aus der Kanalisation gerettet! Delya, wie hast du das gemacht?',
+    'Ich nenne keine Namen. Aber die Schlafwandler sind wach. Und sie haben Hunger.',
+    'Delyas verschwundene Quellen sind wach und zu Hause. Sie nennt keine Namen.'),
+  k('pixel-pete', q('pers-collin-pixel'), 'Pixel-Pete abgeschaltet',
+    'Pixel-Pete ist Geschichte! Kein KI-Moderator wird mich ersetzen! Ich bin unersetzlich! Unersetzlich, Noxius!',
+    'Er hat sich das heute Morgen auf den Schminkspiegel geschrieben. In Lippenstift. Meinem.',
+    'Pixel-Pete ist abgeschaltet. Collin hat „unersetzlich“ in Lippenstift auf seinen Schminkspiegel geschrieben.'),
+  k('taschenuhr', q('pers-ripper-taschenuhr'), 'Ripper trägt eine Taschenuhr',
+    'Ripper, der geizigste Schrauber der Stadt, trägt eine Taschenuhr! Die Uhr seines Vaters!',
+    'Sie tickt. Die Kinder vom Schrottmarkt sagen, er tickt auch. Aber anders als früher.',
+    'Ripper trägt die Taschenuhr seines Vaters. Er hat den Kindern seitdem zweimal Bonbons geschenkt. Gebrauchte.'),
+  k('alte-liebe', q('pers-gustav-alte-liebe'), 'Oldie-Tanz am Aussiedlerhof',
+    'Opa Gustav und Elsa haben am Aussiedlerhof getanzt! Zu einem Lied von 2031! Auf einem Bein! Jeder auf einem!',
+    'Es war das romantischste, das wir dieses Jahr gesehen haben. Und wir haben Collins Karaoke gesehen.',
+    'Opa Gustav und Elsa tanzen jeden Sonntag am Lagerfeuer des Aussiedlerhofs.'),
+  k('brunnen', q('pers-marla-brunnen'), 'Wasser für den Aussiedlerhof',
+    'Der Brunnen am Aussiedlerhof ist tiefer gebohrt! Wasser für alle! Sogar für den Ziegenroboter!',
+    'Der Ziegenroboter rostet jetzt. Er sagt, es sei es wert.',
+    'Der Aussiedlerhof hat Wasser für alle. Der Ziegenroboter rostet glücklich.'),
+  k('kleine-schrift', q('pers-pim-kleine-schrift'), 'Laborbericht in sehr kleiner Schrift',
+    'Pim Pinzette hat Quantums Laborberichte veröffentlicht! In sehr kleiner Schrift!',
+    'Wir haben eine Lupe gekauft. Es lohnt sich. Seite vierzehn ist der Skandal.',
+    'Pims Laborberichte sind veröffentlicht. Man braucht eine Lupe. Seite vierzehn ist der Skandal.'),
+  k('plan-b', q('pers-seraphina-plan-b'), 'Chrome-Gala mit Schrott-Generator gerettet',
+    'Die Chrome-Gala wurde gerettet! Mit einem Generator vom Schrottmarkt, einer Band aus der Unterstadt und Dampfnudeln!',
+    'Seraphina Chrome hat sich bedankt. Wörtlich: „Danke.“ Unsere Leitungen sind zusammengebrochen.',
+    'Seraphina Chrome hat sich bei der Unterstadt bedankt. Wörtlich.'),
+  k('espresso', q('pers-sybella-schnaeppchen'), 'Dante hat seine Espressomaschine zurück',
+    'Dantes alte Espressomaschine ist wieder in den Lötgassen! Die Werkstatt vibriert!',
+    'Sybella Chrome hat sie zum Selbstkostenpreis zurückverkauft. Sie hat danach zwei Stunden geweint. Wegen des Preises.',
+    'Dante hat seine Espressomaschine zurück. Die Werkstatt vibriert jeden Morgen um sieben.'),
+  k('gewaechshaus', q('pers-serenity-gewaechshaus'), 'Gewächshaus auf den Dächern',
+    'Auf den Dächern der Unterstadt wächst ein Gewächshaus! Mit echten Blumen! Gegossen von einer Chrome!',
+    'Serenity Chrome hat Erde unter den Fingernägeln. Ihre Schwestern sprechen nicht mehr mit ihr. Sie wirkt glücklich.',
+    'Serenity Chromes Gewächshaus blüht auf den Dächern der Unterstadt.'),
+
+  // Nachspiel
+  k('strandclub', q('side-strandclub'), 'Strandclub eröffnet',
+    'Am Meer hat ein Club eröffnet! Mit Bar, Bühne, Liegestühlen und einem Shuttle von der Hafenkante!',
+    'Der Besitzer sagt: „Bloß, wer kommt diesen weiten Weg hierher gefahren?“ Antwort: alle.',
+    'Hunters Strandclub ist eröffnet. Bloß, wer kommt diesen weiten Weg hierher gefahren? Alle.'),
+  k('offene-werkstatt', q('side-offene-werkstatt'), 'Offene Werkstatt im Quantum-Campus',
+    'Der Quantum-Campus ist jetzt eine offene Werkstatt für die ganze Stadt! Opa Gustav hat den besten Stand!',
+    'Er hat ihn sich selbst zugeteilt. Niemand hat widersprochen. Er hatte einen Schweißbrenner.',
+    'Der Quantum-Campus ist eine offene Werkstatt. Gustav, Mira und Pim schrauben dort mit jedem, der vorbeikommt.'),
+  k('teddymantel', q('pers-blade-teddymantel'), 'Häftling erhält seinen Mantel zurück',
+    'Häftling Nocturne hat seinen Teddyfell-Mantel zurück! Aus der Asservatenkammer! Er hat sich bedankt!',
+    'Ehrlich. Ohne Kompliment. Es war unheimlich.',
+    'Blade trägt in der Zelle wieder seinen Teddyfell-Mantel und hat sich dafür bedankt. Ehrlich.'),
+  k('wasserfilter', q('pers-alesa-wasserfilter'), 'Zentrator wird Wasserfilter',
+    'Ein Quantum-Zentrator filtert jetzt Wasser für die Aussiedler! Erfunden von Alesa Zero und gebaut von Elsa!',
+    'Er fackelt nichts ab. Wir haben gefragt. Elsa hat ihn mit einem Schraubenschlüssel bedroht, falls doch.',
+    'Alesas Zentrator filtert Wasser für die Aussiedler. Er fackelt nichts ab. Elsa passt auf.'),
+  k('umschulung', q('pers-xion-umschulung'), 'Xion Venom ist jetzt Türsteher',
+    'Der frühere Quantum-Sicherheitschef Xion Venom steht jetzt an der Tür des High Voltage! Mit Namensschild!',
+    'Auf dem Namensschild steht „XION – IN AUSBILDUNG“. Er hat es nicht abgenommen, obwohl er fertig ist. Er mag es.',
+    'Xion Venom ist Türsteher im High Voltage. Er trägt sein Ausbildungs-Namensschild immer noch.'),
+  k('nexus-seele', q('pers-ki-nexus-seele'), 'Nexus hat das Meer gesehen',
+    'Die KI Nexus hat eine Rundreise durch die Stadt gemacht! In einem tragbaren Faxgerät!',
+    'Ihr Reisebericht ist eine Zeichnung vom Meer. Sie hängt in Dantes Werkstatt. Sie ist schief. Absichtlich, sagt Nexus.',
+    'Nexus hat eine Zeichnung vom Meer gefaxt. Sie hängt in Dantes Werkstatt und ist absichtlich schief.'),
+  k('sonnenuntergang', q('pers-wingman-sonnenuntergang'), 'Dante und Raven beim Sonnenuntergang gesichtet',
+    'Zwei bekannte Gesichter wurden an der Flutmauer beim Sonnenuntergang gesehen! Mit Picknickkorb! Händchen haltend!',
+    'Wir nennen keine Namen. Aber einer hat Kekse fallen lassen und „Drei-Sekunden-Regel“ gerufen.',
+    'Dante und Raven gehen jeden Freitag zum Sonnenuntergang an die Flutmauer. Er lässt jedes Mal Kekse fallen.'),
+  k('chrome-tresor', q('sonder-chrome-tresor'), 'Juwelier Glanzstück: Perlenkette zurück beim Besitzer',
+    'Eine Perlenkette aus dem Tresor von Juwelier Glanzstück ist zurück bei ihrem Besitzer! Er ist Clubbesitzer und hat geweint!',
+    'Er bestreitet das Weinen. Er bestreitet auch, dass die Kette seiner Mutter gehört hat. Er trägt sie trotzdem in der Brusttasche.',
+    'Hunters Perlenkette ist wieder bei ihm. Er trägt sie in der Brusttasche, direkt über dem Herzen.'),
+  k('konvoi-nougat', q('sonder-konvoi-nougat'), 'Nougatbomben erreichen die Ödnis',
+    'Fünfzig Kisten Nougatbomben haben den Aussiedlerhof erreicht! Die Ödnis ist im Zuckerrausch!',
+    'Der Ziegenroboter hat drei gegessen. Er wurde auf Diät gesetzt. Er hat Einspruch eingelegt. In Morsecode.',
+    'Die Ödnis hat Nougatbomben. Der Ziegenroboter ist auf Diät.'),
+  k('pumpwerk-pegel', q('sonder-pumpwerk-pegel'), 'Pegelstand im Kanal stabil',
+    'Pumpwerk Sieben läuft wieder richtig herum! Das Kanalvolk hat trockene Füße!',
+    'Bürgermeister Gully hat zur Feier ein Bad genommen. In einem Fass. Das Fass hat sich beschwert.',
+    'Pumpwerk Sieben pumpt in die richtige Richtung. Das Kanalvolk hat trockene Füße und einen sehr stolzen Bürgermeister.'),
+  k('letzte-runde', q('sonder-letzte-runde'), 'Die letzte Runde im High Voltage',
+    'Im High Voltage wurde eine sehr alte Flasche geöffnet! Rostkai Reserve, Jahrgang 2070!',
+    'Ein Glas blieb voll stehen. Der Besitzer sagt, es gehört jemandem, der „noch nicht wieder da“ ist.',
+    'Die Flasche aus dem Jahr 2070 ist leer. Ein Glas steht noch voll auf dem Tresen des High Voltage.'),
+];
+
+// --------------------------------------------------------------------------------------------- Endbildschirm
+
+/** Für GameContent.ending.epilogue (Integration setzt sie in content/world.ts). */
+export const ENDING_EPILOGUE: { when?: Condition; text: string }[] = [
+  { when: all(ENDE_MEER, noFlag('ende_doch_noch_meer')), text: 'Ende 1 · Das Meer. Hunters Crew ist ans Meer gefahren. Nicht für einen Tag. Für immer, oder wenigstens bis die Bar läuft.' },
+  { when: ENDE_NEXUS, text: 'Ende 2 · Die neue Nexus. Eine KI, die „bitte“ sagt, hat die Chips abgeschaltet. Nicht alle trauen ihr. Sie versteht das.' },
+  { when: ENDE_3B, text: 'Ende 3b · Doch noch ans Meer. Du hattest die ganze Stadt. Du hast sie zurückgegeben. Raven hat gesagt: „Du teilst ja doch.“' },
+  { when: flag('kraehe_teilhaberin'), text: 'Krähe ist Teilhaberin des Strandclubs. Sie hat im Vertrag nur ein Wort geändert: „Ehre“ statt „Gewinn“.' },
+  ...KARTEN.map((x) => ({ when: x.when, text: x.text })),
+  { text: 'Noxius leuchtet weiter. Mit dir mittendrin.' },
+];
+
+// --------------------------------------------------------------------------------------------- Dialog
+
+const nodes: DialogueNode[] = [
+  node('start', [
+    n('NX-1, Sondersendung. Das Studio ist bunter als sonst. Jemand hat Luftschlangen an die Kamera geklebt.'),
+  ], { choices: [
+    { text: 'Weiter', next: 'master-intro', when: flag('master_modus'), id: 'weiter-master' },
+    { text: 'Weiter', next: 'intro', when: noFlag('master_modus'), id: 'weiter-intro' },
+  ] }),
+  node('intro', [
+    l(C, 'Guten Abend, Noxius! Live! Exklusiv! Unglaublich! Die Sondersendung über die Leute, die eure Stadt auf den Kopf gestellt haben!', 'freude'),
+    l(D, 'Und wieder auf die Füße. Meistens. Wir haben gesammelt, was seitdem passiert ist. Es ist eine lange Liste.', 'neutral'),
+  ], { next: `g-${KARTEN[0].id}` }),
+  node('master-intro', [
+    l(C, 'Alles ist gut, Master. Alles ist g–', 'neutral'),
+    n('Das Bild ruckelt. Delya hat ein Kabel in der Hand, das vorher nicht da war.'),
+    l(D, 'Wir haben ungefähr dreißig Sekunden, bevor der Chip zurückschaltet. Ich mache es schnell. Hier ist, was in dieser Stadt wirklich passiert ist. Vor dir. Ohne dich.', 'wut'),
+  ], { next: `g-${KARTEN[0].id}` }),
+];
+KARTEN.forEach((karte, i) => {
+  const next = KARTEN[i + 1] ? `g-${KARTEN[i + 1].id}` : 'outro';
+  nodes.push(tor(`g-${karte.id}`, karte.when, `Nächste Meldung: ${karte.head}`, `m-${karte.id}`, next, [
+    { text: 'Ausschalten.', next: 'aus', id: `aus-${karte.id}` },
+  ]));
+  nodes.push(node(`m-${karte.id}`, [l(C, karte.c, 'freude'), l(D, karte.d, 'neutral')], { next }));
+});
+nodes.push(
+  node('outro', [], { choices: [
+    { text: 'Weiter', next: 'outro-master', when: flag('master_modus'), id: 'weiter-outro-master' },
+    { text: 'Weiter', next: 'outro-normal', when: noFlag('master_modus'), id: 'weiter-outro-normal' },
+  ] }),
+  node('outro-normal', [
+    l(C, 'Das war’s! Das war unsere Sondersendung! Noxius, ihr wart großartig, und ich war noch großartiger!', 'freude'),
+    l(D, 'Bleiben Sie neugierig. Und bleiben Sie wach.', 'freude'),
+  ], { effects: [set('epilog_sendung_gesehen')] }),
+  node('outro-master', [
+    l(D, 'Das war’s. Die Stadt hat ohne dich weitergemacht. Sie macht weiter, wenn du willst. Oder wenn du gehst.', 'trauer'),
+    n('Das Bild ruckelt. Collin sitzt kerzengerade. „Alles ist gut, Master.“ Delya sagt nichts. Sie schaut nur in die Kamera.'),
+  ], { effects: [set('epilog_sendung_gesehen')] }),
+  node('aus', [n('Du schaltest ab. Collin redet im Dunkeln noch kurz weiter. Das tut er immer.')]),
+);
+
+const sendung: DialogueDef = { id: 'epilog-sendung', start: 'start', nodes };
+
+/** Auftakt mit der Sammeltafel, danach läuft der Dialog. */
+const auftakt: CutsceneDef = {
+  id: 'epilog-sendung-auftakt',
+  title: 'Sondersendung',
+  beats: [bild('cut-epilog-sendung', 'NX-1 · SONDERSENDUNG · „Was wurde eigentlich aus …?“', [
+    l(C, 'Noxius! Bleibt dran! Heute geht es um EUCH!', 'freude'),
+  ], { pan: 'in', fade: 'in', hold: 1200 })],
+  effects: [{ dialogue: 'epilog-sendung' }],
+};
+const SCHAUEN: Effect[] = [{ cutscene: auftakt.id }];
+
+// --------------------------------------------------------------------------------------------- Zustellung
+
+/** Am Morgen nach dem Ende (bzw. nach Ende 3) wird die Sondersendung angekündigt. */
+const daily: DailyRuleDef = {
+  id: 'epilog-sendung-bereit',
+  when: all(EPILOG, noFlag('epilog_sendung_bereit'), any(flag('ende_ankunft_gesehen'), ENDE_MASTER)),
+  effects: [set('epilog_sendung_bereit')],
+};
+
+const tel: PhoneMessageDef = {
+  id: 'tel-collin-sondersendung',
+  from: C,
+  text: 'SONDERSENDUNG! Heute! Über EUCH! Delya hat recherchiert, ich habe mich frisiert. Schalt ein, egal wo du bist. Wenn kein Fernseher da ist, nimm das Autoradio. Wenn kein Autoradio da ist, kauf eins. – Collin',
+  auto: all(flag('epilog_sendung_bereit'), noFlag('epilog_sendung_gesehen')),
+  replies: [
+    { text: 'Einschalten.', effects: SCHAUEN },
+    { text: 'Später.', effects: [{ message: 'Die Sondersendung läuft am Stadt-TV und im Autoradio am Wagenplatz am Meer.' }] },
+  ],
+};
+
+const SENDUNG_DA: Condition = flag('epilog_sendung_bereit');
+
+export const part: ContentPart = {
+  dialogues: { [sendung.id]: sendung },
+  cutscenes: { [auftakt.id]: auftakt },
+  phone: { [tel.id]: tel },
+  daily: { [daily.id]: daily },
+  mapAdditions: {
+    'das-meer': {
+      hotspots: [{
+        id: 'epilog-autoradio', at: 'wagenplatz', label: 'Autoradio: NX-1-Sondersendung', kind: 'screen', effects: SCHAUEN,
+        when: SENDUNG_DA,
+      }],
+    },
+    'neon-gasse': {
+      hotspots: [{
+        id: 'epilog-stadt-tv', at: 'stadt-tv', label: 'Stadt-TV: Sondersendung', kind: 'screen', effects: SCHAUEN,
+        when: SENDUNG_DA,
+      }],
+    },
+    'blades-buero': {
+      hotspots: [{
+        id: 'epilog-bildschirmwand', at: 'panoramafenster', label: 'Bildschirmwand: NX-1', kind: 'screen', effects: SCHAUEN,
+        when: all(SENDUNG_DA, MASTER),
+      }],
+    },
+  },
+};
+
+// Zusammenhalt der Tabelle: jede Karte hat eine eigene ID (Wahl-IDs hängen daran).
+if (new Set(KARTEN.map((x) => x.id)).size !== KARTEN.length) throw new Error('epilog-karten: doppelte Karten-ID');

@@ -2,6 +2,7 @@
 import type { ActId, Effect, Facing, GameContent, GameState, MapId, Point } from '../contracts';
 import { defaultPlayer, levelForXp, maxHpOf, xpForLevel } from './domains/character';
 import { startClock } from './domains/clock';
+import { DAY_END, DAY_START } from '../time';
 import { createEffectContext, settle } from './effects';
 import { ACT_IDS, DEFAULT_MAP_SIZE, actFlag, clamp, has } from './ids';
 
@@ -83,6 +84,9 @@ export function createActState(content: GameContent, act: ActId, seed = 1): Game
     state.player.perkPoints = level - 1;
   }
   if (start.day && start.day > 1) state.clock.day = Math.floor(start.day);
+  if (start.minutes !== undefined && Number.isFinite(start.minutes)) {
+    state.clock.minutes = clamp(Math.floor(start.minutes), DAY_START, DAY_END - 1);
+  }
   const effects: Effect[] = [
     ...(start.flags ?? []).map((setFlag): Effect => ({ setFlag })),
     ...Object.entries(start.items ?? {}).map(([give, qty]): Effect => ({ give, qty })),

@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "herr-blitz-neutral.png",
+  "sha": "83a378eb8885bf05",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43616
+ },
+ "freude": {
+  "src": "herr-blitz-freude.png",
+  "sha": "8932b027166f1391",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50060
+ },
+ "trauer": {
+  "src": "herr-blitz-trauer.png",
+  "sha": "07dd557ff72de751",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44086
+ }
+}

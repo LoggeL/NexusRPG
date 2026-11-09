@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "falke-neutral.png",
+  "sha": "97a07f0eb9ff6af0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47696
+ },
+ "besorgt": {
+  "src": "falke-besorgt.png",
+  "sha": "69fe7f13cf616760",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48782
+ },
+ "signatur": {
+  "src": "falke-signatur-v2.png",
+  "sha": "044cd0b25ca50070",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50784
+ }
+}

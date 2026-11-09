@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "fluss-frieda-neutral.png",
+  "sha": "25516b0e57ef1958",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56022
+ },
+ "freude": {
+  "src": "fluss-frieda-freude.png",
+  "sha": "e0bd423bf0075df8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 67852
+ },
+ "signatur": {
+  "src": "fluss-frieda-signatur.png",
+  "sha": "786d2792c40e435e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 67614
+ }
+}

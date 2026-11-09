@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "madame-satin-neutral.png",
+  "sha": "4414487f8b6fccd1",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41640
+ },
+ "freude": {
+  "src": "madame-satin-freude.png",
+  "sha": "f255cbed3921dc75",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 41636
+ },
+ "trauer": {
+  "src": "madame-satin-trauer.png",
+  "sha": "74304a3689dda374",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 38496
+ }
+}

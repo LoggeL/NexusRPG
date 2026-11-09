@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "turbo-tilda-neutral.png",
+  "sha": "4b98524bd59584d3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66180
+ },
+ "freude": {
+  "src": "turbo-tilda-freude.png",
+  "sha": "5eaa7c47854719ca",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66904
+ },
+ "wut": {
+  "src": "turbo-tilda-wut.png",
+  "sha": "e51221fee19dcf09",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63294
+ }
+}

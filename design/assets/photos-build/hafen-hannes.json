@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "hafen-hannes-neutral.png",
+  "sha": "35a6c6efc5228a18",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 67850
+ },
+ "freude": {
+  "src": "hafen-hannes-freude.png",
+  "sha": "58ba86da46a1644b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 74110
+ },
+ "trauer": {
+  "src": "hafen-hannes-trauer.png",
+  "sha": "5b7ba1dfc3f6b202",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66118
+ }
+}

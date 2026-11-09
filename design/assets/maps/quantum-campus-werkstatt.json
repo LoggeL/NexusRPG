@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-quantum-campus-werkstatt": "assets/bg/quantum-campus-werkstatt.webp"
+ },
+ "size": [
+  1536,
+  1024
+ ],
+ "raw": "output/imagegen/raw/maps/quantum-campus-werkstatt.png",
+ "prompt": "Edit the attached game map background (first image) into a daytime variant after a happy ending. Keep EXACTLY the same layout, camera, buildings, fence, fountain, lawns, paths, stairs, gates and every object position; same painting style, same 1536x1024 framing. Change the time to a warm sunny late afternoon (golden light, soft shadows, no neon glare) and add an 'open workshop' street-fair: small colourful market stalls with awnings and workbenches on the lawn patches and plaza edges (keep the main paths free), strings of colourful pennant flags between the lamp posts, crates of scrap parts and tools, a few potted sunflowers. The violet spire glow is now calm blue. STRICT: no people, no figures, no text, no letters, no logos, no UI."
+}

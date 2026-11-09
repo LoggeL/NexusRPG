@@ -3,7 +3,14 @@
 // hoehepunkt/danach). world.md §4.2 `aria`, §4.7.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueDef, DialogueLine, HeartEventDef, NpcDef, TalkDef } from '../../../modules/contracts';
+import { AKT2_EVENTS, AKT2_TALK } from './akt2';
+import { AKT3_EVENTS } from './akt3';
 import { ARIA_AKT1_EVENTS } from './aria-akt1';
+import { ENDEN_EVENTS } from './enden';
+import { KRISE_EVENTS } from './krise';
+import { NACHSPIEL_EVENTS, NACHSPIEL_TALK } from './nachspiel';
+import { VERSOEHNUNG_EVENTS } from './versoehnung';
+import { ZERBERSTER_EVENTS } from './zerberster';
 import { BRUCH_EVENTS } from './bruch';
 import { DANACH_EVENTS } from './danach';
 import { FUNKEN_EVENTS } from './funken';
@@ -357,6 +364,8 @@ const talk: TalkDef[] = [
   { dialogue: 'aria-vex-montag', when: all(V, { weekday: 'mo' }, seen('rom-vexaria-armdruecken')) },
   { dialogue: 'aria-vex-mast', when: all(V, seen('rom-vexaria-funkmast'), { time: 'nacht' }, noFlag('vexaria_mast_woche')) },
   { dialogue: 'aria-vex-dachrennen', when: all(V, seen('rom-vexaria-luecke'), { weekday: ['fr', 'sa'] }, { time: 'nacht' }, noFlag('vexaria_rennen_woche')) },
+  // Akt 2/3 und Nachspiel (akt2.ts, nachspiel.ts): Dachnacht-Frage, Akt-2-Flirtpool, Alltag am Meer.
+  ...NACHSPIEL_TALK, ...AKT2_TALK,
   // Kanon: neuer Date-Versuch.
   { dialogue: 'aria-date-nochmal', when: all(flag('aria_date_spaeter'), noFlag('aria_romanze_angebahnt'), WARTEN_VORBEI, R) },
   // Reden über Schluss (nur im Status zusammen, selten angeboten).
@@ -383,6 +392,17 @@ const aria: NpcDef = {
     hates: ['defekter-neurochip', 'handschellen', 'seidentuch-blau'],
   },
   schedule: [
+    // Akt 2, Variante A: gechippt bei Xion/Ripper bzw. bewusstlos, bis main-2-countdown (Vex: bis zur Rettung, akt2.ts).
+    {
+      when: all(flag('aria_gechippt'), not({ quest: 'main-2-countdown', state: 'done' }), noFlag('vexaria_gerettet')),
+      place: 'away',
+    },
+    // Ende 3 ohne 3b: Aria ist mit der Crew am Meer, ohne die Spielfigur.
+    { when: all({ flag: 'epilog' }, flag('ende_master'), noFlag('ende_doch_noch_meer')), place: { map: 'das-meer', at: 'lagerfeuer' } },
+    // Nachspiel: Freitag bis Sonntag am Meer.
+    { days: ['fr', 'sa', 'so'], when: { flag: 'epilog' }, place: { map: 'das-meer', at: 'wasserlinie' } },
+    // Partynacht (Akt 3, vor dem Nachspiel): im Himmelsgarten.
+    { when: all({ act: 3 }, noFlag('epilog')), place: { map: 'himmelsgarten', at: 'tanzflaeche-glas' } },
     // Vex × Aria: Frühstück nach Station 11 am Tresen.
     { slot: ['morgen', 'tag'], when: all(V, flag('vexaria_fruehstueck')), place: { map: 'high-voltage', at: 'fruehstueckstisch' } },
     { slot: 'morgen', place: { map: 'schrottmarkt', at: 'inkasso-gasse' } },
@@ -393,9 +413,17 @@ const aria: NpcDef = {
   ],
   heartEvents: [
     ...KANON_EVENTS, ...ARIA_AKT1_EVENTS, ...RIVALINNEN_EVENTS, ...FUNKEN_EVENTS, ...BRUCH_EVENTS, ...HOEHEPUNKT_EVENTS, ...DANACH_EVENTS,
+    ...ZERBERSTER_EVENTS, ...AKT2_EVENTS, ...VERSOEHNUNG_EVENTS, ...KRISE_EVENTS, ...AKT3_EVENTS, ...ENDEN_EVENTS, ...NACHSPIEL_EVENTS,
   ],
   companion: {
     recruit: { quest: 'main-1-dexter', state: 'done' },
+    // Variante A: gechippt bei Ripper bzw. bis Dante den Chip zieht (wie ihr „away“ im Tagesablauf).
+    // Ende 3 ohne 3b: Aria sitzt mit der Crew am Meer (Integration).
+    unavailableWhen: any(
+      all(flag('aria_gechippt'), not({ quest: 'main-2-countdown', state: 'done' }), noFlag('vexaria_gerettet')),
+      flag('master_modus'),
+    ),
+    unavailableText: 'Aria ist nicht zu erreichen. Entweder steckt Quantums Chip in ihrem Nacken, oder sie will dich gerade nicht sehen.',
     stats: {
       hp: 60, armor: 3, morale: 85,
       attributes: { technik: 2, koerper: 8, reflexe: 5, ausstrahlung: 4, strasse: 5 },

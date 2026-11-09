@@ -50,18 +50,26 @@ export interface TradeTerms {
   refused: string | null;
 }
 
-export function tradeTerms(content: GameContent, state: Readonly<GameState>, shop: ShopDef): TradeTerms {
+/** Konditionen; mit `evaluate` gelten auch die Preisregeln des Händlers (`ShopDef.priceRules`). */
+export function tradeTerms(content: GameContent, state: Readonly<GameState>, shop: ShopDef, evaluate?: Evaluate): TradeTerms {
   const tier = factionTier(state, shop.faction);
   const discount = perkDiscount(content, state);
-  const buyFactor = clamp(1 + (tier.priceModifier - discount) / 100, MIN_BUY_FACTOR, MAX_BUY_FACTOR);
+  let ruleDiscount = 0;
+  let ruleRefused: string | null = null;
+  for (const rule of evaluate ? shop.priceRules ?? [] : []) {
+    if (!evaluate?.(rule.when)) continue;
+    if (Number.isFinite(rule.discount)) ruleDiscount += rule.discount ?? 0;
+    if (rule.refuse && !ruleRefused) ruleRefused = rule.refuse;
+  }
+  const buyFactor = clamp(1 + (tier.priceModifier - discount - ruleDiscount) / 100, MIN_BUY_FACTOR, MAX_BUY_FACTOR);
   const sellRate = clamp((shop.buyRate ?? DEFAULT_BUY_RATE) + (perkSellBonus(content, state) + tier.sellBonus) / 100, 0, MAX_SELL_RATE);
-  const refused = tier.refusesTrade ? `${shop.name} handelt nicht mit dir (Ruf: ${tier.name}).` : null;
+  const refused = tier.refusesTrade ? `${shop.name} handelt nicht mit dir (Ruf: ${tier.name}).` : ruleRefused;
   return { tier, perkDiscount: discount, buyFactor, sellRate, refused };
 }
 
 /** Rabatt (positiv) bzw. Aufschlag (negativ) in Prozent gegenüber dem Grundpreis, wie er im Laden angezeigt wird. */
-export const discountPercent = (content: GameContent, state: Readonly<GameState>, shop: ShopDef): number =>
-  Math.round((1 - tradeTerms(content, state, shop).buyFactor) * 100);
+export const discountPercent = (content: GameContent, state: Readonly<GameState>, shop: ShopDef, evaluate?: Evaluate): number =>
+  Math.round((1 - tradeTerms(content, state, shop, evaluate).buyFactor) * 100);
 
 /** Kaufpreis je Stück (mindestens 1 Credit). */
 export const buyUnitPrice = (base: number, terms: TradeTerms): number => Math.max(1, Math.round(Math.max(0, base) * terms.buyFactor));
@@ -88,7 +96,7 @@ export function buysCategory(shop: ShopDef, item: ItemDef): boolean {
  * Ankaufspreis je Stück oder null (kauft der Händler nicht). Liegt der Ankauf über dem eigenen Verkaufspreis, wird er
  * darunter gedeckelt – Kaufen und sofort Zurückverkaufen bringt nie Gewinn.
  */
-export function sellUnitPrice(content: GameContent, state: Readonly<GameState>, shop: ShopDef, item: ItemId, evaluate: Evaluate, terms = tradeTerms(content, state, shop)): number | null {
+export function sellUnitPrice(content: GameContent, state: Readonly<GameState>, shop: ShopDef, item: ItemId, evaluate: Evaluate, terms = tradeTerms(content, state, shop, evaluate)): number | null {
   const def = itemDef(content, item);
   if (!def || !buysCategory(shop, def)) return null;
   const price = Math.max(0, Math.floor(def.price * terms.sellRate));
@@ -101,7 +109,7 @@ export function sellUnitPrice(content: GameContent, state: Readonly<GameState>, 
 export function shopPrices(content: GameContent, state: Readonly<GameState>, shopId: ShopId, evaluate: Evaluate): PriceView[] {
   const shop = shopDef(content, shopId);
   if (!shop) return [];
-  const terms = tradeTerms(content, state, shop);
+  const terms = tradeTerms(content, state, shop, evaluate);
   const open = evaluate(shop.open) && terms.refused === null;
   const views: PriceView[] = [];
   const listed = new Set<string>();
@@ -140,7 +148,7 @@ export interface ShopView {
 export function shopView(content: GameContent, state: Readonly<GameState>, shopId: ShopId, evaluate: Evaluate): ShopView | null {
   const shop = shopDef(content, shopId);
   if (!shop) return null;
-  const terms = tradeTerms(content, state, shop);
+  const terms = tradeTerms(content, state, shop, evaluate);
   const timeOpen = evaluate(shop.open);
   const closedReason = terms.refused ?? (timeOpen ? null : `${shop.name} hat gerade geschlossen.`);
   const stock = shopPrices(content, state, shopId, evaluate).map(view => ({
@@ -170,7 +178,7 @@ export function planPurchase(content: GameContent, state: Readonly<GameState>, s
   const shop = shopDef(content, shopId);
   if (!shop) return { ok: false, reason: 'Unbekannter Händler.' };
   if (!validQty(qty, MAX_TRADE_QTY)) return { ok: false, reason: 'Ungültige Menge.' };
-  const terms = tradeTerms(content, state, shop);
+  const terms = tradeTerms(content, state, shop, evaluate);
   if (terms.refused) return { ok: false, reason: terms.refused };
   if (!evaluate(shop.open)) return { ok: false, reason: `${shop.name} hat gerade geschlossen.` };
   const entry = stockEntry(content, shop, item, evaluate);
@@ -192,7 +200,7 @@ export function planSale(content: GameContent, state: Readonly<GameState>, shopI
   const shop = shopDef(content, shopId);
   if (!shop) return { ok: false, reason: 'Unbekannter Händler.' };
   if (!validQty(qty, MAX_STACK)) return { ok: false, reason: 'Ungültige Menge.' };
-  const terms = tradeTerms(content, state, shop);
+  const terms = tradeTerms(content, state, shop, evaluate);
   if (terms.refused) return { ok: false, reason: terms.refused };
   if (!evaluate(shop.open)) return { ok: false, reason: `${shop.name} hat gerade geschlossen.` };
   const unit = sellUnitPrice(content, state, shop, item, evaluate, terms);

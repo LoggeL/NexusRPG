@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "quantum-fahrer-neutral.png",
+  "sha": "f2ee13650984cdb1",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 27252
+ },
+ "wut": {
+  "src": "quantum-fahrer-wut.png",
+  "sha": "58091505935e542d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28878
+ },
+ "ueberrascht": {
+  "src": "quantum-fahrer-ueberrascht.png",
+  "sha": "e8f29914d95f0048",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28986
+ }
+}

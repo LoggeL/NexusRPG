@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "glasblaeserin-neutral.png",
+  "sha": "ef0787cf5d962897",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 68168
+ },
+ "freude": {
+  "src": "glasblaeserin-freude.png",
+  "sha": "6685d2ce7ad0bd8c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66374
+ },
+ "besorgt": {
+  "src": "glasblaeserin-besorgt.png",
+  "sha": "fa84276c78cc6772",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62244
+ },
+ "signatur": {
+  "src": "glasblaeserin-signatur.png",
+  "sha": "2a352e9873694927",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77720
+ }
+}

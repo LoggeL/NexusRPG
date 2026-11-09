@@ -1,11 +1,13 @@
-// Daria (Straßenkind, Anführerin der drei): NpcDef, Tagesgespräche, Herz-Ereignisse he-daria-2…10 (world.md §4.4).
+// Daria (Straßenkind, Anführerin der drei): NpcDef, Tagesgespräche, Herz-Ereignisse he-daria-2…6 (world.md §4.4).
+// Akt 2/3, Nachspiel, he-daria-8/10: daria-akt23.ts.
 // Nur Freundschaft (child: true). Kein Begleiter. Persönliche Quests (pers-daria-botendienst, pers-kinder-wasserturm,
 // side-eins-turnier) baut der Quest-Agent; hier wird nur darauf verwiesen bzw. gestartet.
 import type { Condition, NpcDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 import {
-  AKT2, GOSSE, KINDERZEIT, L, N, VEX, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
+  GOSSE, KINDERZEIT, L, N, VEX, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
 } from './_dsl';
+import { DARIA_HE_23, DARIA_SCHEDULE_23, DARIA_TALK_FRUEH, DARIA_TALK_POOL } from './daria-akt23';
 
 const D = 'daria';
 const ALLE_SECHS: Condition = { all: [{ hearts: 'daria', min: 6 }, { hearts: 'freya', min: 6 }, { hearts: 'jakko', min: 6 }] };
@@ -28,6 +30,7 @@ const npc: NpcDef = {
     hates: ['virus-implantat', 'handschellen', 'rostige-dose'],
   },
   schedule: [
+    ...DARIA_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'das-nest', at: 'schlafnischen' } },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'botenstand' } },
     { slot: 'abend', days: ['do'], place: { map: 'dantes-werkstatt', at: 'eins-tisch' } },
@@ -41,22 +44,20 @@ const npc: NpcDef = {
       dialogue: 'dlg-he-daria-4', effects: [{ xp: 35 }],
     },
     { id: 'he-daria-6', hearts: 6, map: 'das-nest', time: 'morgen', dialogue: 'dlg-he-daria-6', effects: [{ xp: 45 }] },
-    { id: 'he-daria-8', hearts: 8, map: 'schrottmarkt', time: 'tag', when: AKT2, dialogue: 'dlg-he-daria-8', effects: [{ xp: 60 }] },
-    {
-      id: 'he-daria-10', hearts: 10, map: 'das-nest', time: 'morgen', when: AKT2,
-      dialogue: 'dlg-he-daria-10', effects: [{ xp: 80 }, { give: 'bandenabzeichen' }],
-    },
+    ...DARIA_HE_23,
     // Rivalität kindgerecht: ein Streich (world.md §4.4); Versöhnung über das Tagesgespräch (drei Dampfnudeln).
     { id: 're-daria-2', hearts: -2, map: 'schrottmarkt', time: 'tag', dialogue: 'dlg-re-daria-2' },
   ],
   talk: [
     { dialogue: 'daria-schweigen', when: { rival: D } },
     { dialogue: 'daria-zeit', minHearts: 8, when: zeitHinweisWann('daria-zeit') },
+    ...DARIA_TALK_FRUEH,
     { dialogue: 'daria-zehn-credits', when: { quest: 'side-zehn-credits', state: 'active' } },
     { dialogue: 'daria-morgen', when: { time: 'morgen' } },
     { dialogue: 'daria-eins-dante', when: { all: [{ time: 'abend' }, { weekday: 'do' }] } },
     { dialogue: 'daria-pfand', when: { time: 'abend' } },
     { dialogue: 'daria-sonntag', when: { weekday: 'so' } },
+    ...DARIA_TALK_POOL,
     { dialogue: 'daria-tag-6', minHearts: 6 },
     { dialogue: 'daria-tag-2', minHearts: 2 },
     { dialogue: 'daria-tag-0' },
@@ -461,57 +462,7 @@ const dialogues = dialogs(
     ]),
   ]),
 
-  dlg('dlg-he-daria-8', [
-    node('a', [
-      N('Vor Rippers Praxis hat sich eine Traube gebildet. In der Mitte: Daria, die Arme verschränkt, vor ihr ein Junge mit einem Implantat in der Hand. Und Ripper, der lächelt wie ein Kredithai im Urlaub.'),
-      L('ripper', 'Fünfzehn Credits, Kleiner. Weil heute Dienstag ist und ich ein Herz hab.'),
-      L(D, 'Heute ist nicht Dienstag. Und du hast kein Herz, du hast ein Ersatzteil. Das Ding ist hundert wert. Mindestens.', 'wut'),
-      L('ripper', 'Daria, Schätzchen. Wer hat dir denn das Rechnen beigebracht?'),
-      L(D, 'Die Straße. Dieselbe wie dir. Nur dass ich nicht vergessen hab, wie’s ist, auf der anderen Seite vom Tresen zu stehen.', 'signatur'),
-    ], {
-      choices: [
-        {
-          text: '(Neben Daria treten.) „Hundert. Oder die ganze Unterstadt erfährt, wer hier wen abzieht.“',
-          check: chk('he-daria-8-ripper', 'strasse', 6, ['einschuechtern', 'verhandeln']),
-          next: 'stark',
-        },
-        { text: '(Nichts sagen. Daria machen lassen.)', next: 'allein' },
-      ],
-    }),
-    node('stark', [
-      N('Ripper schaut dich an. Dann Daria. Dann die Leute ringsum, die plötzlich alle sehr interessiert gucken.'),
-      L('ripper', '…Achtzig. Und keiner erzählt’s rum. Ich hab einen Ruf.'),
-      L(D, 'Hast du. Einen schlechten. Achtzig ist gut. Gib her.', 'freude'),
-    ], { effects: [herz(D, 60), { rep: 'unterstadt', delta: 5 }], next: 'ende' }),
-    node('allein', [
-      N('Daria hält Rippers Blick. Zehn Sekunden. Zwanzig. Irgendwer im Publikum hustet.'),
-      L('ripper', '…Fünfzig. Weil du mich an jemanden erinnerst. Und der war auch eine Nervensäge.'),
-      L(D, 'Fünfzig. Und der nächste kriegt auch fünfzig. Abgemacht ist abgemacht.', 'signatur'),
-    ], { effects: [herz(D, 80)], next: 'ende' }),
-    node('ende', [
-      L(D, 'Hast du gesehen? Hast du gesehen?! Mir zittern die Beine. Nicht weitersagen. Ich hab einen Ruf.', 'freude'),
-    ]),
-  ]),
-
-  dlg('dlg-he-daria-10', [
-    node('a', [
-      N('Im Nest ist der Tisch gedeckt: drei Dampfnudeln, ein Kartendeck, eine Kerze in einer Dose. Freya hält ein Klemmbrett, Jakko hält die Luft an, Daria hält etwas hinter dem Rücken.'),
-      L(D, 'Ruhe. Das ist offiziell. Freya, Protokoll.', 'signatur'),
-      L('freya', 'Sitzung eröffnet. Anwesend: alle. Abwesend: Captain Kuschel, entschuldigt.'),
-      L(D, 'Hiermit wird {name} offiziell Mitglied der Bande. Nicht Kundschaft. Nicht Ehrenmischer. Bande.'),
-      N('Sie hält dir ein Abzeichen hin: ein Kronkorken, auf den mit Nagellack ein D, ein F und ein J gemalt sind. Und, ganz klein dazwischen, ein vierter Buchstabe.'),
-      L(D, 'Wer das trägt, kriegt überall in der Unterstadt Hilfe von uns. Gratis. Das ist das einzige, was bei mir gratis ist. Merk dir das.', 'freude'),
-    ], {
-      choices: [
-        { text: '„Ich trag’s mit Stolz, Chefin.“', next: 'stolz' },
-        { text: '„Ihr seid die beste Bande der Stadt.“', next: 'stolz' },
-      ],
-    }),
-    node('stolz', [
-      L('jakko', 'Jetzt dürfen wir endlich essen! Ich hab die ganze Zeremonie lang an Dampfnudeln gedacht!', 'freude'),
-      L(D, 'Revanche nächsten Sonntag. Für immer. Das ist auch ein Vertrag.', 'signatur'),
-    ]),
-  ]),
+  // he-daria-8 und he-daria-10: daria-akt23.ts
 
   dlg('dlg-re-daria-2', [
     node('a', [

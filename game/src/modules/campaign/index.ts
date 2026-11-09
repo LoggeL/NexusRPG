@@ -1,7 +1,7 @@
 // Kampagnen-Fassade: einziger Ort, an dem der Spielzustand verändert wird.
 // Regeln liegen in den Domänen (domains/*.ts); diese Datei verbindet sie mit Speicher, Abonnenten und Nachlauf.
 import type {
-  ActId, AttributeId, BattleResult, CampaignOptions, CampaignPort, CampaignResult, CharacterInput, CheckEvaluation,
+  ActId, AttributeId, BattleFollowUp, BattleResult, CampaignOptions, CampaignPort, CampaignResult, CharacterInput, CheckEvaluation,
   CheckRef, Condition, Effect, EffectOutcome, GameContent, GameState, GiftResult, ItemId, JobOffer, NewsDef,
   MinigameRequest, NpcId, ObjectiveView, Point, QuestView, SaveStoragePort, SpeakerId,
 } from '../contracts';
@@ -30,7 +30,7 @@ import { allJobBoards } from '../jobs';
 import { currentNews as currentNewsOf } from '../news';
 import { objectiveOf, questLog, questMarkers as questMarkersOf } from '../quests';
 import {
-  GIFT_TASTE_LABELS, findHeartEvent, giftBlocked, giftKnowledgeKey, giftTasteOf, giftValueOf, heartsWith, knownGiftItems, markHeartEventIn,
+  GIFT_TASTE_LABELS, companionUnavailable, findHeartEvent, giftBlocked, giftKnowledgeKey, giftTasteOf, giftValueOf, heartsWith, knownGiftItems, markHeartEventIn,
   pendingHeartEventOf, recordGiftIn, relationOf, rivalryOf, talkDialogue, talkIn,
 } from './domains/relations';
 import { normalizeParty, partyProblem } from '../relationships';
@@ -45,7 +45,7 @@ import { SAVE_LIMITS } from './validate';
 
 export { evaluateCondition } from './conditions';
 export { checkLabel, checkSeenKey, checkXp, evaluateCheck, missingText, resolveCheck } from './checks';
-export { choiceKeyPart, choiceSeenKey } from './dialogueKeys';
+export { choiceDailyFlag, choiceKeyPart, choiceSeenKey } from './dialogueKeys';
 export { fastTravelDestination, findContentProblems } from './lint';
 export { parseSave, serializeState, SAVE_LIMITS, SAVE_VERSION } from './save';
 export { createActState, createInitialState, entryPoint } from './state';
@@ -292,7 +292,7 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
       const name = displayName(content, state, npc);
       if (state.party.includes(npc)) return result(false, `${name} ist schon bei dir.`);
       const party = [...state.party, npc];
-      const problem = partyProblem(content, state, party);
+      const problem = partyProblem(content, state, party, npc => companionUnavailable(content, npc, evaluate));
       if (problem) return result(false, problem);
       // Anfahrt: Figur (Standard 30 min), verkürzt durch passive Wirkungen (Perks, Cyberware, Kleidung).
       const limits = passiveSources(content, state.player)
@@ -310,7 +310,7 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
     relation: npc => relationView(content, state, npc),
     whereIs: npc => whereIsOf(content, state, npc, evaluate),
     setParty(party) {
-      const problem = partyProblem(content, state, party);
+      const problem = partyProblem(content, state, party, npc => companionUnavailable(content, npc, evaluate));
       if (problem) return result(false, problem);
       const list = normalizeParty(party);
       return mutate((ctx) => { ctx.draft.party = list; }, 'Party geändert.');
@@ -375,7 +375,7 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
     sell: (shop, item, qty = 1) => mutate(ctx => sellIn(ctx, shop, item, qty)),
 
     // ------------------------------------------------------------ Kampf
-    finishBattle: (battle: BattleResult) => mutate(ctx => finishBattleIn(ctx, battle)).outcome,
+    finishBattle: (battle: BattleResult, after?: BattleFollowUp) => mutate(ctx => finishBattleIn(ctx, battle, after)).outcome,
     finishMinigame: (request: MinigameRequest, won: boolean) => mutate(ctx => finishMinigameIn(ctx, request, won)).outcome,
 
     // ------------------------------------------------------------ Welt

@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "rudi-neutral.png",
+  "sha": "1d6b1c7d1952dc1b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62722
+ },
+ "freude": {
+  "src": "rudi-freude.png",
+  "sha": "7e913c27ee9045d9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59088
+ },
+ "besorgt": {
+  "src": "rudi-besorgt.png",
+  "sha": "7ee57bf09e66d349",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62058
+ }
+}

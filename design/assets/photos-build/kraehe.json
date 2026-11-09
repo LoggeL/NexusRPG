@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "kraehe-neutral.png",
+  "sha": "9f544567aa1a5f62",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 81966
+ },
+ "wut": {
+  "src": "kraehe-wut.png",
+  "sha": "d8bc0c64c4b1e546",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 75576
+ },
+ "freude": {
+  "src": "kraehe-freude.png",
+  "sha": "487f5b87372db6f0",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 83068
+ },
+ "signatur": {
+  "src": "kraehe-signatur.png",
+  "sha": "56a8a429ec587851",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 86914
+ }
+}

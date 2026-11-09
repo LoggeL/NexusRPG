@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "stylistin-gina-neutral.png",
+  "sha": "517d3afe956130f8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 80136
+ },
+ "freude": {
+  "src": "stylistin-gina-freude.png",
+  "sha": "1804dcaa019f7e07",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 81452
+ },
+ "trauer": {
+  "src": "stylistin-gina-trauer.png",
+  "sha": "c3fff719b7cf70f3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 74790
+ }
+}

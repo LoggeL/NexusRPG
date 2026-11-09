@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "wett-willi-neutral.png",
+  "sha": "7b522a4bed94987a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48040
+ },
+ "freude": {
+  "src": "wett-willi-freude.png",
+  "sha": "2f1abdad32011844",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 48540
+ },
+ "besorgt": {
+  "src": "wett-willi-besorgt.png",
+  "sha": "ef8ceae418b36112",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46978
+ }
+}

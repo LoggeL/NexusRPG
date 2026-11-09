@@ -61,6 +61,13 @@ export function findContentProblems(content: GameContent): string[] {
       if (!key) { report(where, `unbekannter Effekt ${JSON.stringify(e)}`); continue; }
       const spec = EFFECT_SPECS[key as keyof typeof EFFECT_SPECS] as EffectSpec<keyof typeof EFFECT_SPECS>;
       checkRefs(where, spec.refs?.(e as never) ?? []);
+      // Nachläufe von Kampf und Minispiel
+      if (key === 'battle' || key === 'minigame') {
+        const nested = e as { win?: Effect[]; lose?: Effect[]; flee?: Effect[] };
+        effects(`${where} (Sieg)`, nested.win);
+        effects(`${where} (Niederlage)`, nested.lose);
+        effects(`${where} (Flucht)`, nested.flee);
+      }
     }
   };
 
@@ -111,9 +118,17 @@ export function findContentProblems(content: GameContent): string[] {
       ref(where, 'entry', `${exit.to}#${exit.entry}`);
       condition(where, exit.when);
       check(where, exit.check);
+      effects(where, exit.effects);
     }
     if (map.fastTravel) ref(`${at} Schnellreise`, map.fastTravel.entry ? 'entry' : 'maps', map.fastTravel.entry ? `${map.fastTravel.to}#${map.fastTravel.entry}` : map.fastTravel.to);
     for (const variant of map.bgVariants ?? []) condition(`${at} Hintergrundvariante`, variant.when);
+    for (const variant of map.musicWhen ?? []) condition(`${at} Musikvariante`, variant.when);
+    for (const variant of map.blockVariants ?? []) {
+      condition(`${at} Begehbarkeit`, variant.when);
+      for (const polygon of [...(variant.walk ?? []), ...(variant.block ?? [])]) for (const p of polygon) if (!inside(map, p)) { report(at, 'Polygonpunkt außerhalb der Karte'); break; }
+    }
+    for (const light of map.lights ?? []) condition(`${at} Licht`, light.when);
+    condition(`${at} Passanten`, map.ambient?.when);
     for (const spot of map.hotspots) {
       const where = `${at} Hotspot ${spot.id}`;
       if (!inside(map, spot.at)) report(where, 'liegt außerhalb der Karte');
@@ -189,7 +204,10 @@ export function findContentProblems(content: GameContent): string[] {
   for (const [key, cut] of Object.entries(content.cutscenes)) {
     effects(`Cutscene ${key}`, cut.effects);
     if (!cut.beats.length) report(`Cutscene ${key}`, 'keine Beats');
-    for (const beat of cut.beats) for (const line of beat.lines ?? []) speaker(`Cutscene ${key}`, line.speaker);
+    for (const beat of cut.beats) {
+      for (const line of beat.lines ?? []) speaker(`Cutscene ${key}`, line.speaker);
+      condition(`Cutscene ${key}`, beat.when);
+    }
   }
   for (const [key, def] of Object.entries(content.checks)) check(`Check ${key}`, def);
 
@@ -243,6 +261,7 @@ export function findContentProblems(content: GameContent): string[] {
     ref(at, 'factions', shop.faction);
     condition(at, shop.open);
     condition(at, shop.ripperdoc?.freeWhen);
+    for (const rule of shop.priceRules ?? []) condition(`${at} Preisregel`, rule.when);
     for (const entry of shop.stock) { ref(at, 'items', entry.item); condition(at, entry.when); }
   }
   for (const job of Object.values(content.jobs)) {
@@ -285,11 +304,13 @@ export function findContentProblems(content: GameContent): string[] {
       if (!event.cutscene && !event.dialogue && !event.effects?.length) report(where, 'ohne Inhalt');
     }
     for (const talk of npc.talk ?? []) { ref(`${at} Gespräch`, 'dialogues', talk.dialogue); condition(`${at} Gespräch`, talk.when); }
+    condition(`${at} Herzen eingefroren`, npc.heartsFrozen);
     if (npc.companion) {
       condition(`${at} Begleiter`, npc.companion.recruit);
       for (const rule of npc.companion.abilityRules ?? []) condition(`${at} Begleiter`, rule.when);
       for (const duo of npc.companion.duo ?? []) condition(`${at} Duo`, duo.when);
       for (const entry of npc.companion.callMinutesWhen ?? []) condition(`${at} Begleiter`, entry.when);
+      condition(`${at} Begleiter nicht verfügbar`, npc.companion.unavailableWhen);
       for (const ability of [
         ...npc.companion.stats.abilities, ...(npc.companion.heartAbilities ?? []).map(a => a.ability),
         ...(npc.companion.abilityRules ?? []).flatMap(rule => [rule.add, rule.remove, ...(rule.replace ?? [])]).filter((a): a is string => !!a),
@@ -355,6 +376,10 @@ export function findContentProblems(content: GameContent): string[] {
     for (const entry of encounter.enemies) if (!has(content.enemies, entry.enemy)) report(at, `unbekannter Gegner „${entry.enemy}“`);
     for (const map of encounter.random?.maps ?? []) ref(at, 'maps', map);
     condition(at, encounter.when);
+    for (const entry of encounter.startStatus ?? []) {
+      condition(`${at} Startzustand`, entry.when);
+      if (!['party', 'enemies', 'player'].includes(entry.target) && !has(content.enemies, entry.target)) report(at, `Startzustand: unbekanntes Ziel „${entry.target}“`);
+    }
     effects(`${at} Sieg`, encounter.onWin);
     effects(`${at} Niederlage`, encounter.onLose);
     for (const item of Object.keys(encounter.reward?.items ?? {})) ref(at, 'items', item);

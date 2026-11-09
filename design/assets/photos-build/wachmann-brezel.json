@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "wachmann-brezel-neutral.png",
+  "sha": "bd396c0fb3a1498b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51622
+ },
+ "wut": {
+  "src": "wachmann-brezel-wut.png",
+  "sha": "574cf1c2ca56fdab",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56726
+ },
+ "ueberrascht": {
+  "src": "wachmann-brezel-ueberrascht.png",
+  "sha": "dd283c4edc4d9416",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56930
+ }
+}

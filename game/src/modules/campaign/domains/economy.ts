@@ -2,7 +2,7 @@
 // Zuständig: Bereich quests+economy. Die Rechenregeln liegen in modules/economy und modules/reputation;
 // diese Datei schreibt sie in den Entwurf (Effekte, Fassaden-Aktionen) und prüft das Speicherformat.
 import { derivedStats } from '../../character';
-import type { FactionId, GameContent, GameState, ItemId, PriceView, ShopDef, ShopId, ShopState } from '../../contracts';
+import type { Condition, FactionId, GameContent, GameState, ItemId, PriceView, ShopDef, ShopId, ShopState } from '../../contracts';
 import {
   creditDeltaText, discountPercent as shownDiscount, planPurchase, planSale, recordStockSale, sellUnitPrice, shopPrices,
   soldToday as soldTodayOf,
@@ -38,7 +38,8 @@ export function addRep(ctx: EffectContext, faction: FactionId, delta: number): s
 }
 
 /** Angezeigter Rabatt in Prozent (Perks plus Rufstufe; negativ = Aufschlag). */
-export const discountPercent = (content: GameContent, state: Readonly<GameState>, shop: ShopDef): number => shownDiscount(content, state, shop);
+export const discountPercent = (content: GameContent, state: Readonly<GameState>, shop: ShopDef, evaluate?: (c?: Condition) => boolean): number =>
+  shownDiscount(content, state, shop, evaluate);
 
 /** Bestand des Tages (ein neuer Tag füllt auf). */
 export const soldToday = (state: Readonly<GameState>, shop: ShopId, item: ItemId): number => soldTodayOf(state, shop, item);

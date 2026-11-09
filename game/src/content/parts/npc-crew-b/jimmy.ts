@@ -3,16 +3,16 @@
 // T Bahnsteig, A/N Ölfass-Türme an der Hafenkante. Die Spuren liegen als Loot-Hotspots der Zonen-Agenten auf den Karten.
 // Nach side-jimmys-chip (Quest-Agent, Wahl Neustart/Patch → Flags jimmy_status_neustart | jimmy_status_patch):
 // M Dantes Werkstatt, T Botendienste (away), A High Voltage, N Crew-Quartier-Couch; Begleiter.
-// Herz-Ereignisse 2/4/6 nach der Rettung, 8/10 angelegt und an act2 gebunden. Keine Rivalität (nur verletzte Werbesprüche).
+// Herz-Ereignisse 2/4/6 nach der Rettung, 8/10 ab Akt 2 als volle Szenen in jimmy-akt23.ts (dort auch Akt 2/3, Nachspiel). Keine Rivalität (nur verletzte Werbesprüche).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
-  type Menue, VEX, einmalig, aktiv, dialog, done, erz, flag, herz, ich, knoten, mindestens, offen, pruefung, rede, sammle,
+  type Menue, MASTER, PARTYNACHT, VEX, einmalig, aktiv, dialog, done, erz, flag, herz, ich, knoten, mindestens, offen, pruefung, rede, sammle,
   sprecher, tagesgespraech, ZEIT_HINWEIS,
 } from './_helfer';
+import { akt23, he10, he8, menue23 } from './jimmy-akt23';
 
 const J = sprecher('jimmy');
-const H = sprecher('hunter');
 const X = sprecher('xion-venom');
 
 const QUEST = 'side-jimmys-chip';
@@ -29,6 +29,8 @@ const GERETTET: Condition = { any: [done(QUEST), { flag: 'jimmy_gerettet' }] };
 const VERWIRRT: Condition = { all: [{ not: GERETTET }, JIMMY_DA] };
 const PATCH: Condition = { flag: 'jimmy_status_patch' };
 const NEUSTART: Condition = { all: [GERETTET, { not: PATCH }] };
+/** Nicht auf der Party, kein Master-Modus. */
+const DA: Condition = { all: [{ not: PARTYNACHT }, { not: MASTER }] };
 
 // ---------------------------------------------------------------------------------------------- Vor der Rettung
 
@@ -128,6 +130,7 @@ const V = {
 
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Jimmy.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
+  const M23 = menue23(zurueck);
 
   const choices: DialogueChoice[] = einmalig('jimmy', [
     { text: 'Komm mit, Jimmy. Ich brauch dich draußen.', when: { all: [GERETTET, { not: { recruited: 'jimmy' } }] }, next: 'rekrut', effects: [{ recruit: 'jimmy' }] },
@@ -137,6 +140,7 @@ function menue(): Menue {
     { text: 'Was weißt du noch von früher?', requires: { hearts: 'jimmy', min: 3 }, tag: '[Jimmy ♥3]', once: true, id: 'jg-frueher', next: 'frueher' },
     { text: 'Hunter hat gesagt, du bist durch.', once: true, id: 'jg-hunter', next: 'hunter' },
     { text: '„Aria und ich … Was meinst du?“', tag: '[Vex]', when: { all: [VEX, { any: [{ flag: 'vexaria_knutsch' }, { flag: 'aria_romanze_angebahnt' }] }] }, once: true, id: 'jg-vex', next: 'vex' },
+    ...M23.choices,
     { text: 'Bis später.' },
   ]);
 
@@ -172,11 +176,13 @@ function menue(): Menue {
       J('Aria sagt zu dir „Arschloch“ in einem Ton, den ich als „Premium-Kundenbindung“ einstufen würde. Das ist das Höchste, was es gibt. Zu mir sagt sie nur „Jimmy, verpiss dich“. Das ist Standard-Tarif.'),
       J('Mein Rat: Nicht kündigen. Lebenslanges Abo. Kein Kleingedrucktes.', 'signatur'),
     ], { choices: zurueck, effects: [herz('jimmy', 10)] }),
+    ...M23.nodes,
   ];
   return { choices, nodes };
 }
 
 const M = menue();
+const A23 = akt23(M);
 
 const T = {
   zeit: tagesgespraech('jimmy-tag-zeit',
@@ -318,32 +324,7 @@ const he6 = dialog('he-jimmy-6', [
   ], { effects: [flag('xion_werbestand_beweis'), { xp: 90 }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-jimmy-8', [
-  knoten('start', [
-    erz('High Voltage, nach Feierabend. Hunter steht an Jimmys Tisch, die Sonnenbrille in der Hand. Das macht er nie.'),
-    H('Jimmy. Ich hab gesagt, du bist durch. Vor allen. Das war falsch.', 'besorgt'),
-    H('Schulden muss man immer begleichen. Das hier ist meine.'),
-    J('… Hunter. Ich … Fehler 404. Worte nicht gefunden.', 'trauer'),
-  ], {
-    choices: [
-      { text: 'Jimmy eine Hand auf die Schulter legen. „Sag einfach Danke, Jimmy.“', next: 'ende', effects: [herz('jimmy', 40), herz('hunter', 20)] },
-      { text: '„Hunter, setz dich. Das wird länger.“', check: pruefung('he-jimmy-8-hunter', 'ausstrahlung', 6, ['ueberreden']), next: 'ende', effects: [herz('jimmy', 50), herz('hunter', 30)] },
-    ],
-  }),
-  knoten('ende', [J('Danke. Danke, Boss. Bitte bewerten Sie … nein. Einfach nur: danke.', 'freude')], { effects: [flag('hunter_entschuldigt_jimmy'), { xp: 120 }] }),
-]);
-
-const he10 = dialog('he-jimmy-10', [
-  knoten('start', [
-    erz('Dach des Crew-Quartiers. Jimmy hält dir einen abgegriffenen Casino-Chip hin, rot, mit einem Kratzer quer über der Zahl.'),
-    J('Mein Glückschip. Hab ich seit ich sieben bin. Der hat mich nie verlassen. Nicht mal, als ich mich selbst verlassen hab.', 'trauer'),
-    J('Jetzt gehört er dir. Weil du auch geblieben bist.', 'freude'),
-  ], { choices: [{ text: 'Den Chip nehmen.', next: 'ende' }] }),
-  knoten('ende', [J('Willkommen. Wie kann ich deine Zukunft optimieren? … Das war ein Witz. Ein eigener. Von mir.', 'signatur')], {
-    effects: [{ give: 'jimmys-glueckschip' }, herz('jimmy', 40), { xp: 150 }],
-  }),
-]);
+// ♥8 und ♥10: volle Szenen in jimmy-akt23.ts.
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -363,6 +344,8 @@ const jimmy: NpcDef = {
     hates: ['virus-implantat', 'magnet-stoerer'],
   },
   schedule: [
+    // Akt 2 (Turm, Botendienste), Partynacht, Master-Modus, Nachspiel (jimmy-akt23.ts).
+    ...A23.schedule,
     // Nach side-jimmys-chip: Crew-Alltag.
     { slot: 'morgen', when: GERETTET, place: { map: 'dantes-werkstatt', at: 'jimmy-hocker' } },
     { slot: 'tag', when: GERETTET, place: 'away' },
@@ -375,11 +358,11 @@ const jimmy: NpcDef = {
     { place: 'away' },
   ],
   heartEvents: [
-    { id: 'he-jimmy-2', hearts: 2, map: 'dantes-werkstatt', time: 'morgen', when: GERETTET, dialogue: 'he-jimmy-2' },
-    { id: 'he-jimmy-4', hearts: 4, map: 'neon-gasse', time: 'abend', when: GERETTET, dialogue: 'he-jimmy-4' },
-    { id: 'he-jimmy-6', hearts: 6, map: 'neon-gasse', time: 'abend', when: { all: [GERETTET, { seen: 'he-jimmy-4' }] }, cutscene: 'szene-he-jimmy-6', dialogue: 'he-jimmy-6' },
-    { id: 'he-jimmy-8', hearts: 8, map: 'high-voltage', time: ['abend', 'nacht'], when: { all: [{ act: 2 }, GERETTET] }, dialogue: 'he-jimmy-8' },
-    { id: 'he-jimmy-10', hearts: 10, map: 'crew-quartier', when: { all: [{ act: 2 }, { seen: 'he-jimmy-8' }] }, dialogue: 'he-jimmy-10' },
+    { id: 'he-jimmy-2', hearts: 2, map: 'dantes-werkstatt', time: 'morgen', when: { all: [GERETTET, DA] }, dialogue: 'he-jimmy-2' },
+    { id: 'he-jimmy-4', hearts: 4, map: 'neon-gasse', time: 'abend', when: { all: [GERETTET, DA] }, dialogue: 'he-jimmy-4' },
+    { id: 'he-jimmy-6', hearts: 6, map: 'neon-gasse', time: 'abend', when: { all: [GERETTET, { seen: 'he-jimmy-4' }, DA] }, cutscene: 'szene-he-jimmy-6', dialogue: 'he-jimmy-6' },
+    { id: 'he-jimmy-8', hearts: 8, map: 'high-voltage', time: ['abend', 'nacht'], when: { all: [{ act: 2 }, GERETTET, DA] }, dialogue: 'he-jimmy-8' },
+    { id: 'he-jimmy-10', hearts: 10, map: 'crew-quartier', time: 'nacht', when: { all: [{ act: 2 }, { seen: 'he-jimmy-8' }, GERETTET, DA] }, dialogue: 'he-jimmy-10' },
   ],
   companion: {
     // world.md §4.6: ab side-jimmys-chip. Neustart = Hacker (Firewall-Kuss), Patch = Chaos (Chipfieber).
@@ -393,12 +376,18 @@ const jimmy: NpcDef = {
     },
     heartAbilities: [{ hearts: 6, ability: 'jimmy-comeback' }],
     // Variante „Patch“ statt „Neustart“ (side-jimmys-chip): Chipfieber statt Firewall-Kuss.
-    abilityRules: [{ when: { flag: 'jimmy_status_patch' }, replace: ['jimmy-firewall-kuss', 'jimmy-chipfieber'] }],
+    // Nach he-jimmy-8 (Hunter entschuldigt sich): Ersatzmann wird Stammspieler.
+    abilityRules: [
+      { when: { flag: 'jimmy_status_patch' }, replace: ['jimmy-firewall-kuss', 'jimmy-chipfieber'] },
+      { when: { flag: 'hunter_entschuldigt_jimmy' }, replace: ['jimmy-ersatzmann', 'jimmy-ersatzmann-plus'] },
+    ],
   },
   partyCheckBonus: [
     { attribute: 'ausstrahlung', tags: ['verhandeln', 'feilschen'], value: 1, label: 'Jimmy macht Verkaufsgespräch' },
   ],
   talk: [
+    // Akt 2/3, Master-Modus, Nachspiel (jimmy-akt23.ts).
+    ...A23.talk,
     // Vorher (verwirrt).
     rede('jimmy-erstkontakt', { all: [VERWIRRT, { notFlag: 'jimmy_status_gefunden' }] }),
     rede('jimmy-tag-verwirrt-traurig', { all: [VERWIRRT, { rival: 'jimmy', min: 2 }] }),
@@ -422,7 +411,7 @@ export const part: ContentPart = {
   dialogues: sammle(
     erstkontakt, V.turm, V.schlaf, V.bahnsteig, V.traurig,
     T.zeit, T.danke, T.werkstatt, T.club, T.couch, T.patch, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, he8, he10, ...A23.dialogues.filter((d) => d.id !== he8.id && d.id !== he10.id),
   ),
   cutscenes: {
     'szene-he-jimmy-6': {
@@ -433,6 +422,7 @@ export const part: ContentPart = {
     },
   },
   phone: {
+    ...A23.phone,
     'tel-jimmy-gutschein': {
       id: 'tel-jimmy-gutschein', from: 'jimmy',
       text: 'Hallo! Hier ist Jimmy. Der echte. Kein Werbeanruf. Wollte nur sagen: Dein Gutschein ist noch gültig. Unbegrenzt. Ende der Durchsage. Das war keine Durchsage. Tschüss!',

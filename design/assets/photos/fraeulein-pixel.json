@@ -1,0 +1,8 @@
+{
+  "images": {
+    "photo-fraeulein-pixel-neutral": "assets/photos/fraeulein-pixel/neutral.webp",
+    "photo-fraeulein-pixel-freude": "assets/photos/fraeulein-pixel/freude.webp",
+    "photo-fraeulein-pixel-besorgt": "assets/photos/fraeulein-pixel/besorgt.webp",
+    "photo-fraeulein-pixel-signatur": "assets/photos/fraeulein-pixel/signatur.webp"
+  }
+}

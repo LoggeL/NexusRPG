@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "leutnant-nadel-neutral.png",
+  "sha": "bef203758b777887",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 29674
+ },
+ "wut": {
+  "src": "leutnant-nadel-wut.png",
+  "sha": "47220b2a5aa3712c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 31580
+ },
+ "ueberrascht": {
+  "src": "leutnant-nadel-ueberrascht.png",
+  "sha": "d120af7b15fcc825",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30544
+ },
+ "signatur": {
+  "src": "leutnant-nadel-signatur.png",
+  "sha": "4aebc36df52fc51d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 30286
+ }
+}

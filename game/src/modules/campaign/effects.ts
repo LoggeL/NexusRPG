@@ -21,7 +21,7 @@ import { coreEffects, coreSettle } from './domains/core';
 import { economyEffects } from './domains/economy';
 import { minigameEffects } from './domains/minigames';
 import { jobSettle, questEffects, questSettle } from './domains/quests';
-import { relationEffects } from './domains/relations';
+import { crewSettle, relationEffects } from './domains/relations';
 import { discriminant, type EffectContext, type EffectSpec, type EffectSpecs, type SettleHook } from './registry';
 
 /** Alle Effekthandler. Eine neue Variante in `EffectMap` ohne Handler ist ein Compilerfehler. */
@@ -37,7 +37,7 @@ export const EFFECT_SPECS: EffectSpecs = {
 };
 
 /** Nachlauf in dieser Reihenfolge; jeder Haken meldet, ob er etwas geändert hat. */
-export const SETTLE_HOOKS: SettleHook[] = [questSettle, jobSettle, coreSettle];
+export const SETTLE_HOOKS: SettleHook[] = [questSettle, jobSettle, coreSettle, crewSettle];
 
 const MAX_NESTING = 16;
 const MAX_SETTLE_ROUNDS = 8;

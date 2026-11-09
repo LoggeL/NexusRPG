@@ -1,7 +1,7 @@
 // Hilfsfunktionen für Vega, Nyra, Captain Kuschel und Jimmy (kein eigener Inhaltsteil: exportiert kein `part`).
 import type {
   AttributeId, CheckDef, Condition, CutsceneBeat, CutsceneDef, DialogueChoice, DialogueDef, DialogueLine,
-  DialogueNode, Effect, Expression, SpeakerId, TalkDef,
+  DialogueNode, Effect, Expression, PhoneMessageDef, ScheduleEntry, SpeakerId, TalkDef,
 } from '../../../modules/contracts';
 
 /** Zeilenbauer je Sprecher: `V('Text', 'wut')`. */
@@ -83,4 +83,50 @@ export function einmalig(prefix: string, list: DialogueChoice[]): DialogueChoice
       effects: [...(choice.effects ?? []), { setFlag: key }],
     };
   });
+}
+
+// ---------------------------------------------------------------------------------------------- Akt 2, Akt 3, Nachspiel
+
+/** Akt 2 läuft (Akt ≥ 2, noch nicht Akt 3). */
+export const AKT2: Condition = { all: [{ act: 2 }, { not: { act: 3 } }] };
+/** Akt ≥ 2 und kein Nachspiel. */
+export const AB_AKT2: Condition = { all: [{ act: 2 }, { notFlag: 'epilog' }] };
+/** Die Nacht der Releaseparty (Akt 3 vor dem Nachspiel). */
+export const PARTYNACHT: Condition = { all: [{ act: 3 }, { notFlag: 'epilog' }] };
+/** Nachspiel (alle Enden setzen `epilog`). */
+export const EPILOG: Condition = { flag: 'epilog' };
+/** Ende 3 ohne 3b: Master-Modus, Crew feindselig. */
+export const MASTER: Condition = { all: [{ flag: 'master_modus' }, { notFlag: 'ende_doch_noch_meer' }] };
+/** Nachspiel ohne Master-Modus. */
+export const NACHSPIEL: Condition = { all: [EPILOG, { not: MASTER }] };
+export const ENDE_MEER: Condition = { flag: 'ende_meer' };
+export const ENDE_NEXUS: Condition = { flag: 'ende_neue_nexus' };
+export const ENDE_3B: Condition = { flag: 'ende_doch_noch_meer' };
+/** Dante ist in der Crew (main-2-countdown). */
+export const DANTE_CREW: Condition = { quest: 'main-2-countdown', state: 'done' };
+/** Variante A des Bruchs, Aria noch nicht wach. */
+export const ARIA_WEG: Condition = { all: [{ flag: 'aria_gechippt' }, { not: DANTE_CREW }] };
+/** Aria war gechippt und ist wieder da. */
+export const ARIA_ZURUECK: Condition = { all: [{ flag: 'aria_gechippt' }, DANTE_CREW] };
+/** Nyra sitzt im Turm (seit main-2-bruch, bis main-3-labor). */
+export const NYRA_IM_TURM: Condition = {
+  all: [{ flag: 'nyra_zurueckgelassen' }, { notFlag: 'nyra_befreit' }, { not: { quest: 'main-3-labor', state: 'done' } }],
+};
+/** Releaseparty beschlossen (Krisensitzung). */
+export const PARTY_PLAN: Condition = { any: [{ flag: 'releaseparty_geplant' }, { quest: 'main-2-krisensitzung', state: 'done' }] };
+/** Alle nötigen Party-Vorbereitungen sind erledigt, die Party steht bevor. */
+export const PARTY_BEREIT: Condition = { all: [{ flag: 'party_bereit' }, { not: { act: 3 } }] };
+/** Irgendeine Romanze-Nacht der Spielfigur (world.md §4.7 „Morgen danach“). */
+export const NAECHTE = ['aria_nacht', 'hunter_nacht', 'dante_nacht', 'collin_nacht', 'collin-charleston_nacht', 'lio-funkel_nacht', 'vexaria_nacht'] as const;
+export const IRGENDEINE_NACHT: Condition = { any: NAECHTE.map((f) => ({ flag: f })) };
+
+/** Was ein Akt-2/3-Modul einer Figur beisteuert (die Hauptdatei mischt es in NpcDef und Teil). */
+export interface Akt23 {
+  dialogues: DialogueDef[];
+  /** Vor die Akt-1-Tagesgespräche gestellt (nach der Rivalität). */
+  talk: TalkDef[];
+  /** Vor die Akt-1-Tagesabläufe gestellt. */
+  schedule: ScheduleEntry[];
+  phone?: Record<string, PhoneMessageDef>;
+  cutscenes?: Record<string, CutsceneDef>;
 }

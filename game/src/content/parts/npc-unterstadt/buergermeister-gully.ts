@@ -7,8 +7,9 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, einmalig, alle, dialog, erz, flag, herz, herzEreignis, ich, knoten, nicht, pruefung, rede, sammle, sprecher,
-  tagesgespraech,
+  tagesgespraech, erweitere,
 } from './_lib';
+import { MENUE_23, akt23 } from './gully-akt23';
 
 const ID = 'buergermeister-gully';
 const G = sprecher(ID);
@@ -98,7 +99,9 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
+/** Akt-2/3- und Nachspiel-Gespräche: gully-akt23.ts. */
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Tagesgespräche
 
@@ -273,6 +276,7 @@ const gully: NpcDef = {
   ],
   talk: [
     rede('buergermeister-gully-tag-erstes', { not: { met: ID } }),
+    ...A23.talk,
     rede('buergermeister-gully-tag-rk-sieg', alle(RK_DONE, { notFlag: 'gully_rk_dank' })),
     rede('buergermeister-gully-tag-strom', alle(STROM_DONE, { notFlag: 'gully_strom_dank' })),
     rede('buergermeister-gully-tag-rk', RK_AKTIV),
@@ -287,6 +291,7 @@ const gully: NpcDef = {
 export const part: ContentPart = {
   npcs: { [ID]: gully },
   dialogues: sammle(
+    ...A23.dialogues,
     T.erstes, T.rkSieg, T.stromDone, T.rkAktiv, T.abend, T.nacht, T.nachtFrei, T.ehrenbuerger, T.standard,
     he2, he4, geheimwegKanal,
   ),

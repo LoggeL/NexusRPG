@@ -1,16 +1,18 @@
 // Der Kameramann – NX-1, spricht nie, nur Visier-Anzeigen in eckigen Klammern (world.md §4.4, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.kameramann), Herz-Ereignisse he-kameramann-2/4/6 (plan events),
-// he-kameramann-8/10 angelegt und an act2 gebunden. Kein Begleiter, keine Romanze.
+// Akt 2/3 und Nachspiel (he-kameramann-8/10, Tagesgespräche, Party, Meer) in kameramann-23.ts. Kein Begleiter, keine Romanze.
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menu, AKT1, AKT2, VEX, VEXARIA, ZEIT_HINWEIS, all, byId, chk, daily, dlg, erz, hearts, ich, noFlag, node, rel,
   rep, seen, set, sp, talk, xp,
 } from './_util';
+import {
+  KAMERAMANN_PHONE, KAMERAMANN_SCHEDULE_23, KAMERAMANN_TALK_23, KAMERAMANN_TALK_MASTER, kameramann23,
+} from './kameramann-23';
 
 const K = sp('kameramann');
 const C = sp('collin-charleston');
-const A = sp('aria');
 
 const PROBEZEIT: Condition = { quest: 'main-1-probezeit', state: 'done' };
 
@@ -302,28 +304,6 @@ const he6 = dlg('he-kameramann-6', [
   ], { effects: [xp(60), set('fotomodus'), { message: 'Fotomodus freigeschaltet.' }] }),
 ]);
 
-// ------------------------------------------------------------------------------------------- he-kameramann-8/10 (act2)
-
-const he8 = dlg('he-kameramann-8', [
-  node('start', [
-    erz('Ein Bettlaken, an zwei Kränen der Hafenkante aufgespannt. Ein Projektor auf einem Ölfass. Davor: die halbe Unterstadt auf Kisten, Fässern und Klappstühlen. Auf dem Laken: „UNGESCHMINKT – ein Film ohne Ton“.'),
-    erz('Der Film zeigt Babettes Hände, Gustavs Kran, Darias Taube, Hunter, der heimlich Trinkgeld zurück in eine Jackentasche schiebt. Deine acht Fotos. Und am Ende ein Standbild der Stadt bei Nacht, die atmet.'),
-    A('Ich heul nicht. ICH HEUL NICHT. Das ist Rost im Auge. Wer hat hier Rost hingemacht?!', 'trauer'),
-    K('[ : ) ]'),
-    K('[PREMIERE. PUBLIKUM: 212. HEULEND: 211.]'),
-    K('[DER 212. IST RIPPER. ER BEHAUPTET, ES IST LÖTDAMPF.]'),
-  ], { effects: [xp(80), rel('kameramann', 40), rep('unterstadt', 10)] }),
-]);
-
-const he10 = dlg('he-kameramann-10', [
-  node('start', [
-    erz('Er gibt dir eine winzige Drohne, kaum größer als ein Kronkorken, mit einer Linse wie ein Stecknadelkopf. Auf ihrer Unterseite klebt ein Sticker: „[ : ) ]“.'),
-    K('[DAMIT DU AUCH HINTER DEM BILD SEIN KANNST.]'),
-    K('[MANCHMAL.]'),
-    K('[DANKE. DAS IST DAS ERSTE MAL, DASS ICH ES SCHREIBE.]'),
-  ], { effects: [{ give: 'kameradrohne-mini' }, xp(120), rel('kameramann', 50)] }),
-]);
-
 // ------------------------------------------------------------------------------------------- Figur
 
 const kameramann: NpcDef = {
@@ -340,6 +320,7 @@ const kameramann: NpcDef = {
     hates: ['magnet-stoerer', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...KAMERAMANN_SCHEDULE_23,
     { slot: 'morgen', place: { map: 'nx1-studio', at: 'regie' } },
     { slot: 'tag', days: ['mo', 'mi', 'fr'], place: { map: 'stufenplatz', at: 'kamerakran' }, pose: 'filmen' },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'stadt-tv' } },
@@ -358,9 +339,11 @@ const kameramann: NpcDef = {
     { id: 'he-kameramann-10', hearts: 10, map: 'schrottmarkt', time: 'abend', when: all(AKT2, seen('he-kameramann-8')), dialogue: 'he-kameramann-10' },
   ],
   talk: [
+    KAMERAMANN_TALK_MASTER,
     talk('kameramann-tag-rivale', { rival: 'kameramann' }),
     talk('kameramann-tag-vexaria', all(VEXARIA, noFlag('kameramann_kommentar_vexaria'))),
     talk('kameramann-tag-zeit', AKT1, 8),
+    ...KAMERAMANN_TALK_23,
     talk('kameramann-tag-fremd', { not: { met: 'kameramann' } }),
     talk('kameramann-tag-live', all({ weekday: ['mo', 'mi', 'fr'] }, { time: 'tag' })),
     talk('kameramann-tag-regie', { time: 'morgen' }),
@@ -376,6 +359,7 @@ export const part: ContentPart = {
   npcs: { kameramann },
   dialogues: byId([
     T.rivale, T.vexaria, T.zeit, T.live, T.regie, T.stadttv, T.filmposten, T.dach, T.vertraut, T.fremd, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...kameramann23(M),
   ]),
+  phone: Object.fromEntries(KAMERAMANN_PHONE.map((m) => [m.id, m])),
 };

@@ -1,0 +1,11 @@
+{
+ "images": {
+  "bg-server-kern-ruhig": "assets/bg/server-kern-ruhig.webp"
+ },
+ "size": [
+  1024,
+  768
+ ],
+ "raw": "output/imagegen/raw/maps/server-kern-ruhig.png",
+ "prompt": "Edit the attached game map image (the first attached image). Keep EXACTLY the same room, layout, camera, objects, positions, outlines and painting style - every object stays where it is, same size. Only change the state and lighting:\nCALM / SHUT DOWN state: the giant core sphere in the center is dim and quiet - a dark glass ball with only a faint soft cyan glow deep inside, no red, no lightning. The three crystal nodes on the right are dark, unlit grey crystals in their cages. The floor cables are dark with only a few faint cyan lines. The server racks around the edges still show a few small blinking LEDs, mostly calm blue. No steam. The upload console screen shows calm gentle blue waves (no text). Overall darker, peaceful, blue-grey, like a cathedral after the service.\nSTRICT: no people, no figures, no animals, no readable text, no letters, no numbers, no logos, no UI. Same image size and framing, filling the frame edge to edge."
+}

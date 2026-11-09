@@ -7,12 +7,12 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
   type Menue, einmalig, AKT2, VOR_AKT2, abblende, alle, dialog, eins, erz, flag, herz, herzEreignis, knoten, nicht,
-  pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS,
+  pruefung, rede, sammle, sammleSzenen, sprecher, tagesgespraech, ZEIT_HINWEIS, erweitere,
 } from './_lib';
+import { MENUE_23, STADTHIT, akt23 } from './lio-akt23';
 
 const ID = 'lio-funkel';
 const L = sprecher(ID);
-const H = sprecher('hunter');
 const A = sprecher('aria');
 
 const ROM: Condition = { romance: ID };
@@ -202,7 +202,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: Spottlied (world.md §4.4). */
 const RIVALE: Menue = {
@@ -503,86 +503,8 @@ const he6 = dialog('he-lio-funkel-6', [
   ], { effects: [flag('lio_stadthit'), { rep: 'unterstadt', delta: 5 }, { xp: 90 }, { message: 'Lios Lied wird ein Stadthit. Die Unterstadt summt mit.' }, { checkBuff: { id: 'lio-stadthit', label: 'Stadthit im Ohr', value: 1, attribute: 'ausstrahlung', tags: ['buehne'] } }] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-lio-funkel-8', [
-  knoten('start', [
-    erz('Samstag, High Voltage, voll bis an die Decke. Auf dem Plakat am Eingang steht in Hunters Handschrift: „HEUTE: LIO FUNKEL. ER IST GUT. ICH HAB NACHGEZÄHLT.“'),
-    erz('Hinter der Bühne. Lio, kreidebleich, umklammert Berta wie einen Rettungsring.'),
-    L('Ich kann das nicht. Da draußen sind dreihundert Leute. Dreihundert! Am Bahnhof sind es zwölf, und die Hälfte davon wartet nur auf die Bahn.', 'trauer'),
-    H('Funkel. Du hast vier Minuten. Wenn du in vier Minuten nicht auf der Bühne stehst, stell ich Collin auf die Bühne. Und Collin singt Schlager.'),
-  ], {
-    choices: [
-      { text: '„Lio. Guck mich an. Die sind wegen dir hier. Nicht trotz.“', check: pruefung('he-lio-8-mut', 'ausstrahlung', 6, ['buehne', 'trost']), next: 'mut', effects: [herz(ID, 50)] },
-      { text: 'Ihn einfach auf die Bühne schieben.', next: 'schieben', effects: [herz(ID, 30)] },
-      { text: '„Spiel für mich. Nur für mich. Die anderen sind Deko.“', tag: '[Romanze]', when: ROM, next: 'fuer-mich', effects: [herz(ID, 50)] },
-    ],
-  }),
-  knoten('mut', [
-    L('Wegen mir. Okay. Okay okay okay. Wegen mir.', 'ueberrascht'),
-    erz('Er geht raus. Das erste Lied wackelt. Das zweite nicht mehr. Beim dritten singt der ganze Club, und Lio lacht ins Mikro, mitten im Refrain.'),
-  ], { next: 'ende' }),
-  knoten('schieben', [
-    erz('Ein Schubs, ein Stolpern, Scheinwerferlicht. Lio steht auf der Bühne, als wäre er vom Himmel gefallen. Dann spielt er. Und wie er spielt.'),
-  ], { next: 'ende' }),
-  knoten('fuer-mich', [
-    erz('Er spielt für dich. Das merkt der ganze Club spätestens beim vierten Lied, das er „jemandem da hinten, der genau weiß, wer gemeint ist“ widmet.'),
-    L('„… und deine Hände an meinem Balg, / und mein Herz geht schneller als der Bass im Saal …“', 'zaertlich'),
-    erz('Hunter dreht den Ton halb runter. Dante pfeift durch die Finger. Aria brüllt „ZIEHT EUCH WAS AN!“, obwohl alle angezogen sind.'),
-  ], { next: 'danach' }),
-  knoten('danach', [
-    erz('Hinter der Bühne, danach. Lio, verschwitzt, mit Mütze in der Hand und einem Grinsen, das nicht mehr weggeht.'),
-    L('War das zu viel? Das war zu viel. Ich hab noch drei Strophen. Die sind schlimmer. Willst du sie hören? Hier? Jetzt? Ganz nah?', 'verlegen'),
-  ], { effects: [flag('lio_romanze_auftritt'), { xp: 150 }] }),
-  knoten('ende', [
-    L('Ich hab’s gemacht. Ich hab vor dreihundert Leuten gespielt und mir nicht in die Hose gemacht. Das kommt in den Ordner „Gute Tage“. Ganz nach vorne.', 'freude'),
-  ], { effects: [flag('lio_erster_auftritt'), { xp: 150 }] }),
-]);
-
-const he10 = dialog('he-lio-funkel-10', [
-  knoten('start', [
-    erz('Albumpremiere auf der Dachterrasse. Lichterketten, Klappstühle, die halbe Unterstadt. Lio spielt sechs Lieder. Die Stadt ist in jedem davon: Nebelhorn, Keksalarm, Kanalrechen, Tauben, Rennhalle – und Applaus.'),
-    L('Lied Nummer sechs hat keinen Titel. Und keinen Reim. Weil es um jemanden geht, der sich auf nichts reimt.', 'zaertlich'),
-    L('Das bist du. Du reimst dich auf nichts.'),
-    erz('Nach dem letzten Ton drückt er dir eine Kassette in die Hand. Auf dem Etikett, schief: „LIO FUNKEL – STADT. Track 7 ist ein Geheimnis.“'),
-  ], {
-    effects: [{ give: 'lio-album' }, flag('lio_album_fertig'), { xp: 200 }],
-    choices: [
-      { text: '„Du hast es geschafft, Lio.“', next: 'freund', effects: [herz(ID, 50)] },
-      { text: '„Und Track 7?“', tag: '[Romanze]', when: ROM, next: 'track7' },
-    ],
-  }),
-  knoten('freund', [L('Wir. Wir haben es geschafft. Du hast die Stadt gesammelt, ich hab nur Krach dazu gemacht. Danke, {name}. Für alles.', 'freude')]),
-  knoten('track7', [
-    L('Track 7 ist ein Kuss. Also, noch nicht. Track 7 ist leer. Damit ich ihn jetzt aufnehmen kann.', 'verlegen'),
-  ], {
-    choices: [
-      { text: 'Ihn unter der Lichterkette küssen.', next: 'kuss', effects: [{ cutscene: 'szene-rom-lio-dach' }, herz(ID, 60)] },
-      { text: '„Langsam, Funkel. Ich bin kein Refrain zum Mitgrölen.“', next: 'langsam', effects: [herz(ID, 40)] },
-    ],
-  }),
-  knoten('kuss', [
-    erz('Unter der Lichterkette, Berta zwischen euch, die bei jeder Bewegung leise seufzt. Er schmeckt nach Synth-Kaffee und Lampenfieber. Irgendwo drückt jemand aus Versehen eine Taste, und das Akkordeon spielt einen Akkord, den es in keiner Musiktheorie gibt.'),
-    L('… Das war Track 7. Ich nehm ihn nicht auf. Der gehört nur uns.', 'zaertlich'),
-  ], { next: 'nacht', effects: [flag('lio-funkel_romanze_zusammen')] }),
-  knoten('langsam', [
-    L('Kein Refrain. Okay. Dann eine Ballade. Die sind langsam. Die haben Zeit.', 'zaertlich'),
-    erz('Er nimmt deine Hand. Mehr nicht. Es ist genug, um Berta zum Seufzen zu bringen.'),
-  ], { next: 'nacht', effects: [flag('lio-funkel_romanze_zusammen')] }),
-  knoten('nacht', [
-    erz('Die Gäste gehen. Die Lichterketten bleiben an. Lio packt Berta nicht ein.'),
-    L('Ich spiel dir noch was. Leise. Ganz leise. Okay, ich spiel gar nichts.', 'verlegen'),
-  ], {
-    choices: [
-      { text: 'Bleiben.', next: 'morgen', effects: [flag('lio-funkel_nacht'), { cutscene: 'szene-lio-nacht' }] },
-      { text: '„Ein andermal, Funkel. Schreib solange.“', next: 'andermal' },
-    ],
-  }),
-  knoten('morgen', [
-    erz('Morgen danach. Lio summt ein neues Lied, das verdächtig nach letzter Nacht klingt. Am selben Nachmittag spielt er es am Bahnhof. Alle wissen Bescheid. Wirklich alle.'),
-    L('Ich hab’s „Unbetitelt Nummer zwei“ genannt. Die Leute nennen es „Das mit dem Seufzen“. Ich kann mit beidem leben.', 'zaertlich'),
-  ], { effects: [{ checkBuff: { id: 'beschwingt-lio', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
-  knoten('andermal', [L('Ein andermal. Gut. Dann schreib ich solange ein Lied darüber, wie du „ein andermal“ sagst. Es wird sehnsüchtig. Und sehr, sehr laut.', 'signatur')]),
-]);
+// ♥8 und ♥10 samt Romanze, Wochenfrage, Akt-2/3- und Nachspiel-Gesprächen: lio-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -602,6 +524,7 @@ const lio: NpcDef = {
     hates: ['magnet-stoerer', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    ...A23.schedule,
     { slot: 'morgen', place: 'away' },
     { slot: 'tag', place: { map: 'bahnhof-mitte', at: 'musikerecke' } },
     { slot: 'abend', days: ['di'], place: { map: 'high-voltage', at: 'buehne' } },
@@ -626,6 +549,9 @@ const lio: NpcDef = {
       abilities: ['lio-mutmacher-melodie', 'lio-dissonanz'],
     },
     heartAbilities: [{ hearts: 8, ability: 'lio-zugabe' }],
+    abilityRules: [{ when: { flag: 'lio_album_fertig' }, add: STADTHIT.id }],
+    // Marla summt, Lio spielt (Fähigkeit aus combat/abilities.ts); nur Lio trägt sie, damit es sie einmal gibt.
+    duo: [{ ability: 'duo-lagerfeuerlied', when: { all: [{ companion: 'marla-sand' }, { hearts: ID, min: 8 }, { hearts: 'marla-sand', min: 8 }] } }],
   },
   partyCheckBonus: [
     { attribute: 'ausstrahlung', tags: ['buehne', 'ueberreden'], value: 1, label: 'Lio spielt im Hintergrund' },
@@ -635,6 +561,7 @@ const lio: NpcDef = {
     rede('lio-tag-erstes', { not: { met: ID } }),
     rede('lio-tag-zeit', alle(VOR_AKT2, { notFlag: 'lio_zeit_hinweis' }), 8),
     rede('lio-tag-vexaria', alle({ playerIs: 'vex' }, { flag: 'aria_kuss' }, { notFlag: 'lio_kommentar_vexaria' })),
+    ...A23.talk,
     rede('lio-tag-sehen', alle(AUGE, { notFlag: 'lio_sehen_gesagt' })),
     rede('lio-tag-karaoke', alle({ weekday: 'di' }, { time: 'abend' })),
     rede('lio-tag-buehne', alle({ weekday: 'sa' }, { time: 'nacht' })),
@@ -652,8 +579,9 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.erstes, T.zeit, T.vexaria, T.karaoke, T.buehne, T.nacht, T.sehen, T.abend, T.verliebt, T.freunde,
     T.tag, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
+  abilities: A23.teil.abilities,
   cutscenes: sammleSzenen(
     {
       id: 'szene-he-lio-funkel-6', title: 'Ein Lied für zwei',

@@ -763,6 +763,24 @@ PHOTO.update({
         "rim": "cyan",
         "exprs": ["neutral", "freude", "besorgt"],
     },
+    "hecki": {
+        "look": "a slim, elegant gardener robot: a glossy white-and-sage-green enamel body like an upper-city luxury "
+                "appliance, a small rounded head with one wide soft-green visor eye and a tiny straw sun hat, a green "
+                "gardener's apron with seed packets (no text), one hand a pair of polished silver pruning shears, the "
+                "other a delicate gripper holding a red rose trimmed into a heart shape, a rooftop garden with roses "
+                "and lanterns in the bokeh",
+        "rim": "pink",
+        "special": "machine",
+        "exprs": ["neutral", "freude", "besorgt"],
+        "texts": {
+            "neutral": "standing politely, visor eye glowing a calm soft green, head slightly tilted, holding the "
+                       "heart-shaped rose at chest height",
+            "freude": "delighted: offering the heart-shaped rose toward the viewer with a little bow, visor eye "
+                      "curved into a happy arc and glowing brighter",
+            "besorgt": "worried: visor eye dimmed and flickering amber, head bowed, looking at a wilted rose in its "
+                       "gripper, shears lowered",
+        },
+    },
 })
 # Fehlende Figuren a–g (art-fig-a): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
 # bijou: special "robot" (Roboterpudel) mit eigenen Texten, fx-60: special "machine" (Faxgerät auf Ketten).

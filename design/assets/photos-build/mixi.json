@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "mixi-neutral.png",
+  "sha": "d11ad1ec20895656",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 70618
+ },
+ "freude": {
+  "src": "mixi-freude.png",
+  "sha": "7f6e3fc388eab41a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 80514
+ },
+ "ueberrascht": {
+  "src": "mixi-ueberrascht.png",
+  "sha": "a54e4e8996d95809",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77374
+ }
+}

@@ -1,6 +1,6 @@
 // Dialogablauf: Zeilen eines Knotens nacheinander, danach Effekte, dann Wahl, Fortsetzung oder Ende.
 // Wahlen mit Schwellen-Check: erfüllt → wählbar (einmalig XP), nicht erfüllt → gesperrt oder ausgeblendet.
-import { checkLabel, choiceSeenKey, fillName, missingText, resolveCheck } from '../campaign';
+import { checkLabel, choiceDailyFlag, choiceSeenKey, fillName, missingText, resolveCheck } from '../campaign';
 import type {
   CampaignPort, CheckEvaluation, DialogueChoice, DialogueChoiceView, DialogueLine, DialogueNode, DialogueSession,
   DialogueView, EffectOutcome,
@@ -30,7 +30,8 @@ export function createDialogueSession(campaign: CampaignPort, dialogueId: string
     collected.messages.push(...outcome.messages);
   };
 
-  const taken = (choice: DialogueChoice) => !!choice.once && campaign.hasSeen(choiceSeenKey(dialogueId, choice));
+  const taken = (choice: DialogueChoice) => (!!choice.once && campaign.hasSeen(choiceSeenKey(dialogueId, choice)))
+    || (!!choice.daily && campaign.evaluate({ flag: choiceDailyFlag(dialogueId, choice) }));
 
   /** Sichtbare Wahlen mit Check-Anzeige; `hiddenIfFailed` blendet nicht erfüllte Checks aus. */
   const visibleChoices = (): ChoiceState[] => {
@@ -131,6 +132,7 @@ export function createDialogueSession(campaign: CampaignPort, dialogueId: string
     if (!picked || !picked.view.enabled) return { view: view() };
     const { choice } = picked;
     if (choice.once) campaign.markSeen(choiceSeenKey(dialogueId, choice));
+    if (choice.daily) absorb(campaign.apply([{ setFlag: choiceDailyFlag(dialogueId, choice) }]));
     let check: CheckEvaluation | undefined;
     const ref = resolveCheck(content, choice.check);
     if (ref) {

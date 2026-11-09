@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "mila-neutral.png",
+  "sha": "be3bb8466fa51f86",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 49272
+ },
+ "freude": {
+  "src": "mila-freude.png",
+  "sha": "2f2f8735fc696bd4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59942
+ },
+ "trauer": {
+  "src": "mila-trauer.png",
+  "sha": "9bd8c5ddd9a2ca25",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46798
+ }
+}

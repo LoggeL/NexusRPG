@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "bruder-kabellos-neutral.png",
+  "sha": "d33a90bb032397b9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 76126
+ },
+ "wut": {
+  "src": "bruder-kabellos-wut.png",
+  "sha": "a850c56d8c961477",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 76666
+ },
+ "besorgt": {
+  "src": "bruder-kabellos-besorgt.png",
+  "sha": "2d77ba256660afa2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 77350
+ },
+ "signatur": {
+  "src": "bruder-kabellos-signatur.png",
+  "sha": "836f8e6fae2c5506",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 96796
+ }
+}

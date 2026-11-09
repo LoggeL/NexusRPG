@@ -1,12 +1,17 @@
 // Ripper – Schrauber, Hehler, Kopf der Zerleger (world.md §4.4, §4.6, §11.2).
 // Tagesablauf nach design/plan/act1.json (npcSchedules.ripper), Herz-Ereignisse he-ripper-2/4/6 in Akt 1 (Orte laut
-// plan events), he-ripper-8/10 angelegt und an act2 gebunden. Begleiter ab ♥6 als Söldner (30 Cr, siehe gaps).
+// plan events). Akt 2/3 und Nachspiel (he-ripper-8/10, Tagesgespräche, Tagesablauf, Fähigkeit) in ripper-23.ts.
+// Begleiter ab ♥6 als Söldner (30 Cr, im Master-Modus 60, siehe gaps).
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menu, AKT1, AKT2, IRGENDEINE_NACHT, NOT_VEX, VEX, VEXARIA, ZEIT_HINWEIS, all, any, byId, chk, daily, dlg, erz,
   hearts, ich, noFlag, node, not, rel, rep, seen, set, sp, talk, xp,
 } from './_util';
+import { MASTER } from './_util';
+import {
+  RIPPER_ABILITIES, RIPPER_ABILITY_RULES, RIPPER_SCHEDULE_23, RIPPER_TALK_23, RIPPER_TALK_MASTER, ripper23,
+} from './ripper-23';
 
 const R = sp('ripper');
 const KUNDIN = sp('narrator');
@@ -31,8 +36,13 @@ function menu(): Menu {
     },
     { text: 'Erzähl mir von der Uhr deines Vaters.', when: seen('he-ripper-6'), once: true, id: 'r-uhr', next: 'uhr' },
     {
+      text: '„Die Uhr deines Vaters. Ich bin jetzt oft genug da oben. Ich hol sie.“', id: 'r-uhr-akt2', next: 'uhr-quest',
+      when: all(AKT2, seen('he-ripper-6'), { quest: 'pers-ripper-taschenuhr', state: 'inactive' }, not(MASTER)),
+      effects: [{ startQuest: 'pers-ripper-taschenuhr' }],
+    },
+    {
       text: 'Komm mit. Dreißig für heute.', tag: '[Ripper ♥6 · 30 Cr]', id: 'r-anheuern',
-      when: all(hearts('ripper', 6), not(ANGEHEUERT)), requires: { credits: 30 }, next: 'anheuern',
+      when: all(hearts('ripper', 6), not(ANGEHEUERT), not(MASTER)), requires: { credits: 30 }, next: 'anheuern',
       effects: [{ credits: -30 }, { recruit: 'ripper' }, set('ripper_soeldner')],
     },
     { text: 'Feierabend, Ripper. Du kannst gehen.', when: ANGEHEUERT, next: 'entlassen', effects: [{ dismiss: 'ripper' }] },
@@ -378,33 +388,6 @@ const he6 = dlg('he-ripper-6', [
   ], { effects: [xp(60), set('ripper_soeldner_angebot'), { message: 'Ripper kann jetzt als Söldner angeheuert werden (30 Cr).' }] }),
 ]);
 
-// ------------------------------------------------------------------------------------------- he-ripper-8/10 (act2)
-
-const he8 = dlg('he-ripper-8', [
-  node('start', [
-    erz('Die Preistafel in der Praxis ist neu. Mit Kreide, in Rippers krakeliger Schrift: „Kinderteile: fairer Preis. Wer feilscht, fliegt.“ Darunter, kleiner, in Freyas Schrift: „Kontrolliert. F.“'),
-    R('Guck nicht so. Ich hab’s nicht wegen dir gemacht. Ich hab’s gemacht, weil die Kleine mit dem Ordner jeden Morgen vor meiner Tür stand. Jeden. Morgen.', 'wut'),
-    R('Mein Umsatz ist um elf Prozent gesunken. Meine Laune um vierzig. Und ich schlaf besser. Das ist ekelhaft.', 'besorgt'),
-  ], {
-    choices: [
-      { text: '„Steht dir.“', next: 'ende', effects: [rel('ripper', 40)] },
-      { text: '„Elf Prozent? Du hast die Kinder um elf Prozent beklaut?“', next: 'elf', effects: [rel('ripper', 20)] },
-    ],
-  }),
-  node('elf', [R('Um elf Prozent unterbezahlt. Das ist ein Unterschied. Ein juristischer. Frag den Richter. Nein, frag ihn nicht.', 'signatur')], { next: 'ende' }),
-  node('ende', [R('Raus jetzt. Bevor ich noch was Nettes mache.', 'freude')], { effects: [xp(80), rep('unterstadt', 5)] }),
-]);
-
-const he10 = dlg('he-ripper-10', [
-  node('start', [
-    erz('Über der Praxis hängt ein neues Schild, schief, mit Neonröhren, von denen eine flackert: „RIPPERS EHRLICHER RESTPOSTEN (MEISTENS)“.'),
-    R('Das „meistens“ war Freyas Idee. Für die Glaubwürdigkeit. Ich hab „manchmal“ vorgeschlagen. Sie hat mich mit dem Ordner gehauen.', 'freude'),
-    R('Hier. Nimm. Bevor ich’s mir anders überleg.', 'signatur'),
-    erz('Er drückt dir seine Juwelierlupe in die Hand. Die, mit der er seit zwanzig Jahren jedes Teil prüft. Das Messing ist warm von seiner Weste.'),
-    R('Nicht weinen. Wenn du weinst, beschlägt sie. Dann siehst du die Viren nicht.', 'trauer'),
-  ], { effects: [{ give: 'rippers-lupe' }, xp(120), rel('ripper', 50)] }),
-]);
-
 // ------------------------------------------------------------------------------------------- Figur
 
 const ripper: NpcDef = {
@@ -423,6 +406,7 @@ const ripper: NpcDef = {
     hates: ['virus-implantat', 'beglichener-schuldschein', 'rostige-dose'],
   },
   schedule: [
+    ...RIPPER_SCHEDULE_23,
     { slot: 'morgen', place: 'away' },
     { slot: 'tag', days: ['di', 'fr'], place: { map: 'kanal-sammler', at: 'rippers-lager' }, pose: 'zaehlen' },
     { slot: 'tag', place: { map: 'ripper-praxis', at: 'behandlungsstuhl' } },
@@ -450,12 +434,15 @@ const ripper: NpcDef = {
       abilities: ['ripper-ausschlachten', 'ripper-rauchbombe'],
     },
     heartAbilities: [{ hearts: 8, ability: 'ripper-kleiner-deal' }],
+    abilityRules: RIPPER_ABILITY_RULES,
   },
   talk: [
+    RIPPER_TALK_MASTER,
     talk('ripper-tag-rivale', { rival: 'ripper' }),
     talk('ripper-tag-vexaria', all(VEXARIA, noFlag('ripper_kommentar_vexaria'))),
     talk('ripper-tag-nacht', all(IRGENDEINE_NACHT, noFlag('ripper_kommentar_nacht'), { time: ['morgen', 'tag'] })),
     talk('ripper-tag-zeit', AKT1, 8),
+    ...RIPPER_TALK_23,
     talk('ripper-tag-fremd', all(not(PROBEZEIT), NOT_VEX)),
     talk('ripper-tag-container', all({ weekday: 'di' }, { time: 'nacht' })),
     talk('ripper-tag-kanal', any({ time: 'nacht' }, all({ weekday: ['di', 'fr'] }, { time: 'tag' }))),
@@ -470,6 +457,7 @@ export const part: ContentPart = {
   npcs: { ripper },
   dialogues: byId([
     T.rivale, T.vexaria, T.nacht, T.zeit, T.fremd, T.container, T.kanal, T.praxis, T.ecktisch, T.vertraut, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...ripper23(M),
   ]),
+  abilities: Object.fromEntries(RIPPER_ABILITIES.map((a) => [a.id, a])),
 };

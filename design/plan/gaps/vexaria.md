@@ -1,4 +1,4 @@
-# Lücken: vexaria (Vex × Aria „Nicht anhalten“ und Aria / „Zerberster-Herz“ Akt 1)
+# Lücken: vexaria (Vex × Aria „Nicht anhalten“ und Aria / „Zerberster-Herz“, Akt 1 bis Nachspiel)
 
 Dateien: `game/src/content/parts/vexaria/*.ts`. Ablauf und Debug-Sprünge: `design/plan/vexaria.md`.
 
@@ -10,10 +10,10 @@ Dateien: `game/src/content/parts/vexaria/*.ts`. Ablauf und Debug-Sprünge: `desi
    - Station 7 Funkstille, dann Vegas Anruf `vega-vex-anruf` / `vexaria-vega-rat` statt `rom-aria-vega`.
    - Station 8 Umdrehen. Ihr Akt-1-Schluss unter dem Vordach ist die Vex-Fassung von `rom-aria-regen` und setzt `aria_versoehnung_verdient`.
 
-   In Akt 2 hören 7/8 schon auf `rom-aria-streit` bzw. `rom-aria-vega`. Wer `pers-aria-zerberster` baut, sollte `ripperdeal`/`streit` nur bei `{ not: { act: 2 } }` laufen lassen; das ist schon so gebaut.
-2. **Station 9 ab ♥8 statt ♥10, ohne `pers-aria-zerberster`.** Die Quest existiert noch nicht. Eine Referenz würde den Inhaltstest brechen. Sobald sie da ist, `KUSS_BASIS` in `hoehepunkt.ts` um `{ any: [AKT1, { quest: 'pers-aria-zerberster', state: 'done' }] }` erweitern; ♥10 wäre in Akt 1 nicht erreichbar. `aria_versoehnung_spaet` (Epilog) ist nicht gebaut.
+   **Stand Akt 2 (ersetzt Platzhalter):** Die Brücke hört jetzt auf `BRUECKE` (`seen rom-vexaria-ripperdeal`) statt auf Akt 1 und darf in Akt 2 zu Ende laufen; nur `ripperdeal` selbst startet nur in Akt 1. Ohne Brücke läuft für Vex der Kanonweg (`versoehnung.ts`), mit Brücke nach `pers-aria-zerberster` die kurze Krise (`krise.ts`) statt eines zweiten großen Streits.
+2. **Station 9 ab ♥8 statt ♥10.** Bleibt so, weil der Brückenweg den Kuss schon in Akt 1 erlaubt (Deckel ♥8). Im Kanonweg liegt `pers-aria-zerberster` ohnehin vor `rom-aria-regen`, also vor dem Kuss. **Erledigt:** `aria_versoehnung_spaet` (zweiter Weg über `rom-aria-stirn` b) öffnet Station 9 im Nachspiel (`KUSS_BASIS`). Für die Baukasten-Figur gelten Kanon-♥10 und Quest (`rom-aria-kuss`/`he-aria-10` in `versoehnung.ts`).
 3. **Herzstufen in Akt 1:** Alle Stationen ab 4 tragen `hearts: 8`, weil Akt 1 bei ♥8 deckelt. Die Reihenfolge erzwingen `seen`-Ketten, Tagessperre und Wartetage.
-4. **Station 13 Konzert ohne Nachspiel:**
+4. **Station 13 Konzert ohne Nachspiel** (Nachtrag: im Nachspiel gibt es jetzt `rom-vexaria-konzert-strand` am Strandclub, falls 13 vorher nicht lief):
    - Statt `das-meer` / `side-strandclub` / nach `rom-aria-meer` lädt Aria zwei Tage nach Station 12 per Telefon ein (`aria-vex-konzert`).
    - Das Konzert ist ein Geheimkonzert am Schlickstrand unter der `flutmauer` (A/N).
    - Die Tafel `rom-vexaria-konzert` zeigt einen Strandclub am Meer und passt auch hier.
@@ -50,12 +50,26 @@ Dateien: `game/src/content/parts/vexaria/*.ts`. Ablauf und Debug-Sprünge: `desi
 - **Kartenspots:** benutzt werden `high-voltage/fruehstueckstisch`, `vega-aria-tisch`, `tanzflaeche`, `schrottmarkt/inkasso-gasse`, `dantes-werkstatt/einbau-liege`, `neon-gasse/gassenmitte`. Reiseziele: `loetgassen/dach-taubenschlag`, `neon-gasse/von-high-voltage`, `high-voltage/von-neon-gasse`, `flutmauer/von-hafenkante`.
 - **Kurierbude-Deko** baut `maps/loetgassen.ts` (`kurierbude-stufe-*`). Die Stufen hören auf `vexaria_kronkorken`, `rom-vexaria-morgen`, `rom-vexaria-funkmast`, `rom-aria-stirn` und `rom-vexaria-konzert`; alle werden hier gesetzt bzw. gesehen (außer `rom-aria-stirn`, Akt 3).
 - **Hunter/Dante/Vega-Tagesgespräche** zu Vex × Aria stehen bei npc-crew-a/b. Die hier gebauten Crew-Kommentare sind einmalige Kartenauslöser und doppeln deren Zeilen nicht.
-- **Kanon-Herzereignis `he-aria-8`** (Zerberster-Beleg, Akt 2) und `pers-aria-zerberster` fehlen. `he-aria-10` ist für Vex durch Station 9 (Freundschaft) ersetzt; für andere Spielfiguren fehlen `rom-aria-kuss`/`he-aria-10` (Akt 2).
+- **Erledigt (ersetzt Platzhalter):** `he-aria-8`, `rom-aria-ausfall`, `pers-aria-zerberster`, `rom-aria-streit`, `rom-aria-vega`, `rom-aria-regen`, `rom-aria-kuss`/`he-aria-10` (Baukasten), `rom-aria-stirn`, `rom-aria-meer` stehen jetzt hier im Ordner `vexaria/`. Kein anderer Ordner baut sie; diese Fassung ist maßgeblich.
 - **Vex-Fotos** `photo-vex-verlegen` und `photo-vex-zaertlich` fehlen. `VEX_HAS_ROMANCE_PHOTOS = false` in `_util.ts` ersetzt sie durch `ueberrascht`/`neutral`.
 - **Galerie:** `cut.json` hat `player: "vex"` und `romanceOnly`; der Galerie-Code liest beide noch nicht (world.md, offen). Die Abblende-Cutscenes `rom-vexaria-licht` und `vexaria-nacht-kurz` stehen auf `gallery: false`.
 
+## Akt 2 bis Nachspiel (neu)
+
+1. **Variante A hängt an `main-2-countdown`.** `main-2-kanal`/`main-2-countdown` gibt es noch nicht. Für Vex ist alles spielbar: `rom-vexaria-rettung` (pumpwerk-sieben) holt Aria raus und kettet `rom-aria-ausfall` direkt an (Knoten `a-vex`, der Chip pulsiert noch, Dante will ihn später ziehen). Für die Baukasten-Figur startet `rom-aria-ausfall` Variante A erst mit `main-2-countdown` erledigt. **Bitte an quest-main-2:** Countdown bei `vexaria_gerettet` als „Chip zieht sich zurück“ spielen (Aria ist schon wach); Arias `away`-Eintrag im Tagesablauf endet bei `vexaria_gerettet`. Wenn main-2-kanal Aria befreit, bevor Vex im Pumpwerk war, läuft die Ausweichfassung `rom-vexaria-rettung-werkstatt` nach dem Countdown.
+2. **`rom-vexaria-rettung` ohne Quest-Kampf:** Ripper und Xion feilschen im Hintergrund (Text), kein `enc-kanal-xion-ripper`. Wenn main-2-kanal kommt, kann es nach `vexaria_gerettet` ausgelassen oder als Verfolgung gespielt werden.
+3. **Vex' Bruch-Sicht** (`vexaria-bruch-a/-b`) hängt an `bruch_entkommen` + `aria_gechippt`/`aria_entkommen` aus `main-2-bruch`; die Rettung in Variante B selbst (`b-vex`) steht schon in quest-main-2.
+4. **Party-Vorbereitungen fehlen.** `prep-outfits` usw. gibt es noch nicht. `rom-aria-stirn` hört auf `party_bereit` oder mindestens drei von sechs `prep-*` (Quest erledigt oder Flag `prep_*`). Bis die Planungstafel `party_bereit` setzt, ist Station 10 nur über diese Flags erreichbar. `rom-vexaria-outfit` setzt bei Bezahlung `prep_outfits` (600 Cr, Ginas Spanne 300–1200) und ersetzt für Vex die Gina-Szene; **Bitte an den Prep-Agenten:** `prep-outfits` bei `vexaria_outfit_bezahlt` als erledigt werten.
+5. **Kein Würfel-Misslingen bei Checks.** Checks sind Schwellen (ausgegraut). „Misslingen“ in `rom-aria-regen` entsteht nur durch die Wahlen „rechtfertigen“/„schweigen“; die freie Rede ist als vier Varianten mit Schwelle 7/6/5 (Vex 4/3/3) gebaut.
+6. **Keine Tageszeit „heute Nacht derselbe Tag“.** Krise und Dachnacht zählen als eine Station: Die Dachnacht hat keine Tagessperre und läuft, solange `vexaria_krise_offen` gilt (auch in einer späteren Nacht).
+7. **Gesten.** „Griffband plus Bitte“ ist auf das Item `griffband-schlaeger` reduziert, die Bitte steht im Regen-Dialog. Hunters Turnierjob (`aria-geste-hunter`) ist eine Szene am Tresen statt `side-eins-turnier`.
+8. **Gechippte Aria als Begleiterin:** `main-2-bruch` entlässt sie (`dismiss`). Nach der Rettung muss sie neu angeworben werden; Rekrutierung gehört dem Begleiter-System.
+9. **Ende 3:** Aria steht im Nachspiel ohne 3b am Lagerfeuer `das-meer` (Tagesablauf). `side-zweite-chance` (3b) fehlt noch; `rom-vexaria-meer` hört schon auf `ende_doch_noch_meer`.
+10. **Ermutigt** in `rom-aria-stirn` ist ein `checkBuff` (+1 Ausstrahlung, 1 Tag), kein Kampfpuffer „ab Kampfbeginn“ (Engine kennt keinen Partyabend-Kampfpuffer).
+11. **Heimkehr ins Wohnmobil/Wagen am Meer** ist erzählt, keine eigene Karte.
+12. **Landeplatz-Moment und Blade-Zeile** hat quest-main-3 schon gebaut (`main-3-blade.ts`); hier bewusst nicht doppelt.
+
 ## Inhaltsprüfung
 
-- `tsc` über die Projekt-Konfiguration bricht derzeit an `npc-kinder-alte/daria.ts` ab (fremder Syntaxfehler); `vitest src/content` aus demselben Grund.
-- Die Vexaria-Dateien wurden mit einer eigenen tsconfig (nur `vexaria/*`) fehlerfrei geprüft.
+- Stand 09.11.: `tsc` (gefiltert auf `vexaria`) ohne Fehler. `vitest src/content`: vier rote Tests, alle mit fremden IDs (doppelte npc-welt/npc-quantum-Dialoge, fehlende Quests anderer Agenten, `m2c-start/piep`, `kanal-sammler/schott`); keine Meldung zu `vexaria`/`aria`.
 - `findContentProblems` ohne `daria.ts` zeigt für die eigenen IDs nur die oben genannten fremden Verweise (Sprecher, Herkunft).

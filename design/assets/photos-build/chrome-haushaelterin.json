@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "chrome-haushaelterin-neutral.png",
+  "sha": "8bf9ba27af517acc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 39406
+ },
+ "freude": {
+  "src": "chrome-haushaelterin-freude.png",
+  "sha": "a420edfd9a4ee8b4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 40366
+ },
+ "signatur": {
+  "src": "chrome-haushaelterin-signatur.png",
+  "sha": "537f4f90710b976a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42408
+ }
+}

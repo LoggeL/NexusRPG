@@ -5,9 +5,10 @@
 import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef, Weekday } from '../../../modules/contracts';
 import {
-  type Menue, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle, sammleSzenen, sprecher,
-  tagesgespraech, ZEIT_HINWEIS,
+  type Menue, NICHT_MASTER, RUHIG, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle, sammleSzenen,
+  sprecher, tagesgespraech, und, ZEIT_HINWEIS,
 } from './_helfer';
+import { RAVEN_PLAN_23, RAVEN_TEL_23, raven23 } from './_raven23';
 
 const R = sprecher('raven');
 const G = sprecher('zellennachbarin');
@@ -56,6 +57,11 @@ function menue(): Menue {
     { text: 'Was ist eigentlich mit dir und Dante?', when: { quest: 'main-1-dante', state: 'done' }, once: true, id: 'r-dante', next: 'dante' },
     { text: 'Du wolltest in den Eisenhof?', when: { all: [{ hearts: 'raven', min: 6 }, neu('he-raven-6')] }, next: 'besuch', effects: [flag('raven_besuch_geplant')] },
     { text: 'Das Partyfoto zeigen.', when: { item: 'partyfoto-raven' }, once: true, id: 'r-partyfoto', next: 'partyfoto' },
+    {
+      text: 'Komm heute Abend zur Flutmauer. Sonnenuntergang.', next: 'locken', id: 'r-wingman',
+      when: { all: [{ quest: 'pers-wingman-sonnenuntergang', state: 'active' }, { flag: 'wingman_plan' }, { notFlag: 'wingman_raven' }] },
+    },
+    { text: 'Der Tresor. Die Handschelle. Wie geht’s dir damit?', when: { seen: 'he-raven-8' }, once: true, id: 'r-tresor', next: 'tresor' },
     flirt(1, ['mo', 'fr']),
     flirt(2, ['di', 'sa']),
     flirt(3, ['mi', 'so']),
@@ -65,6 +71,20 @@ function menue(): Menue {
 
   const nodes: DialogueNode[] = [
     knoten('menue', [R('Noch was? Kurz.')], { choices }),
+    knoten('locken', [R('Flutmauer. Sonnenuntergang. Du.', 'signatur'), R('Wer will das wissen? Und warum guckst du so, als hättest du einen Plan mit Diagramm?')], {
+      choices: [
+        { text: '„Sonnenuntergangs-Sprint. Training. Hunter will Zeiten.“', check: pruefung('wingman-raven-luege', 'strasse', 6, ['luege']), next: 'locken-luege', effects: [flag('wingman_raven')] },
+        { text: '„Jemand will dich sehen. Ohne Schrank dazwischen.“', check: pruefung('wingman-raven-ehrlich', 'ausstrahlung', 6, ['ueberzeugen']), next: 'locken-ehrlich', effects: [flag('wingman_raven'), herz('raven', 20)] },
+        { text: '„Vertrau mir einfach.“', next: 'locken-vertrauen', effects: [flag('wingman_raven')] },
+      ],
+    }),
+    knoten('locken-luege', [R('Training. Bei Sonnenuntergang. Hunter. Billige Lüge.', 'signatur'), R('… Ich komm trotzdem. Weil’s eine gute billige Lüge ist.')], { choices: zurueck }),
+    knoten('locken-ehrlich', [R('Ohne Schrank.', 'besorgt'), R('… Okay. Ich komm. Wenn ich wegrenn, hältst du mich fest. Wir hatten eine Abmachung.', 'trauer')], { choices: zurueck }),
+    knoten('locken-vertrauen', [R('Wer will das wissen?'), R('… Okay. Ich vertrau dir. Siehst du, das klingt immer noch komisch. Ich komm.', 'freude')], { choices: zurueck }),
+    knoten('tresor', [
+      R('Ich träum nicht mehr vom Rohr. Seit dem Tresor. Ich träum jetzt von Zügen. Von Zügen, die nicht anhalten.', 'besorgt'),
+      R('Ist besser. Glaub ich. Frag mich in einem Monat.'),
+    ], { choices: zurueck, effects: [herz('raven', 10)] }),
     knoten('r-gosse', [
       R('Die Rohrsiedlung gibt es noch? Dann gibt es Hoffnung.', 'ueberrascht'),
       R('Ich hab da als Kind Kupfer aus den Leitungen gezogen. Der halbe Wasserturm hängt an Kabeln, die ich nicht geklaut hab. Aus Faulheit.'),
@@ -392,57 +412,202 @@ const he6 = dialog('he-raven-6', [
   ], { effects: [{ xp: 100 }, herz('raven', 40), flag('raven_gerda_besucht')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2.
+// ♥8 und ♥10 ab Akt 2 (nach dem Countdown oder im Nachspiel), world.md §4.2 und Paar-Strang §4.7.
+const DANTE_VERGEBEN: Condition = { flag: 'dante_romanze_zusammen' };
+const SPIELFIGUR_VERLIEBT: Condition = {
+  any: [{ flag: 'hunter_romanze_zusammen' }, { flag: 'aria_romanze_zusammen' }, { flag: 'aria_kuss' }, { flag: 'collin_kuss' }, { flag: 'lio-funkel_romanze_zusammen' }],
+};
+
 const he8 = dialog('he-raven-8', [
   knoten('start', [
-    erz('Digitech-Tresor. Das Rohr ist noch da. Rostig, verbeult, an einer Stelle blank gescheuert. Von einem Handgelenk.'),
+    erz('Digitech-Tresor. Kalte Luft, Staub auf den Kabelkanälen, das Summen eines Notstromaggregats, das seit sieben Jahren auf jemanden wartet. Das Rohr ist noch da. Rostig, verbeult, an einer Stelle blank gescheuert. Von einem Handgelenk.'),
     R('Hier. Drei Stunden.', 'trauer'),
-    erz('Sie zieht die alte Handschelle aus der Jacke, legt sie um das Rohr und lässt sie zuschnappen. Klick. Den Schlüssel wirft sie in den Lüftungsschacht.'),
+    erz('Hinter euch schnappt die Panzertür zu. Ein altes Terminal flackert: „WILLKOMMEN ZURÜCK, MITARBEITERIN 0-7. SCHICHTBEGINN: VOR 2.557 TAGEN.“'),
+    R('Nein. Nein nein nein. Nicht zu. Nicht die Tür.', 'besorgt'),
+    erz('Raven atmet zu schnell. Ihre Hand liegt am Rohr, als hätte jemand sie dort festgeklebt.'),
+  ], {
+    choices: [
+      { text: 'Zum Kartenleser. Die Tür wieder aufkriegen.', check: pruefung('he-raven-8-tuer', 'technik', 6, ['hacken', 'schloss']), next: 'tuer', effects: [herz('raven', 30)] },
+      { text: '„Raven. Atme. Ich zähl mit. Eins. Zwei.“', check: pruefung('he-raven-8-atmen', 'ausstrahlung', 6, ['trost']), next: 'atmen', effects: [herz('raven', 30)] },
+      { text: 'Ans Rohr klopfen. Drei kurz, zwei lang.', tag: '[Knast]', when: { origin: 'origin-knastvogel' }, next: 'klopfen', effects: [herz('raven', 40)] },
+      { text: 'Ihre Hand vom Rohr lösen und festhalten.', next: 'hand', effects: [herz('raven', 25)] },
+    ],
+  }),
+  knoten('tuer', [
+    erz('Zwei Kabel, ein Kurzschluss, ein Fluch. Das Terminal piept beleidigt, und die Panzertür fährt zischend wieder auf.'),
+    ich('Diesmal geht die Tür auf, wenn wir wollen.'),
+    R('… Gut. Gut. Lass sie offen.', 'besorgt'),
+  ], { next: 'handschelle' }),
+  knoten('atmen', [
+    erz('Du zählst. Langsam. Sie zählt mit, erst lautlos, dann leise, dann mit dir. Bei zwölf lässt sie das Rohr los.'),
+    R('Zwölf. Im Eisenhof waren es zwölf Schritte. Von Wand zu Wand.', 'trauer'),
+    R('Danke. Sag nicht „gern geschehen“. Ich hasse „gern geschehen“.'),
+  ], { next: 'handschelle' }),
+  knoten('klopfen', [
+    erz('Tok-tok-tok. Toook. Toook. Das Rohr singt dumpf durch die ganze Halle.'),
+    R('… Noch da.', 'trauer'),
+    erz('Sie klopft zurück. Ihre Hand zittert dabei nicht mehr.'),
+  ], { next: 'handschelle' }),
+  knoten('hand', [
+    erz('Du nimmst ihre Hand. Kalt, rau, sehr fest. Sie lässt es zu. Sie lässt es zu und sagt nichts, und bei Raven ist das ungefähr ein Gedicht.'),
+  ], { next: 'handschelle' }),
+  knoten('handschelle', [
+    erz('Sie zieht die alte Handschelle aus der Jacke. Sonderanfertigung, Seriennummer, eine Kerbe vom Rohr.'),
+    R('Drei Stunden hab ich gezählt, was ich falsch gemacht hab. Zweihundert Sachen. Und die zweihundertunderste war, dass ich das Ding hier sieben Jahre lang mit mir rumgetragen hab.', 'wut'),
+    erz('Sie legt die Handschelle um das Rohr und lässt sie zuschnappen. Klick. Den Schlüssel wirft sie in den Lüftungsschacht. Er klimpert noch eine ganze Weile.'),
     R('Das war’s.'),
   ], {
     choices: [
       { text: '„Wie fühlt sich das an?“', next: 'gefuehl' },
       { text: '„Komm. Wir gehen. Zusammen diesmal.“', next: 'gehen', effects: [herz('raven', 20)] },
+      { text: '„Soll ich das Schloss noch mit Kaugummi zukleben? Für alle Fälle?“', next: 'kaugummi', effects: [herz('raven', 15)] },
     ],
   }),
-  knoten('gefuehl', [R('Leicht. Zu leicht. Als hätt ich sieben Jahre einen Stein getragen, der aus Pappe war.', 'besorgt'), R('Gehen wir, bevor ich heul. Ich heul nicht. Gehen wir.')], { next: 'ende' }),
-  knoten('gehen', [R('Zusammen. Ja. Das Wort probier ich noch aus.', 'freude')], { next: 'ende' }),
-  knoten('ende', [erz('Hinter euch hängt die Handschelle am Rohr. Sie hält nichts mehr fest.')], { effects: [flag('raven_handschelle_zurueckgelassen'), herz('raven', 50), { xp: 150 }] }),
+  knoten('gefuehl', [
+    R('Leicht. Zu leicht. Als hätt ich sieben Jahre einen Stein getragen, der aus Pappe war.', 'besorgt'),
+    R('Gehen wir, bevor ich heul. Ich heul nicht. Gehen wir.'),
+  ], { next: 'ende' }),
+  knoten('gehen', [R('Zusammen. Ja. Das Wort probier ich noch aus. Es passt noch nicht ganz. Wie eine neue Jacke.', 'freude')], { next: 'ende' }),
+  knoten('kaugummi', [
+    R('… Mit Kaugummi.', 'ueberrascht'),
+    erz('Raven lacht. Kurz, rau, wie ein Motor, der nach sieben Jahren wieder anspringt.'),
+    R('Ja. Mach. Grünen. Den ekligsten, den du hast.', 'freude'),
+  ], { next: 'ende' }),
+  knoten('ende', [
+    erz('Hinter euch hängt die Handschelle am Rohr. Sie hält nichts mehr fest.'),
+    R('Wenn ich je wieder irgendwo festhäng. An einem Rohr, an einem Chip, an irgendwas. Erinnerst du mich an heute?', 'trauer'),
+    R('Nicht antworten. Einfach machen.'),
+  ], { effects: [flag('raven_handschelle_zurueckgelassen'), flag('raven_erinnerung_tresor'), herz('raven', 40), { xp: 150 }] }),
 ]);
 
 const he10 = dialog('he-raven-10', [
   knoten('start', [
-    erz('Dachterrasse, Nacht. Raven hält dir ein schmales schwarzes Messer hin, den Griff zuerst.'),
+    erz('Dachterrasse, Nacht. Unter euch blinkt die Stadt in all den Farben, die Raven nicht zählt. Sie sitzt an der Kante, die Beine über dem Abgrund, und dreht ein schmales schwarzes Messer zwischen den Fingern.'),
     R('Mein erstes. Hab ich mit vierzehn geklaut und nie benutzt. Nur getragen. Damit ich weiß, dass ich könnte.'),
-    R('Du kriegst es. Nicht, weil du’s brauchst. Weil ich will, dass du weißt, dass ich dir den Rücken zudrehe.', 'freude'),
+    R('Fang.'),
   ], {
-    effects: [{ give: 'ravens-klinge' }, { xp: 200 }],
     choices: [
-      { text: '„Und Dante?“', next: 'dante' },
-      { text: '„Sei meine Wingwoman.“', next: 'wingwoman', when: { any: [{ flag: 'hunter_romanze_zusammen' }, { flag: 'aria_romanze_zusammen' }, { flag: 'dante_romanze_zusammen' }] } },
+      { text: 'Fangen. Am Griff.', check: pruefung('he-raven-10-fangen', 'reflexe', 6, ['fangen']), next: 'gefangen', effects: [herz('raven', 30)] },
+      { text: 'Ausweichen. Sie will mich doch nicht erstechen?', next: 'ausweichen', effects: [herz('raven', 15)] },
+    ],
+  }),
+  knoten('gefangen', [
+    erz('Das Messer dreht sich einmal in der Luft. Du fängst es am Griff. Es ist warm von ihrer Hand.'),
+    R('Gute Hände. Hab ich gewusst.', 'freude'),
+  ], { next: 'klinge' }),
+  knoten('ausweichen', [
+    erz('Das Messer bleibt zitternd in einem Blumenkübel stecken. Raven sieht dich an. Dann den Kübel.'),
+    R('Ich hab nicht geworfen. Ich hab gereicht. Mit Schwung. … Hol’s dir.', 'signatur'),
+  ], { next: 'klinge' }),
+  knoten('klinge', [
+    R('Du kriegst es. Nicht, weil du’s brauchst. Weil ich will, dass du weißt, dass ich dir den Rücken zudrehe.', 'freude'),
+    R('Ich hab das bei keinem gemacht. Seit Blade nicht. Seit sieben Jahren hab ich mit dem Rücken zur Wand geschlafen.', 'trauer'),
+    R('So. Das war das Geschenk. Jetzt die Frage. Die ist schlimmer.'),
+  ], {
+    effects: [{ give: 'ravens-klinge' }, { xp: 200 }, herz('raven', 20)],
+    choices: [
+      { text: '„Frag.“', next: 'frage', when: { not: DANTE_VERGEBEN } },
+      { text: '„Es geht um Dante, oder?“', next: 'vergeben', when: DANTE_VERGEBEN },
+    ],
+  }),
+  knoten('frage', [
+    R('Dante. Ich will … ich weiß nicht, wie das geht. Rein in die Werkstatt, „Hallo, ich hab gehört, du hast Fotos von mir im Schrank“?', 'besorgt'),
+    R('Ich kann Tresore knacken. Ich kann von einem Dach aufs andere springen. Ich kann nicht „Ich hab dich vermisst“ sagen, ohne dabei jemandem eine reinzuhauen.'),
+  ], {
+    choices: [
+      {
+        text: '„Ich helf dir. Wir machen das richtig.“', next: 'helfen',
+        effects: [flag('paar_dante_raven_geholfen'), flag('paar_dante_raven_gestoert', false), herz('raven', 50)],
+      },
+      {
+        text: '„Du sagst es nicht. Du klopfst. Drei kurz, zwei lang. Er versteht das.“', check: pruefung('he-raven-10-klopfen', 'ausstrahlung', 7, ['ueberzeugen']),
+        next: 'klopfrat', effects: [flag('paar_dante_raven_geholfen'), flag('paar_dante_raven_gestoert', false), herz('raven', 70)],
+      },
+      { text: '„Lass ihn. Er ist nichts für dich.“', next: 'stoeren', effects: [flag('paar_dante_raven_gestoert'), herz('raven', -20)] },
+      { text: '„Das musst du selbst wissen.“', next: 'offen', effects: [herz('raven', 20)] },
+      { text: '„Sei lieber meine Wingwoman.“', next: 'wingwoman', when: SPIELFIGUR_VERLIEBT },
       { text: '„Und wenn ich dich will, Raven?“', tag: '[Romanze]', when: ROM, next: 'romanze' },
     ],
   }),
-  knoten('dante', [
-    R('Dante. Ja. Ich will … ich weiß nicht, wie das geht. Rein in die Werkstatt, „Hallo, ich hab deine Fotos gefunden“?', 'besorgt'),
-  ], {
-    choices: [
-      { text: '„Ich helf dir. Wir machen das richtig.“', next: 'helfen', when: { notFlag: 'dante_romanze_zusammen' }, effects: [flag('paar_dante_raven_geholfen'), flag('paar_dante_raven_gestoert', false), herz('raven', 50)] },
-      { text: '„Lass ihn. Er ist nichts für dich.“', next: 'stoeren', effects: [flag('paar_dante_raven_gestoert'), herz('raven', -20)] },
-      { text: '„Das musst du selbst wissen.“', next: 'offen', effects: [herz('raven', 20)] },
-    ],
-  }),
-  knoten('helfen', [R('Richtig. Mit Plan. Wie ein Bruch.', 'freude'), R('Gut. Du bist mein Fluchtwagen. Wenn ich zu laufen anfange, hältst du mich fest.')]),
-  knoten('stoeren', [R('… Vielleicht. Vielleicht hast du recht.', 'trauer'), R('Oder du willst was anderes. Ich merk mir beides.', 'wut')]),
-  knoten('offen', [R('Weiß ich nicht. Aber danke, dass du mich nicht schubst.')]),
+  knoten('helfen', [
+    R('Richtig. Mit Plan. Wie ein Bruch.', 'freude'),
+    R('Gut. Du bist mein Fluchtwagen. Wenn ich zu laufen anfange, hältst du mich fest. Und wenn er zu reden anfängt, hältst du ihn fest. Das wird ein langer Abend.', 'signatur'),
+  ], { next: 'ende' }),
+  knoten('klopfrat', [
+    R('Klopfen. … Ja. Das kann ich. Das hab ich sieben Jahre jede Nacht gemacht.', 'ueberrascht'),
+    R('Er hat mir jeden Monat ein Foto geschickt. Ich hab nie geantwortet. Vielleicht klopf ich einfach an seine Werkstatttür. Und wenn er aufmacht, guck ich ihn an, bis er aufhört zu reden.', 'zaertlich'),
+    R('Das kann dauern.', 'freude'),
+  ], { next: 'ende' }),
+  knoten('stoeren', [
+    R('… Vielleicht. Vielleicht hast du recht.', 'trauer'),
+    R('Oder du willst was anderes. Ich merk mir beides.', 'wut'),
+  ], { next: 'ende' }),
+  knoten('offen', [R('Weiß ich nicht. Aber danke, dass du mich nicht schubst. Die meisten schubsen.')], { next: 'ende' }),
   knoten('wingwoman', [
     R('Ich hab gesehen, wie du guckst. Ich bin deine Wingwoman. Keine Widerrede.', 'signatur'),
     R('Regel eins: Lügen nur, wenn’s gut aussieht. Regel zwei: Wenn’s ernst wird, bin ich weg. Regel drei: Danach will ich alles wissen.'),
-  ], { effects: [flag('raven_wingwoman')] }),
+    R('Und Dante? … Später. Eins nach dem anderen. Erst du. Ich hab sieben Jahre gewartet, ich kann noch eine Woche.'),
+  ], { effects: [flag('raven_wingwoman')], next: 'ende' }),
+  knoten('vergeben', [
+    R('Du und der Bäcker.', 'signatur'),
+    R('Hab’s gesehen. Er pfeift. Dante pfeift nie. Er pfeift „Samstagnacht im Neon“, falsch, seit drei Tagen.'),
+    R('Viel Glück. Er redet beim Küssen.', 'signatur'),
+  ], {
+    choices: [
+      { text: '„Raven … tut mir leid.“', next: 'vergeben-leid', effects: [herz('raven', 20)] },
+      { text: '„Er hat sich entschieden. Für mich. Gewöhn dich dran.“', next: 'vergeben-hart', effects: [flag('raven_eifersucht_ausgeloest')] },
+      { text: '„Sei meine Wingwoman. Ich brauch eine, die ihn kennt.“', next: 'wingwoman' },
+    ],
+  }),
+  knoten('vergeben-leid', [
+    R('Muss es nicht. Ich hab sieben Jahre nicht geschrieben. Wer nicht schreibt, kriegt keine Antwort.', 'trauer'),
+    R('Pass auf ihn auf. Er verbrennt sich ständig. An Keksen, an Lötkolben, an Leuten.'),
+  ], { next: 'ende' }),
+  knoten('vergeben-hart', [
+    R('… Gewöhn dich dran.', 'wut'),
+    erz('Raven steht auf. Sie sagt nichts mehr. Sie geht nicht weg. Sie steht nur da und guckt in die Stadt, als würde sie zum ersten Mal wieder Wände zählen.'),
+  ], { next: 'ende' }),
   knoten('romanze', [
     R('Dann musst du schneller sein als ich. Hat noch keiner geschafft.', 'signatur'),
     erz('Sie steht auf, geht zur Dachkante – und bleibt stehen. Wartet. Zum ersten Mal läuft sie nicht weg.'),
-  ], { effects: [flag('raven_romanze_angebahnt')] }),
+  ], {
+    effects: [flag('raven_romanze_angebahnt')],
+    choices: [
+      { text: 'Hingehen. Neben sie.', next: 'ende' },
+      { text: '„Sag Dante, dass er zu spät ist.“', next: 'dante-spaet', effects: [flag('dante_eifersucht_ausgeloest')] },
+    ],
+  }),
+  knoten('dante-spaet', [R('Das sag ich ihm nicht. Das sagst du ihm. Ich hab genug Leuten das Herz gebrochen. Mit Absicht nur einem.', 'signatur')], { next: 'ende' }),
+  knoten('ende', [
+    erz('Unter euch flackert die Neon-Gasse. Raven lehnt sich zurück, die Hände hinter dem Kopf, mit dem Rücken zu dir. Absichtlich.'),
+    R('Das bleibt hier oben. Wie immer.'),
+  ]),
+]);
+
+/** Rivalitätsereignis, nur wenn die Spielfigur Raven bewusst die Romanze mit Dante unter die Nase reibt (world.md §4.7). */
+const reEifersucht = dialog('re-raven-eifersucht', [
+  knoten('start', [
+    erz('High Voltage. Ravens Hocker. Raven sitzt drauf, mit dem Rücken zur Bar, und sieht dich kommen, als würdest du eine Uniform tragen.'),
+    R('„Gewöhn dich dran.“ Hab ich. Drei Tage. Ich hab mich dran gewöhnt, dass du gern trittst, wenn einer schon liegt.', 'wut'),
+    R('Ich hab dir mein Messer gegeben. Ich hab dir den Rücken zugedreht. Billige Lüge, oder? War’s das?'),
+  ], {
+    effects: [herz('raven', -120), flag('raven_eifersucht_gesehen')],
+    choices: [
+      { text: '„Das war gemein. Es tut mir leid. Wirklich.“', check: pruefung('re-raven-eifersucht-entschuldigen', 'ausstrahlung', 7, ['trost']), next: 'entschuldigt', effects: [herz('raven', 60)] },
+      { text: '„Ich war ein Arschloch. Ich weiß.“', next: 'arschloch', effects: [herz('raven', 30)] },
+      { text: '„Du hattest sieben Jahre Zeit, Raven.“', next: 'hart', effects: [herz('raven', -60)] },
+    ],
+  }),
+  knoten('entschuldigt', [
+    R('… Wirklich.', 'besorgt'),
+    R('Okay. Okay. Ich glaub dir. Nicht ganz. Siebzig Prozent. Das ist mehr, als ich Hunter glaub.'),
+  ]),
+  knoten('arschloch', [R('Weißt du. Gut. Ein Arschloch, das es weiß, ist schon ein halbes. Die andere Hälfte arbeitest du ab.', 'signatur')]),
+  knoten('hart', [
+    R('Stimmt.', 'trauer'),
+    R('Und du hattest drei Sekunden, die Klappe zu halten. Drei-Sekunden-Regel. Hast du gebrochen.', 'wut'),
+    erz('Sie dreht sich weg. Am Tresen ist für dich heute kein Platz mehr neben ihr.'),
+  ]),
 ]);
 
 const gerdaTag = tagesgespraech('zellennachbarin-tag',
@@ -451,6 +616,8 @@ const gerdaTag = tagesgespraech('zellennachbarin-tag',
   { choices: [{ text: 'Mach’s gut, Gerda.' }], nodes: [] });
 
 // ---------------------------------------------------------------------------------------------- Figuren
+
+const A23 = raven23(M);
 
 const raven: NpcDef = {
   id: 'raven',
@@ -468,6 +635,8 @@ const raven: NpcDef = {
     hates: ['handschellen', 'goldknauf-replik', 'rostige-dose', 'virus-implantat'],
   },
   schedule: [
+    // Akt 2/3/Nachspiel vorangestellt (design/plan/act23.json npcSchedules.raven).
+    ...RAVEN_PLAN_23,
     { slot: 'tag', days: ['di', 'do', 'sa'], when: { not: FREI }, place: { map: 'zellentrakt', at: 'besucherraum' } },
     { when: { not: FREI }, place: { map: 'zellentrakt', at: 'zelle-raven' } },
     // he-raven-6: Besuch bei Gerda (Besuchszeit Di/Do/Sa tagsüber).
@@ -482,35 +651,46 @@ const raven: NpcDef = {
     { id: 'he-raven-2', hearts: 2, map: 'neon-gasse', time: 'nacht', when: FREI, dialogue: 'he-raven-2' },
     { id: 'he-raven-4', hearts: 4, map: 'neon-gasse', time: 'morgen', when: { all: [FREI, { not: { weekday: ['di', 'do'] } }] }, dialogue: 'he-raven-4' },
     { id: 'he-raven-6', hearts: 6, map: 'zellentrakt', time: 'tag', when: { all: [FREI, { weekday: ['di', 'do', 'sa'] }] }, cutscene: 'szene-he-raven-6', dialogue: 'he-raven-6' },
-    { id: 'he-raven-8', hearts: 8, map: 'digitech-tresor', when: { act: 2 }, dialogue: 'he-raven-8' },
-    { id: 'he-raven-10', hearts: 10, map: 'neon-gasse', time: 'nacht', when: { all: [{ act: 2 }, { seen: 'he-raven-8' }] }, dialogue: 'he-raven-10' },
+    { id: 'he-raven-8', hearts: 8, map: 'digitech-tresor', when: RUHIG, dialogue: 'he-raven-8' },
+    { id: 'he-raven-10', hearts: 10, map: 'neon-gasse', time: 'nacht', when: und(RUHIG, { seen: 'he-raven-8' }), dialogue: 'he-raven-10' },
   ],
   companion: {
-    recruit: PARTY_VORBEI,
+    recruit: { all: [PARTY_VORBEI, NICHT_MASTER] },
     stats: {
       hp: 52, armor: 2, morale: 85,
       attributes: { technik: 2, koerper: 6, reflexe: 6, ausstrahlung: 4, strasse: 5 },
       weapon: { kind: 'nahkampf', damage: 5, range: 1, hit: 5 },
       abilities: ['raven-handschellen-trick', 'raven-lagebild'],
     },
+    // Wächst mit der Stufe (Akt 2/3).
+    statsByLevel: [
+      { minLevel: 6, hp: 64, armor: 3, morale: 90, attributes: { koerper: 7, reflexe: 8, strasse: 6 }, weapon: { damage: 7, range: 1, hit: 6 } },
+      { minLevel: 9, hp: 78, armor: 3, morale: 95, attributes: { koerper: 8, reflexe: 9, strasse: 7 }, weapon: { damage: 9, range: 1, hit: 7 } },
+    ],
     heartAbilities: [{ hearts: 6, ability: 'raven-konter' }],
     // Nach pers-raven-handschellen hält der Trick 2 Runden.
     abilityRules: [{ when: { quest: 'pers-raven-handschellen', state: 'done' }, replace: ['raven-handschellen-trick', 'raven-handschellen-trick-plus'] }],
+    // Duo „Am Ende siegt die Liebe“ (world.md §4.6): Raven + Dante in der Party, Spielfigur mit beiden ♥6.
+    duo: [{ ability: 'duo-am-ende-siegt-die-liebe', when: { all: [{ companion: 'dante' }, { hearts: 'raven', min: 6 }, { hearts: 'dante', min: 6 }] } }],
   },
   partyCheckBonus: [
     { tags: ['schloss', 'fessel', 'einbruch', 'schleichen'], value: 1, label: 'Raven zeigt dir, wie' },
   ],
   talk: [
+    ...A23.talkFirst,
+    rede('re-raven-eifersucht', und({ flag: 'raven_eifersucht_ausgeloest' }, { notFlag: 'raven_eifersucht_gesehen' })),
     rede('raven-tag-rivale', { rival: 'raven' }),
     rede('raven-tag-zelle', { not: FREI }),
     rede('raven-tag-frei', { not: PARTY_VORBEI }),
     rede('raven-tag-dante', { quest: 'main-1-dante', state: 'active' }),
     rede('raven-tag-einbruch', { all: [{ quest: 'side-alte-gewohnheiten', state: 'done' }, { notFlag: 'raven_kommentar_einbruch' }] }),
     rede('raven-tag-handschellen', { quest: 'pers-raven-handschellen', state: 'active' }),
+    ...A23.talk,
     rede('raven-tag-zeit', { not: { act: 2 } }, 8),
     rede('raven-tag-laufen', { all: [{ time: 'morgen' }, { weekday: ['di', 'do'] }] }),
     rede('raven-tag-training', { time: 'morgen' }),
     rede('raven-tag-markt', { time: 'tag' }),
+    ...A23.talkLate,
     rede('raven-tag-dach-weich', { time: 'nacht' }, 4),
     rede('raven-tag-dach', { time: 'nacht' }),
     rede('raven-tag-bar'),
@@ -535,7 +715,8 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.zelle, T.frei, T.dante, T.einbruch, T.zeit, T.handschellen, T.laufen, T.training, T.markt,
     T.dachWeich, T.dach, T.bar,
-    he2, he4, he6, he8, he10, gerdaTag,
+    he2, he4, he6, he8, he10, reEifersucht, gerdaTag,
+    ...A23.dialogues,
   ),
   cutscenes: sammleSzenen({
     id: 'szene-he-raven-6', title: 'Besuchszeit',
@@ -545,6 +726,7 @@ export const part: ContentPart = {
     ],
   }),
   phone: {
+    ...RAVEN_TEL_23,
     'tel-raven-dach': {
       id: 'tel-raven-dach', from: 'raven',
       text: 'Dach. Heute Nacht. Bring nichts mit. Vor allem keine Fragen.',

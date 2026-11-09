@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "knuspi-neutral.png",
+  "sha": "a506ffe23d40355d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46624
+ },
+ "freude": {
+  "src": "knuspi-freude.png",
+  "sha": "8bf08d60cf4fde4a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 44676
+ },
+ "besorgt": {
+  "src": "knuspi-besorgt.png",
+  "sha": "3db42f4f5bac65b4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 45754
+ }
+}

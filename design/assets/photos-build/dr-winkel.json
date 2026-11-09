@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "dr-winkel-neutral.png",
+  "sha": "f938eb30ba13dd96",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 42088
+ },
+ "freude": {
+  "src": "dr-winkel-freude.png",
+  "sha": "1ffd536f1074331f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43846
+ },
+ "besorgt": {
+  "src": "dr-winkel-besorgt.png",
+  "sha": "cab06ca4306b64d2",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 43176
+ },
+ "signatur": {
+  "src": "dr-winkel-signatur.png",
+  "sha": "e1eadc4a9e09eca3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 46940
+ }
+}

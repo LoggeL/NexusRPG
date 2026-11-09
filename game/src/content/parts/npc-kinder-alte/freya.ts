@@ -3,8 +3,9 @@
 // baut der Quest-Agent. Die Fluchdose: Wer in ihrer Nähe flucht, zahlt einen Credit (oder einen Keks).
 import type { Condition, DialogueChoice, NpcDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
+import { FREYA_HE_23, FREYA_SCHEDULE_23, FREYA_TALK_FRUEH, FREYA_TALK_POOL } from './freya-akt23';
 import {
-  AKT2, EXWACHE, KINDERZEIT, KNAST, L, N, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
+  EXWACHE, KINDERZEIT, KNAST, L, N, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann,
 } from './_dsl';
 
 const F = 'freya';
@@ -33,6 +34,7 @@ const npc: NpcDef = {
   // Geburtstag: der Samstag von side-keksalarm, sonst Tag 6 im Festkalender (der erste Samstag).
   birthday: { any: [{ cycleDay: 6 }, { all: [{ weekday: 'sa' }, KEKSALARM_AKTIV] }] },
   schedule: [
+    ...FREYA_SCHEDULE_23,
     { slot: 'morgen', days: ['mi'], place: { map: 'gerichtssaal', at: 'zuschauerbaenke' } },
     { slot: 'morgen', place: { map: 'das-nest', at: 'schlafnischen' } },
     { slot: 'tag', days: ['mi'], place: { map: 'eisenhof', at: 'gerichtsgarten' } },
@@ -54,25 +56,20 @@ const npc: NpcDef = {
       id: 'he-freya-6', hearts: 6, map: 'schrottmarkt', time: 'abend', when: { all: [KINDERZEIT, { not: { weekday: 'do' } }] },
       dialogue: 'dlg-he-freya-6', effects: [{ xp: 45 }],
     },
-    {
-      id: 'he-freya-8', hearts: 8, map: 'dantes-werkstatt', time: 'abend', when: { all: [AKT2, { weekday: 'do' }] },
-      dialogue: 'dlg-he-freya-8', effects: [{ xp: 60 }],
-    },
-    {
-      id: 'he-freya-10', hearts: 10, map: 'eisenhof', time: 'tag', when: { all: [AKT2, { weekday: 'mi' }] },
-      dialogue: 'dlg-he-freya-10', effects: [{ xp: 80 }, { give: 'fairness-stempel' }],
-    },
+    ...FREYA_HE_23,
     { id: 're-freya-2', hearts: -2, map: 'schrottmarkt', time: 'tag', dialogue: 'dlg-re-freya-2' },
   ],
   talk: [
     { dialogue: 'freya-schweigen', when: { rival: F } },
     { dialogue: 'freya-zeit', minHearts: 8, when: zeitHinweisWann('freya-zeit') },
+    ...FREYA_TALK_FRUEH,
     { dialogue: 'freya-geburtstag', when: { all: [{ weekday: 'sa' }, KEKSALARM_AKTIV] } },
     { dialogue: 'freya-gericht', when: { all: [{ time: 'morgen' }, { weekday: 'mi' }] } },
     { dialogue: 'freya-garten', when: { all: [{ time: 'tag' }, { weekday: 'mi' }] } },
     { dialogue: 'freya-morgen', when: { time: 'morgen' } },
     { dialogue: 'freya-eins', when: { all: [{ time: 'abend' }, { weekday: 'do' }] } },
     { dialogue: 'freya-lio', when: { time: 'abend' } },
+    ...FREYA_TALK_POOL,
     { dialogue: 'freya-tag-4', minHearts: 4 },
     { dialogue: 'freya-tag-0' },
   ],
@@ -422,55 +419,7 @@ const dialogues = dialogs(
     ]),
   ]),
 
-  dlg('dlg-he-freya-8', [
-    node('a', [
-      N('Dantes Werkstatt ist ein Gerichtssaal. Der Eins!-Tisch ist die Richterbank, ein Toaster das Mikrofon, Captain Kuschel der Gerichtsdiener. Auf der Anklagebank: Dante, mit Krümeln am Kinn.'),
-      L(F, 'Das Kindergericht tagt! Der Angeklagte Dante wird beschuldigt, die Geburtstagskekse vom Tisch gegessen zu haben. Alle. Zwölf Stück. Vor der Feier.', 'signatur'),
-      L('dante', 'Das ist eine Verleumdung! Ich hab sie … geprüft. Auf Qualität. Zwölfmal.'),
-      L(F, '{name}, du bist als Verteidigung bestellt. Plädoyer, bitte.'),
-    ], {
-      choices: [
-        {
-          text: '„Hohes Gericht: Wer hat die Kekse gebacken? Dante. Wer hat sie nie bezahlt bekommen? Dante. Das ist kein Diebstahl, das ist Lohn.“',
-          check: chk('he-freya-8-plaedoyer', 'ausstrahlung', 5, ['ueberreden', 'buehne']),
-          next: 'freispruch',
-        },
-        { text: '„Er war’s. Er ist schuldig. Guck dir das Kinn an.“', next: 'gestaendnis' },
-        { text: '(Captain Kuschel umdrehen. Krümel. Überall Krümel.)', next: 'kuschel' },
-      ],
-    }),
-    node('freispruch', [
-      L(F, '…Das ist ein gutes Argument. Ein sehr gutes. Verdammt.', 'ueberrascht'),
-      L(F, 'Das macht einen Keks. Für mich. Ich zahl in die eigene Dose. Freispruch!'),
-      L('dante', 'Gerechtigkeit! Heiliges Kanonenrohr, Gerechtigkeit!', 'freude'),
-    ], { effects: [herz(F, 60), herz('dante', 20)] }),
-    node('gestaendnis', [
-      L('dante', 'Verrat! Von der eigenen Verteidigung!'),
-      L(F, 'Urteil: schuldig. Strafe: Er backt neue. Vierundzwanzig. Und wir gucken zu, damit er keine prüft.', 'signatur'),
-    ], { effects: [herz(F, 40)] }),
-    node('kuschel', [
-      L(F, 'Der Gerichtsdiener! Der Gerichtsdiener hat mitgegessen! Das ist eine Verschwörung!', 'ueberrascht'),
-      L('dante', 'Captain Kuschel hat das Recht zu schweigen. Er macht davon Gebrauch. Immer.'),
-      L(F, 'Verfahren vertagt. Wegen Befangenheit des Plüschs. Das war das beste Gericht aller Zeiten.', 'freude'),
-    ], { effects: [herz(F, 50)] }),
-  ]),
-
-  dlg('dlg-he-freya-10', [
-    node('a', [
-      N('Mittwoch, Gerichtsgarten. Der Richter hält ein kleines Holzkästchen in der Hand. Freya steht davor, so gerade, dass sie fast nach hinten kippt.'),
-      L('richter', 'Freya. Für Verdienste um die Gerechtigkeit auf dem Schrottmarkt, die Fluchdose und den Kohl: der Ehrenstempel des Bagatellgerichts. Junior-Ausführung.'),
-      L(F, 'Danke, Euer Ehren. Ich … ich hab eine Rede vorbereitet. Elf Seiten. Ich lass sie weg.', 'freude'),
-      N('Dann dreht sie sich zu dir und drückt dir einen Stempel in die Hand. Selbst geschnitzt aus einem Radiergummi. Darauf: eine Waage, ganz gerade.'),
-      L(F, 'Der ist für dich. Der Fairness-Stempel. Wer den hat, muss fair sein. Und darf auch mal Einspruch sagen. Aber nur, wenn es wichtig ist.', 'signatur'),
-    ], {
-      choices: [
-        { text: '„Einspruch, Euer Ehren: Das ist zu viel Ehre für mich.“', next: 'einspruch' },
-        { text: '„Ich pass gut drauf auf, Freya.“', next: 'danke' },
-      ],
-    }),
-    node('einspruch', [L(F, 'Einspruch abgelehnt. Du hast ihn dir verdient. Ich hab nachgeschlagen.', 'freude')]),
-    node('danke', [L(F, 'Weiß ich. Sonst hätte ich ihn dir nicht gegeben. Ich bin eine gute Menschenkennerin. Fast so gut wie Captain Kuschel.', 'freude')]),
-  ]),
+  // he-freya-8 und he-freya-10: freya-akt23.ts
 
   dlg('dlg-re-freya-2', [
     node('a', [

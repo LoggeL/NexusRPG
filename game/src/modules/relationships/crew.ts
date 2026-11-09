@@ -42,14 +42,21 @@ export function dismiss(crew: CrewState, npc: NpcId): { crew: { recruited: NpcId
   return { crew: { recruited: [...crew.recruited], party: crew.party.filter(entry => entry !== npc) }, left };
 }
 
-/** Prüft eine gewünschte Party; liefert den Grund der Ablehnung oder null. */
-export function partyProblem(content: GameContent, crew: CrewState, party: readonly NpcId[]): string | null {
+/**
+ * Prüft eine gewünschte Party; liefert den Grund der Ablehnung oder null. `unavailable` meldet Figuren, die gerade
+ * nicht mitkönnen (`CompanionDef.unavailableWhen`), mit Grund.
+ */
+export function partyProblem(
+  content: GameContent, crew: CrewState, party: readonly NpcId[], unavailable?: (npc: NpcId) => string | null,
+): string | null {
   const list = [...new Set(party)];
   if (list.length > MAX_PARTY) return `Höchstens ${MAX_PARTY} Begleiter.`;
   for (const npc of list) {
     const def = npcOf(content, npc);
     if (!def?.companion) return `${def?.name ?? npc} ist keine Begleitfigur.`;
     if (!crew.recruited.includes(npc)) return `${def.name} gehört nicht zur Crew.`;
+    const reason = unavailable?.(npc);
+    if (reason) return reason;
   }
   return null;
 }

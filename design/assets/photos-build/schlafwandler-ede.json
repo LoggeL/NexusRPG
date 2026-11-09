@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "schlafwandler-ede-neutral.png",
+  "sha": "5f47b438fea8091c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59594
+ },
+ "besorgt": {
+  "src": "schlafwandler-ede-besorgt.png",
+  "sha": "003335fe2d3aba7f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56252
+ },
+ "ueberrascht": {
+  "src": "schlafwandler-ede-ueberrascht.png",
+  "sha": "96b1967fb660c6f9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63042
+ }
+}

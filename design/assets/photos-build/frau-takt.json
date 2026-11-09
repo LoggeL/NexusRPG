@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "frau-takt-neutral.png",
+  "sha": "df6f8844131d444e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 53924
+ },
+ "wut": {
+  "src": "frau-takt-wut.png",
+  "sha": "61f8588670e7a76e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 55764
+ },
+ "freude": {
+  "src": "frau-takt-freude.png",
+  "sha": "75322b26aa3a6dcc",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56456
+ },
+ "signatur": {
+  "src": "frau-takt-signatur.png",
+  "sha": "ce8001e1090455cd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59404
+ }
+}

@@ -82,3 +82,61 @@ export function daily(
   if (opts.effects) start.effects = opts.effects;
   return dlg(id, [start, node('plausch', plausch, { choices: menu.choices }), ...menu.nodes]);
 }
+
+// ------------------------------------------------------------------------------------------- Akt 2, Akt 3, Nachspiel
+// Bedingungen nach design/plan/act23.json (flags, endings) und world.md §5.3–5.5.
+
+/** Akt 3 (Releaseparty) und später. */
+export const AKT3: Condition = { act: 3 };
+/** Nur Akt 2 (vor der Party). */
+export const NUR_AKT2: Condition = { all: [{ act: 2 }, { not: { act: 3 } }] };
+/** Nachspiel (alle Enden setzen `epilog`). */
+export const EPILOG: Condition = { flag: 'epilog' };
+/** Partynacht: Akt 3, Nachspiel noch nicht erreicht. */
+export const PARTYNACHT: Condition = { all: [{ act: 3 }, { notFlag: 'epilog' }] };
+/** Vor dem Nachspiel. */
+export const VOR_EPILOG: Condition = { notFlag: 'epilog' };
+export const ENDE_MEER: Condition = { flag: 'ende_meer' };
+export const ENDE_NEXUS: Condition = { flag: 'ende_neue_nexus' };
+export const ENDE_3B: Condition = { flag: 'ende_doch_noch_meer' };
+/** Ende 3 ohne 3b: Master-Modus (Unterstadt feindselig). */
+export const MASTER: Condition = { all: [{ any: [{ flag: 'master_modus' }, { flag: 'ende_master' }] }, { notFlag: 'ende_doch_noch_meer' }] };
+/** Ein Ende mit dem Meer (1, 2 oder 3b). */
+export const MEER_ENDE: Condition = { any: [{ flag: 'ende_meer' }, { flag: 'ende_neue_nexus' }, { flag: 'ende_doch_noch_meer' }] };
+/** Freie Phase Akt 2: der Bruch ist gelaufen. */
+export const NACH_BRUCH: Condition = { all: [{ act: 2 }, { quest: 'main-2-bruch', state: 'done' }] };
+/** Variante A: Aria gechippt und noch nicht zurück (bis main-2-countdown). */
+export const ARIA_WEG: Condition = { all: [{ flag: 'aria_gechippt' }, { not: { quest: 'main-2-countdown', state: 'done' } }] };
+/** Aria ist nach dem Countdown wieder da. */
+export const ARIA_ZURUECK: Condition = { all: [{ act: 2 }, { quest: 'main-2-countdown', state: 'done' }] };
+/** Nyra sitzt im Turm. */
+export const NYRA_WEG: Condition = { all: [{ flag: 'nyra_zurueckgelassen' }, { notFlag: 'nyra_befreit' }, { notFlag: 'epilog' }] };
+/** Dante ist in der Crew. */
+export const DANTE_CREW: Condition = { any: [{ flag: 'dante_beigetreten' }, { quest: 'main-2-countdown', state: 'done' }] };
+/** Die Releaseparty ist beschlossen, Akt 3 hat noch nicht begonnen. */
+export const PARTY_PLAN: Condition = { all: [{ any: [{ flag: 'releaseparty_geplant' }, { quest: 'main-2-krisensitzung', state: 'done' }] }, { not: { act: 3 } }] };
+
+/**
+ * Bedingte Fortsetzung ohne echte Wahl: genau ein „Weiter“ ist sichtbar (erste passende Bedingung gewinnt,
+ * `null` = Rest). Für Zeilen, die vom Spielstand abhängen (Aria da oder weg, Romanze, Ende).
+ */
+export function weiter(branches: readonly (readonly [Condition | null, string])[], label = 'Weiter'): DialogueChoice[] {
+  const out: DialogueChoice[] = [];
+  const before: Condition[] = [];
+  for (const [cond, next] of branches) {
+    const parts: Condition[] = [...before.map((c) => ({ not: c })), ...(cond ? [cond] : [])];
+    const when: Condition | undefined = parts.length === 0 ? undefined : parts.length === 1 ? parts[0] : { all: parts };
+    out.push(when ? { text: label, next, when, id: `weiter-${next}` } : { text: label, next, id: `weiter-${next}` });
+    if (cond) before.push(cond);
+    else break;
+  }
+  return out;
+}
+
+/** Menü erweitern: zusätzliche Wahlen vorn, eigene Folgeknoten dazu. */
+export const mehr = (m: Menu, choices: DialogueChoice[], nodes: DialogueNode[] = []): Menu =>
+  ({ choices: [...choices, ...m.choices], nodes: [...nodes, ...m.nodes] });
+
+/** Einfacher Einzeiler-Dialog ohne Menü (Sonderlagen wie Master-Modus oder Partynacht). */
+export const kurz = (id: string, lines: DialogueLine[], choices?: DialogueChoice[], effects?: Effect[]): DialogueDef =>
+  dlg(id, [node('start', lines, { ...(choices ? { choices } : {}), ...(effects ? { effects } : {}) })]);

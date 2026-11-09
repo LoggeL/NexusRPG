@@ -2,9 +2,11 @@
 // Tagesgespräche, he-opa-gustav-2…10 (world.md §4.4). Kein Begleiter, keine Romanze.
 // Werkbank: Die Karte schrottmarkt zeigt `gustavs-werkbank`, sobald he-opa-gustav-6 gesehen ist.
 // pers-gustav-alte-liebe (Elsa im Aussiedlerhof, Akt 2) baut der Quest-Agent; he-opa-gustav-8 startet sie.
+// Akt 2/3, Nachspiel, he-opa-gustav-8/10: opa-gustav-akt23.ts.
 import type { DialogueChoice, NpcDef } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
-import { AKT2, L, N, OEDNIS, SCHROTT, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann } from './_dsl';
+import { L, N, OEDNIS, SCHROTT, chk, dialogs, dlg, herz, node, zeitHinweis, zeitHinweisWann } from './_dsl';
+import { GUSTAV_HE_23, GUSTAV_SCHEDULE_23, GUSTAV_TALK_FRUEH, GUSTAV_TALK_POOL } from './opa-gustav-akt23';
 
 const G = 'opa-gustav';
 
@@ -25,6 +27,7 @@ const npc: NpcDef = {
     hates: ['plastikpflanze', 'virus-implantat'],
   },
   schedule: [
+    ...GUSTAV_SCHEDULE_23,
     { slot: 'tag', days: ['so'], place: { map: 'schrottmarkt', at: 'flohmarkt' } },
     { slot: 'morgen', place: { map: 'schrottmarkt', at: 'kran' } },
     { slot: 'tag', place: { map: 'schrottmarkt', at: 'schrottkram-stand' } },
@@ -42,24 +45,19 @@ const npc: NpcDef = {
       id: 'he-opa-gustav-6', hearts: 6, map: 'schrottmarkt', time: 'tag', when: { not: { weekday: 'so' } },
       dialogue: 'dlg-he-opa-gustav-6', effects: [{ xp: 45 }, { setFlag: 'gustav_werkbank' }],
     },
-    {
-      id: 'he-opa-gustav-8', hearts: 8, map: 'high-voltage', time: 'abend', when: { all: [AKT2, { weekday: 'fr' }] },
-      dialogue: 'dlg-he-opa-gustav-8', effects: [{ xp: 60 }],
-    },
-    {
-      id: 'he-opa-gustav-10', hearts: 10, map: 'schrottmarkt', time: 'abend', when: { all: [AKT2, { not: { weekday: 'fr' } }] },
-      dialogue: 'dlg-he-opa-gustav-10', effects: [{ xp: 80 }, { give: 'schrottkrone' }],
-    },
+    ...GUSTAV_HE_23,
     { id: 're-opa-gustav-2', hearts: -2, map: 'schrottmarkt', time: ['morgen', 'tag'], dialogue: 'dlg-re-opa-gustav-2' },
   ],
   talk: [
     { dialogue: 'opa-gustav-knurri', when: { rival: G } },
     { dialogue: 'opa-gustav-zeit', minHearts: 8, when: zeitHinweisWann('opa-gustav-zeit') },
+    ...GUSTAV_TALK_FRUEH,
     { dialogue: 'opa-gustav-elsa', when: { quest: 'pers-gustav-alte-liebe', state: 'active' } },
     { dialogue: 'opa-gustav-flohmarkt', when: { all: [{ weekday: 'so' }, { time: 'tag' }] } },
     { dialogue: 'opa-gustav-oldies', when: { all: [{ weekday: 'fr' }, { time: 'abend' }] } },
     { dialogue: 'opa-gustav-morgen', when: { time: 'morgen' } },
     { dialogue: 'opa-gustav-radio', when: { time: 'abend' } },
+    ...GUSTAV_TALK_POOL,
     { dialogue: 'opa-gustav-tag-6', minHearts: 6 },
     { dialogue: 'opa-gustav-tag-2', minHearts: 2 },
     { dialogue: 'opa-gustav-tag-0' },
@@ -359,41 +357,7 @@ const dialogues = dialogs(
     ]),
   ]),
 
-  dlg('dlg-he-opa-gustav-8', [
-    node('a', [
-      N('Freitagabend, Gustavs Oldie-Stunde. Er legt eine Platte auf, die er sonst nie spielt. Ein langsames Lied, Akkordeon und Geige. Die Tanzfläche wird still.'),
-      L(G, 'Das war unser Lied. Elsas und meins. „Der letzte Zug nach Grün“. 2034.', 'trauer'),
-      N('Babette steht vom Tresen auf, wischt sich die Hände an der Schürze ab und streckt Gustav die Hand hin.'),
-      L('babette-bao', 'Komm, du alter Schrotthaufen. Einer muss mit dir tanzen, bevor du in deine Platten weinst.'),
-      N('Und Gustav tanzt. Langsam, steif, mit Rücken, aber er tanzt. Als das Lied vorbei ist, sitzt er an der Bar und guckt auf seine Hände.'),
-      L(G, 'Ich hab’s nie versucht. Zwanzig Jahre. Ich hab nie nach ihr gesucht. Ich hab mir eingeredet, sie will mich nicht sehen. Dabei wollte ich sie nicht sehen. Weil sie recht hatte.', 'trauer'),
-    ], {
-      choices: [
-        { text: '„Dann such sie jetzt. Ich helf dir.“', next: 'quest' },
-        { text: '„Es ist nie zu spät, Gustav.“', next: 'quest' },
-      ],
-    }),
-    node('quest', [
-      L(G, 'Nie zu spät … Das sagen nur junge Leute. Aber gut. Gut! Ich schreib ihr einen Brief. Und du bringst ihn hin. Und wenn sie mich auslacht, dann lach ich mit.', 'freude'),
-    ], { effects: [herz(G, 40), { startQuest: 'pers-gustav-alte-liebe' }] }),
-  ]),
-
-  dlg('dlg-he-opa-gustav-10', [
-    node('a', [
-      N('Vor dem Wohnwagen ist ein Tisch gedeckt. Gustav trägt ein Hemd mit Kragen, Knurri trägt eine Fliege. Auf dem Tisch liegt etwas unter einem Tuch.'),
-      L(G, 'Du hast für mich mehr getan als irgendwer in zwanzig Jahren. Ich hab dir was gebaut. Aus dem Besten, was ich hab.', 'freude'),
-      N('Er zieht das Tuch weg. Darunter: eine Krone. Aus Schrauben, Zahnrädern, einer Euromünze und einem Stück Kupferspule. Sie ist schief. Sie ist großartig.'),
-      L(G, 'Die Schrottkrone. Für den König oder die Königin des Schrottmarkts. Hab ich mal für Elsa gebaut, aber sie hat gesagt, sie trägt keine Kronen, nur Strohhüte. Jetzt hab ich eine neue gebaut. Für dich.', 'signatur'),
-    ], {
-      choices: [
-        { text: '(Die Krone aufsetzen.)', next: 'krone' },
-        { text: '„Gustav … ich weiß nicht, was ich sagen soll.“', next: 'krone' },
-      ],
-    }),
-    node('krone', [
-      L(G, 'Nichts sagen. Tragen. Und wenn jemand fragt, sag: „Gustav hat gesagt, früher war hier alles grün. Und jetzt ist hier alles meins.“', 'freude'),
-    ]),
-  ]),
+  // he-opa-gustav-8 und he-opa-gustav-10: opa-gustav-akt23.ts
 
   dlg('dlg-re-opa-gustav-2', [
     node('a', [

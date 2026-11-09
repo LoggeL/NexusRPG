@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "bruno-brecher-neutral.png",
+  "sha": "d07aa40487648307",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 27654
+ },
+ "wut": {
+  "src": "bruno-brecher-wut.png",
+  "sha": "97caff89baebd0a1",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 28806
+ },
+ "signatur": {
+  "src": "bruno-brecher-signatur.png",
+  "sha": "57412ab097af1d3e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 32304
+ }
+}

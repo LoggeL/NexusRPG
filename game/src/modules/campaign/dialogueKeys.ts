@@ -13,3 +13,7 @@ export const choiceKeyPart = (choice: DialogueChoice): string => {
 
 export const choiceSeenKey = (dialogueId: string, choice: DialogueChoice): string =>
   `dialog:${dialogueId}#${choiceKeyPart(choice)}`;
+
+/** Tagesflag einer Wahl mit `daily: true` (fällt mit den `heute_`-Flags am nächsten Morgen). */
+export const choiceDailyFlag = (dialogueId: string, choice: DialogueChoice): string =>
+  `heute_wahl_${hashText(choiceSeenKey(dialogueId, choice)).toString(36)}`;

@@ -2,7 +2,7 @@
 // Ansprechen, Geschenke, Herz-Ereignisse, Crew, Romanze-Schalter; design.md §3.3) mit Spielzustand, Bedingungen,
 // Effekten und Speicherformat. Zuständig: Bereich relationships+time.
 import type {
-  DialogueId, GameContent, GameState, GiftTaste, HeartEventDef, ItemId, NpcId, RelationState,
+  Condition, DialogueId, GameContent, GameState, GiftTaste, HeartEventDef, ItemId, NpcId, RelationState,
 } from '../../contracts';
 import {
   GIFT_LIMIT_TEXT, GIFT_POINTS, GIFT_TASTE_LABELS, GIFTS_PER_WEEK, MAX_PARTY, POINTS_MAX, POINTS_MIN,
@@ -14,7 +14,7 @@ import {
 import { timeSlotOf } from '../../time';
 import { has } from '../ids';
 import { displayName } from '../names';
-import type { ConditionContext, ConditionSpecs, EffectContext, EffectSpecs } from '../registry';
+import type { ConditionContext, ConditionSpecs, EffectContext, EffectSpecs, SettleHook } from '../registry';
 import { SAVE_LIMITS, fail, int, isKey, obj, record, uniqueList } from '../validate';
 
 export { GIFT_POINTS, GIFT_TASTE_LABELS, GIFTS_PER_WEEK, emptyRelation };
@@ -45,6 +45,9 @@ export const heartsWith = (content: GameContent, state: Readonly<GameState>, npc
 
 /** Punkte ändern (begrenzt, mit Herz-Obergrenze) und Meldungen „Raven ♥ +45“ sowie Stufenwechsel erzeugen. */
 export function addPoints(ctx: EffectContext, npc: NpcId, delta: number): void {
+  // Eingefroren (gefangen, im Turm): keine Zuwächse, Verluste zählen weiter.
+  const frozen = npcDef(ctx.content, npc)?.heartsFrozen;
+  if (delta > 0 && frozen && ctx.evaluate(frozen)) return;
   const rel = relationIn(ctx.draft, npc);
   const change = changePoints(rel.points, delta, maxHeartsOf(npcDef(ctx.content, npc)));
   rel.points = change.after;
@@ -158,12 +161,29 @@ export function recruitIn(ctx: EffectContext, npc: NpcId): string | null {
   const result = recruitInto(ctx.content, draft, npc, allowed);
   if (!result.ok) return result.reason;
   draft.recruited = result.crew.recruited;
+  // Nicht verfügbare Figuren nimmt crewSettle nach allen Effekten wieder aus der Party (Quest-Abschlüsse zählen mit).
   draft.party = result.crew.party;
   const name = def?.name ?? npc;
   if (result.joinedCrew) ctx.messages.push(`${name} gehört jetzt zur Crew.`);
   if (result.joinedParty) ctx.messages.push(`${name} begleitet dich.`);
   return null;
 }
+
+/** Grund, warum die Figur gerade nicht mitkann (`CompanionDef.unavailableWhen`), sonst null. */
+export function companionUnavailable(content: GameContent, npc: NpcId, evaluate: (c?: Condition) => boolean): string | null {
+  const companion = npcDef(content, npc)?.companion;
+  if (!companion?.unavailableWhen || !evaluate(companion.unavailableWhen)) return null;
+  return companion.unavailableText ?? `${npcDef(content, npc)?.name ?? npc} kann gerade nicht mitkommen.`;
+}
+
+/** Nachlauf: Wer gerade nicht verfügbar ist, verlässt die Party (bleibt in der Crew). */
+export const crewSettle: SettleHook = (ctx) => {
+  const keep = ctx.draft.party.filter(npc => !companionUnavailable(ctx.content, npc, ctx.evaluate));
+  if (keep.length === ctx.draft.party.length) return false;
+  for (const npc of ctx.draft.party) if (!keep.includes(npc)) ctx.messages.push(`${npcDef(ctx.content, npc)?.name ?? npc} ist nicht mehr bei dir.`);
+  ctx.draft.party = keep;
+  return true;
+};
 
 export function dismissIn(ctx: EffectContext, npc: NpcId): string | null {
   const def = npcDef(ctx.content, npc);

@@ -3025,6 +3025,96 @@
    }
   }
  },
+ "hecki": {
+  "walk": {
+   "raws": {
+    "hecki-walk.png": {
+     "path": "output/imagegen/raw/characters/hecki-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "94ae1d33c2d2dcee",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       625
+      ],
+      [
+       625,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3542,
+    0.3491,
+    0.3491,
+    0.3491
+   ],
+   "rowScalesUnclamped": [
+    0.3542,
+    0.3491,
+    0.3491,
+    0.3491
+   ],
+   "rowSource": {
+    "s": "hecki-walk.png Zeile 1",
+    "w": "hecki-walk.png Zeile 2",
+    "e": "hecki-walk.png Zeile 3",
+    "n": "hecki-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/hecki-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/hecki-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "e2156018b46e3dd6",
+    "out": "game/public/assets/portraits/hecki.webp",
+    "bytes": 44734
+   }
+  }
+ },
  "henk-angler": {
   "walk": {
    "raws": {
@@ -4154,6 +4244,97 @@
    }
   }
  },
+ "krabbe-karl": {
+  "walk": {
+   "raws": {
+    "krabbe-karl-walk.png": {
+     "path": "output/imagegen/raw/characters/krabbe-karl-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "e8b27bbc8f357168",
+     "rowBands": [
+      [
+       0,
+       320
+      ],
+      [
+       320,
+       624
+      ],
+      [
+       624,
+       933
+      ],
+      [
+       933,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 44,
+   "rowScales": [
+    0.1789,
+    0.1921,
+    0.193,
+    0.1857
+   ],
+   "rowScalesUnclamped": [
+    0.1789,
+    0.1921,
+    0.193,
+    0.1857
+   ],
+   "rowSource": {
+    "s": "krabbe-karl-walk.png Zeile 1",
+    "w": "krabbe-karl-walk.png Zeile 2",
+    "e": "krabbe-karl-walk.png Zeile 3",
+    "n": "krabbe-karl-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     44,
+     43,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     44,
+     43,
+     43,
+     44
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "art-fig-b: Zielhöhe (krabbe-karl)",
+   "out": "game/public/assets/sprites/krabbe-karl-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/krabbe-karl-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "bbec3f3e27b7d72f",
+    "out": "game/public/assets/portraits/krabbe-karl.webp",
+    "bytes": 49632
+   }
+  }
+ },
  "kraehe": {
   "walk": {
    "raws": {
@@ -4977,6 +5158,108 @@
     "sha256": "457fec9c351e3d97",
     "out": "game/public/assets/portraits/mira-loetzinn.webp",
     "bytes": 35556
+   }
+  }
+ },
+ "mixi": {
+  "walk": {
+   "raws": {
+    "mixi-walk-v2.png": {
+     "path": "output/imagegen/raw/characters/mixi-walk-v2.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "01e194cfd4cd3895",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       622
+      ],
+      [
+       622,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 72,
+   "rowScales": [
+    0.2939,
+    0.2869,
+    0.2869,
+    0.2939
+   ],
+   "rowScalesUnclamped": [
+    0.2939,
+    0.2869,
+    0.2869,
+    0.2939
+   ],
+   "rowSource": {
+    "s": "mixi-walk-v2.png Zeile 1",
+    "w": "mixi-walk-v2.png Zeile 2",
+    "e": "mixi-walk-v2.png Zeile 3",
+    "n": "mixi-walk-v2.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     71,
+     71,
+     72,
+     71,
+     71,
+     71,
+     72,
+     72,
+     71,
+     72,
+     72,
+     72,
+     71,
+     72,
+     71,
+     72
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 127,
+    "problems": [
+     "Frame 1: 10 magentastichige Pixel",
+     "Frame 2: 11 magentastichige Pixel",
+     "Frame 3: 9 magentastichige Pixel",
+     "Frame 6: 8 magentastichige Pixel",
+     "Frame 8: 13 magentastichige Pixel",
+     "Frame 10: 8 magentastichige Pixel",
+     "Frame 11: 7 magentastichige Pixel",
+     "Frame 12: 16 magentastichige Pixel",
+     "Frame 13: 10 magentastichige Pixel",
+     "Frame 15: 9 magentastichige Pixel"
+    ]
+   },
+   "note": "art-fig-b: Rollroboter, Zielhöhe 72. v1 Chrom spiegelte den Magentagrund (rosa Körper), v2 neutral silbern.",
+   "out": "game/public/assets/sprites/mixi-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/mixi-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "291052adae79c211",
+    "out": "game/public/assets/portraits/mixi.webp",
+    "bytes": 45906
    }
   }
  },
@@ -7715,6 +7998,276 @@
    }
   }
  },
+ "schlafwandler-bert": {
+  "walk": {
+   "raws": {
+    "schlafwandler-bert-walk.png": {
+     "path": "output/imagegen/raw/characters/schlafwandler-bert-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "20a0729c4ac49351",
+     "rowBands": [
+      [
+       0,
+       311
+      ],
+      [
+       311,
+       623
+      ],
+      [
+       623,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3322,
+    0.3299,
+    0.3322,
+    0.3333
+   ],
+   "rowScalesUnclamped": [
+    0.3322,
+    0.3299,
+    0.3322,
+    0.3333
+   ],
+   "rowSource": {
+    "s": "schlafwandler-bert-walk.png Zeile 1",
+    "w": "schlafwandler-bert-walk.png Zeile 2",
+    "e": "schlafwandler-bert-walk.png Zeile 3",
+    "n": "schlafwandler-bert-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     94,
+     96,
+     96,
+     94,
+     95,
+     96,
+     94,
+     96,
+     95,
+     96,
+     95,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/schlafwandler-bert-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/schlafwandler-bert-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "f1c2e623692fe012",
+    "out": "game/public/assets/portraits/schlafwandler-bert.webp",
+    "bytes": 31630
+   }
+  }
+ },
+ "schlafwandler-ede": {
+  "walk": {
+   "raws": {
+    "schlafwandler-ede-walk.png": {
+     "path": "output/imagegen/raw/characters/schlafwandler-ede-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "b11522e650a14b2b",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       626
+      ],
+      [
+       626,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3276,
+    0.3345,
+    0.3333,
+    0.3288
+   ],
+   "rowScalesUnclamped": [
+    0.3276,
+    0.3345,
+    0.3333,
+    0.3288
+   ],
+   "rowSource": {
+    "s": "schlafwandler-ede-walk.png Zeile 1",
+    "w": "schlafwandler-ede-walk.png Zeile 2",
+    "e": "schlafwandler-ede-walk.png Zeile 3",
+    "n": "schlafwandler-ede-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     95,
+     93,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     94,
+     95,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/schlafwandler-ede-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/schlafwandler-ede-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "635538953463b300",
+    "out": "game/public/assets/portraits/schlafwandler-ede.webp",
+    "bytes": 42180
+   }
+  }
+ },
+ "schlafwandlerin-rosi": {
+  "walk": {
+   "raws": {
+    "schlafwandlerin-rosi-walk.png": {
+     "path": "output/imagegen/raw/characters/schlafwandlerin-rosi-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "3b63a1ee495c5dc6",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       625
+      ],
+      [
+       625,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3333,
+    0.3404,
+    0.3357,
+    0.3368
+   ],
+   "rowScalesUnclamped": [
+    0.3333,
+    0.3404,
+    0.3357,
+    0.3368
+   ],
+   "rowSource": {
+    "s": "schlafwandlerin-rosi-walk.png Zeile 1",
+    "w": "schlafwandlerin-rosi-walk.png Zeile 2",
+    "e": "schlafwandlerin-rosi-walk.png Zeile 3",
+    "n": "schlafwandlerin-rosi-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     95,
+     96,
+     96,
+     95,
+     94,
+     92,
+     96,
+     93,
+     96,
+     93,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 12,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/schlafwandlerin-rosi-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/schlafwandlerin-rosi-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "3147f99f711ca951",
+    "out": "game/public/assets/portraits/schlafwandlerin-rosi.webp",
+    "bytes": 46220
+   }
+  }
+ },
  "seraphina": {
   "walk": {
    "raws": {
@@ -8074,6 +8627,96 @@
    "out": "game/public/assets/sprites/spaeherdrohne-walk.png"
   },
   "portraits": {}
+ },
+ "staubbaron-broesel": {
+  "walk": {
+   "raws": {
+    "staubbaron-broesel-walk.png": {
+     "path": "output/imagegen/raw/characters/staubbaron-broesel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "5bc0fa7e243a39e8",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       623
+      ],
+      [
+       623,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3333,
+    0.3404,
+    0.3345,
+    0.3345
+   ],
+   "rowScalesUnclamped": [
+    0.3333,
+    0.3404,
+    0.3345,
+    0.3345
+   ],
+   "rowSource": {
+    "s": "staubbaron-broesel-walk.png Zeile 1",
+    "w": "staubbaron-broesel-walk.png Zeile 2",
+    "e": "staubbaron-broesel-walk.png Zeile 3",
+    "n": "staubbaron-broesel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     95,
+     95,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/staubbaron-broesel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/staubbaron-broesel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "10d71b4853ae37ea",
+    "out": "game/public/assets/portraits/staubbaron-broesel.webp",
+    "bytes": 52244
+   }
+  }
  },
  "stylistin-gina": {
   "walk": {

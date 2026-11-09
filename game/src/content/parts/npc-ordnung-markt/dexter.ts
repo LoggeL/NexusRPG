@@ -6,11 +6,11 @@ import type { ContentPart } from '../../part';
 import type { Condition, DialogueChoice, DialogueNode, NpcDef } from '../../../modules/contracts';
 import {
   type Menue, AB_AKT2, NICHT_AKT2, VEX, ZEIT_HINWEIS, dialog, erz, flag, herz, ich, knoten, neu, pruefung, rede, sammle,
-  sprecher, tagesgespraech,
+  sprecher, tagesgespraech, erweitere,
 } from './_helfer';
+import { MENUE_23, akt23 } from './dexter-akt23';
 
 const D = sprecher('dexter');
-const H = sprecher('hunter');
 const A = sprecher('aria');
 
 const HAUPT = 'main-1-dexter';
@@ -86,7 +86,7 @@ function menue(): Menue {
   return { choices, nodes };
 }
 
-const M = menue();
+const M = erweitere(menue(), MENUE_23);
 
 /** Rivalität: Er verkauft der Spielfigur Schrott als Ware; Versöhnung über Essen, Geld oder Verhandlung. */
 const RIVALE: Menue = {
@@ -365,37 +365,8 @@ const he6 = dialog('he-dexter-6', [
   ], { effects: [{ startQuest: SCHULDENFREI }, { xp: 80 }, herz('dexter', 20), flag('dexter_glaeubigerbuch')] }),
 ]);
 
-// ♥8 und ♥10: angelegt, erst ab act2 (world.md §11.2).
-const he8 = dialog('he-dexter-8', [
-  knoten('start', [
-    erz('High Voltage, früher Abend. Dexter in einem Anzug, dessen Ärmel tatsächlich dranbleiben, marschiert zum Tresen. In der Hand: ein Umschlag. Dick.'),
-    D('Hunter. Zwölfhundert. Minus vierhundert. Minus Gutscheine, die wir nicht erwähnen. Plus Zinsen, die wir erwähnen. Alles da.', 'signatur'),
-    H('…'),
-    erz('Hunter zählt. Zweimal. Dann nimmt er die Sonnenbrille ab.'),
-    H('Dexter. Du hast gezahlt.'),
-    D('ICH HAB GEZAHLT! ICH ZAHLE IMMER! UND JETZT IST IRGENDWANN!', 'freude'),
-  ], {
-    choices: [
-      { text: 'Applaudieren. Laut.', next: 'applaus' },
-      { text: '„Runde aufs Haus, Hunter?“', next: 'runde' },
-    ],
-  }),
-  knoten('applaus', [erz('Der Club klatscht mit. Dexter verbeugt sich so tief, dass ihm ein Ärmel doch abfällt.')], { effects: [herz('dexter', 40), flag('dexter_hunter_bezahlt'), { xp: 120 }] }),
-  knoten('runde', [H('Eine Runde. Leitungswasser. Mit Strohhalm. Der Strohhalm geht aufs Haus.')], { effects: [herz('dexter', 40), herz('hunter', 20), flag('dexter_hunter_bezahlt'), { xp: 120 }] }),
-]);
-
-const he10 = dialog('he-dexter-10', [
-  knoten('start', [
-    erz('Auf der Halde hängt ein neues Schild über dem Wellblechbüro: „DEXTERS LEIHHAUS – Kredit für alle, die keinen kriegen. Zinsen: ein Lächeln.“'),
-    D('Ich leih jetzt Geld. Kleine Beträge. An Leute wie mich. Und ich schreib nette Notizen dazu. Und wenn einer nicht zahlen kann, bring ich Suppe.', 'freude'),
-    erz('Er drückt dir sein altes Gläubigerbuch in die Hand. Jede Zeile ist durchgestrichen. Neben jeder steht: „Bezahlt.“'),
-    D('Das ist für dich. Mein Schuldbuch. Das Einzige, was ich nie wieder brauche.', 'signatur'),
-  ], {
-    effects: [{ give: 'dexters-schuldbuch' }, flag('dexter_leihhaus'), { xp: 200 }],
-    choices: [{ text: '„Ich bin stolz auf dich, Dexter.“', next: 'stolz' }],
-  }),
-  knoten('stolz', [D('Sag das nicht so laut. Sonst muss ich weinen. Und Weinen kostet bei mir jetzt Gebühren.', 'besorgt')], { effects: [herz('dexter', 50)] }),
-]);
+// ♥8 und ♥10 samt Akt-2/3-/Nachspiel-Gesprächen: dexter-akt23.ts.
+const A23 = akt23(M);
 
 // ---------------------------------------------------------------------------------------------- Figur
 
@@ -436,6 +407,7 @@ const dexter: NpcDef = {
     rede('dexter-tag-hauptquest', { quest: HAUPT, state: 'active' }),
     rede('dexter-tag-schrott', { all: [{ origin: 'origin-schrott' }, { notFlag: 'dexter_herkunft' }] }),
     rede('dexter-tag-vexaria', { all: [VEX, { flag: 'aria_romanze_zusammen' }, { notFlag: 'dexter_kommentar_vexaria' }] }),
+    ...A23.talk,
     rede('dexter-tag-zeit', NICHT_AKT2, 8),
     rede('dexter-tag-nacht', { time: 'nacht' }),
     rede('dexter-tag-versteck-aria', { all: [{ time: 'morgen' }, { companion: 'aria' }] }),
@@ -454,6 +426,6 @@ export const part: ContentPart = {
   dialogues: sammle(
     T.rivale, T.herkunft, T.versteckt, T.versteckAria, T.vexaria, T.hauptquest, T.zeit, T.chrome10, T.rennen, T.hv,
     T.nacht, T.vertraut, T.buero, T.standard,
-    he2, he4, he6, he8, he10,
+    he2, he4, he6, ...A23.dialogues,
   ),
 };

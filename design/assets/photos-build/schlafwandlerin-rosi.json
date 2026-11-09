@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "schlafwandlerin-rosi-neutral.png",
+  "sha": "b1f84e82527fec00",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62084
+ },
+ "besorgt": {
+  "src": "schlafwandlerin-rosi-besorgt.png",
+  "sha": "943137e519245d6d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61956
+ },
+ "ueberrascht": {
+  "src": "schlafwandlerin-rosi-ueberrascht.png",
+  "sha": "40d2ec8d9adbd76a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66012
+ }
+}

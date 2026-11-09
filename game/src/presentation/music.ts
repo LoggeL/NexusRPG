@@ -1,5 +1,5 @@
 // Welche Lyria-Musik läuft wo (design.md §7): Karte vor Bezirk, Tag/Nacht-Varianten, Kampf/Boss.
-import type { GameContent as Content, EncounterId, MapDef, MusicSpec } from '../modules/contracts';
+import type { GameContent as Content, Condition, EncounterId, MapDef, MusicSpec } from '../modules/contracts';
 
 /** Nacht: 20:00 bis 06:00 (Minuten ab 0:00, Spieltag läuft bis 02:00 = 1560). */
 export function isNight(minutes: number): boolean {
@@ -23,8 +23,13 @@ const FALLBACK: [RegExp, MusicSpec][] = [
   [/zell|knast|gefaengnis/, 'gefaengnis'],
 ];
 
-export function musicForMap(content: Content, map: MapDef, minutes: number): { id: string | null; muffled: boolean } {
+/** `evaluate` prüft `MapDef.musicWhen` (ohne: nur die feste Kartenmusik). */
+export function musicForMap(
+  content: Content, map: MapDef, minutes: number, evaluate?: (condition?: Condition) => boolean,
+): { id: string | null; muffled: boolean } {
   const muffled = !!map.musicMuffled;
+  const variant = evaluate ? map.musicWhen?.find((entry) => evaluate(entry.when)) : undefined;
+  if (variant) return { id: variant.music === null ? null : pick(variant.music, minutes), muffled };
   if (map.music === null) return { id: null, muffled };
   if (map.music) return { id: pick(map.music, minutes), muffled };
   const district = content.districts?.[map.district];
