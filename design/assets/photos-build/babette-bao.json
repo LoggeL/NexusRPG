@@ -1,0 +1,82 @@
+{
+ "neutral": {
+  "src": "babette-bao-neutral.png",
+  "sha": "961732fcc7d2066d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52446
+ },
+ "freude": {
+  "src": "babette-bao-freude.png",
+  "sha": "5aa57375481ac827",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 50726
+ },
+ "wut": {
+  "src": "babette-bao-wut.png",
+  "sha": "8a28a4bd6e66b706",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51168
+ },
+ "trauer": {
+  "src": "babette-bao-trauer.png",
+  "sha": "2c29d1406294003e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 47204
+ },
+ "signatur": {
+  "src": "babette-bao-signatur.png",
+  "sha": "ef1635be48113ceb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 55894
+ }
+}

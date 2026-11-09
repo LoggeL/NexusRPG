@@ -265,6 +265,156 @@ PHOTO: dict[str, dict] = {
     },
 }
 
+# Neue Akt-1-Figuren ohne Darstellerfoto (art-a): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
+PHOTO.update({
+    "dexter": {
+        "look": "a lanky, slightly hunched man in his late thirties with an invented face (not a real person), light "
+                "skin with freckles, messy dark-blond hair sticking out in all directions, patchy stubble, round brass "
+                "welding goggles hanging around his neck; oversized mustard-yellow work jacket covered in mismatched "
+                "patches and silver duct-tape repairs, faded orange hoodie underneath, a tool belt with screwdrivers "
+                "and a small drone remote control",
+        "rim": "cyan",
+        "sig": "caught red-handed, sheepish pleading grin, both palms raised in front of his chest as if saying "
+               "'I will pay, I swear', eyebrows pulled up",
+        "exprs": ["neutral", "freude", "besorgt", "ueberrascht", "signatur"],
+    },
+    "babette-bao": {
+        "look": "a sturdy, broad-shouldered, plump East Asian woman in her mid fifties with an invented face (not a "
+                "real person), round rosy cheeks, warm but stern dark eyes, black hair with grey streaks in a tight "
+                "bun held by two wooden chopsticks; a teal quilted cook's jacket with sleeves rolled up to the elbows, "
+                "a long white apron with a few sauce stains, a checkered kitchen towel over one shoulder, a little "
+                "kitchen steam drifting through the light",
+        "rim": "pink",
+        "sig": "resolute motherly look, pointing a big wooden ladle at the viewer like a warning, one eyebrow "
+               "raised, lips pressed into a stern but loving line",
+        "exprs": ["neutral", "freude", "wut", "trauer", "signatur"],
+    },
+    "opa-gustav": {
+        "look": "a stocky old man in his mid seventies with an invented face (not a real person), bald head with a "
+                "white fringe of hair, bushy white walrus moustache, ruddy round nose, bright friendly eyes with laugh "
+                "lines, weathered skin; faded blue mechanic's overalls with rust and oil stains, sleeves rolled up, a "
+                "worn brown leather vest over them, a red bandana knotted around the neck, an old analog wristwatch",
+        "rim": "cyan",
+        "sig": "lost in nostalgia, gazing past the camera into the distance with a soft wistful smile, as if "
+               "remembering when everything here was green",
+        "exprs": ["neutral", "freude", "trauer", "ueberrascht", "signatur"],
+    },
+    "oma-volt": {
+        "look": "a small, slightly round old woman in her mid seventies with an invented face (not a real person), "
+                "short permed silver-white curls with a faint lavender tint, big round tortoiseshell glasses on a "
+                "beaded chain, sharp knowing eyes, bright coral lipstick; a long quilted lilac cardigan with many "
+                "pockets buttoned over a dark-green flower-print dress, a yellow measuring tape around her neck, a red "
+                "pincushion strapped to her wrist, a small glowing cyan lightning-bolt brooch",
+        "rim": "cyan",
+        "sig": "peering over the top of her glasses with a sceptical raised eyebrow and a dry, knowing half smile, "
+               "as if saying 'Kindchen, I know exactly what you did'",
+        "exprs": ["neutral", "freude", "wut", "besorgt", "signatur"],
+    },
+    "kiki-karbon": {
+        "look": "an athletic woman around thirty with an invented face (not a real person), warm dark-brown skin, "
+                "short asymmetric neon-orange bob with shaved sides, gold aviator sunglasses pushed up on her head, a "
+                "small radio headset with a microphone arm at her cheek; a glossy yellow pilot bomber jacket with a "
+                "black-and-white checker stripe on the sleeves, zipped half up over a black high-neck top that fully "
+                "covers her torso, black fingerless driving gloves",
+        "rim": "pink",
+        "sig": "gossiping: leaning in conspiratorially, one gloved hand raised beside her mouth as if whispering a "
+               "juicy rumor, eyes wide and gleeful, wicked grin",
+        "exprs": ["neutral", "freude", "ueberrascht", "wut", "signatur"],
+    },
+    "lio-funkel": {
+        "look": "a slim young man in his late twenties with an invented face (not a real person), medium-brown skin, "
+                "chin-length straight black hair with a few teal strands tucked behind his ears, soft dreamy brown "
+                "eyes, light stubble, a small silver hoop earring; a long faded burgundy patchwork coat with colorful "
+                "patches, a chunky mustard-yellow knitted scarf, a grey henley shirt, a compact synth accordion "
+                "strapped to his chest with glowing cyan keys and small LED lights along the black bellows",
+        "rim": "cyan",
+        "sig": "playing the synth accordion, eyes half closed, head tilted, mouth slightly open mid-song, lost in "
+               "the music, cyan light from the keys on his face",
+        "exprs": ["neutral", "freude", "trauer", "ueberrascht", "signatur", "verlegen", "zaertlich"],
+    },
+})
+
+# Neue Akt-1-Figuren ohne Darstellerfoto (art-b): erfundene Gesichter, Identität nur aus dem gemalten Porträt.
+# bolzen ist ein Roboterhund (special "robot", eigene Ausdruckstexte ROBOT_TEXT).
+PHOTO.update({
+    "marla-sand": {
+        "look": "a sun-weathered woman around forty with an invented face (not a real person), tanned skin with laugh "
+                "lines and crow's feet, calm light-grey eyes, long ash-brown hair with a few grey strands in one thick "
+                "side braid over her shoulder, a faded rust-red scarf loosely wrapped around her neck, brass aviator "
+                "dust goggles hanging at her collarbone; a long sand-beige duster coat, worn and patched, over an "
+                "olive linen shirt buttoned up, a woven turquoise-and-orange caravan sash at the waist, a fine layer "
+                "of desert dust on coat and hair",
+        "rim": "pink",
+        "sig": "reading the wind: eyes half closed, face turned slightly up and to the side, a few colorful wind "
+               "ribbons from her staff fluttering in the frame, a calm knowing smile",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "pim-pinzette": {
+        "look": "a petite young adult woman in her early twenties with an invented face (not a real person), clearly "
+                "adult, short choppy black bob with straight bangs, big eyes behind oversized round thick-rimmed "
+                "glasses with a small jeweler's magnifier loupe flipped up on one side, a few freckles; a white lab "
+                "coat one size too big with rolled-up sleeves over a mint-green turtleneck sweater, a lanyard with a "
+                "blank white ID card (no text), a chest pocket full of tweezers and pens",
+        "rim": "cyan",
+        "sig": "whispering a secret: leaning in toward the camera, one hand raised beside her mouth, eyes darting "
+               "nervously to the side, as if saying 'you did not hear this from me'",
+        "exprs": ["neutral", "besorgt", "ueberrascht", "signatur"],
+    },
+    "kaeptn-nebelhorn": {
+        "look": "a broad, barrel-chested old sea captain in his sixties with an invented face (not a real person), "
+                "ruddy weathered cheeks, a big bushy white beard and walrus moustache, bushy white eyebrows, small "
+                "twinkling blue eyes; a navy-blue peaked captain's cap with a tarnished brass anchor badge (no text), "
+                "a thick navy pea coat with brass buttons over a cream cable-knit fisherman's sweater, a red "
+                "neckerchief, a dented brass hand foghorn hanging from a leather strap",
+        "rim": "cyan",
+        "sig": "blowing his brass hand foghorn with puffed-out cheeks, eyes squeezed shut with joy, beard "
+               "bristling",
+        "exprs": ["neutral", "freude", "besorgt", "signatur"],
+    },
+    "buergermeister-gully": {
+        "look": "a pear-shaped man in his fifties with an invented face (not a real person), round belly, balding "
+                "head with a wild grey fringe and a sad comb-over, big grey mutton-chop sideburns, small round "
+                "spectacles with one cracked lens, ruddy nose, a small headlamp strapped around his forehead; a "
+                "ceremonial sash of red-and-white striped barrier tape diagonally across the chest, a chain of office "
+                "made of bottle caps with a big rusty washer as medallion, a stained once-elegant burgundy tailcoat "
+                "over a grubby mustard waistcoat, olive-green rubber chest waders with suspenders, damp sewer-tunnel "
+                "darkness with dripping light in the bokeh",
+        "rim": "pink",
+        "sig": "pompous speech: chin raised, one finger lifted in the air, mouth open mid-proclamation, holding a "
+               "rusty plunger upright like a royal scepter in the other hand",
+        "exprs": ["neutral", "freude", "wut", "signatur"],
+    },
+    "jimmy": {
+        "look": "a lanky, thin young man in his mid twenties with an invented face (not a real person), messy "
+                "bleached-blond hair with dark roots sticking up, stubble, tired dark circles under wide, slightly "
+                "manic eyes, a small neurochip implant behind his right ear glowing with a flickering cyan-and-magenta "
+                "light; a faded teal bomber jacket with orange lining and oil stains worn open over a crumpled grey "
+                "t-shirt with a simple smiley face graphic (no text), a black strap harness over the shirt",
+        "rim": "cyan",
+        "sig": "chip glitch: an over-wide frozen customer-service smile, eyes unfocused, the neurochip behind his "
+               "ear flaring bright magenta, a faint digital glitch distortion over half of his face",
+        "exprs": ["neutral", "freude", "trauer", "signatur"],
+    },
+    "bolzen": {
+        "look": "a real-looking decommissioned corporate robot guard dog (a machine, not a living animal), lean "
+                "shepherd-dog silhouette: scuffed white-grey armor plates with a faded teal stripe (no logo, no text), "
+                "dents and rust spots, exposed black hydraulic joints, a single wide visor band as eyes glowing warm "
+                "amber, small triangular metal ears, a dented red collar with a round metal tag, a short segmented "
+                "antenna tail with a tiny glowing tip",
+        "rim": "cyan",
+        "exprs": ["neutral", "freude", "wut"],
+        "special": "robot",
+    },
+})
+ROBOT_TEXT = {
+    "neutral": "sitting upright, head tilted slightly, visor glowing a calm steady amber, ears up, attentive and "
+               "loyal",
+    "freude": "happy: leaning forward eagerly, ears perked high, visor glowing bright warm yellow, the antenna tail "
+              "wagging so fast it throws a few tiny sparks",
+    "wut": "alert guard mode: low stance, ears flat back, visor glowing hard red, a protective growl, not attacking "
+           "the viewer",
+}
+
 EXPR_TEXT = {
     "neutral": "calm, neutral expression, relaxed face, mouth closed, looking at the viewer",
     "freude": "genuinely happy, warm open smile, eyes crinkled with joy",
@@ -327,6 +477,8 @@ def expr_text(cid: str, expr: str) -> str:
         return HOLO_TEXT[expr]
     if c.get("special") == "plush":
         return PLUSH_TEXT[expr]
+    if c.get("special") == "robot":
+        return ROBOT_TEXT[expr]
     if c.get("faceless"):
         return FACELESS_TEXT[expr]
     if c.get("masked"):
@@ -372,6 +524,11 @@ def base_prompt(cid: str, expr: str) -> str:
         who = (f"Subject: {subject(cid)}, sitting on a dark surface. A real photograph of a real stuffed toy (real "
                "fabric texture, stitching), not a living animal and not a drawing; the head and ears fill the upper "
                "half of the frame")
+    elif special == "robot":
+        who = (f"Subject: {subject(cid)}, sitting on wet dark ground. A real photograph of a real, physical robot "
+               "dog (metal, scratched paint, rubber hoses, real reflections), not a living animal, not a drawing and "
+               "not a person; the head fills the upper third of the frame, the body down to the front paws below "
+               "it, camera at the dog's eye level")
     else:
         who = (f"Subject: a real human being (not a drawing), {subject(cid)}. Match the hair, face, clothing and "
                "colors of the painted character references exactly, translated into a real person with natural "

@@ -1,0 +1,9 @@
+{
+  "images": {
+    "photo-oma-volt-neutral": "assets/photos/oma-volt/neutral.webp",
+    "photo-oma-volt-freude": "assets/photos/oma-volt/freude.webp",
+    "photo-oma-volt-wut": "assets/photos/oma-volt/wut.webp",
+    "photo-oma-volt-besorgt": "assets/photos/oma-volt/besorgt.webp",
+    "photo-oma-volt-signatur": "assets/photos/oma-volt/signatur.webp"
+  }
+}

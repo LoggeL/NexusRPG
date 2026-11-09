@@ -15,6 +15,7 @@ import type {
 import { endingStats as computeEndingStats, epilogueLines } from '../modules/ending';
 import type { EndingStats, GameContext } from './context';
 import { openBattlePlaceholder } from './dom/battlePlaceholder';
+import { playMinigame } from './minigames';
 import { openCharacterCreation, openCharacterSheet } from './dom/character';
 import { openCityMap } from './dom/cityMap';
 import { CutsceneUi, panFor, SKIP_HOLD_MS } from './dom/cutsceneUi';
@@ -394,10 +395,16 @@ export class Director {
     }
   }
 
-  /** Minispiel zeigen und abrechnen. Platzhalter bis zur Minispiel-Darstellung: zählt als gewonnen. */
+  /** Minispiel zeigen (presentation/minigames) und abrechnen; unbekannte IDs bleiben Platzhalter (gewonnen). */
   async minigame(request: MinigameRequest) {
-    this.shell.toast(`Minispiel „${request.label ?? request.id}“ (Platzhalter) – gewonnen`, 'good');
-    await this.handleOutcome(this.campaign.finishMinigame(request, true));
+    const result = await playMinigame({
+      shell: this.shell, campaign: this.campaign, audio: this.audio, touch: this.touch, reducedMotion: this.settings.get().reducedMotion,
+    }, request);
+    // Zusatzeffekte (Trinkgeld, verbrauchter Dietrich-Chip) einzeln, damit ein abgelehnter Effekt den Rest nicht kippt.
+    for (const effect of result.extra) {
+      try { await this.handleOutcome(this.campaign.apply([effect])); } catch { /* optional */ }
+    }
+    await this.handleOutcome(this.campaign.finishMinigame(request, result.won));
   }
 
   async runDialogue(id: string) {

@@ -1,0 +1,11 @@
+{
+  "images": {
+    "photo-lio-funkel-neutral": "assets/photos/lio-funkel/neutral.webp",
+    "photo-lio-funkel-freude": "assets/photos/lio-funkel/freude.webp",
+    "photo-lio-funkel-trauer": "assets/photos/lio-funkel/trauer.webp",
+    "photo-lio-funkel-ueberrascht": "assets/photos/lio-funkel/ueberrascht.webp",
+    "photo-lio-funkel-signatur": "assets/photos/lio-funkel/signatur.webp",
+    "photo-lio-funkel-verlegen": "assets/photos/lio-funkel/verlegen.webp",
+    "photo-lio-funkel-zaertlich": "assets/photos/lio-funkel/zaertlich.webp"
+  }
+}

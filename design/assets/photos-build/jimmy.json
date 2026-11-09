@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "jimmy-neutral.png",
+  "sha": "b4e570a7456ce313",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54706
+ },
+ "freude": {
+  "src": "jimmy-freude.png",
+  "sha": "4ec9d145d2255111",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 55184
+ },
+ "trauer": {
+  "src": "jimmy-trauer.png",
+  "sha": "3df257e4997ad357",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 51096
+ },
+ "signatur": {
+  "src": "jimmy-signatur.png",
+  "sha": "62fb4752a75c1832",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54582
+ }
+}

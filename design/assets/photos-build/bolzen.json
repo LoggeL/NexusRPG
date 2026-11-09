@@ -1,0 +1,50 @@
+{
+ "neutral": {
+  "src": "bolzen-neutral.png",
+  "sha": "a5fe325e3ad57ac5",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61182
+ },
+ "freude": {
+  "src": "bolzen-freude.png",
+  "sha": "c9ca95084a37953e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 72664
+ },
+ "wut": {
+  "src": "bolzen-wut.png",
+  "sha": "83338e0ce2b3e207",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 63092
+ }
+}

@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "buergermeister-gully-neutral.png",
+  "sha": "b72de6228b352e89",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 72036
+ },
+ "freude": {
+  "src": "buergermeister-gully-freude.png",
+  "sha": "b95bbfc1f1b4adb9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 68414
+ },
+ "wut": {
+  "src": "buergermeister-gully-wut.png",
+  "sha": "30684e8d6016c50a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 69944
+ },
+ "signatur": {
+  "src": "buergermeister-gully-signatur.png",
+  "sha": "08b3ba7e9158f3ee",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 95948
+ }
+}

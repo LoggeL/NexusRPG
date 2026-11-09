@@ -1,0 +1,114 @@
+{
+ "neutral": {
+  "src": "lio-funkel-neutral.png",
+  "sha": "8d3cd68495107a97",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 71446
+ },
+ "freude": {
+  "src": "lio-funkel-freude.png",
+  "sha": "a584b988fb2a0f48",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 69828
+ },
+ "trauer": {
+  "src": "lio-funkel-trauer.png",
+  "sha": "488577bbfc64045b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66404
+ },
+ "ueberrascht": {
+  "src": "lio-funkel-ueberrascht.png",
+  "sha": "d341a23676c39f68",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 74012
+ },
+ "signatur": {
+  "src": "lio-funkel-signatur.png",
+  "sha": "c473402e177edd90",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 76084
+ },
+ "verlegen": {
+  "src": "lio-funkel-verlegen.png",
+  "sha": "641c434a0673d8c4",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 69656
+ },
+ "zaertlich": {
+  "src": "lio-funkel-zaertlich.png",
+  "sha": "9ccc6e498813c963",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 66712
+ }
+}

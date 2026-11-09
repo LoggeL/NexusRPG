@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "kaeptn-nebelhorn-neutral.png",
+  "sha": "f739c04cfff44dd3",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54508
+ },
+ "freude": {
+  "src": "kaeptn-nebelhorn-freude.png",
+  "sha": "a441b2af84b02fd1",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 54328
+ },
+ "besorgt": {
+  "src": "kaeptn-nebelhorn-besorgt.png",
+  "sha": "7d5d1fb2f9972d22",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 52230
+ },
+ "signatur": {
+  "src": "kaeptn-nebelhorn-signatur.png",
+  "sha": "c32f8c92a034a022",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 56806
+ }
+}

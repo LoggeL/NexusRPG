@@ -1,4 +1,83 @@
 {
+ "abzieher": {
+  "walk": {
+   "raws": {
+    "abzieher-walk.png": {
+     "path": "output/imagegen/raw/characters/abzieher-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "4b05fb1495e98e48",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       630
+      ],
+      [
+       630,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3345,
+    0.3416,
+    0.3404,
+    0.3333
+   ],
+   "rowScalesUnclamped": [
+    0.3345,
+    0.3416,
+    0.3404,
+    0.3333
+   ],
+   "rowSource": {
+    "s": "abzieher-walk.png Zeile 1",
+    "w": "abzieher-walk.png Zeile 2",
+    "e": "abzieher-walk.png Zeile 3",
+    "n": "abzieher-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     96,
+     95,
+     96,
+     95,
+     96,
+     94,
+     96,
+     96,
+     96,
+     94,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/abzieher-walk.png"
+  },
+  "portraits": {}
+ },
  "alesa": {
   "walk": {
    "raws": {
@@ -180,6 +259,96 @@
    }
   }
  },
+ "babette-bao": {
+  "walk": {
+   "raws": {
+    "babette-bao-walk.png": {
+     "path": "output/imagegen/raw/characters/babette-bao-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "742dd65c3947a4e2",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       627
+      ],
+      [
+       627,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3542,
+    0.3542,
+    0.3529
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3542,
+    0.3542,
+    0.3529
+   ],
+   "rowSource": {
+    "s": "babette-bao-walk.png Zeile 1",
+    "w": "babette-bao-walk.png Zeile 2",
+    "e": "babette-bao-walk.png Zeile 3",
+    "n": "babette-bao-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     94,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/babette-bao-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/babette-bao-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "1668c1e1b73d76b2",
+    "out": "game/public/assets/portraits/babette-bao.webp",
+    "bytes": 36166
+   }
+  }
+ },
  "barkeeper": {
   "walk": {
    "raws": {
@@ -357,6 +526,187 @@
     "sha256": "3c440f28a14fe1a9",
     "out": "game/public/assets/portraits/blade.webp",
     "bytes": 58908
+   }
+  }
+ },
+ "bolzen": {
+  "walk": {
+   "raws": {
+    "bolzen-walk.png": {
+     "path": "output/imagegen/raw/characters/bolzen-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "c857c78f909ede61",
+     "rowBands": [
+      [
+       0,
+       321
+      ],
+      [
+       321,
+       616
+      ],
+      [
+       616,
+       922
+      ],
+      [
+       922,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 54,
+   "rowScales": [
+    0.2055,
+    0.2412,
+    0.2412,
+    0.2055
+   ],
+   "rowScalesUnclamped": [
+    0.1993,
+    0.2422,
+    0.2432,
+    0.2045
+   ],
+   "rowSource": {
+    "s": "bolzen-walk.png Zeile 1",
+    "w": "bolzen-walk.png Zeile 2",
+    "e": "bolzen-walk.png Zeile 3",
+    "n": "bolzen-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     55,
+     55,
+     56,
+     55,
+     54,
+     54,
+     52,
+     54,
+     53,
+     54,
+     54,
+     53,
+     51,
+     53,
+     54,
+     53
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "Roboterhund (Vierbeiner), etwa schulterhoch wie ein Schäferhund; Laufblatt mit Trab-Zyklus.",
+   "out": "game/public/assets/sprites/bolzen-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/bolzen-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "32e342d43f0acca0",
+    "out": "game/public/assets/portraits/bolzen.webp",
+    "bytes": 32320
+   }
+  }
+ },
+ "buergermeister-gully": {
+  "walk": {
+   "raws": {
+    "buergermeister-gully-walk.png": {
+     "path": "output/imagegen/raw/characters/buergermeister-gully-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "fa9b2619d5e39e65",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       625
+      ],
+      [
+       625,
+       937
+      ],
+      [
+       937,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3556,
+    0.3735,
+    0.3721,
+    0.3596
+   ],
+   "rowScalesUnclamped": [
+    0.3556,
+    0.3735,
+    0.3721,
+    0.3596
+   ],
+   "rowSource": {
+    "s": "buergermeister-gully-walk.png Zeile 1",
+    "w": "buergermeister-gully-walk.png Zeile 2",
+    "e": "buergermeister-gully-walk.png Zeile 3",
+    "n": "buergermeister-gully-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     95,
+     94,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 8,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/buergermeister-gully-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/buergermeister-gully-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "33f39e3184e2325d",
+    "out": "game/public/assets/portraits/buergermeister-gully.webp",
+    "bytes": 56962
    }
   }
  },
@@ -754,6 +1104,96 @@
    }
   }
  },
+ "dexter": {
+  "walk": {
+   "raws": {
+    "dexter-walk.png": {
+     "path": "output/imagegen/raw/characters/dexter-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "d14d5074af08d5b1",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       626
+      ],
+      [
+       626,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3441,
+    0.3466,
+    0.3466,
+    0.3404
+   ],
+   "rowScalesUnclamped": [
+    0.3441,
+    0.3466,
+    0.3466,
+    0.3404
+   ],
+   "rowSource": {
+    "s": "dexter-walk.png Zeile 1",
+    "w": "dexter-walk.png Zeile 2",
+    "e": "dexter-walk.png Zeile 3",
+    "n": "dexter-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/dexter-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/dexter-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "cd308f48d094fa13",
+    "out": "game/public/assets/portraits/dexter.webp",
+    "bytes": 48166
+   }
+  }
+ },
  "freya": {
   "walk": {
    "raws": {
@@ -1024,6 +1464,186 @@
    }
   }
  },
+ "jimmy": {
+  "walk": {
+   "raws": {
+    "jimmy-walk.png": {
+     "path": "output/imagegen/raw/characters/jimmy-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "7edfea931f06c347",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       621
+      ],
+      [
+       621,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3582,
+    0.3765,
+    0.3735,
+    0.365
+   ],
+   "rowScalesUnclamped": [
+    0.3582,
+    0.3765,
+    0.3735,
+    0.365
+   ],
+   "rowSource": {
+    "s": "jimmy-walk.png Zeile 1",
+    "w": "jimmy-walk.png Zeile 2",
+    "e": "jimmy-walk.png Zeile 3",
+    "n": "jimmy-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/jimmy-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/jimmy-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "e45ca378d408ccd9",
+    "out": "game/public/assets/portraits/jimmy.webp",
+    "bytes": 42654
+   }
+  }
+ },
+ "kaeptn-nebelhorn": {
+  "walk": {
+   "raws": {
+    "kaeptn-nebelhorn-walk.png": {
+     "path": "output/imagegen/raw/characters/kaeptn-nebelhorn-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "1554addfa2009a2d",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       622
+      ],
+      [
+       622,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3478,
+    0.3556,
+    0.3491,
+    0.3491
+   ],
+   "rowScalesUnclamped": [
+    0.3478,
+    0.3556,
+    0.3491,
+    0.3491
+   ],
+   "rowSource": {
+    "s": "kaeptn-nebelhorn-walk.png Zeile 1",
+    "w": "kaeptn-nebelhorn-walk.png Zeile 2",
+    "e": "kaeptn-nebelhorn-walk.png Zeile 3",
+    "n": "kaeptn-nebelhorn-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/kaeptn-nebelhorn-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/kaeptn-nebelhorn-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "c6425fb02c7bd2de",
+    "out": "game/public/assets/portraits/kaeptn-nebelhorn.webp",
+    "bytes": 40228
+   }
+  }
+ },
  "kameramann": {
   "walk": {
    "raws": {
@@ -1114,6 +1734,86 @@
    }
   }
  },
+ "kanalratte": {
+  "walk": {
+   "raws": {
+    "kanalratte-walk.png": {
+     "path": "output/imagegen/raw/characters/kanalratte-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "fb36d90f2baaf1b5",
+     "rowBands": [
+      [
+       0,
+       347
+      ],
+      [
+       347,
+       630
+      ],
+      [
+       630,
+       920
+      ],
+      [
+       920,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 44,
+   "rowScales": [
+    0.2252,
+    0.2643,
+    0.2643,
+    0.2252
+   ],
+   "rowScalesUnclamped": [
+    0.1667,
+    0.3077,
+    0.3077,
+    0.1818
+   ],
+   "rowSource": {
+    "s": "kanalratte-walk.png Zeile 1",
+    "w": "kanalratte-walk.png Zeile 2",
+    "e": "kanalratte-walk.png Zeile 3",
+    "n": "kanalratte-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     59,
+     54,
+     59,
+     59,
+     36,
+     38,
+     38,
+     38,
+     36,
+     38,
+     38,
+     38,
+     54,
+     53,
+     53,
+     53
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "Generisches Laufblatt (Kanalratte XL, Tier, klein).",
+   "out": "game/public/assets/sprites/kanalratte-walk.png"
+  },
+  "portraits": {}
+ },
  "ki-nexus": {
   "portraits": {
    "base": {
@@ -1135,6 +1835,276 @@
     "sha256": "91c831ddd3a93e0b",
     "out": "game/public/assets/portraits/ki-nexus-angry.webp",
     "bytes": 34968
+   }
+  }
+ },
+ "kiki-karbon": {
+  "walk": {
+   "raws": {
+    "kiki-karbon-walk.png": {
+     "path": "output/imagegen/raw/characters/kiki-karbon-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "930729c765ac4cfa",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       626
+      ],
+      [
+       626,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3491,
+    0.3609,
+    0.3596,
+    0.3504
+   ],
+   "rowScalesUnclamped": [
+    0.3491,
+    0.3609,
+    0.3596,
+    0.3504
+   ],
+   "rowSource": {
+    "s": "kiki-karbon-walk.png Zeile 1",
+    "w": "kiki-karbon-walk.png Zeile 2",
+    "e": "kiki-karbon-walk.png Zeile 3",
+    "n": "kiki-karbon-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     96,
+     94,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/kiki-karbon-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/kiki-karbon-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "dd5ba6a41a55d346",
+    "out": "game/public/assets/portraits/kiki-karbon.webp",
+    "bytes": 39724
+   }
+  }
+ },
+ "lio-funkel": {
+  "walk": {
+   "raws": {
+    "lio-funkel-walk.png": {
+     "path": "output/imagegen/raw/characters/lio-funkel-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "c6fdf0efa358909f",
+     "rowBands": [
+      [
+       0,
+       318
+      ],
+      [
+       318,
+       626
+      ],
+      [
+       626,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3529,
+    0.3678,
+    0.3636,
+    0.3529
+   ],
+   "rowScalesUnclamped": [
+    0.3529,
+    0.3678,
+    0.3636,
+    0.3529
+   ],
+   "rowSource": {
+    "s": "lio-funkel-walk.png Zeile 1",
+    "w": "lio-funkel-walk.png Zeile 2",
+    "e": "lio-funkel-walk.png Zeile 3",
+    "n": "lio-funkel-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     92,
+     95,
+     92,
+     94,
+     96,
+     94,
+     96,
+     95,
+     96,
+     95,
+     95,
+     96,
+     93,
+     96,
+     90
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 6,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/lio-funkel-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/lio-funkel-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "2d79731d9bab1706",
+    "out": "game/public/assets/portraits/lio-funkel.webp",
+    "bytes": 51420
+   }
+  }
+ },
+ "marla-sand": {
+  "walk": {
+   "raws": {
+    "marla-sand-walk.png": {
+     "path": "output/imagegen/raw/characters/marla-sand-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "d6f05f09348a8b8f",
+     "rowBands": [
+      [
+       0,
+       314
+      ],
+      [
+       314,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3429,
+    0.3441,
+    0.3429,
+    0.3416
+   ],
+   "rowScalesUnclamped": [
+    0.3429,
+    0.3441,
+    0.3429,
+    0.3416
+   ],
+   "rowSource": {
+    "s": "marla-sand-walk.png Zeile 1",
+    "w": "marla-sand-walk.png Zeile 2",
+    "e": "marla-sand-walk.png Zeile 3",
+    "n": "marla-sand-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     95,
+     95,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/marla-sand-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/marla-sand-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "8ed0942c3f0d3739",
+    "out": "game/public/assets/portraits/marla-sand.webp",
+    "bytes": 55250
    }
   }
  },
@@ -1228,6 +2198,1119 @@
    }
   }
  },
+ "oma-volt": {
+  "walk": {
+   "raws": {
+    "oma-volt-walk.png": {
+     "path": "output/imagegen/raw/characters/oma-volt-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "0d3271dba71011e9",
+     "rowBands": [
+      [
+       0,
+       315
+      ],
+      [
+       315,
+       624
+      ],
+      [
+       624,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3254,
+    0.3333,
+    0.3322,
+    0.3276
+   ],
+   "rowScalesUnclamped": [
+    0.3254,
+    0.3333,
+    0.3322,
+    0.3276
+   ],
+   "rowSource": {
+    "s": "oma-volt-walk.png Zeile 1",
+    "w": "oma-volt-walk.png Zeile 2",
+    "e": "oma-volt-walk.png Zeile 3",
+    "n": "oma-volt-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     95,
+     94,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 5953,
+    "problems": [
+     "Frame 0: 197 magentastichige Pixel",
+     "Frame 1: 259 magentastichige Pixel",
+     "Frame 2: 215 magentastichige Pixel",
+     "Frame 3: 199 magentastichige Pixel",
+     "Frame 4: 321 magentastichige Pixel",
+     "Frame 5: 237 magentastichige Pixel",
+     "Frame 6: 390 magentastichige Pixel",
+     "Frame 7: 278 magentastichige Pixel",
+     "Frame 8: 323 magentastichige Pixel",
+     "Frame 9: 262 magentastichige Pixel",
+     "Frame 10: 330 magentastichige Pixel",
+     "Frame 11: 357 magentastichige Pixel",
+     "Frame 12: 610 magentastichige Pixel",
+     "Frame 13: 746 magentastichige Pixel",
+     "Frame 14: 562 magentastichige Pixel",
+     "Frame 15: 667 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/oma-volt-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/oma-volt-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "e41bb4d2d50ea136",
+    "out": "game/public/assets/portraits/oma-volt.webp",
+    "bytes": 54548
+   }
+  }
+ },
+ "opa-gustav": {
+  "walk": {
+   "raws": {
+    "opa-gustav-walk.png": {
+     "path": "output/imagegen/raw/characters/opa-gustav-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "5b5966b64ac84af0",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       626
+      ],
+      [
+       626,
+       939
+      ],
+      [
+       939,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3609,
+    0.3664,
+    0.365,
+    0.3596
+   ],
+   "rowScalesUnclamped": [
+    0.3609,
+    0.3664,
+    0.365,
+    0.3596
+   ],
+   "rowSource": {
+    "s": "opa-gustav-walk.png Zeile 1",
+    "w": "opa-gustav-walk.png Zeile 2",
+    "e": "opa-gustav-walk.png Zeile 3",
+    "n": "opa-gustav-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     95,
+     96,
+     96,
+     96,
+     94,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/opa-gustav-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/opa-gustav-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "edc3884bdbf82276",
+    "out": "game/public/assets/portraits/opa-gustav.webp",
+    "bytes": 42970
+   }
+  }
+ },
+ "ordnungshueter": {
+  "walk": {
+   "raws": {
+    "ordnungshueter-walk.png": {
+     "path": "output/imagegen/raw/characters/ordnungshueter-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "8f28955a6d1aff73",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       625
+      ],
+      [
+       625,
+       935
+      ],
+      [
+       935,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3582,
+    0.3765,
+    0.375,
+    0.3609
+   ],
+   "rowScalesUnclamped": [
+    0.3582,
+    0.3765,
+    0.375,
+    0.3609
+   ],
+   "rowSource": {
+    "s": "ordnungshueter-walk.png Zeile 1",
+    "w": "ordnungshueter-walk.png Zeile 2",
+    "e": "ordnungshueter-walk.png Zeile 3",
+    "n": "ordnungshueter-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     96,
+     96,
+     95,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/ordnungshueter-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-anzug": {
+  "walk": {
+   "raws": {
+    "passant-anzug-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-anzug-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "1679a79114d118cc",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       622
+      ],
+      [
+       622,
+       935
+      ],
+      [
+       935,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3609,
+    0.3765,
+    0.375,
+    0.3582
+   ],
+   "rowScalesUnclamped": [
+    0.3609,
+    0.3765,
+    0.375,
+    0.3582
+   ],
+   "rowSource": {
+    "s": "passant-anzug-walk.png Zeile 1",
+    "w": "passant-anzug-walk.png Zeile 2",
+    "e": "passant-anzug-walk.png Zeile 3",
+    "n": "passant-anzug-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     93
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 11,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-anzug-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-arbeiterin": {
+  "walk": {
+   "raws": {
+    "passant-arbeiterin-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-arbeiterin-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "b29a25b65f63fe4d",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       624
+      ],
+      [
+       624,
+       936
+      ],
+      [
+       936,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3478,
+    0.3529,
+    0.3504,
+    0.3478
+   ],
+   "rowScalesUnclamped": [
+    0.3478,
+    0.3529,
+    0.3504,
+    0.3478
+   ],
+   "rowSource": {
+    "s": "passant-arbeiterin-walk.png Zeile 1",
+    "w": "passant-arbeiterin-walk.png Zeile 2",
+    "e": "passant-arbeiterin-walk.png Zeile 3",
+    "n": "passant-arbeiterin-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-arbeiterin-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-kanalvolk": {
+  "walk": {
+   "raws": {
+    "passant-kanalvolk-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-kanalvolk-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "770d36fcac58446f",
+     "rowBands": [
+      [
+       0,
+       312
+      ],
+      [
+       312,
+       624
+      ],
+      [
+       624,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3322,
+    0.3345,
+    0.338,
+    0.331
+   ],
+   "rowScalesUnclamped": [
+    0.3322,
+    0.3345,
+    0.338,
+    0.331
+   ],
+   "rowSource": {
+    "s": "passant-kanalvolk-walk.png Zeile 1",
+    "w": "passant-kanalvolk-walk.png Zeile 2",
+    "e": "passant-kanalvolk-walk.png Zeile 3",
+    "n": "passant-kanalvolk-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     91,
+     96,
+     91,
+     95,
+     96,
+     95,
+     94,
+     96,
+     96,
+     96,
+     95,
+     96,
+     94,
+     95,
+     94
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-kanalvolk-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-kurier": {
+  "walk": {
+   "raws": {
+    "passant-kurier-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-kurier-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "916a78069c66188b",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       624
+      ],
+      [
+       624,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3664,
+    0.3825,
+    0.3825,
+    0.3623
+   ],
+   "rowScalesUnclamped": [
+    0.3664,
+    0.3825,
+    0.3825,
+    0.3623
+   ],
+   "rowSource": {
+    "s": "passant-kurier-walk.png Zeile 1",
+    "w": "passant-kurier-walk.png Zeile 2",
+    "e": "passant-kurier-walk.png Zeile 3",
+    "n": "passant-kurier-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     95,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-kurier-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-oma": {
+  "walk": {
+   "raws": {
+    "passant-oma-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-oma-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "10b65e9ff4f129e1",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       626
+      ],
+      [
+       626,
+       940
+      ],
+      [
+       940,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 88,
+   "rowScales": [
+    0.3188,
+    0.3284,
+    0.3259,
+    0.3165
+   ],
+   "rowScalesUnclamped": [
+    0.3188,
+    0.3284,
+    0.3259,
+    0.3165
+   ],
+   "rowSource": {
+    "s": "passant-oma-walk.png Zeile 1",
+    "w": "passant-oma-walk.png Zeile 2",
+    "e": "passant-oma-walk.png Zeile 3",
+    "n": "passant-oma-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     88,
+     88,
+     87,
+     88,
+     88,
+     88,
+     87,
+     87,
+     88,
+     87,
+     88,
+     86,
+     88,
+     86,
+     88,
+     86
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1233,
+    "problems": [
+     "Frame 0: 57 magentastichige Pixel",
+     "Frame 1: 63 magentastichige Pixel",
+     "Frame 2: 39 magentastichige Pixel",
+     "Frame 3: 65 magentastichige Pixel",
+     "Frame 4: 69 magentastichige Pixel",
+     "Frame 5: 68 magentastichige Pixel",
+     "Frame 6: 64 magentastichige Pixel",
+     "Frame 7: 45 magentastichige Pixel",
+     "Frame 8: 88 magentastichige Pixel",
+     "Frame 9: 102 magentastichige Pixel",
+     "Frame 10: 97 magentastichige Pixel",
+     "Frame 11: 73 magentastichige Pixel",
+     "Frame 12: 95 magentastichige Pixel",
+     "Frame 13: 102 magentastichige Pixel",
+     "Frame 14: 104 magentastichige Pixel",
+     "Frame 15: 102 magentastichige Pixel"
+    ]
+   },
+   "note": "Generisches Laufblatt (alte Dame, etwas gebückt).",
+   "out": "game/public/assets/sprites/passant-oma-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-punk": {
+  "walk": {
+   "raws": {
+    "passant-punk-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-punk-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "1ac9299a64ba8b58",
+     "rowBands": [
+      [
+       0,
+       308
+      ],
+      [
+       308,
+       616
+      ],
+      [
+       616,
+       928
+      ],
+      [
+       928,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3491,
+    0.3596,
+    0.3556,
+    0.3429
+   ],
+   "rowScalesUnclamped": [
+    0.3491,
+    0.3596,
+    0.3556,
+    0.3429
+   ],
+   "rowSource": {
+    "s": "passant-punk-walk.png Zeile 1",
+    "w": "passant-punk-walk.png Zeile 2",
+    "e": "passant-punk-walk.png Zeile 3",
+    "n": "passant-punk-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     95,
+     96,
+     95,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-punk-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-schrotti": {
+  "walk": {
+   "raws": {
+    "passant-schrotti-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-schrotti-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "78eaabb54fd80e10",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       624
+      ],
+      [
+       624,
+       937
+      ],
+      [
+       937,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3368,
+    0.3453,
+    0.3478,
+    0.3345
+   ],
+   "rowScalesUnclamped": [
+    0.3368,
+    0.3453,
+    0.3478,
+    0.3345
+   ],
+   "rowSource": {
+    "s": "passant-schrotti-walk.png Zeile 1",
+    "w": "passant-schrotti-walk.png Zeile 2",
+    "e": "passant-schrotti-walk.png Zeile 3",
+    "n": "passant-schrotti-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     91,
+     96,
+     88,
+     96,
+     96,
+     96,
+     94,
+     96,
+     93,
+     96,
+     95,
+     96,
+     93,
+     95,
+     91
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-schrotti-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-strassenhaendler": {
+  "walk": {
+   "raws": {
+    "passant-strassenhaendler-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-strassenhaendler-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "570404c665ae1e19",
+     "rowBands": [
+      [
+       0,
+       313
+      ],
+      [
+       313,
+       622
+      ],
+      [
+       622,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3556,
+    0.3721,
+    0.3721,
+    0.3582
+   ],
+   "rowScalesUnclamped": [
+    0.3556,
+    0.3721,
+    0.3721,
+    0.3582
+   ],
+   "rowSource": {
+    "s": "passant-strassenhaendler-walk.png Zeile 1",
+    "w": "passant-strassenhaendler-walk.png Zeile 2",
+    "e": "passant-strassenhaendler-walk.png Zeile 3",
+    "n": "passant-strassenhaendler-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     93,
+     96,
+     93,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     94,
+     96,
+     92
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/passant-strassenhaendler-walk.png"
+  },
+  "portraits": {}
+ },
+ "passant-tourist": {
+  "walk": {
+   "raws": {
+    "passant-tourist-walk.png": {
+     "path": "output/imagegen/raw/characters/passant-tourist-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "a2dae2d4ea5b86b6",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       627
+      ],
+      [
+       627,
+       943
+      ],
+      [
+       943,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3345,
+    0.3368,
+    0.3357,
+    0.338
+   ],
+   "rowScalesUnclamped": [
+    0.3345,
+    0.3368,
+    0.3357,
+    0.338
+   ],
+   "rowSource": {
+    "s": "passant-tourist-walk.png Zeile 1",
+    "w": "passant-tourist-walk.png Zeile 2",
+    "e": "passant-tourist-walk.png Zeile 3",
+    "n": "passant-tourist-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     95,
+     94,
+     96,
+     96,
+     95,
+     95,
+     96,
+     96,
+     95,
+     95,
+     96,
+     96,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 436,
+    "problems": [
+     "Frame 0: 27 magentastichige Pixel",
+     "Frame 1: 26 magentastichige Pixel",
+     "Frame 2: 24 magentastichige Pixel",
+     "Frame 3: 28 magentastichige Pixel",
+     "Frame 4: 21 magentastichige Pixel",
+     "Frame 5: 22 magentastichige Pixel",
+     "Frame 6: 20 magentastichige Pixel",
+     "Frame 7: 23 magentastichige Pixel",
+     "Frame 8: 18 magentastichige Pixel",
+     "Frame 9: 28 magentastichige Pixel",
+     "Frame 10: 24 magentastichige Pixel",
+     "Frame 11: 22 magentastichige Pixel",
+     "Frame 12: 38 magentastichige Pixel",
+     "Frame 13: 32 magentastichige Pixel",
+     "Frame 14: 42 magentastichige Pixel",
+     "Frame 15: 41 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/passant-tourist-walk.png"
+  },
+  "portraits": {}
+ },
+ "pim-pinzette": {
+  "walk": {
+   "raws": {
+    "pim-pinzette-walk.png": {
+     "path": "output/imagegen/raw/characters/pim-pinzette-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "7f7cd3a5e2eff759",
+     "rowBands": [
+      [
+       0,
+       317
+      ],
+      [
+       317,
+       626
+      ],
+      [
+       626,
+       942
+      ],
+      [
+       942,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 90,
+   "rowScales": [
+    0.3321,
+    0.3409,
+    0.3371,
+    0.3297
+   ],
+   "rowScalesUnclamped": [
+    0.3321,
+    0.3409,
+    0.3371,
+    0.3297
+   ],
+   "rowSource": {
+    "s": "pim-pinzette-walk.png Zeile 1",
+    "w": "pim-pinzette-walk.png Zeile 2",
+    "e": "pim-pinzette-walk.png Zeile 3",
+    "n": "pim-pinzette-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     90,
+     89,
+     90,
+     89,
+     90,
+     90,
+     89,
+     90,
+     90,
+     90,
+     89,
+     90,
+     90,
+     87,
+     90,
+     88
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "note": "Zierlich, etwas kleiner als die übrigen Erwachsenen.",
+   "out": "game/public/assets/sprites/pim-pinzette-walk.png"
+  },
+  "portraits": {
+   "base": {
+    "raw": "output/imagegen/raw/characters/pim-pinzette-portrait.png",
+    "rawSize": [
+     1254,
+     1254
+    ],
+    "sha256": "6a234e190ba05367",
+    "out": "game/public/assets/portraits/pim-pinzette.webp",
+    "bytes": 31598
+   }
+  }
+ },
  "pixie": {
   "walk": {
    "raws": {
@@ -1318,6 +3401,92 @@
     "bytes": 42838
    }
   }
+ },
+ "quantum-wachmann": {
+  "walk": {
+   "raws": {
+    "quantum-wachmann-walk.png": {
+     "path": "output/imagegen/raw/characters/quantum-wachmann-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "3a5cd5dc8c381221",
+     "rowBands": [
+      [
+       0,
+       313
+      ],
+      [
+       313,
+       620
+      ],
+      [
+       620,
+       934
+      ],
+      [
+       934,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3609,
+    0.375,
+    0.3721,
+    0.3582
+   ],
+   "rowScalesUnclamped": [
+    0.3609,
+    0.375,
+    0.3721,
+    0.3582
+   ],
+   "rowSource": {
+    "s": "quantum-wachmann-walk.png Zeile 1",
+    "w": "quantum-wachmann-walk.png Zeile 2",
+    "e": "quantum-wachmann-walk.png Zeile 3",
+    "n": "quantum-wachmann-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     96,
+     96,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     94,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 95,
+    "problems": [
+     "Frame 0: 7 magentastichige Pixel",
+     "Frame 1: 11 magentastichige Pixel",
+     "Frame 2: 14 magentastichige Pixel",
+     "Frame 3: 7 magentastichige Pixel",
+     "Frame 7: 11 magentastichige Pixel",
+     "Frame 11: 8 magentastichige Pixel"
+    ]
+   },
+   "out": "game/public/assets/sprites/quantum-wachmann-walk.png"
+  },
+  "portraits": {}
  },
  "raven": {
   "walk": {
@@ -1589,6 +3758,165 @@
    }
   }
  },
+ "robohund": {
+  "walk": {
+   "raws": {
+    "robohund-walk.png": {
+     "path": "output/imagegen/raw/characters/robohund-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "af33fd751c959c4d",
+     "rowBands": [
+      [
+       0,
+       324
+      ],
+      [
+       324,
+       620
+      ],
+      [
+       620,
+       921
+      ],
+      [
+       921,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 62,
+   "rowScales": [
+    0.2648,
+    0.3108,
+    0.3108,
+    0.2648
+   ],
+   "rowScalesUnclamped": [
+    0.248,
+    0.3246,
+    0.3246,
+    0.251
+   ],
+   "rowSource": {
+    "s": "robohund-walk.png Zeile 1",
+    "w": "robohund-walk.png Zeile 2",
+    "e": "robohund-walk.png Zeile 3",
+    "n": "robohund-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     66,
+     64,
+     66,
+     64,
+     58,
+     59,
+     58,
+     59,
+     58,
+     59,
+     58,
+     59,
+     65,
+     61,
+     65,
+     61
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "note": "Generisches Laufblatt (Roboterhund, kniehoch).",
+   "out": "game/public/assets/sprites/robohund-walk.png"
+  },
+  "portraits": {}
+ },
+ "rostzahn-schlaeger": {
+  "walk": {
+   "raws": {
+    "rostzahn-schlaeger-walk.png": {
+     "path": "output/imagegen/raw/characters/rostzahn-schlaeger-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "4128c5cdebc33774",
+     "rowBands": [
+      [
+       0,
+       311
+      ],
+      [
+       311,
+       619
+      ],
+      [
+       619,
+       933
+      ],
+      [
+       933,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3504,
+    0.3623,
+    0.3582,
+    0.3504
+   ],
+   "rowScalesUnclamped": [
+    0.3504,
+    0.3623,
+    0.3582,
+    0.3504
+   ],
+   "rowSource": {
+    "s": "rostzahn-schlaeger-walk.png Zeile 1",
+    "w": "rostzahn-schlaeger-walk.png Zeile 2",
+    "e": "rostzahn-schlaeger-walk.png Zeile 3",
+    "n": "rostzahn-schlaeger-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     95,
+     95,
+     95,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96,
+     96
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 1,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/rostzahn-schlaeger-walk.png"
+  },
+  "portraits": {}
+ },
  "seraphina": {
   "walk": {
    "raws": {
@@ -1769,6 +4097,86 @@
     "bytes": 34644
    }
   }
+ },
+ "spaeherdrohne": {
+  "walk": {
+   "raws": {
+    "spaeherdrohne-walk-v2.png": {
+     "path": "output/imagegen/raw/characters/spaeherdrohne-walk-v2.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "6a91d98987243a78",
+     "rowBands": [
+      [
+       0,
+       302
+      ],
+      [
+       302,
+       627
+      ],
+      [
+       627,
+       938
+      ],
+      [
+       938,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 50,
+   "rowScales": [
+    0.2959,
+    0.2618,
+    0.266,
+    0.289
+   ],
+   "rowScalesUnclamped": [
+    0.2959,
+    0.2618,
+    0.266,
+    0.289
+   ],
+   "rowSource": {
+    "s": "spaeherdrohne-walk-v2.png Zeile 1",
+    "w": "spaeherdrohne-walk-v2.png Zeile 2",
+    "e": "spaeherdrohne-walk-v2.png Zeile 3",
+    "n": "spaeherdrohne-walk-v2.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     50,
+     50,
+     49,
+     49,
+     50,
+     49,
+     50,
+     49,
+     50,
+     50,
+     50,
+     49,
+     50,
+     49,
+     49,
+     49
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 2,
+    "problems": []
+   },
+   "note": "Generisches Laufblatt (Späherdrohne, schwebend). v1 hatte einen rosa Stich über dem ganzen Körper; v2 neutral weiß/grau, durchscheinende Rotoren über clearPink bereinigt.",
+   "out": "game/public/assets/sprites/spaeherdrohne-walk.png"
+  },
+  "portraits": {}
  },
  "sybella": {
   "walk": {
@@ -2222,5 +4630,84 @@
     "bytes": 28588
    }
   }
+ },
+ "zerleger": {
+  "walk": {
+   "raws": {
+    "zerleger-walk.png": {
+     "path": "output/imagegen/raw/characters/zerleger-walk.png",
+     "size": [
+      1254,
+      1254
+     ],
+     "sha256": "afc1b142b05b1052",
+     "rowBands": [
+      [
+       0,
+       316
+      ],
+      [
+       316,
+       622
+      ],
+      [
+       622,
+       937
+      ],
+      [
+       937,
+       1254
+      ]
+     ]
+    }
+   },
+   "targetHeight": 96,
+   "rowScales": [
+    0.3582,
+    0.3735,
+    0.3636,
+    0.3516
+   ],
+   "rowScalesUnclamped": [
+    0.3582,
+    0.3735,
+    0.3636,
+    0.3516
+   ],
+   "rowSource": {
+    "s": "zerleger-walk.png Zeile 1",
+    "w": "zerleger-walk.png Zeile 2",
+    "e": "zerleger-walk.png Zeile 3",
+    "n": "zerleger-walk.png Zeile 4"
+   },
+   "resample": "lanczos-premultiplied, soft alpha",
+   "qa": {
+    "heights": [
+     96,
+     94,
+     96,
+     94,
+     96,
+     95,
+     96,
+     96,
+     96,
+     95,
+     95,
+     95,
+     95,
+     94,
+     96,
+     95
+    ],
+    "footY": [
+     120
+    ],
+    "magentaPixels": 0,
+    "problems": []
+   },
+   "out": "game/public/assets/sprites/zerleger-walk.png"
+  },
+  "portraits": {}
  }
 }

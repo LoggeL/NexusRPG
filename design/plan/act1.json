@@ -1,0 +1,5238 @@
+{
+  "version": 1,
+  "act": 1,
+  "districts": {
+    "unterstadt": {
+      "name": "Unterstadt",
+      "ambience": "unterstadt",
+      "music": {
+        "day": "unterstadt-tag",
+        "night": "unterstadt-nacht"
+      },
+      "owner": "pkg-neon-gasse"
+    },
+    "mittelring": {
+      "name": "Mittelring",
+      "ambience": "oberstadt",
+      "music": "mittelring",
+      "owner": "pkg-stufenplatz-digitech"
+    },
+    "oberstadt": {
+      "name": "Oberstadt",
+      "ambience": "oberstadt",
+      "music": "oberstadt",
+      "owner": "pkg-stufenplatz-digitech"
+    },
+    "kanalisation": {
+      "name": "Kanalisation",
+      "ambience": "kanal",
+      "music": "kanalisation",
+      "owner": "pkg-kanal-sammler"
+    },
+    "kueste": {
+      "name": "Küste",
+      "ambience": "meer",
+      "music": "flutmauer",
+      "owner": "pkg-flutmauer"
+    }
+  },
+  "stations": {
+    "station-neon-gasse": {
+      "name": "Neon-Gasse",
+      "map": "neon-gasse",
+      "entry": "station",
+      "cityPos": [
+        0.36,
+        0.62
+      ],
+      "when": ""
+    },
+    "station-bahnhof-mitte": {
+      "name": "Bahnhof Mitte",
+      "map": "bahnhof-mitte",
+      "entry": "station",
+      "cityPos": [
+        0.42,
+        0.52
+      ],
+      "when": ""
+    },
+    "station-hafenkante": {
+      "name": "Hafenkante",
+      "map": "hafenkante",
+      "entry": "station",
+      "cityPos": [
+        0.58,
+        0.68
+      ],
+      "when": ""
+    },
+    "station-rohrbogen": {
+      "name": "Rohrbogen",
+      "map": "rohrsiedlung",
+      "entry": "station",
+      "cityPos": [
+        0.48,
+        0.78
+      ],
+      "when": ""
+    },
+    "station-stufenplatz": {
+      "name": "Stufenplatz",
+      "map": "stufenplatz",
+      "entry": "station",
+      "cityPos": [
+        0.44,
+        0.38
+      ],
+      "when": "main-1-probezeit erledigt oder Stufenplatz einmal betreten"
+    },
+    "station-glasarkaden": {
+      "name": "Glasarkaden",
+      "map": "glasarkaden",
+      "entry": "station",
+      "cityPos": [
+        0.5,
+        0.3
+      ],
+      "when": "Flag drehkreuz_passiert (Drehkreuz einmal passiert)"
+    }
+  },
+  "maps": {
+    "neon-gasse": {
+      "name": "Neon-Gasse",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-neon-gasse",
+      "parent": "",
+      "station": "station-neon-gasse",
+      "exits": [
+        {
+          "id": "nach-schrottmarkt",
+          "to": "schrottmarkt",
+          "entry": "von-neon-gasse",
+          "label": "Zum Schrottmarkt",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-loetgassen",
+          "to": "loetgassen",
+          "entry": "von-neon-gasse",
+          "label": "Zu den Lötgassen",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-neon-gasse",
+          "label": "U-Bahn-Treppe: Bahnhof Mitte",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-high-voltage",
+          "to": "high-voltage",
+          "entry": "von-neon-gasse",
+          "label": "High Voltage",
+          "edge": "tuer",
+          "when": "Flag hv_einlass (Bruno: gc-04 [Ausstrahlung 3], Hunters Nachricht zeigen oder 20 Cr); nach main-1-probezeit immer; M/T ohne Bruno offen",
+          "lockedText": "Bruno Brecher verschränkt die Arme: „Nur Gäste mit Stil. Du bist keiner. Noch nicht.“"
+        },
+        {
+          "id": "nach-crew-quartier",
+          "to": "crew-quartier",
+          "entry": "von-neon-gasse",
+          "label": "Hintertreppe: Crew-Quartier",
+          "edge": "tuer",
+          "when": "main-1-probezeit erledigt",
+          "lockedText": "Die Hintertreppe gehört Hunters Leuten. Auf dem Geländer klebt ein Zettel: „Fremde fliegen. – C. K.“"
+        },
+        {
+          "id": "dachsprung-loetgassen",
+          "to": "loetgassen",
+          "entry": "dach-taubenschlag",
+          "label": "Dachsprung zu den Lötgassen",
+          "edge": "tuer",
+          "when": "gc-150 [Reflexe 7] oder beine-sprungfedern oder arme-greifhaken (Exit mit check, Alternativen per Item)",
+          "lockedText": "Drei Meter Luft und sieben Stockwerke Meinung. Dein Körper sagt Nein. Dein Ego auch, leise."
+        }
+      ],
+      "entries": [
+        "von-schrottmarkt",
+        "von-loetgassen",
+        "von-bahnhof-mitte",
+        "von-high-voltage",
+        "von-crew-quartier",
+        "dachkante",
+        "station",
+        "taxi"
+      ],
+      "spots": {
+        "kiosk": "Volt-Eck, Oma Volt M/T/A (Händler volt-eck), pers-kuschel-ohrenflick, side-oma-volts-lager Auftakt, side-keksalarm Mehl, Feuerwerk prep-ablenkung",
+        "kiosk-waechter": "Opa Blech (Kioskwächter nach he-oma-volt-4 / side-oma-volts-lager)",
+        "hv-eingang": "Eingang High Voltage mit Samtkordel: Bruno Brecher A/N, job-tuersteher 21–01, Knut und Kurt als Türsteher nach side-abzieher (Gesprächsweg)",
+        "vorplatz": "HV-Vorplatz: Kiki Karbon A + N + T Sa/So, Ende rom-vexaria-licht (vor dem HV beim Rausgehen)",
+        "werbestand": "Xions Werbestand „Freiwillige gesucht – Snacks inklusive!“: Xion A (Hintergrund, ein Satz), he-jimmy-6 Beweis",
+        "stadt-tv": "Stadt-TV an der Hauswand (Nachrichten, Collin/Blade-Beiträge)",
+        "gassenmitte": "Aria T (wartet, pöbelt Passanten an), Passanten, rom-vexaria-schutzgeld-Gerüchte",
+        "pfandflaschen-ecke": "Daria A (Pfandflaschen, bis 20 Uhr)",
+        "paul-ecke": "Paul T (Oma Volts Neffe, ab act2 komisch höflich)",
+        "lumos-ecke": "DJ Lumo A (raucht vor dem Set), Auftakt side-lumos-platte",
+        "kalle-ecke": "kopfgeld-krawall-kalle N (prügelt sich mit Türstehern)",
+        "pfeffer-gasse": "enc-gasse-pfeffer (prep-zugangskarte Kampfweg), Pfeffer auf dem Heimweg Fr/Sa N",
+        "muelltonnen": "Mülltonnen/Lüftungsgitter mit Dampf, Versteck Schuldner (job-schulden), Loot rostige-dose",
+        "stellwerk-kasten": "Stellwerk 1 von 3 für side-uebliche-verspaetung (Störsender, gc-50)",
+        "vordach": "Vordach neben dem Kiosk: rom-aria-regen (Akt 2) – Platz freihalten",
+        "feuerleiter": "Feuerleiter zur Dachterrasse; Treffpunkt rom-aria-albtraum (03:00, unterhalb der Dachterrasse)",
+        "dachterrasse": "Dachterrasse (über die Feuerleiter, Teil dieser Karte): Raven M Training + N, he-raven-4, Aussichtspunkt, Nyra N",
+        "vegas-ausguck": "Vegas Ausguck: Vega M/N, he-vega-2, akt-sternegucken, rom-aria-dach (Vega räumt), rom-aria-vega (Akt 2), Start rom-aria-kuss / rom-vexaria-kuss",
+        "lichterketten-bank": "Bank unter Lichterketten: Lio N (außer Sa), he-lio-funkel-6, rom-aria-dach Sitzplatz",
+        "klingen-ecke": "Barkeeper T Klingenübung, he-barkeeper-4",
+        "kamera-stativ": "Kameramann N Sa/So (Zeitraffer, he-kameramann-6)",
+        "apportier-strecke": "Dächer: he-bolzen-4 (Apportieren)",
+        "dachkante": "Dachkante zur Gasse: Start rom-vexaria-luecke, Vex-Dachrennen N Fr/Sa, he-vex-schrapnell-4, Ankunft vom Dachsprung",
+        "die-luecke": "Die Lücke (4,5 m, neun Stockwerke): rom-vexaria-luecke, rom-vexaria-umdrehen (Akt 2), rom-vexaria-kuss (Sprung). NICHT der Dachsprung gc-150",
+        "nils-reklame": "kopfgeld-neon-nils N (klebt Fake-Werbung über Leuchtreklamen, auf den Dächern)",
+        "ubahn-abgang": "Zugang station-neon-gasse"
+      },
+      "hotspots": {
+        "volt-eck": "shop volt-eck (Oma Volt)",
+        "stadt-tv": "screen: Nachrichten (10.5)",
+        "werbestand-xion": "talk/look: Xion ein Satz; ab act2 Gratis-Chip",
+        "samtkordel": "look: „Nur Gäste mit Stil.“",
+        "feuerleiter": "use: hoch zur Dachterrasse / runter (Laufweg, kein Kartenwechsel)",
+        "aussicht-dachterrasse": "look: Aussichtspunkt (20 XP, deckt Zonenkarte auf)",
+        "sternegucken": "minigame akt-sternegucken (N, mit Vega, Wetter klar)",
+        "die-luecke": "look: Die Lücke; bei { playerIs: vex } eigener Text, kein Sprung (dachlaeuferin greift hier nicht)",
+        "dachsprung": "check gc-150 [Reflexe 7] → Ausgang dachsprung-loetgassen, schallplatte-03 am Ziel",
+        "stellwerk-neon": "check gc-50 [Technik 5] (side-uebliche-verspaetung) oder dexters-schraubschluessel",
+        "muelltonne": "loot (rostige-dose, manchmal schrott-ersatzteil)",
+        "ubahn-zugang": "use: U-Bahn station-neon-gasse",
+        "neon-tag-01": "loot neon-tag-01",
+        "neon-tag-02": "loot neon-tag-02 (Dachterrasse)",
+        "glueckstern-01": "loot glueckstern-01",
+        "datenwuerfel-01": "loot datenwuerfel-01 (Lüftungsgitter, akt-schloss)"
+      }
+    },
+    "high-voltage": {
+      "name": "High Voltage",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "indoor",
+      "music": "high-voltage",
+      "package": "pkg-neon-gasse",
+      "parent": "neon-gasse",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "von-high-voltage",
+          "label": "Raus in die Gasse",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-hv-hinterzimmer",
+          "to": "hv-hinterzimmer",
+          "entry": "von-high-voltage",
+          "label": "Hinterzimmer",
+          "edge": "tuer",
+          "when": "Bewerbungsgespräch in main-1-probezeit läuft (Flag probezeit_gespraech) oder main-1-probezeit erledigt",
+          "lockedText": "Hunter, ohne aufzusehen: „Personal. Bist du Personal? Eben.“"
+        },
+        {
+          "id": "nach-crew-quartier",
+          "to": "crew-quartier",
+          "entry": "von-high-voltage",
+          "label": "Personaltreppe: Crew-Quartier",
+          "edge": "tuer",
+          "when": "main-1-probezeit erledigt",
+          "lockedText": "Der Barkeeper stellt sich wortlos vor die Treppe. Das reicht."
+        }
+      ],
+      "entries": [
+        "von-neon-gasse",
+        "von-hv-hinterzimmer",
+        "von-crew-quartier"
+      ],
+      "spots": {
+        "tresen": "Barkeeper M (Gläser) und A/N, Mixi daneben, akt-barschicht, he-barkeeper-2, gc-17 Rede auf dem Tresen (main-1-auf-raven), Zutaten side-neon-limo / Zucker side-keksalarm",
+        "tresen-ende": "Hunter A/N (Mo A/N vertritt er den Barkeeper und mixt schlecht), he-hunter-4 Diva",
+        "kasse": "Hunter M Kassenbuch, he-hunter-2 (Kasse nach Feierabend), pers-hunter-reiner-tisch",
+        "mixi-ecke": "Mixi der Mixroboter (side-neon-limo gc-71)",
+        "bar-hocker": "Raven A",
+        "ecktisch": "Ripper A (Ecktisch), main-1-probezeit Konfrontation (enc-hv-ripper-tisch), akt-armdruecken, he-aria-6, rom-vexaria-armdruecken, Ripper-Tag Vex Mo A, he-ripper-6",
+        "kartentisch": "Neben dem Ecktisch: akt-eins, Richter Do A heimlich beim Kartenspiel",
+        "tanzflaeche": "Aria N, Dante Sa N, akt-tanz (Fr/Sa N), main-1-auf-raven Tanz, rom-vexaria-tanz (Fr/Sa N)",
+        "buehne": "Karaoke Di/Fr N (akt-karaoke), Lio Sa N und Di A, prep-zugangskarte gc-24 Karaoke-Wette",
+        "moderatorenpult": "Collin Di A/N (Karaoke-Moderation)",
+        "dj-pult": "DJ Lumo N, side-lumos-platte Abend an den Plattentellern",
+        "vega-aria-tisch": "Vega und Aria A (Stammtisch der beiden), he-vega-6 Streit",
+        "laptop-ecke": "Nyra A Sa/So, main-1-probezeit Nyra lauscht (gc-08)",
+        "sitzecke-gaeste": "Gäste: Jimmy A nach side-jimmys-chip, Quantum-Fahrer in main-1-auf-raven (gc-16)",
+        "dexter-tisch": "Dexter A nach main-1-dexter",
+        "pfeffer-tisch": "Wachmann Pfeffer Fr/Sa A/N (prep-zugangskarte gc-23 Taschendiebstahl)",
+        "stammtisch": "Käptn Nebelhorn Mi/Fr A, he-kaeptn-nebelhorn-6 (Pakt mit Hunter)",
+        "oldie-ecke": "Opa Gustav Fr A (Oldie-Stunde), Marla Sand Sa A",
+        "fruehstueckstisch": "Morgen-danach-Kommentare der Crew (Romanzen), Frühstück nach rom-vexaria-morgen",
+        "begleiter-brett": "Begleiterwechsel im High Voltage"
+      },
+      "hotspots": {
+        "hv-bar": "shop hv-bar (Barkeeper; Mo A/N Hunter)",
+        "barschicht": "minigame akt-barschicht (A, nicht Mo)",
+        "karaoke": "minigame akt-karaoke (Di und Fr N)",
+        "tanzflaeche": "minigame akt-tanz (Fr/Sa N, DJ Lumo)",
+        "armdruecken": "minigame akt-armdruecken (A, Ecktisch)",
+        "eins-kartentisch": "minigame akt-eins",
+        "mixi": "check gc-71 [Technik 4] (side-neon-limo)",
+        "begleiter-brett": "use: Begleiter wechseln",
+        "kabelbrand-poster": "look: Kabelbrand-Tourplakat 2081 (pers-aria-lieblingsshirt, Aria-Strang)"
+      }
+    },
+    "hv-hinterzimmer": {
+      "name": "Hinterzimmer",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "high-voltage",
+      "package": "pkg-neon-gasse",
+      "parent": "neon-gasse",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-high-voltage",
+          "to": "high-voltage",
+          "entry": "von-hv-hinterzimmer",
+          "label": "Zurück in den Club",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-high-voltage"
+      ],
+      "spots": {
+        "schreibtisch": "Hunter T (Mo/Do vormittags auf dem Schrottmarkt), main-1-probezeit Bewerbungsgespräch",
+        "planungstisch": "main-1-der-plan Briefing (Crew versammelt), Planungstafel",
+        "sofa": "Vega/Aria mit Dexters Beutel (main-1-probezeit), Raven-Toast-Nachbesprechung",
+        "jimmys-kiste": "he-hunter-2 (Jimmys Kiste ausräumen)",
+        "fotowand": "Fotowand der alten Crew mit Blade (he-hunter-8 ab act2)"
+      },
+      "hotspots": {
+        "auftragstafel": "board auftragstafel (job-*, kopfgeld-* Stufe 1–2, Rang 1–4)",
+        "planungstafel": "board planungstafel (prep-*, ab main-1-der-plan; „Heute Nacht losschlagen“ nach zwei prep-*)",
+        "fotowand": "look: alte Crew mit Blade",
+        "jimmys-kiste": "look/loot (he-hunter-2)"
+      }
+    },
+    "crew-quartier": {
+      "name": "Crew-Quartier",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-neon-gasse",
+      "parent": "neon-gasse",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "von-crew-quartier",
+          "label": "Hintertreppe zur Gasse",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-high-voltage",
+          "to": "high-voltage",
+          "entry": "von-crew-quartier",
+          "label": "Personaltreppe in den Club",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-neon-gasse",
+        "von-high-voltage",
+        "aufwachen"
+      ],
+      "spots": {
+        "bett": "Bett (sleep, Tagesende 06:00), Aufwachpunkt nach Zusammenbruch um 02:00",
+        "truhe": "Truhe; Aria sitzt nach Albtraum-Nächten mit zwei Kaffee darauf (Romanze)",
+        "pinnwand": "Ausbau Stufe 1 (Planungstafel-Kopie)",
+        "plattenspieler": "Ausbau Stufe 2 (side-schallplatten, Musikwahl)",
+        "werkbank": "Ausbau Stufe 3 (akt-werkbank, akt-kochen)",
+        "couch": "Gästecouch (Stufe 4 ab act2-Ausbau): Jimmy N nach side-jimmys-chip, Aria gelegentlich",
+        "tuer-innen": "Arias alter Schläger lehnt hier (Romanze zusammen), Kabelbrand-Poster über dem Bett",
+        "hundekorb": "Bolzen schläft hier (nach side-hunde-der-brackbucht), he-bolzen-2 Morgenfund",
+        "fenster": "Fenster zur Gasse (Ausbau Stufe 6 Meeresposter, später)"
+      },
+      "hotspots": {
+        "bett": "sleep (bed)",
+        "truhe": "use: Lager",
+        "ausbau": "use: Quartier-Ausbau Stufen 0–3 (Kosten 3.7)",
+        "pinnwand": "board planungstafel (ab Stufe 1)",
+        "plattenspieler": "use: Musikwahl (ab Stufe 2)",
+        "werkbank": "minigame akt-werkbank / akt-kochen (ab Stufe 3)",
+        "kuschel-zettel": "look: Zettel von Captain Kuschel nach dem Zusammenbruch",
+        "hundekorb": "look/use: Bolzens Morgenfund (he-bolzen-2)"
+      }
+    },
+    "schrottmarkt": {
+      "name": "Schrottmarkt",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-schrottmarkt",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "von-schrottmarkt",
+          "label": "Zur Neon-Gasse",
+          "edge": "w",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-rohrsiedlung",
+          "to": "rohrsiedlung",
+          "entry": "von-schrottmarkt",
+          "label": "Zur Rohrsiedlung",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-hafenkante",
+          "to": "hafenkante",
+          "entry": "von-schrottmarkt",
+          "label": "Zur Hafenkante",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-ripper-praxis",
+          "to": "ripper-praxis",
+          "entry": "von-schrottmarkt",
+          "label": "Rippers Praxis",
+          "edge": "tuer",
+          "when": "T geöffnet (Ripper da); sonst geschlossen",
+          "lockedText": "Ein Schild am grünen Kreuz: „Komme gleich. Oder nicht. – R.“"
+        },
+        {
+          "id": "kanalgitter",
+          "to": "kanal-sammler",
+          "entry": "gitter-schrottmarkt",
+          "label": "Kanalgitter",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        }
+      ],
+      "entries": [
+        "von-neon-gasse",
+        "von-rohrsiedlung",
+        "von-hafenkante",
+        "von-ripper-praxis",
+        "kanalgitter",
+        "taxi"
+      ],
+      "spots": {
+        "garkueche": "Babette M/T/A (Bao Babette – Dampfnudeln seit 2061), akt-kochen, he-babette-bao-2/6, pers-babette-markttag, side-zehn-credits Abschlussessen",
+        "garkueche-hocker": "Jakko M/T/A (außer T Mo/Mi/Fr am Kran), he-jakko-2/6, pers-jakko-kochbuch",
+        "garkueche-bank": "Vega T (wenn nicht am Bahnhof), Richter Fr A, gemeinsames Essen",
+        "kran": "Gustavs Kran: Gustav M, Jakko T Mo/Mi/Fr, side-thai-chi Aria-Mutprobe (gc-80)",
+        "kran-kabine": "Kranfahrt (gc-148), Aussichtspunkt, he-opa-gustav-2",
+        "schrottkram-stand": "Gustav T (Händler gustavs-schrottkram), side-rostlaube Zündkerze/Kühlerpumpe-Tausch, side-drohnenrennen Motor",
+        "wohnwagen": "Gustav A mit Radio, he-opa-gustav-4 (Fotos), Werkbank ab he-opa-gustav-6",
+        "halde": "Schrotthalde: enc-schrott-drohnen (main-1-dexter, gc-45), Schrottkrähen, Bolzen verletzt (Kampfweg side-hunde), job-bergung",
+        "dexter-buero": "Dexters Wellblechbüro: Dexter T/A/N, main-1-dexter (gc-09–gc-12, enc-schrott-dexter), he-dexter-2/6, side-chrome-10 Auftrag, side-drohnenrennen Rahmen",
+        "dexter-versteck": "Dexter M (versteckt sich vor Aria hinter dem großen Fernseher-Stand)",
+        "oelfass": "Ölfass bei Dexters Büro (gc-11 [Straße 6])",
+        "inkasso-gasse": "Aria M (Inkasso), he-aria-2 (Mülltonne bei Dexter)",
+        "stadt-tv": "Stand mit großem Fernseher: Stadt-TV „Sieben Jahre Quantum“ (main-1-ankunft), Delya T + Kameramann T (wenn nicht live)",
+        "filmposten": "Kameramann A (filmt den Markt), he-kameramann-4",
+        "botenstand": "Daria T + Freya T (Botenstand), side-zehn-credits, pers-daria-botendienst, side-eins-turnier Anmeldung (So T), Kind mit neuem „Hut“ (side-collins-peruecke)",
+        "mila-ecke": "Mila T (Pfeffers Tochter, Freundin der Kinder)",
+        "elektronikstand": "Nyra T (Händler elektronikstand)",
+        "raven-ecke": "Raven T (lehnt an einem Stand und beobachtet)",
+        "marktplatz-mitte": "Hunter T Mo/Do (Einkauf), Barkeeper T Mo, main-1-raven Fluchtroute Start",
+        "marktstaende": "main-1-raven Flucht über die Stände (gc-14 [Reflexe 6]) und Aria-Ringkampf enc-markt-raven",
+        "plattenkiste-dante": "Dantes Plattenkiste (Dante Mo/Do M)",
+        "plattenstand-vincent": "Vinyl-Vincent T/A (Händler vinyl-vincent, gc-64), pers-aria-lieblingsshirt Tausch",
+        "huetchenspiel": "Wett-Willi T/A (akt-huetchenspiel, gc-151)",
+        "imbiss-loetkolben": "Imbiss „Lötkolben“: Pim A, prep-grundriss gc-104 (Serviette), he-pim-pinzette-4/6, Händler imbiss-loetkolben (auch N)",
+        "lio-ecke": "Lio A (spielt), Freya A hört zu (bis 20 Uhr)",
+        "oma-volts-lager": "Hinterhof-Lager von Oma Volt: side-oma-volts-lager (enc-markt-rostzaehne, gc-78, gc-79 Opa Blech)",
+        "gerds-stand": "Gutschein-Gerd T (side-chrome-10, enc-markt-gerd, gc-61 vor Publikum)",
+        "gerds-hinterhof": "Drucker im Hinterhof + Kassenterminal (gc-60), enttäuschte Kunden, Gerd A",
+        "kabelbrand-merch": "Ex-Kabelbrand-Roadie mit Shirt-Kiste (pers-aria-lieblingsshirt gc-84 Armdrücken)",
+        "watt-pose": "Meister Watt (hält seit 30 Jahren dieselbe Pose; Lehrer für side-thai-chi)",
+        "klingel-stand": "Frau Klingel (Hörimplantat spielt Radio, side-zweite-hand gc-75)",
+        "karawanenstand": "Marla Sand Sa M/T (Händler marla-karawane, he-marla-sand-2)",
+        "flohmarkt": "Flohmarkt So T (akt-flohmarkt, Händler flohmarkt; Gustav, Oma Volt, Richter So T)",
+        "taxi-landeplatz": "Kiki T Di/Do (Landeplatz Schwebetaxi)",
+        "sybella-verkleidet": "Sybella verkleidet A Di/Sa (Hintergrundfigur, ein Satz)",
+        "zoltan-revier": "kopfgeld-zwei-finger-zoltan A",
+        "toaster-ecke": "kopfgeld-toaster N (Halde)",
+        "rostzaehne-streife": "Rostzähne-Streife N (Zufallsbegegnung)",
+        "waage": "Falsche Waage am Markt (he-freya-2)",
+        "auftrag-a": "Generischer Auftragspunkt (Kurier-Empfänger, Schuldner, Eskorte)"
+      },
+      "hotspots": {
+        "bao-babette": "shop bao-babette; minigame akt-kochen",
+        "gustavs-schrottkram": "shop gustavs-schrottkram",
+        "kranhebel": "check gc-148 [Körper 4] oder oelkaennchen → Kranfahrt (Gustav ♥ +20)",
+        "aussicht-kran": "look: Aussichtspunkt Gustavs Kran",
+        "gustavs-werkbank": "minigame akt-werkbank (ab he-opa-gustav-6)",
+        "dexters-schrott": "shop dexters-schrott",
+        "vinyl-vincent": "shop vinyl-vincent (schallplatte-01, schallplatte-02)",
+        "huetchenspiel": "minigame akt-huetchenspiel / check gc-151",
+        "stadt-tv": "screen: Nachrichten",
+        "elektronikstand": "shop elektronikstand",
+        "imbiss-loetkolben": "shop imbiss-loetkolben",
+        "flohmarkt-stand": "minigame akt-flohmarkt (So T) / shop flohmarkt",
+        "karawanenstand": "shop marla-karawane (Sa)",
+        "oma-volts-lager": "use: side-oma-volts-lager; check gc-79 (Opa Blech reaktivieren)",
+        "gerds-kasse": "check gc-60 [Technik 6] / minigame akt-hacken",
+        "gerds-drucker": "look: Beweis „Chrome 10“-Drucker",
+        "halde-wrack": "loot (job-bergung, schrott-ersatzteil)",
+        "waage": "check (he-freya-2: [Technik 3] oder [Straße 3])",
+        "glueckstern-02": "loot glueckstern-02",
+        "glueckstern-03": "loot glueckstern-03 (Halde)",
+        "datenwuerfel-02": "loot datenwuerfel-02",
+        "jimmy-spur-01": "loot jimmy-spur-01"
+      }
+    },
+    "ripper-praxis": {
+      "name": "Rippers Praxis",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-schrottmarkt",
+      "parent": "schrottmarkt",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-schrottmarkt",
+          "to": "schrottmarkt",
+          "entry": "von-ripper-praxis",
+          "label": "Zurück auf den Markt",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-schrottmarkt"
+      ],
+      "spots": {
+        "behandlungsstuhl": "Ripper T (Gebraucht-Cyberware, Einbau), he-ripper-4 (Oberstadt-Käufer)",
+        "auslage": "Auslage mit Implantaten (he-ripper-2: Fälschung entlarven)",
+        "hinterzimmer-vorhang": "Hinterzimmer-Sortiment (ripper_kennt_dich oder Ruf unterstadt 20)",
+        "wartebank": "Kinder mit Implantaten (main-1-probezeit Vorgeschichte, pers-freya-fairer-lohn)",
+        "preistafel": "Faire Preistafel nach pers-freya-fairer-lohn"
+      },
+      "hotspots": {
+        "ripper-praxis": "shop ripper-praxis (ripperdoc)",
+        "ripper-hinterzimmer": "shop ripper-hinterzimmer (Bedingung ripper_kennt_dich oder Ruf unterstadt 20)",
+        "auslage": "look/check (he-ripper-2)",
+        "preistafel": "look (pers-freya-fairer-lohn)"
+      }
+    },
+    "loetgassen": {
+      "name": "Lötgassen",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-loetgassen",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "von-loetgassen",
+          "label": "Zur Neon-Gasse",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-rohrsiedlung",
+          "to": "rohrsiedlung",
+          "entry": "von-loetgassen",
+          "label": "Wäschehof-Durchgang zur Rohrsiedlung",
+          "edge": "o",
+          "when": "ab Tag 2 oder gc-?? [Straße 4] oder Herkunft [Gosse] (Flag waeschehof_offen)",
+          "lockedText": "Wäscheleinen voller Overalls, dahinter ein Typ mit Rohrzange: „Morgen vielleicht, Frischling. Heute wird hier getrocknet.“"
+        },
+        {
+          "id": "nach-dantes-werkstatt",
+          "to": "dantes-werkstatt",
+          "entry": "von-loetgassen",
+          "label": "Dantes Werkstatt",
+          "edge": "tuer",
+          "when": "M–A offen; N nur mit Dante ♥4 (Sofa) oder während Quests",
+          "lockedText": "Drinnen schnarcht jemand im Takt eines Plattenspielers. Klopfen bringt nichts."
+        },
+        {
+          "id": "nach-loetzinn-laden",
+          "to": "loetzinn-laden",
+          "entry": "von-loetgassen",
+          "label": "Lötzinns Laden",
+          "edge": "tuer",
+          "when": "M–A geöffnet",
+          "lockedText": "Rolltor unten. Ein Zettel: „Lötzinn schläft. Lötzinn beißt.“"
+        },
+        {
+          "id": "gully",
+          "to": "kanal-sammler",
+          "entry": "von-loetgassen",
+          "label": "Gully hinter Dantes Werkstatt",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "kanalgitter",
+          "to": "kanal-sammler",
+          "entry": "gitter-loetgassen",
+          "label": "Kanalgitter (Schnellweg)",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        },
+        {
+          "id": "dachsprung-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "dachkante",
+          "label": "Dachsprung zur Neon-Gasse",
+          "edge": "tuer",
+          "when": "gc-150 [Reflexe 7] oder beine-sprungfedern oder arme-greifhaken",
+          "lockedText": "Von hier sieht die Neon-Gasse sehr weit weg aus. Und sehr hart."
+        }
+      ],
+      "entries": [
+        "von-neon-gasse",
+        "von-rohrsiedlung",
+        "von-dantes-werkstatt",
+        "von-loetzinn-laden",
+        "von-kanal-sammler",
+        "kanalgitter",
+        "dach-taubenschlag",
+        "taxi"
+      ],
+      "spots": {
+        "werkstatt-tuer": "Tür voller Aufkleber vor Dantes Werkstatt",
+        "werkstatt-fenster": "Fenster mit Platten und VHS: main-1-dante Lauschen (gc-20 [Reflexe 5])",
+        "loetzinn-tor": "Rolltor von Lötzinns Laden",
+        "taubenschlag": "Opa Gurrmanns Taubenschlag aus Antennen: Opa Gurrmann M/T/A, akt-taubenpost, Ziel rom-vexaria-luecke, Aussichtspunkt",
+        "dach-taubenschlag": "Dach am Taubenschlag (Ankunft Dachsprung, Dachfirst mit schallplatte-03)",
+        "funkmast": "Funkmast über dem Taubenschlag (Leiter, Wartungsplattform, Armbänder an den Streben): he-vex-schrapnell-6, rom-vexaria-funkmast",
+        "kurierbude": "Kurierbude der Schrapnell-Kuriere (Rolltor neben Lötzinn): Vex A, rom-vexaria-schutzgeld, rom-vexaria-bude, rom-vexaria-licht, rom-vexaria-morgen; bei preset vex Vex' Unterschlupf",
+        "kurierbude-dach": "Dach über der Kurierbude: rom-vexaria-funkstille (Akt 2)",
+        "hinterhof-studio": "Hinterhof-Studio (Tai Chi): side-thai-chi M, Kessel unterrichtet nach side-feierabend-fuer-kessel",
+        "gully": "Gullydeckel hinter Dantes Werkstatt (Kanal)",
+        "waeschehof": "Wäschehof-Durchgang (Wäscheleinen voller Overalls)",
+        "lola-werkbank": "kopfgeld-loetkolben-lola T/A (gefährliche Bastel-Implantate)",
+        "stellwerk-loet": "Stellwerk 2 von 3 für side-uebliche-verspaetung",
+        "kabelweg": "side-strom-fuer-die-rohre: Kabel von Lötzinn bis zum Gully legen, Kanalratten vertreiben",
+        "kabeltrommeln": "Funkenflug, Rolltore, Passanten (Schrauber)",
+        "auftrag-a": "Generischer Auftragspunkt"
+      },
+      "hotspots": {
+        "taubenpost": "minigame akt-taubenpost (Opa Gurrmann)",
+        "entflogene-taube": "check gc-153 [Reflexe 5] oder schrott-ersatzteil als Futter",
+        "aussicht-taubenschlag": "look: Aussichtspunkt Taubenschlag",
+        "kurierbude": "use/look: Kurierbude (Deko-Stufen des Vex×Aria-Strangs; bei preset vex Notschlafplatz)",
+        "funkmast": "look: Kanal 9, Armbänder ehemaliger Kuriere",
+        "hinterhof-studio": "use: side-thai-chi (Tastenfolgen per Dialog)",
+        "stellwerk-loet": "check gc-50 [Technik 5]",
+        "schallplatte-03": "loot schallplatte-03 (Dachfirst, nur über Dachsprung gc-150 oder Item)",
+        "datenwuerfel-03": "loot datenwuerfel-03",
+        "neon-tag-03": "loot neon-tag-03",
+        "glueckstern-04": "loot glueckstern-04"
+      }
+    },
+    "dantes-werkstatt": {
+      "name": "Dantes Werkstatt",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "dantes-werkstatt",
+      "package": "pkg-loetgassen",
+      "parent": "loetgassen",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-loetgassen",
+          "to": "loetgassen",
+          "entry": "von-dantes-werkstatt",
+          "label": "Raus in die Lötgassen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-loetgassen",
+        "aufwachen"
+      ],
+      "spots": {
+        "ofen": "Dante M (Ofen), akt-keksalarm, he-dante-2, side-keksalarm",
+        "werkbank": "Dante T (Reparatur), rom-aria-werkstatt (Aria sitzt auf der Werkbank), Vex-Armwartung, side-jimmys-chip Reparatur",
+        "einbau-liege": "Einbau-Liege: Cyberware-Einbau, Aria T Di/Do (Armwartung), he-aria-4",
+        "plattenspieler": "Dante A, he-dante-4 (Tanzen), side-schallplatten Abgabe",
+        "faxgeraet": "Faxgerät von 2060: side-eingehendes-fax (Faxe 06:00), gc-18 in main-1-dante",
+        "fotoschrank": "Schrank mit Raven-Fotos (he-dante-6)",
+        "eins-tisch": "Do A Eins!-Abend (Dante, Daria, Freya, Jakko), side-eins-turnier Finale (So T)",
+        "kuschel-regal": "Captain Kuschel (Platz im Regal)",
+        "jimmy-hocker": "Jimmy M nach side-jimmys-chip",
+        "sofa": "Dantes Sofa (Notschlafplatz ab Dante ♥4; Rauswurf-Ersatz bei Hunter-Rivalität −8)",
+        "geburtstagstisch": "side-keksalarm Feier für Freya (Sa A)"
+      },
+      "hotspots": {
+        "dante-werkstatt": "shop dante-werkstatt (Einbau, Reparatur; ripperdoc, frei ab he-dante-2)",
+        "keksalarm-ofen": "minigame akt-keksalarm (M/A)",
+        "eins-tisch": "minigame akt-eins (Do A)",
+        "faxgeraet": "check gc-18 [Technik 4] / look Faxe",
+        "fotoschrank": "look (he-dante-6)",
+        "plattenregal": "use: Schallplatten abgeben (side-schallplatten)",
+        "reparaturliste": "board dantes-reparaturliste (ab Dante ♥2)",
+        "sofa": "sleep (shelter ab Dante ♥4)"
+      }
+    },
+    "loetzinn-laden": {
+      "name": "Lötzinns Laden",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-loetgassen",
+      "parent": "loetgassen",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-loetgassen",
+          "to": "loetgassen",
+          "entry": "von-loetzinn-laden",
+          "label": "Raus in die Lötgassen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-loetgassen"
+      ],
+      "spots": {
+        "theke": "Mira Lötzinn M/T/A (Neu-Cyberware, Medizin, Hack-Module, Störgranaten)",
+        "werkbank-mira": "Miras Schrauberplatz",
+        "kabelrolle": "Kabelrolle (side-strom-fuer-die-rohre gc-120 Kabel gratis)"
+      },
+      "hotspots": {
+        "loetzinn-laden": "shop loetzinn-laden",
+        "kabelrolle": "use/check gc-120 [Ausstrahlung 4]",
+        "analog-pruefer": "look: Analog-Prüfer im Regal (Akt 2, rom-aria-ausfall Vex-Weg)"
+      }
+    },
+    "rohrsiedlung": {
+      "name": "Rohrsiedlung",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-rohrsiedlung",
+      "parent": "",
+      "station": "station-rohrbogen",
+      "exits": [
+        {
+          "id": "nach-schrottmarkt",
+          "to": "schrottmarkt",
+          "entry": "von-rohrsiedlung",
+          "label": "Zum Schrottmarkt",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-loetgassen",
+          "to": "loetgassen",
+          "entry": "von-rohrsiedlung",
+          "label": "Wäschehof-Durchgang zu den Lötgassen",
+          "edge": "w",
+          "when": "ab Tag 2 oder gc-?? [Straße 4] oder Herkunft [Gosse] (Flag waeschehof_offen)",
+          "lockedText": "Wäscheleinen voller Overalls, dahinter ein Typ mit Rohrzange: „Morgen vielleicht, Frischling. Heute wird hier getrocknet.“"
+        },
+        {
+          "id": "nach-das-nest",
+          "to": "das-nest",
+          "entry": "von-rohrsiedlung",
+          "label": "Das Nest (Wasserturm)",
+          "edge": "tuer",
+          "when": "eines der Kinder ♥2 (daria, freya, jakko) oder side-zehn-credits erledigt",
+          "lockedText": "Daria von oben: „Passwort?“ – „Ich hab keins.“ – „Dann nicht. Tschüss.“"
+        },
+        {
+          "id": "nach-suppenkueche",
+          "to": "suppenkueche",
+          "entry": "von-rohrsiedlung",
+          "label": "Suppenküche",
+          "edge": "tuer",
+          "when": "M–A geöffnet",
+          "lockedText": "Der Kessel ist kalt. Mutter Brühe schläft. Wer sie weckt, kriegt Suppe ins Gesicht."
+        },
+        {
+          "id": "rohrschacht",
+          "to": "kanal-sammler",
+          "entry": "von-rohrsiedlung",
+          "label": "Rohrschacht zum Kanal",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-schrottmarkt",
+        "von-loetgassen",
+        "von-das-nest",
+        "von-suppenkueche",
+        "von-kanal-sammler",
+        "station",
+        "taxi"
+      ],
+      "spots": {
+        "wasserturm": "Wasserturm mit Kinderzeichnungen (Eingang Nest)",
+        "kinder-leiter": "Leiter der Kinder (ab Kinder ♥2) zum Wasserturm-Dach",
+        "wasserturm-rohr": "Rohr zum Wasserturm (gc-146 [Körper 5])",
+        "wasserturm-dach": "Dach des Wasserturms: Aussichtspunkt, glueckstern-06, pers-kinder-wasserturm (Dach reparieren)",
+        "suppenkueche-tuer": "Eingang Suppenküche, lange Bänke draußen",
+        "haengebruecke": "Hängebrücken/Kletterpfade zwischen den Rohren (Passanten)",
+        "rohrschacht": "Rohrschacht mit Gitter (Zufallsbegegnung kanalratte)",
+        "rohrbogen-station": "Zugang station-rohrbogen",
+        "quantum-streife": "ab act2 Quantum-Streife N (Platz freihalten)",
+        "auftrag-a": "Generischer Auftragspunkt (job-eskorte: Pim zu ihrer Mutter)"
+      },
+      "hotspots": {
+        "wasserturm-rohr": "check gc-146 [Körper 5] (sonst Kinder-Leiter ab ♥2) → wasserturm-dach",
+        "aussicht-wasserturm": "look: Aussichtspunkt (Kinder ♥2 oder gc-146)",
+        "ubahn-zugang": "use: U-Bahn station-rohrbogen",
+        "glueckstern-05": "loot glueckstern-05",
+        "glueckstern-06": "loot glueckstern-06 (Wasserturm-Dach)",
+        "neon-tag-04": "loot neon-tag-04",
+        "jimmy-spur-02": "loot jimmy-spur-02"
+      }
+    },
+    "das-nest": {
+      "name": "Das Nest",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-rohrsiedlung",
+      "parent": "rohrsiedlung",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-rohrsiedlung",
+          "to": "rohrsiedlung",
+          "entry": "von-das-nest",
+          "label": "Raus in die Rohrsiedlung",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-rohrsiedlung"
+      ],
+      "spots": {
+        "schlafnischen": "Kinder M und N (Daria, Freya, Jakko schlafen; nie draußen)",
+        "eins-kiste": "Eins!-Kiste: akt-eins (T), he-daria-4",
+        "kuschel-platz": "Captain Kuschel Mo/Mi (ausgeliehen), he-captain-kuschel-6 (Bolzen findet ihn hier)",
+        "teekraenzchen": "he-captain-kuschel-4 (Teekränzchen mit den Kindern)",
+        "karte-der-stadt": "Darias Karte der Stadt (he-daria-6)",
+        "undichtes-dach": "pers-kinder-wasserturm (Dach des Nests undicht)",
+        "essensplatz": "Babette A (bringt Essen, 17–18 Uhr), he-babette-bao-4",
+        "kinderbild-wand": "Kinderzeichnungen; kinderbild (Belohnung side-zehn-credits)"
+      },
+      "hotspots": {
+        "eins-kiste": "minigame akt-eins (T)",
+        "undichtes-dach": "check [Technik 5] (pers-kinder-wasserturm; Check-ID vom Checks-Agent) oder Gustav hilft / 200 Cr Material",
+        "karte-der-stadt": "look",
+        "kinderzeichnungen": "look"
+      }
+    },
+    "suppenkueche": {
+      "name": "Suppenküche",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-rohrsiedlung",
+      "parent": "rohrsiedlung",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-rohrsiedlung",
+          "to": "rohrsiedlung",
+          "entry": "von-suppenkueche",
+          "label": "Raus in die Rohrsiedlung",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-rohrsiedlung"
+      ],
+      "spots": {
+        "kessel": "Mutter Brühe M/T/A (großer Kessel, Gerüchte)",
+        "ausgabe": "Suppe austeilen (akt-suppenkueche M)",
+        "lange-baenke": "Gäste; Knut kennt die Spielfigur mit [Gosse] von hier",
+        "spendenkasse": "Spendenkasse (Ruf unterstadt)",
+        "rezept-ecke": "pers-jakko-kochbuch (Rezept von Mutter Brühe)"
+      },
+      "hotspots": {
+        "suppenkueche": "shop suppenkueche",
+        "suppe-austeilen": "minigame akt-suppenkueche (M)",
+        "spendenkasse": "use: spenden (Ruf unterstadt)"
+      }
+    },
+    "bahnhof-mitte": {
+      "name": "Bahnhof Mitte",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "underground",
+      "package": "pkg-bahnhof-mitte",
+      "parent": "",
+      "station": "station-bahnhof-mitte",
+      "exits": [
+        {
+          "id": "nach-neon-gasse",
+          "to": "neon-gasse",
+          "entry": "von-bahnhof-mitte",
+          "label": "Treppe zur Neon-Gasse",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-hafenkante",
+          "to": "hafenkante",
+          "entry": "von-bahnhof-mitte",
+          "label": "Gleissteg zur Hafenkante",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-stufenplatz",
+          "to": "stufenplatz",
+          "entry": "von-bahnhof-mitte",
+          "label": "Große Treppe zum Stufenplatz",
+          "edge": "n",
+          "when": "main-1-probezeit erledigt oder [Straße 5] Kontrolle umgehen",
+          "lockedText": "Quantum-Kontrolle an der Großen Treppe: „Ausweis, Termin oder Abflug.“"
+        },
+        {
+          "id": "nach-netzcafe",
+          "to": "netzcafe-datenkruemel",
+          "entry": "von-bahnhof-mitte",
+          "label": "Netzcafé Datenkrümel",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-fundbuero",
+          "to": "fundbuero",
+          "entry": "von-bahnhof-mitte",
+          "label": "Fundbüro",
+          "edge": "tuer",
+          "when": "M/T geöffnet",
+          "lockedText": "Gerda Gleis hat ein Schild ans Glas geklebt: „Verloren: meine Geduld. Morgen wieder.“"
+        },
+        {
+          "id": "nach-ubahn-wagen",
+          "to": "ubahn-wagen",
+          "entry": "von-bahnhof-mitte",
+          "label": "Stillgelegter U-Bahn-Wagen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "start",
+        "station",
+        "von-neon-gasse",
+        "von-hafenkante",
+        "von-stufenplatz",
+        "von-netzcafe-datenkruemel",
+        "von-fundbuero",
+        "von-ubahn-wagen",
+        "taxi"
+      ],
+      "spots": {
+        "bahnsteig": "Bahnsteig: Start main-1-ankunft (Tag 1, 16:30), Knut A",
+        "bahnsteig-2": "Kurt A (neben Knut), enc-bahnhof-abzieher (Tutorial)",
+        "bahnsteig-ende": "Jimmy T vor side-jimmys-chip, Vega T Mo/Mi/Fr (bringt Essen), he-vega-2-Erzählung",
+        "wartehaeuschen": "Jimmy M (schläft) vor side-jimmys-chip, jimmy-spur-03",
+        "gleise": "Gleise: gc-03 [Reflexe 4] Abkürzung, Zufallsbegegnung kanalratte",
+        "fotoautomat": "Fräulein Pixel A/N (Fälschungen, akt-fotoautomat), pers-raven-handschellen Hehler (gc-85)",
+        "musikerecke": "Lio T (Musikerecke), he-lio-funkel-2/4, he-freya-6 (Saiten)",
+        "taxistand": "Kiki M (Taxistand), he-kiki-karbon-2/4",
+        "taxistand-blitz": "Herr Blitz T („Schwebetaxi Blitz“), side-uebliche-verspaetung Showdown, enc-taxistand",
+        "stellwerk": "Frau Takt M/T (14 Stoppuhren): side-uebliche-verspaetung Auftakt (die drei gestörten Stellwerke liegen in neon-gasse, loetgassen, hafenkante)",
+        "paketausgabe": "Vex M (Paketausgabe der Kuriere)",
+        "kiosk-bahnhof": "Kiosk: Kessel A (Feierabend-Kaffee, he-wache-4)",
+        "pendlerbank": "Pim M (Pendlerin), he-pim-pinzette-2 (Schachtel fangen)",
+        "fundbuero-schalter": "Fundbüro-Schalter (außen)",
+        "ticketautomat": "Ticketautomat",
+        "treppe-gross": "Große Treppe mit Quantum-Kontrolle",
+        "oma-turbo-strecke": "kopfgeld-oma-turbo T (Rentnerin mit Beinimplantaten)",
+        "quellen-ecke": "Delya N Fr/Sa (trifft Quellen)",
+        "abzieher-ecke": "Abzieher N (Zufallsbegegnung)",
+        "auftrag-a": "Generischer Auftragspunkt (job-kurier, job-eskorte Lio zum Auftritt)"
+      },
+      "hotspots": {
+        "fotoautomat": "shop fraeulein-pixel; minigame akt-fotoautomat (A/N)",
+        "ticketautomat": "shop ticketautomat (Ticket 5 Cr, Monatskarte 120 Cr)",
+        "kiosk-bahnhof": "shop bahnhof-kiosk",
+        "ubahn-zugang": "use: U-Bahn station-bahnhof-mitte",
+        "gleis-abkuerzung": "check gc-03 [Reflexe 4] (main-1-ankunft, Abkürzung über die Gleise)",
+        "taxistand": "use: Schwebetaxi (ab he-kiki-karbon-2)",
+        "neon-tag-05": "loot neon-tag-05",
+        "glueckstern-07": "loot glueckstern-07",
+        "datenwuerfel-04": "loot datenwuerfel-04",
+        "jimmy-spur-03": "loot jimmy-spur-03 (Wartehäuschen)",
+        "jimmy-spur-04": "loot jimmy-spur-04 (Bahnsteig-Ende)"
+      }
+    },
+    "netzcafe-datenkruemel": {
+      "name": "Netzcafé Datenkrümel",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-bahnhof-mitte",
+      "parent": "bahnhof-mitte",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-netzcafe-datenkruemel",
+          "label": "Zurück in die Halle",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-bahnhof-mitte"
+      ],
+      "spots": {
+        "nyras-platz": "Nyra M (Netzcafé, Laptop mit Aufklebern)",
+        "terminals": "Flackernde Bildschirme, Gäste",
+        "theke-netzcafe": "Theke (Automatenkaffee)",
+        "hinterer-rechner": "Hinterer Rechner (datenwuerfel-05, akt-hacken)"
+      },
+      "hotspots": {
+        "terminal-hack": "minigame akt-hacken (level 1) → datenwuerfel-05",
+        "datenwuerfel-05": "loot datenwuerfel-05",
+        "schwarzes-brett": "look: Gerüchte"
+      }
+    },
+    "fundbuero": {
+      "name": "Fundbüro",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-bahnhof-mitte",
+      "parent": "bahnhof-mitte",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-fundbuero",
+          "label": "Zurück in die Halle",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-bahnhof-mitte"
+      ],
+      "spots": {
+        "schalter": "Gerda Gleis M/T",
+        "regale": "Regale voller Kuriositäten",
+        "kuriositaeten-kiste": "Kiste für akt-fundbuero"
+      },
+      "hotspots": {
+        "fundbuero": "shop fundbuero (Kuriositäten, handschellen, peilsender)",
+        "besitzer-finden": "minigame akt-fundbuero (T)"
+      }
+    },
+    "ubahn-wagen": {
+      "name": "Stillgelegter U-Bahn-Wagen",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-bahnhof-mitte",
+      "parent": "bahnhof-mitte",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-ubahn-wagen",
+          "label": "Raus auf den Bahnsteig",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-bahnhof-mitte"
+      ],
+      "spots": {
+        "abzieher-lager": "Knut und Kurt N (Versteck), side-abzieher (enc-ubahn-abzieher, gc-74)",
+        "sitzbank": "Zerschlissene Sitzbank (Beute der Abzieher)",
+        "fahrerkabine": "Fahrerkabine"
+      },
+      "hotspots": {
+        "beutekiste": "minigame akt-schloss → loot",
+        "fahrerkabine": "look"
+      }
+    },
+    "hafenkante": {
+      "name": "Hafenkante",
+      "kind": "zone",
+      "district": "unterstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-hafenkante",
+      "parent": "",
+      "station": "station-hafenkante",
+      "exits": [
+        {
+          "id": "nach-schrottmarkt",
+          "to": "schrottmarkt",
+          "entry": "von-hafenkante",
+          "label": "Zum Schrottmarkt",
+          "edge": "w",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-hafenkante",
+          "label": "Gleissteg zum Bahnhof Mitte",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-flutmauer",
+          "to": "flutmauer",
+          "entry": "von-hafenkante",
+          "label": "Rampe zur Flutmauer",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-hausboot",
+          "to": "hausboot-nebelhorn",
+          "entry": "von-hafenkante",
+          "label": "Käptn Nebelhorns Hausboot",
+          "edge": "tuer",
+          "when": "Nebelhorn an Bord (M, A, N) oder Nebelhorn ♥2",
+          "lockedText": "Ein Schild an der Gangway: „Betreten nur mit Einladung. Oder Kuchen.“"
+        },
+        {
+          "id": "nach-rennhalle-9",
+          "to": "rennhalle-9",
+          "entry": "von-hafenkante",
+          "label": "Rennhalle 9",
+          "edge": "tuer",
+          "when": "Kommt im nächsten Stand (Karte wird jetzt nicht angelegt)",
+          "lockedText": "Rolltor zu, Zielflagge eingerollt. Ein Zettel: „Wegen Umbau geschlossen. Kommt bald! Echt jetzt.“"
+        },
+        {
+          "id": "rostlaube",
+          "to": "staubstrasse",
+          "entry": "von-hafenkante",
+          "label": "Mit der Rostlaube in die Ödnis",
+          "edge": "tuer",
+          "when": "side-rostlaube erledigt und act2",
+          "lockedText": "Die Rostlaube springt an, hustet und stirbt beleidigt. Der Konvoi fährt erst wieder, wenn der Sand sich setzt."
+        },
+        {
+          "id": "kanalgitter",
+          "to": "kanal-sammler",
+          "entry": "gitter-hafenkante",
+          "label": "Kanalgitter (Schnellweg)",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        }
+      ],
+      "entries": [
+        "von-schrottmarkt",
+        "von-bahnhof-mitte",
+        "von-flutmauer",
+        "von-hausboot-nebelhorn",
+        "von-rennhalle-9",
+        "von-staubstrasse",
+        "kanalgitter",
+        "ueberlaufrohr",
+        "station",
+        "taxi"
+      ],
+      "spots": {
+        "rostkai-kraene": "Rostkai-Kräne: akt-drohnenrennen (Fr A), side-drohnenrennen, Turbo-Tilda Fr A",
+        "schiessstand": "Blechdosen von Kran zu Kran: akt-schiessstand (T), pers-vega-adlerauge Wettbewerb (gc-83)",
+        "falke-kran": "Falke T (Quantum-Scharfschütze auf dem Kran), enc-kran-falke",
+        "kran-ausleger": "Kranausleger (gc-152, datenwuerfel-06)",
+        "falkes-wohnwagen": "Falke N, pers-vega-adlerauge (Zielfernrohr nachts holen)",
+        "hafenbecken": "Hafenbecken: akt-angeln, Leuchtalge nachts",
+        "angelsteg": "Hunter So M (Angeln mit Nebelhorn), he-hunter-6",
+        "steg": "Käptn Nebelhorn M (Horn um 06:00) und A, he-kaeptn-nebelhorn-2",
+        "faehre": "Käptn Nebelhorn T (Fähre), pers-nebelhorn-letzte-faehre",
+        "hausboot-gangway": "Gangway zum Hausboot",
+        "rennhalle-tor": "Rennhalle 9 (gesperrt), Rennhallen-Kiosk davor",
+        "garage-rostlaube": "Garage mit halb zerlegtem Kombi: side-rostlaube (gc-115 Einbau), Händler garage-rostlaube",
+        "boxsack": "Arias Boxsack in der Garage: rom-aria-training (A/N, ♥6)",
+        "container-labyrinth": "Container-Labyrinth mit Rostzähne-Graffiti: Rostzähne A, enc-hafen-rostzaehne (side-zweite-hand), gc-145 → glueckstern-08",
+        "rostzaehne-lager": "Rostzähne-Lager (side-wand-der-freiheit Farbe, gc-126)",
+        "container-77": "Container 77: Di N Xion und Ripper (side-container-77, enc-hafen-container, gc-117)",
+        "container-77-versteck": "Beobachtungsposten für das Beweisfoto (gc-116 [Reflexe 5])",
+        "container-hai": "Container mit dem Hai drauf: rom-vexaria-oberlicht (A bei Sonnenuntergang/N)",
+        "oelfass-tuerme": "Ölfass-Türme am Kai-Ende: Jimmy A/N vor side-jimmys-chip, enc-hafen-jimmy",
+        "quantum-depot": "Quantum-Lieferdepot: Laster N (enc-hafen-laster, side-riegel-krise), job-datenraub-Ziel, prep-grundriss Lieferdrohne (gc-22)",
+        "ueberlaufrohr": "Überlaufrohr vom Pumpwerk (von innen verriegelt, act2)",
+        "fischstand": "Salzige Grete M/T (Köder, Algen-Chips)",
+        "fischmarkt": "Babette Mo A (Fischmarkt am Ruhetag)",
+        "kai-mitte": "Hafen-Hannes M/T/A (Greifarm), side-container-77 Auftrag, side-zweite-hand Lieferung, side-digitech-geist Hafenarbeiter (gc-77)",
+        "tildas-box": "Turbo-Tilda T (Drohnenrenn-Champion)",
+        "knuspi-versteck": "Knuspi A/N (Nougatbomben-Schmuggler, side-riegel-krise gc-54)",
+        "alte-arena": "Barkeeper Mo A/N (Ruhetag), he-barkeeper-6 (die alte Arena)",
+        "kassierer-bude": "kopfgeld-der-kassierer M (gefälschte Hafengebühren)",
+        "ubahn-abgang": "Zugang station-hafenkante",
+        "stellwerk-hafen": "Stellwerk 3 von 3 für side-uebliche-verspaetung (Störsender, gc-50)",
+        "auftrag-a": "Generischer Auftragspunkt"
+      },
+      "hotspots": {
+        "angeln-hafenbecken": "minigame akt-angeln",
+        "schiessstand": "minigame akt-schiessstand (T)",
+        "drohnenrennen": "minigame akt-drohnenrennen (Fr A)",
+        "kran-ausleger": "check gc-152 [Reflexe 6] (sonst Kranleiter nach pers-vega-adlerauge) → datenwuerfel-06",
+        "container-schieben": "check gc-145 [Körper 6] (sonst arme-greifhaken oder Hafen-Hannes ♥2) → glueckstern-08",
+        "container-77": "check gc-117 [Technik 6] / minigame akt-hacken",
+        "beweisfoto": "check gc-116 [Reflexe 5]",
+        "rostzaehne-farbe": "check gc-126 [Straße 5]",
+        "salzige-grete": "shop salzige-grete",
+        "rennhallen-kiosk": "shop rennhallen-kiosk",
+        "garage-rostlaube": "shop garage-rostlaube; use: Rostlaube-Teile einbauen (gc-115 oder Dante ♥2)",
+        "boxsack": "look/use (Aria-Strang)",
+        "ueberlaufrohr": "look: „Von innen verriegelt.“",
+        "quantum-depot-terminal": "minigame akt-hacken (job-datenraub, prep-grundriss gc-22)",
+        "nebelhorn": "look/use: Nebelhorn (he-kaeptn-nebelhorn-2)",
+        "stellwerk-hafen": "check gc-50 [Technik 5] (side-uebliche-verspaetung)",
+        "ubahn-zugang": "use: U-Bahn station-hafenkante",
+        "glueckstern-08": "loot glueckstern-08 (Labyrinth)",
+        "datenwuerfel-06": "loot datenwuerfel-06 (Ausleger)",
+        "neon-tag-06": "loot neon-tag-06",
+        "jimmy-spur-05": "loot jimmy-spur-05",
+        "jimmy-spur-06": "loot jimmy-spur-06 (Ölfass-Türme)",
+        "flaschenpost-01": "loot flaschenpost-01 (Hafenbecken)"
+      }
+    },
+    "hausboot-nebelhorn": {
+      "name": "Hausboot Nebelhorn",
+      "kind": "innen",
+      "district": "unterstadt",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-hafenkante",
+      "parent": "hafenkante",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-hafenkante",
+          "to": "hafenkante",
+          "entry": "von-hausboot-nebelhorn",
+          "label": "Von Bord",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-hafenkante",
+        "aufwachen"
+      ],
+      "spots": {
+        "kajuete": "Käptn Nebelhorn N (Kajüte), he-kaeptn-nebelhorn-4 (Flaschenpost)",
+        "steuerrad": "Steuerrad (er fährt nie)",
+        "logbuch-regal": "Logbuch der Großmutter (he-kaeptn-nebelhorn-8, ab act2)",
+        "koje": "Koje (Notschlafplatz ab Nebelhorn ♥4)"
+      },
+      "hotspots": {
+        "koje": "sleep (shelter ab Nebelhorn ♥4)",
+        "logbuch": "look",
+        "flaschenpost-regal": "look (kuestenkarte-fragment über he-kaeptn-nebelhorn-4)"
+      }
+    },
+    "stufenplatz": {
+      "name": "Stufenplatz",
+      "kind": "zone",
+      "district": "mittelring",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-stufenplatz-digitech",
+      "parent": "",
+      "station": "station-stufenplatz",
+      "exits": [
+        {
+          "id": "nach-bahnhof-mitte",
+          "to": "bahnhof-mitte",
+          "entry": "von-stufenplatz",
+          "label": "Große Treppe zum Bahnhof Mitte",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-eisenhof",
+          "to": "eisenhof",
+          "entry": "von-stufenplatz",
+          "label": "Zum Eisenhof",
+          "edge": "w",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "drehkreuz",
+          "to": "glasarkaden",
+          "entry": "von-stufenplatz",
+          "label": "Drehkreuz: Glasarkaden",
+          "edge": "n",
+          "when": "act2, outfit-ordentlich, presseausweis, Herkunft [Oberstadt] oder gc-106 [Ausstrahlung 6]; setzt Flag drehkreuz_passiert",
+          "lockedText": "Das Drehkreuz piept beleidigt: „Zugang nur für Kundschaft mit Stil.“ Hinter dir lacht eine Taube."
+        },
+        {
+          "id": "lieferanteneingang",
+          "to": "glasarkaden",
+          "entry": "lieferanteneingang",
+          "label": "Lieferanteneingang Feinkost",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "bauzaun",
+          "to": "digitech-areal",
+          "entry": "von-stufenplatz",
+          "label": "Bauzaun: Digitech-Areal",
+          "edge": "o",
+          "when": "act2 oder Digitech-Auftrag (side-eingehendes-fax oder side-digitech-geist aktiv, prep-grundriss aktiv) oder gc-107 [Reflexe 6]",
+          "lockedText": "Bauzaun, Plakat „Bald hier: Quantum Park“. Oben Stacheldraht, unten ein Wachroboter, der so tut, als würde er schlafen."
+        },
+        {
+          "id": "nach-nx1-studio",
+          "to": "nx1-studio",
+          "entry": "von-stufenplatz",
+          "label": "NX-1-Studio",
+          "edge": "tuer",
+          "when": "M–A geöffnet",
+          "lockedText": "Glastür, Empfangsdrohne: „Sendeschluss. Kommen Sie morgen wieder. Mit Einschaltquote.“"
+        }
+      ],
+      "entries": [
+        "von-bahnhof-mitte",
+        "von-eisenhof",
+        "von-glasarkaden",
+        "lieferanteneingang",
+        "von-digitech-areal",
+        "von-nx1-studio",
+        "station",
+        "taxi"
+      ],
+      "spots": {
+        "buehne": "Bühne mit großem Bildschirm: Collin live Mo/Mi/Fr 12:00 (T), akt-fernsehen, he-collin-charleston-4, side-collins-peruecke Showdown, Gründertag",
+        "kamerakran": "Kameramann T Mo/Mi/Fr (am Ort der Live-Sendung)",
+        "stufen-oben": "Zuschauerstufen (Passanten, Live-Publikum)",
+        "fussgaengerbruecke": "Fußgängerbrücke Richtung Campus: prep-wachplan mit Vega (A), Aussichtspunkt",
+        "brezel-imbiss": "Imbisswagen mit Riesenbrezeln (Händler brezel-imbiss), Quantum-Wachmann am Imbiss (prep-wachplan gc-25)",
+        "salon-gina": "Stylistin Gina T/A (Salon), side-collins-peruecke Notfrisur, prep-outfits später",
+        "prediger-kiste": "Bruder Kabellos T (predigt Funkstille)",
+        "windkante": "Windige Stufenkante (side-collins-peruecke: Spur „Wind“, gc-122)",
+        "drehkreuz": "Drehkreuz zu den Glasarkaden (gc-106)",
+        "lieferhof-tor": "Lieferanteneingang der Feinkost (immer offen; Lieferwagen für side-keksalarm „Butter leihen“)",
+        "bauzaun": "Bauzaun zum Digitech-Areal (gc-107)",
+        "nx1-eingang": "Glaseingang NX-1",
+        "station-treppe": "Zugang station-stufenplatz",
+        "auftrag-a": "Generischer Auftragspunkt (Oberstadt-Tourist bei job-eskorte)"
+      },
+      "hotspots": {
+        "brezel-imbiss": "shop brezel-imbiss (brezel)",
+        "salon-gina": "shop salon-gina (Aussehen ändern)",
+        "drehkreuz": "check gc-106 [Ausstrahlung 6] (Exit-Check)",
+        "bauzaun": "check gc-107 [Reflexe 6] (Exit-Check)",
+        "aussicht-bruecke": "look: Aussichtspunkt Fußgängerbrücke (Blick auf den Campus)",
+        "buehne-winken": "minigame akt-fernsehen (Mo/Mi/Fr 12:00)",
+        "ubahn-zugang": "use: U-Bahn station-stufenplatz",
+        "datenwuerfel-07": "loot datenwuerfel-07",
+        "glueckstern-09": "loot glueckstern-09",
+        "neon-tag-07": "loot neon-tag-07"
+      }
+    },
+    "nx1-studio": {
+      "name": "NX-1-Studio",
+      "kind": "innen",
+      "district": "mittelring",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "package": "pkg-stufenplatz-digitech",
+      "parent": "stufenplatz",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-stufenplatz",
+          "to": "stufenplatz",
+          "entry": "von-nx1-studio",
+          "label": "Raus auf den Stufenplatz",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-stufenplatz"
+      ],
+      "spots": {
+        "radio-kabine": "Collin M (Radio), he-collin-charleston-2 („Stimme der Straße“)",
+        "schminkspiegel": "Collin T an Nicht-Live-Tagen, side-collins-peruecke Auftakt (Mo/Mi/Fr vor 12:00)",
+        "redaktion": "Delya M (Redaktion), he-delya-delloraine-2, side-live-dabei Story liefern, prep-ablenkung gc-27",
+        "regie": "Kameramann M (Technik), he-delya-delloraine-6 (Bericht schmuggeln), he-collin-charleston-6",
+        "studio-set": "Delya A (Abendnachrichten)",
+        "teleprompter": "Teleprompter (he-collin-charleston-4 Vorbereitung)"
+      },
+      "hotspots": {
+        "redaktions-terminal": "minigame akt-hacken (job-datenraub, nur Collin unter ♥2)",
+        "radio-mikro": "use (he-collin-charleston-2)",
+        "story-pitch": "use: Story anbieten (side-live-dabei, prep-ablenkung)",
+        "teleprompter": "look"
+      }
+    },
+    "eisenhof": {
+      "name": "Eisenhof",
+      "kind": "zone",
+      "district": "mittelring",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "music": "gefaengnis",
+      "package": "pkg-eisenhof",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-stufenplatz",
+          "to": "stufenplatz",
+          "entry": "von-eisenhof",
+          "label": "Zum Stufenplatz",
+          "edge": "o",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-gerichtssaal",
+          "to": "gerichtssaal",
+          "entry": "von-eisenhof",
+          "label": "Gerichtssaal",
+          "edge": "tuer",
+          "when": "M/T geöffnet (tags offen)",
+          "lockedText": "Die Saaltür ist verriegelt. Ein Aushang: „Recht ruht. Morgen wieder.“"
+        },
+        {
+          "id": "nach-zellentrakt",
+          "to": "zellentrakt",
+          "entry": "von-eisenhof",
+          "label": "Zellentrakt",
+          "edge": "tuer",
+          "when": "main-1-raven aktiv, Besuchszeit Di/Do/Sa T, he-raven-6, side-feierabend-fuer-kessel aktiv oder Haft",
+          "lockedText": "Kessel, ohne aufzusehen: „Zellentrakt nur mit Grund. ‚Ich bin neugierig‘ ist keiner.“"
+        }
+      ],
+      "entries": [
+        "von-stufenplatz",
+        "von-gerichtssaal",
+        "von-zellentrakt",
+        "taxi"
+      ],
+      "spots": {
+        "entlassungstor": "Entlassungstor mit Drehkreuz: Kessel M (außer Mi), main-1-raven Start (Tag 2 M), he-wache-6 (Dexter im Wäschekorb)",
+        "wachhaeuschen": "Wachhäuschen (he-wache-2 Strichliste für Kaffee)",
+        "gerichtsgarten": "Gerichtsgarten mit Kiesgarten: Richter T, Freya Mi T, he-richter-2 (Unkraut jäten), he-freya-4",
+        "gemuesebeete": "Gemüsebeete (pers-richter-goldene-gurke, Preisgurke)",
+        "richter-bank": "Richter A (außer Do/Fr)",
+        "fundkammer": "Fundkammer: side-feierabend-fuer-kessel (Sortieren, ravens-alte-jacke, Dantes Laptop), side-neon-limo Rezeptkarte",
+        "beweismittellager": "Beweismittellager: side-streaming-suenden (Server, gc-69 / nachts holen)",
+        "behoerden-terminal": "Behördensystem (pers-raven-handschellen mit behoerdenkarte, job-datenraub Gerichtsarchiv)",
+        "winkels-praxis": "Dr. Winkel M/T (Fahndung −1 für 150 Cr)",
+        "gerichtskantine": "Gerichtskantine (billiger Kaffee)",
+        "gerichtsplatz": "Gerichtsplatz: enc-gerichtsplatz-gang (Freigang-Gang)",
+        "freigang-ecke": "Versteck der Freigang-Gang (drei Kisten nachts zurückholen)",
+        "nachtwache": "Nachtwache N"
+      },
+      "hotspots": {
+        "dr-winkel": "shop dr-winkel",
+        "gerichtskantine": "shop gerichtskantine",
+        "fundkammer": "use: Fundkammer sortieren (side-feierabend-fuer-kessel)",
+        "beweismittellager": "check gc-69 [Technik 7] / minigame akt-schloss (N)",
+        "behoerden-terminal": "minigame akt-hacken (job-datenraub) / use mit behoerdenkarte",
+        "preisgurke": "look (pers-richter-goldene-gurke, Bissspuren von Bolzen)",
+        "glueckstern-11": "loot glueckstern-11",
+        "datenwuerfel-10": "loot datenwuerfel-10",
+        "ravens-alte-jacke": "loot ravens-alte-jacke (Fundkammer, nur in side-feierabend-fuer-kessel)"
+      }
+    },
+    "gerichtssaal": {
+      "name": "Gerichtssaal",
+      "kind": "innen",
+      "district": "mittelring",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "gefaengnis",
+      "package": "pkg-eisenhof",
+      "parent": "eisenhof",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-eisenhof",
+          "to": "eisenhof",
+          "entry": "von-gerichtssaal",
+          "label": "Raus in den Hof",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-eisenhof"
+      ],
+      "spots": {
+        "richterbank": "Richter M (Mi Bagatellgericht), he-richter-4",
+        "zeugenstand": "Zeugenstand (Bagatellfälle)",
+        "zuschauerbaenke": "Delya T Di/Do (Prozesse), Freya M Mi",
+        "saalwache": "Kessel M Mi (Saalwache)",
+        "kopfgeld-abgabe": "Kopfgeld beim Richter abliefern (job-kopfgeld)"
+      },
+      "hotspots": {
+        "bagatellgericht": "use (Mi): Bagatellfälle (he-richter-4)",
+        "kopfgeld-abgabe": "use: Kopfgeld abliefern"
+      }
+    },
+    "zellentrakt": {
+      "name": "Zellentrakt",
+      "kind": "innen",
+      "district": "mittelring",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "gefaengnis",
+      "package": "pkg-eisenhof",
+      "parent": "eisenhof",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-eisenhof",
+          "to": "eisenhof",
+          "entry": "von-zellentrakt",
+          "label": "Raus in den Hof",
+          "edge": "tuer",
+          "when": "nicht in Haft (Haft endet 06:00)",
+          "lockedText": "Die Tür hat innen keine Klinke. Das ist der Witz an Zellen."
+        }
+      ],
+      "entries": [
+        "von-eisenhof",
+        "haft"
+      ],
+      "spots": {
+        "besucherraum": "Besucherraum: Raven vor Entlassung T Di/Do/Sa",
+        "besucherraum-tuer": "Kessel T (Besucherraum)",
+        "zelle-raven": "Ravens Zelle vor der Entlassung",
+        "zellennachbarin": "Ravens alte Zellennachbarin (he-raven-6)",
+        "haftzelle": "Haftzelle (eine Nacht bei Festnahme, −10 % Credits, [Knast] −5 %)"
+      },
+      "hotspots": {
+        "pritsche": "sleep (nur bei Haft)",
+        "klopfcode-wand": "look ([Knast] Klopfcode an Raven)",
+        "besucherfenster": "look"
+      }
+    },
+    "glasarkaden": {
+      "name": "Glasarkaden",
+      "kind": "zone",
+      "district": "mittelring",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "music": "oberstadt",
+      "package": "pkg-glasarkaden",
+      "parent": "",
+      "station": "station-glasarkaden",
+      "exits": [
+        {
+          "id": "nach-stufenplatz",
+          "to": "stufenplatz",
+          "entry": "von-glasarkaden",
+          "label": "Drehkreuz zum Stufenplatz",
+          "edge": "s",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "lieferhof-raus",
+          "to": "stufenplatz",
+          "entry": "lieferanteneingang",
+          "label": "Lieferanteneingang zum Stufenplatz",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "nach-cafe-sahnehaube",
+          "to": "cafe-sahnehaube",
+          "entry": "von-glasarkaden",
+          "label": "Café Sahnehaube",
+          "edge": "tuer",
+          "when": "M–A geöffnet",
+          "lockedText": "Stühle hochgestellt. Hinter der Scheibe glänzt eine Torte, nur für dich, aber ohne dich."
+        },
+        {
+          "id": "nach-quantum-schauraum",
+          "to": "quantum-schauraum",
+          "entry": "von-glasarkaden",
+          "label": "Quantum-Schauraum",
+          "edge": "tuer",
+          "when": "M–A geöffnet",
+          "lockedText": "Die Glastür bleibt zu. Das Hologramm winkt trotzdem."
+        },
+        {
+          "id": "lastenaufzug",
+          "to": "chrome-penthouse",
+          "entry": "lastenaufzug",
+          "label": "Lastenaufzug",
+          "edge": "tuer",
+          "when": "side-alte-gewohnheiten aktiv, N, Raven in der Party (dann gc-143, gc-142, gc-144, Kiki ♥4 oder Fahrt ohne Tarnung)",
+          "lockedText": "Lastenaufzug: „Nur für Lieferungen.“ Du bist keine Lieferung. Noch nicht."
+        },
+        {
+          "id": "panoramaaufzug",
+          "to": "chrome-boulevard",
+          "entry": "von-glasarkaden",
+          "label": "Panoramaaufzug zum Chrome-Boulevard",
+          "edge": "n",
+          "when": "ausweis-oberstadt, Ruf chrome-haus 20, gc-108 oder act3 – im ersten Stand gesperrt",
+          "lockedText": "Der Liftboy lächelt mit allen Zähnen: „Oberstadt-Ausweis? Nein? Dann genießen Sie die Aussicht. Von hier.“"
+        }
+      ],
+      "entries": [
+        "von-stufenplatz",
+        "lieferanteneingang",
+        "von-cafe-sahnehaube",
+        "von-quantum-schauraum",
+        "von-chrome-penthouse",
+        "von-chrome-boulevard",
+        "station"
+      ],
+      "spots": {
+        "drehkreuz-innen": "Drehkreuz innen (Ankunft)",
+        "springbrunnen": "Springbrunnen auf Marmor (Passanten, Werbe-Hologramme)",
+        "glaspark": "Glaspark mit Hecken und Tauben: Serenity M (Hintergrund)",
+        "glaspark-tauben": "Seraphina A (Reden vor Tauben, Hintergrund)",
+        "glaspark-bank": "Chrome-Haushälterin T (pers-raven-handschellen, mit presseausweis befragen)",
+        "satin-und-chrom": "Boutique Satin & Chrom: Madame Satin M/T/A, job-datenraub-Ziel",
+        "pixelpalast": "Pixelpalast (Spielhalle, T/A, Fr/Sa auch N)",
+        "feinkost-theke": "Feinkost vorne (Butter, Edelbrause, Oberstadt-Eis)",
+        "kiki-landeplatz": "Kiki T Mo/Mi/Fr",
+        "chrome-10-werbestand": "Chrome-10-Werbestand Di",
+        "panoramaaufzug": "Panoramaaufzug mit Liftboy (gesperrt, Aussichtspunkt „nur Blick“)",
+        "lieferhof": "Lieferhof hinter der Feinkost: eigene Laufinsel, nur über den Lieferanteneingang (kein Weg in die Passage)",
+        "feinkost-rampe": "Feinkost-Rampe im Lieferhof (side-keksalarm gc-55 „abgelaufene“ Butter, side-neon-limo Eis)",
+        "lastenaufzug": "Lastenaufzug im Lieferhof (side-alte-gewohnheiten, gc-143)",
+        "waescheschacht": "Wäscheschacht im Lieferhof (gc-142 [Reflexe 6])",
+        "station-abgang": "Zugang station-glasarkaden"
+      },
+      "hotspots": {
+        "satin-und-chrom": "shop satin-und-chrom",
+        "satin-terminal": "minigame akt-hacken (job-datenraub)",
+        "feinkost": "shop feinkost (vorne)",
+        "feinkost-rampe": "shop feinkost (Rampe, Lieferhof) / check gc-55 [Ausstrahlung 4]",
+        "pixelpalast": "minigame akt-pixelpalast; shop pixelpalast (Preise, schallplatte-09)",
+        "aussicht-panorama": "look: Aussichtspunkt Panoramaaufzug (nur Blick)",
+        "lastenaufzug": "check gc-143 [Technik 6] (Exit lastenaufzug)",
+        "waescheschacht": "check gc-142 [Reflexe 6] → chrome-penthouse Einstieg waescheschacht",
+        "chrome-10-werbestand": "look (Di)",
+        "ubahn-zugang": "use: U-Bahn station-glasarkaden",
+        "datenwuerfel-08": "loot datenwuerfel-08",
+        "datenwuerfel-09": "loot datenwuerfel-09 (Pixelpalast-Highscore)",
+        "glueckstern-10": "loot glueckstern-10 (Glaspark)"
+      }
+    },
+    "cafe-sahnehaube": {
+      "name": "Café Sahnehaube",
+      "kind": "innen",
+      "district": "mittelring",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "oberstadt",
+      "package": "pkg-glasarkaden",
+      "parent": "glasarkaden",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-glasarkaden",
+          "to": "glasarkaden",
+          "entry": "von-cafe-sahnehaube",
+          "label": "Zurück in die Arkaden",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-glasarkaden"
+      ],
+      "spots": {
+        "theke": "Barista Perle M/T/A (Torte)",
+        "fenstertisch": "Alesa M Mo–Fr 07–09 (Hintergrund, ein Satz)",
+        "blade-tisch": "Blade A („Kein Termin, kein Gespräch.“)",
+        "ecktisch-cafe": "Serenity A (Hintergrund)",
+        "autogramm-tisch": "Collin A (Autogramme)"
+      },
+      "hotspots": {
+        "cafe-sahnehaube": "shop cafe-sahnehaube (Torte)"
+      }
+    },
+    "quantum-schauraum": {
+      "name": "Quantum-Schauraum",
+      "kind": "innen",
+      "district": "mittelring",
+      "size": [
+        1024,
+        768
+      ],
+      "lighting": "indoor",
+      "music": "oberstadt",
+      "package": "pkg-glasarkaden",
+      "parent": "glasarkaden",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-glasarkaden",
+          "to": "glasarkaden",
+          "entry": "von-quantum-schauraum",
+          "label": "Zurück in die Arkaden",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-glasarkaden"
+      ],
+      "spots": {
+        "verkaufstresen": "Herr Glanz M/T/A",
+        "hologramm": "Nexus-Avatar T (Werbetexte, Hintergrund; ab act2 side-ki-fluestern)",
+        "vitrine": "Vitrine mit Chrome 10 und Nexi-Plüsch"
+      },
+      "hotspots": {
+        "quantum-schauraum": "shop quantum-schauraum (Medizin, nexi-pluesch)",
+        "nexus-avatar": "talk: Werbetexte",
+        "vitrine": "look"
+      }
+    },
+    "chrome-penthouse": {
+      "name": "Chrome-Penthouse",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "indoor",
+      "music": "schleichen",
+      "package": "pkg-glasarkaden",
+      "parent": "glasarkaden",
+      "station": "",
+      "exits": [
+        {
+          "id": "lastenaufzug",
+          "to": "glasarkaden",
+          "entry": "von-chrome-penthouse",
+          "label": "Lastenaufzug nach unten",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "wohnungstuer",
+          "to": "chrome-boulevard",
+          "entry": "von-chrome-penthouse",
+          "label": "Wohnungstür",
+          "edge": "tuer",
+          "when": "act2 (Chrome-Boulevard) – im ersten Stand gesperrt",
+          "lockedText": "Unten sitzt Portier Albert. Durch diese Tür geht heute keiner raus. Nicht mit Lippenstift an den Fingern."
+        }
+      ],
+      "entries": [
+        "lastenaufzug",
+        "waescheschacht",
+        "dach",
+        "von-chrome-boulevard"
+      ],
+      "spots": {
+        "salon": "Salon (Hauptraum, Weg zum Spiegel)",
+        "sofa-bijou": "Bijou schläft auf dem Sofa (darf nicht aufwachen; leckerli-schraube)",
+        "seraphinas-spiegel": "Seraphinas Spiegel: Ziel side-alte-gewohnheiten (Rabe mit schwarzem Lippenstift)",
+        "bibliothek": "Bibliothek",
+        "balkon-blau": "Balkon Seraphina (seidentuch-blau)",
+        "balkon-rot": "Balkon Sybella (seidentuch-rot)",
+        "balkon-gruen": "Balkon Serenity (seidentuch-gruen)",
+        "schlafzimmer-blau": "Seraphina schläft (N, nur Quest)",
+        "schlafzimmer-rot": "Sybella schläft (N, nur Quest)",
+        "schlafzimmer-gruen": "Serenity schläft (N, nur Quest)",
+        "haustelefon": "Haustelefon (gc-144 Albert abwimmeln)",
+        "portier-runde": "Portier Albert dreht seine Runde (Zeitlimit/Patrouille)",
+        "drohnen-nische": "enc-penthouse-drohnen (Ziel: Ausgang erreichen)"
+      },
+      "hotspots": {
+        "seraphinas-spiegel": "use: Rabe malen (Questziel)",
+        "seidentuch-blau": "loot seidentuch-blau (optional, Ruf chrome-haus −10)",
+        "seidentuch-rot": "loot seidentuch-rot (optional)",
+        "seidentuch-gruen": "loot seidentuch-gruen (optional)",
+        "haustelefon": "check gc-144 [Ausstrahlung 5]",
+        "bijou": "use: leckerli-schraube"
+      }
+    },
+    "digitech-areal": {
+      "name": "Digitech-Areal",
+      "kind": "zone",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-stufenplatz-digitech",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-stufenplatz",
+          "to": "stufenplatz",
+          "entry": "von-digitech-areal",
+          "label": "Durch den Bauzaun zum Stufenplatz",
+          "edge": "w",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "kellertreppe",
+          "to": "digitech-tresor",
+          "entry": "von-digitech-areal",
+          "label": "Kellertreppe: Tresor und Keller",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "lieferzone",
+          "to": "quantum-campus",
+          "entry": "von-digitech-areal",
+          "label": "Lieferzone zum Quantum-Campus",
+          "edge": "n",
+          "when": "act2 und (gc-109 [Technik 7] oder karte-lieferzone)",
+          "lockedText": "Schranke, Kamera, ein Schild: „Lieferzone Quantum – Unbefugte werden optimiert.“"
+        },
+        {
+          "id": "kabelschacht",
+          "to": "datentunnel",
+          "entry": "von-digitech-areal",
+          "label": "Kabelschacht",
+          "edge": "tuer",
+          "when": "act2",
+          "lockedText": "Der Kabelschacht ist zugeschüttet. Jemand hat „Bald“ auf den Schutt gesprüht."
+        }
+      ],
+      "entries": [
+        "von-stufenplatz",
+        "von-digitech-tresor",
+        "von-quantum-campus",
+        "von-datentunnel",
+        "prolog-start",
+        "taxi"
+      ],
+      "spots": {
+        "bauzaun-innen": "Bauzaun von innen (Plakate „Bald hier: Quantum Park“)",
+        "pfoertnerhaus": "Direktorin Hartlauf T (Digitech-Restposten)",
+        "pfoertnerhaus-bank": "Ole Gähn M/T/A (Hausmeister, schläft immer)",
+        "notstrom-terminal": "Notstrom-Terminal mit grünem Flackern (side-digitech-geist gc-76)",
+        "archiv": "Archiv: gc-112 kuestenkarte-fragment, [Ex-Wache] Digitech-Pläne (prep-grundriss)",
+        "lieferzone": "Lieferzone mit Schranke: Alesa Mi T (holt Prototypen, eine Szene), prep-wachplan (Wachplan nachts stehlen)",
+        "glasfassade": "Eingestürzte Glasfassade: Schrottkrähen A, job-bergung",
+        "wachroboter-reste": "Verrostete Wachroboter (look)",
+        "wachkoloss": "Wachkoloss im Ruhemodus N (Boss erst act2, side-hartlaufs-rache)",
+        "pluenderer-lager": "Plündererlager (side-digitech-geist enc-ruine-pluenderer)",
+        "prolog-funkpunkt": "Prolog main-0-digitech: Raven-Startpunkt, Funk mit Hunter und Dante, enc-prolog-drohne"
+      },
+      "hotspots": {
+        "hartlauf": "shop hartlauf-restposten",
+        "notstrom-terminal": "check gc-76 [Technik 6] / minigame akt-hacken",
+        "archiv": "check gc-112 [Technik 6] (oder Hartlauf ab Ruf digitech 20) → kuestenkarte-fragment",
+        "digitech-plaene": "loot (prep-grundriss Weg [Ex-Wache])",
+        "wachplan-kiste": "minigame akt-schloss (N) → Wachplan (prep-wachplan)",
+        "schallplatte-05": "loot schallplatte-05",
+        "datenwuerfel-16": "loot datenwuerfel-16",
+        "datenwuerfel-17": "loot datenwuerfel-17",
+        "glueckstern-14": "loot glueckstern-14"
+      }
+    },
+    "digitech-tresor": {
+      "name": "Digitech-Tresor",
+      "subtitle": "Tresorraum und Keller",
+      "kind": "innen",
+      "district": "oberstadt",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "underground",
+      "music": "schleichen",
+      "package": "pkg-stufenplatz-digitech",
+      "parent": "digitech-areal",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-digitech-areal",
+          "to": "digitech-areal",
+          "entry": "von-digitech-tresor",
+          "label": "Kellertreppe nach oben",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-digitech-areal",
+        "prolog"
+      ],
+      "spots": {
+        "tresor-rohr": "Das Rohr mit Kratzspuren von Handschellen (Prolog: Blade kettet Raven; he-raven-8 ab act2)",
+        "kartenleser": "Kartenleser [Technik 4] im Prolog ausgegraut, Dante öffnet per Funk",
+        "keller": "Keller mit freiliegenden Rohren",
+        "fx-60-terminal": "FX-60 (spricht nur per Fax), Ziel side-eingehendes-fax",
+        "batterie-regal": "Regal mit Notstrom-Batterien (side-rostlaube: rostlaube-batterie)",
+        "waechter-gang": "enc-ruine-waechter (umgehbar)"
+      },
+      "hotspots": {
+        "tresor-rohr": "look: Kratzspuren",
+        "fx-60": "use/talk: FX-60 (Entscheidung mitnehmen / lassen / an Ripper verkaufen)",
+        "rostlaube-batterie": "loot rostlaube-batterie",
+        "kartenleser": "check (Prolog, ausgegraut)"
+      }
+    },
+    "kanal-sammler": {
+      "name": "Kanal-Sammler",
+      "kind": "zone",
+      "district": "kanalisation",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "underground",
+      "package": "pkg-kanal-sammler",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "leiter-loetgassen",
+          "to": "loetgassen",
+          "entry": "von-kanal-sammler",
+          "label": "Leiter zu den Lötgassen",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "rohrschacht",
+          "to": "rohrsiedlung",
+          "entry": "von-kanal-sammler",
+          "label": "Rohrschacht zur Rohrsiedlung",
+          "edge": "tuer",
+          "when": "",
+          "lockedText": ""
+        },
+        {
+          "id": "gitter-schrottmarkt",
+          "to": "schrottmarkt",
+          "entry": "kanalgitter",
+          "label": "Schnellweg: Schrottmarkt",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        },
+        {
+          "id": "gitter-loetgassen",
+          "to": "loetgassen",
+          "entry": "kanalgitter",
+          "label": "Schnellweg: Lötgassen",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        },
+        {
+          "id": "gitter-hafenkante",
+          "to": "hafenkante",
+          "entry": "kanalgitter",
+          "label": "Schnellweg: Hafenkante",
+          "edge": "tuer",
+          "when": "side-rattenkoenig erledigt (Kanal-Schnellweg)",
+          "lockedText": "Ein Gitter mit Kronkorken-Siegel. Bürgermeister Gully lässt nur Freunde der Rohre durch."
+        },
+        {
+          "id": "tunnel-ost",
+          "to": "pumpwerk-sieben",
+          "entry": "von-kanal-sammler",
+          "label": "Tunnel Ost zum Pumpwerk Sieben",
+          "edge": "o",
+          "when": "act2 und Licht (augen-restlicht oder stirnlampe)",
+          "lockedText": "Gitter: „Wartung bis auf Weiteres.“ Dahinter Dunkelheit und ein Geräusch, das nach sehr großen Rohren klingt."
+        },
+        {
+          "id": "schott",
+          "to": "datentunnel",
+          "entry": "von-kanal-sammler",
+          "label": "Schott mit Drehrad",
+          "edge": "tuer",
+          "when": "act2 und (schottschluessel oder gc-110 [Technik 6])",
+          "lockedText": "Ein Schott mit Drehrad. Mit genug Technik wüsstest du, wo man drehen müsste. Aber nicht vor Akt 2."
+        }
+      ],
+      "entries": [
+        "von-loetgassen",
+        "von-rohrsiedlung",
+        "gitter-schrottmarkt",
+        "gitter-loetgassen",
+        "gitter-hafenkante",
+        "von-pumpwerk-sieben",
+        "von-datentunnel",
+        "aufwachen"
+      ],
+      "spots": {
+        "trockendock": "Trockendock des Kanalvolks (Hängematten, Lichterketten)",
+        "gullys-rathaus": "Bürgermeister Gully M/T (Rathaus), he-buergermeister-gully-2, side-rattenkoenig + side-strom-fuer-die-rohre Auftakt, prep-fluchtweg gc-26",
+        "trockendock-bett": "Bett im Trockendock (Notschlafplatz; nach side-strom-fuer-die-rohre volle LP)",
+        "notgenerator": "Notgenerator des Trockendocks (gc-119)",
+        "kabelweg-ende": "Ende der Kabelleitung aus den Lötgassen (side-strom-fuer-die-rohre)",
+        "friedas-stand": "Fluss-Frieda M/T/A (Pilzsuppe, Stirnlampe, Staubmaske), side-rettung-am-rechen, side-rostlaube gc-113",
+        "rechen": "Großer Rechen: Gully A (Inspektion), side-rettung-am-rechen (gc-125), akt-floss",
+        "rechen-versteck": "Rechen-Versteck gegen die Strömung (gc-147 → datenwuerfel-18)",
+        "kanalvolk-garten": "Kanalvolk-Garten (Kanalminze, side-neon-limo)",
+        "thronsaal": "Thronsaal aus Kronkorken: Nagbert (enc-kanal-nagbert, side-rattenkoenig)",
+        "thronsaal-grenze": "Gully N (bewacht nervös die Thronsaal-Grenze)",
+        "rattennest-1": "side-rattenkoenig Rattenbegegnung 1 (umgehbar), job-kanal",
+        "rattennest-2": "side-rattenkoenig Rattenbegegnung 2 (umgehbar), prep-fluchtweg enc-kanal-ratten",
+        "rattennest-3": "side-rattenkoenig Rattenbegegnung 3 (umgehbar)",
+        "rippers-lager": "Rippers Lager: Ripper N und T Di/Fr (Lieferung)",
+        "ausschuss-stelle": "Ausschuss-Stelle (Quantum-Chip-Müll ab act2; side-jimmys-chip Hinweis)",
+        "ventil-stelle": "Ventile (akt-ventil)",
+        "floss-anleger": "Floß-Anleger (akt-floss)",
+        "graf-gully-thron": "kopfgeld-graf-gully-zwei (falscher Bürgermeister)",
+        "magnetangel-stelle": "akt-angeln im Kanal (nur mit magnetangel)",
+        "kanalbrett": "Gullys Kanalbrett (Aufträge ab Ruf kanalvolk 10)",
+        "fluchtweg-tuer": "Notausgang für prep-fluchtweg (Rückweg durch den Kanal)"
+      },
+      "hotspots": {
+        "fluss-frieda": "shop fluss-frieda",
+        "kanalbrett": "board gullys-kanalbrett (ab Ruf kanalvolk 10)",
+        "notgenerator": "check gc-119 [Technik 6]",
+        "ventil": "minigame akt-ventil",
+        "floss": "minigame akt-floss",
+        "rechen": "check gc-125 [Körper 6]; Seilwinde [Technik 4]; Bolzen apportiert",
+        "rechen-versteck": "check gc-147 [Körper 7] (oder akt-floss, outfit-kanal)",
+        "kanalminze": "loot kanalminze (side-neon-limo)",
+        "trockendock-bett": "sleep (shelter)",
+        "thronsaal-tor": "use: side-rattenkoenig (gc-73 Lebendfalle, Captain Kuschel, Röstzwiebeln [Gosse])",
+        "angeln-kanal": "minigame akt-angeln (mit magnetangel)",
+        "spende-ersatzteile": "use: 3 schrott-ersatzteil spenden (prep-fluchtweg, Ruf kanalvolk +15)",
+        "glueckstern-15": "loot glueckstern-15",
+        "datenwuerfel-18": "loot datenwuerfel-18 (Rechen-Versteck)",
+        "neon-tag-08": "loot neon-tag-08",
+        "jimmy-spur-07": "loot jimmy-spur-07 (Ausschuss-Stelle)",
+        "flaschenpost-02": "loot flaschenpost-02 (Rechen)"
+      }
+    },
+    "flutmauer": {
+      "name": "Flutmauer",
+      "kind": "zone",
+      "district": "kueste",
+      "size": [
+        1536,
+        1024
+      ],
+      "lighting": "outdoor",
+      "package": "pkg-flutmauer",
+      "parent": "",
+      "station": "",
+      "exits": [
+        {
+          "id": "nach-hafenkante",
+          "to": "hafenkante",
+          "entry": "von-flutmauer",
+          "label": "Rampe zur Hafenkante",
+          "edge": "n",
+          "when": "",
+          "lockedText": ""
+        }
+      ],
+      "entries": [
+        "von-hafenkante",
+        "aufwachen",
+        "taxi"
+      ],
+      "spots": {
+        "leuchtturm": "Leuchtturm: Henk Angler M/T/A (Händler henk-angler), side-hunde-der-brackbucht Auftakt",
+        "leuchtturm-oben": "Leuchtturm oben: Aussichtspunkt, Notschlafplatz ab Henk ♥3",
+        "wand-der-freiheit": "Wand der Freiheit: Sina Spray T und N (akt-graffiti, side-wand-der-freiheit)",
+        "muenzfernrohr": "Münzfernrohr (Fernblick aufs Meer): Nyra A Mo–Fr, he-nyra-4",
+        "nyra-bank": "Bank neben dem Fernrohr (he-nyra-6 Dantes Rat)",
+        "laufstrecke": "Laufstrecke auf der Mauerkrone: Raven M Di/Do, jimmy-spur-08 (Ölfass-Türmchen)",
+        "mauer-ziel": "Mauerkrone, Ziel des Dächerrennens (he-aria-10 / rom-aria-kuss, rom-vexaria-kuss)",
+        "brackbucht": "Brackbucht (Schlick, Treibgut): akt-angeln, Leuchtalge N",
+        "schlickstrand": "Schlickstrand (side-zehn-credits: Kinder mit metalldetektor)",
+        "drohnenwrack": "Abgestürzte Kameradrohne (side-live-dabei gc-65 tauchen / gc-66)",
+        "hundespuren": "Spuren im Schlick, nachts leuchtende Augen (side-hunde-der-brackbucht)",
+        "hunderudel": "Robohund-Rudel mit Alpha (Bolzen vor der Quest), enc-bucht-hunde",
+        "treibgutnetz": "Treibgutnetz bei Ebbe (gc-149 → schallplatte-07)",
+        "kamera-mauerweg": "Kamera am Mauerweg (side-wand-der-freiheit)",
+        "auftrag-a": "Generischer Auftragspunkt (job-bergung Brackbucht)"
+      },
+      "hotspots": {
+        "henk-angler": "shop henk-angler",
+        "angeln-brackbucht": "minigame akt-angeln (nachts Leuchtalge)",
+        "leuchtalge": "loot leuchtalge (N, side-neon-limo)",
+        "graffiti-wand": "minigame akt-graffiti (N)",
+        "muenzfernrohr": "look: Fernblick aufs Meer",
+        "aussicht-leuchtturm": "look: Aussichtspunkt Leuchtturm",
+        "treibgutnetz": "check gc-149 [Körper 6] (oder magnetangel)",
+        "drohnenwrack": "check gc-65 [Körper 5] / gc-66 [Technik 4] / magnetangel",
+        "alpha-hund": "check gc-81 [Technik 6] (Alpha wird Bolzen)",
+        "mauer-kamera": "minigame akt-hacken ([Technik 5], side-wand-der-freiheit)",
+        "leuchtturm-bett": "sleep (shelter ab Henk ♥3)",
+        "glueckstern-19": "loot glueckstern-19",
+        "glueckstern-20": "loot glueckstern-20",
+        "neon-tag-11": "loot neon-tag-11",
+        "neon-tag-12": "loot neon-tag-12",
+        "flaschenpost-05": "loot flaschenpost-05",
+        "schallplatte-07": "loot schallplatte-07 (Treibgutnetz)",
+        "jimmy-spur-08": "loot jimmy-spur-08 (Laufstrecke)"
+      }
+    }
+  },
+  "shops": {
+    "volt-eck": {
+      "map": "neon-gasse",
+      "spot": "kiosk",
+      "owner": "oma-volt"
+    },
+    "hv-bar": {
+      "map": "high-voltage",
+      "spot": "tresen",
+      "owner": "barkeeper"
+    },
+    "bao-babette": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "owner": "babette-bao"
+    },
+    "gustavs-schrottkram": {
+      "map": "schrottmarkt",
+      "spot": "schrottkram-stand",
+      "owner": "opa-gustav"
+    },
+    "dexters-schrott": {
+      "map": "schrottmarkt",
+      "spot": "dexter-buero",
+      "owner": "dexter"
+    },
+    "vinyl-vincent": {
+      "map": "schrottmarkt",
+      "spot": "plattenstand-vincent",
+      "owner": "vinyl-vincent"
+    },
+    "elektronikstand": {
+      "map": "schrottmarkt",
+      "spot": "elektronikstand",
+      "owner": ""
+    },
+    "imbiss-loetkolben": {
+      "map": "schrottmarkt",
+      "spot": "imbiss-loetkolben",
+      "owner": ""
+    },
+    "flohmarkt": {
+      "map": "schrottmarkt",
+      "spot": "flohmarkt",
+      "owner": "",
+      "note": "open: So T"
+    },
+    "marla-karawane": {
+      "map": "schrottmarkt",
+      "spot": "karawanenstand",
+      "owner": "marla-sand"
+    },
+    "ripper-praxis": {
+      "map": "ripper-praxis",
+      "spot": "behandlungsstuhl",
+      "owner": "ripper"
+    },
+    "ripper-hinterzimmer": {
+      "map": "ripper-praxis",
+      "spot": "hinterzimmer-vorhang",
+      "owner": "ripper",
+      "note": "open: ripper_kennt_dich oder Ruf unterstadt 20"
+    },
+    "loetzinn-laden": {
+      "map": "loetzinn-laden",
+      "spot": "theke",
+      "owner": "mira-loetzinn"
+    },
+    "dante-werkstatt": {
+      "map": "dantes-werkstatt",
+      "spot": "einbau-liege",
+      "owner": "dante",
+      "note": "ripperdoc; Dienste nach main-1-dante, Einbau frei ab he-dante-2"
+    },
+    "suppenkueche": {
+      "map": "suppenkueche",
+      "spot": "kessel",
+      "owner": "mutter-bruehe"
+    },
+    "fraeulein-pixel": {
+      "map": "bahnhof-mitte",
+      "spot": "fotoautomat",
+      "owner": "fraeulein-pixel"
+    },
+    "ticketautomat": {
+      "map": "bahnhof-mitte",
+      "spot": "ticketautomat",
+      "owner": ""
+    },
+    "bahnhof-kiosk": {
+      "map": "bahnhof-mitte",
+      "spot": "kiosk-bahnhof",
+      "owner": ""
+    },
+    "fundbuero": {
+      "map": "fundbuero",
+      "spot": "schalter",
+      "owner": "gerda-gleis"
+    },
+    "salzige-grete": {
+      "map": "hafenkante",
+      "spot": "fischstand",
+      "owner": "salzige-grete"
+    },
+    "rennhallen-kiosk": {
+      "map": "hafenkante",
+      "spot": "rennhalle-tor",
+      "owner": ""
+    },
+    "garage-rostlaube": {
+      "map": "hafenkante",
+      "spot": "garage-rostlaube",
+      "owner": "kaeptn-nebelhorn"
+    },
+    "brezel-imbiss": {
+      "map": "stufenplatz",
+      "spot": "brezel-imbiss",
+      "owner": ""
+    },
+    "salon-gina": {
+      "map": "stufenplatz",
+      "spot": "salon-gina",
+      "owner": "stylistin-gina"
+    },
+    "dr-winkel": {
+      "map": "eisenhof",
+      "spot": "winkels-praxis",
+      "owner": "dr-winkel"
+    },
+    "gerichtskantine": {
+      "map": "eisenhof",
+      "spot": "gerichtskantine",
+      "owner": ""
+    },
+    "satin-und-chrom": {
+      "map": "glasarkaden",
+      "spot": "satin-und-chrom",
+      "owner": "madame-satin"
+    },
+    "feinkost": {
+      "map": "glasarkaden",
+      "spot": "feinkost-theke",
+      "owner": "",
+      "note": "Zweiter Verkaufspunkt: Hotspot feinkost-rampe im Lieferhof (glasarkaden, Spot feinkost-rampe) – gleicher shopId, ohne Drehkreuz erreichbar"
+    },
+    "pixelpalast": {
+      "map": "glasarkaden",
+      "spot": "pixelpalast",
+      "owner": ""
+    },
+    "cafe-sahnehaube": {
+      "map": "cafe-sahnehaube",
+      "spot": "theke",
+      "owner": "barista-perle"
+    },
+    "quantum-schauraum": {
+      "map": "quantum-schauraum",
+      "spot": "verkaufstresen",
+      "owner": "herr-glanz"
+    },
+    "hartlauf-restposten": {
+      "map": "digitech-areal",
+      "spot": "pfoertnerhaus",
+      "owner": "direktorin-hartlauf"
+    },
+    "fluss-frieda": {
+      "map": "kanal-sammler",
+      "spot": "friedas-stand",
+      "owner": "fluss-frieda"
+    },
+    "henk-angler": {
+      "map": "flutmauer",
+      "spot": "leuchtturm",
+      "owner": "henk-angler"
+    }
+  },
+  "boards": {
+    "auftragstafel": {
+      "map": "hv-hinterzimmer",
+      "spot": "schreibtisch",
+      "hotspot": "auftragstafel",
+      "note": "Hunters Auftragstafel, ab main-1-probezeit"
+    },
+    "planungstafel": {
+      "map": "hv-hinterzimmer",
+      "spot": "planungstisch",
+      "hotspot": "planungstafel",
+      "note": "prep-*, ab main-1-der-plan; Kopie im crew-quartier (pinnwand)"
+    },
+    "dantes-reparaturliste": {
+      "map": "dantes-werkstatt",
+      "spot": "werkbank",
+      "hotspot": "reparaturliste",
+      "note": "ab Dante ♥2"
+    },
+    "gullys-kanalbrett": {
+      "map": "kanal-sammler",
+      "spot": "kanalbrett",
+      "hotspot": "kanalbrett",
+      "note": "ab Ruf kanalvolk 10"
+    }
+  },
+  "npcSchedules": {
+    "hunter": [
+      {
+        "when": "M So",
+        "map": "hafenkante",
+        "spot": "angelsteg"
+      },
+      {
+        "when": "M",
+        "map": "high-voltage",
+        "spot": "kasse"
+      },
+      {
+        "when": "T Mo,Do",
+        "map": "schrottmarkt",
+        "spot": "marktplatz-mitte"
+      },
+      {
+        "when": "T",
+        "map": "hv-hinterzimmer",
+        "spot": "schreibtisch"
+      },
+      {
+        "when": "A,N Mo",
+        "map": "high-voltage",
+        "spot": "tresen"
+      },
+      {
+        "when": "A,N",
+        "map": "high-voltage",
+        "spot": "tresen-ende"
+      }
+    ],
+    "raven": [
+      {
+        "when": "T Di,Do,Sa | main-1-raven nicht erledigt",
+        "map": "zellentrakt",
+        "spot": "besucherraum"
+      },
+      {
+        "when": "* | main-1-raven nicht erledigt",
+        "map": "zellentrakt",
+        "spot": "zelle-raven"
+      },
+      {
+        "when": "M Di,Do",
+        "map": "flutmauer",
+        "spot": "laufstrecke"
+      },
+      {
+        "when": "M",
+        "map": "neon-gasse",
+        "spot": "dachterrasse"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "raven-ecke"
+      },
+      {
+        "when": "A",
+        "map": "high-voltage",
+        "spot": "bar-hocker"
+      },
+      {
+        "when": "N",
+        "map": "neon-gasse",
+        "spot": "dachterrasse"
+      }
+    ],
+    "dante": [
+      {
+        "when": "M Mo,Do",
+        "map": "schrottmarkt",
+        "spot": "plattenkiste-dante"
+      },
+      {
+        "when": "M",
+        "map": "dantes-werkstatt",
+        "spot": "ofen"
+      },
+      {
+        "when": "T",
+        "map": "dantes-werkstatt",
+        "spot": "werkbank"
+      },
+      {
+        "when": "A Do",
+        "map": "dantes-werkstatt",
+        "spot": "eins-tisch"
+      },
+      {
+        "when": "A",
+        "map": "dantes-werkstatt",
+        "spot": "plattenspieler"
+      },
+      {
+        "when": "N Sa",
+        "map": "high-voltage",
+        "spot": "tanzflaeche"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "vega": [
+      {
+        "when": "A | prep-wachplan aktiv",
+        "map": "stufenplatz",
+        "spot": "fussgaengerbruecke"
+      },
+      {
+        "when": "M",
+        "map": "neon-gasse",
+        "spot": "vegas-ausguck"
+      },
+      {
+        "when": "T Mo,Mi,Fr",
+        "map": "bahnhof-mitte",
+        "spot": "bahnsteig-ende"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "garkueche-bank"
+      },
+      {
+        "when": "A",
+        "map": "high-voltage",
+        "spot": "vega-aria-tisch"
+      },
+      {
+        "when": "N",
+        "map": "neon-gasse",
+        "spot": "vegas-ausguck"
+      }
+    ],
+    "aria": [
+      {
+        "when": "M",
+        "map": "schrottmarkt",
+        "spot": "inkasso-gasse"
+      },
+      {
+        "when": "T Di,Do",
+        "map": "dantes-werkstatt",
+        "spot": "einbau-liege"
+      },
+      {
+        "when": "T",
+        "map": "neon-gasse",
+        "spot": "gassenmitte"
+      },
+      {
+        "when": "A",
+        "map": "high-voltage",
+        "spot": "vega-aria-tisch"
+      },
+      {
+        "when": "N",
+        "map": "high-voltage",
+        "spot": "tanzflaeche"
+      }
+    ],
+    "nyra": [
+      {
+        "when": "M",
+        "map": "netzcafe-datenkruemel",
+        "spot": "nyras-platz"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "elektronikstand"
+      },
+      {
+        "when": "A Sa,So",
+        "map": "high-voltage",
+        "spot": "laptop-ecke"
+      },
+      {
+        "when": "A",
+        "map": "flutmauer",
+        "spot": "muenzfernrohr"
+      },
+      {
+        "when": "N",
+        "map": "neon-gasse",
+        "spot": "dachterrasse"
+      }
+    ],
+    "jimmy": [
+      {
+        "when": "M | side-jimmys-chip erledigt",
+        "map": "dantes-werkstatt",
+        "spot": "jimmy-hocker"
+      },
+      {
+        "when": "T | side-jimmys-chip erledigt (Botendienste)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "A | side-jimmys-chip erledigt",
+        "map": "high-voltage",
+        "spot": "sitzecke-gaeste"
+      },
+      {
+        "when": "N | side-jimmys-chip erledigt",
+        "map": "crew-quartier",
+        "spot": "couch"
+      },
+      {
+        "when": "M | ab 4 jimmy-spur",
+        "map": "bahnhof-mitte",
+        "spot": "wartehaeuschen"
+      },
+      {
+        "when": "T | ab 4 jimmy-spur",
+        "map": "bahnhof-mitte",
+        "spot": "bahnsteig-ende"
+      },
+      {
+        "when": "A,N | ab 4 jimmy-spur",
+        "map": "hafenkante",
+        "spot": "oelfass-tuerme"
+      },
+      {
+        "when": "* (vor 4 Spuren unsichtbar)",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "captain-kuschel": [
+      {
+        "when": "* | nyra_hat_kuschel (neben Nyra, gleiche Karte wie Nyras Eintrag)",
+        "map": "netzcafe-datenkruemel",
+        "spot": "nyras-platz"
+      },
+      {
+        "when": "* Mo,Mi",
+        "map": "das-nest",
+        "spot": "kuschel-platz"
+      },
+      {
+        "when": "*",
+        "map": "dantes-werkstatt",
+        "spot": "kuschel-regal"
+      }
+    ],
+    "ripper": [
+      {
+        "when": "M",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "T Di,Fr",
+        "map": "kanal-sammler",
+        "spot": "rippers-lager"
+      },
+      {
+        "when": "T",
+        "map": "ripper-praxis",
+        "spot": "behandlungsstuhl"
+      },
+      {
+        "when": "A",
+        "map": "high-voltage",
+        "spot": "ecktisch"
+      },
+      {
+        "when": "N Di",
+        "map": "hafenkante",
+        "spot": "container-77"
+      },
+      {
+        "when": "N",
+        "map": "kanal-sammler",
+        "spot": "rippers-lager"
+      }
+    ],
+    "barkeeper": [
+      {
+        "when": "M",
+        "map": "high-voltage",
+        "spot": "tresen"
+      },
+      {
+        "when": "T Mo",
+        "map": "schrottmarkt",
+        "spot": "marktplatz-mitte"
+      },
+      {
+        "when": "T",
+        "map": "neon-gasse",
+        "spot": "klingen-ecke"
+      },
+      {
+        "when": "A,N Mo",
+        "map": "hafenkante",
+        "spot": "alte-arena"
+      },
+      {
+        "when": "A,N",
+        "map": "high-voltage",
+        "spot": "tresen"
+      }
+    ],
+    "daria": [
+      {
+        "when": "M",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "botenstand"
+      },
+      {
+        "when": "A Do",
+        "map": "dantes-werkstatt",
+        "spot": "eins-tisch"
+      },
+      {
+        "when": "A | bis 20:00",
+        "map": "neon-gasse",
+        "spot": "pfandflaschen-ecke"
+      },
+      {
+        "when": "A | ab 20:00",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      },
+      {
+        "when": "N",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      }
+    ],
+    "freya": [
+      {
+        "when": "M Mi",
+        "map": "gerichtssaal",
+        "spot": "zuschauerbaenke"
+      },
+      {
+        "when": "M",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      },
+      {
+        "when": "T Mi",
+        "map": "eisenhof",
+        "spot": "gerichtsgarten"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "botenstand"
+      },
+      {
+        "when": "A Do",
+        "map": "dantes-werkstatt",
+        "spot": "eins-tisch"
+      },
+      {
+        "when": "A | bis 20:00",
+        "map": "schrottmarkt",
+        "spot": "lio-ecke"
+      },
+      {
+        "when": "A | ab 20:00",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      },
+      {
+        "when": "N",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      }
+    ],
+    "jakko": [
+      {
+        "when": "M",
+        "map": "schrottmarkt",
+        "spot": "garkueche-hocker"
+      },
+      {
+        "when": "T Mo,Mi,Fr",
+        "map": "schrottmarkt",
+        "spot": "kran"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "garkueche-hocker"
+      },
+      {
+        "when": "A Do",
+        "map": "dantes-werkstatt",
+        "spot": "eins-tisch"
+      },
+      {
+        "when": "A | bis 20:00",
+        "map": "schrottmarkt",
+        "spot": "garkueche-hocker"
+      },
+      {
+        "when": "A | ab 20:00",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      },
+      {
+        "when": "N",
+        "map": "das-nest",
+        "spot": "schlafnischen"
+      }
+    ],
+    "richter": [
+      {
+        "when": "T So",
+        "map": "schrottmarkt",
+        "spot": "flohmarkt"
+      },
+      {
+        "when": "M",
+        "map": "gerichtssaal",
+        "spot": "richterbank"
+      },
+      {
+        "when": "T",
+        "map": "eisenhof",
+        "spot": "gerichtsgarten"
+      },
+      {
+        "when": "A Do",
+        "map": "high-voltage",
+        "spot": "kartentisch"
+      },
+      {
+        "when": "A Fr",
+        "map": "schrottmarkt",
+        "spot": "garkueche-bank"
+      },
+      {
+        "when": "A",
+        "map": "eisenhof",
+        "spot": "richter-bank"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "wache": [
+      {
+        "when": "M | kessel_feierabend",
+        "map": "loetgassen",
+        "spot": "hinterhof-studio"
+      },
+      {
+        "when": "M Mi",
+        "map": "gerichtssaal",
+        "spot": "saalwache"
+      },
+      {
+        "when": "M",
+        "map": "eisenhof",
+        "spot": "entlassungstor"
+      },
+      {
+        "when": "T",
+        "map": "zellentrakt",
+        "spot": "besucherraum-tuer"
+      },
+      {
+        "when": "A",
+        "map": "bahnhof-mitte",
+        "spot": "kiosk-bahnhof"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "dexter": [
+      {
+        "when": "M",
+        "map": "schrottmarkt",
+        "spot": "dexter-versteck"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "dexter-buero"
+      },
+      {
+        "when": "A | main-1-dexter erledigt",
+        "map": "high-voltage",
+        "spot": "dexter-tisch"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "dexter-buero"
+      },
+      {
+        "when": "N",
+        "map": "schrottmarkt",
+        "spot": "dexter-buero"
+      }
+    ],
+    "babette-bao": [
+      {
+        "when": "A Mo",
+        "map": "hafenkante",
+        "spot": "fischmarkt"
+      },
+      {
+        "when": "M,T,N Mo",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "M,T",
+        "map": "schrottmarkt",
+        "spot": "garkueche"
+      },
+      {
+        "when": "A | 17:00–18:00",
+        "map": "das-nest",
+        "spot": "essensplatz"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "garkueche"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "opa-gustav": [
+      {
+        "when": "T So",
+        "map": "schrottmarkt",
+        "spot": "flohmarkt"
+      },
+      {
+        "when": "M",
+        "map": "schrottmarkt",
+        "spot": "kran"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "schrottkram-stand"
+      },
+      {
+        "when": "A Fr",
+        "map": "high-voltage",
+        "spot": "oldie-ecke"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "wohnwagen"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "oma-volt": [
+      {
+        "when": "T So",
+        "map": "schrottmarkt",
+        "spot": "flohmarkt"
+      },
+      {
+        "when": "M,T,A",
+        "map": "neon-gasse",
+        "spot": "kiosk"
+      },
+      {
+        "when": "N (wohnt über dem Kiosk)",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "kiki-karbon": [
+      {
+        "when": "M",
+        "map": "bahnhof-mitte",
+        "spot": "taxistand"
+      },
+      {
+        "when": "T Mo,Mi,Fr",
+        "map": "glasarkaden",
+        "spot": "kiki-landeplatz"
+      },
+      {
+        "when": "T Di,Do",
+        "map": "schrottmarkt",
+        "spot": "taxi-landeplatz"
+      },
+      {
+        "when": "T Sa,So",
+        "map": "neon-gasse",
+        "spot": "vorplatz"
+      },
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "vorplatz"
+      },
+      {
+        "when": "N",
+        "map": "neon-gasse",
+        "spot": "vorplatz"
+      }
+    ],
+    "lio-funkel": [
+      {
+        "when": "M",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "T",
+        "map": "bahnhof-mitte",
+        "spot": "musikerecke"
+      },
+      {
+        "when": "A Di",
+        "map": "high-voltage",
+        "spot": "buehne"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "lio-ecke"
+      },
+      {
+        "when": "N Sa",
+        "map": "high-voltage",
+        "spot": "buehne"
+      },
+      {
+        "when": "N",
+        "map": "neon-gasse",
+        "spot": "lichterketten-bank"
+      }
+    ],
+    "pim-pinzette": [
+      {
+        "when": "M",
+        "map": "bahnhof-mitte",
+        "spot": "pendlerbank"
+      },
+      {
+        "when": "T (Quantum-Labor, nicht erreichbar)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "imbiss-loetkolben"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "kaeptn-nebelhorn": [
+      {
+        "when": "M",
+        "map": "hafenkante",
+        "spot": "steg"
+      },
+      {
+        "when": "T",
+        "map": "hafenkante",
+        "spot": "faehre"
+      },
+      {
+        "when": "A Mi,Fr",
+        "map": "high-voltage",
+        "spot": "stammtisch"
+      },
+      {
+        "when": "A",
+        "map": "hafenkante",
+        "spot": "steg"
+      },
+      {
+        "when": "N",
+        "map": "hausboot-nebelhorn",
+        "spot": "kajuete"
+      }
+    ],
+    "buergermeister-gully": [
+      {
+        "when": "M,T",
+        "map": "kanal-sammler",
+        "spot": "gullys-rathaus"
+      },
+      {
+        "when": "A",
+        "map": "kanal-sammler",
+        "spot": "rechen"
+      },
+      {
+        "when": "N",
+        "map": "kanal-sammler",
+        "spot": "thronsaal-grenze"
+      }
+    ],
+    "bolzen": [
+      {
+        "when": "N | Haustier, nicht in der Party",
+        "map": "crew-quartier",
+        "spot": "hundekorb"
+      },
+      {
+        "when": "M,T,A | Haustier, nicht in der Party",
+        "map": "crew-quartier",
+        "spot": "hundekorb"
+      },
+      {
+        "when": "* | vor side-hunde-der-brackbucht",
+        "map": "flutmauer",
+        "spot": "hunderudel"
+      }
+    ],
+    "collin-charleston": [
+      {
+        "when": "M",
+        "map": "nx1-studio",
+        "spot": "radio-kabine"
+      },
+      {
+        "when": "T Mo,Mi,Fr",
+        "map": "stufenplatz",
+        "spot": "buehne"
+      },
+      {
+        "when": "T",
+        "map": "nx1-studio",
+        "spot": "schminkspiegel"
+      },
+      {
+        "when": "A Di",
+        "map": "high-voltage",
+        "spot": "moderatorenpult"
+      },
+      {
+        "when": "N Di | bis 23:00",
+        "map": "high-voltage",
+        "spot": "moderatorenpult"
+      },
+      {
+        "when": "A",
+        "map": "cafe-sahnehaube",
+        "spot": "autogramm-tisch"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "delya-delloraine": [
+      {
+        "when": "M",
+        "map": "nx1-studio",
+        "spot": "redaktion"
+      },
+      {
+        "when": "T Di,Do",
+        "map": "gerichtssaal",
+        "spot": "zuschauerbaenke"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "stadt-tv"
+      },
+      {
+        "when": "A",
+        "map": "nx1-studio",
+        "spot": "studio-set"
+      },
+      {
+        "when": "N Fr,Sa",
+        "map": "bahnhof-mitte",
+        "spot": "quellen-ecke"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "kameramann": [
+      {
+        "when": "M",
+        "map": "nx1-studio",
+        "spot": "regie"
+      },
+      {
+        "when": "T Mo,Mi,Fr",
+        "map": "stufenplatz",
+        "spot": "kamerakran"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "stadt-tv"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "filmposten"
+      },
+      {
+        "when": "N Sa,So",
+        "map": "neon-gasse",
+        "spot": "kamera-stativ"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "marla-sand": [
+      {
+        "when": "M,T Sa",
+        "map": "schrottmarkt",
+        "spot": "karawanenstand"
+      },
+      {
+        "when": "A Sa",
+        "map": "high-voltage",
+        "spot": "oldie-ecke"
+      },
+      {
+        "when": "* (Aussiedlerhof/Ödnis, Akt 2)",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "vex-schrapnell": [
+      {
+        "when": "* | { playerIs: vex } (dann ist Vex die Spielfigur)",
+        "map": "away",
+        "spot": ""
+      },
+      {
+        "when": "M",
+        "map": "bahnhof-mitte",
+        "spot": "paketausgabe"
+      },
+      {
+        "when": "T",
+        "map": "neon-gasse",
+        "spot": "dachkante"
+      },
+      {
+        "when": "A",
+        "map": "loetgassen",
+        "spot": "kurierbude"
+      },
+      {
+        "when": "N Fr,Sa",
+        "map": "neon-gasse",
+        "spot": "dachkante"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "blade": [
+      {
+        "when": "A",
+        "map": "cafe-sahnehaube",
+        "spot": "blade-tisch"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "alesa-zero": [
+      {
+        "when": "M Mo,Di,Mi,Do,Fr | 07:00–09:00",
+        "map": "cafe-sahnehaube",
+        "spot": "fenstertisch"
+      },
+      {
+        "when": "T Mi",
+        "map": "digitech-areal",
+        "spot": "lieferzone"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "serenity-chrome": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-gruen"
+      },
+      {
+        "when": "M",
+        "map": "glasarkaden",
+        "spot": "glaspark"
+      },
+      {
+        "when": "A",
+        "map": "cafe-sahnehaube",
+        "spot": "ecktisch-cafe"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "seraphina-chrome": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-blau"
+      },
+      {
+        "when": "A",
+        "map": "glasarkaden",
+        "spot": "glaspark-tauben"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "sybella-chrome": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "schlafzimmer-rot"
+      },
+      {
+        "when": "A Di,Sa",
+        "map": "schrottmarkt",
+        "spot": "sybella-verkleidet"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "xion-venom": [
+      {
+        "when": "N Di",
+        "map": "hafenkante",
+        "spot": "container-77"
+      },
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "werbestand"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "ki-nexus": [
+      {
+        "when": "M,T,A",
+        "map": "quantum-schauraum",
+        "spot": "hologramm"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "portier-albert": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "portier-runde"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "bijou": [
+      {
+        "when": "N | side-alte-gewohnheiten aktiv",
+        "map": "chrome-penthouse",
+        "spot": "sofa-bijou"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "bruno-brecher": [
+      {
+        "when": "A,N",
+        "map": "neon-gasse",
+        "spot": "hv-eingang"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "dj-lumo": [
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "lumos-ecke"
+      },
+      {
+        "when": "N",
+        "map": "high-voltage",
+        "spot": "dj-pult"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "mira-loetzinn": [
+      {
+        "when": "M,T,A",
+        "map": "loetzinn-laden",
+        "spot": "theke"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "opa-gurrmann": [
+      {
+        "when": "M,T,A",
+        "map": "loetgassen",
+        "spot": "taubenschlag"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "mutter-bruehe": [
+      {
+        "when": "M,T,A",
+        "map": "suppenkueche",
+        "spot": "kessel"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "fraeulein-pixel": [
+      {
+        "when": "A,N",
+        "map": "bahnhof-mitte",
+        "spot": "fotoautomat"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "gerda-gleis": [
+      {
+        "when": "M,T",
+        "map": "fundbuero",
+        "spot": "schalter"
+      },
+      {
+        "when": "A,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "frau-takt": [
+      {
+        "when": "M,T",
+        "map": "bahnhof-mitte",
+        "spot": "stellwerk"
+      },
+      {
+        "when": "A,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "herr-blitz": [
+      {
+        "when": "T",
+        "map": "bahnhof-mitte",
+        "spot": "taxistand-blitz"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "knut": [
+      {
+        "when": "A,N | side-abzieher Gesprächsweg (Türsteher)",
+        "map": "neon-gasse",
+        "spot": "hv-eingang"
+      },
+      {
+        "when": "A",
+        "map": "bahnhof-mitte",
+        "spot": "bahnsteig"
+      },
+      {
+        "when": "N",
+        "map": "ubahn-wagen",
+        "spot": "abzieher-lager"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "kurt": [
+      {
+        "when": "A,N | side-abzieher Gesprächsweg (Türsteher)",
+        "map": "neon-gasse",
+        "spot": "hv-eingang"
+      },
+      {
+        "when": "A",
+        "map": "bahnhof-mitte",
+        "spot": "bahnsteig-2"
+      },
+      {
+        "when": "N",
+        "map": "ubahn-wagen",
+        "spot": "abzieher-lager"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "wett-willi": [
+      {
+        "when": "T,A",
+        "map": "schrottmarkt",
+        "spot": "huetchenspiel"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "vinyl-vincent": [
+      {
+        "when": "T,A",
+        "map": "schrottmarkt",
+        "spot": "plattenstand-vincent"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "gutschein-gerd": [
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "gerds-stand"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "gerds-hinterhof"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "knuspi": [
+      {
+        "when": "A,N",
+        "map": "hafenkante",
+        "spot": "knuspi-versteck"
+      },
+      {
+        "when": "M,T",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "hafen-hannes": [
+      {
+        "when": "M,T,A",
+        "map": "hafenkante",
+        "spot": "kai-mitte"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "turbo-tilda": [
+      {
+        "when": "A Fr",
+        "map": "hafenkante",
+        "spot": "rostkai-kraene"
+      },
+      {
+        "when": "T",
+        "map": "hafenkante",
+        "spot": "tildas-box"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "falke": [
+      {
+        "when": "T",
+        "map": "hafenkante",
+        "spot": "falke-kran"
+      },
+      {
+        "when": "N",
+        "map": "hafenkante",
+        "spot": "falkes-wohnwagen"
+      },
+      {
+        "when": "M,A",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "salzige-grete": [
+      {
+        "when": "M,T",
+        "map": "hafenkante",
+        "spot": "fischstand"
+      },
+      {
+        "when": "A,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "pfeffer": [
+      {
+        "when": "A,N Fr,Sa",
+        "map": "high-voltage",
+        "spot": "pfeffer-tisch"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "mila": [
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "mila-ecke"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "frau-klingel": [
+      {
+        "when": "T,A",
+        "map": "schrottmarkt",
+        "spot": "klingel-stand"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "paul": [
+      {
+        "when": "T",
+        "map": "neon-gasse",
+        "spot": "paul-ecke"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "meister-watt": [
+      {
+        "when": "M | side-thai-chi aktiv, Meister Watt als Lehrer gewählt",
+        "map": "loetgassen",
+        "spot": "hinterhof-studio"
+      },
+      {
+        "when": "M,T,A",
+        "map": "schrottmarkt",
+        "spot": "watt-pose"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "stylistin-gina": [
+      {
+        "when": "T,A",
+        "map": "stufenplatz",
+        "spot": "salon-gina"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "bruder-kabellos": [
+      {
+        "when": "T",
+        "map": "stufenplatz",
+        "spot": "prediger-kiste"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "madame-satin": [
+      {
+        "when": "M,T,A",
+        "map": "glasarkaden",
+        "spot": "satin-und-chrom"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "herr-glanz": [
+      {
+        "when": "M,T,A",
+        "map": "quantum-schauraum",
+        "spot": "verkaufstresen"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "barista-perle": [
+      {
+        "when": "M,T,A",
+        "map": "cafe-sahnehaube",
+        "spot": "theke"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "dr-winkel": [
+      {
+        "when": "M,T",
+        "map": "eisenhof",
+        "spot": "winkels-praxis"
+      },
+      {
+        "when": "A,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "direktorin-hartlauf": [
+      {
+        "when": "T",
+        "map": "digitech-areal",
+        "spot": "pfoertnerhaus"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "ole-gaehn": [
+      {
+        "when": "M,T,A",
+        "map": "digitech-areal",
+        "spot": "pfoertnerhaus-bank"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "fx-60": [
+      {
+        "when": "*",
+        "map": "digitech-tresor",
+        "spot": "fx-60-terminal"
+      }
+    ],
+    "fluss-frieda": [
+      {
+        "when": "M,T,A",
+        "map": "kanal-sammler",
+        "spot": "friedas-stand"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "henk-angler": [
+      {
+        "when": "M,T,A",
+        "map": "flutmauer",
+        "spot": "leuchtturm"
+      },
+      {
+        "when": "N",
+        "map": "flutmauer",
+        "spot": "leuchtturm-oben"
+      }
+    ],
+    "sina-spray": [
+      {
+        "when": "T",
+        "map": "flutmauer",
+        "spot": "wand-der-freiheit"
+      },
+      {
+        "when": "N",
+        "map": "flutmauer",
+        "spot": "wand-der-freiheit"
+      },
+      {
+        "when": "M,A",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "opa-blech": [
+      {
+        "when": "* | he-oma-volt-4 oder side-oma-volts-lager erledigt",
+        "map": "neon-gasse",
+        "spot": "kiosk-waechter"
+      },
+      {
+        "when": "*",
+        "map": "schrottmarkt",
+        "spot": "oma-volts-lager"
+      }
+    ],
+    "mixi": [
+      {
+        "when": "*",
+        "map": "high-voltage",
+        "spot": "mixi-ecke"
+      }
+    ],
+    "kabelbrand-roadie": [
+      {
+        "when": "T,A",
+        "map": "schrottmarkt",
+        "spot": "kabelbrand-merch"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "chrome-haushaelterin": [
+      {
+        "when": "T",
+        "map": "glasarkaden",
+        "spot": "glaspark-bank"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "zellennachbarin": [
+      {
+        "when": "*",
+        "map": "zellentrakt",
+        "spot": "zellennachbarin"
+      }
+    ],
+    "liftboy": [
+      {
+        "when": "M,T,A",
+        "map": "glasarkaden",
+        "spot": "panoramaaufzug"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "wachmann-brezel": [
+      {
+        "when": "T",
+        "map": "stufenplatz",
+        "spot": "brezel-imbiss"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "quantum-fahrer": [
+      {
+        "when": "N | main-1-auf-raven aktiv",
+        "map": "high-voltage",
+        "spot": "sitzecke-gaeste"
+      },
+      {
+        "when": "*",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "schorsch-spaetzahler": [
+      {
+        "when": "M",
+        "map": "bahnhof-mitte",
+        "spot": "kiosk-bahnhof"
+      },
+      {
+        "when": "T",
+        "map": "schrottmarkt",
+        "spot": "imbiss-loetkolben"
+      },
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "muelltonnen"
+      },
+      {
+        "when": "N",
+        "map": "high-voltage",
+        "spot": "sitzecke-gaeste"
+      }
+    ],
+    "madame-zinseszins": [
+      {
+        "when": "M,T",
+        "map": "rohrsiedlung",
+        "spot": "haengebruecke"
+      },
+      {
+        "when": "A",
+        "map": "schrottmarkt",
+        "spot": "garkueche-bank"
+      },
+      {
+        "when": "N",
+        "map": "away",
+        "spot": ""
+      }
+    ],
+    "zauberer-zappo": [
+      {
+        "when": "T",
+        "map": "stufenplatz",
+        "spot": "stufen-oben"
+      },
+      {
+        "when": "A",
+        "map": "neon-gasse",
+        "spot": "gassenmitte"
+      },
+      {
+        "when": "M,N",
+        "map": "away",
+        "spot": ""
+      }
+    ]
+  },
+  "events": {
+    "he-hunter-2": {
+      "map": "high-voltage",
+      "spot": "kasse",
+      "when": "N nach 01:00 (Kasse nach Feierabend); danach hv-hinterzimmer jimmys-kiste"
+    },
+    "he-hunter-4": {
+      "map": "high-voltage",
+      "spot": "tresen-ende",
+      "when": "A (Hunter hungrig, Diva) – Nougatbombe"
+    },
+    "he-hunter-6": {
+      "map": "hafenkante",
+      "spot": "angelsteg",
+      "when": "M So"
+    },
+    "he-raven-2": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "N"
+    },
+    "he-raven-4": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "M (Training)"
+    },
+    "he-raven-6": {
+      "map": "zellentrakt",
+      "spot": "zellennachbarin",
+      "when": "T Di/Do/Sa (Besuch)"
+    },
+    "he-dante-2": {
+      "map": "dantes-werkstatt",
+      "spot": "ofen",
+      "when": "M/A (Keksalarm)"
+    },
+    "he-dante-4": {
+      "map": "dantes-werkstatt",
+      "spot": "plattenspieler",
+      "when": "A"
+    },
+    "he-dante-6": {
+      "map": "dantes-werkstatt",
+      "spot": "fotoschrank",
+      "when": "T"
+    },
+    "he-vega-2": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "M oder N"
+    },
+    "he-vega-4": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "N, nach pers-vega-adlerauge"
+    },
+    "he-vega-6": {
+      "map": "high-voltage",
+      "spot": "vega-aria-tisch",
+      "when": "A"
+    },
+    "he-aria-2": {
+      "map": "schrottmarkt",
+      "spot": "inkasso-gasse",
+      "when": "M (Mülltonne bei Dexter)"
+    },
+    "he-aria-4": {
+      "map": "dantes-werkstatt",
+      "spot": "einbau-liege",
+      "when": "T Di/Do"
+    },
+    "he-aria-6": {
+      "map": "high-voltage",
+      "spot": "ecktisch",
+      "when": "A (Armdrücken [Körper 7])"
+    },
+    "he-nyra-2": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "N (Selfies; auch per Feed möglich)"
+    },
+    "he-nyra-4": {
+      "map": "flutmauer",
+      "spot": "muenzfernrohr",
+      "when": "A Mo–Fr"
+    },
+    "he-nyra-6": {
+      "map": "flutmauer",
+      "spot": "nyra-bank",
+      "when": "A Mo–Fr"
+    },
+    "he-captain-kuschel-2": {
+      "map": "dantes-werkstatt",
+      "spot": "kuschel-regal",
+      "when": "beliebig"
+    },
+    "he-captain-kuschel-4": {
+      "map": "das-nest",
+      "spot": "teekraenzchen",
+      "when": "T Mo/Mi"
+    },
+    "he-captain-kuschel-6": {
+      "map": "das-nest",
+      "spot": "kuschel-platz",
+      "when": "T (Bolzen findet ihn)"
+    },
+    "he-ripper-2": {
+      "map": "ripper-praxis",
+      "spot": "auslage",
+      "when": "T"
+    },
+    "he-ripper-4": {
+      "map": "ripper-praxis",
+      "spot": "behandlungsstuhl",
+      "when": "T"
+    },
+    "he-ripper-6": {
+      "map": "high-voltage",
+      "spot": "ecktisch",
+      "when": "A"
+    },
+    "he-barkeeper-2": {
+      "map": "high-voltage",
+      "spot": "tresen",
+      "when": "M"
+    },
+    "he-barkeeper-4": {
+      "map": "neon-gasse",
+      "spot": "klingen-ecke",
+      "when": "T"
+    },
+    "he-barkeeper-6": {
+      "map": "hafenkante",
+      "spot": "alte-arena",
+      "when": "A Mo"
+    },
+    "he-daria-2": {
+      "map": "schrottmarkt",
+      "spot": "botenstand",
+      "when": "T"
+    },
+    "he-daria-4": {
+      "map": "das-nest",
+      "spot": "eins-kiste",
+      "when": "T"
+    },
+    "he-daria-6": {
+      "map": "das-nest",
+      "spot": "karte-der-stadt",
+      "when": "M"
+    },
+    "he-freya-2": {
+      "map": "schrottmarkt",
+      "spot": "waage",
+      "when": "T"
+    },
+    "he-freya-4": {
+      "map": "eisenhof",
+      "spot": "gerichtsgarten",
+      "when": "T Mi"
+    },
+    "he-freya-6": {
+      "map": "bahnhof-mitte",
+      "spot": "musikerecke",
+      "when": "T"
+    },
+    "he-jakko-2": {
+      "map": "schrottmarkt",
+      "spot": "garkueche-hocker",
+      "when": "M"
+    },
+    "he-jakko-4": {
+      "map": "schrottmarkt",
+      "spot": "halde",
+      "when": "T"
+    },
+    "he-jakko-6": {
+      "map": "schrottmarkt",
+      "spot": "garkueche-hocker",
+      "when": "A"
+    },
+    "he-richter-2": {
+      "map": "eisenhof",
+      "spot": "gerichtsgarten",
+      "when": "T"
+    },
+    "he-richter-4": {
+      "map": "gerichtssaal",
+      "spot": "richterbank",
+      "when": "M Mi"
+    },
+    "he-richter-6": {
+      "map": "eisenhof",
+      "spot": "richter-bank",
+      "when": "A"
+    },
+    "he-wache-2": {
+      "map": "eisenhof",
+      "spot": "wachhaeuschen",
+      "when": "M"
+    },
+    "he-wache-4": {
+      "map": "bahnhof-mitte",
+      "spot": "kiosk-bahnhof",
+      "when": "A"
+    },
+    "he-wache-6": {
+      "map": "eisenhof",
+      "spot": "entlassungstor",
+      "when": "M"
+    },
+    "he-dexter-2": {
+      "map": "schrottmarkt",
+      "spot": "dexter-buero",
+      "when": "T"
+    },
+    "he-dexter-4": {
+      "map": "schrottmarkt",
+      "spot": "marktplatz-mitte",
+      "when": "T"
+    },
+    "he-dexter-6": {
+      "map": "schrottmarkt",
+      "spot": "dexter-buero",
+      "when": "A"
+    },
+    "he-babette-bao-2": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "when": "M Di"
+    },
+    "he-babette-bao-4": {
+      "map": "das-nest",
+      "spot": "essensplatz",
+      "when": "A 17–18"
+    },
+    "he-babette-bao-6": {
+      "map": "schrottmarkt",
+      "spot": "garkueche",
+      "when": "T"
+    },
+    "he-opa-gustav-2": {
+      "map": "schrottmarkt",
+      "spot": "kran-kabine",
+      "when": "M"
+    },
+    "he-opa-gustav-4": {
+      "map": "schrottmarkt",
+      "spot": "wohnwagen",
+      "when": "A"
+    },
+    "he-opa-gustav-6": {
+      "map": "schrottmarkt",
+      "spot": "wohnwagen",
+      "when": "A (Werkbank)"
+    },
+    "he-oma-volt-2": {
+      "map": "neon-gasse",
+      "spot": "kiosk",
+      "when": "M/T"
+    },
+    "he-oma-volt-4": {
+      "map": "neon-gasse",
+      "spot": "kiosk",
+      "when": "T"
+    },
+    "he-oma-volt-6": {
+      "map": "neon-gasse",
+      "spot": "kiosk",
+      "when": "A (ab act2: side-ki-fluestern)"
+    },
+    "he-kiki-karbon-2": {
+      "map": "bahnhof-mitte",
+      "spot": "taxistand",
+      "when": "M"
+    },
+    "he-kiki-karbon-4": {
+      "map": "neon-gasse",
+      "spot": "vorplatz",
+      "when": "A/N (Rennen gegen Quantum-Drohne)"
+    },
+    "he-kiki-karbon-6": {
+      "map": "neon-gasse",
+      "spot": "vorplatz",
+      "when": "N"
+    },
+    "he-lio-funkel-2": {
+      "map": "bahnhof-mitte",
+      "spot": "musikerecke",
+      "when": "T"
+    },
+    "he-lio-funkel-4": {
+      "map": "bahnhof-mitte",
+      "spot": "musikerecke",
+      "when": "T"
+    },
+    "he-lio-funkel-6": {
+      "map": "neon-gasse",
+      "spot": "lichterketten-bank",
+      "when": "N"
+    },
+    "he-pim-pinzette-2": {
+      "map": "bahnhof-mitte",
+      "spot": "pendlerbank",
+      "when": "M"
+    },
+    "he-pim-pinzette-4": {
+      "map": "schrottmarkt",
+      "spot": "imbiss-loetkolben",
+      "when": "A"
+    },
+    "he-pim-pinzette-6": {
+      "map": "schrottmarkt",
+      "spot": "imbiss-loetkolben",
+      "when": "A"
+    },
+    "he-kaeptn-nebelhorn-2": {
+      "map": "hafenkante",
+      "spot": "steg",
+      "when": "M 06:00"
+    },
+    "he-kaeptn-nebelhorn-4": {
+      "map": "hausboot-nebelhorn",
+      "spot": "kajuete",
+      "when": "N"
+    },
+    "he-kaeptn-nebelhorn-6": {
+      "map": "high-voltage",
+      "spot": "stammtisch",
+      "when": "A Mi/Fr"
+    },
+    "he-buergermeister-gully-2": {
+      "map": "kanal-sammler",
+      "spot": "gullys-rathaus",
+      "when": "M/T"
+    },
+    "he-buergermeister-gully-4": {
+      "map": "kanal-sammler",
+      "spot": "gullys-rathaus",
+      "when": "M/T (schaltet geheimen Gullyweg frei)"
+    },
+    "he-bolzen-2": {
+      "map": "crew-quartier",
+      "spot": "hundekorb",
+      "when": "M (Morgenfund)"
+    },
+    "he-bolzen-4": {
+      "map": "neon-gasse",
+      "spot": "apportier-strecke",
+      "when": "T"
+    },
+    "he-bolzen-6": {
+      "map": "das-nest",
+      "spot": "kuschel-platz",
+      "when": "T (bringt Captain Kuschel zurück)"
+    },
+    "he-collin-charleston-2": {
+      "map": "nx1-studio",
+      "spot": "radio-kabine",
+      "when": "M"
+    },
+    "he-collin-charleston-4": {
+      "map": "stufenplatz",
+      "spot": "buehne",
+      "when": "T Mo/Mi/Fr vor 12:00"
+    },
+    "he-collin-charleston-6": {
+      "map": "nx1-studio",
+      "spot": "regie",
+      "when": "T"
+    },
+    "he-delya-delloraine-2": {
+      "map": "nx1-studio",
+      "spot": "redaktion",
+      "when": "M"
+    },
+    "he-delya-delloraine-4": {
+      "map": "bahnhof-mitte",
+      "spot": "quellen-ecke",
+      "when": "N Fr/Sa"
+    },
+    "he-delya-delloraine-6": {
+      "map": "nx1-studio",
+      "spot": "regie",
+      "when": "A"
+    },
+    "he-kameramann-2": {
+      "map": "stufenplatz",
+      "spot": "kamerakran",
+      "when": "T Mo/Mi/Fr"
+    },
+    "he-kameramann-4": {
+      "map": "schrottmarkt",
+      "spot": "filmposten",
+      "when": "A"
+    },
+    "he-kameramann-6": {
+      "map": "neon-gasse",
+      "spot": "kamera-stativ",
+      "when": "N Sa/So"
+    },
+    "he-jimmy-2": {
+      "map": "dantes-werkstatt",
+      "spot": "jimmy-hocker",
+      "when": "M, nach side-jimmys-chip"
+    },
+    "he-jimmy-4": {
+      "map": "neon-gasse",
+      "spot": "gassenmitte",
+      "when": "A"
+    },
+    "he-jimmy-6": {
+      "map": "neon-gasse",
+      "spot": "werbestand",
+      "when": "A (Xions Stand, Flag xion_werbestand_beweis)"
+    },
+    "he-marla-sand-2": {
+      "map": "schrottmarkt",
+      "spot": "karawanenstand",
+      "when": "M/T Sa (Akt 1: Wasserfilter am Karawanenwagen statt Brunnen)"
+    },
+    "he-vex-schrapnell-2": {
+      "map": "bahnhof-mitte",
+      "spot": "paketausgabe",
+      "when": "M (nur wenn Spielfigur nicht Vex)"
+    },
+    "he-vex-schrapnell-4": {
+      "map": "neon-gasse",
+      "spot": "dachkante",
+      "when": "N Fr/Sa"
+    },
+    "he-vex-schrapnell-6": {
+      "map": "loetgassen",
+      "spot": "funkmast",
+      "when": "A"
+    },
+    "rom-aria-training": {
+      "map": "hafenkante",
+      "spot": "boxsack",
+      "when": "A/N, ♥6"
+    },
+    "rom-aria-werkstatt": {
+      "map": "dantes-werkstatt",
+      "spot": "werkbank",
+      "when": "T Di/Do, ♥7"
+    },
+    "rom-aria-dach": {
+      "map": "neon-gasse",
+      "spot": "lichterketten-bank",
+      "when": "N 22–01, ♥8 (Vega räumt den Ausguck)"
+    },
+    "rom-aria-albtraum": {
+      "map": "neon-gasse",
+      "spot": "feuerleiter",
+      "when": "03:00-Nachricht, ♥8 (siehe Lücke 03:00 in notes)"
+    },
+    "rom-aria-streit": {
+      "map": "neon-gasse",
+      "spot": "hv-eingang",
+      "when": "A, Akt 2"
+    },
+    "rom-aria-vega": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "M, Akt 2"
+    },
+    "rom-aria-regen": {
+      "map": "neon-gasse",
+      "spot": "vordach",
+      "when": "A/N, Akt 2, Regen"
+    },
+    "rom-aria-kuss": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "A Sonnenuntergang, Start; Ziel flutmauer mauer-ziel (Akt 2+)"
+    },
+    "rom-aria-stirn": {
+      "map": "neon-gasse",
+      "spot": "dachterrasse",
+      "when": "N vor Akt 3"
+    },
+    "rom-vexaria-schutzgeld": {
+      "map": "loetgassen",
+      "spot": "kurierbude",
+      "when": "A, ♥4, nach main-1-dexter"
+    },
+    "rom-vexaria-luecke": {
+      "map": "neon-gasse",
+      "spot": "dachkante",
+      "when": "N Fr/Sa, ♥5; Ziel loetgassen taubenschlag (über die-luecke)"
+    },
+    "rom-vexaria-armdruecken": {
+      "map": "high-voltage",
+      "spot": "ecktisch",
+      "when": "A, ♥6"
+    },
+    "rom-vexaria-bude": {
+      "map": "loetgassen",
+      "spot": "kurierbude",
+      "when": "N 21–01, Abend nach rom-aria-dach"
+    },
+    "rom-vexaria-tanz": {
+      "map": "high-voltage",
+      "spot": "tanzflaeche",
+      "when": "N Fr/Sa (nur Romanze)"
+    },
+    "rom-vexaria-oberlicht": {
+      "map": "hafenkante",
+      "spot": "container-hai",
+      "when": "A Sonnenuntergang/N, nach rom-aria-albtraum"
+    },
+    "rom-vexaria-funkstille": {
+      "map": "loetgassen",
+      "spot": "kurierbude-dach",
+      "when": "N 23:00–02:00, Akt 2"
+    },
+    "rom-vexaria-umdrehen": {
+      "map": "neon-gasse",
+      "spot": "die-luecke",
+      "when": "N, Akt 2"
+    },
+    "rom-vexaria-kuss": {
+      "map": "neon-gasse",
+      "spot": "vegas-ausguck",
+      "when": "A Sonnenuntergang, Start; über die-luecke, Ziel flutmauer mauer-ziel (Akt 2+)"
+    },
+    "rom-vexaria-licht": {
+      "map": "neon-gasse",
+      "spot": "vorplatz",
+      "when": "A/N beim Rausgehen aus dem HV, dann loetgassen kurierbude (Abblende)"
+    },
+    "rom-vexaria-morgen": {
+      "map": "loetgassen",
+      "spot": "kurierbude",
+      "when": "06:00 nach rom-vexaria-licht, danach high-voltage fruehstueckstisch"
+    },
+    "rom-vexaria-funkmast": {
+      "map": "loetgassen",
+      "spot": "funkmast",
+      "when": "A Sonnenuntergang, Akt 2+"
+    },
+    "ripper-tag-vex": {
+      "map": "high-voltage",
+      "spot": "ecktisch",
+      "when": "A Mo (Ratenarm-Rate 25 Cr, nur Vex)"
+    },
+    "vex-armwartung": {
+      "map": "dantes-werkstatt",
+      "spot": "werkbank",
+      "when": "T/A nach rom-vexaria-armdruecken (Aria sitzt auf der Werkbank)"
+    }
+  },
+  "questLocations": {
+    "main-0-digitech": [
+      "digitech-areal:prolog-funkpunkt",
+      "digitech-tresor:kartenleser",
+      "digitech-tresor:tresor-rohr"
+    ],
+    "main-1-ankunft": [
+      "bahnhof-mitte:bahnsteig",
+      "bahnhof-mitte:bahnsteig-2",
+      "bahnhof-mitte:gleise",
+      "schrottmarkt:stadt-tv",
+      "schrottmarkt:botenstand",
+      "neon-gasse:kiosk",
+      "neon-gasse:hv-eingang"
+    ],
+    "main-1-probezeit": [
+      "neon-gasse:hv-eingang",
+      "high-voltage:ecktisch",
+      "high-voltage:laptop-ecke",
+      "hv-hinterzimmer:schreibtisch",
+      "hv-hinterzimmer:sofa"
+    ],
+    "main-1-dexter": [
+      "schrottmarkt:halde",
+      "schrottmarkt:dexter-buero",
+      "schrottmarkt:oelfass",
+      "schrottmarkt:dexter-versteck"
+    ],
+    "main-1-raven": [
+      "eisenhof:entlassungstor",
+      "zellentrakt:besucherraum",
+      "schrottmarkt:marktplatz-mitte",
+      "schrottmarkt:marktstaende"
+    ],
+    "main-1-auf-raven": [
+      "high-voltage:tanzflaeche",
+      "high-voltage:tresen",
+      "high-voltage:sitzecke-gaeste",
+      "high-voltage:laptop-ecke"
+    ],
+    "main-1-dante": [
+      "dantes-werkstatt:werkbank",
+      "dantes-werkstatt:faxgeraet",
+      "loetgassen:werkstatt-fenster",
+      "dantes-werkstatt:kuschel-regal"
+    ],
+    "main-1-der-plan": [
+      "hv-hinterzimmer:planungstisch"
+    ],
+    "prep-grundriss": [
+      "hafenkante:quantum-depot",
+      "schrottmarkt:imbiss-loetkolben",
+      "schrottmarkt:filmposten",
+      "digitech-areal:archiv"
+    ],
+    "prep-zugangskarte": [
+      "high-voltage:pfeffer-tisch",
+      "high-voltage:buehne",
+      "neon-gasse:pfeffer-gasse",
+      "crew-quartier:werkbank"
+    ],
+    "prep-wachplan": [
+      "stufenplatz:fussgaengerbruecke",
+      "stufenplatz:brezel-imbiss",
+      "digitech-areal:lieferzone"
+    ],
+    "prep-fluchtweg": [
+      "kanal-sammler:rattennest-2",
+      "kanal-sammler:gullys-rathaus",
+      "kanal-sammler:fluchtweg-tuer"
+    ],
+    "prep-ablenkung": [
+      "nx1-studio:redaktion",
+      "das-nest:eins-kiste",
+      "neon-gasse:kiosk",
+      "schrottmarkt:dexter-buero"
+    ],
+    "side-uebliche-verspaetung": [
+      "bahnhof-mitte:stellwerk",
+      "neon-gasse:stellwerk-kasten",
+      "loetgassen:stellwerk-loet",
+      "hafenkante:stellwerk-hafen",
+      "bahnhof-mitte:taxistand-blitz"
+    ],
+    "side-zehn-credits": [
+      "schrottmarkt:botenstand",
+      "neon-gasse:kiosk",
+      "flutmauer:schlickstrand",
+      "schrottmarkt:garkueche-bank"
+    ],
+    "side-riegel-krise": [
+      "dantes-werkstatt:werkbank",
+      "hafenkante:knuspi-versteck",
+      "hafenkante:quantum-depot",
+      "neon-gasse:kiosk",
+      "schrottmarkt:garkueche"
+    ],
+    "side-keksalarm": [
+      "dantes-werkstatt:ofen",
+      "neon-gasse:kiosk",
+      "high-voltage:tresen",
+      "glasarkaden:feinkost-rampe",
+      "stufenplatz:lieferhof-tor",
+      "schrottmarkt:dexter-buero",
+      "dantes-werkstatt:geburtstagstisch"
+    ],
+    "side-eins-turnier": [
+      "schrottmarkt:botenstand",
+      "dantes-werkstatt:eins-tisch"
+    ],
+    "side-jimmys-chip": [
+      "bahnhof-mitte:bahnsteig-ende",
+      "hafenkante:oelfass-tuerme",
+      "dantes-werkstatt:werkbank",
+      "kanal-sammler:ausschuss-stelle"
+    ],
+    "side-chrome-10": [
+      "schrottmarkt:dexter-buero",
+      "schrottmarkt:gerds-stand",
+      "schrottmarkt:gerds-hinterhof"
+    ],
+    "side-eingehendes-fax": [
+      "dantes-werkstatt:faxgeraet",
+      "hafenkante:kai-mitte",
+      "digitech-tresor:waechter-gang",
+      "digitech-tresor:fx-60-terminal"
+    ],
+    "side-schallplatten": [
+      "dantes-werkstatt:plattenspieler",
+      "schrottmarkt:plattenstand-vincent"
+    ],
+    "side-live-dabei": [
+      "flutmauer:drohnenwrack",
+      "flutmauer:hunderudel",
+      "nx1-studio:redaktion",
+      "stufenplatz:buehne"
+    ],
+    "side-feierabend-fuer-kessel": [
+      "eisenhof:entlassungstor",
+      "eisenhof:fundkammer",
+      "eisenhof:gerichtsplatz",
+      "eisenhof:freigang-ecke",
+      "gerichtssaal:richterbank"
+    ],
+    "side-streaming-suenden": [
+      "eisenhof:gerichtsgarten",
+      "eisenhof:beweismittellager"
+    ],
+    "side-neon-limo": [
+      "high-voltage:tresen",
+      "high-voltage:mixi-ecke",
+      "flutmauer:brackbucht",
+      "kanal-sammler:kanalvolk-garten",
+      "glasarkaden:feinkost-rampe",
+      "eisenhof:fundkammer"
+    ],
+    "side-rattenkoenig": [
+      "kanal-sammler:gullys-rathaus",
+      "kanal-sammler:rattennest-1",
+      "kanal-sammler:rattennest-2",
+      "kanal-sammler:rattennest-3",
+      "kanal-sammler:thronsaal"
+    ],
+    "side-abzieher": [
+      "dantes-werkstatt:werkbank",
+      "bahnhof-mitte:bahnsteig",
+      "ubahn-wagen:abzieher-lager"
+    ],
+    "side-zweite-hand": [
+      "dantes-werkstatt:werkbank",
+      "hafenkante:kai-mitte",
+      "hafenkante:container-labyrinth",
+      "schrottmarkt:klingel-stand",
+      "schrottmarkt:garkueche-hocker",
+      "bahnhof-mitte:musikerecke"
+    ],
+    "side-digitech-geist": [
+      "high-voltage:bar-hocker",
+      "digitech-areal:notstrom-terminal",
+      "digitech-areal:pluenderer-lager",
+      "hafenkante:kai-mitte"
+    ],
+    "side-oma-volts-lager": [
+      "neon-gasse:kiosk",
+      "schrottmarkt:oma-volts-lager"
+    ],
+    "side-thai-chi": [
+      "hv-hinterzimmer:schreibtisch",
+      "loetgassen:hinterhof-studio",
+      "schrottmarkt:watt-pose",
+      "schrottmarkt:kran"
+    ],
+    "side-hunde-der-brackbucht": [
+      "flutmauer:leuchtturm",
+      "flutmauer:hundespuren",
+      "flutmauer:hunderudel",
+      "schrottmarkt:halde"
+    ],
+    "side-drohnenrennen": [
+      "schrottmarkt:dexter-buero",
+      "schrottmarkt:schrottkram-stand",
+      "hafenkante:rostkai-kraene",
+      "hafenkante:tildas-box"
+    ],
+    "pers-vega-adlerauge": [
+      "hafenkante:schiessstand",
+      "hafenkante:falke-kran",
+      "hafenkante:falkes-wohnwagen"
+    ],
+    "pers-aria-lieblingsshirt": [
+      "high-voltage:vega-aria-tisch",
+      "schrottmarkt:kabelbrand-merch",
+      "schrottmarkt:plattenstand-vincent",
+      "high-voltage:tresen-ende"
+    ],
+    "pers-raven-handschellen": [
+      "bahnhof-mitte:fotoautomat",
+      "eisenhof:behoerden-terminal",
+      "glasarkaden:glaspark-bank"
+    ],
+    "side-rostlaube": [
+      "hafenkante:garage-rostlaube",
+      "schrottmarkt:schrottkram-stand",
+      "kanal-sammler:friedas-stand",
+      "digitech-tresor:batterie-regal",
+      "dantes-werkstatt:werkbank"
+    ],
+    "side-container-77": [
+      "hafenkante:kai-mitte",
+      "hafenkante:container-77",
+      "hafenkante:container-77-versteck",
+      "ripper-praxis:behandlungsstuhl"
+    ],
+    "side-strom-fuer-die-rohre": [
+      "kanal-sammler:gullys-rathaus",
+      "kanal-sammler:notgenerator",
+      "loetzinn-laden:kabelrolle",
+      "loetgassen:kabelweg",
+      "kanal-sammler:kabelweg-ende"
+    ],
+    "side-lumos-platte": [
+      "neon-gasse:lumos-ecke",
+      "high-voltage:dj-pult",
+      "schrottmarkt:plattenstand-vincent",
+      "dantes-werkstatt:plattenspieler"
+    ],
+    "side-collins-peruecke": [
+      "nx1-studio:schminkspiegel",
+      "stufenplatz:windkante",
+      "loetgassen:taubenschlag",
+      "schrottmarkt:botenstand",
+      "stufenplatz:salon-gina",
+      "stufenplatz:buehne"
+    ],
+    "side-rettung-am-rechen": [
+      "kanal-sammler:friedas-stand",
+      "kanal-sammler:rechen",
+      "kanal-sammler:floss-anleger"
+    ],
+    "side-wand-der-freiheit": [
+      "flutmauer:wand-der-freiheit",
+      "hafenkante:rostzaehne-lager",
+      "flutmauer:kamera-mauerweg"
+    ],
+    "side-alte-gewohnheiten": [
+      "high-voltage:bar-hocker",
+      "stufenplatz:lieferhof-tor",
+      "glasarkaden:lieferhof",
+      "glasarkaden:lastenaufzug",
+      "glasarkaden:waescheschacht",
+      "chrome-penthouse:sofa-bijou",
+      "chrome-penthouse:seraphinas-spiegel",
+      "chrome-penthouse:haustelefon"
+    ],
+    "pers-hunter-reiner-tisch": [
+      "high-voltage:kasse",
+      "high-voltage:tresen"
+    ],
+    "pers-dante-erstpressung": [
+      "dantes-werkstatt:plattenspieler",
+      "schrottmarkt:wohnwagen",
+      "schrottmarkt:dexter-buero",
+      "nx1-studio:radio-kabine",
+      "high-voltage:tresen"
+    ],
+    "pers-kuschel-ohrenflick": [
+      "dantes-werkstatt:kuschel-regal",
+      "neon-gasse:kiosk"
+    ],
+    "pers-daria-botendienst": [
+      "schrottmarkt:botenstand",
+      "neon-gasse:kiosk",
+      "loetgassen:taubenschlag"
+    ],
+    "pers-freya-fairer-lohn": [
+      "schrottmarkt:botenstand",
+      "ripper-praxis:preistafel",
+      "schrottmarkt:marktplatz-mitte"
+    ],
+    "pers-jakko-kochbuch": [
+      "schrottmarkt:garkueche",
+      "suppenkueche:rezept-ecke"
+    ],
+    "pers-kinder-wasserturm": [
+      "das-nest:undichtes-dach",
+      "rohrsiedlung:wasserturm-dach",
+      "schrottmarkt:schrottkram-stand"
+    ],
+    "pers-dexter-schuldenfrei": [
+      "schrottmarkt:dexter-buero",
+      "hv-hinterzimmer:schreibtisch"
+    ],
+    "pers-babette-markttag": [
+      "schrottmarkt:garkueche",
+      "schrottmarkt:marktplatz-mitte"
+    ],
+    "pers-barkeeper-letzter-vers": [
+      "high-voltage:tresen",
+      "schrottmarkt:garkueche-hocker"
+    ],
+    "pers-richter-goldene-gurke": [
+      "eisenhof:gemuesebeete",
+      "eisenhof:gerichtsgarten"
+    ],
+    "pers-kiki-reichweite": [
+      "bahnhof-mitte:taxistand",
+      "loetzinn-laden:theke",
+      "schrottmarkt:dexter-buero"
+    ],
+    "pers-lio-album": [
+      "bahnhof-mitte:musikerecke",
+      "hafenkante:steg",
+      "dantes-werkstatt:ofen",
+      "hafenkante:rennhalle-tor",
+      "kanal-sammler:rechen",
+      "loetgassen:taubenschlag",
+      "stufenplatz:buehne"
+    ],
+    "pers-kameramann-ungeschminkt": [
+      "schrottmarkt:filmposten",
+      "schrottmarkt:flohmarkt"
+    ],
+    "pers-nebelhorn-letzte-faehre": [
+      "hafenkante:faehre"
+    ],
+    "pers-bolzen-bein": [
+      "schrottmarkt:schrottkram-stand",
+      "dantes-werkstatt:werkbank",
+      "schrottmarkt:dexter-buero"
+    ],
+    "job-kurier": [
+      "hv-hinterzimmer:schreibtisch",
+      "schrottmarkt:auftrag-a",
+      "loetgassen:auftrag-a",
+      "bahnhof-mitte:auftrag-a",
+      "hafenkante:auftrag-a",
+      "rohrsiedlung:auftrag-a"
+    ],
+    "job-schulden": [
+      "bahnhof-mitte:kiosk-bahnhof",
+      "neon-gasse:muelltonnen",
+      "rohrsiedlung:haengebruecke",
+      "stufenplatz:stufen-oben"
+    ],
+    "job-datenraub": [
+      "hafenkante:quantum-depot",
+      "eisenhof:behoerden-terminal",
+      "glasarkaden:satin-und-chrom",
+      "nx1-studio:redaktion"
+    ],
+    "job-kopfgeld": [
+      "gerichtssaal:kopfgeld-abgabe"
+    ],
+    "job-eskorte": [
+      "bahnhof-mitte:pendlerbank",
+      "rohrsiedlung:auftrag-a",
+      "bahnhof-mitte:musikerecke",
+      "high-voltage:buehne",
+      "stufenplatz:auftrag-a",
+      "schrottmarkt:auftrag-a"
+    ],
+    "job-tuersteher": [
+      "neon-gasse:hv-eingang"
+    ],
+    "job-bergung": [
+      "schrottmarkt:halde",
+      "digitech-areal:glasfassade",
+      "flutmauer:auftrag-a"
+    ],
+    "job-kanal": [
+      "kanal-sammler:rattennest-1",
+      "kanal-sammler:rattennest-3"
+    ],
+    "kopfgeld-zwei-finger-zoltan": [
+      "schrottmarkt:zoltan-revier"
+    ],
+    "kopfgeld-loetkolben-lola": [
+      "loetgassen:lola-werkbank"
+    ],
+    "kopfgeld-krawall-kalle": [
+      "neon-gasse:kalle-ecke"
+    ],
+    "kopfgeld-neon-nils": [
+      "neon-gasse:nils-reklame"
+    ],
+    "kopfgeld-der-kassierer": [
+      "hafenkante:kassierer-bude"
+    ],
+    "kopfgeld-oma-turbo": [
+      "bahnhof-mitte:oma-turbo-strecke"
+    ],
+    "kopfgeld-toaster": [
+      "schrottmarkt:toaster-ecke"
+    ],
+    "kopfgeld-graf-gully-zwei": [
+      "kanal-sammler:graf-gully-thron"
+    ]
+  },
+  "encounterLocations": {
+    "enc-prolog-drohne": "digitech-areal:prolog-funkpunkt",
+    "enc-bahnhof-abzieher": "bahnhof-mitte:bahnsteig-2",
+    "enc-hv-ripper-tisch": "high-voltage:ecktisch",
+    "enc-schrott-drohnen": "schrottmarkt:halde",
+    "enc-schrott-dexter": "schrottmarkt:dexter-buero",
+    "enc-markt-raven": "schrottmarkt:marktstaende",
+    "enc-gasse-pfeffer": "neon-gasse:pfeffer-gasse",
+    "enc-kanal-ratten": "kanal-sammler:rattennest-2",
+    "enc-taxistand": "bahnhof-mitte:taxistand-blitz",
+    "enc-hafen-laster": "hafenkante:quantum-depot",
+    "enc-hafen-jimmy": "hafenkante:oelfass-tuerme",
+    "enc-markt-gerd": "schrottmarkt:gerds-stand",
+    "enc-ruine-waechter": "digitech-tresor:waechter-gang",
+    "enc-gerichtsplatz-gang": "eisenhof:gerichtsplatz",
+    "enc-kanal-nagbert": "kanal-sammler:thronsaal",
+    "enc-ubahn-abzieher": "ubahn-wagen:abzieher-lager",
+    "enc-hafen-rostzaehne": "hafenkante:container-labyrinth",
+    "enc-ruine-pluenderer": "digitech-areal:pluenderer-lager",
+    "enc-markt-rostzaehne": "schrottmarkt:oma-volts-lager",
+    "enc-bucht-hunde": "flutmauer:hunderudel",
+    "enc-kran-falke": "hafenkante:falke-kran",
+    "enc-hafen-container": "hafenkante:container-77",
+    "enc-penthouse-drohnen": "chrome-penthouse:drohnen-nische"
+  },
+  "packages": {
+    "pkg-neon-gasse": {
+      "title": "Neon-Gasse mit High Voltage, Hinterzimmer und Crew-Quartier",
+      "maps": [
+        "neon-gasse",
+        "high-voltage",
+        "hv-hinterzimmer",
+        "crew-quartier"
+      ],
+      "notes": "Herz der Crew. Dachterrasse ist Teil der Zonenkarte (Feuerleiter), Lücke und Dachkante sind Szenenorte des Vex×Aria-Strangs (Priorität). Legt Bezirk unterstadt und station-neon-gasse an.",
+      "key": "pkg-neon-gasse"
+    },
+    "pkg-schrottmarkt": {
+      "title": "Schrottmarkt mit Rippers Praxis",
+      "maps": [
+        "schrottmarkt",
+        "ripper-praxis"
+      ],
+      "notes": "Große Zone mit vielen Händlern und Figuren; Halde, Kran und Wohnwagen im Hintergrund. Flohmarkt So.",
+      "key": "pkg-schrottmarkt"
+    },
+    "pkg-loetgassen": {
+      "title": "Lötgassen mit Dantes Werkstatt und Lötzinns Laden",
+      "maps": [
+        "loetgassen",
+        "dantes-werkstatt",
+        "loetzinn-laden"
+      ],
+      "notes": "Kurierbude, Funkmast und Taubenschlag sind Spots (keine Karten); Vex×Aria-Stationen 1, 4, 10, 11, 12 und Ziel von 2.",
+      "key": "pkg-loetgassen"
+    },
+    "pkg-rohrsiedlung": {
+      "title": "Rohrsiedlung mit Nest und Suppenküche",
+      "maps": [
+        "rohrsiedlung",
+        "das-nest",
+        "suppenkueche"
+      ],
+      "notes": "Kinderzone: keine Kämpfe im Nest. Legt station-rohrbogen an.",
+      "key": "pkg-rohrsiedlung"
+    },
+    "pkg-bahnhof-mitte": {
+      "title": "Bahnhof Mitte mit Netzcafé, Fundbüro und U-Bahn-Wagen",
+      "maps": [
+        "bahnhof-mitte",
+        "netzcafe-datenkruemel",
+        "fundbuero",
+        "ubahn-wagen"
+      ],
+      "notes": "Startzone (Einstieg start, Tag 1 16:30). Legt station-bahnhof-mitte an. Untergrund-Licht.",
+      "key": "pkg-bahnhof-mitte"
+    },
+    "pkg-hafenkante": {
+      "title": "Hafenkante mit Hausboot",
+      "maps": [
+        "hafenkante",
+        "hausboot-nebelhorn"
+      ],
+      "notes": "Große Zone allein. Rennhalle 9 und Rostlaube-Fahrt als gesperrte Ausgänge, Garage und Container 77 als Spots. Legt station-hafenkante an.",
+      "key": "pkg-hafenkante"
+    },
+    "pkg-stufenplatz-digitech": {
+      "title": "Stufenplatz mit NX-1-Studio und Digitech-Areal mit Tresor",
+      "maps": [
+        "stufenplatz",
+        "nx1-studio",
+        "digitech-areal",
+        "digitech-tresor"
+      ],
+      "notes": "Zwei Zonen über den Bauzaun verbunden. Legt Bezirke mittelring und oberstadt sowie station-stufenplatz an. Prolog main-0-digitech über bgVariants (Flag prolog_done) auf denselben Karten.",
+      "key": "pkg-stufenplatz-digitech"
+    },
+    "pkg-eisenhof": {
+      "title": "Eisenhof mit Gerichtssaal und Zellentrakt",
+      "maps": [
+        "eisenhof",
+        "gerichtssaal",
+        "zellentrakt"
+      ],
+      "notes": "Haft-Mechanik: Einstieg haft im Zellentrakt. Musik gefaengnis.",
+      "key": "pkg-eisenhof"
+    },
+    "pkg-glasarkaden": {
+      "title": "Glasarkaden mit Café, Schauraum und Chrome-Penthouse",
+      "maps": [
+        "glasarkaden",
+        "cafe-sahnehaube",
+        "quantum-schauraum",
+        "chrome-penthouse"
+      ],
+      "notes": "Lieferhof als eigene Laufinsel (nur über den Lieferanteneingang); Penthouse nur in side-alte-gewohnheiten. Legt station-glasarkaden an.",
+      "key": "pkg-glasarkaden"
+    },
+    "pkg-kanal-sammler": {
+      "title": "Kanal-Sammler",
+      "maps": [
+        "kanal-sammler"
+      ],
+      "notes": "Große Zone allein, Untergrund. Schnellweg-Gitter nach side-rattenkoenig. Legt Bezirk kanalisation an.",
+      "key": "pkg-kanal-sammler"
+    },
+    "pkg-flutmauer": {
+      "title": "Flutmauer",
+      "maps": [
+        "flutmauer"
+      ],
+      "notes": "Küstenzone mit Brackbucht. Ziel des Dächerrennens (rom-aria-kuss/rom-vexaria-kuss). Legt Bezirk kueste an.",
+      "key": "pkg-flutmauer"
+    }
+  },
+  "notes": [
+    "Einstiegs-Konvention: Ein Ausgang nach X landet auf X im Einstieg von-<Quellkarte>. Sonderfälle: start (bahnhof-mitte, Spielbeginn), station (jede Karte mit U-Bahn), taxi (Kiki-Schwebetaxi auf Außenzonen), aufwachen (Bett/Notschlafplatz), kanalgitter/gitter-* (Kanal-Schnellwege), dachkante/dach-taubenschlag (Dachsprung), lieferanteneingang (Glasarkaden-Lieferhof), haft (Zellentrakt), prolog/prolog-start (main-0-digitech).",
+    "Ausgangs-IDs: nach-<ziel> für normale Übergänge, sonst sprechend (drehkreuz, bauzaun, gully, rohrschacht, lastenaufzug, dachsprung-*). edge: n/s/w/o = Kartenrand, tuer = Interaktion (ExitDef.interact = true).",
+    "Gesperrte Ziele ohne Karte in diesem Plan: rennhalle-9 (nächster Stand), staubstrasse (Rostlaube, act2), chrome-boulevard (Panoramaaufzug, Penthouse-Wohnungstür), quantum-campus (Lieferzone), datentunnel (Schott, Kabelschacht), pumpwerk-sieben (Tunnel Ost). Diese Ausgänge tragen when + lockedText und dürfen im Test auf fehlende Karten zeigen; die Integration filtert sie, bis die Karten existieren.",
+    "Die Dachterrasse der Neon-Gasse ist KEINE eigene Karte: oberer Bereich der Zonenkarte, über die Feuerleiter begehbar. Dort liegen vegas-ausguck, lichterketten-bank, klingen-ecke, dachkante und die-luecke.",
+    "Kurierbude, Funkmast, Garage-Rostlaube, Container 77 und der Hai-Container sind Spots/Hotspots ihrer Zone, keine Innenräume (world.md: „keine eigenen Karten“). Szenen dort laufen als Cutscene mit Tafel cut-rom-vexaria-*.",
+    "PRIORITÄT Vex × Aria (Nutzerwunsch): Alle Stationen haben feste Orte in events (rom-vexaria-*, rom-aria-*). Die Lücke (neon-gasse die-luecke) ist NICHT der Dachsprung gc-150 – eigener Spot, kein Ausgang, Vex springt dort nie (dachlaeuferin greift nicht). rom-vexaria-luecke startet an der dachkante und endet am taubenschlag der Lötgassen. Ton: 18+, frech, anzüglich, Nacht nur angedeutet mit Abblende (world.md Ton der Romanzen).",
+    "rom-aria-albtraum ist um 03:00 – die Spieluhr endet um 02:00. Vorschlag für die Figuren-Agenten: Auslösung beim Tagesstart als Telefon-Nachricht „bist du wach“ in der Nacht davor (Cutscene vor dem Aufwachen), Ort neon-gasse feuerleiter.",
+    "Glasarkaden-Lieferhof: eigene Laufinsel ohne Verbindung zur Passage. Lieferanteneingang (stufenplatz) ↔ glasarkaden Einstieg lieferanteneingang, Ausgang lieferhof-raus. Dort Feinkost-Rampe (gleicher Shop feinkost), Lastenaufzug (→ chrome-penthouse) und Wäscheschacht (gc-142). Die Passage selbst nur über das Drehkreuz oder station-glasarkaden.",
+    "Drehkreuz und Bauzaun: Exit mit when (Gegenstand/Flag/Herkunft) UND check (gc-106 bzw. gc-107); ohne Wert gibt es immer den Gegenstands- oder Auftragsweg. Drehkreuz setzt Flag drehkreuz_passiert (schaltet station-glasarkaden frei).",
+    "Wäschehof-Durchgang (loetgassen ↔ rohrsiedlung): Bedingung „ab Tag 2 oder [Straße 4] oder [Gosse]“ – der Check braucht eine gc-ID vom Checks-Agenten (world.md nennt keine); bis dahin Flag waeschehof_offen per Dialog des Wäsche-Typen.",
+    "Digitech-Tresor ist Tresorraum + Keller in einer Innenkarte (FX-60, Batterie, Wächter). Prolog main-0-digitech nutzt digitech-areal und digitech-tresor mit bgVariants „damals“ (bis prolog_done) und Einstiege prolog-start/prolog.",
+    "Chrome-Penthouse gehört in Akt 1 zum Paket glasarkaden (Zugang nur über den Lastenaufzug). Ab act2 bekommt es den Ausgang wohnungstuer → chrome-boulevard; Einstieg von-chrome-boulevard ist schon reserviert.",
+    "Tagesablauf-Format: when = „<Slots>[ <Tage>][ | <Bedingung>]“, Slots M=morgen T=tag A=abend N=nacht, * = immer; Tage Mo..So (contracts Weekday mo..so). Erster passender Eintrag gewinnt (Sonderfälle zuerst). map = away heißt place: away. Uhrzeiten (bis 20:00, 17:00–18:00) → clockBetween.",
+    "Straßenkinder (daria, freya, jakko) sind nach 20:00 im Nest, nie nachts draußen. Freya hört A Lio am Schrottmarkt zu (§3.5 schlägt §4.4 „bahnhof-mitte bei Lio“, weil Lio abends am Schrottmarkt spielt).",
+    "Vex Schrapnell ist Weltfigur nur, wenn die Spielfigur nicht Vex ist (erster Tagesablauf-Eintrag away bei { playerIs: vex }). Spielt man Vex, ist die kurierbude ihr Unterschlupf (Notschlafplatz-Hotspot, MapDef.shelter hat keine Bedingung → Lücke an die Engine melden, Notbehelf: Hotspot sleep mit when { playerIs: vex }).",
+    "Neue sprechende Figuren-IDs (world.md beschreibt sie nur): kabelbrand-roadie (pers-aria-lieblingsshirt), chrome-haushaelterin (pers-raven-handschellen), zellennachbarin (he-raven-6), liftboy (Panoramaaufzug), wachmann-brezel (prep-wachplan gc-25), quantum-fahrer (main-1-auf-raven gc-16), schorsch-spaetzahler, madame-zinseszins, zauberer-zappo (job-schulden).",
+    "he-marla-sand-2 spielt in Akt 1 am Karawanenstand (Sa), weil der Aussiedlerhof erst mit der Ödnis kommt: Wasserfilter am Karawanenwagen statt Brunnen, gleiche Checks [Körper 4]/[Technik 4].",
+    "Jede Außenzone hat einen Spot auftrag-a für generierte Auftragsziele (job-kurier, job-schulden, job-eskorte, job-bergung). Auftrags-Agent darf weitere auftrag-b … per mapAdditions ergänzen.",
+    "Sammelobjekte stehen als Loot-Hotspots mit ihrer Objekt-ID bei der Zone (8 Platten, 13 Datenwürfel, 15 Glückssterne, 10 Neon-Tags, 8 Jimmy-Spuren, 3 Flaschenposten). schallplatte-01/-02 verkauft Vinyl-Vincent, -04 ist Rennpreis (side-drohnenrennen), -08 Lohn side-lumos-platte, -09 Pixelpalast-Hauptpreis.",
+    "Aussichtspunkte (7): neon-gasse aussicht-dachterrasse, schrottmarkt aussicht-kran, loetgassen aussicht-taubenschlag, rohrsiedlung aussicht-wasserturm, stufenplatz aussicht-bruecke, flutmauer aussicht-leuchtturm, glasarkaden aussicht-panorama (nur Blick).",
+    "Musik: Bezirksstandard aus districts; Kartenüberschreibung im Feld music (high-voltage, dantes-werkstatt, gefaengnis für Eisenhof-Karten, oberstadt für Glasarkaden, schleichen für Tresor/Penthouse). Neon-Gasse nachts: Club-Musik draußen gedämpft (musicMuffled über onEnter/Engine, sonst unterstadt-nacht).",
+    "Bezirke und Stationen legt das Paket an, das in districts.*.owner bzw. bei der Stationskarte steht – niemand sonst, damit keine doppelten IDs entstehen."
+  ]
+}

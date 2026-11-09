@@ -1,0 +1,82 @@
+{
+ "neutral": {
+  "src": "opa-gustav-neutral.png",
+  "sha": "880dc75e0cbd693f",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 65672
+ },
+ "freude": {
+  "src": "opa-gustav-freude.png",
+  "sha": "d8292880b5f1c84c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 68188
+ },
+ "trauer": {
+  "src": "opa-gustav-trauer.png",
+  "sha": "dc0fc32f0a415a0a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61222
+ },
+ "ueberrascht": {
+  "src": "opa-gustav-ueberrascht.png",
+  "sha": "606072bc707b6551",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 72332
+ },
+ "signatur": {
+  "src": "opa-gustav-signatur.png",
+  "sha": "0ad744a14da6f0ee",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 59274
+ }
+}

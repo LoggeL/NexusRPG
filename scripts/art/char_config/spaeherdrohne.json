@@ -1,0 +1,6 @@
+{
+  "height": 50,
+  "walkRaw": "spaeherdrohne-walk-v2.png",
+  "clearPink": true,
+  "note": "Generisches Laufblatt (Späherdrohne, schwebend). v1 hatte einen rosa Stich über dem ganzen Körper; v2 neutral weiß/grau, durchscheinende Rotoren über clearPink bereinigt."
+}

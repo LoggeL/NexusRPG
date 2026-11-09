@@ -1,0 +1,66 @@
+{
+ "neutral": {
+  "src": "marla-sand-neutral.png",
+  "sha": "6df96169306c544c",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 73760
+ },
+ "freude": {
+  "src": "marla-sand-freude.png",
+  "sha": "4a19e3398579153a",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 69268
+ },
+ "besorgt": {
+  "src": "marla-sand-besorgt.png",
+  "sha": "65b99d88f86303a8",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 65698
+ },
+ "signatur": {
+  "src": "marla-sand-signatur.png",
+  "sha": "6abd271d2d9d3d61",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 84516
+ }
+}

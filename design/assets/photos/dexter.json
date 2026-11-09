@@ -1,0 +1,9 @@
+{
+  "images": {
+    "photo-dexter-neutral": "assets/photos/dexter/neutral.webp",
+    "photo-dexter-freude": "assets/photos/dexter/freude.webp",
+    "photo-dexter-besorgt": "assets/photos/dexter/besorgt.webp",
+    "photo-dexter-ueberrascht": "assets/photos/dexter/ueberrascht.webp",
+    "photo-dexter-signatur": "assets/photos/dexter/signatur.webp"
+  }
+}

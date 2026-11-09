@@ -1,0 +1,82 @@
+{
+ "neutral": {
+  "src": "kiki-karbon-neutral.png",
+  "sha": "0ca3916104d6ea6b",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 60956
+ },
+ "freude": {
+  "src": "kiki-karbon-freude.png",
+  "sha": "61f1bd5ee5dac1dd",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62542
+ },
+ "ueberrascht": {
+  "src": "kiki-karbon-ueberrascht.png",
+  "sha": "a647bf45ad7055ec",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 61572
+ },
+ "wut": {
+  "src": "kiki-karbon-wut.png",
+  "sha": "2542760142498163",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 62502
+ },
+ "signatur": {
+  "src": "kiki-karbon-signatur.png",
+  "sha": "c2d6ab85e7d7dd17",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 64612
+ }
+}

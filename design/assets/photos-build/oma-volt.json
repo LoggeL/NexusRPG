@@ -1,0 +1,82 @@
+{
+ "neutral": {
+  "src": "oma-volt-neutral.png",
+  "sha": "ba332e0e0b33fd09",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 90302
+ },
+ "freude": {
+  "src": "oma-volt-freude.png",
+  "sha": "652d8622c68df57e",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 95796
+ },
+ "wut": {
+  "src": "oma-volt-wut.png",
+  "sha": "f97e16d6f7883eb9",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 88614
+ },
+ "besorgt": {
+  "src": "oma-volt-besorgt.png",
+  "sha": "29d04fd7583a402d",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 87520
+ },
+ "signatur": {
+  "src": "oma-volt-signatur.png",
+  "sha": "7580179a159a4fdb",
+  "rawSize": [
+   1024,
+   1536
+  ],
+  "crop": null,
+  "crop23": [
+   0,
+   0,
+   1024,
+   1536
+  ],
+  "bytes": 87084
+ }
+}

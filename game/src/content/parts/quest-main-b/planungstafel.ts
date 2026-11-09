@@ -1,0 +1,256 @@
+// Planungstafel „Heute Nacht losschlagen“ und Cliffhanger von Akt 1 (world.md §5.2 Übergang, §11, §11.8).
+// Die Tafel hängt im Hinterzimmer (Spot planungstisch), öffnet sich mit plan_gefasst und bietet nach zwei prep-* den
+// Bruch an (Warnung „Danach ist die Stadt eine andere.“). Bestätigen setzt act1_done und spielt die Cliffhanger-Sequenz
+// mit Tafel „Fortsetzung folgt“. Akt 2 folgt in einem späteren Lauf: Es wird bewusst KEIN setAct/act2 gesetzt, damit die
+// offene Welt von Akt 1 frei spielbar bleibt (statt Rückfall auf den Speicherpunkt, siehe design/plan/gaps/quest-main-b.md).
+import type { ContentPart } from '../../part';
+import type { CutsceneDef, DialogueChoice, DialogueDef, PhoneMessageDef } from '../../../modules/contracts';
+import { ARIA_ROM_GENERIC, PREPS, TWO_PREPS, VEXARIA, flag, l, nar, noFlag, prepFlag } from './_lib';
+import type { PrepKey } from './_lib';
+
+const LABEL: Record<PrepKey, { name: string; offen: string; fertig: string }> = {
+  grundriss: {
+    name: 'Grundriss des Labors',
+    offen: 'Hunters Zettel: „Drohne am Hafendepot? Pim am Imbiss? Der Kameramann hat alles gefilmt.“',
+    fertig: 'Der Grundriss hängt mit vier Reißzwecken an der Tafel. Zwei Lüftungsschächte sind rot eingekreist. Daneben: ein Sojasoßenfleck, oder ein Kaffeefleck, oder beides.',
+  },
+  zugangskarte: {
+    name: 'Zugangskarte',
+    offen: 'Hunters Zettel: „Pfeffer, Fr/Sa an der Bar. Jojo-Band. Nicht hauen, wenn’s anders geht.“',
+    fertig: 'Ein Foto der Karte. Dr. Pflaume lächelt darauf, als wüsste er von nichts. Er weiß von nichts.',
+  },
+  wachplan: {
+    name: 'Patrouillenzeiten',
+    offen: 'Vegas Zettel, sehr ordentlich: „Brücke, abends. Oder Gernot am Brezelstand. Oder die Kiste in der Lieferzone, nachts.“',
+    fertig: 'Vegas Notizen: Streife A, Streife B, Kaffee, Bernd. Um 01:00 rot unterstrichen: „4 MIN.“',
+  },
+  fluchtweg: {
+    name: 'Rückweg durch den Kanal',
+    offen: 'Ravens Zettel: „Rein kommt man immer. Raus ist die Kunst. Kanal. Gully fragen.“',
+    fertig: 'Ein Pappschild vom Kanalvolk: „Notausgang · Für Freunde“. Jemand hat eine Ratte mit Krone dazugemalt.',
+  },
+  ablenkung: {
+    name: 'Ablenkung am Haupttor',
+    offen: 'Arias Zettel, in Großbuchstaben: „LAUT. HELL. COLLIN, KINDER, FEUERWERK ODER DEXTER. HAUPTSACHE LAUT.“',
+    fertig: 'Arias Zettel, durchgestrichen und darunter: „KLAPPT!!! (glaub ich)“',
+  },
+};
+
+const statusChoices: DialogueChoice[] = PREPS.flatMap((key): DialogueChoice[] => [
+  { text: `[✓] ${LABEL[key].name}`, when: flag(prepFlag(key)), next: `fertig-${key}` },
+  { text: `[ ] ${LABEL[key].name}`, when: noFlag(prepFlag(key)), next: `offen-${key}` },
+]);
+
+const tafel: DialogueDef = {
+  id: 'planungstafel',
+  start: 'start',
+  nodes: [
+    {
+      id: 'start',
+      lines: [nar('Eine Korkwand voller Zettel, Fotos und roter Fäden. Oben in Hunters Handschrift: „VORBEREITUNG – MIND. 2 – KEINE AUSREDEN“.')],
+      choices: [
+        ...statusChoices,
+        { text: '„Heute Nacht losschlagen.“', tag: '[2 Vorbereitungen]', when: noFlag('act1_done'), requires: TWO_PREPS, next: 'warnung' },
+        { text: 'Die Crew wartet auf das Signal. (Fortsetzung folgt)', when: flag('act1_done'), next: 'spaeter' },
+        { text: 'Zurücktreten.' },
+      ],
+    },
+    ...PREPS.flatMap(key => [
+      { id: `offen-${key}`, lines: [nar(LABEL[key].offen)], next: 'start' },
+      { id: `fertig-${key}`, lines: [nar(LABEL[key].fertig)], next: 'start' },
+    ]),
+    {
+      id: 'warnung',
+      lines: [
+        nar('Hunter steht plötzlich hinter dir. Wie er das macht, bei der Größe, weiß keiner.'),
+        l('hunter', 'Sicher? Wenn wir heute Nacht losschlagen, gibt es kein Zurück.', 'besorgt'),
+        l('hunter', 'Danach ist die Stadt eine andere.', 'neutral'),
+        nar('(Jetzt ist ein guter Moment zum Speichern.)'),
+      ],
+      choices: [
+        { text: 'Vorher: Aria im Flur abfangen.', when: VEXARIA, next: 'vexaria-flur' },
+        { text: 'Vorher: noch kurz zu Aria.', when: ARIA_ROM_GENERIC, next: 'aria-flur' },
+        { text: '„Losschlagen.“', next: 'los' },
+        { text: '„Noch nicht.“', next: 'nochnicht' },
+      ],
+    },
+    {
+      id: 'nochnicht',
+      lines: [l('hunter', 'Gut. Die Stadt läuft nicht weg. Quantum vielleicht schon. Sag Bescheid, wenn du so weit bist.', 'neutral')],
+    },
+    // --- Vex × Aria vor dem Bruch (Romanzefassung; kein Kuss – der gehört Station 9 in Akt 2)
+    {
+      id: 'vexaria-flur',
+      lines: [
+        nar('Im Flur hinter dem Hinterzimmer riecht es nach Bier, heißem Kabel und Arias Deo, das „Gewitter“ heißt und genau so riecht. Sie zieht gerade das Griffband am Schläger fest. Zu fest.'),
+        l('aria', 'Was willst du, Postbotin? Glück wünschen? Ich brauch kein Glück. Ich hab einen Schläger.', 'signatur'),
+        l('player', 'Wollte nur sehen, ob du nervös bist.', 'neutral'),
+        l('aria', 'Ich bin nie nervös.', 'wut'),
+        nar('Ihre Metallhand zittert. Ganz leicht. Die Federn am Oberarm surren, wie sie es nur tun, wenn Aria nicht schläft.'),
+      ],
+      choices: [
+        { text: '(Ihre Metallhand nehmen. Festhalten, bis sie aufhört.)', next: 'vf-hand' },
+        { text: '„Lügnerin.“ (Einen Schritt näher. Noch einen.)', next: 'vf-wand' },
+        { text: '„Wir sehen uns im Ziel, Großmaul.“', next: 'vf-ziel' },
+      ],
+    },
+    {
+      id: 'vf-hand',
+      lines: [
+        nar('Du nimmst die Metallhand in deine. Kalt, dann warm. Aria starrt auf eure Finger, als hätte sie die noch nie gesehen.'),
+        l('aria', '…Du bist so eine verdammte Zumutung, weißt du das?', 'verlegen'),
+        l('aria', 'Hör nicht auf.', 'zaertlich'),
+        nar('Du hörst nicht auf. Irgendwann lehnt sie die Stirn an deine Schulter, genau einen Atemzug lang, und du spürst ihr Herz durch zwei Lagen Stoff und eine Lage Gurtzeug hämmern. Dann richtet sie sich auf, als wäre nichts gewesen.'),
+        l('aria', 'Wenn wir zurückkommen, schuldest du mir was. Und ich treib’s ein. Persönlich. Gründlich. Die ganze Nacht, wenn’s sein muss.', 'freude'),
+      ],
+      effects: [{ setFlag: 'vexaria_vor_dem_bruch' }, { relation: 'aria', delta: 30 }],
+      choices: [{ text: '„Losschlagen.“', next: 'los' }],
+    },
+    {
+      id: 'vf-wand',
+      lines: [
+        nar('Ein Schritt. Noch einer. Arias Rücken trifft die Wand, der Schläger klappert zu Boden. Keine von euch hebt ihn auf.'),
+        l('aria', 'Du stehst verdammt nah, Postbotin.', 'verlegen'),
+        l('player', 'Du hast nicht gesagt, dass ich weggehen soll.', 'neutral'),
+        nar('Sie hakt die Finger in deine Gurtriemen. Nicht, um dich wegzuschieben. Ihr Atem streift dein Kinn, deinen Mundwinkel, warm und ungeduldig, und für eine Sekunde gibt es nur noch das Brummen der Kühltruhe und deinen Puls unter ihren Fingerknöcheln.'),
+        l('aria', 'Nicht hier. Nicht jetzt. Wenn ich dich küsse, dann nicht zwischen Bierkästen. Und nicht, bevor ich weiß, dass du heil zurückkommst.', 'zaertlich'),
+        nar('Hinter der Tür brüllt Hunter eure Namen. Aria lässt die Riemen los, langsam, einen Finger nach dem anderen, als würde sie sich jeden einzeln merken.'),
+        l('aria', 'Heb meinen Schläger auf. Und wisch dir das Grinsen aus dem Gesicht, sonst sieht Vega es.', 'signatur'),
+      ],
+      effects: [{ setFlag: 'vexaria_vor_dem_bruch' }, { relation: 'aria', delta: 40 }],
+      choices: [{ text: '„Losschlagen.“', next: 'los' }],
+    },
+    {
+      id: 'vf-ziel',
+      lines: [
+        l('aria', 'Im Ziel. Okay.', 'ueberrascht'),
+        l('aria', 'Ich bin zuerst da. Ich warte. Mit Bier. Und dann reden wir. Oder auch nicht reden.', 'freude'),
+      ],
+      effects: [{ setFlag: 'vexaria_vor_dem_bruch' }, { relation: 'aria', delta: 20 }],
+      choices: [{ text: '„Losschlagen.“', next: 'los' }],
+    },
+    // --- Aria-Romanze mit Baukasten-Spielfigur
+    {
+      id: 'aria-flur',
+      lines: [
+        nar('Aria fängt dich im Flur ab, packt dich am Kragen und zieht dich in die Nische neben der Kühltruhe.'),
+        l('aria', 'Wenn wir das überleben, schuldest du mir einen Abend. Einen ganzen. Ohne Hunter, ohne Ratten, ohne Kameras. Und ohne Ausreden.', 'zaertlich'),
+        nar('Sie lässt den Kragen nicht los. Ihr Daumen streicht einmal über deinen Hals, da, wo der Puls sitzt. Dann grinst sie.'),
+        l('aria', 'So schnell? Gut zu wissen.', 'verlegen'),
+      ],
+      effects: [{ relation: 'aria', delta: 30 }],
+      choices: [{ text: '„Losschlagen.“', next: 'los' }],
+    },
+    {
+      id: 'los',
+      lines: [
+        l('hunter', 'Dann los. Alle Mann, Treffpunkt vor dem Club. Wer zu spät kommt, bleibt hier und spült.', 'signatur'),
+      ],
+      effects: [
+        { setFlag: 'act1_done' },
+        { setFlag: 'losschlagen_bestaetigt' },
+        { cutscene: 'akt1-cliffhanger' },
+      ],
+    },
+    {
+      id: 'spaeter',
+      lines: [
+        l('hunter', 'Wir sind bereit. Die Stadt ist es noch nicht. Bis dahin: Lebt euer Leben. Zahlt eure Schulden.', 'neutral'),
+        nar('(Akt 2 „Der Chip“ folgt. Die offene Welt von Akt 1 bleibt frei spielbar.)'),
+      ],
+      choices: [
+        { text: 'Die Nacht noch einmal ansehen.', effects: [{ cutscene: 'akt1-cliffhanger' }] },
+        { text: 'Zurücktreten.' },
+      ],
+    },
+  ],
+};
+
+const cliffhanger: CutsceneDef = {
+  id: 'akt1-cliffhanger',
+  title: 'Heute Nacht',
+  beats: [
+    {
+      image: 'black',
+      fade: 'in',
+      caption: 'Noch in derselben Nacht · Neon-Gasse',
+      lines: [
+        nar('Die Gasse ist leer. Nur der Rostregen, das Summen der Leuchtreklamen und ein paar Schatten, die sich vor dem High Voltage sammeln.'),
+        l('hunter', 'Letzte Chance auszusteigen. Keiner? Gut. Ich hätte euch eh nicht gelassen.', 'signatur'),
+        l('vega', 'Streifen in Position. Schichtwechsel um eins. Wir haben siebzehn Minuten.', 'neutral'),
+        l('aria', 'Siebzehn Minuten reichen mir für drei Türen und einen Wachmann. Zwei, wenn er nett ist.', 'freude'),
+        l('raven', 'Bleib bei mir. Und wenn ich „lauf“ sage, fragst du nicht, wohin.', 'neutral'),
+        l('nyra', 'Captain Kuschel ist angeschnallt. Ich auch. Glaub ich. Ist das hier der Gurt oder mein Kabel?', 'besorgt'),
+      ],
+    },
+    {
+      image: 'black',
+      sfx: 'phone',
+      caption: 'EILMELDUNG · NX-1',
+      lines: [
+        l('delya-delloraine', 'Exklusiv! Quantum verschenkt Chrome 10. Ab heute Nacht. An alle. Einfach so.', 'ueberrascht'),
+        l('collin-charleston', 'Gratis? Ich LIEBE gratis! Liebe Zuschauer, holt euch euren Chip, bevor ihn der Nachbar holt!', 'freude'),
+        l('hunter', 'Gratis. Ich hasse gratis. Gratis kostet immer am meisten.', 'besorgt'),
+      ],
+    },
+    {
+      image: 'black',
+      sfx: 'hack',
+      caption: 'Quantum-Campus · Labor 0',
+      lines: [
+        nar('Tief unter dem Campus geht in einem Raum ohne Fenster ein einzelnes blaues Licht an. Dann noch eins. Dann tausend.'),
+        l('ki-nexus', 'Verbindung hergestellt.', 'neutral'),
+        l('ki-nexus', 'Seid gegrüßt, Master …', 'signatur'),
+      ],
+      hold: 1500,
+    },
+    { image: 'black', caption: 'FORTSETZUNG FOLGT', fade: 'in', hold: 3000 },
+    { image: 'black', caption: 'Akt 2 „Der Chip“ kommt bald. Bis dahin gehört die Stadt dir: Noxius ist weiter frei spielbar.', hold: 1500 },
+  ],
+  effects: [
+    { phone: 'tel-nx1-chrome10-gratis' },
+    { message: 'Akt 1 abgeschlossen. Die offene Welt bleibt frei spielbar.' },
+  ],
+};
+
+const eilmeldung: PhoneMessageDef = {
+  id: 'tel-nx1-chrome10-gratis',
+  from: 'delya-delloraine',
+  text: 'EILMELDUNG NX-1: Chrome 10 ab sofort gratis für alle Bürger! Abholung an jedem Quantum-Stand. „Eine neue Ruhe für Noxius.“',
+  replies: [{ text: 'Nein danke.' }, { text: 'Was ist der Haken?', effects: [{ message: 'Keine Antwort. Nur ein blaues Flackern im Display.' }] }],
+};
+
+export const part: ContentPart = {
+  dialogues: { [tafel.id]: tafel },
+  cutscenes: { [cliffhanger.id]: cliffhanger },
+  phone: { [eilmeldung.id]: eilmeldung },
+  mapAdditions: {
+    'hv-hinterzimmer': {
+      hotspots: [
+        {
+          // Die Zone legt dort schon „planungstafel“ als Auftragstafel an (kind 'board'); diese Fassung öffnet den
+          // Dialog. Vorschlag in gaps/quest-main-b.md: Zonen-Hotspot auf kind 'use' + dialogue 'planungstafel' umstellen.
+          id: 'planungstafel-plan',
+          at: [880, 520],
+          radius: 80,
+          label: 'Planungstafel: Heute Nacht losschlagen',
+          kind: 'use',
+          dialogue: tafel.id,
+          when: flag('plan_gefasst'),
+        },
+      ],
+    },
+    'crew-quartier': {
+      hotspots: [
+        {
+          id: 'planungstafel-quartier',
+          at: 'pinnwand',
+          label: 'Planungstafel (Kopie an der Pinnwand)',
+          kind: 'use',
+          dialogue: tafel.id,
+          when: flag('plan_gefasst'),
+        },
+      ],
+    },
+  },
+};
