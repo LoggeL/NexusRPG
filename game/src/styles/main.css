@@ -58,7 +58,8 @@ kbd { font-family: var(--font-text); font-weight: 700; font-size: 0.8em; padding
 .sr-only { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .noscript { padding: 24px; font-size: 20px; }
 
-#shell { position: fixed; inset: 0; background: var(--bg); }
+#shell { position: fixed; inset: 0; background: var(--bg); -webkit-user-select: none; user-select: none; }
+#shell input, #shell textarea, #shell [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
 #game { position: absolute; left: var(--cx); top: var(--cy); width: var(--cw); height: var(--ch); background: #000; }
 #game canvas { display: block; image-rendering: auto; touch-action: none; }
 .ui-root { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
@@ -171,7 +172,7 @@ kbd { font-family: var(--font-text); font-weight: 700; font-size: 0.8em; padding
 .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: safe center; gap: var(--gap); z-index: 15; padding: var(--gap); }
 .screen[hidden] { display: none; }
 .title-logo { font-family: var(--font-display); font-weight: 600; font-size: clamp(40px, calc(var(--ch) * 0.16), 112px); line-height: 1; color: var(--sand); text-shadow: 3px 3px 0 #5c1240, 6px 6px 0 #05030b, 0 0 24px rgba(0,0,0,0.6); margin: 0; letter-spacing: 0.02em; }
-.screen[data-screen="title"] .title-logo { user-select: none; touch-action: manipulation; }
+.screen[data-screen="title"] .title-logo { touch-action: manipulation; }
 .title-sub { font-family: var(--font-display); font-size: clamp(18px, calc(var(--ch) * 0.055), 34px); color: var(--sea); margin: 0 0 calc(var(--gap) * 1.4); padding: 0 0.6em; background: rgba(4,14,14,0.66); box-shadow: 0 0 12px 4px rgba(4,14,14,0.45);
   /* Dunkle Platte + Umriss: lesbar auf dem orangen Abendhimmel des Titelbilds. */
   text-shadow: 2px 2px 0 #05030b, -1px -1px 0 #05030b, 1px -1px 0 #05030b, -1px 1px 0 #05030b; }
