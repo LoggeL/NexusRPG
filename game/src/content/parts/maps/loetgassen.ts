@@ -16,7 +16,7 @@ const SPRUNGKRAFT: Condition = {
   any: [{ cyberware: 'beine-sprungfedern' }, { cyberware: 'arme-greifhaken' }, { perk: 'dachlaeuferin' }],
 };
 /** Wäschehof offen: ab Tag 2, Gossenkinder, oder per Gespräch mit dem Wäsche-Typen (Flag). */
-const WAESCHEHOF_OFFEN: Condition = { any: [{ dayAtLeast: 2 }, { flag: 'waeschehof_offen' }, { origin: 'gosse' }] };
+const WAESCHEHOF_OFFEN: Condition = { any: [{ dayAtLeast: 2 }, { flag: 'waeschehof_offen' }, { origin: 'origin-gossenkind' }] };
 
 // ---------------------------------------------------------------------------------------------------- Sammelobjekte
 
@@ -137,10 +137,12 @@ const taubenpost: DialogueDef = {
       choices: [
         ...TAUBEN_EMPFAENGER.map(([npc, name, antwort]): NonNullable<DialogueDef['nodes'][number]['choices']>[number] => ({
           text: `Brief an ${name} schicken (3 Cr)`,
-          when: { all: [{ met: npc }, ...(npc === 'vex-schrapnell' ? [NICHT_V] : [])] },
+          // Ein Brief pro Tag (Tagesflag der Engine, fällt jeden Morgen).
+          when: { all: [{ met: npc }, { notFlag: 'heute_taubenpost' }, ...(npc === 'vex-schrapnell' ? [NICHT_V] : [])] },
           requires: { credits: 3 },
           effects: [
             { credits: -3 },
+            { setFlag: 'heute_taubenpost' },
             {
               minigame: 'akt-taubenpost', level: 1, key: `taubenpost-${npc}`, label: `Taubenpost an ${name}`,
               win: [{ relation: npc, delta: 10 }, { message: antwort }],
@@ -176,7 +178,7 @@ const waeschehof: DialogueDef = {
       choices: [
         {
           text: 'Ich bin von hier. Lass mich durch, sonst erzähl ich deiner Mutter, wo du deine Unterhosen trocknest.',
-          tag: '[Gosse]', when: { origin: 'gosse' },
+          tag: '[Gosse]', when: { origin: 'origin-gossenkind' },
           effects: [{ setFlag: 'waeschehof_offen' }], next: 'gosse',
         },
         {

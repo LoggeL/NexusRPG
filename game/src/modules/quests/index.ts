@@ -199,6 +199,16 @@ export interface ObjectiveDetail extends ObjectiveView {
 
 const openSteps = (views: QuestStepView[]) => views.filter(view => view.state === 'open');
 
+/** Marker eines Schritts mit aufgelöstem Ort: Spot- oder Einstiegsname der Karte → Kartenpixel (unbekannt: nur Karte). */
+export function resolveMarker(content: GameContent, marker: QuestStepDef['marker']): { map: MapId; at?: Point } | undefined {
+  if (!marker) return undefined;
+  if (marker.at === undefined) return { map: marker.map };
+  if (typeof marker.at !== 'string') return { map: marker.map, at: marker.at };
+  const map = has(content.maps, marker.map) ? content.maps[marker.map] : undefined;
+  const spot = map?.spots?.[marker.at] ?? map?.entries[marker.at];
+  return spot ? { map: marker.map, at: spot.at } : { map: marker.map };
+}
+
 /** Nächster offener Schritt einer Quest: zuerst Pflichtschritte, sonst optionale; Lösungswege zählen zum Pflichtschritt. */
 function nextStep(views: QuestStepView[]): QuestStepView | undefined {
   const open = openSteps(views);
@@ -226,7 +236,8 @@ export function objectiveOf(content: GameContent, state: Readonly<GameState>, ev
       .filter((entry): entry is QuestStepView => !!entry && entry.state === 'open')
       .map((entry) => {
         const out: ObjectiveDetail['alternatives'][number] = { step: entry.step.id, text: entry.step.text };
-        if (entry.step.marker) out.marker = entry.step.marker;
+        const marker = resolveMarker(content, entry.step.marker);
+        if (marker) out.marker = marker;
         return out;
       });
     const detail: ObjectiveDetail = {
@@ -239,7 +250,7 @@ export function objectiveOf(content: GameContent, state: Readonly<GameState>, ev
       tracked: view.tracked,
       alternatives,
     };
-    const marker = open.step.marker ?? alternatives.find(entry => entry.marker)?.marker;
+    const marker = resolveMarker(content, open.step.marker) ?? alternatives.find(entry => entry.marker)?.marker;
     if (marker) detail.marker = marker;
     return detail;
   }
@@ -265,7 +276,7 @@ export function questMarkers(content: GameContent, state: Readonly<GameState>, e
   for (const view of questLog(content, state, evaluate)) {
     if (view.status !== 'active') continue;
     for (const step of openSteps(view.steps)) {
-      const marker = step.step.marker;
+      const marker = resolveMarker(content, step.step.marker);
       if (!marker || (map !== undefined && marker.map !== map)) continue;
       const highlighted = objective !== null && objective.quest === view.quest.id
         && (objective.step === step.step.id || objective.alternatives.some(entry => entry.step === step.step.id));

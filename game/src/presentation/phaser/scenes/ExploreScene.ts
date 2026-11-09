@@ -13,6 +13,8 @@
 //   ../objective.ts, ../labels.ts (alle ohne Phaser getestet).
 import Phaser from 'phaser';
 import { musicForMap } from '../../music';
+import { dailyHotspotFlag } from '../../../modules/campaign';
+import { RANDOM_GROUP_PREFIX, rollRandomEncounter } from '../../../modules/combat/randomEncounters';
 import { VOICE_FIELD, loadVoiceBank, pickSnippet, voiceCooldown, voiceGain, type VoiceBank } from '../voices';
 import type { DialogueId, ExitDef, Facing, HotspotDef, MapDef, MapEncounterDef, MapId, NpcId, NpcPresence, Point, Rect, TimeSlot } from '../../../modules/contracts';
 import type { Director } from '../../director';
@@ -79,6 +81,8 @@ export class ExploreScene extends Phaser.Scene {
   private npcActors: NpcActor[] = [];
   private leavingNpcs: LeavingNpc[] = [];
   private groups: GroupActor[] = [];
+  /** Zufallsgruppen, die in diesem Besuch schon angesprochen wurden (Kampf, Flucht oder Niederlage). */
+  private spentGroups = new Set<string>();
   private passersby: Passerby[] = [];
   private voiceBank: VoiceBank | null = null;
   private voiceNext = 0;
@@ -173,6 +177,10 @@ export class ExploreScene extends Phaser.Scene {
     this.bgKey = '';
     const state = this.rt.campaign.state();
     this.map = this.rt.content.maps[state.map] ?? this.rt.content.maps[this.rt.content.start.map];
+    // Zufallsbegegnung dieses Besuchs (höchstens eine, sichtbar und umgehbar; world.md §8.7).
+    this.spentGroups = new Set();
+    const ambush = rollRandomEncounter(this.rt.content, state, this.map.id, (condition) => this.rt.campaign.evaluate(condition));
+    if (ambush) this.map = { ...this.map, encounters: [...(this.map.encounters ?? []), ambush] };
     this.lastMinute = absoluteMinute(state.clock);
     this.resolvePresence = presenceOverride ?? ((map) => this.rt.campaign.presentNpcs(map));
   }
@@ -521,9 +529,17 @@ export class ExploreScene extends Phaser.Scene {
 
   private groupVisible(group: MapEncounterDef): boolean {
     const campaign = this.rt.campaign;
+    if (this.spentGroups.has(group.id)) return false;
     if (!campaign.evaluate(group.when)) return false;
     if (group.once !== false && campaign.evaluate({ won: group.encounter })) return false;
     return !campaign.hasSeen(`avoid:${this.map.id}:${group.id}`);
+  }
+
+  /** Einmalig benutzt (`once`) oder heute schon benutzt (`daily`). */
+  private hotspotUsed(hotspot: HotspotDef): boolean {
+    const campaign = this.rt.campaign;
+    if (hotspot.once && campaign.hasSeen(hotspot.id)) return true;
+    return !!hotspot.daily && campaign.evaluate({ flag: dailyHotspotFlag(this.map.id, hotspot.id) });
   }
 
   private hotspotVisible(hotspot: HotspotDef): boolean {
@@ -563,7 +579,7 @@ export class ExploreScene extends Phaser.Scene {
         }
         prop?.sprite.setVisible(visible);
       }
-      if (!visible || (hotspot.once && campaign.hasSeen(hotspot.id))) continue;
+      if (!visible || this.hotspotUsed(hotspot)) continue;
       list.push({ kind: 'hotspot', id: hotspot.id, label: hotspot.label, x: hotspot.at[0], y: hotspot.at[1], radius: hotspot.radius ?? DEFAULT_RADIUS, hotspot });
       marker(hotspot.id, hotspot.at);
     }
@@ -797,7 +813,7 @@ export class ExploreScene extends Phaser.Scene {
     }
     for (const hotspot of this.map.hotspots) {
       const visible = this.hotspotVisible(hotspot);
-      const used = visible && !!hotspot.once && campaign.hasSeen(hotspot.id);
+      const used = visible && this.hotspotUsed(hotspot);
       const state = !campaign.evaluate(hotspot.when) ? ' (when ✗)' : !visible ? ' (hideWhen)' : used ? ' (erledigt)' : '';
       const alpha = visible && !used ? 1 : 0.35;
       g.lineStyle(2, 0xffe040, 0.95 * alpha);
@@ -1052,6 +1068,7 @@ export class ExploreScene extends Phaser.Scene {
       actor.setWalking(false);
       if (target.kind === 'encounter' || !target.actor.presence.pose) actor.setFacing(facingFrom(this.player.x - actor.x, this.player.y - actor.y, actor.facing));
       if (target.kind === 'encounter') target.actor.armed = false;
+      if (target.kind === 'encounter' && target.group.id.startsWith(RANDOM_GROUP_PREFIX)) this.spentGroups.add(target.group.id);
     }
     this.saveLocation();
     this.rt.interact(target);

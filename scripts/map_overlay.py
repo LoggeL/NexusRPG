@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Zeichnet eine 2×-Vorschau einer Karte mit Geometrie, Sprites und Requisiten (für map_tool.mjs)."""
+"""Zeichnet eine Vorschau (Kartengröße 1:1) einer Karte mit Geometrie, Sprites und Requisiten (für map_tool.mjs)."""
 from __future__ import annotations
 
 import json
@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC = ROOT / "game/public"
-S = 2  # Vergrößerung
+S = 1  # Vergrößerung (Karten sind 1536×1024 bzw. 1024×768)
 ROW = {"s": 0, "w": 1, "e": 2, "n": 3}
 
 
@@ -28,8 +28,9 @@ def main(report_path: str, out_path: str) -> None:
     manifest = json.loads((PUBLIC / "assets/manifest.json").read_text())
     g = report["geometry"]
     bg_file = report.get("bg")
-    base = Image.open(PUBLIC / bg_file).convert("RGBA") if bg_file else Image.new("RGBA", (640, 360), (40, 40, 40, 255))
-    base = base.resize((640 * S, 360 * S), Image.NEAREST)
+    W, H = report.get("size") or (640, 360)
+    base = Image.open(PUBLIC / bg_file).convert("RGBA") if bg_file else Image.new("RGBA", (W, H), (40, 40, 40, 255))
+    base = base.resize((W * S, H * S), Image.LANCZOS)
 
     # Sprites und Requisiten in Spielgröße (2×) einsetzen
     def paste_sprite(key: str, at, frame: int = 0):
@@ -72,13 +73,13 @@ def main(report_path: str, out_path: str) -> None:
     over = Image.new("RGBA", base.size, (0, 0, 0, 0))
     d = ImageDraw.Draw(over)
     f_small, f_mid = font(13), font(15)
-    for x in range(0, 641, 20):
-        d.line([(x * S, 0), (x * S, 360 * S)], fill=(255, 255, 255, 40 if x % 100 else 90), width=1)
-        if x % 40 == 0:
+    for x in range(0, W + 1, 32):
+        d.line([(x * S, 0), (x * S, H * S)], fill=(255, 255, 255, 40 if x % 128 else 90), width=1)
+        if x % 128 == 0:
             d.text((x * S + 2, 2), str(x), fill=(255, 255, 255, 200), font=f_small)
-    for y in range(0, 361, 20):
-        d.line([(0, y * S), (640 * S, y * S)], fill=(255, 255, 255, 40 if y % 100 else 90), width=1)
-        if y % 40 == 0:
+    for y in range(0, H + 1, 32):
+        d.line([(0, y * S), (W * S, y * S)], fill=(255, 255, 255, 40 if y % 128 else 90), width=1)
+        if y % 128 == 0:
             d.text((2, y * S + 2), str(y), fill=(255, 255, 255, 200), font=f_small)
     for poly in g["walk"]:
         d.polygon([(x * S, y * S) for x, y in poly], fill=(60, 255, 120, 45), outline=(60, 255, 120, 255), width=2)
@@ -108,7 +109,7 @@ def main(report_path: str, out_path: str) -> None:
         ex, ey = e["at"]
         d.rectangle([ex * S - 4, ey * S - 4, ex * S + 4, ey * S + 4], fill=(0, 255, 255, 255))
         d.text((ex * S + 6, ey * S + 4), f"⌂{name}", fill=(180, 255, 255, 255), font=f_small, stroke_width=2, stroke_fill=(0, 0, 0, 255))
-    y0 = 360 * S - 18 * (len(report["problems"]) + 1)
+    y0 = H * S - 18 * (len(report["problems"]) + 1)
     for i, p in enumerate(report["problems"]):
         d.text((8, y0 + i * 18), "✗ " + p, fill=(255, 120, 120, 255), font=f_mid, stroke_width=2, stroke_fill=(0, 0, 0, 255))
     base.alpha_composite(over)

@@ -188,11 +188,15 @@ export function knownGiftItems(state: Readonly<GameState>, npc: NpcId): ItemId[]
 
 const npcRef = (id: string) => [{ kind: 'npcs' as const, id }];
 
-export const relationConditions: ConditionSpecs<'hearts' | 'rival' | 'met' | 'romance' | 'companion' | 'recruited'> = {
+export const relationConditions: ConditionSpecs<'hearts' | 'rival' | 'met' | 'romance' | 'romanceEnabled' | 'companion' | 'recruited'> = {
   hearts: { test: (c, { content, state }) => heartsWith(content, state, c.hearts) >= c.min, refs: c => npcRef(c.hearts) },
   rival: { test: (c, { state }) => rivalryFromPoints(relationOf(state, c.rival).points) >= Math.max(2, c.min ?? 2), refs: c => npcRef(c.rival) },
   met: { test: (c, { state }) => relationOf(state, c.met).met, refs: c => npcRef(c.met) },
   romance: { test: (c, { content, state }) => romanceOpen(content, state, c.romance), refs: c => npcRef(c.romance) },
+  romanceEnabled: {
+    test: (c, { content }) => romanceStatus(content, c.romanceEnabled, 0).eligible,
+    refs: c => npcRef(c.romanceEnabled),
+  },
   companion: { test: (c, { state }) => state.party.includes(c.companion), refs: c => npcRef(c.companion) },
   recruited: { test: (c, { state }) => state.recruited.includes(c.recruited), refs: c => npcRef(c.recruited) },
 };

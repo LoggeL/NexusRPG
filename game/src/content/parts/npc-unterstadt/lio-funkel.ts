@@ -16,6 +16,8 @@ const H = sprecher('hunter');
 const A = sprecher('aria');
 
 const ROM: Condition = { romance: ID };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const AUGE: Condition = { quest: 'side-zweite-hand', state: 'done' };
 const done = (quest: string): Condition => ({ quest, state: 'done' });
 
@@ -26,7 +28,7 @@ function menue(): Menue {
 
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Lio flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: alle(ROM, { weekday: tage }),
+    when: alle(FLIRT, { weekday: tage }),
   });
   const antworten: DialogueChoice[] = [
     { text: '„Reim auf göttlich? ‚Verboten köstlich.‘ Gern geschehen.“', check: pruefung('lio-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -578,7 +580,7 @@ const he10 = dialog('he-lio-funkel-10', [
   knoten('morgen', [
     erz('Morgen danach. Lio summt ein neues Lied, das verdächtig nach letzter Nacht klingt. Am selben Nachmittag spielt er es am Bahnhof. Alle wissen Bescheid. Wirklich alle.'),
     L('Ich hab’s „Unbetitelt Nummer zwei“ genannt. Die Leute nennen es „Das mit dem Seufzen“. Ich kann mit beidem leben.', 'zaertlich'),
-  ], { effects: [{ checkBuff: { id: 'beschwingt-lio', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } }] }),
+  ], { effects: [{ checkBuff: { id: 'beschwingt-lio', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
   knoten('andermal', [L('Ein andermal. Gut. Dann schreib ich solange ein Lied darüber, wie du „ein andermal“ sagst. Es wird sehnsüchtig. Und sehr, sehr laut.', 'signatur')]),
 ]);
 

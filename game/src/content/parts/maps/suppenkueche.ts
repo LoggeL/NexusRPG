@@ -169,7 +169,7 @@ const spendenkasse: DialogueDef = {
           effects: [{ credits: -50 }, { rep: 'unterstadt', delta: 5 }, { xp: 15 }], next: 'gross',
         },
         {
-          text: 'Früher hab ich hier selbst gegessen. Zwanzig für die Kasse.', tag: '[Gosse]', when: { origin: 'gosse' },
+          text: 'Früher hab ich hier selbst gegessen. Zwanzig für die Kasse.', tag: '[Gosse]', when: { origin: 'origin-gossenkind' },
           requires: { credits: 20 }, once: true, id: 'gosse',
           effects: [{ credits: -20 }, { rep: 'unterstadt', delta: 4 }], next: 'gosse',
         },

@@ -1,4 +1,4 @@
-// Integrationstest: echte (Test-)Inhalte gegen Regel-Engine, Navigation mit den Parametern der Darstellung,
+// Integrationstest: echte Inhalte gegen Regel-Engine, Navigation mit den Parametern der Darstellung,
 // URL-Einstiege und Kamera-Hilfen – ohne Phaser.
 import { describe, expect, it } from 'vitest';
 import { content } from '../content';
@@ -8,6 +8,7 @@ import { createNavigation } from '../modules/navigation';
 import { GAME_H, GAME_W } from '../presentation/dom/layout';
 import { cameraBounds, cameraScroll } from '../presentation/phaser/camera';
 import { FOOT, NAV_CELL_EXPLORE } from '../presentation/phaser/navigationAdapter';
+import { NPC_RADIUS } from '../presentation/phaser/tuning';
 import { createRandom, seededRandom } from './composition';
 import { parseEntry } from './urlEntry';
 
@@ -24,13 +25,17 @@ describe('Integration Inhalte ↔ Regeln ↔ Darstellungsparameter', () => {
       const entries = Object.entries(map.entries);
       expect(entries.length, map.id).toBeGreaterThan(0);
       for (const [id, entry] of entries) expect(n.walkable(entry.at[0], entry.at[1]), `${map.id}#${id}`).toBe(true);
-      const from = entries[0]![1].at;
+      // Laufinseln mit eigenem Einstieg sind erlaubt: Ziel gilt als erreichbar, wenn irgendein Einstieg hinkommt.
       const reach = (target: Point, radius: number, label: string) => {
-        const path = n.findPath(from, target);
-        const end = path.length ? path[path.length - 1]! : from;
-        expect(Math.hypot(end[0] - target[0], end[1] - target[1]), label).toBeLessThanOrEqual(radius);
+        const best = Math.min(...entries.map(([, entry]) => {
+          const path = n.findPath(entry.at, target);
+          const end = path.length ? path[path.length - 1]! : entry.at;
+          return Math.hypot(end[0] - target[0], end[1] - target[1]);
+        }));
+        expect(best, label).toBeLessThanOrEqual(radius);
       };
-      for (const [id, spot] of Object.entries(map.spots ?? {})) reach(spot.at, 16, `${map.id} Ort ${id}`);
+      // Orte tragen oft sitzende Figuren (Hocker, Bank): ansprechbar reicht (NPC_RADIUS mit Rand).
+      for (const [id, spot] of Object.entries(map.spots ?? {})) reach(spot.at, NPC_RADIUS - 12, `${map.id} Ort ${id}`);
       for (const hotspot of map.hotspots) reach(hotspot.at, hotspot.radius ?? 56, `${map.id} Hotspot ${hotspot.id}`);
       if (map.bed) reach(map.bed.at, 56, `${map.id} Bett`);
     }
@@ -65,8 +70,8 @@ describe('Integration Inhalte ↔ Regeln ↔ Darstellungsparameter', () => {
     expect(parseEntry('?scene=title', content).entry).toEqual({ kind: 'title' });
     expect(parseEntry('?newchar', content).entry).toEqual({ kind: 'newchar' });
     expect(parseEntry('?act=2&time=nacht', content).entry).toEqual({ kind: 'act', act: 2, time: 'nacht' });
-    expect(parseEntry('?map=test-innen&entry=tuer', content).entry).toEqual({ kind: 'map', map: 'test-innen', entry: 'tuer' });
-    expect(parseEntry('?battle=test-schlaeger', content).entry).toEqual({ kind: 'battle', encounter: 'test-schlaeger' });
+    expect(parseEntry('?map=crew-quartier&entry=aufwachen', content).entry).toEqual({ kind: 'map', map: 'crew-quartier', entry: 'aufwachen' });
+    expect(parseEntry('?battle=enc-bahnhof-abzieher', content).entry).toEqual({ kind: 'battle', encounter: 'enc-bahnhof-abzieher' });
     const bad = parseEntry('?act=6&map=nirgendwo&time=mittag', content);
     expect(bad.entry).toEqual({ kind: 'title' });
     expect(bad.errors).toHaveLength(3);

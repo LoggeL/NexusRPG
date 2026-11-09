@@ -52,7 +52,7 @@ export function deliverPhone(ctx: EffectContext, id: string): void {
 }
 
 export const coreConditions: ConditionSpecs<
-  'flag' | 'notFlag' | 'item' | 'noItem' | 'act' | 'visited' | 'seen' | 'station' | 'all' | 'any' | 'not'
+  'flag' | 'notFlag' | 'item' | 'noItem' | 'act' | 'visited' | 'seen' | 'station' | 'all' | 'any' | 'not' | 'itemsOf' | 'atLeast'
 > = {
   flag: { test: (c, { state }) => flagSet(state, c.flag) },
   notFlag: { test: (c, { state }) => !flagSet(state, c.notFlag) },
@@ -65,11 +65,30 @@ export const coreConditions: ConditionSpecs<
   all: { test: (c, ctx) => Array.isArray(c.all) && c.all.every(x => ctx.evaluate(x)) },
   any: { test: (c, ctx) => Array.isArray(c.any) && c.any.some(x => ctx.evaluate(x)) },
   not: { test: (c, ctx) => !!c.not && typeof c.not === 'object' && !ctx.evaluate(c.not) },
+  itemsOf: {
+    test: (c, { state }) => {
+      if (typeof c.itemsOf !== 'string' || !c.itemsOf) return false;
+      let total = 0;
+      for (const [item, qty] of Object.entries(state.inventory)) {
+        if (!item.startsWith(c.itemsOf) || !(qty > 0)) continue;
+        total += c.distinct ? 1 : qty;
+      }
+      return total >= c.min;
+    },
+  },
+  atLeast: {
+    test: (c, ctx) => {
+      if (!Array.isArray(c.atLeast)) return false;
+      let hits = 0;
+      for (const inner of c.atLeast) if (ctx.evaluate(inner) && ++hits >= c.min) return true;
+      return hits >= c.min;
+    },
+  },
 };
 
 export const coreEffects: EffectSpecs<
   'setFlag' | 'give' | 'take' | 'markSeen' | 'message' | 'setAct' | 'cutscene' | 'dialogue' | 'travel' | 'sfx' | 'ending'
-  | 'unlockStation' | 'news' | 'phone'
+  | 'unlockStation' | 'news' | 'phone' | 'cityMap' | 'wanted'
 > = {
   setFlag: {
     apply(e, { draft }) {
@@ -194,8 +213,33 @@ export const coreEffects: EffectSpecs<
       return null;
     },
     refs: e => [{ kind: 'phone', id: e.phone }],
+  },  cityMap: {
+    apply(_e, { requests }) {
+      requests.push({ cityMap: true });
+      return null;
+    },
+  },
+  wanted: {
+    apply(e, { draft, messages }) {
+      if (!Number.isInteger(e.wanted) || Math.abs(e.wanted) > WANTED_MAX) return 'Ungültige Fahndungsänderung.';
+      const before = wantedLevel(draft);
+      const after = Math.max(0, Math.min(WANTED_MAX, before + e.wanted));
+      for (let level = 1; level <= WANTED_MAX; level++) {
+        if (level <= after) draft.flags[`fahndung_${level}`] = true;
+        else delete draft.flags[`fahndung_${level}`];
+      }
+      if (after !== before) messages.push(after > before ? `Fahndung ${after} (+${after - before})` : after === 0 ? 'Fahndung aufgehoben' : `Fahndung ${after} (−${before - after})`);
+      return null;
+    },
   },
 };
+
+/** Höchste Fahndungsstufe 0–3 (Flags `fahndung_1` … `fahndung_3`). */
+export const WANTED_MAX = 3;
+export function wantedLevel(state: Readonly<GameState>): number {
+  for (let level = WANTED_MAX; level >= 1; level--) if (flagSet(state, `fahndung_${level}`)) return level;
+  return 0;
+}
 
 /** Nachlauf: Telefonnachrichten mit `auto`-Bedingung zustellen; Station der aktuellen Karte freischalten. */
 export const coreSettle: SettleHook = (ctx) => {

@@ -13,6 +13,8 @@ import {
 const ID = 'marla-sand';
 const M_ = sprecher(ID);
 const ROM: Condition = { romance: ID };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const ODNIS: Condition = { origin: 'origin-oednis' };
 
 // ---------------------------------------------------------------------------------------------- Menü
@@ -28,7 +30,7 @@ function menue(): Menue {
     { text: 'Weißt du was über die Küstenkarte?', when: { item: 'kuestenkarte-fragment' }, once: true, id: 'm-karte', next: 'karte' },
     { text: 'Komm mit. Ich brauch jemanden, der den Wind liest.', requires: { hearts: ID, min: 6 }, tag: '[Marla ♥6]', when: alle(AKT2, nicht({ recruited: ID })), next: 'mit', effects: [{ recruit: ID }] },
     { text: 'Bleib hier, Marla.', when: { companion: ID }, next: 'weg', effects: [{ dismiss: ID }] },
-    { text: '„Du siehst gut aus für jemanden, der drei Tage durch Sand gefahren ist.“', tag: '[Romanze]', when: ROM, next: 'flirt', id: 'm-flirt' },
+    { text: '„Du siehst gut aus für jemanden, der drei Tage durch Sand gefahren ist.“', tag: '[Romanze]', when: FLIRT, next: 'flirt', id: 'm-flirt' },
     { text: 'Gute Reise.' },
   ];
   const choices = einmalig(ID, choices0);

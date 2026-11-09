@@ -296,8 +296,9 @@ const hafenkante: MapDef = {
       id: 'ubahn-zugang', at: at('ubahn-abgang'), radius: 50, label: 'U-Bahn Hafenkante', kind: 'use',
       lines: [
         { speaker: 'narrator', text: 'Station Hafenkante. Die Treppe riecht nach Salz und Bremsbelag. Auf dem Fahrplan steht bei jeder Abfahrt „ca.“.' },
-        { speaker: 'narrator', text: 'Über die Stadtkarte fährst du von hier zu jeder freigeschalteten Station.' },
+        { speaker: 'narrator', text: 'Von hier fährst du zu jeder freigeschalteten Station.' },
       ],
+      effects: [{ cityMap: true }],
     },
     {
       id: 'rennhalle-ansehen', at: off('rennhalle-tor', 100, 0), radius: 50, label: 'Rennhalle 9 ansehen', kind: 'look',
@@ -412,9 +413,7 @@ const hafenkante: MapDef = {
 
 export const part: ContentPart = {
   maps: { [hafenkante.id]: hafenkante },
-  stations: {
-    'station-hafenkante': { id: 'station-hafenkante', name: 'Hafenkante', map: 'hafenkante', entry: 'station', cityPos: [0.58, 0.68] },
-  },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
   dialogues: {
     'hafenkante-ankunft': {
       id: 'hafenkante-ankunft',

@@ -52,7 +52,7 @@ export { createActState, createInitialState, entryPoint } from './state';
 export { enterSeenKey, runEnterTriggers } from './triggers';
 export type { EnterTriggerHost } from './triggers';
 export { displayName, fillName, portraitKey } from './names';
-export { formatClock, timeSlotOf, weekdayOf } from './domains/clock';
+export { dailyHotspotFlag, formatClock, timeSlotOf, weekdayOf, DAILY_FLAG_PREFIX, WEEKLY_FLAG_PREFIX, CYCLE_FLAG_PREFIX } from './domains/clock';
 export { heartsOf, rivalryOf, GIFT_POINTS } from './domains/relations';
 export { levelForXp, xpForLevel, maxHpOf, effectiveAttribute } from './domains/character';
 export { jobTitle } from './domains/quests';
@@ -298,7 +298,8 @@ export function createCampaign(content: GameContent, options: CampaignOptions = 
       const limits = passiveSources(content, state.player)
         .map(source => source.effects.callMinutes)
         .filter((value): value is number => typeof value === 'number' && Number.isFinite(value) && value >= 0);
-      const minutes = Math.round(Math.min(def.companion.callMinutes ?? DEFAULT_CALL_MINUTES, ...limits));
+      const own = def.companion.callMinutesWhen?.find(entry => evaluate(entry.when))?.minutes ?? def.companion.callMinutes;
+      const minutes = Math.round(Math.min(own ?? DEFAULT_CALL_MINUTES, ...limits));
       return mutate((ctx) => {
         ctx.draft.party = normalizeParty(party);
         if (minutes > 0) advanceClockIn(ctx, minutes);

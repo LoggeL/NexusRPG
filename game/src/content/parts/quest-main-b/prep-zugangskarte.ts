@@ -48,6 +48,7 @@ const quest: QuestDef = {
       marker: { map: 'neon-gasse' },
       effects: [
         { give: KARTE },
+        { wanted: 1 },
         { message: 'Pfeffers Karte gehört jetzt dir. Seine Dienstdrohne hat alles aufgenommen – der Ordnungsdienst wird sich dein Gesicht merken.' },
       ],
     },

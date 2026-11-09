@@ -18,7 +18,7 @@ const senken = (stufe: 1 | 2 | 3): DialogueChoice => ({
   tag: '[Fahndung]',
   requires: { credits: PREIS },
   when: stufe === 3 ? { flag: 'fahndung_3' } : stufe === 2 ? { all: [{ flag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] } : { all: [{ flag: 'fahndung_1' }, { notFlag: 'fahndung_2' }, { notFlag: 'fahndung_3' }] },
-  effects: [{ credits: -PREIS }, flag(`fahndung_${stufe}`, false), herz(ID, 5), { advanceTime: 60 }],
+  effects: [{ credits: -PREIS }, { wanted: -1 }, herz(ID, 5), { advanceTime: 60 }],
   next: 'gesenkt',
 });
 

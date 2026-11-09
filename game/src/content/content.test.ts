@@ -1,22 +1,25 @@
 // Inhaltsprüfung (design.md §8): Verweise, Erreichbarkeit, Hotspots auf Laufflächen, Check-Alternativen,
-// dazu ein kurzer Durchlauf des Testinhalts über die echte Kampagnen-Fassade.
+// dazu ein kurzer Durchlauf der Ankunft in Akt 1 (Abzieher am Bahnsteig) über die echte Kampagnen-Fassade.
 import { describe, expect, it } from 'vitest';
 import { createCampaign, findContentProblems, runEnterTriggers } from '../modules/campaign';
 import type { CheckDef, MapDef, Point } from '../modules/contracts';
 import { createDialogueSession } from '../modules/dialogue';
 import { navGrid, nearestWalkablePoint } from '../modules/navigation';
 import { content } from './index';
+import { PART_WARNINGS } from './part';
 
 const NAV = { cell: 8 };
+/** Orte müssen höchstens so weit von begehbarem Boden entfernt sein (NPC_RADIUS 60 − 12 Rand). */
+const SPOT_REACH = 48;
 
 /** Flutfüllung ab dem ersten Einstieg; liefert, ob ein Punkt (bzw. sein nächster begehbarer Punkt) erreichbar ist. */
 function reachability(map: MapDef) {
   const grid = navGrid(map, NAV);
   const index = (p: Point) => Math.floor(p[1] / grid.cell) * grid.cols + Math.floor(p[0] / grid.cell);
-  const startEntry = Object.values(map.entries)[0];
+  // Laufinseln sind erlaubt (z. B. Lieferhof der Glasarkaden mit eigenem Einstieg): Flutfüllung ab allen Einstiegen.
   const seen = new Uint8Array(grid.walkable.length);
-  const queue = [index(startEntry.at)];
-  seen[queue[0]] = 1;
+  const queue = Object.values(map.entries).map((entry) => index(entry.at));
+  for (const i of queue) seen[i] = 1;
   while (queue.length) {
     const i = queue.pop() as number;
     const c = i % grid.cols;
@@ -35,25 +38,42 @@ function reachability(map: MapDef) {
   };
 }
 
-describe('Testinhalt', () => {
-  it('ist als Testinhalt gekennzeichnet', () => {
-    expect(content.meta.test).toBe(true);
+describe('Nexus-Inhalt', () => {
+  it('ist der echte Inhalt, kein Testinhalt', () => {
+    expect(content.meta).toEqual({ id: 'nexus', title: 'Nexus – Das RPG' });
+    const ids = (record: Record<string, unknown>) => Object.keys(record).filter((id) => id.startsWith('test-'));
+    expect([...ids(content.maps), ...ids(content.dialogues), ...ids(content.quests), ...ids(content.items), ...ids(content.npcs)]).toEqual([]);
+  });
+
+  it('führt alle Inhaltsteile ohne Warnung zusammen (keine doppelten IDs, alle Spots vorhanden)', () => {
+    expect(PART_WARNINGS).toEqual([]);
   });
 
   it('hat keine Inhaltsfehler (alle Verweise aufgelöst)', () => {
     expect(findContentProblems(content)).toEqual([]);
   });
 
-  it('enthält die geforderten Grundbausteine', () => {
-    expect(content.maps['test-strasse'].size).toEqual([1536, 1024]);
-    expect(content.maps['test-innen'].size).toEqual([1024, 768]);
-    expect(content.npcs.raven.schedule?.length).toBeGreaterThan(0);
-    expect(content.npcs.dante.schedule?.length).toBeGreaterThan(0);
-    expect(Object.keys(content.items)).toHaveLength(5); // inkl. Nagelpistole, Kurierweste (Vex)
-    expect(Object.keys(content.shops)).toHaveLength(1);
-    expect(Object.keys(content.quests)).toHaveLength(1);
-    const encounter = Object.values(content.encounters)[0];
-    expect(content.arenas[encounter.arena]).toBeDefined();
+  it('enthält die Grundbausteine von Akt 1', () => {
+    expect(content.maps[content.start.map]).toBeDefined();
+    expect(content.maps[content.start.map].entries[content.start.entry]).toBeDefined();
+    expect(content.maps[content.home.map].entries[content.home.entry]).toBeDefined();
+    expect(content.cutscenes[content.start.cutscene ?? '']).toBeDefined();
+    for (const id of ['bahnhof-mitte', 'neon-gasse', 'high-voltage', 'crew-quartier', 'schrottmarkt', 'digitech-areal']) {
+      expect(content.maps[id], id).toBeDefined();
+    }
+    for (const id of ['raven', 'dante', 'hunter', 'aria', 'vega', 'nyra']) {
+      expect(content.npcs[id]?.schedule?.length, id).toBeGreaterThan(0);
+    }
+    for (const id of ['main-0-digitech', 'main-1-ankunft', 'main-1-probezeit', 'main-1-dexter', 'main-1-raven', 'main-1-auf-raven', 'main-1-dante', 'main-1-der-plan']) {
+      expect(content.quests[id]?.kind, id).toBe('main');
+    }
+    expect(Object.keys(content.items).length).toBeGreaterThan(100);
+    expect(Object.keys(content.shops).length).toBeGreaterThan(10);
+    expect(Object.keys(content.origins).sort()).toEqual([
+      'origin-ex-wache', 'origin-gossenkind', 'origin-knastvogel', 'origin-oberstadt', 'origin-oednis', 'origin-schrott',
+    ]);
+    expect(Object.keys(content.perks)).toHaveLength(21); // 20 lernbare Perks (world.md §2.5) + Vex' Dachläuferin
+    for (const encounter of Object.values(content.encounters)) expect(content.arenas[encounter.arena], encounter.id).toBeDefined();
     const hasCheck = Object.values(content.dialogues).some(d => d.nodes.some(n => n.choices?.some(c => c.check)));
     expect(hasCheck).toBe(true);
   });
@@ -72,7 +92,8 @@ describe('Testinhalt', () => {
     it(`${map.id}: Einstiege, Punkte, Hotspots, Ausgänge und Bett sind begehbar erreichbar`, () => {
       const ok = reachability(map);
       for (const [name, entry] of Object.entries(map.entries)) expect(ok(entry.at, 1), `Einstieg ${name}`).toBe(true);
-      for (const [name, spot] of Object.entries(map.spots ?? {})) expect(ok(spot.at, 1), `Punkt ${name}`).toBe(true);
+      // Orte tragen oft sitzende Figuren (Hocker, Bank, Zelle): erreichbar heißt ansprechbar (Ansprechradius 60 mit Rand).
+      for (const [name, spot] of Object.entries(map.spots ?? {})) expect(ok(spot.at, SPOT_REACH), `Punkt ${name}`).toBe(true);
       for (const spot of map.hotspots) expect(ok(spot.at, spot.radius ?? 56), `Hotspot ${spot.id}`).toBe(true);
       for (const exit of map.exits) {
         const [x, y, w, h] = exit.rect;
@@ -124,45 +145,46 @@ describe('Testinhalt', () => {
     for (const check of all) expect(check.threshold).toBeLessThanOrEqual(10);
   });
 
-  it('lässt sich über die Fassade durchspielen (beide Lösungswege der Quest)', async () => {
-    for (const technik of [7, 3]) {
+  it('lässt sich über die Fassade durchspielen (Ankunft: Check oder Weg ohne Check)', async () => {
+    for (const ausstrahlung of [5, 3]) {
       const campaign = createCampaign(content, { storage: null, seed: 7, random: () => 0.5 });
-      const rest = 4 - (technik - 3);
       const created = campaign.createCharacter({
-        name: 'Testfigur', look: 'look-neonbomber', origin: 'tueftler',
-        attributes: { technik, koerper: 3 + rest, reflexe: 3, ausstrahlung: 3, strasse: 3 },
+        name: 'Testfigur', look: 'look-neonbomber', origin: 'origin-schrott',
+        attributes: { technik: 3, koerper: 5, reflexe: 3 + (5 - ausstrahlung), ausstrahlung, strasse: 3 },
       });
       expect(created.ok, created.message).toBe(true);
-      campaign.setLocation('test-strasse', [240, 760], 'e');
-      const host = { playCutscene: async () => undefined, runDialogue: async () => undefined, handleOutcome: async () => undefined };
-      await runEnterTriggers(campaign, content.maps['test-strasse'], host);
-      expect(campaign.state().quests['test-chip']?.status).toBe('active');
+      campaign.apply([{ setFlag: 'prolog_done' }]);
+      campaign.setLocation('bahnhof-mitte', content.maps['bahnhof-mitte'].entries.start.at, 's');
+      const played: string[] = [];
+      const host = {
+        playCutscene: async (id: string) => { played.push(id); campaign.apply(content.cutscenes[id]?.effects ?? []); },
+        runDialogue: async (id: string) => { played.push(id); },
+        handleOutcome: async () => undefined,
+      };
+      await runEnterTriggers(campaign, content.maps['bahnhof-mitte'], host);
+      expect(campaign.state().quests['main-1-ankunft']?.status).toBe('active');
+      expect(played).toContain('main-1-ankunft-abzieher');
 
-      const talk = campaign.talkTo('raven');
-      expect(talk.dialogue).toBe('test-raven-chip');
-      const session = createDialogueSession(campaign, 'test-raven-chip');
-      session.advance();
+      const session = createDialogueSession(campaign, 'main-1-ankunft-abzieher');
+      for (let i = 0; i < 10 && !session.view().choices?.length; i++) session.advance();
       const choices = session.view().choices ?? [];
-      const techChoice = choices.find(c => c.check?.checkId === 'test-chip-technik');
-      expect(techChoice?.check?.threshold).toBe(6);
-      if (technik + 1 >= 6) {
-        // Tüftler: +1 Technik aus der Herkunft.
-        expect(techChoice?.enabled).toBe(true);
-        session.choose(techChoice?.index ?? -1);
+      const talk = choices.find(c => c.check?.checkId === 'gc-02');
+      expect(talk?.check?.threshold).toBe(5);
+      if (ausstrahlung >= 5) {
+        expect(talk?.enabled).toBe(true);
+        session.choose(talk?.index ?? -1);
+        expect(campaign.evaluate({ flag: 'ankunft_oma_tipp' })).toBe(true);
       } else {
-        expect(techChoice?.enabled).toBe(false);
-        expect(techChoice?.check?.missing).toBe(6 - (technik + 1));
-        const alt = choices.find(c => c.text.includes('Dante'));
-        session.choose(alt?.index ?? -1);
-        expect(campaign.state().inventory.datenchip).toBe(1);
-        const scan = createDialogueSession(campaign, 'test-dante-alltag');
-        const scanChoice = scan.view().choices?.find(c => c.text.includes('Chip'));
-        expect(scanChoice?.enabled).toBe(true);
-        scan.choose(scanChoice?.index ?? -1);
+        expect(talk?.enabled).toBe(false);
+        expect(talk?.check?.missing).toBe(5 - ausstrahlung);
+        // Weg ohne Check: zehn Credits zahlen (Schrottkind startet mit 50).
+        const pay = choices.find(c => c.text.includes('Zehn Credits'));
+        expect(pay?.enabled).toBe(true);
+        session.choose(pay?.index ?? -1);
       }
-      const quest = campaign.state().quests['test-chip'];
-      expect(quest?.status).toBe('done');
-      expect(campaign.state().phone.some(entry => entry.id === 'test-raven-hallo')).toBe(true);
+      expect(campaign.evaluate({ flag: 'ankunft_abzieher_geloest' })).toBe(true);
+      expect(campaign.evaluate({ questStep: 'main-1-ankunft', step: 'abzieher' })).toBe(true);
+      expect(campaign.state().phone.some(entry => entry.id === 'ph-hunter-18-uhr')).toBe(true);
     }
   });
 

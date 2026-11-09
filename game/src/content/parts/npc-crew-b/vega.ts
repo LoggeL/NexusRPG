@@ -511,6 +511,10 @@ const vega: NpcDef = {
       abilities: ['vega-adlerauge', 'vega-kobra-schuss'],
     },
     heartAbilities: [{ hearts: 6, ability: 'vega-wachhund' }],
+    // Nach pers-vega-adlerauge: verstärkter Kobra-Schuss.
+    abilityRules: [{ when: { quest: 'pers-vega-adlerauge', state: 'done' }, replace: ['vega-kobra-schuss', 'vega-kobra-schuss-plus'] }],
+    // Vega + Nyra: Funkstille (beide in der Party, Spielfigur mit beiden ♥6).
+    duo: [{ ability: 'duo-funkstille', when: { all: [{ companion: 'nyra' }, { hearts: 'vega', min: 6 }, { hearts: 'nyra', min: 6 }] } }],
   },
   partyCheckBonus: [
     { attribute: 'reflexe', tags: ['fernkampf', 'beobachten'], value: 1, label: 'Vega gibt dir Wind und Meter' },

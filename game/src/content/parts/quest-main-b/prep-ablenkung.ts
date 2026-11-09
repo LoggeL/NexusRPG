@@ -160,6 +160,7 @@ const feuerwerk: DialogueDef = {
       effects: [
         { setFlag: 'ablenkung_feuerwerk' },
         { setFlag: STEHT },
+        { wanted: 1 },
         { message: 'So ein Feuerwerk am Campus fällt auf. Der Ordnungsdienst wird hinterher Fragen stellen.' },
       ],
     },

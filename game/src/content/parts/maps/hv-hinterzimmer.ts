@@ -38,7 +38,7 @@ const hinterzimmer: MapDef = {
     'von-high-voltage': { at: [250, 650], facing: 'n' },
   },
   spots: {
-    schreibtisch: { at: [520, 214], facing: 's' },
+    schreibtisch: { at: [520, 228], facing: 's' },
     planungstisch: { at: [470, 452], facing: 'e' },
     sofa: { at: [150, 600], facing: 'n' },
     'jimmys-kiste': { at: [815, 640], facing: 'e' },

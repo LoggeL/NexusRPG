@@ -9,10 +9,12 @@ Abweichungen vom Kanon und Wünsche an andere: `gaps/vexaria.md`.
 
 - Jede `rom-vexaria-*`-Station verlangt `{ playerIs: 'vex' }`. Die Aria-Stationen `rom-aria-*` und `he-aria-2/4` laufen für alle; `he-aria-6` nur ohne Vex (bei Vex ersetzt durch Station 3).
 - **Eine Station pro Tag** (beide Stränge): Flag `aria_heute`, gesetzt am ersten Knoten jeder Station. Ausnahmen: Station 7 läuft in derselben Nacht wie der Streit, 10 + 11 zählen als eine.
-- **Tageswechsel** (`system.ts`): Wer abends/nachts eine Karte betritt, bekommt `aria_abend`. Der erste Kartenwechsel am Morgen/Tag danach löscht `aria_heute` und `aria_abend` und zählt „zwei Tage warten“ weiter (`aria_warte2` → `aria_warte1` → frei = `WARTEN_VORBEI`).
+- **Tageswechsel** (`system.ts`, Engine-Regeln `GameContent.daily`): Jeder neue Tag (Schlaf oder Zusammenbruch) löscht `aria_heute` und zählt „zwei Tage warten“ weiter (`aria_warte2` → `aria_warte1` → frei = `WARTEN_VORBEI`). Kein Kartenwechsel nötig.
 - **Woche:** `vexaria_nacht_woche`, `vexaria_mast_woche` und `vexaria_rennen_woche` fallen montags. `vexaria_rate_diese_woche` (Ripper-Tag) fällt an jedem anderen Tag.
 - **Romanze/Freundschaft:** `twin()` legt `<id>` (Romanze) und `<id>-fs` an. Die Freundschaftsfassung markiert `<id>` als gesehen, Folgestationen prüfen also immer `{ seen: '<id>' }`.
-- Herz-Ereignisse starten beim **Betreten** der Karte, nach den onEnter-Auslösern. Wer schon auf der Karte steht, muss sie einmal verlassen und wieder betreten.
+- Herz-Ereignisse starten beim **Betreten** der Karte, nach den onEnter-Auslösern – und erneut, sobald auf derselben Karte die Tageszeit (oder der Tag) wechselt. Raus und wieder rein ist nicht mehr nötig.
+- **Kampf:** Aria trägt die Duo-Aktionen als `CompanionDef.duo` (Express-Zustellung für Vex ab ♥6, Rückendeckung nach Station 12, Rücken an Rücken, Wachhunde mit Vega, Abrissbirne mit Jimmy); im Streit/Krach ruhen Duos und „Unkaputtbar“ (`abilityRules`). Anfahrt 15 Minuten nur im Status „zusammen“ oder mit `funk-kanal-neun`, sonst 30 (`callMinutesWhen`).
+- **Beschwingt** gilt bis Tagesende für alle Ausstrahlung-Checks (`checkBuff.forDays: 0`, `consumes: false`).
 
 ## Stationen
 

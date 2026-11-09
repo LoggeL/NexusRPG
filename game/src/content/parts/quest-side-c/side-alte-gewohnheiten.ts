@@ -45,7 +45,7 @@ const quest: QuestDef = {
     {
       id: 'drohnen', text: 'Die Wachdrohnen haben euch gesehen. Durchbrechen und weg.', optional: true,
       done: { won: 'enc-penthouse-drohnen' },
-      effects: [set('fahndung_1'), { message: 'Fahndung +1: Die Penthouse-Drohnen haben dein Gesicht gespeichert. In Großaufnahme.' }],
+      effects: [{ wanted: 1 }, { message: 'Die Penthouse-Drohnen haben dein Gesicht gespeichert. In Großaufnahme.' }],
     },
     {
       id: 'raus', text: 'Raus, bevor Portier Albert seine Runde dreht – zurück in den Lieferhof.',

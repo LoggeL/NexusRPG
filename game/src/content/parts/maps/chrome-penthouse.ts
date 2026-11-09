@@ -64,15 +64,14 @@ const penthouse: MapDef = {
   },
   spots: {
     salon: { at: [776, 780], facing: 'n' },
-    'sofa-bijou': { at: [866, 672], facing: 's' },
+    'sofa-bijou': { at: [866, 702], facing: 's' }, // vorderste Sofakante, damit Bijou ansprechbar bleibt
     'seraphinas-spiegel': { at: [500, 318], facing: 'n' },
     bibliothek: { at: [292, 712], facing: 'w' },
-    'balkon-blau': { at: [330, 84], facing: 's' },
-    'balkon-rot': { at: [810, 84], facing: 's' },
-    'balkon-gruen': { at: [1270, 84], facing: 's' },
-    'schlafzimmer-blau': { at: [312, 236], facing: 's' },
-    'schlafzimmer-rot': { at: [834, 244], facing: 's' },
-    'schlafzimmer-gruen': { at: [1272, 226], facing: 's' },
+    // Balkone (y≈84) liegen außerhalb der Lauffläche; Plätze dort bitte erst mit begehbarem Balkon anlegen.
+    // Schlafzimmer: neben dem Bett auf begehbarem Boden (das Bett selbst ist blockiert).
+    'schlafzimmer-blau': { at: [400, 354], facing: 'n' },
+    'schlafzimmer-rot': { at: [668, 300], facing: 'e' },
+    'schlafzimmer-gruen': { at: [1276, 342], facing: 'n' },
     haustelefon: { at: [1376, 604], facing: 'e' },
     'portier-runde': { at: [1300, 720], facing: 'w' },
     'drohnen-nische': { at: [1290, 818], facing: 'n' },

@@ -83,8 +83,8 @@ describe('Kleinkram', () => {
   });
 
   it('Zufall mit Startwert ist reproduzierbar', () => {
-    const a = seededRandom(hashSeed('test-strasse:1:tag'));
-    const b = seededRandom(hashSeed('test-strasse:1:tag'));
+    const a = seededRandom(hashSeed('bahnhof-mitte:1:tag'));
+    const b = seededRandom(hashSeed('bahnhof-mitte:1:tag'));
     const values = Array.from({ length: 5 }, () => a());
     expect(values).toEqual(Array.from({ length: 5 }, () => b()));
     for (const value of values) { expect(value).toBeGreaterThanOrEqual(0); expect(value).toBeLessThan(1); }

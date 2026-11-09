@@ -13,6 +13,8 @@ const N = sprecher('kaeptn-nebelhorn');
 const B = sprecher('barkeeper');
 
 const ROM: Condition = { romance: 'hunter' };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: 'hunter' }, { hearts: 'hunter', min: 6 }] };
 const PROBEZEIT_DONE: Condition = { quest: 'main-1-probezeit', state: 'done' };
 
 // ---------------------------------------------------------------------------------------------- Menü
@@ -23,7 +25,7 @@ function menue(): Menue {
   /** Flirt-Varianten nach Wochentag (world.md §4.7, Hunter-Flirtzeilen). */
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Hunter flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: { all: [ROM, { weekday: tage }] },
+    when: { all: [FLIRT, { weekday: tage }] },
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann setz es mir auf die Rechnung. Ganz oben.“', check: pruefung('hunter-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -483,7 +485,7 @@ const he10 = dialog('he-hunter-10', [
   knoten('morgen', [
     erz('Morgen danach. Hunter, rosa Seidenhemd, zwei Tassen Synth-Kaffee, eine davon mit „CHEF“ beschriftet. Er gibt dir die andere.'),
     H('Du schnarchst. Wie eine Kaffeemaschine. Ich hab’s vermisst, dass einer schnarcht.', 'zaertlich'),
-  ], { effects: [{ checkBuff: { id: 'beschwingt-hunter', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } }] }),
+  ], { effects: [{ checkBuff: { id: 'beschwingt-hunter', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
   knoten('andermal', [H('Ein andermal. Ich schreib’s dir an. Mit Zinsen.', 'signatur')]),
 ]);
 
@@ -552,6 +554,8 @@ const hunter: NpcDef = {
       abilities: ['hunter-drinks', 'hunter-runde-aufs-haus'],
     },
     heartAbilities: [{ hearts: 6, ability: 'hunter-schmiere-stehen' }],
+    // Nach den Tai-Chi-Stunden (side-thai-chi): Innere Mitte.
+    abilityRules: [{ when: { quest: 'side-thai-chi', state: 'done' }, add: 'hunter-innere-mitte' }],
   },
   partyCheckBonus: [
     { attribute: 'ausstrahlung', tags: ['verhandeln', 'einschuechtern'], value: 1, label: 'Hunter guckt über die Sonnenbrille' },

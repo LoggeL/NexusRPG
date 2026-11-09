@@ -7,7 +7,7 @@
 // - Overlays: `open*`-Methoden; jedes Overlay liegt als eigene Datei unter dom/.
 import Phaser from 'phaser';
 import { musicForBattle, musicForMap } from './music';
-import { missingText, runEnterTriggers } from '../modules/campaign';
+import { dailyHotspotFlag, missingText, runEnterTriggers } from '../modules/campaign';
 import type {
   ActId, BattleOutcome, BattleResult, CheckRef, CutsceneDef, EffectOutcome, Effect, EncounterId, ExitDef, HotspotDef, MapEncounterDef, MapId, NpcId,
   MinigameRequest, Request, TimeSlot,
@@ -101,6 +101,8 @@ export class Director {
   private inEnding = false;
   private placeholderCuts = new Map<string, string>();
   private battleResolver: ((outcome: BattleOutcome) => void) | null = null;
+  /** Karte, Tag und Tageszeit beim letzten Lauf der onEnter-Auslöser (Wechsel → Auslöser und Herz-Ereignis erneut). */
+  private triggerSlot: string | null = null;
 
   constructor(readonly ctx: GameContext, root: HTMLElement) {
     this.campaign = ctx.campaign;
@@ -390,6 +392,7 @@ export class Director {
       else if ('jobBoard' in request) await openJobBoard(this.shell, this.campaign, request.jobBoard).closed;
       else if ('news' in request) await this.watchNews(request.news);
       else if ('phone' in request) this.audio.sfx('phone');
+      else if ('cityMap' in request) await this.cityMapFlow();
       else if ('sleep' in request) await this.sleepTransition(request.sleep);
       else if ('ending' in request) { await this.ending(); return; }
     }
@@ -500,11 +503,12 @@ export class Director {
 
   interact(target: Interactable) {
     void this.enqueue(async () => {
-      if (target.kind === 'npc') { await this.talkFlow(target.npc, target.dialogue); return; }
-      if (target.kind === 'exit') { await this.exitFlow(target.exit); return; }
-      if (target.kind === 'encounter') { await this.encounterFlow(target.group); return; }
-      if (target.kind === 'bed') { await this.handleOutcome(this.campaign.sleep()); return; }
-      await this.hotspotFlow(target.hotspot);
+      if (target.kind === 'npc') await this.talkFlow(target.npc, target.dialogue);
+      else if (target.kind === 'exit') { await this.exitFlow(target.exit); return; }
+      else if (target.kind === 'encounter') await this.encounterFlow(target.group);
+      else if (target.kind === 'bed') await this.handleOutcome(this.campaign.sleep());
+      else await this.hotspotFlow(target.hotspot);
+      await this.recheckTriggers();
     });
   }
 
@@ -527,6 +531,7 @@ export class Director {
     if (hotspot.lines?.length) await this.dialogue.showLines(hotspot.lines);
     if (hotspot.check && !(await this.worldCheck(hotspot.check, hotspot.altText))) return;
     if (hotspot.once) this.campaign.markSeen(hotspot.id);
+    if (hotspot.daily) this.campaign.apply([{ setFlag: dailyHotspotFlag(this.campaign.state().map, hotspot.id) }]);
     const outcome = hotspot.effects?.length ? this.campaign.apply(hotspot.effects) : EMPTY;
     if (hotspot.kind === 'loot' && outcome.messages.length) this.audio.sfx('pickup');
     if (hotspot.dialogue) await this.runDialogue(hotspot.dialogue);
@@ -570,9 +575,29 @@ export class Director {
     await this.travel(exit.to, exit.entry, exit.minutes);
   }
 
+  private slotKey(): string {
+    const state = this.campaign.state();
+    return `${state.map}:${state.clock.day}:${this.campaign.timeSlot()}`;
+  }
+
+  /**
+   * Hat sich seit dem letzten Lauf die Tageszeit (oder der Tag) geändert, während man auf derselben Karte steht,
+   * laufen onEnter-Auslöser und ein fälliges Herz-Ereignis erneut – man muss nicht erst raus und wieder rein.
+   */
+  private async recheckTriggers() {
+    if (this.mode !== 'explore' || this.triggerSlot === null || this.triggerSlot === this.slotKey()) return;
+    // Kartenwechsel erledigt exploreReady (sonst liefen die Auslöser der neuen Karte doppelt).
+    const map = this.campaign.state().map;
+    if (!this.triggerSlot.startsWith(`${map}:`)) return;
+    const scene = this.explore();
+    if (!scene || scene.map.id !== map) return;
+    await this.runOnEnter(scene.map.id);
+  }
+
   private async runOnEnter(mapId: MapId) {
     const scene = this.explore();
     if (!scene || scene.map.id !== mapId || this.mode !== 'explore') return;
+    this.triggerSlot = this.slotKey();
     await runEnterTriggers(this.campaign, scene.map, {
       playCutscene: (id) => this.playCutscene(id),
       runDialogue: (id) => this.runDialogue(id),
@@ -589,6 +614,7 @@ export class Director {
   tickClock(minutes: number) {
     const outcome = this.campaign.advanceClock(minutes);
     if (outcome.requests.length || outcome.messages.length) void this.enqueue(() => this.handleOutcome(outcome));
+    if (this.triggerSlot !== null && this.triggerSlot !== this.slotKey() && !this.busy) void this.enqueue(() => this.recheckTriggers());
   }
 
   /** Debug/`?time=`: Uhr auf den Beginn einer Tageszeit stellen (notfalls über den nächsten Morgen). */
@@ -788,9 +814,19 @@ export class Director {
     await openPhone(this.shell, this.campaign, this.outcomeHandler, () => { void this.enqueue(() => this.watchNews()); }, this.catalog).closed;
   }
 
+  /** Stadtkarte aus einem Ablauf heraus (Effekt `cityMap`, z. B. U-Bahn-Zugang): wartet, bis sie zu ist. */
+  private async cityMapFlow() {
+    if (this.mode !== 'explore' || this.shell.modalOpen()) return;
+    await this.cityMapModal().closed;
+  }
+
   openCityMap() {
     if (!this.canOpenOverlay()) return;
-    openCityMap(this.shell, this.catalog, this.campaign, (station) => {
+    this.cityMapModal();
+  }
+
+  private cityMapModal() {
+    return openCityMap(this.shell, this.catalog, this.campaign, (station) => {
       void this.enqueue(async () => {
         const result = this.campaign.fastTravel(station);
         if (!result.ok) { this.shell.toast(result.message, 'bad'); return; }

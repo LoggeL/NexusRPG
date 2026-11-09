@@ -13,6 +13,31 @@ import { healPlayer } from './character';
 
 export { cycleDayOf, formatClock, timeSlotOf, weekOf, weekdayOf };
 
+/** Flag-Präfixe, die beim Tageswechsel von selbst fallen (täglich, montags, an Zyklustag 1). */
+export const DAILY_FLAG_PREFIX = 'heute_';
+export const WEEKLY_FLAG_PREFIX = 'woche_';
+export const CYCLE_FLAG_PREFIX = 'zyklus_';
+
+/** Gesehen-Schlüssel bzw. Flag eines Hotspots mit `daily: true` (fällt mit den `heute_`-Flags). */
+export const dailyHotspotFlag = (map: string, hotspot: string): string => `${DAILY_FLAG_PREFIX}hs_${map}_${hotspot}`;
+
+/**
+ * Neuer Spieltag (Uhr steht schon auf 06:00 des neuen Tags): Tages-/Wochen-/Zyklus-Flags zurücksetzen, danach die
+ * Tageswechsel-Regeln (`GameContent.daily`). Eine fehlerhafte Regel stoppt nur sich selbst, nicht den Schlaf.
+ */
+export function startNewDayIn(ctx: EffectContext): void {
+  const { draft } = ctx;
+  const day = draft.clock.day;
+  const prefixes = [DAILY_FLAG_PREFIX];
+  if (weekdayOf(day) === 'mo') prefixes.push(WEEKLY_FLAG_PREFIX);
+  if (cycleDayOf(day) === 1) prefixes.push(CYCLE_FLAG_PREFIX);
+  for (const flag of Object.keys(draft.flags)) if (prefixes.some(prefix => flag.startsWith(prefix))) delete draft.flags[flag];
+  for (const rule of Object.values(ctx.content.daily ?? {})) {
+    if (!rule || !Array.isArray(rule.effects) || !ctx.evaluate(rule.when)) continue;
+    ctx.run(rule.effects);
+  }
+}
+
 /** Schlafen im Unterschlupf: nächster Tag 06:00, volle LP. */
 export function sleepIn(ctx: EffectContext): void {
   const step = sleepClock(ctx.draft.clock);
@@ -20,6 +45,7 @@ export function sleepIn(ctx: EffectContext): void {
   healPlayer(ctx.content, ctx.draft, 'full');
   ctx.messages.push(`Tag ${ctx.draft.clock.day} beginnt.`);
   ctx.requests.push({ sleep: 'bed' });
+  startNewDayIn(ctx);
 }
 
 /**
@@ -47,6 +73,7 @@ export function collapseIn(ctx: EffectContext, endedDay: number): void {
     ctx.requests.push(travel);
   }
   ctx.requests.push({ sleep: 'collapse' });
+  startNewDayIn(ctx);
 }
 
 /** Uhr vorstellen; erreicht sie 02:00, folgt der Zusammenbruch (Rest verfällt). Liefert die Zeitereignisse. */

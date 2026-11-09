@@ -243,6 +243,7 @@ export function checkBuffProblem(buff: unknown): string | null {
   if (b.tags !== undefined && (!Array.isArray(b.tags) || b.tags.length > 16 || b.tags.some(tag => typeof tag !== 'string' || !tag))) return 'Ungültige Stichwörter im Check-Bonus.';
   if (b.untilDay !== undefined && (typeof b.untilDay !== 'number' || !Number.isInteger(b.untilDay) || b.untilDay < 1 || b.untilDay > SAVE_LIMITS.day)) return 'Ungültige Frist des Check-Bonus.';
   if (b.consumes !== undefined && typeof b.consumes !== 'boolean') return 'Ungültige Angabe „consumes“ im Check-Bonus.';
+  if (b.forDays !== undefined && (typeof b.forDays !== 'number' || !Number.isInteger(b.forDays) || b.forDays < 0 || b.forDays > 365)) return 'Ungültige Frist „forDays“ im Check-Bonus.';
   return null;
 }
 
@@ -257,6 +258,7 @@ export function addCheckBuffIn(draft: GameState, buff: CheckBuff): string | null
   if (buff.attribute) copy.attribute = buff.attribute;
   if (buff.tags) copy.tags = [...buff.tags];
   if (buff.untilDay !== undefined) copy.untilDay = buff.untilDay;
+  if (buff.forDays !== undefined) copy.untilDay = Math.min(SAVE_LIMITS.day, Math.min(copy.untilDay ?? Infinity, day + buff.forDays));
   if (buff.consumes !== undefined) copy.consumes = buff.consumes;
   draft.player.checkBuffs = [...kept, copy];
   return null;

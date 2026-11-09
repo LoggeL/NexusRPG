@@ -23,7 +23,7 @@ export interface MapAddition {
 type RecordKey =
   | 'maps' | 'districts' | 'stations' | 'dialogues' | 'cutscenes' | 'items' | 'npcs' | 'checks' | 'perks'
   | 'cyberware' | 'origins' | 'looks' | 'factions' | 'quests' | 'jobs' | 'jobBoards' | 'shops' | 'encounters'
-  | 'arenas' | 'enemies' | 'abilities' | 'news' | 'phone';
+  | 'arenas' | 'enemies' | 'abilities' | 'news' | 'phone' | 'daily';
 
 export type ContentPart = { [K in RecordKey]?: NonNullable<GameContent[K]> } & {
   /** Ergänzungen fremder Karten, Schlüssel = Karten-ID. */
@@ -36,7 +36,7 @@ export const PART_WARNINGS: string[] = [];
 export const PART_KEYS: readonly RecordKey[] = [
   'maps', 'districts', 'stations', 'dialogues', 'cutscenes', 'items', 'npcs', 'checks', 'perks',
   'cyberware', 'origins', 'looks', 'factions', 'quests', 'jobs', 'jobBoards', 'shops', 'encounters',
-  'arenas', 'enemies', 'abilities', 'news', 'phone',
+  'arenas', 'enemies', 'abilities', 'news', 'phone', 'daily',
 ];
 
 /** Führt Teile in den Grundinhalt zusammen; doppelte IDs (auch gegen den Grundinhalt) landen in PART_WARNINGS. */

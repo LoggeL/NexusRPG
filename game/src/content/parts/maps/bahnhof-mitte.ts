@@ -191,7 +191,7 @@ const bahnhofMitte: MapDef = {
       ],
     },
     {
-      id: 'fotoautomat-puzzle', at: [398, 290], label: 'Pixel beim Ausweis helfen', kind: 'use', when: ABEND_NACHT,
+      id: 'fotoautomat-puzzle', at: [398, 290], label: 'Pixel beim Ausweis helfen', kind: 'use', when: ABEND_NACHT, daily: true,
       lines: [n('Fräulein Pixel schiebt dir ein halbes Gesicht, drei Stempel und ein Hologramm hin. „Mach was draus. Und lass den Daumen vom Laminat.“')],
       effects: [{
         minigame: 'akt-fotoautomat', level: 2, key: 'fotoautomat-ausweis', label: 'Ausweis-Puzzle',
@@ -210,8 +210,9 @@ const bahnhofMitte: MapDef = {
       id: 'ubahn-zugang', at: [1150, 574], label: 'U-Bahn (Linie 4)', kind: 'use',
       lines: [
         n('Linie 4. Die Anzeige verspricht „in 3 Minuten“. Das tut sie, laut Kratzspuren im Lack, seit 2071.'),
-        n('Mit dem Ticket fährst du zu jeder freigeschalteten Station: Stadtkarte öffnen (M) und Station wählen. Schwarzfahren geht auch. Bis einer kontrolliert.'),
+        n('Mit dem Ticket fährst du zu jeder freigeschalteten Station: Station wählen (oder unterwegs die Stadtkarte, M). Schwarzfahren geht auch. Bis einer kontrolliert.'),
       ],
+      effects: [{ cityMap: true }],
     },
     {
       id: 'gleis-abkuerzung', at: [560, 576], label: 'Über die Gleise zur Hafenkante', kind: 'check', check: 'gc-03',
@@ -354,12 +355,12 @@ const bahnhofMitte: MapDef = {
       'passant-tourist-walk', 'passant-strassenhaendler-walk', 'passant-punk-walk', 'passant-schrotti-walk',
     ],
     routes: [
-      [[60, 300], [640, 300], [640, 560], [1400, 560]],
+      [[216, 296], [640, 300], [640, 560], [1400, 560]],
       [[1440, 400], [900, 330], [380, 330], [210, 900]],
       [[740, 300], [740, 410], [220, 540], [208, 960]],
       [[380, 806], [1500, 806]],
       [[1220, 300], [1220, 560], [560, 560], [560, 300]],
-      [[1100, 300], [1380, 330], [1430, 560], [1100, 520]],
+      [[1100, 300], [1380, 330], [1456, 560], [1100, 520]],
     ],
     barks: [
       { text: 'Wer hat schon wieder die Laterne geklaut? Die war festgeschraubt!' },
@@ -394,8 +395,6 @@ const bahnhofMitte: MapDef = {
 
 export const part: ContentPart = {
   maps: { [bahnhofMitte.id]: bahnhofMitte },
-  stations: {
-    'station-bahnhof-mitte': { id: 'station-bahnhof-mitte', name: 'Bahnhof Mitte', map: 'bahnhof-mitte', entry: 'station', cityPos: [0.42, 0.52] },
-  },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
   dialogues: { [taxiKiki.id]: taxiKiki, [taxiBlitz.id]: taxiBlitz },
 };

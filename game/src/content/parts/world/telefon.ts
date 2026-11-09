@@ -121,7 +121,7 @@ const kiki: PhoneMessageDef[] = [
       { text: 'Deal. Ich kotz nur auf Rückflügen.', effects: [herz('kiki-karbon', 5)] },
       { text: 'Was kostet’s mit Reden?', effects: [msg('Kiki: 25. Mit Singen 40. Mit Schweigen umsonst, das gibt’s aber nie.')] },
     ]),
-  sms('tel-kiki-rennen', 'kiki-karbon',
+  sms('tel-kiki-drohnenwette', 'kiki-karbon',
     'Quantum hat ’ne neue Lieferdrohne. Angeblich die schnellste der Stadt. ANGEBLICH. Heute Nacht, Neon-Gasse, Vorplatz. Bring Popcorn.',
     all({ hearts: 'kiki-karbon', min: 3 }, { time: ['abend', 'nacht'] })),
   sms('tel-kiki-smog', 'kiki-karbon',

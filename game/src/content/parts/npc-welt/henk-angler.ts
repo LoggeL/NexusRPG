@@ -5,7 +5,7 @@ import type { ContentPart } from '../../part';
 import type { DialogueChoice, DialogueNode } from '../../../modules/contracts';
 import {
   type Menue, dialog, erz, flag, geschenke, gespraech, herz, ich, knoten, nichtGetroffen, ort, pruefung, rede, sammle,
-  sprecher, weg, weltfigur, zurueck,
+  sprecher, weltfigur, zurueck,
 } from './_welt';
 
 const ID = 'henk-angler';

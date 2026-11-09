@@ -50,7 +50,7 @@ describe('Einstiege und Spielstände', () => {
       expect(parseEntry(`?cut=${bad}`, content).entry.kind).toBe('title');
       expect(hasOwn(content.maps, bad)).toBe(false);
     }
-    expect(parseEntry('?map=test-strasse', content).entry).toEqual({ kind: 'map', map: 'test-strasse' });
+    expect(parseEntry('?map=bahnhof-mitte', content).entry).toEqual({ kind: 'map', map: 'bahnhof-mitte' });
   });
 
   it('erkennt beendete Spielstände', () => {

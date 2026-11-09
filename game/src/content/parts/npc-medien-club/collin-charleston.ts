@@ -16,6 +16,8 @@ const H = sp('hunter');
 
 const ID = 'collin-charleston';
 const ROM: Condition = { romance: ID };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: ID }, { hearts: ID, min: 6 }] };
 const PROBEZEIT: Condition = { quest: 'main-1-probezeit', state: 'done' };
 const ZUSAMMEN: Condition = all(ROM, flag('collin_kuss'));
 const VOR_DER_SENDUNG: Condition = all({ weekday: ['mo', 'mi', 'fr'] }, { clockBetween: [600, 720] });
@@ -27,7 +29,7 @@ function menu(): Menu {
 
   /** Flirtzeilen (world.md §4.7) nach Wochentag, nur Romanzefassung. */
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
-    text: 'Mit Collin flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: all(ROM, { weekday: tage }),
+    text: 'Mit Collin flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: all(FLIRT, { weekday: tage }),
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann geh off air. Mit mir.“', check: chk('collin-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a', effects: [rel(ID, 15)] },
@@ -451,7 +453,7 @@ const morgenDlg = dlg('collin-morgen-danach', [
     erz('Morgen. Collin steht vor dem einzigen Spiegel, den er wieder umgedreht hat, im Bademantel, die Perücke perfekt. Er probt.'),
     C('„Gestern? Ach. Nichts Besonderes. Ein Gast. Ein Abend. Eine … Legende.“ Nein. Zu viel. „Ein netter Abend.“ Zu wenig. „Unglaublich.“ … Ja. Unglaublich.', 'signatur'),
     erz('Er bemerkt dich im Spiegel und wird rot. Collin Charleston, der Mann ohne „Äh“, sagt: „Äh.“'),
-  ], { effects: [{ checkBuff: { id: 'beschwingt-collin', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } }, { message: 'Beschwingt: +1 auf den nächsten Ausstrahlung-Check.' }] }),
+  ], { effects: [{ checkBuff: { id: 'beschwingt-collin', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }, { message: 'Beschwingt: +1 Ausstrahlung bis Mitternacht.' }] }),
 ]);
 
 const cutscenes = [

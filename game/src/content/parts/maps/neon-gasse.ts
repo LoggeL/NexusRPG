@@ -141,7 +141,7 @@ const gasse: MapDef = {
       lockedText: 'Bruno Brecher verschränkt die Arme: „Nur Gäste mit Stil. Du bist keiner. Noch nicht.“',
     },
     {
-      id: 'nach-crew-quartier', rect: [176, 252, 68, 74], to: 'crew-quartier', entry: 'von-neon-gasse', label: 'Hintertreppe: Crew-Quartier', interact: true,
+      id: 'nach-crew-quartier', rect: [176, 252, 68, 96], to: 'crew-quartier', entry: 'von-neon-gasse', label: 'Hintertreppe: Crew-Quartier', interact: true,
       when: PROBEZEIT_DONE,
       lockedText: 'Die Hintertreppe gehört Hunters Leuten. Auf dem Geländer klebt ein Zettel: „Fremde fliegen. – C. K.“',
     },
@@ -193,7 +193,7 @@ const gasse: MapDef = {
   hotspots: [
     // ------------------------------------------------------------------ Gasse
     { id: 'volt-eck', at: [206, 482], radius: 60, label: 'Volt-Eck (Kiosk)', kind: 'shop', shop: 'volt-eck' },
-    { id: 'stadt-tv', at: [150, 318], radius: 72, label: 'Stadt-TV (Nachrichten)', kind: 'screen' },
+    { id: 'stadt-tv', at: [192, 330], radius: 72, label: 'Stadt-TV (Nachrichten)', kind: 'screen' },
     {
       id: 'samtkordel', at: [465, 330], radius: 60, label: 'Samtkordel', kind: 'talk', dialogue: 'ng-samtkordel',
       when: { all: [{ not: HV_OFFEN }, { time: ['abend', 'nacht'] }] },
@@ -228,14 +228,15 @@ const gasse: MapDef = {
       ],
     },
     {
-      id: 'muelltonne', at: [150, 1000], radius: 70, label: 'Mülltonnen durchwühlen', kind: 'loot', once: true,
+      id: 'muelltonne', at: [150, 1000], radius: 70, label: 'Mülltonnen durchwühlen', kind: 'loot', daily: true,
       lines: [n('Du wühlst in der Tonne. Die Tonne wühlt zurück. Zwischen Pizzakartons und einem einzelnen Stöckelschuh: Brauchbares.')],
       effects: [{ give: 'rostige-dose' }, { give: 'schrott-ersatzteil' }],
     },
     {
       id: 'muelltonne-leer', at: [150, 1000], radius: 70, label: 'Mülltonnen', kind: 'look',
-      when: { seen: 'muelltonne' },
-      lines: [n('Die Tonnen sind leer gewühlt. Eine Ratte guckt dich vorwurfsvoll an. Du warst ihr Abendessen-Lieferservice.')],
+      // Tagesflag der Engine für Hotspots mit daily: true (fällt jeden Morgen).
+      when: { flag: 'heute_hs_neon-gasse_muelltonne' },
+      lines: [n('Die Tonnen sind leer gewühlt. Eine Ratte guckt dich vorwurfsvoll an. Du warst ihr Abendessen-Lieferservice. Morgen gibt es neuen Müll.')],
     },
     {
       id: 'datenwuerfel-01', at: [250, 700], radius: 56, label: 'Lüftungsgitter aufknacken', kind: 'use',
@@ -248,10 +249,11 @@ const gasse: MapDef = {
       }],
     },
     {
-      id: 'ubahn-zugang', at: [890, 240], radius: 64, label: 'U-Bahn Neon-Gasse', kind: 'look',
+      id: 'ubahn-zugang', at: [890, 240], radius: 64, label: 'U-Bahn Neon-Gasse', kind: 'use',
       lines: [
-        n('Die Treppe zur Station Neon-Gasse. Unten riecht es nach Bremsstaub und Pommes. Von hier fährst du mit der U-Bahn überall hin, wo du schon mal warst (Stadtkarte).'),
+        n('Die Treppe zur Station Neon-Gasse. Unten riecht es nach Bremsstaub und Pommes. Von hier fährst du mit der U-Bahn überall hin, wo du schon mal warst.'),
       ],
+      effects: [{ cityMap: true }],
     },
     loot('neon-tag-01', [1100, 446], 'Neon-Tag an der Wand', 'Ein Blitz-Graffiti, das nachts von selbst leuchtet. Darunter hängt ein kleiner Sticker mit demselben Motiv. Der Sticker kommt mit. Die Wand bleibt.'),
     loot('glueckstern-01', [1314, 476], 'Glitzern beim Einkaufswagen', 'Im Kinderfach des umgekippten Einkaufswagens liegt ein Glücksstern. Jemand hatte heute wohl keinen.'),
@@ -463,7 +465,5 @@ export const part: ContentPart = {
   districts: {
     unterstadt: { id: 'unterstadt', name: 'Unterstadt', ambience: 'unterstadt', music: { day: 'unterstadt-tag', night: 'unterstadt-nacht' } },
   },
-  stations: {
-    'station-neon-gasse': { id: 'station-neon-gasse', name: 'Neon-Gasse', map: 'neon-gasse', entry: 'station', cityPos: [0.36, 0.62] },
-  },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
 };

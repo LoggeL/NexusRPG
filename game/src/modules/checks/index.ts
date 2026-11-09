@@ -132,7 +132,7 @@ function ruleParts(
   return out.filter(p => p.value !== 0);
 }
 
-const RELATION_KEYS = new Set(['hearts', 'rival', 'met', 'romance', 'companion', 'recruited']);
+const RELATION_KEYS = new Set(['hearts', 'rival', 'met', 'romance', 'romanceEnabled', 'companion', 'recruited']);
 
 /** Ordnet einen situativen Bonus nach seiner Bedingung ein (Herkunft, Beziehung oder Situation). */
 export function bonusKind(condition: Condition | undefined): 'herkunft' | 'beziehung' | 'situation' {
@@ -143,6 +143,7 @@ export function bonusKind(condition: Condition | undefined): 'herkunft' | 'bezie
     if ('all' in c && Array.isArray(c.all)) c.all.forEach(x => walk(x, depth + 1));
     if ('any' in c && Array.isArray(c.any)) c.any.forEach(x => walk(x, depth + 1));
     if ('not' in c) walk(c.not, depth + 1);
+    if ('atLeast' in c && Array.isArray(c.atLeast)) c.atLeast.forEach(x => walk(x, depth + 1));
   };
   walk(condition, 0);
   if ([...keys].some(key => RELATION_KEYS.has(key))) return 'beziehung';

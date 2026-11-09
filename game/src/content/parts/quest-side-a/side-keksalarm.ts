@@ -184,7 +184,7 @@ const lieferwagen: DialogueDef = dlg('side-keksalarm-lieferwagen', [
   node('geliehen', [
     nar('Du greifst rein, steckst eine Packung ein und schließt die Tür sehr leise. Hinter dir piept etwas. Eine Kamera. Natürlich. Die Oberstadt hat für alles eine Kamera.'),
     ich('Ich geb sie zurück. Als Keks.'),
-  ], { effects: [set('keks_butter'), set('fahndung_1'), msg('Fahndung +1: Eine Kamera am Lieferhof hat dich erwischt. Ein Butterdieb. Peinlicher geht’s nicht.')] }),
+  ], { effects: [set('keks_butter'), { wanted: 1 }, msg('Eine Kamera am Lieferhof hat dich erwischt. Ein Butterdieb. Peinlicher geht’s nicht.')] }),
 ]);
 
 const dexter: DialogueDef = dlg('side-keksalarm-dexter', [

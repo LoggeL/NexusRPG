@@ -15,13 +15,15 @@ const G = sprecher('zellennachbarin');
 const FREI: Condition = { quest: 'main-1-raven', state: 'done' };
 const PARTY_VORBEI: Condition = { quest: 'main-1-auf-raven', state: 'done' };
 const ROM: Condition = { romance: 'raven' };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: 'raven' }, { hearts: 'raven', min: 6 }] };
 
 // ---------------------------------------------------------------------------------------------- Menü
 
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
-    text: 'Mit Raven flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: { all: [ROM, { weekday: tage }] },
+    text: 'Mit Raven flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: { all: [FLIRT, { weekday: tage }] },
   });
   const antworten: DialogueChoice[] = [
     { text: '„Ich hab keinen Waffenschein. Ich hab dich.“', check: pruefung('raven-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -492,6 +494,8 @@ const raven: NpcDef = {
       abilities: ['raven-handschellen-trick', 'raven-lagebild'],
     },
     heartAbilities: [{ hearts: 6, ability: 'raven-konter' }],
+    // Nach pers-raven-handschellen hält der Trick 2 Runden.
+    abilityRules: [{ when: { quest: 'pers-raven-handschellen', state: 'done' }, replace: ['raven-handschellen-trick', 'raven-handschellen-trick-plus'] }],
   },
   partyCheckBonus: [
     { tags: ['schloss', 'fessel', 'einbruch', 'schleichen'], value: 1, label: 'Raven zeigt dir, wie' },

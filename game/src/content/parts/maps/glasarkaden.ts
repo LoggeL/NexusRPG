@@ -3,7 +3,7 @@
 // Station: station-glasarkaden wird NICHT über MapDef.station freigeschaltet (das täte schon der Lieferhof),
 // sondern am U-Bahn-Zugang in der Passage bzw. beim Betreten mit Drehkreuz-Berechtigung (Flag drehkreuz_passiert).
 // Lücke dazu: design/plan/gaps/maps-glasarkaden.md
-import type { Condition, DialogueDef, DialogueLine, MapDef, Polygon, Rect, StationDef } from '../../../modules/contracts';
+import type { Condition, DialogueDef, DialogueLine, MapDef, Polygon, Rect } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 
 const box = ([x, y, w, h]: Rect): Polygon => [[x, y], [x + w, y], [x + w, y + h], [x, y + h]];
@@ -207,7 +207,7 @@ const glasarkaden: MapDef = {
     {
       id: 'ubahn-zugang', at: [200, 772], radius: 80, label: 'U-Bahn Glasarkaden', kind: 'use',
       lines: say('Die Treppe zur U-Bahn ist so sauber, dass du dich fragst, ob hier je ein Zug hält. Ein Schild verspricht: Pünktlichkeit. Ein Zweites: ohne Gewähr.'),
-      effects: [{ setFlag: 'drehkreuz_passiert' }, { unlockStation: 'station-glasarkaden' }],
+      effects: [{ setFlag: 'drehkreuz_passiert' }, { unlockStation: 'station-glasarkaden' }, { cityMap: true }],
     },
     { id: 'ticketautomat', at: [416, 806], label: 'Ticketautomat', kind: 'shop', shop: 'ticketautomat' },
     {
@@ -321,11 +321,6 @@ const glasarkaden: MapDef = {
   ],
 };
 
-const STATION: StationDef = {
-  id: 'station-glasarkaden', name: 'Glasarkaden', map: 'glasarkaden', entry: 'station', cityPos: [0.5, 0.3],
-  when: { flag: 'drehkreuz_passiert' },
-};
-
 const DIALOGUES: Record<string, DialogueDef> = {
   'glasarkaden-ankunft': {
     id: 'glasarkaden-ankunft', start: 'a',
@@ -402,6 +397,6 @@ const DIALOGUES: Record<string, DialogueDef> = {
 
 export const part: ContentPart = {
   maps: { glasarkaden },
-  stations: { 'station-glasarkaden': STATION },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
   dialogues: DIALOGUES,
 };

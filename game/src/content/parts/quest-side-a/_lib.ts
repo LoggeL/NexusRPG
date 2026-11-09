@@ -49,8 +49,9 @@ export function kombinationen<T>(list: readonly T[], k: number): T[][] {
   const [head, ...rest] = list;
   return [...kombinationen(rest, k - 1).map((c) => [head, ...c]), ...kombinationen(rest, k)];
 }
+/** „Mindestens k verschiedene der Gegenstände“ (Engine-Bedingung `atLeast`). */
 export const mindestens = (items: readonly string[], k: number): Condition =>
-  ({ any: kombinationen(items, k).map((c) => ({ all: c.map((id) => ({ item: id })) })) });
+  ({ atLeast: items.map((id) => ({ item: id })), min: k });
 
 // ---------------------------------------------------------------------------------------------- Effekte
 

@@ -10,7 +10,7 @@ import {
   STATION_START, twin, V, v, ZWEI_TAGE, ZUSAMMEN,
 } from './_util';
 
-const BESCHWINGT: Effect = { checkBuff: { id: 'beschwingt-aria', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } };
+const BESCHWINGT: Effect = { checkBuff: { id: 'beschwingt-aria', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } };
 const KAS_FUNK = 'KANAL 9 · Kas, knisternd: „Schrapnell eins an alle: Nicht anhalten. Nicht umdrehen. Wir sehen uns im Ziel.“';
 
 // ---------------------------------------------------------------------------

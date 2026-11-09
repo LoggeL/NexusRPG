@@ -1,9 +1,10 @@
 // Kampfregeln: Brücke zur Kampagne – Party aus dem Spielstand, Kampfgepäck, Seed und BattleResult.
 import { PLAYER_SPRITE } from '../appearance';
-import type { AbilityId, BattleResult, EncounterId, GameContent, GameState, ItemId, WeaponStats } from '../contracts';
+import type { AbilityId, BattleResult, CompanionDef, EncounterId, GameContent, GameState, ItemId, WeaponStats } from '../contracts';
 import { combatBonus, effectiveAttribute, maxHpOf } from '../campaign/domains/character';
 import { heartsOf, relationOf } from '../campaign/domains/relations';
 import { ATTRIBUTE_IDS, CYBER_SLOTS, has, hashText } from '../campaign/ids';
+import { evaluateCondition } from '../campaign/conditions';
 import { itemAbility, usableInBattle } from './actions';
 import { findUnit } from './queries';
 import type { CombatData, CombatState, PartyMemberSpec } from './types';
@@ -14,8 +15,26 @@ const WEAPON_SLOTS = ['fernkampf', 'nahkampf', 'smart'] as const;
 export const PLAYER_UNIT_ID = 'player';
 export const companionUnitId = (npc: string): string => `crew:${npc}`;
 
-/** Spielfigur und aktive Begleiter als Kampfeinheiten (effektive Attribute, Kampfboni, Ausrüstung, Herzen). */
+/** Fähigkeitsregeln eines Begleiters anwenden (`abilityRules`: hinzufügen bzw. tauschen, wenn die Bedingung gilt). */
+export function applyAbilityRules(
+  base: readonly AbilityId[], companion: CompanionDef, test: (condition: CompanionDef['recruit']) => boolean,
+): AbilityId[] {
+  let out = [...base];
+  for (const rule of companion.abilityRules ?? []) {
+    if (!test(rule.when)) continue;
+    if (rule.replace) {
+      const [from, to] = rule.replace;
+      out = out.map(id => (id === from ? to : id));
+    }
+    if (rule.add && !out.includes(rule.add)) out.push(rule.add);
+    if (rule.remove) out = out.filter(id => id !== rule.remove);
+  }
+  return out;
+}
+
+/** Spielfigur und aktive Begleiter als Kampfeinheiten (effektive Attribute, Kampfboni, Ausrüstung, Herzen, Duos). */
 export function partyFromCampaign(content: GameContent, state: Readonly<GameState>): PartyMemberSpec[] {
+  const test = (condition: CompanionDef['recruit']) => evaluateCondition(content, state, condition);
   const player = state.player;
   const attributes = {} as PartyMemberSpec['attributes'];
   for (const id of ATTRIBUTE_IDS) attributes[id] = effectiveAttribute(content, player, id);
@@ -35,6 +54,12 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
     const ability = id ? content.cyberware[id]?.ability : undefined;
     if (ability) abilities.push(ability);
   }
+  // Duo-Aktionen „Spielfigur + Begleiter“: Fähigkeit für die Spielfigur, solange der Partner in der Party ist.
+  for (const npcId of state.party) {
+    for (const duo of content.npcs[npcId]?.companion?.duo ?? []) {
+      if (duo.holder === 'player' && test(duo.when)) abilities.push(duo.ability);
+    }
+  }
   const look = has(content.looks, player.look) ? content.looks[player.look] : undefined;
   const preset = player.preset ? content.presets?.[player.preset] : undefined;
   const maxHp = maxHpOf(content, player);
@@ -49,12 +74,15 @@ export function partyFromCampaign(content: GameContent, state: Readonly<GameStat
     const stats = npc?.companion?.stats;
     if (!npc || !stats) continue;
     const hearts = heartsOf(relationOf(state, npcId).points);
-    const extra = (npc.companion?.heartAbilities ?? []).filter(entry => hearts >= entry.hearts).map(entry => entry.ability);
+    const companion = npc.companion as CompanionDef;
+    const extra = (companion.heartAbilities ?? []).filter(entry => hearts >= entry.hearts).map(entry => entry.ability);
+    for (const duo of companion.duo ?? []) if (duo.holder !== 'player' && test(duo.when)) extra.push(duo.ability);
+    const own = applyAbilityRules([...stats.abilities, ...extra], companion, test);
     party.push({
       id: companionUnitId(npcId), name: npc.name, source: { kind: 'companion', npc: npcId },
       sprite: npc.sprite ?? `${npcId}-walk`, portrait: npc.portrait, level: player.level,
       hp: stats.hp, maxHp: stats.hp, armor: stats.armor, attributes: { ...stats.attributes },
-      weapons: [{ ...stats.weapon }], abilities: [...new Set([...stats.abilities, ...extra].filter(id => has(content.abilities, id)))],
+      weapons: [{ ...stats.weapon }], abilities: [...new Set(own.filter(id => has(content.abilities, id)))],
       morale: stats.morale,
     });
   }

@@ -14,6 +14,8 @@ const A = sprecher('aria');
 const R = sprecher('raven');
 
 const ROM: Condition = { romance: 'dante' };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: 'dante' }, { hearts: 'dante', min: 6 }] };
 const VEX: Condition = { playerIs: 'vex' };
 const KENNT: Condition = { quest: 'main-1-dante', state: 'done' };
 
@@ -22,7 +24,7 @@ const KENNT: Condition = { quest: 'main-1-dante', state: 'done' };
 function menue(): Menue {
   const zurueck: DialogueChoice[] = [{ text: 'Noch was, Dante.', next: 'menue', id: 'zurueck' }, { text: 'Bis später.' }];
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
-    text: 'Mit Dante flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: { all: [ROM, { weekday: tage }] },
+    text: 'Mit Dante flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`, when: { all: [FLIRT, { weekday: tage }] },
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann verbrenn dich halt. Ich puste.“', check: pruefung('dante-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a' },
@@ -458,7 +460,7 @@ const he10 = dialog('he-dante-10', [
   knoten('morgen', [
     erz('Morgen danach. Dante steht in Unterhose und Schürze am Ofen. Drei Bleche.'),
     D('Drei Bleche. Ich war motiviert.', 'verlegen'),
-  ], { effects: [{ checkBuff: { id: 'beschwingt-dante', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } }] }),
+  ], { effects: [{ checkBuff: { id: 'beschwingt-dante', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
   knoten('andermal', [D('Ein andermal. Ich back schon mal vor. Für den Fall der Fälle. Für alle Fälle.', 'signatur')]),
 ]);
 

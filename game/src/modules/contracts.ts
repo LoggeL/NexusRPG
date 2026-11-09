@@ -110,6 +110,8 @@ export interface ConditionMap {
   met: { met: NpcId };
   /** Romanze möglich: Figur in `GameContent.romance`, `romanceable`, kein Kind und ≥ 8 Herzen. */
   romance: { romance: NpcId };
+  /** Romanze freigeschaltet (Schalter + `romanceable` + kein Kind), Herzen egal – z. B. Flirtzeilen ab ♥6 mit `hearts`. */
+  romanceEnabled: { romanceEnabled: NpcId };
   /** Figur ist aktiv in der Party. */
   companion: { companion: NpcId };
   /** Figur wurde rekrutiert (aktiv oder in Reserve). */
@@ -139,6 +141,13 @@ export interface ConditionMap {
   // Kalender
   /** Tag im 28-Tage-Festkalender (1..28, world.md §3.4). */
   cycleDay: { cycleDay: number | readonly number[] };
+  /**
+   * Mindestens `min` Stück aus allen Gegenständen, deren ID mit `itemsOf` beginnt (Sammelreihen: 'jimmy-spur-',
+   * 'glueckstern'). `distinct: true` zählt verschiedene IDs statt Stückzahl.
+   */
+  itemsOf: { itemsOf: string; min: number; distinct?: boolean };
+  /** Mindestens `min` der Bedingungen sind erfüllt („4 von 8 Spuren“). */
+  atLeast: { atLeast: readonly Condition[]; min: number };
 }
 export type ConditionKey = keyof ConditionMap;
 export type Condition = { [K in ConditionKey]: ConditionMap[K] }[ConditionKey];
@@ -167,6 +176,13 @@ export interface EffectMap {
   news: { news: NewsId };
   /** Telefonnachricht zustellen. */
   phone: { phone: PhoneMessageId };
+  /** Stadtkarte/U-Bahn öffnen (U-Bahn-Zugänge der Zonen). */
+  cityMap: { cityMap: true };
+  /**
+   * Fahndung (world.md §10.3) ändern, Stufe 0–3. Abgebildet auf die Flags `fahndung_1` … `fahndung_3`
+   * (`{ flag: 'fahndung_2' }` heißt „Fahndung ≥ 2“).
+   */
+  wanted: { wanted: number };
   // Spielfigur
   xp: { xp: number };
   /** Heilt die Spielfigur (Zahl oder voll). */
@@ -239,6 +255,8 @@ export interface RequestMap {
   jobBoard: { jobBoard: JobBoardId };
   news: { news: NewsId };
   phone: { phone: PhoneMessageId };
+  /** Stadtkarte (U-Bahn) öffnen. */
+  cityMap: { cityMap: true };
   /** Schlafen bzw. Zusammenbruch: Abblende, neuer Tag. */
   sleep: { sleep: 'bed' | 'collapse' };
 }
@@ -317,6 +335,11 @@ export interface CheckBuff {
   tags?: readonly string[];
   /** Verfällt nach diesem Spieltag (einschließlich). */
   untilDay?: number;
+  /**
+   * Nur im Effekt: Frist relativ zum heutigen Tag (0 = bis Tagesende, 1 = bis morgen einschließlich); wird beim Geben
+   * in `untilDay` umgerechnet.
+   */
+  forDays?: number;
   /** Wird beim nächsten bestandenen passenden Check verbraucht (Standard true). */
   consumes?: boolean;
 }
@@ -529,6 +552,8 @@ export interface HotspotDef {
   /** Requisit-Textur, die hier gezeichnet wird. */
   prop?: string;
   once?: boolean;
+  /** Einmal pro Spieltag (Mülltonne, täglicher Fund): danach bis zum nächsten Morgen ausgeblendet. */
+  daily?: boolean;
   /** kind 'shop' */
   shop?: ShopId;
   /** kind 'board' */
@@ -988,6 +1013,18 @@ export interface CompanionDef {
   heartAbilities?: { hearts: number; ability: AbilityId }[];
   /** Anfahrt in Minuten, wenn man die Figur per Telefon ruft (Standard 30, world.md: Aria 15). */
   callMinutes?: number;
+  /** Abweichende Anfahrt, solange die Bedingung gilt (erste passende gewinnt), z. B. 15 nur im Status „zusammen“. */
+  callMinutesWhen?: { when: Condition; minutes: number }[];
+  /**
+   * Fähigkeiten unter Bedingung (Quest-Belohnung, Variante, Sperre): `add` kommt dazu, `replace: [alt, neu]` tauscht
+   * eine Grund- oder Herz-Fähigkeit aus, `remove` nimmt eine weg. Alle passenden Regeln gelten in Reihenfolge.
+   */
+  abilityRules?: { when: Condition; add?: AbilityId; replace?: readonly [AbilityId, AbilityId]; remove?: AbilityId }[];
+  /**
+   * Duo-Aktionen: Solange die Figur in der Party ist und `when` gilt, bekommt `holder` (Standard 'companion' = diese
+   * Figur, 'player' = die Spielfigur) die Fähigkeit. Herzen, Spielfigur und Partner stehen in `when`.
+   */
+  duo?: { ability: AbilityId; when?: Condition; holder?: 'player' | 'companion' }[];
 }
 
 export interface NpcDef {
@@ -1037,8 +1074,8 @@ export interface QuestStepDef {
   /** Sichtbar ab. */
   when?: Condition;
   optional?: boolean;
-  /** Zielmarker. */
-  marker?: { map: MapId; at?: Point };
+  /** Zielmarker; `at` darf ein Spot- oder Einstiegsname der Karte sein (wird beim Anzeigen aufgelöst). */
+  marker?: { map: MapId; at?: Point | string };
   /** Beim Erledigen. */
   effects?: Effect[];
 }
@@ -1521,7 +1558,20 @@ export interface GameContent {
   };
   /** Unterschlupf: Aufwachen nach Zusammenbruch, Rückkehr nach Niederlage. */
   home: { map: MapId; entry: string; collapseNotes?: CollapseNote[] };
+  /**
+   * Tageswechsel-Regeln (nach Schlaf oder Zusammenbruch, Uhr schon auf dem neuen Tag): in ID-Reihenfolge der Teile,
+   * `when` mit dem neuen Tag ausgewertet. Zusätzlich fallen Flags mit `heute_` jeden Morgen, `woche_` montags und
+   * `zyklus_` an Zyklustag 1 von selbst.
+   */
+  daily?: Record<string, DailyRuleDef>;
   ending: { cutscenes: CutsceneId[]; epilogue: { when?: Condition; text: string }[] };
+}
+
+/** Regel zum Tageswechsel (`GameContent.daily`). */
+export interface DailyRuleDef {
+  id: string;
+  when?: Condition;
+  effects: Effect[];
 }
 
 // ---------------------------------------------------------------------------

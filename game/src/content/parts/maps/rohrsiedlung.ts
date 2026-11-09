@@ -2,7 +2,7 @@
 // Siedlung aus gestapelten Riesenrohren: Wasserturm mit dem Nest (Tankdach als Dialogszene, Aussichtspunkt),
 // Suppenküche, Rohrschacht zum Kanal, U-Bahn-Station Rohrbogen. Keine festen Kämpfe; Ratten am Schacht kommen
 // aus der Zufallstabelle (parts/combat/random.ts). Legt station-rohrbogen an.
-import type { Condition, DialogueDef, DialogueLine, HotspotDef, MapDef, Polygon, StationDef } from '../../../modules/contracts';
+import type { Condition, DialogueDef, DialogueLine, HotspotDef, MapDef, Polygon } from '../../../modules/contracts';
 import type { ContentPart } from '../../part';
 
 const n = (text: string): DialogueLine => ({ speaker: 'narrator', text });
@@ -15,7 +15,7 @@ const NUR_AKT1: Condition = { not: ACT2 };
 const KINDER_2: Condition = { any: [{ hearts: 'daria', min: 2 }, { hearts: 'freya', min: 2 }, { hearts: 'jakko', min: 2 }] };
 const NEST_OFFEN: Condition = { any: [KINDER_2, { quest: 'side-zehn-credits', state: 'done' }] };
 /** Gleiche Bedingung wie auf der Lötgassen-Seite (parts/maps/loetgassen.ts). */
-const WAESCHEHOF_OFFEN: Condition = { any: [{ dayAtLeast: 2 }, { flag: 'waeschehof_offen' }, { origin: 'gosse' }] };
+const WAESCHEHOF_OFFEN: Condition = { any: [{ dayAtLeast: 2 }, { flag: 'waeschehof_offen' }, { origin: 'origin-gossenkind' }] };
 const SUPPE_OFFEN: Condition = { time: ['morgen', 'tag', 'abend'] };
 
 function loot(id: string, at: readonly [number, number], label: string, text: string, extra: Partial<HotspotDef> = {}): HotspotDef {
@@ -73,7 +73,7 @@ const rohrsiedlung: MapDef = {
       lockedText: 'Daria von oben: „Passwort?“ – „Ich hab keins.“ – „Dann nicht. Tschüss.“',
     },
     {
-      id: 'nach-suppenkueche', rect: [1418, 418, 62, 82], to: 'suppenkueche', entry: 'von-rohrsiedlung', label: 'Suppenküche',
+      id: 'nach-suppenkueche', rect: [1418, 418, 62, 104], to: 'suppenkueche', entry: 'von-rohrsiedlung', label: 'Suppenküche',
       interact: true, when: SUPPE_OFFEN, minutes: 2,
       lockedText: 'Der Kessel ist kalt. Mutter Brühe schläft. Wer sie weckt, kriegt Suppe ins Gesicht.',
     },
@@ -150,7 +150,7 @@ const rohrsiedlung: MapDef = {
     {
       id: 'ubahn-zugang', at: [420, 818], radius: 96, label: 'U-Bahn Rohrbogen', kind: 'use',
       lines: [n('Eine Treppe führt in ein halb vergrabenes Riesenrohr hinunter. Das Stationsschild leuchtet cyan, irgendwer hat einen Schnurrbart auf das U-Bahn-Logo gesprüht. Mit der Stadtkarte (M) fährst du von hier zu jeder freigeschalteten Station.')],
-      effects: [{ unlockStation: 'station-rohrbogen' }],
+      effects: [{ unlockStation: 'station-rohrbogen' }, { cityMap: true }],
     },
     {
       id: 'waeschehof-typ', at: [52, 604], radius: 56, label: 'Mit dem Wäsche-Typen reden', kind: 'talk',
@@ -190,9 +190,9 @@ const rohrsiedlung: MapDef = {
     ],
     routes: [
       [[140, 600], [600, 560], [980, 430], [1070, 120]],
-      [[1100, 640], [1400, 660], [1360, 780], [900, 800], [600, 900]],
+      [[1100, 640], [1400, 660], [1360, 756], [900, 800], [600, 900]],
       [[520, 900], [760, 700], [1000, 600], [1060, 520]],
-      [[300, 520], [700, 450], [960, 420], [700, 600], [300, 600]],
+      [[310, 520], [700, 450], [960, 420], [700, 600], [300, 600]],
       [[1074, 40], [1030, 300], [800, 620], [560, 940]],
       [[1200, 620], [1440, 560], [1420, 720], [1100, 720], [1200, 620]],
     ],
@@ -317,13 +317,9 @@ const turmdach: DialogueDef = {
   ],
 };
 
-const station: StationDef = {
-  id: 'station-rohrbogen', name: 'Rohrbogen', map: 'rohrsiedlung', entry: 'station', cityPos: [0.48, 0.78],
-};
-
 export const part: ContentPart = {
   maps: { rohrsiedlung },
-  stations: { [station.id]: station },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
   dialogues: {
     [ankunft.id]: ankunft,
     [ankunftVex.id]: ankunftVex,

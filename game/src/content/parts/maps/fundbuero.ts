@@ -50,7 +50,7 @@ const fundbuero: MapDef = {
       ],
     },
     {
-      id: 'besitzer-finden', at: [322, 560], radius: 70, label: 'Fundsachen zurückbringen', kind: 'use', when: { time: 'tag' },
+      id: 'besitzer-finden', at: [322, 560], radius: 70, label: 'Fundsachen zurückbringen', kind: 'use', when: { time: 'tag' }, daily: true,
       lines: [n('Gerda kippt dir eine Handvoll Fundsachen hin: „Such die Besitzer. Wer’s schafft, kriegt Finderlohn. Wer’s versaut, kriegt einen Vortrag.“')],
       effects: [{
         minigame: 'akt-fundbuero', level: 1, key: 'fundbuero-besitzer', label: 'Besitzer finden',

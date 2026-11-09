@@ -251,8 +251,15 @@ const albtraum: DialogueDef = dlg('rom-aria-albtraum', [
       ch('„Du bist die, die mich um drei Uhr nachts anschreibt. Nicht der Arm.“', 'nachts', { when: NOT_V, check: chk('aria-albtraum-ausstrahlung', 'ausstrahlung', 6, ['trost']), effects: [herz(60)] }),
       ch('„In meiner ersten Nacht in der Zelle hab ich die Wand verprügelt. Die Wand hat gewonnen.“', 'knast', { tag: '[Knast]', when: all(NOT_V, { origin: 'origin-knastvogel' }), effects: [herz(50)] }),
       ch('„Da draußen sagt man: Wer nachts nicht schlafen kann, zählt Sterne, keine Fehler.“', 'sterne', { tag: '[Ödnis]', when: all(NOT_V, { origin: 'origin-oednis' }), effects: [herz(40)] }),
-      ch('Neben ihr sitzen und schweigen.', 'schweigen-rom', { when: ROM_AN_ALLE, effects: [herz(40)] }),
-      ch('Neben ihr sitzen und schweigen.', 'schweigen-fs', { when: FS_ALLE, effects: [herz(40)] }),
+      ch('Neben ihr sitzen und schweigen.', 'schweigen', { effects: [herz(40)] }),
+    ],
+  }),
+  node('schweigen', [
+    n('Du setzt dich neben sie. Die Stufe ist kalt, das Geländer klebt vom Rostregen. Ihr sagt beide nichts. Das ist in Ordnung.'),
+  ], {
+    choices: [
+      ch('Abwarten.', 'schweigen-rom', { when: ROM_AN_ALLE }),
+      ch('Abwarten.', 'schweigen-fs', { when: FS_ALLE }),
     ],
   }),
   node('hier-vex', [

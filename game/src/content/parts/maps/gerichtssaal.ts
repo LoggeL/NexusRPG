@@ -37,9 +37,9 @@ const map: MapDef = {
   },
   spots: {
     richterbank: { at: [512, 238], facing: 's' },
-    zeugenstand: { at: [187, 262], facing: 's' },
-    zuschauerbaenke: { at: [250, 420], facing: 'n' },
-    'zuschauerbaenke-rechts': { at: [800, 420], facing: 'n' },
+    zeugenstand: { at: [187, 300], facing: 's' },
+    zuschauerbaenke: { at: [356, 430], facing: 'e' }, // Bankende am Mittelgang (ansprechbar)
+    'zuschauerbaenke-rechts': { at: [668, 430], facing: 'w' },
     saalwache: { at: [640, 600], facing: 'w' },
     'kopfgeld-abgabe': { at: [870, 330], facing: 'n' },
   },

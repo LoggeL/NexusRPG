@@ -18,10 +18,12 @@ mkdirSync(TMP, { recursive: true });
 
 const entry = join(TMP, 'entry.ts');
 writeFileSync(entry, `export { content } from '${join(ROOT, 'game/src/content/index.ts')}';
-export * as nav from '${join(ROOT, 'game/src/modules/navigation/index.ts')}';\n`);
+export * as nav from '${join(ROOT, 'game/src/modules/navigation/index.ts')}';
+export { FOOT as PRESENTATION_FOOT } from '${join(ROOT, 'game/src/presentation/phaser/navigationAdapter.ts')}';
+export { NPC_RADIUS } from '${join(ROOT, 'game/src/presentation/phaser/tuning.ts')}';\n`);
 const bundle = join(TMP, `bundle-${process.pid}.mjs`);
 await build({ entryPoints: [entry], bundle: true, format: 'esm', platform: 'node', outfile: bundle, logLevel: 'error' });
-const { content, nav } = await import(pathToFileURL(bundle).href);
+const { content, nav, PRESENTATION_FOOT, NPC_RADIUS } = await import(pathToFileURL(bundle).href);
 rmSync(bundle);
 
 const args = process.argv.slice(2);
@@ -30,7 +32,8 @@ const render = !args.includes('--no-render');
 const ids = target === 'all' ? Object.keys(content.maps) : [target];
 const manifest = JSON.parse((await import('node:fs')).readFileSync(join(ROOT, 'game/public/assets/manifest.json'), 'utf8'));
 
-const FOOT = { foot: 4 };
+// Fußbreite wie in der Erkundung (presentation/phaser/navigationAdapter.ts), damit Werkzeug und Spiel übereinstimmen.
+const FOOT = { foot: PRESENTATION_FOOT };
 let failed = false;
 
 function rectCenter([x, y, w, h]) { return [x + w / 2, y + h / 2]; }
@@ -71,32 +74,37 @@ for (const id of ids) {
   for (const [name, e] of entries) {
     if (!nav.isWalkable(area, e.at, FOOT)) problems.push(`Einstieg '${name}' ${JSON.stringify(e.at)} nicht begehbar`);
   }
-  const start = entries.find(([, e]) => nav.isWalkable(area, e.at, FOOT))?.[1].at;
+  // Laufinseln sind erlaubt (z. B. Lieferhof der Glasarkaden, nur über einen eigenen Einstieg): Ein Punkt gilt als
+  // erreichbar, wenn er von irgendeinem begehbaren Einstieg aus erreichbar ist. Jede Insel braucht einen Ausgang.
+  const starts = entries.filter(([, e]) => nav.isWalkable(area, e.at, FOOT));
+  const start = starts[0]?.[1].at;
   if (start) {
-    for (const [name, e] of entries) {
-      if (nav.isWalkable(area, e.at, FOOT) && !reaches(area, start, e.at)) problems.push(`Einstieg '${name}' vom Einstieg '${entries[0][0]}' nicht erreichbar`);
+    const fromAny = (fn) => starts.some(([, e]) => fn(e.at));
+    for (const [name, e] of starts) {
+      if (!map.exits.some((x) => exitReachable(area, e.at, x.rect))) problems.push(`Einstieg '${name}' liegt auf einer Insel ohne Ausgang`);
     }
     for (const h of map.hotspots) {
-      if (!reachableNear(null, area, start, h.at, h.radius ?? 28)) problems.push(`Hotspot '${h.id}' ${JSON.stringify(h.at)} unerreichbar (Radius ${h.radius ?? 28})`);
+      if (!fromAny((from) => reachableNear(null, area, from, h.at, h.radius ?? 56))) problems.push(`Hotspot '${h.id}' ${JSON.stringify(h.at)} unerreichbar (Radius ${h.radius ?? 56})`);
     }
     for (const n of map.npcs ?? []) {
       if (n.pose) continue; // liegende/schlafende Figuren werden über Hotspots/Radius bedient
-      if (!reachableNear(null, area, start, n.at, 32)) problems.push(`NPC '${n.id}' ${JSON.stringify(n.at)} unerreichbar`);
+      // Figuren sitzen oft auf Hocker/Bank: ansprechbar, wenn begehbarer Boden im Ansprechradius (mit Rand) liegt.
+      if (!fromAny((from) => reachableNear(null, area, from, n.at, NPC_RADIUS - 12))) problems.push(`NPC '${n.id}' ${JSON.stringify(n.at)} unerreichbar`);
       for (const p of n.patrol ?? []) if (!nav.isWalkable(area, p, FOOT)) problems.push(`NPC '${n.id}' Patrouillenpunkt ${JSON.stringify(p)} nicht begehbar`);
     }
     for (const x of map.exits) {
-      if (!exitReachable(area, start, x.rect)) problems.push(`Ausgang '${x.id}' ${JSON.stringify(x.rect)} nicht betretbar/erreichbar`);
+      if (!fromAny((from) => exitReachable(area, from, x.rect))) problems.push(`Ausgang '${x.id}' ${JSON.stringify(x.rect)} nicht betretbar/erreichbar`);
     }
   } else problems.push('kein begehbarer Einstieg');
   // Fremde Einstiege, die auf diese Karte zeigen, müssen existieren.
   for (const other of Object.values(content.maps)) for (const x of other.exits) {
     if (x.to === id && !map.entries[x.entry]) problems.push(`Ausgang ${other.id}.${x.id} zeigt auf fehlenden Einstieg '${x.entry}'`);
   }
-  const report = { id, name: map.name, problems, bg: manifest.images[map.bg], geometry: {
+  const report = { id, name: map.name, size: map.size, problems, bg: manifest.images[map.bg], geometry: {
     walk: map.walk, block: map.block ?? [], exits: map.exits.map(x => ({ id: x.id, rect: x.rect, to: x.to, label: x.label, interact: !!x.interact })),
     entries: map.entries, foreground: map.foreground ?? [],
     hotspots: map.hotspots.map(h => ({ id: h.id, at: h.at, radius: h.radius ?? 28, label: h.label, prop: h.prop ?? null })),
-    npcs: (map.npcs ?? []).map(n => ({ id: n.id, actor: n.actor, at: n.at, facing: n.facing ?? 's', pose: n.pose ?? null, patrol: n.patrol ?? null })),
+    npcs: (map.npcs ?? []).map(n => ({ id: n.id, actor: n.actor ?? (content.npcs[n.npc]?.sprite ?? n.npc).replace(/-walk$/, ''), at: n.at, facing: n.facing ?? 's', pose: n.pose ?? null, patrol: n.patrol ?? null })),
   } };
   writeFileSync(join(OUT, `${id}.json`), JSON.stringify(report, null, 1));
   if (render) execFileSync('python3', [join(ROOT, 'scripts/map_overlay.py'), join(OUT, `${id}.json`), join(OUT, `${id}.png`)], { stdio: 'inherit' });

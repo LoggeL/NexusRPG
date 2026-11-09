@@ -23,7 +23,7 @@ const nodes: DialogueNode[] = [
   knoten('laden', [P('Die Sahnehaube Spezial. Doppelter Espresso, dreifache Sahne, eine Kirsche obendrauf. Die Kirsche ist echt. Sie kostet mehr als der Kaffee.')]),
   knoten('gaeste', [
     P('Morgens eine Frau im Laborkittel, Fenstertisch, schwarzer Kaffee, liest drei Tablets gleichzeitig und lächelt nie. Sie gibt zwanzig Prozent Trinkgeld. Exakt. Jedes Mal.'),
-    P('Abends eine blonde Dame in Weiß am Ecktisch, bestellt Tee und trinkt ihn nicht. Sie schaut nur raus. Auf den Glaspark.'),
+    P('Abends eine blonde Dame in Grün am Ecktisch, bestellt Tee und trinkt ihn nicht. Sie schaut nur raus. Auf den Glaspark.'),
     P('Und ab und zu ein Mann im langen Mantel. Den bediene ich schnell. Sehr schnell.'),
   ], { choices: Z }),
   knoten('blade', [

@@ -14,6 +14,8 @@ import {
 const KI = sprecher('kiki-karbon');
 
 const ROM: Condition = { romance: 'kiki-karbon' };
+/** Flirtzeilen ab ♥6, sobald die Romanze freigeschaltet ist (Engine: romanceEnabled); Kuss/Nacht bleiben an ROM (♥8). */
+const FLIRT: Condition = { all: [{ romanceEnabled: 'kiki-karbon' }, { hearts: 'kiki-karbon', min: 6 }] };
 const TAXI_FREI: Condition = { seen: 'he-kiki-karbon-2' };
 const REICHWEITE = 'pers-kiki-reichweite';
 
@@ -61,7 +63,7 @@ function menue(): Menue {
 
   const flirt = (n: number, tage: Weekday[]): DialogueChoice => ({
     text: 'Mit Kiki flirten.', tag: '[Romanze]', next: `flirt-${n}`, id: `flirt-${n}`,
-    when: { all: [ROM, { weekday: tage }] },
+    when: { all: [FLIRT, { weekday: tage }] },
   });
   const antworten: DialogueChoice[] = [
     { text: '„Dann fahr langsamer. Ich will was davon haben.“', check: pruefung('kiki-flirt-frech', 'ausstrahlung', 6, ['flirt']), next: 'flirt-a', effects: [herz('kiki-karbon', 10)] },

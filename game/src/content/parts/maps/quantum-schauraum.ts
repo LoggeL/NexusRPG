@@ -29,7 +29,7 @@ const schauraum: MapDef = {
   },
   spots: {
     verkaufstresen: { at: [512, 284], facing: 's' },
-    hologramm: { at: [224, 456], facing: 's' },
+    hologramm: { at: [224, 440], facing: 's' },
     vitrine: { at: [820, 548], facing: 'n' },
   },
   hotspots: [

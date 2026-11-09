@@ -137,7 +137,7 @@ const hotspots: HotspotDef[] = [
   {
     id: 'ubahn-zugang', at: [270, 760], radius: 64, label: 'U-Bahn Stufenplatz', kind: 'use',
     lines: [{ speaker: 'narrator', text: 'Eine Treppe nach unten, Geländer in Cyan. Unten riecht es nach Bremsstaub und Brezel. Von hier fährst du zu jeder Station, die du kennst (Stadtkarte).' }],
-    effects: [{ unlockStation: 'station-stufenplatz' }],
+    effects: [{ unlockStation: 'station-stufenplatz' }, { cityMap: true }],
   },
   {
     id: 'nx1-schaufenster', at: [560, 300], radius: 52, label: 'NX-1-Schaufenster', kind: 'look',
@@ -268,7 +268,7 @@ const stufenplatz: MapDef = {
       lockedText: 'Bauzaun, Plakat „Bald hier: Quantum Park“. Oben Stacheldraht, unten ein Wachroboter, der so tut, als würde er schlafen.',
     },
     {
-      id: 'nach-nx1-studio', rect: [352, 252, 140, 64], to: 'nx1-studio', entry: 'von-stufenplatz', label: 'NX-1-Studio',
+      id: 'nach-nx1-studio', rect: [352, 252, 140, 80], to: 'nx1-studio', entry: 'von-stufenplatz', label: 'NX-1-Studio',
       interact: true, when: { time: ['morgen', 'tag', 'abend'] },
       lockedText: 'Glastür, Empfangsdrohne: „Sendeschluss. Kommen Sie morgen wieder. Mit Einschaltquote.“',
     },
@@ -418,10 +418,5 @@ export const part: ContentPart = {
     mittelring: { id: 'mittelring', name: 'Mittelring', ambience: 'oberstadt', music: 'mittelring' },
     oberstadt: { id: 'oberstadt', name: 'Oberstadt', ambience: 'oberstadt', music: 'oberstadt' },
   },
-  stations: {
-    'station-stufenplatz': {
-      id: 'station-stufenplatz', name: 'Stufenplatz', map: 'stufenplatz', entry: 'station', cityPos: [0.44, 0.38],
-      when: { any: [{ quest: 'main-1-probezeit', state: 'done' }, { visited: 'stufenplatz' }] },
-    },
-  },
+  // Station: steht mit Stadtkarten-Lage in world/bezirke-fraktionen.ts.
 };

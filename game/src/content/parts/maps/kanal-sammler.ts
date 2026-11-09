@@ -116,7 +116,7 @@ const dialogues: Record<string, DialogueDef> = {
             effects: [{ setFlag: 'nagbert_verliebt' }, { setFlag: 'nagbert_geloest' }],
           },
           {
-            text: 'Röstzwiebeln streuen. Kein Nagetier der Welt widersteht Röstzwiebeln.', tag: '[Gosse]', when: { origin: 'gosse' },
+            text: 'Röstzwiebeln streuen. Kein Nagetier der Welt widersteht Röstzwiebeln.', tag: '[Gosse]', when: { origin: 'origin-gossenkind' },
             requires: { item: 'roestzwiebeln' }, next: 'zwiebeln',
             effects: [{ take: 'roestzwiebeln' }, { setFlag: 'nagbert_weggelockt' }, { setFlag: 'nagbert_geloest' }],
           },
@@ -387,7 +387,7 @@ const kanalSammler: MapDef = {
     box([62, 808, 105, 58]), // Kräuterkiste links
     box([192, 722, 44, 98]), // Topfpflanze
     box([236, 806, 100, 60]), // Badewanne Mitte
-    box([352, 792, 82, 74]), // Kisten rechts
+    box([362, 792, 72, 74]), // Kisten rechts (links Platz für den Weg zum unteren Gartenstreifen)
     box([35, 700, 62, 165]), // Pilzfels Garten
     box([1236, 645, 158, 165]), // Kronkorken-Thron
     box([1120, 738, 116, 112]), // Schrottberg links

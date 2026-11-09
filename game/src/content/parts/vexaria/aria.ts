@@ -17,6 +17,9 @@ import {
 // ---------------------------------------------------------------------------
 // Kanon-Herzereignisse (alle Spielfiguren; he-aria-6 nicht für Vex, dort Station 3)
 
+/** Streit oder Krach mit Aria: Duo-Aktionen und „Unkaputtbar“ ruhen. */
+const IM_STREIT = any(STREIT, flag('aria_krach'));
+
 const he2: DialogueDef = dlg('he-aria-2', [
   node('start', [
     n('Schrottmarkt, früh am Morgen. Die Händler schieben gerade die Rolltore hoch. Aria steht vor einem Stand mit gebrauchten Akkus, den Schläger lässig über der Schulter, und lächelt den Händler an. Es ist kein nettes Lächeln.'),
@@ -224,7 +227,7 @@ const vexAntworten = (i: number): DialogueChoice[] => [
 const vexAntwortKnoten = (i: number) => [
   node(`ant-${i}-a`, [a('Pünktlich. Klar. Das ist dein Vorspiel, oder? Pünktlichkeit.', 'verlegen')]),
   node(`ant-${i}-b`, [a('Ich sag\'s allen. Laut. Ich bin ja laut.', 'freude')]),
-  node(`ant-${i}-c`, [a('… In MEINER Jacke, du Sau.', 'verlegen')], { effects: [{ checkBuff: { id: 'aria-flirt-beschwingt', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung' } }] }),
+  node(`ant-${i}-c`, [a('… In MEINER Jacke, du Sau.', 'verlegen')], { effects: [{ checkBuff: { id: 'aria-flirt-beschwingt', label: 'Beschwingt', value: 1, attribute: 'ausstrahlung', forDays: 0, consumes: false } }] }),
   node(`ant-${i}-d`, [
     n('Du schnappst einen Zopf, ziehst sie dran zu dir, Kuss auf die Wange, und bist zwei Meter weg, bevor der Zerberster da ist, wo du eben warst.'),
     a('DU! Komm zurück, ich war noch nicht fertig mit dir!', 'verlegen'),
@@ -370,7 +373,7 @@ const aria: NpcDef = {
   name: 'Aria',
   portrait: 'aria',
   sprite: 'aria-walk',
-  faction: 'crew',
+  faction: 'crew-hunter',
   romanceable: true,
   bio: 'Brecherin der Crew mit dem Arm-Implantat „Zerberster 3000“ und silbernem Aluschläger. Verlor vor drei Jahren als Roadie beim Kabelbrand-Abschiedskonzert in der Rennhalle 9 den linken Arm. Laut, direkt, flucht gern, wird leise, wenn es ernst wird.',
   gifts: {
@@ -400,7 +403,35 @@ const aria: NpcDef = {
       abilities: ['aria-homerun', 'aria-zerbersten'],
     },
     heartAbilities: [{ hearts: 6, ability: 'aria-unkaputtbar' }],
-    callMinutes: 15,
+    // Kanon: 15 Minuten nur im Status „zusammen“ (oder mit dem Funkgerät Kanal neun), sonst 30.
+    callMinutes: 30,
+    callMinutesWhen: [{ when: any(ZUSAMMEN, { item: 'funk-kanal-neun' }), minutes: 15 }],
+    abilityRules: [
+      // Zerberster gesperrt (Akt 2, Arm in Wartung): nur der Schläger.
+      { when: flag('aria_arm_gesperrt'), remove: 'aria-zerbersten' },
+      // Im Streit: kein „Unkaputtbar“ (world.md §4.7 „Folgen bis zur Versöhnung“).
+      { when: IM_STREIT, remove: 'aria-unkaputtbar' },
+    ],
+    duo: [
+      // Vex × Aria: „Paket für dich!“ – „Zugestellt.“ (Spielfigur + Begleiterin, auch mit gesperrtem Arm).
+      { ability: 'duo-express-zustellung', holder: 'player', when: all(V, { hearts: 'aria', min: 6 }, not(IM_STREIT)) },
+      // Nach Station 12 (Funkmast): Aria stellt sich vor Vex.
+      {
+        ability: 'duo-rueckendeckung', holder: 'companion',
+        when: all(V, { hearts: 'aria', min: 6 }, any(flag('vexaria_rueckendeckung'), flag('vexaria_funkmast')), not(IM_STREIT)),
+      },
+      // Kanon „Rücken an Rücken“: zusammen und mit dem Kabelbrand-Pass.
+      { ability: 'duo-ruecken-an-ruecken', holder: 'player', when: all(ZUSAMMEN, { item: 'kabelbrand-pass' }, not(IM_STREIT)) },
+      // Duos mit anderen Begleitern (beide in der Party, Spielfigur mit beiden ♥6).
+      {
+        ability: 'duo-die-wachhunde',
+        when: all({ companion: 'vega' }, { hearts: 'aria', min: 6 }, { hearts: 'vega', min: 6 }, not(IM_STREIT)),
+      },
+      {
+        ability: 'duo-abrissbirne',
+        when: all({ companion: 'jimmy' }, { hearts: 'aria', min: 6 }, { hearts: 'jimmy', min: 6 }, not(IM_STREIT)),
+      },
+    ],
   },
   talk,
 };

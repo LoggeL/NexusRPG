@@ -96,8 +96,8 @@ const plattenspieler: DialogueDef = {
       choices: [
         {
           text: 'Was Lautes. Morgens wach werden. (+1 Ausstrahlung für den nächsten Check)',
-          when: { time: 'morgen' },
-          effects: [{ checkBuff: { id: 'quartier-platte', label: 'Morgenplatte', value: 1, attribute: 'ausstrahlung' } }, { sfx: 'switch' }],
+          when: { all: [{ time: 'morgen' }, { notFlag: 'heute_morgenplatte' }] },
+          effects: [{ checkBuff: { id: 'quartier-platte', label: 'Morgenplatte', value: 1, attribute: 'ausstrahlung', forDays: 0 } }, { setFlag: 'heute_morgenplatte' }, { sfx: 'switch' }],
           next: 'laut',
         },
         { text: 'Was Langsames. Einfach kurz sitzen.', next: 'leise' },

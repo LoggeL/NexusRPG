@@ -50,13 +50,7 @@ export const herz = (npc: string, delta: number): Effect => ({ relation: npc, de
 export const msg = (text: string): Effect => ({ message: text });
 export const step = (quest: string, id: string): Effect => ({ questStep: quest, step: id });
 
-/** Alle k-elementigen Teilmengen (für „mindestens k von n“). */
+/** „Mindestens k von n“ (Engine-Bedingung `atLeast`). */
 export function atLeast(k: number, conditions: Condition[]): Condition {
-  const out: Condition[] = [];
-  const pick = (start: number, chosen: Condition[]) => {
-    if (chosen.length === k) { out.push(all(...chosen)); return; }
-    for (let i = start; i < conditions.length; i++) pick(i + 1, [...chosen, conditions[i]]);
-  };
-  pick(0, []);
-  return any(...out);
+  return { atLeast: conditions, min: k };
 }

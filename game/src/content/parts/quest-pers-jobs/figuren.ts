@@ -178,7 +178,7 @@ for (const [npc, liste] of PRO_FIGUR) {
     const add = (ZUSATZ[ort.map] ??= { hotspots: [] });
     add.hotspots.push({
       id: `pj-hub-${npc}-${i}`, at: neben(ort.map, ort.spot, ...(VERSATZ[`${ort.map}/${ort.spot}`] ?? [44, 0])), label: `Mit ${NAME[npc] ?? npc} reden`, kind: 'talk',
-      dialogue: id, radius: 40, when: all(offen, ort.when),
+      dialogue: id, radius: 56, when: all(offen, ort.when),
     });
   });
 }

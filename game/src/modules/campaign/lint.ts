@@ -48,6 +48,7 @@ export function findContentProblems(content: GameContent): string[] {
     if ('all' in c) c.all.forEach(x => condition(where, x, depth + 1));
     else if ('any' in c) c.any.forEach(x => condition(where, x, depth + 1));
     else if ('not' in c) condition(where, c.not, depth + 1);
+    else if ('atLeast' in c) c.atLeast.forEach(x => condition(where, x, depth + 1));
     const spec = CONDITION_SPECS[key as keyof typeof CONDITION_SPECS] as ConditionSpec<keyof typeof CONDITION_SPECS>;
     checkRefs(where, spec.refs?.(c as never) ?? []);
   };
@@ -286,7 +287,14 @@ export function findContentProblems(content: GameContent): string[] {
     for (const talk of npc.talk ?? []) { ref(`${at} Gespräch`, 'dialogues', talk.dialogue); condition(`${at} Gespräch`, talk.when); }
     if (npc.companion) {
       condition(`${at} Begleiter`, npc.companion.recruit);
-      for (const ability of [...npc.companion.stats.abilities, ...(npc.companion.heartAbilities ?? []).map(a => a.ability)]) {
+      for (const rule of npc.companion.abilityRules ?? []) condition(`${at} Begleiter`, rule.when);
+      for (const duo of npc.companion.duo ?? []) condition(`${at} Duo`, duo.when);
+      for (const entry of npc.companion.callMinutesWhen ?? []) condition(`${at} Begleiter`, entry.when);
+      for (const ability of [
+        ...npc.companion.stats.abilities, ...(npc.companion.heartAbilities ?? []).map(a => a.ability),
+        ...(npc.companion.abilityRules ?? []).flatMap(rule => [rule.add, rule.remove, ...(rule.replace ?? [])]).filter((a): a is string => !!a),
+        ...(npc.companion.duo ?? []).map(duo => duo.ability),
+      ]) {
         if (!has(content.abilities, ability)) report(`${at} Begleiter`, `unbekannte Fähigkeit „${ability}“`);
       }
     }
@@ -313,6 +321,10 @@ export function findContentProblems(content: GameContent): string[] {
       condition(where, step.when);
       effects(where, step.effects);
       if (step.marker) ref(where, 'maps', step.marker.map);
+      if (step.marker && typeof step.marker.at === 'string' && has(content.maps, step.marker.map)) {
+        const target = content.maps[step.marker.map];
+        if (!target.spots?.[step.marker.at] && !target.entries[step.marker.at]) report(where, `Marker-Spot „${step.marker.at}“ fehlt auf ${step.marker.map}`);
+      }
     }
     const reward = quest.reward;
     for (const item of Object.keys(reward?.items ?? {})) ref(`${at} Belohnung`, 'items', item);
@@ -360,6 +372,10 @@ export function findContentProblems(content: GameContent): string[] {
     condition(`Nachricht ${message.id}`, message.auto);
     effects(`Nachricht ${message.id}`, message.effects);
     for (const reply of message.replies ?? []) effects(`Nachricht ${message.id} Antwort`, reply.effects);
+  }
+  for (const [id, rule] of Object.entries(content.daily ?? {})) {
+    condition(`Tageswechsel ${id}`, rule.when);
+    effects(`Tageswechsel ${id}`, rule.effects);
   }
   ref('Start', 'entry', `${content.start.map}#${content.start.entry}`);
   ref('Start', 'cutscenes', content.start.cutscene);

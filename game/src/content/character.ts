@@ -1,16 +1,43 @@
-// TESTINHALT – Herkünfte, Vorlagen des Charakter-Baukastens und die fertige Spielfigur Vex (design.md §3.1, §3.1a, §3.1b).
+// Herkünfte (world.md §2.2), Vorlagen des Charakter-Baukastens und die fertige Spielfigur Vex (design.md §3.1, §3.1a, §3.1b).
 import type { CharacterOriginDef } from '../modules/character/types';
 import type { GameContent, LookDef, PlayerAppearance } from '../modules/contracts';
 
 export const ORIGINS: Record<string, CharacterOriginDef> = {
-  gosse: {
-    id: 'gosse', name: 'Gossenkind', description: 'In der Unterstadt groß geworden. Kennt jede Abkürzung.',
-    bonus: 'strasse', tag: '[Gosse]', items: { 'synth-kaffee': 2 }, credits: 20, rep: { unterstadt: 10 },
+  'origin-gossenkind': {
+    id: 'origin-gossenkind', name: 'Gossenkind',
+    description: 'In der Unterstadt groß geworden, zwischen Suppenküche und Kanaldeckel. Kennt jede Abkürzung und jeden Abzieher beim Vornamen.',
+    bonus: 'strasse', tag: '[Gosse]', items: { 'dietrich-set': 1, kartendeck: 1 }, credits: 30,
+    relations: { daria: 100, freya: 100, jakko: 100, ripper: -100 }, rep: { unterstadt: 10 },
   },
-  tueftler: {
-    id: 'tueftler', name: 'Tüftler', description: 'Hat schon als Kind Toaster zu Drohnen umgebaut.',
-    bonus: 'technik', bonusChoice: ['reflexe'], tag: '[Tüftler]', relations: { dante: 50 },
-    checkBonus: [{ tags: ['reparieren'], value: 1 }],
+  'origin-oberstadt': {
+    id: 'origin-oberstadt', name: 'Oberstadt-Aussteiger',
+    description: 'Aufgewachsen hinter Glas und Sicherheitsdienst. Irgendwann reichte es. Die Manieren sind geblieben, das Geld nicht.',
+    bonus: 'ausstrahlung', tag: '[Oberstadt]', items: { 'alte-zugangskarte': 1, 'taschenspiegel-gold': 1 }, credits: 120,
+    relations: { 'seraphina-chrome': 100, 'serenity-chrome': 100, 'sybella-chrome': 100, 'collin-charleston': 100, aria: -100 },
+  },
+  'origin-oednis': {
+    id: 'origin-oednis', name: 'Aus der Ödnis',
+    description: 'Sand in den Stiefeln, Sonne im Nacken. Draußen vor der Mauer lernt man, Wind zu lesen und Wasser zu teilen.',
+    bonus: 'koerper', tag: '[Ödnis]', items: { wasserkanister: 1, 'kuestenkarte-fragment': 1, wuestenrose: 1 }, credits: 40,
+    relations: { nyra: 100, 'marla-sand': 200, hunter: 100 },
+  },
+  'origin-ex-wache': {
+    id: 'origin-ex-wache', name: 'Ex-Wache',
+    description: 'Früher Uniform, heute Jacke. Du kennst die Funkcodes, die Schichtpläne und die Kollegen, die dich jetzt Verräter nennen.',
+    bonus: 'reflexe', tag: '[Ex-Wache]', items: { 'alte-dienstmarke': 1, schockstab: 1 }, credits: 60,
+    relations: { wache: 200, richter: 100, 'xion-venom': -100 },
+  },
+  'origin-schrott': {
+    id: 'origin-schrott', name: 'Schrottkind',
+    description: 'Großgezogen zwischen Lötdampf und Altmetall. Wenn es brummt, kannst du es reparieren. Wenn nicht, bringst du es zum Brummen.',
+    bonus: 'technik', tag: '[Schrott]', items: { 'werkzeuggurt-rostig': 1, 'loetkolben-alt': 1 }, credits: 50,
+    relations: { 'opa-gustav': 200, dante: 100, bolzen: 100 },
+  },
+  'origin-knastvogel': {
+    id: 'origin-knastvogel', name: 'Knastvogel',
+    description: 'Gerade raus. Der erste Morgen draußen schmeckt nach Rost, und die Leute riechen, wo du warst.',
+    bonus: 'strasse', bonusChoice: ['koerper'], tag: '[Knast]', items: { 'knast-loeffel': 1, entlassungsschein: 1 }, credits: 10,
+    relations: { raven: 200, wache: 100, richter: -100 },
   },
 };
 
@@ -68,15 +95,14 @@ export const LOOKS: Record<string, LookDef> = Object.fromEntries([
 ].map((look) => [look.id, look]));
 
 /**
- * Fertige Spielfigur Vex Schrapnell (world.md §2.1a, design.md §3.1b). Herkunft laut world.md `gossenkind`;
- * im Testinhalt heißt die Gossenkind-Herkunft noch `gosse`.
+ * Fertige Spielfigur Vex Schrapnell (world.md §2.1a, design.md §3.1b). Herkunft `origin-gossenkind`.
  */
 export const PRESETS: GameContent['presets'] = {
   vex: {
     id: 'vex',
     name: 'Vex Schrapnell',
     description: 'Kurierfahrerin, Anfang 20, Kopf der Schrapnell-Kuriere. Burschikos, tough, trockener Humor – und loyal bis zur Dummheit.',
-    origin: 'gosse',
+    origin: 'origin-gossenkind',
     attributes: { reflexe: 6, strasse: 5, koerper: 4, technik: 3, ausstrahlung: 3 },
     perks: ['dachlaeuferin'],
     items: { kurierweste: 1, nagelpistole: 1 },

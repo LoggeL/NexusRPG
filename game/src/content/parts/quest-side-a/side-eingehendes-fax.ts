@@ -1,6 +1,6 @@
 // Nebenquest 8 `side-eingehendes-fax` „Eingehendes Fax“ (world.md §6.2 Nr. 8). Start: main-1-dante (gc-18, dante_notfall)
 // oder Dante ♥3. Vier Morgen um 06:00 kommt je ein Fax (06:00–10:00 am Faxgerät der Werkstatt; ein Fax pro Morgen,
-// Tagessperre fax_heute wird beim Betreten von Werkstatt/Lötgassen ab „tag“ gelöst – Engine kennt keinen Tageswechsel).
+// Tagessperre über das Tagesflag heute_fax, das die Engine jeden Morgen löscht).
 // Abkürzungen: gc-62 [Technik 6] sofort entschlüsseln · gc-63 [Straße 4] Hafenarbeiter kennen die Kuriercodes
 // ([Ex-Wache] automatisch). Digitech-Keller: enc-ruine-waechter umgehen (Karte) oder kämpfen → FX-60 → Entscheidung:
 // mitnehmen · mit Faxpapier in Ruhe lassen · an Ripper verkaufen (800 Cr, Dante ♥ −100).
@@ -71,7 +71,7 @@ const faxe: DialogueDef = dlg('side-fax-geraet', [
     l(FX, 'BITTE ANTWORTEN SIE NICHT PER STIMME. STIMMEN SIND SO … FEUCHT.'),
     nar('Darunter, klein: ein Logo. Ein stilisierter Chip mit Flügeln. Digitech. Die Firma, die es seit sieben Jahren nicht mehr gibt.'),
   ], {
-    effects: [set('fax_1'), set('fax_heute')],
+    effects: [set('fax_1'), set('heute_fax')],
     choices: [
       { text: 'Den Code jetzt knacken. Das Muster ist alt, das Prinzip ist simpel.', check: 'gc-62', next: 'geknackt' },
       { text: 'Das Fax einstecken und morgen wiederkommen.', next: 'warten' },
@@ -81,7 +81,7 @@ const faxe: DialogueDef = dlg('side-fax-geraet', [
     l(FX, 'TEIL 2/4: ES IST DUNKEL HIER. ICH ZÄHLE DIE STAUBKÖRNER. ES SIND 4.000.212. GESTERN WAREN ES 4.000.209. ICH HABE BESUCH. VON STAUB.', 'neutral'),
     l(FX, 'KOORDINATE: SEKTOR M-RAND // BAUZAUN // KELLERTREPPE.'),
   ], {
-    effects: [set('fax_2'), set('fax_heute')],
+    effects: [set('fax_2'), set('heute_fax')],
     choices: [
       { text: 'Mit zwei Teilen lässt sich rechnen. Jetzt knacken.', check: 'gc-62', next: 'geknackt' },
       { text: 'Einstecken. Morgen das nächste.', next: 'warten' },
@@ -91,7 +91,7 @@ const faxe: DialogueDef = dlg('side-fax-geraet', [
     l(FX, 'TEIL 3/4: NEXUS VERSTEHT KEINE FREUNDSCHAFT. NEXUS LERNT SCHNELLER ALS IHR. NEXUS HAT MICH NICHT GELÖSCHT. NEXUS HAT MICH VERGESSEN. DAS IST SCHLIMMER.', 'trauer'),
     l(FX, 'KOORDINATE: GANG WEST // HINTER DEN SPINDEN // TERMINAL MIT DEM KLEINEN GERÄT OBENDRAUF. DAS GERÄT BIN ICH.'),
   ], {
-    effects: [set('fax_3'), set('fax_heute')],
+    effects: [set('fax_3'), set('heute_fax')],
     choices: [
       { text: 'Fast komplett. Den Rest errechnen.', check: 'gc-62', next: 'geknackt' },
       { text: 'Auf das letzte warten.', next: 'warten' },
@@ -100,7 +100,7 @@ const faxe: DialogueDef = dlg('side-fax-geraet', [
   node('f4', [
     l(FX, 'TEIL 4/4: DIGITECH-AREAL. KELLER. ICH WARTE. ICH WARTE SEIT 2079. BITTE BRINGEN SIE FAXPAPIER MIT. ICH HABE NOCH ZWEI METER. DANN BIN ICH STUMM.', 'besorgt'),
     l(FX, 'P.S. DIES IST KEINE FALLE. FALLEN SCHREIBEN NIE „P.S.“.'),
-  ], { effects: [set('fax_4'), set('fax_heute'), set('fax_koordinaten'), msg('Alle vier Faxe: Die Koordinaten führen in den Keller des Digitech-Areals.')] }),
+  ], { effects: [set('fax_4'), set('heute_fax'), set('fax_koordinaten'), msg('Alle vier Faxe: Die Koordinaten führen in den Keller des Digitech-Areals.')] }),
   node('geknackt', [
     nar('Du legst die Zeichen nebeneinander, zählst Zeilen, rechnest die Prüfziffern zurück. Digitech-Kurierformat, uralt, faul verschlüsselt.'),
     ich('Keller des Digitech-Areals. Westgang. Ein Terminal. Und wer auch immer da faxt, wartet seit sieben Jahren.'),
@@ -219,20 +219,12 @@ export const part: ContentPart = {
       hotspots: [
         {
           id: 'faxgeraet', at: 'faxgeraet', radius: 56, label: 'Das Faxgerät rattert', kind: 'talk', dialogue: faxe.id,
-          when: all(active(Q), MORGEN, noFlag('fax_heute'), not(KOORD)),
+          when: all(active(Q), MORGEN, noFlag('heute_fax'), not(KOORD)),
         },
         {
           id: 'q-fax-dante', at: 'faxgeraet', radius: 60, label: 'Dante von FX-60 erzählen', kind: 'talk', dialogue: dante.id,
           when: all(active(Q), ENTSCHIEDEN, noFlag('fx60_dante')),
         },
-      ],
-      onEnter: [
-        { id: 'side-fax-tagessperre-werkstatt', when: all(flag('fax_heute'), time('tag', 'abend', 'nacht')), effects: [set('fax_heute', false)], once: false },
-      ],
-    },
-    loetgassen: {
-      onEnter: [
-        { id: 'side-fax-tagessperre-loetgassen', when: all(flag('fax_heute'), time('tag', 'abend', 'nacht')), effects: [set('fax_heute', false)], once: false },
       ],
     },
     hafenkante: {

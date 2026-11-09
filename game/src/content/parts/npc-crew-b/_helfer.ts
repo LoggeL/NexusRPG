@@ -63,17 +63,9 @@ export const VEX: Condition = { playerIs: 'vex' };
 /** Hinweis für Herz-Ereignisse 8/10 in Akt 1 (world.md §11.2). */
 export const ZEIT_HINWEIS = 'Diese Freundschaft braucht noch Zeit. (Weiter mit Akt 2.)';
 
-/** Alle k-Kombinationen einer Liste (für „mindestens k verschiedene Sammelobjekte“). */
-function kombinationen<T>(liste: readonly T[], k: number): T[][] {
-  if (k === 0) return [[]];
-  if (liste.length < k) return [];
-  const [kopf, ...rest] = liste;
-  return [...kombinationen(rest, k - 1).map((c) => [kopf as T, ...c]), ...kombinationen(rest, k)];
-}
-
-/** Bedingung „mindestens `k` verschiedene der Gegenstände im Inventar“ (ohne Zähler-Mechanik in der Engine). */
+/** Bedingung „mindestens `k` verschiedene der Gegenstände im Inventar“ (Engine-Bedingung `atLeast`). */
 export function mindestens(items: readonly string[], k: number): Condition {
-  return { any: kombinationen(items, k).map((c) => ({ all: c.map((item) => ({ item })) })) };
+  return { atLeast: items.map((item) => ({ item })), min: k };
 }
 
 /**

@@ -392,6 +392,8 @@ const jimmy: NpcDef = {
       abilities: ['jimmy-firewall-kuss', 'jimmy-ersatzmann'],
     },
     heartAbilities: [{ hearts: 6, ability: 'jimmy-comeback' }],
+    // Variante „Patch“ statt „Neustart“ (side-jimmys-chip): Chipfieber statt Firewall-Kuss.
+    abilityRules: [{ when: { flag: 'jimmy_status_patch' }, replace: ['jimmy-firewall-kuss', 'jimmy-chipfieber'] }],
   },
   partyCheckBonus: [
     { attribute: 'ausstrahlung', tags: ['verhandeln', 'feilschen'], value: 1, label: 'Jimmy macht Verkaufsgespräch' },
